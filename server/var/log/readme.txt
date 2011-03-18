@@ -1,2 +1,2 @@
-r�pertoire des fichiers log
+répertoire des fichiers log
 ne rien y commiter

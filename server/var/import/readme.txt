@@ -1,2 +1,2 @@
-répertoire des fichiers d'import
+rÃ©pertoire des fichiers d'import
 ne rien y commiter

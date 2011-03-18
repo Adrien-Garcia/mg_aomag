@@ -1,2 +1,2 @@
-répertoire des fichiers images category
+rÃ©pertoire des fichiers images category
 ne rien y commiter

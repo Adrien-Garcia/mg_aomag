@@ -1,2 +1,2 @@
-répertoire des fichiers locks
+rÃ©pertoire des fichiers locks
 ne rien y commiter
