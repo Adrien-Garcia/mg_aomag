@@ -1,0 +1,65 @@
+<project name="aomagento" default="" basedir=".">
+
+	<!-- date du jour -->
+	<tstamp>
+		<format property="DATE" pattern="yyyy-MM-dd_HH-mm-ss" locale="fr" />
+	</tstamp>
+
+	<!-- 
+  ==========================================
+  =  CREATION DE L'ARCHIVE DE DEPLOIEMENT  =
+  =   - EN SERVEUR DE TEST, PUIS           =
+  =   - EN SERVEUR DE PRODUCTION           =
+  ==========================================
+  -->
+
+	<target name="create_zip_preprod" depends="">
+		<property name="zip-name" value="aomagento_preprod_${DSTAMP}${TSTAMP}" />
+		<property name="conf" value="conf/preprod" />
+		<antcall target="create_zip"></antcall>
+		<!-- transfert par ftp sur 192.168.69.164 -->
+		<ftp server="192.168.69.164" port="21" remotedir="deploiements" userid="addonline" password="ariana" passive="true">
+			<fileset file="${zip-name}.zip"></fileset>
+		</ftp>
+		<delete file="${zip-name}.zip" />
+	</target>
+	<target name="create_zip_prod" depends="">
+		<property name="zip-name" value="aomagento_prod_${DSTAMP}${TSTAMP}" />
+		<property name="conf" value="conf/prod" />
+		<antcall target="create_zip"></antcall>
+		<!-- transfert par ftp sur nathaliechaize1-->
+		<ftp server="178.23.155.206" port="21" remotedir="deploiements" userid="addonline" password="mo8Y6icK!851" passive="true">
+			<fileset file="${zip-name}.zip"></fileset>
+		</ftp>
+		<delete file="${zip-name}.zip" />
+	</target>
+
+	<target name="create_zip" depends="">
+
+		<zip destfile="${zip-name}.zip">
+			<zipfileset dir="app/code/local" prefix="${zip-name}/app/code/local" >
+			</zipfileset>
+			<zipfileset dir="app/code/community" prefix="${zip-name}/app/code/community">
+			</zipfileset>
+			<zipfileset dir="app/design/frontend/aomagento" prefix="${zip-name}/app/design/frontend/addonline">
+			</zipfileset>
+			<zipfileset dir="app/design/frontend/base" prefix="${zip-name}/app/design/frontend/base">
+			</zipfileset>
+			<zipfileset dir="app/design/adminhtml" prefix="${zip-name}/app/design/adminhtml">
+			</zipfileset>
+			<zipfileset dir="app/etc/modules" prefix="${zip-name}/app/etc/modules">
+			</zipfileset>
+			<zipfileset dir="app/locale/fr_FR" prefix="${zip-name}/app/locale/fr_FR">
+			</zipfileset>
+			<zipfileset dir="skin/frontend/aomagento" prefix="${zip-name}/skin/frontend/addonline">
+			</zipfileset>
+			<zipfileset dir="skin/frontend/base" prefix="${zip-name}/skin/frontend/base">
+			</zipfileset>
+			<zipfileset dir="lib/cybermut" prefix="${zip-name}/lib/cybermut">
+			</zipfileset>
+			<zipfileset file="*.php" prefix="${zip-name}" />
+			<zipfileset file="${conf}/deploy.sh" prefix="${zip-name}" />
+		</zip>
+
+	</target>
+</project>
