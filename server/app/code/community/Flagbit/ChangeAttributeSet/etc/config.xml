@@ -12,15 +12,14 @@
                 <class>Flagbit_ChangeAttributeSet_Model</class>
             </flagbit_changeattributeset>
 		</models>
-        <!-- @nelkaake -a 13/11/10: Added for Magento 1.4 compatibility  -->
+        <!--  Addonline : Added for Magento 1.4 compatibility with TBT_Enhancedgrid -->
 		<rewrite>
             <tbt_enhancedgrid_catalog_product_changeattributeset2>
                 <from><![CDATA[#^/enhancedgrid/catalog_product/((changeattributeset.*))/$#]]></from>
                 <to>/admin/catalog_product/${1}/</to>
             </tbt_enhancedgrid_catalog_product_changeattributeset2>
         </rewrite>
-       
-	</global>
+ 	</global>
     <adminhtml>        
         <events>
             <adminhtml_block_html_before>
