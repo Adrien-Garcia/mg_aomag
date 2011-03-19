@@ -30,13 +30,22 @@ class Flagbit_ChangeAttributeSet_Model_Observer
 	{
 		$block = $observer->getBlock();
 		if($block instanceof Mage_Adminhtml_Block_Catalog_Product_Grid ||
-		   $block instanceof TBT_Enhancedgrid_Block_Catalog_Product_Grid){
+		   $block instanceof TBT_Enhancedgrid_Block_Catalog_Product_Grid ||
+		   $block instanceof TBT_MassRelater_Block_Catalog_Product_Grid ){
 			
 			$sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
 				->setEntityTypeFilter(Mage::getModel('catalog/product')->getResource()->getTypeId())
 				->load()
 				->toOptionHash();
 		
+				
+    		// Divider
+            $block->getMassactionBlock()->addItem('attributesetDivider', array(
+		          'label' => '--------'.Mage::helper('catalog')->__('Attribute Set').'--------',
+		          'url'   => $block->getUrl('*/*/index', array('_current'=>true)),
+		          'callback' => "null"
+	        ));
+            
 			$block->getMassactionBlock()->addItem('flagbit_changeattributeset', array(
 				'label'=> Mage::helper('catalog')->__('Change attribute set'),
 				'url'  => $block->getUrl('*/*/changeattributeset', array('_current'=>true)),
