@@ -1,0 +1,13 @@
+<?xml version="1.0"?>  
+<config>  
+    <global>  
+        <blocks>  
+     <adminhtml>
+        <rewrite>
+      
+          <catalog_category_tab_product>PoleOuest_Adminhtml_Block_Catalog_Category_Tab_Product</catalog_category_tab_product>
+        </rewrite>
+      </adminhtml>
+        </blocks>  
+    </global>  
+</config>  
