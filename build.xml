@@ -27,8 +27,8 @@
 		<property name="zip-name" value="aomagento_prod_${DSTAMP}${TSTAMP}" />
 		<property name="conf" value="conf/prod" />
 		<antcall target="create_zip"></antcall>
-		<!-- transfert par ftp sur nathaliechaize1-->
-		<ftp server="178.23.155.206" port="21" remotedir="deploiements" userid="addonline" password="mo8Y6icK!851" passive="true">
+		<!-- transfert par ftp sur mag1.host.addonline-->
+		<ftp server="mag1.host.addonline" port="21" remotedir="deploiements" userid="addonline" password="mo8Y6icK!851" passive="true">
 			<fileset file="${zip-name}.zip"></fileset>
 		</ftp>
 		<delete file="${zip-name}.zip" />
