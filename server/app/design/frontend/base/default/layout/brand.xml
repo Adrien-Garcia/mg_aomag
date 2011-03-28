@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <brand_index_index>
+        <reference name="content">
+            <block type="brand/brand" name="brand" template="brand/brand.phtml" />
+        </reference>
+    </brand_index_index>
+</layout> 
