@@ -69,8 +69,9 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 					$uploader->setFilesDispersion(false);
 							
 					// We set media as the upload dir
-					$path = Mage::getBaseDir('media') . "/catalog/brand" ;
-					$uploader->save($path, $_FILES['filename']['name'] );
+					$path = Mage::getBaseDir('media') . DS .'catalog'.DS.'brand'.DS;
+					//$this->make_dir($path);
+					$uploader->save( $path, $_FILES['filename']['name'] );
 					
 				} catch (Exception $e) {
 		      

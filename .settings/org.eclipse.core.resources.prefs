@@ -1,3 +1,6 @@
-#Fri Mar 18 17:09:39 CET 2011
+#Mon Mar 28 13:07:40 CEST 2011
 eclipse.preferences.version=1
+encoding//server/app/code/local/Addonline=UTF-8
+encoding//server/app/code/local/Addonline/Brand/sql/brand_setup/mysql4-install-0.1.0.php=UTF-8
+encoding//server/app/locale/fr_FR/Addonline_Brand.csv=UTF-8
 encoding/<project>=UTF-8

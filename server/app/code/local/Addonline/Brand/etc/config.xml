@@ -5,16 +5,7 @@
             <version>0.1.0</version>
         </Addonline_Brand>
     </modules>
-    <frontend>
-        <translate>
-            <modules>
-                <Addonline_Brand>
-                    <files>
-                        <default>Addonline_Brand.csv</default>
-                    </files>
-                </Addonline_Brand>
-            </modules>
-        </translate>    
+    <frontend>   
         <routers>
             <brand>
                 <use>standard</use>
@@ -48,7 +39,8 @@
             <modules>
                 <Addonline_Brand>
                     <files>
-                        <default>Addonline_Brand.csv</default>
+  						<default>Mage_Adminhtml.csv</default>                   
+                        <brand>Addonline_Brand.csv</brand>
                     </files>
                 </Addonline_Brand>
             </modules>
@@ -112,6 +104,7 @@
             <brand_setup>
                 <setup>
                     <module>Addonline_Brand</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
                 </setup>
                 <connection>
                     <use>core_setup</use>
