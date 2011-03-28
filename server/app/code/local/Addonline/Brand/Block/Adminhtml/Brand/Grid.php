@@ -27,12 +27,19 @@ class Addonline_Brand_Block_Adminhtml_Brand_Grid extends Mage_Adminhtml_Block_Wi
           'index'     => 'brand_id',
       ));
       
-      $this->addColumn('nom', array());
-      $this->addColumn('meta_title', array());
-      $this->addColumn('meta_description', array());
-      $this->addColumn('meta_keyword', array());      
-      $this->addColumn('description', array());
-      $this->addColumn('bloc_cms', array());
+      $this->addColumn('nom', array(
+          'header'    => Mage::helper('brand')->__('Nom'),
+          'align'     =>'right',
+          'width'     => '100px',
+          'index'     => 'nom',      
+      ));
+      $this->addColumn('logo', array(
+          'header'    => Mage::helper('brand')->__('Logo'),
+          'align'     =>'right',
+          'width'     => '100px',
+          'index'     => 'filename', 
+      	'type' => 'media_image'     
+      ));
 
       $this->addColumn('status', array(
           'header'    => Mage::helper('brand')->__('Status'),
@@ -41,7 +48,7 @@ class Addonline_Brand_Block_Adminhtml_Brand_Grid extends Mage_Adminhtml_Block_Wi
           'index'     => 'status',
           'type'      => 'options',
           'options'   => array(
-              1 => 'Enabled',
+              1 => 'Désactiver',
               2 => 'Disabled',
           ),
       ));

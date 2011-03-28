@@ -25,31 +25,31 @@ CREATE TABLE {$this->getTable('brand')} (
     ");
 
 
-/*
+
 // Création de l'attribut brand (marque) qui liée au produit
 $installer->addAttribute('catalog_product', 'brand', array(
         'group'             => 'Général',
         'type'              => 'int',
         'backend'           => '',
-        'frontend'          => 'brand/product_attribute_source_brand',
-        'label'             => 'brand',
-        'input'             => 'boolean',
+        'frontend'          => '',
+        'label'             => 'Brand',
+         'note'              => '',
+         'input'             => 'select',
         'class'             => '',
-        'source'            => '',
+        'source'            => 'brand/product_attribute_source_brand',
         'global'         => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
         'visible'           => true,
         'required'          => false,
         'user_defined'      => false,
-        'default'           => '0',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
+        'default'           => '',
+        'searchable'        => true,
+        'filterable'        => true,
+        'comparable'        => true,
         'visible_on_front'  => false,
         'unique'            => false,
         'apply_to'          => 'simple,configurable,virtual,bundle,downloadable',
         'is_configurable'   => false,
-		'used_in_product_listing' => true,
-		'used_for_sort_by'  => true
+  	'used_in_product_listing' => true,
+ 	 'used_for_sort_by'  => true
     ));
-*/
 $installer->endSetup(); 
