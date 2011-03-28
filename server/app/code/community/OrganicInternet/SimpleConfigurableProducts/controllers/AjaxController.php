@@ -75,7 +75,7 @@ class OrganicInternet_SimpleConfigurableProducts_AjaxController extends Mage_Cat
     }
     
     /**
-     * Initialize product view layout
+     * Initialize product view layout (méthode de Mage_Catalog_ProductController magento version 1.4.2)
      *
      * @param   Mage_Catalog_Model_Product $product
      * @return  Mage_Catalog_ProductController

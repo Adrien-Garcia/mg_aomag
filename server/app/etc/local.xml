@@ -48,7 +48,10 @@
                 </connection>
             </default_setup>
         </resources>
-        <session_save><![CDATA[files]]></session_save>
+        <session_save><![CDATA[file]]></session_save>
+        <cache>
+            <backend>file</backend><!-- apc / memcached / empty=file -->
+        </cache>
     </global>
     <admin>
         <routers>
