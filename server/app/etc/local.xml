@@ -41,14 +41,14 @@
             <default_setup>
                 <connection>
                     <host><![CDATA[localhost]]></host>
-                    <username><![CDATA[root]]></username>
-                    <password><![CDATA[root]]></password>
+                    <username><![CDATA[aomagento]]></username>
+                    <password><![CDATA[aomagento]]></password>
                     <dbname><![CDATA[aomagento]]></dbname>
                     <active>1</active>
                 </connection>
             </default_setup>
         </resources>
-        <session_save><![CDATA[file]]></session_save>
+        <session_save><![CDATA[files]]></session_save>
         <cache>
             <backend>file</backend><!-- apc / memcached / empty=file -->
         </cache>
