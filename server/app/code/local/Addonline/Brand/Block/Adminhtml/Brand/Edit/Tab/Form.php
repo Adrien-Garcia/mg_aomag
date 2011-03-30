@@ -6,7 +6,7 @@ class Addonline_Brand_Block_Adminhtml_Brand_Edit_Tab_Form extends Mage_Adminhtml
   {
       $form = new Varien_Data_Form();
       $this->setForm($form);
-      $fieldset = $form->addFieldset('brand_form', array('legend'=>Mage::helper('brand')->__('Item information')));
+      $fieldset = $form->addFieldset('brand_form', array('legend'=>Mage::helper('brand')->__('Brand information')));
 
       
       $fieldset->addField('nom', 'text', array(

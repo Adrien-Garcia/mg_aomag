@@ -6,7 +6,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 	protected function _initAction() {
 		$this->loadLayout()
 			->_setActiveMenu('brand/items')
-			->_addBreadcrumb(Mage::helper('adminhtml')->__('Items Manager'), Mage::helper('adminhtml')->__('Item Manager'));
+			->_addBreadcrumb(Mage::helper('adminhtml')->__('Brands Manager'), Mage::helper('adminhtml')->__('Brand Manager'));
 		
 		return $this;
 	}   
@@ -31,8 +31,8 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 			$this->loadLayout();
 			$this->_setActiveMenu('brand/items');
 
-			$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item Manager'), Mage::helper('adminhtml')->__('Item Manager'));
-			$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item News'), Mage::helper('adminhtml')->__('Item News'));
+			$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Brand Manager'), Mage::helper('adminhtml')->__('Brand Manager'));
+			$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Brand News'), Mage::helper('adminhtml')->__('Brand News'));
 
 			$this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
 
@@ -41,7 +41,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 
 			$this->renderLayout();
 		} else {
-			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('brand')->__('Item does not exist'));
+			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('brand')->__('Brand does not exist'));
 			$this->_redirect('*/*/');
 		}
 	}
@@ -69,12 +69,14 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 					$uploader->setFilesDispersion(false);
 							
 					// We set media as the upload dir
-					$path = Mage::getBaseDir('media') . DS .'catalog'.DS.'brand'.DS;
+					//$path = Mage::getBaseDir('media') . DS .'catalog'.DS.'brand'.DS;
+					$path = Mage::getBaseDir('media') . DS;
+					//$path = Mage::getBaseDir('media') . DS . 'logo' . DS;
 					//$this->make_dir($path);
 					$uploader->save( $path, $_FILES['filename']['name'] );
-					
-				} catch (Exception $e) {
-		      
+					//copy( $path . $_FILES['filename']['name'], $path . 'catalog'.DS.'brand'.DS . $_FILES['filename']['name'] );
+					//unlink( Mage::getBaseDir('media') . DS . $_FILES['filename']['name'] );
+				} catch (Exception $e) {	
 		        }
 	        
 		        //this way the name is saved in DB
@@ -95,7 +97,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 				}	
 				
 				$model->save();
-				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('brand')->__('Item was successfully saved'));
+				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('brand')->__('Brand was successfully saved'));
 				Mage::getSingleton('adminhtml/session')->setFormData(false);
 
 				if ($this->getRequest()->getParam('back')) {
@@ -123,7 +125,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 				$model->setId($this->getRequest()->getParam('id'))
 					->delete();
 					 
-				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Item was successfully deleted'));
+				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Brand was successfully deleted'));
 				$this->_redirect('*/*/');
 			} catch (Exception $e) {
 				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -136,7 +138,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
     public function massDeleteAction() {
         $brandIds = $this->getRequest()->getParam('brand');
         if(!is_array($brandIds)) {
-			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select item(s)'));
+			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select brand(s)'));
         } else {
             try {
                 foreach ($brandIds as $brandId) {
@@ -159,7 +161,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
     {
         $brandIds = $this->getRequest()->getParam('brand');
         if(!is_array($brandIds)) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('Please select item(s)'));
+            Mage::getSingleton('adminhtml/session')->addError($this->__('Please select brand(s)'));
         } else {
             try {
                 foreach ($brandIds as $brandId) {

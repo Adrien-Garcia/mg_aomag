@@ -10,8 +10,8 @@ class Addonline_Brand_Block_Adminhtml_Brand_Edit extends Mage_Adminhtml_Block_Wi
         $this->_blockGroup = 'brand';
         $this->_controller = 'adminhtml_brand';
         
-        $this->_updateButton('save', 'label', Mage::helper('brand')->__('Save Item'));
-        $this->_updateButton('delete', 'label', Mage::helper('brand')->__('Delete Item'));
+        $this->_updateButton('save', 'label', Mage::helper('brand')->__('Save Brand'));
+        $this->_updateButton('delete', 'label', Mage::helper('brand')->__('Delete Brand'));
 		
         $this->_addButton('saveandcontinue', array(
             'label'     => Mage::helper('adminhtml')->__('Save And Continue Edit'),
@@ -37,9 +37,9 @@ class Addonline_Brand_Block_Adminhtml_Brand_Edit extends Mage_Adminhtml_Block_Wi
     public function getHeaderText()
     {
         if( Mage::registry('brand_data') && Mage::registry('brand_data')->getId() ) {
-            return Mage::helper('brand')->__("Edit Item '%s'", $this->htmlEscape(Mage::registry('brand_data')->getTitle()));
+            return Mage::helper('brand')->__("Edit Brand '%s'", $this->htmlEscape(Mage::registry('brand_data')->getNom()));
         } else {
-            return Mage::helper('brand')->__('Add Item');
+            return Mage::helper('brand')->__('Add Brand');
         }
     }
 }
