@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Addonline_Customer>
+            <version>0.1.0</version>
+        </Addonline_Customer>
+    </modules>
+    <global>
+        <blocks>
+            <customer>
+	            <rewrite>
+	            	<account_navigation>Addonline_Customer_Block_Account_Navigation</account_navigation>
+	            </rewrite>
+            </customer>
+        </blocks>
+    </global>
+</config>

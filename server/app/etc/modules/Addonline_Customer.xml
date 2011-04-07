@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>       
+	    <Addonline_Customer>
+	        <active>true</active>
+            <codePool>local</codePool>
+	    </Addonline_Customer>  
+    </modules>
+</config>

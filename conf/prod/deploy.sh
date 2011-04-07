@@ -18,9 +18,9 @@ APPLI_NAME="aomagento"
 ENV="PROD"
 
 apps_directory=/srv/www/vhosts.d/
-destination=aomagento_prod
+destination=aomagento
 # /!\ doit contenir _prod_ : sert pour supprimer les anciennes versions.
-pattern_zip=artmartin_prod_*
+pattern_zip=aomagento_prod_*
 NB_VERSIONS=5
 
 function recup_fichier_create_ln
