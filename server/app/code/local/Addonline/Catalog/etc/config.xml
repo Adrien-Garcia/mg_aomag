@@ -16,6 +16,13 @@
 	            </rewrite>
             </catalog>
         </blocks>
+        <models>
+		  <catalog>
+		    <rewrite>
+			  <convert_adapter_product>Addonline_Catalog_Model_Convert_Adapter_Product</convert_adapter_product>
+			</rewrite>
+		  </catalog>
+		</models>
 		<helpers>
             <aocatalog><class>Addonline_Catalog_Helper</class></aocatalog>
 		</helpers>
