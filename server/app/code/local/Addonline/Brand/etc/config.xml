@@ -63,10 +63,13 @@
 				</all>
 				<admin>
 					<children>
-						<Addonline_Brand>
-							<title>Brand Module</title>
-							<sort_order>10</sort_order>
-						</Addonline_Brand>
+						<catalog>
+							<children>
+								<brand module="brand" >
+									<title>Manage Brands</title>
+								</brand>
+							</children>
+						</catalog>
 					</children>
 				</admin>
 			</resources>

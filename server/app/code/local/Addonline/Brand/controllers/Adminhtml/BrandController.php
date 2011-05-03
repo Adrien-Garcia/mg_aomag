@@ -21,10 +21,10 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 		$model  = Mage::getModel('brand/brand')->load($id);
 
 		if ($model->getId() || $id == 0) {
-			$data = Mage::getSingleton('adminhtml/session')->getFormData(true);
-			if (!empty($data)) {
-				$model->setData($data);
-			}
+//			$data = Mage::getSingleton('adminhtml/session')->getFormData(true);
+//			if (!empty($data)) {
+//				$model->setData($data);
+//			}
 
 			Mage::register('brand_data', $model);
 
@@ -61,6 +61,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 					// Any extention would work
 	           		$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
 					$uploader->setAllowRenameFiles(false);
+					$uploader->setAllowCreateFolders(true);
 					
 					// Set the file upload mode 
 					// false -> get the file directly in the specified folder
@@ -69,10 +70,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 					$uploader->setFilesDispersion(false);
 							
 					// We set media as the upload dir
-					//$path = Mage::getBaseDir('media') . DS .'catalog'.DS.'brand'.DS;
-					$path = Mage::getBaseDir('media') . DS;
-					//$path = Mage::getBaseDir('media') . DS . 'logo' . DS;
-					//$this->make_dir($path);
+					$path = Mage::getBaseDir('media') . DS .'catalog'.DS.'brand'.DS;
 					$uploader->save( $path, $_FILES['filename']['name'] );
 					//copy( $path . $_FILES['filename']['name'], $path . 'catalog'.DS.'brand'.DS . $_FILES['filename']['name'] );
 					//unlink( Mage::getBaseDir('media') . DS . $_FILES['filename']['name'] );
@@ -81,6 +79,16 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 	        
 		        //this way the name is saved in DB
 	  			$data['filename'] = $_FILES['filename']['name'];
+
+			} else {
+				if (isset($data['filename']['delete'])) {
+					//this way the name is deleted in DB, and the file is deleted on the disk
+					unlink (Mage::getBaseDir('media') . DS .$data['filename']['value']);
+					$data['filename'] = '';
+				} else {
+					//this way the name is kept in DB
+		  			unset($data['filename']);
+				}
 			}
 	  			
 	  			
@@ -98,7 +106,6 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 				
 				$model->save();
 				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('brand')->__('Brand was successfully saved'));
-				Mage::getSingleton('adminhtml/session')->setFormData(false);
 
 				if ($this->getRequest()->getParam('back')) {
 					$this->_redirect('*/*/edit', array('id' => $model->getId()));
@@ -108,7 +115,6 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 				return;
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                Mage::getSingleton('adminhtml/session')->setFormData($data);
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
             }

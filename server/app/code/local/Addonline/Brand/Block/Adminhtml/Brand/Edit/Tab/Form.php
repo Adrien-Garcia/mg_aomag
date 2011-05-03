@@ -2,13 +2,14 @@
 
 class Addonline_Brand_Block_Adminhtml_Brand_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+  
+	
   protected function _prepareForm()
   {
       $form = new Varien_Data_Form();
       $this->setForm($form);
       $fieldset = $form->addFieldset('brand_form', array('legend'=>Mage::helper('brand')->__('Brand information')));
 
-      
       $fieldset->addField('nom', 'text', array(
           'label'     => Mage::helper('brand')->__('Nom'),
           'class'     => 'required-entry',
@@ -22,6 +23,7 @@ class Addonline_Brand_Block_Adminhtml_Brand_Edit_Tab_Form extends Mage_Adminhtml
           'values'    => Mage::getModel('brand/attribute_source_bloccms')->getAllOptions()
       )); 
 
+      //$fieldset->addType('image_brand', Mage::getConfig()->getBlockClassName('brand/adminhtml_form_element_image'));
       $fieldset->addField('filename', 'image', array(
           'label'     => Mage::helper('brand')->__('Logo'),
           'required'  => false,
@@ -78,13 +80,26 @@ class Addonline_Brand_Block_Adminhtml_Brand_Edit_Tab_Form extends Mage_Adminhtml
           'required'  => false,
       ));      
      
-      if ( Mage::getSingleton('adminhtml/session')->getBrandData() )
-      {
-          $form->setValues(Mage::getSingleton('adminhtml/session')->getBrandData());
-          Mage::getSingleton('adminhtml/session')->setBrandData(null);
-      } elseif ( Mage::registry('brand_data') ) {
-          $form->setValues(Mage::registry('brand_data')->getData());
+	 if ( Mage::registry('brand_data') ) {
+      		$brand = Mage::registry('brand_data');
+      		if ($brand->getFilename()) {
+	      		$brand->setFilename('catalog/brand/'.$brand->getFilename());
+      		}
+	      	$form->setValues($brand->getData());
       }
+	  
       return parent::_prepareForm();
   }
+  
+    /**
+     * Return predefined additional element types
+     *
+     * @return array
+     */
+    protected function _getAdditionalElementTypes()
+    {
+        return array(
+            'image' => Mage::getConfig()->getBlockClassName('brand/adminhtml_form_element_image')
+        );
+    }
 }
