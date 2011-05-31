@@ -210,15 +210,15 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
                 }
             }
         }
-        $product->setStockData($stockData);
-
+        if ($product->getTypeId() != Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+        	$product->setStockData($stockData);
+        }
         
         
         $imageData = array();
         $notImportedImageField = array();
         foreach ($this->_imageFields as $field) {
             if (!empty($importData[$field]) && $importData[$field] != 'no_selection') {
-				 Mage::log($importData[$field]);
             	if (!isset($imageData[$importData[$field]])) {
                     $imageData[$importData[$field]] = array();
                 }
@@ -334,7 +334,7 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 	        	$associatedProductAttributesCodes = explode(',',$importData["associated_products_attributes"]);
 //				Mage::log('associatedProductAttributesCodes : ');
 //				Mage::log($associatedProductAttributesCodes);
-
+				
 	        	$configurableProductsData = array();
 			    $configurableAttributesData = array();
 			    $configurableAttributesIds = array(); 
@@ -359,14 +359,16 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 			    		// si c'est un nouveau produit sa valeur sera nulle
 			    		// sinon il faut récupérer sa valeur dans getConfigurableAttributesAsArray sous peine de doublonner les attributs ...
 			    		$idAttributeData = null;
-						$productConfigurableAttributes  = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
-					    if (is_array($productConfigurableAttributes)) {
-					    	foreach ($productConfigurableAttributes as $productAttributeData) {
-					    		if ($productAttributeData["attribute_id"] == $attribute->getAttributeId()) {
-					    			$idAttributeData = $productAttributeData["id"];
-					    		}
-					    	}
-					    }  
+						if ($product->getId()) {	
+				    		$productConfigurableAttributes  = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
+						    if (is_array($productConfigurableAttributes)) {
+						    	foreach ($productConfigurableAttributes as $productAttributeData) {
+						    		if ($productAttributeData["attribute_id"] == $attribute->getAttributeId()) {
+						    			$idAttributeData = $productAttributeData["id"];
+						    		}
+						    	}
+						    }  
+						}
 
 						//$configurableAttributesData : données relatives à l'attribut configurable, est setté sur le $product à la fin
 					    $configurableAttributesData[$attribute->getAttributeCode()]= array("id"=>$idAttributeData,
@@ -381,12 +383,41 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 											"html_id"=>"configurable__attribute_".$position);
 			    	}
 			    }
+
+			    
+			    if (!$product->getId()) {	
+			    	//si c'est une création produit on enregistre une première fois le produit 
+			    	//pour générer les identifiants des attributs "pivot" 
+				    
+//			    	Mage::log($configurableAttributesIds); 
+	                $product->getTypeInstance()->setUsedProductAttributeIds($configurableAttributesIds);
+	
+//	                Mage::log(array_values($configurableAttributesData));
+	                $product->setConfigurableAttributesData(array_values($configurableAttributesData));
 	                
+	                //sauvegarde du produit pour définir l'identifiant des attributs "pivot"
+	                $product->save();
+
+	                //on recharge le produit pour avoir les identifiants
+	                $newProduct = Mage::getModel('catalog/product')->load($product->getId());
+	                $productConfigurableAttributes  = $newProduct->getTypeInstance(true)->getConfigurableAttributesAsArray($newProduct);
+					//on remplace product par le newProduct de la base de donnée, pour éviter des problèmes lors de l'enregistrement des images
+	                $product=$newProduct;
+					
+	                //on ajoute les identifiants au tableau $configurableAttributesData
+	                foreach ($productConfigurableAttributes as $productAttributeData) {
+						$configurableAttributesData[$productAttributeData["attribute_code"]]["id"]=$productAttributeData["id"];
+					}
+//	                Mage::log(array_values($configurableAttributesData));
+	                
+			    }
+                
 	            foreach($associatedProductSkus as $sku)
 	            {
+//	            	Mage::log($sku);
 	            	//on recherche chaque produit configuré "fils" (skus dans "associated_products_sku")
 	            	$associatedProduct = Mage::getModel('catalog/product')->loadByAttribute('sku', $sku);
-	                if ($associatedProduct->getId()) {
+	                if ($associatedProduct && $associatedProduct->getId()) {
 	                	//on "construit" $configurableProductsData : donnée relatives aux produits configurés, sera setté sur le $product à la fin
 	                	$configurableProductsData[$associatedProduct->getId()] = array(); 
 	                	foreach ($associatedProductAttributesCodes as $attributeCode) {
@@ -418,20 +449,22 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 							}
 							
 	                	}	                		                	
+	                } else {
+	                	Mage::throwException("Le produit associé sku=$sku n'existe pas");
 	                }
 	            }
-	                
-                $product->getTypeInstance()->setUsedProductAttributeIds($configurableAttributesIds);
 
-//				Mage::log($configurableProductsData);
-                $product->setConfigurableProductsData($configurableProductsData);
-	                
-//				Mage::log(array_values($configurableAttributesData));
+//			    	Mage::log($configurableAttributesIds); 
+	            $product->getTypeInstance()->setUsedProductAttributeIds($configurableAttributesIds);
+	            
+//                Mage::log(array_values($configurableAttributesData));
                 $product->setConfigurableAttributesData(array_values($configurableAttributesData));
+                
+//	            Mage::log($configurableProductsData);
+                $product->setConfigurableProductsData($configurableProductsData);
 			        
                 $product->setCanSaveConfigurableAttributes(true);
    
-                $product->save();
 
 	    	}   
 	    } catch (Exception $e) {}        
