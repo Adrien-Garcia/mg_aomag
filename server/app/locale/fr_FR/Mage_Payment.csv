@@ -124,3 +124,5 @@
 "Wrong or empty billing amount specified.","Mauvais montant de facturation spécifié."
 "Year","Année"
 "Zero Subtotal Checkout","Règlement d'un sous-total nul"
+"Payment profile is invalid:\n%s","Le profil de paiement est invalide :\n%s"
+"Payment profile is invalid:n%s","Le profil de paiement est invalide :\n%s"

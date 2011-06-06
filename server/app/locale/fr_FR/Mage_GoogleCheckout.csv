@@ -96,3 +96,5 @@
 "White Background","Fond blanc"
 "Yes","Oui"
 "You will be redirected to GoogleCheckout in a few seconds.","Vous allez être redirigé vers Google Checkout dans quelques secondes."
+"<br />Warning: <strong>%s</strong><br />","<br/>Attention : <strong>%s</strong><br/>"
+"The tax amount has been applied based on the information received from Google Checkout, because tax amount received from Google Checkout is different from the calculated tax amount","Le montant de taxe a été appliqué à partir des informations reçues de Google Checkout, car le montant de taxe reçu de Google Checkout diffère de celui calculé."

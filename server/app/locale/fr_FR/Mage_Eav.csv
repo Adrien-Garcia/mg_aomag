@@ -80,3 +80,5 @@
 "Wrong entity ID.","Mauvais identifiant d'entité."
 "Yes","Oui"
 "Yes/No","Oui/Non"
+"An error occurred while saving a record, aborting. Error:","Erreur lors de la sauvegarde d'un enregistrement. Erreur :"
+"The attribute code '%s' is reserved by system. Please try another attribute code.","Le code d\'attribut \'%s\' est réservé par le système. Choisissez-en un autre."

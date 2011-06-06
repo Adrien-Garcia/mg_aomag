@@ -7,7 +7,7 @@
 "Any","Tous"
 "Applied Coupon","Coupons utilisés"
 "Applies to Any of the Specified Order Statuses","S'applique à tous les statuts de commande spécifiés"
-"Are you sure you want to refresh lifetime statistics? There can be performance impact during this operation.","Êtes-vous sûr de vouloir rafraîchir les statistiques en temps réel ? Cela peut impacter les performances pendant la durée du rafraichissement."
+"Are you sure you want to refresh lifetime statistics? There can be performance impact during this operation.","Êtes-vous sûr(e) de vouloir rafraîchir les statistiques en temps réel ? Cela peut impacter les performances pendant la durée du rafraichissement."
 "Are you sure?","Êtes-vous sûr(e) ?"
 "Avg. Approved Rating","Moyenne des notes approuvées"
 "Avg. Rating","Moyenne des notes"
@@ -171,3 +171,4 @@
 "Your Recently Compared","Vos dernières comparaisons"
 "Your Recently Viewed","Derniers articles consultés"
 "undefined","indéfini"
+"Excel XML","XML d'Excel"

@@ -69,7 +69,7 @@
 "Status","Statut"
 "Submit Review","Poster le commentaire"
 "Summary Rating","Aperçu des notations"
-"Summary of Review","Sommaire des commentaires"
+"Summary of Review","Résumé du commentaire"
 "Summary of Your Review","Résumé de votre commentaire"
 "Title","Titre"
 "Type","Type"
@@ -85,3 +85,4 @@
 "Your Rating:","Votre note :"
 "Your Review (submitted on %s):","<strong>Votre commentaire</strong> (posté le %s) :"
 "Your review has been accepted for moderation.","Votre commentaire a été accepté pour modération."
+"Not Approved","Non approuvé"

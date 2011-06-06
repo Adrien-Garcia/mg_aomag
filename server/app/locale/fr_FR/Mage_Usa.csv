@@ -114,7 +114,7 @@
 "Order","Commande"
 "Origin of the Shipment","Origine de la livraison"
 "Oversize","Trop grand"
-"Package","Package"
+"Package","Interface"
 "Package Description","Description du paquet"
 "Packaging","Emballage"
 "Parcel","Colis"
@@ -209,3 +209,4 @@
 "Worldwide Express Saver","Worldwide Express Saver"
 "Yes","Oui"
 "Your Packaging","Votre paquet"
+"was not delivered nor scanned","n'a été ni livré ni scanné"
