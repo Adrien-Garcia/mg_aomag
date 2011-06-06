@@ -116,7 +116,7 @@
                 <pbx_langue>FRA</pbx_langue>
                 <model>paybox/system</model>
                 <title>Paybox System</title>
-                <order_status>processing</order_status>
+                <order_status>pending_payment</order_status>
                 <allowspecific>0</allowspecific>
                 <authorized_ips>
                     <ip1>195.101.99.76</ip1>

@@ -142,9 +142,13 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStateStatuses($state, $addLabels = true)
     {
-        $key = $state . $addLabels;
+    	//addonline : correction bug magento ...
+    	//on mettait en cache sur le premier item du tableau du coup les status renvoyés
+    	// ne correspondaient pas au states demandés en paramètres.   
+    	//$key = $state . $addLabels;
+    	$key = is_array($state)?implode($state):$state . $addLabels;
         if (isset($this->_stateStatuses[$key])) {
-            return $this->_stateStatuses[$key];
+        	return $this->_stateStatuses[$key];
         }
         $statuses = array();
         if (empty($state) || !is_array($state)) {
@@ -152,7 +156,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         }
         foreach ($state as $_state) {
             if ($stateNode = $this->_getState($_state)) {
-                $collection = Mage::getResourceModel('sales/order_status_collection')
+            	$collection = Mage::getResourceModel('sales/order_status_collection')
                     ->addStateFilter($_state)
                     ->orderByLabel();
                 foreach ($collection as $status) {
