@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Addonline_NewsletterDolist>
+            <version>0.1.0</version>
+        </Addonline_NewsletterDolist>
+    </modules>
+	
+	
+    <global>
+  		<models>
+  			<newsletter>
+  				<rewrite>
+  					<subscriber>Addonline_NewsletterDolist_Model_Subscriber</subscriber>
+  				</rewrite>
+  			</newsletter>
+  		</models>
+  		<helpers>
+  			<newsletterdolist>
+  				<class>Addonline_NewsletterDolist_Helper</class>
+  			</newsletterdolist>
+  		</helpers>
+    </global>
+    
+</config>
