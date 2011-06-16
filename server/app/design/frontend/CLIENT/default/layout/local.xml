@@ -7,7 +7,7 @@
 		<reference name="head">
 			<action method="addCss"><stylesheet>css/couleur.css</stylesheet></action>
 			<action method="addItem"><type>skin_js</type><name>js/jquery-1.5.1.min.js</name><params/></action>
-			<action method="addItem"><type>skin_js</type><name>js/CLIENT.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/charte.js</name><params/></action>
 		</reference>
 	</default>
 	
