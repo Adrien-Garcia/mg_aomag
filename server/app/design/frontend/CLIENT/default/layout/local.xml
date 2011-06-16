@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<layout>
+
+	<!-- TOUTES LES PAGES -->
+	<default>
+		<reference name="head">
+			<action method="addCss"><stylesheet>css/couleur.css</stylesheet></action>
+			<action method="addItem"><type>skin_js</type><name>js/jquery-1.5.1.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/CLIENT.js</name><params/></action>
+		</reference>
+	</default>
+	
+	<!-- COMPTE CLIENT -->
+	<customer_account translate="label">
+		<!-- Dernières commandes -->
+		<remove name="sale.reorder.sidebar"/>
+		
+		<!-- Résumé et accès au comparateur -->
+		<remove name="catalog.compare.sidebar"/>
+		
+		<!-- Résumé du panier -->
+		<remove name="cart_sidebar"/>
+		
+		<!-- Le chien -->
+		<remove name="left.permanent.callout"/>
+	</customer_account>
+
+</layout>
