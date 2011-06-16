@@ -28,26 +28,33 @@
                 <class>Addonline_Seo_Helper</class>
             </seo>
         </helpers>
-        <!--  
+        
 		<blocks>
 			<page>
 				<rewrite>
 					<html_head_canonicalurl>Addonline_Seo_Block_Head_Canonicalurl</html_head_canonicalurl>
 				</rewrite>
 			</page>
+			<!-- 
+			<catalog>
+				<rewrite>
+					<category_view>Addonline_Seo_Block_Catalog_Category_View</category_view>
+					<product_view>Addonline_Seo_Block_Catalog_Product_View</product_view>
+				</rewrite>
+			</catalog>
+			 -->
 		</blocks>
-		-->
+		
 	</global>
     <frontend>
-    <!--  
 		<layout>
             <updates>
                 <canonicalurl>
-                    <file>seo.xml</file>
+                    <file>aoseo.xml</file>
                 </canonicalurl>
             </updates>
         </layout>
-        -->
+        
         <events>
             <controller_action_layout_generate_blocks_after>
                 <observers>

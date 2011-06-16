@@ -1,7 +1,25 @@
 <?php
 
 class Addonline_Seo_Block_Head_Canonicalurl extends Mage_Core_Block_Template
+//Mage_Page_Block_Html_Head
+//Fooman_Speedster_Block_Page_Html_Head
 {
+	
+    /**
+     * Add Link element to HEAD entity (Magento 1.3)
+     *
+     * @param string $rel forward link types
+     * @param string $href URI for linked resource
+     * @return Mage_Page_Block_Html_Head
+     */
+/*
+    public function addLinkRel($rel, $href)
+    {
+        $this->addItem('link_rel', $href, 'rel="' . $rel . '"');
+        return $this;
+    }
+*/
+/*
 	public function getHeadUrl()
 	{
 		if (empty($this->_data['urlKey'])) 
@@ -23,15 +41,19 @@ class Addonline_Seo_Block_Head_Canonicalurl extends Mage_Core_Block_Template
 					$headUrl .= '/';
 				}
 			}
-			//return $headUrl;
 			$this->_data['urlKey'] =$headUrl;
         }
 		
 		return $this->_data['urlKey'];
 	}
-
+*/
 	public function getHeadProductUrl()
-    {  
+    {
+		if( !Mage::helper('seo')->isVersionLessThan('1.4.0.0') )
+        {
+        	return false;
+		}
+            
 		if (empty($this->_data['urlKey'])) 
 		{
 			$product_id = $this->getRequest()->getParam('id');
@@ -44,14 +66,19 @@ class Addonline_Seo_Block_Head_Canonicalurl extends Mage_Core_Block_Template
 					$this->_data['urlKey'] .= '/';
 				}
 			}
-
-			    
+			
 		}
+		
 		return $this->_data['urlKey'];
-	} 
+	}
 
 	public function getHeadCategoryUrl()
-    {  
+    {
+    	if( !Mage::helper('seo')->isVersionLessThan('1.4.0.0') )
+        {
+        	return false;
+		}
+		
     	if (empty($this->_data['urlKey'])) 
 		{
 			$category_id = $this->getRequest()->getParam('id');
@@ -64,8 +91,7 @@ class Addonline_Seo_Block_Head_Canonicalurl extends Mage_Core_Block_Template
 					$this->_data['urlKey'] .= '/';
 				}
 			}
-
-			    
+			
 		}
 		return $this->_data['urlKey'];
 	} 
