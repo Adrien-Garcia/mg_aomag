@@ -1,0 +1,212 @@
+input.input-text:focus, select:focus, textarea:focus {			/* GENERIQUE FOCUS FORM */
+	background-color: #e9e9e9; 
+}
+
+p.required, .form-list label.required em {                      /* CE QUI EST OBLIGATOIRE DANS UN FORMULAIRE */
+	color: #7a032a; 
+}
+
+/*
+* Fieldset et legend
+*/
+.fieldset {
+	background: #f5f5f5; 
+	border-color: #999999  #cccccc; 
+}
+
+.fieldset .legend {
+	background: #dcdcdc; 
+	border-color: #999999; 
+	color: #666666; 
+}
+
+.buttons-set .back-link {													/* GENERIQUE LIEN RETOUR */
+	color: #666666;	
+}
+
+/*
+* Compte client
+*/
+.box-account .box-head a {
+	color: #666666; 	
+}
+
+					.data-table thead th {														/* GENERIQUE DATA TABLE */
+						background: #cccccc; 
+						color: #666666; 
+					}
+					
+					.data-table tbody th, .data-table tbody td {
+					    border-bottom: 1px solid #e9e9e9; 
+					    border-right: 1px solid #e9e9e9; 
+					}
+					
+					.data-table thead th {
+						border-right: 1px solid #e9e9e9; 
+					}
+					
+					.data-table thead th:last-child { /* petite correction du thème de base */
+						border-right: none;
+					}
+					
+					.data-table tfoot tr.first td {
+						background: #cccccc; 
+					}
+					
+
+.link-cart,																	/* GENERIQUE cf. style.css */
+.link-wishlist,
+.link-reorder,
+.link-print {
+	color: #cc3333 !important; 	
+}
+
+a {
+	color: #666666; 															/* GENERIQUE intelligent ? */	
+}
+
+h1, h2, h3, h4, h5, h6 {													/* GENERIQUE pareil ? */
+    color: #666666; 
+}
+
+.block .block-title strong {
+	color: #cc3333; 	
+}
+
+					.block-account .block-content li.current, .block-account .block-content li a:hover {
+						color: #cc3333; 
+					}
+					
+					.block-account .block-title {
+						background: #ccc; 	
+					}
+					
+					.block-account .block-content {
+						background-color: #f5f5f5; 	
+					}
+					
+					.block .block-title {
+						background: #dcdcdc; /* dcdcdc */	
+					}
+					
+					.addresses-list h2 {
+						color: #cc3333; 
+					}
+
+.addresses-list li.item {
+	background: #f5f5f5; 
+	border-color: #999999  #cccccc; 	
+}
+
+.pager { /* mes commandes */
+	background: #f5f5f5; 
+	border: none;
+}
+
+
+/*
+* Uniformisation des boutons
+*/
+
+button.button span {											/* BOUTON GENERIQUE BORDEAUX */
+	background-color: #cc3333; 
+	border-color: #7a032a; 	
+}
+button.btn-checkout span { /* ce qui oblige à faire ça sur le .btn-checkout */
+	background-color: transparent;
+	border: none;	
+}
+
+.block-compare button.button span,
+.block-poll button.button span,
+.block-subscribe .actions button.button span,
+.block-login .actions button.button span,
+.product-view .box-tags .form-add button.button span,
+.cart-table .btn-continue span,
+.cart-table .btn-update span,
+.cart .discount button span,
+.cart .shipping button span,
+.multiple-checkout .title-buttons button.button span,
+#multiship-addresses-table tfoot button.button span,
+.my-wishlist .buttons-set .btn-share span {
+	border-color: #7a032a; 
+	background-color: #cc3333; 
+}
+
+
+
+/*
+* Panier
+*/
+.product-name a {													/*  GENERIQUE */
+	color: #666666; 
+}
+
+.cart .discount h2, .cart .shipping h2 {
+	color: #cc3333; 
+}
+
+.cart .crosssell {
+	background: #f5f5f5; 
+	border-color: #999999  #cccccc; 
+}
+
+.cart .discount, .cart .shipping {
+	background: none;
+}
+
+.cart .crosssell .price {
+	color: #cc3333; 	
+}
+
+.cart .totals {
+	border-color: #7a032a  #cc3333; 	
+	background: #ffe0e0; 
+}
+
+/*
+* Commande
+*/
+.opc .allow .step-title .number {
+	background: #fff; 
+	border-color: #fff; 
+	color: #999999; 	
+}
+
+.opc .step {
+	background: #f5f5f5; 
+	border-color: #cccccc  #999999; 
+}
+
+.opc .step-title,
+.opc .allow .step-title {
+	background: #e9e9e9; 
+	border-color: #999999; 
+	border-width: 0px 1px 1px;	
+}
+
+.opc .allow .step-title h2 {
+	color: #999999; 	
+}
+
+.opc .active .step-title .number {
+    background:  #cc3333; 
+    border-color: #7a032a; 
+    color: #fff; 
+}
+
+.opc .active .step-title h2 {
+	color: #cc3333; 
+}
+
+.opc .active .step-title {
+	background: #dcdcdc; 
+	border-color: #cccccc  #999999; 
+	border-bottom: none;
+}
+
+/* ajustement de titre d'avancement */
+.block-progress .block-title strong {
+	font-size: 12px;
+	padding: 5px;
+}

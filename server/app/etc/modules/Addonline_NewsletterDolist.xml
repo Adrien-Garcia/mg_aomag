@@ -1,0 +1,12 @@
+<?xml version="1.0"?>  
+<config>
+    <modules>
+        <Addonline_NewsletterDolist>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Newsletter />
+            </depends>
+        </Addonline_NewsletterDolist>
+    </modules>
+</config>

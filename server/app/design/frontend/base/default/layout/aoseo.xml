@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+        <catalog_product_view>
+		<reference name="head">	
+			<block type="page/html_head_canonicalurl" name="head_url" as="head_url">
+				<action method="setTemplate" ifconfig="catalog/seo/product_canonical_tag"><template>aoseo/canonicalurl/head-product.phtml</template></action>
+			</block>
+		</reference>
+	</catalog_product_view>
+        
+	<catalog_category_view>
+		<reference name="head">	
+			<block type="page/html_head_canonicalurl" name="head_url" as="head_url">
+				<action method="setTemplate" ifconfig="catalog/seo/category_canonical_tag"><template>aoseo/canonicalurl/head-category.phtml</template></action>
+			</block>
+		</reference>
+	</catalog_category_view>
+        
+        <review_product_list>
+		<reference name="head">
+			<block type="page/html_head_canonicalurl" name="head_url" as="head_url">
+				<action method="setTemplate" ifconfig="catalog/seo/product_canonical_tag"><template>aoseo/canonicalurl/head-product.phtml</template></action>
+			</block>
+		</reference>
+	</review_product_list>
+
+</layout>

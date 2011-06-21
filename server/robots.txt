@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /admin/ # partie administration 
+Disallow: /*?SID # liens avec le paramètre  de session SID
+#Sitemap: http://www.mondomaine.com/sitemap.xml
