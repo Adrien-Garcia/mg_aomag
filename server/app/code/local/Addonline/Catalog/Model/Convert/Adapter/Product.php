@@ -222,15 +222,30 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
         $mediaGalleryBackendModel = $this->getAttribute('media_gallery')->getBackend();
 
         $arrayToMassAdd = array();
+
+        // Permet d'utiliser la valeur de 'image' pour les champs 'small_image' et 'thumbnail' si ceux ci n'ont pas était remplis.
+        $imageData = array();
+        $notImportedImageField = array();
         foreach ($product->getMediaAttributes() as $mediaAttributeCode => $mediaAttribute) {
             if (isset($importData[$mediaAttributeCode])) {
-                $file =  $this->addMissingSlash($importData[$mediaAttributeCode]);
-		if (trim($file) && !$mediaGalleryBackendModel->getImage($product, $file)) {
-                    $arrayToMassAdd[] = array('file' => trim($file), 'mediaAttribute' => $mediaAttributeCode);
+            	if (!isset($imageData[$importData[$field]])) {
+                    $imageData[$importData[$field]] = array();
+                }
+                $imageData[$importData[$field]][] = $field;
+            } else {
+				$notImportedImageField[]=$field;            	
+            }
+        }
+        
+        foreach ($imageData as $file => $fields) {
+            $fields = array_merge($fields, $notImportedImageField);
+            foreach ($fields as $field) {
+				if (trim($file) && !$mediaGalleryBackendModel->getImage($product, $file)) {
+					$arrayToMassAdd[] = array('file' => trim($file), 'mediaAttribute' => $field);
                 }
             }
         }
-
+        
 		/**
 		 * Allows you to import multiple images for each product.
 		 * Simply add a 'gallery' column to the import file, and separate
