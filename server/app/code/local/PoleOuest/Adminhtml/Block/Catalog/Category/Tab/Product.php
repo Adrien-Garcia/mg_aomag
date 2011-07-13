@@ -1,4 +1,4 @@
-<?
+<?php
 class PoleOuest_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_Block_Catalog_Category_Tab_Product
 {
 

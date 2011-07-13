@@ -7,6 +7,13 @@
 class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model_Convert_Adapter_Product
 {
 
+   protected function  addMissingSlash($filename)  {
+     if ($filename[0]!=DS) {
+       $filename = DS . $filename;
+     }
+     return $filename;
+   }
+
     /**
      * Save product (import)
      *
@@ -210,33 +217,35 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
                 }
             }
         }
-        if ($product->getTypeId() != Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
-        	$product->setStockData($stockData);
-        }
-        
-        
+        $product->setStockData($stockData);
+
+        $mediaGalleryBackendModel = $this->getAttribute('media_gallery')->getBackend();
+
+        $arrayToMassAdd = array();
+
+        // Permet d'utiliser la valeur de 'image' pour les champs 'small_image' et 'thumbnail' si ceux ci n'ont pas était remplis.
         $imageData = array();
         $notImportedImageField = array();
-        foreach ($this->_imageFields as $field) {
-            if (!empty($importData[$field]) && $importData[$field] != 'no_selection') {
+        foreach ($product->getMediaAttributes() as $mediaAttributeCode => $mediaAttribute) {
+            if (isset($importData[$mediaAttributeCode])) {
             	if (!isset($imageData[$importData[$field]])) {
                     $imageData[$importData[$field]] = array();
                 }
                 $imageData[$importData[$field]][] = $field;
             } else {
-	            $notImportedImageField[]=$field;
+				$notImportedImageField[]=$field;            	
             }
-        }
-
-        foreach ($imageData as $file => $fields) {
-            try {
-                $fields = array_merge($fields, $notImportedImageField);
-            	$product->addImageToMediaGallery(Mage::getBaseDir('media') . DS . 'import' . DS . trim($file), $fields);
-            }
-            catch (Exception $e) {}
         }
         
-
+        foreach ($imageData as $file => $fields) {
+            $fields = array_merge($fields, $notImportedImageField);
+            foreach ($fields as $field) {
+				if (trim($file) && !$mediaGalleryBackendModel->getImage($product, $file)) {
+					$arrayToMassAdd[] = array('file' => trim($file), 'mediaAttribute' => $field);
+                }
+            }
+        }
+        
 		/**
 		 * Allows you to import multiple images for each product.
 		 * Simply add a 'gallery' column to the import file, and separate
@@ -244,19 +253,38 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 		 */
 	        try {
 	                $galleryData = explode(',',$importData["gallery"]);
-	                foreach($galleryData as $gallery_img)
-					/**
-					 * @param directory where import image resides
-					 * @param leave 'null' so that it isn't imported as thumbnail, base, or small
-					 * @param false = the image is copied, not moved from the import directory to it's new location
-					 * @param false = not excluded from the front end gallery
-					 */
-	                {
-	                	$product->addImageToMediaGallery(Mage::getBaseDir('media') . DS . 'import' . DS . $gallery_img, null, false, false);
+	                foreach($galleryData as $gallery_img) {
+				$file =  $this->addMissingSlash($gallery_img);
+		                if (trim($file) && !$mediaGalleryBackendModel->getImage($product, $file)) {
+		                    $arrayToMassAdd[] = array('file' => trim($file), 'mediaAttribute' => null); // no "media_attribute" so that it isn't imported as thumbnail, base, or small
+		                }
 	                }
-	            }
-	        catch (Exception $e) {}        
+	        } catch (Exception $e) {}        
 		/* End Modification */
+
+	    $addedFilesCorrespondence =
+            $mediaGalleryBackendModel->addImagesWithDifferentMediaAttributes($product, $arrayToMassAdd, Mage::getBaseDir('media') . DS . 'import', false, false);
+
+        foreach ($product->getMediaAttributes() as $mediaAttributeCode => $mediaAttribute) {
+            $addedFile = '';
+            if (isset($importData[$mediaAttributeCode . '_label'])) {
+                $fileLabel = trim($importData[$mediaAttributeCode . '_label']);
+                if (isset($importData[$mediaAttributeCode])) {
+                    $keyInAddedFile = array_search($importData[$mediaAttributeCode],
+                        $addedFilesCorrespondence['alreadyAddedFiles']);
+                    if ($keyInAddedFile !== false) {
+                        $addedFile = $addedFilesCorrespondence['alreadyAddedFilesNames'][$keyInAddedFile];
+                    }
+                }
+
+                if (!$addedFile) {
+                    $addedFile = $product->getData($mediaAttributeCode);
+                }
+                if ($fileLabel && $addedFile) {
+                    $mediaGalleryBackendModel->updateImage($product, $addedFile, array('label' => $fileLabel));
+                }
+            }
+        }
 
     	 /**
 		 * Allows you to import configuarble product and to associate him with simple produtcs
@@ -334,7 +362,7 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 	        	$associatedProductAttributesCodes = explode(',',$importData["associated_products_attributes"]);
 //				Mage::log('associatedProductAttributesCodes : ');
 //				Mage::log($associatedProductAttributesCodes);
-				
+
 	        	$configurableProductsData = array();
 			    $configurableAttributesData = array();
 			    $configurableAttributesIds = array(); 
@@ -359,16 +387,14 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 			    		// si c'est un nouveau produit sa valeur sera nulle
 			    		// sinon il faut récupérer sa valeur dans getConfigurableAttributesAsArray sous peine de doublonner les attributs ...
 			    		$idAttributeData = null;
-						if ($product->getId()) {	
-				    		$productConfigurableAttributes  = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
-						    if (is_array($productConfigurableAttributes)) {
-						    	foreach ($productConfigurableAttributes as $productAttributeData) {
-						    		if ($productAttributeData["attribute_id"] == $attribute->getAttributeId()) {
-						    			$idAttributeData = $productAttributeData["id"];
-						    		}
-						    	}
-						    }  
-						}
+						$productConfigurableAttributes  = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
+					    if (is_array($productConfigurableAttributes)) {
+					    	foreach ($productConfigurableAttributes as $productAttributeData) {
+					    		if ($productAttributeData["attribute_id"] == $attribute->getAttributeId()) {
+					    			$idAttributeData = $productAttributeData["id"];
+					    		}
+					    	}
+					    }  
 
 						//$configurableAttributesData : données relatives à l'attribut configurable, est setté sur le $product à la fin
 					    $configurableAttributesData[$attribute->getAttributeCode()]= array("id"=>$idAttributeData,
@@ -383,41 +409,12 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 											"html_id"=>"configurable__attribute_".$position);
 			    	}
 			    }
-
-			    
-			    if (!$product->getId()) {	
-			    	//si c'est une création produit on enregistre une première fois le produit 
-			    	//pour générer les identifiants des attributs "pivot" 
-				    
-//			    	Mage::log($configurableAttributesIds); 
-	                $product->getTypeInstance()->setUsedProductAttributeIds($configurableAttributesIds);
-	
-//	                Mage::log(array_values($configurableAttributesData));
-	                $product->setConfigurableAttributesData(array_values($configurableAttributesData));
 	                
-	                //sauvegarde du produit pour définir l'identifiant des attributs "pivot"
-	                $product->save();
-
-	                //on recharge le produit pour avoir les identifiants
-	                $newProduct = Mage::getModel('catalog/product')->load($product->getId());
-	                $productConfigurableAttributes  = $newProduct->getTypeInstance(true)->getConfigurableAttributesAsArray($newProduct);
-					//on remplace product par le newProduct de la base de donnée, pour éviter des problèmes lors de l'enregistrement des images
-	                $product=$newProduct;
-					
-	                //on ajoute les identifiants au tableau $configurableAttributesData
-	                foreach ($productConfigurableAttributes as $productAttributeData) {
-						$configurableAttributesData[$productAttributeData["attribute_code"]]["id"]=$productAttributeData["id"];
-					}
-//	                Mage::log(array_values($configurableAttributesData));
-	                
-			    }
-                
 	            foreach($associatedProductSkus as $sku)
 	            {
-//	            	Mage::log($sku);
 	            	//on recherche chaque produit configuré "fils" (skus dans "associated_products_sku")
 	            	$associatedProduct = Mage::getModel('catalog/product')->loadByAttribute('sku', $sku);
-	                if ($associatedProduct && $associatedProduct->getId()) {
+	                if ($associatedProduct->getId()) {
 	                	//on "construit" $configurableProductsData : donnée relatives aux produits configurés, sera setté sur le $product à la fin
 	                	$configurableProductsData[$associatedProduct->getId()] = array(); 
 	                	foreach ($associatedProductAttributesCodes as $attributeCode) {
@@ -449,22 +446,20 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 							}
 							
 	                	}	                		                	
-	                } else {
-	                	Mage::throwException("Le produit associé sku=$sku n'existe pas");
 	                }
 	            }
+	                
+                $product->getTypeInstance()->setUsedProductAttributeIds($configurableAttributesIds);
 
-//			    	Mage::log($configurableAttributesIds); 
-	            $product->getTypeInstance()->setUsedProductAttributeIds($configurableAttributesIds);
-	            
-//                Mage::log(array_values($configurableAttributesData));
-                $product->setConfigurableAttributesData(array_values($configurableAttributesData));
-                
-//	            Mage::log($configurableProductsData);
+//				Mage::log($configurableProductsData);
                 $product->setConfigurableProductsData($configurableProductsData);
+	                
+//				Mage::log(array_values($configurableAttributesData));
+                $product->setConfigurableAttributesData(array_values($configurableAttributesData));
 			        
                 $product->setCanSaveConfigurableAttributes(true);
    
+                $product->save();
 
 	    	}   
 	    } catch (Exception $e) {}        
