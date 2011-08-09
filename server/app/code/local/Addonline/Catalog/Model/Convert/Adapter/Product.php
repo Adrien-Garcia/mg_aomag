@@ -8,7 +8,7 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 {
 
    protected function  addMissingSlash($filename)  {
-     if ($filename[0]!=DS) {
+   	 if (!empty($filename) && $filename[0]!=DS) {
        $filename = DS . $filename;
      }
      return $filename;
@@ -240,6 +240,7 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
         foreach ($imageData as $file => $fields) {
             $fields = array_merge($fields, $notImportedImageField);
             foreach ($fields as $field) {
+            	$file =  $this->addMissingSlash($file);
 				if (trim($file) && !$mediaGalleryBackendModel->getImage($product, $file)) {
 					$arrayToMassAdd[] = array('file' => trim($file), 'mediaAttribute' => $field);
                 }
@@ -287,7 +288,7 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
         }
 
     	 /**
-		 * Allows you to import configuarble product and to associate him with simple produtcs
+		 * Allows you to import configurable product and to associate him with simple produtcs
 		 */
 	        try {
 // 
@@ -459,7 +460,9 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
 			        
                 $product->setCanSaveConfigurableAttributes(true);
    
-                $product->save();
+                /* // Mise en commentaire FCA le 06/07/2011 => A cause d'un message d'exception lors import
+                 $product->save();
+                 */
 
 	    	}   
 	    } catch (Exception $e) {}        

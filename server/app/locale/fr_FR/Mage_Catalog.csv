@@ -274,6 +274,7 @@
 "Image","Image"
 "Image content is not valid base64 data.","Les données base64 de l'image ne sont pas valides."
 "Image does not exist.","L'image n'existe pas."
+"(Product %s) Image does not exist.","(Produit %s) L'image n'existe pas."
 "Image file was not found.","Le fichier image n'a pas été trouvé."
 "Image type and information need to be specified for each store view.","Le type et les informations d'image doivent être spécifiés pour chaque vue magasin."
 "In Stock","En stock"
