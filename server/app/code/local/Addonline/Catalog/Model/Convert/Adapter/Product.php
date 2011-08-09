@@ -228,12 +228,12 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
         $notImportedImageField = array();
         foreach ($product->getMediaAttributes() as $mediaAttributeCode => $mediaAttribute) {
             if (isset($importData[$mediaAttributeCode])) {
-            	if (!isset($imageData[$importData[$field]])) {
-                    $imageData[$importData[$field]] = array();
+            	if (!isset($imageData[$importData[$mediaAttributeCode]])) {
+                    $imageData[$importData[$mediaAttributeCode]] = array();
                 }
-                $imageData[$importData[$field]][] = $field;
+                $imageData[$importData[$mediaAttributeCode]][] = $mediaAttributeCode;
             } else {
-				$notImportedImageField[]=$field;            	
+				$notImportedImageField[]=$mediaAttributeCode;
             }
         }
         
