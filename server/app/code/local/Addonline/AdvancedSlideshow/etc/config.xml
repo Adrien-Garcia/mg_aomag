@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Addonline_AdvancedSlideshow>
+            <version>0.0.1</version>
+        </Addonline_AdvancedSlideshow>
+    </modules>
+    
+    <global>
+        <models>
+            <advancedslideshow>
+                <class>Addonline_AdvancedSlideshow_Model</class>
+                <resourceModel>advancedslideshow_mysql4</resourceModel>
+            </advancedslideshow>
+            <advancedslideshow_mysql4>
+                <class>Addonline_AdvancedSlideshow_Model_Mysql4</class>
+                <entities>
+                    <advancedslideshow>
+                        <table>advancedslideshow</table>
+                    </advancedslideshow>
+                    <advancedslideshow_item>
+                        <table>advancedslideshow_item</table>
+                    </advancedslideshow_item>
+                </entities>
+            </advancedslideshow_mysql4>
+        </models>
+        <resources>
+            <advancedslideshow_setup>
+                <setup>
+                    <module>Addonline_AdvancedSlideshow</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </advancedslideshow_setup>
+            <advancedslideshow_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </advancedslideshow_write>
+            <advancedslideshow_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </advancedslideshow_read>
+        </resources>
+        <blocks>
+            <advancedslideshow><class>Addonline_AdvancedSlideshow_Block</class></advancedslideshow>
+        </blocks>
+        <helpers>
+            <advancedslideshow><class>Addonline_AdvancedSlideshow_Helper</class></advancedslideshow>
+        </helpers>
+        
+    </global>
+    
+
+    <frontend>   
+
+        <layout>
+            <updates>
+                <advancedslideshow>
+                    <file>advancedslideshow.xml</file>
+                </advancedslideshow>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+			<advancedslideshow>
+				<use>admin</use>
+				<args>
+					<module>Addonline_AdvancedSlideshow</module>
+					<frontName>advancedslideshow</frontName>
+				</args>
+			</advancedslideshow>
+        </routers>
+    </admin>
+
+    <adminhtml>
+<!-- 
+        <translate>
+            <modules>
+                <Addonline_Brand>
+                    <files>
+  						<default>Mage_Adminhtml.csv</default>                   
+                        <brand>Addonline_Brand.csv</brand>
+                    </files>
+                </Addonline_Brand>
+            </modules>
+        </translate>
+ -->
+		<menu>
+            <advancedslideshow translate="title" module="advancedslideshow">
+				<title>Advanced Slideshow</title>
+				<sort_order>65</sort_order> 
+                <children>		
+					<gestion translate="title" module="advancedslideshow">
+						<title>Gestion</title>
+						<action>advancedslideshow/adminhtml_advancedslideshow</action>              
+					</gestion>
+				</children>
+			</advancedslideshow>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+	                    <advancedslideshow translate="title" module="advancedslideshow">
+	                        <title>Advanced Slideshow</title>
+	                        <sort_order>65</sort_order>
+	                        <children>
+	                            <gestion translate="title">
+	                                <title>Gestion</title>
+	                            </gestion>
+	                        </children>
+	                   </advancedslideshow>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		
+    </adminhtml>
+    
+</config>
