@@ -7,7 +7,7 @@ class OrganicInternet_SimpleConfigurableProducts_AjaxController extends Mage_Cat
     {
        $product = $this->_initProduct();
        if (!empty($product)) {
-           $this->_initProductLayout($product);
+           $this->loadLayout(false);
            $this->renderLayout();
        }
     }
@@ -16,7 +16,7 @@ class OrganicInternet_SimpleConfigurableProducts_AjaxController extends Mage_Cat
     {
        $product = $this->_initProduct();
        if (!empty($product)) {
-           $this->_initProductLayout($product);
+           $this->loadLayout(false);
            $this->renderLayout();
        }
     }
@@ -72,54 +72,5 @@ class OrganicInternet_SimpleConfigurableProducts_AjaxController extends Mage_Cat
         Mage::register('current_product', $product);
         Mage::register('product', $product);
         return $product;
-    }
-    
-    /**
-     * Initialize product view layout (méthode de Mage_Catalog_ProductController magento version 1.4.2)
-     *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Catalog_ProductController
-     */
-    protected function _initProductLayout($product)
-    {
-        $design = Mage::getSingleton('catalog/design');
-        $settings = $design->getDesignSettings($product);
-
-        if ($settings->getCustomDesign()) {
-            $design->applyCustomDesign($settings->getCustomDesign());
-        }
-
-        $update = $this->getLayout()->getUpdate();
-        $update->addHandle('default');
-        $this->addActionLayoutHandles();
-
-        $update->addHandle('PRODUCT_TYPE_'.$product->getTypeId());
-        $update->addHandle('PRODUCT_'.$product->getId());
-        $this->loadLayoutUpdates();
-
-        // apply custom layout update once layout is loaded
-        if ($layoutUpdates = $settings->getLayoutUpdates()) {
-            if (is_array($layoutUpdates)) {
-                foreach($layoutUpdates as $layoutUpdate) {
-                    $update->addUpdate($layoutUpdate);
-                }
-            }
-        }
-
-        $this->generateLayoutXml()->generateLayoutBlocks();
-        // apply custom layout (page) template once the blocks are generated
-        if ($settings->getPageLayout()) {
-            $this->getLayout()->helper('page/layout')->applyTemplate($settings->getPageLayout());
-        }
-
-        $currentCategory = Mage::registry('current_category');
-        if ($root = $this->getLayout()->getBlock('root')) {
-            $root->addBodyClass('product-'.$product->getUrlKey());
-            if ($currentCategory instanceof Mage_Catalog_Model_Category) {
-                $root->addBodyClass('categorypath-'.$currentCategory->getUrlPath())
-                    ->addBodyClass('category-'.$currentCategory->getUrlKey());
-            }
-        }
-        return $this;
     }
 }
