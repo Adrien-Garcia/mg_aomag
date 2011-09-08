@@ -143,7 +143,7 @@ class Mage_Atos_Model_Api_Response extends Mage_Atos_Model_Api_Parameters
 						    $array['cvv_response_code'] = "Le numero de controle est absent de la demande d'autorisation";
 						    break;
 						case '55':
-						    $array['cvv_response_code'] = "La banque de l'internaute n’est pas certifiee, le controle n’a pu etre effectue";
+						    $array['cvv_response_code'] = "La banque de l'internaute n'est pas certifiee, le controle n'a pu etre effectue";
 						    break;
 						case 'NO':
 						    $array['cvv_response_code'] = "Pas de cryptogramme sur la carte";
@@ -181,7 +181,7 @@ class Mage_Atos_Model_Api_Response extends Mage_Atos_Model_Api_Parameters
 		            $array['response_code'] = "Autorisation refusee";
 		            break;
 		        case '12':
-		            $array['response_code'] = "Transaction invalide, verifier les paramètres transferes dans la requete.";
+		            $array['response_code'] = "Transaction invalide, verifier les parametres transferes dans la requete.";
 		            break;
 				case '17':
 		            $array['response_code'] = "Annulation de l'internaute";
@@ -333,7 +333,7 @@ class Mage_Atos_Model_Api_Response extends Mage_Atos_Model_Api_Parameters
 			        $array['complementary_code'] = "La carte utilisee a depasse l'encours autorise";
 			        break;
 		       case '03':
-			        $array['complementary_code'] = "La carte utilisee appartient a la liste grise du commercant";
+			        $array['complementary_code'] = "La carte utilisee appartient a la liste grise du commercant";
 			        break;
 			   case '05':
 			        $array['complementary_code'] = "Le BIN de la carte utilisee appartient a une plage non referencee dans la table des BIN de la plate-forme MERCANET";
@@ -342,7 +342,7 @@ class Mage_Atos_Model_Api_Response extends Mage_Atos_Model_Api_Parameters
 			        $array['complementary_code'] = "Le numero de carte n'est pas dans une plage de meme nationalite que celle du commercant";
 			        break;
 			   case '99':
-			        $array['complementary_code'] = "Le serveur MERCANET a un rencontre un probleme lors du traitement d’un des controles locaux complementaires";
+			        $array['complementary_code'] = "Le serveur MERCANET a un rencontre un probleme lors du traitement d'un des controles locaux complementaires";
 			        break;
 		    }
 		
