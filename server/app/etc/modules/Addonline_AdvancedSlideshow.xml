@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Addonline_AdvancedSlideshow>
+            <active>false</active>
+            <codePool>local</codePool>
+        </Addonline_AdvancedSlideshow>
+    </modules>
+</config> 

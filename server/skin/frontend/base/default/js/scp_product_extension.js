@@ -86,7 +86,7 @@ Product.Config.prototype.getProductIdOfMostExpensiveProductInScope = function(pr
     //Get highest price from product ids.
     for (var x=0, len=productIds.length; x<len; ++x) {
         var thisPrice = Number(childProducts[productIds[x]][priceType]);
-        if (thisPrice > maxPrice) {
+        if (thisPrice >= maxPrice) {
             maxPrice = thisPrice;
             highestPricedProdId = productIds[x];
         }
@@ -155,7 +155,7 @@ Product.Config.prototype.reloadPrice = function() {
         usingZoomer = true;
     }
 
-    if (childProductId){
+    if(childProductId){
         var price = childProducts[childProductId]["price"];
         var finalPrice = childProducts[childProductId]["finalPrice"];
         optionsPrice.productPrice = finalPrice;
@@ -293,7 +293,7 @@ Product.Config.prototype.showCustomOptionsBlock = function(productId, parentId) 
         });
     } else {
         $('SCPcustomOptionsDiv').innerHTML = '';
-        window.opConfig = new Product.Options([]);
+        try{window.opConfig = new Product.Options([]);} catch(e){}
     }
 };
 
@@ -308,6 +308,10 @@ Product.Config.prototype.showFullImageDiv = function(productId, parentId) {
         destElement = el;
     });
 
+    //TODO: This is needed to reinitialise Product.Zoom correctly,
+    //but there's still a race condition (in the onComplete below) which can break it
+    try {product_zoom.draggable.destroy();} catch(x) {}
+
     if(productId) {
         new Ajax.Updater(destElement, imgUrl, {
             method: 'get',
@@ -317,8 +321,8 @@ Product.Config.prototype.showFullImageDiv = function(productId, parentId) {
                 //to have loaded before it works, hence image object and onload handler
                 if ($('image')){
                     var imgObj = new Image();
-                    imgObj.src = $('image').src;
                     imgObj.onload = function() {product_zoom = new Product.Zoom('image', 'track', 'handle', 'zoom_in', 'zoom_out', 'track_hint'); };
+                    imgObj.src = $('image').src;
                 } else {
                     destElement.innerHTML = defaultZoomer;
                     product_zoom = new Product.Zoom('image', 'track', 'handle', 'zoom_in', 'zoom_out', 'track_hint')

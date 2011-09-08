@@ -1,0 +1,89 @@
+<?php
+$result = $this->getSlideshowData();
+/*
+echo 'slideshow.phtml <br >'.$this->getData("id_slideshow");
+echo '<pre>';
+print_r($result);
+echo '</pre>';
+*/
+?>
+<link rel="stylesheet" type="text/css" href="http://static.flowplayer.org/tools/css/scrollable-navig.css" />
+
+	<!-- main navigator -->
+	<!-- 
+	<ul id="main_navi">
+		<li class="active">
+			<img src="http://farm4.static.flickr.com/3278/2691545308_e7e817afb0_s.jpg"/>
+		</li>
+	</ul>
+	 -->
+	<!-- root element for the main scrollable -->
+	<div id="slideshow">
+	
+		<!-- root element for pages -->
+		<div id="slideshow_pages">
+	
+			<!-- page #1 -->
+			<div class="slideshow_page">
+	
+				<!-- inner scrollable #1 -->
+				<div class="scrollable">
+	
+					<!-- root element for scrollable items -->
+					<div class="items">
+<?php foreach($result as $id => $block): 
+$_image = $block['image'];
+$_url = $block['url'];
+if($block['is_product'])
+{
+	$_image = $block['product']['image'];
+	$_url = $block['product']['url'];
+}
+?>
+						<!-- items on the first page  -->
+						<div class="item">
+							<a href="<?php echo $_url; ?>"><img src="<?php echo $_image; ?>" border="0" /></a>
+						</div>
+<?php endforeach ?>
+					</div>
+	
+				</div>
+				
+				<div class="navi"></div>
+				
+			</div>
+		
+	
+		</div>
+	
+	</div>
+
+
+
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	//main vertical scroll
+	jQuery("#main").scrollable({
+		// basic settings
+		vertical: true,
+	
+		// up/down keys will always control this scrollable
+		keyboard: 'static',
+	
+		// assign left/right keys to the actively viewed scrollable
+		onSeek: function(event, i) {
+			horizontal.eq(i).data("scrollable").focus();
+		}
+	
+	// main navigator (thumbnail images)
+	}).navigator("#main_navi");
+	
+	// horizontal scrollables. each one is circular and has its own navigator instance
+	var horizontal = jQuery(".scrollable").scrollable({ circular: true }).navigator(".navi").autoscroll({ autoplay: true });
+	
+	
+	// when page loads setup keyboard focus on the first horzontal scrollable
+	horizontal.eq(0).data("scrollable").focus();
+});
+</script>
