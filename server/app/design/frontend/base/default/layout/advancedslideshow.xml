@@ -9,6 +9,7 @@
 			<action method="addJs"><script>jquery/jquery.noconflict.js</script></action>
 			<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
 			-->
+			<action method="addItem"><type>skin_js</type><name>js/advancedslideshow.js</name><params/></action>
 		</reference>
     </default>
 </layout> 
