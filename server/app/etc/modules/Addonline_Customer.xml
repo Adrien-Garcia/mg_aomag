@@ -4,6 +4,9 @@
 	    <Addonline_Customer>
 	        <active>true</active>
             <codePool>local</codePool>
+            <depends>
+                <Mage_Customer />
+            </depends>
 	    </Addonline_Customer>  
     </modules>
 </config>

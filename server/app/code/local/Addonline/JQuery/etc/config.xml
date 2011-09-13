@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Addonline_JQuery>
+            <version>0.0.1</version>
+        </Addonline_JQuery>
+    </modules>
+
+    <frontend>   
+        <layout>
+            <updates>
+                <jquery>
+                    <file>jquery.xml</file>
+                </jquery>
+            </updates>
+        </layout>
+    </frontend>
+ 
+</config>

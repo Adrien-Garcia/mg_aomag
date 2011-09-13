@@ -3,9 +3,6 @@
  * au fonctionnement du site.
  */
 
-/* Compatiblité avec prototype */
-jQuery.noConflict();
-
 /*
  * DOM loaded event
  * Tous les scripts nécéssitants le chargement complet du DOM

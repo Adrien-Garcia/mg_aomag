@@ -4,6 +4,9 @@
         <Addonline_AdvancedSlideshow>
             <active>false</active>
             <codePool>local</codePool>
+            <depends>
+                <Addonline_JQuery />
+            </depends>
         </Addonline_AdvancedSlideshow>
     </modules>
 </config> 

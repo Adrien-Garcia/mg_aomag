@@ -7,7 +7,6 @@
 		<reference name="head">
 			<action method="addCss"><stylesheet>css/couleur.css</stylesheet></action>
 			<action method="addCss"><stylesheet>css/theme.css</stylesheet></action>
-			<action method="addItem"><type>skin_js</type><name>js/jquery-1.5.1.min.js</name><params/></action>
 			<action method="addItem"><type>skin_js</type><name>js/charte.js</name><params/></action>
 		</reference>
 	</default>
@@ -26,5 +25,11 @@
 		<!-- Le chien -->
 		<remove name="left.permanent.callout"/>
 	</customer_account>
+	
+	  <catalog_product_compare_index translate="label">
+        <reference name="content">
+            <block type="monbloc" name="monbloc" template="catalog/product/compare/monbloc.phtml"/>
+        </reference>
+    </catalog_product_compare_index>
 
 </layout>

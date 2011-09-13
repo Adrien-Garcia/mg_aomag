@@ -4,6 +4,9 @@
 	    <Addonline_Catalog>
 	        <active>true</active>
             <codePool>local</codePool>
+            <depends>
+                <Mage_Catalog />
+            </depends>
 	    </Addonline_Catalog>  
     </modules>
 </config>
