@@ -8,6 +8,15 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
+jQuery(function($) {
+	
+	$("input[id^=\"s_method\"]").live("change", function() {
+		shippingRadioCheck(this);
+	});
+	
+});
+
 String.prototype.startWith = function(t, i) { if (i==false) { return
 (t == this.substring(0, t.length)); } else { return (t.toLowerCase()
 == this.substring(0, t.length).toLowerCase()); } } 

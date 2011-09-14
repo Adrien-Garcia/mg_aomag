@@ -111,6 +111,7 @@ ShippingMethod.prototype.validate = function() {
 </script>
 <?php */ ?>    
 <div class="layer" id="layer_socolissimo">
+	<a class="close">Fermer</a>
 	<div>
 		<div>
 			<h3>Choisissez Votre lieu de livraison</h3>
@@ -135,7 +136,7 @@ ShippingMethod.prototype.validate = function() {
                         <select id="socolissimo_city_select" name="Commune"><!-- liste chargée en javascript --></select>
                     </div>
                 </div>
-                <button type="button" id="btn_modifierAdresse" onclick="geocodeAdresse()" ><span>Modifier votre adresse</span></button>
+                <button type="button" id="btn_modifierAdresse" onclick="geocodeAdresse()" class="button" ><span>Modifier votre adresse</span></button>
             </div>
             <div class="ligne2">
           		<div class="titre">Affinez votre recherche par point de retrait</div>
