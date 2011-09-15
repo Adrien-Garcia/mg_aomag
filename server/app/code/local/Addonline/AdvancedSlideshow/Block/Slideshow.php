@@ -1,5 +1,5 @@
 <?php
-class Addonline_AdvancedSlideshow_Block_Slideshow extends Mage_Core_Block_Template
+class Addonline_AdvancedSlideshow_Block_Slideshow extends Mage_Catalog_Block_Product_Abstract
 {
 	public function _prepareLayout()
     {
@@ -35,6 +35,7 @@ class Addonline_AdvancedSlideshow_Block_Slideshow extends Mage_Core_Block_Templa
 			$sku = $block['product_sku'];
 			if(!empty($sku))
 			{
+				$result[$id]['image'] = null;
 				$product = Mage::getModel('catalog/product');
 				$productId = $product->getIdBySku($sku);
 				if($productId)
@@ -42,9 +43,10 @@ class Addonline_AdvancedSlideshow_Block_Slideshow extends Mage_Core_Block_Templa
 					$product->load($productId);
 					
 					$result[$id]['is_product'] = true;
-					$result[$id]['product']['name'] = $product->getName();
+					$result[$id]['product']          = $product;
+					$result[$id]['product']['name']  = $product->getName();
 					$result[$id]['product']['price'] = Mage::helper('core')->currency($product->getPrice());
-					$result[$id]['product']['url'] = Mage::helper('catalog/product')->getProductUrl($product);
+					$result[$id]['product']['url']   = Mage::helper('catalog/product')->getProductUrl($product);
 					
 					$result[$id]['product']['image'] = $product->getImageUrl();
 				}

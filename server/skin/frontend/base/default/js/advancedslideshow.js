@@ -3,6 +3,6 @@
  */
 jQuery(function($) {
 	
-	$(".scrollable").scrollable().autoscroll().navigator();
+	$(".scrollable").scrollable({circular: true}).autoscroll({autoplay: false}).navigator();
 	
 })

@@ -11,6 +11,47 @@
 	position: absolute;
 }
 
-.items div {
+.items .item {
 	float: left;
+	position: relative;
+}
+
+.item.product > div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 1px solid;
+	border-color: #e9e9e9 #e9e9e9 #dcdcdc #dcdcdc;
+	width: 100%;
+	height: 100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.product .product-image,
+.product .product-name,
+.product .price-box,
+.product .desc {
+	float: left;	
+}
+
+.product .product-image {
+	margin: 18px 0 0 18px;	
+}
+
+.product .product-name {
+	font-size: 16px;
+	font-weight: bold;
+	margin: 18px 0 0 20px;
+	width: 375px;
+}
+
+.product .price-box,
+.product .desc {
+	margin: 20px 0 0 20px;	
+}
+
+.product .desc {
+	width: 375px;
 }

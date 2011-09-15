@@ -17,16 +17,37 @@ $result = $this->getSlideshowData();
 <?php foreach($result as $id => $block): 
 $_image = $block['image'];
 $_url = $block['url'];
-if($block['is_product'])
-{
-	$_image = $block['product']['image'];
-	$_url = $block['product']['url'];
-}
 ?>
 					
-						<div class="item">
-							<a href="<?php echo $_url; ?>"><img src="<?php echo $_image; ?>" border="0" /></a>
-						</div>
+					
+						
+						<?php if( $block['is_product'] ) {
+							$_image_produit = $block['product']['image'];
+							$_url_produit = $block['product']['url'];
+							if($block['image'] == null) {
+								$_image = $this->getSkinUrl('images/advancedslideshow/default_bkg.png');
+							}
+						?>
+							<div class="item product">
+								<img src="<?php echo $_image; ?>" /><?php echo $block['image']; ?>
+								<div>
+									<a class="product-image" href="<?php echo $_url_produit; ?>"><img src="<?php echo $_image_produit; ?>" /></a>
+									<h1 class="product-name"><a href="<?php echo $_url_produit; ?>"><?php echo $block['product']['name']; ?></a></h1>
+									<div class="desc std">
+                        				<?php echo $this->helper('catalog/output')->productAttribute($block['product'], $block['product']->getShortDescription(), 'short_description') ?>
+                        			</div>
+                        			<?php echo $this->getPriceHtml($block['product'], true) ?>
+								</div>
+							</div>
+						<?php } else {?>
+							<div class="item">
+								<a href="<?php echo $_url; ?>"><img src="<?php echo $_image; ?>" /></a>
+							</div>
+						<?php }?>
+						
+						
+						
+						
 <?php endforeach ?>
 					</div>
 	
