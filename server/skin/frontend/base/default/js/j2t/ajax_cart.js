@@ -336,7 +336,7 @@ function showConfirm(){
 document.observe("dom:loaded", function() {
     replaceDelUrls();
     replaceAddUrls();
-    Event.observe($('j2t-overlay'), 'click', hideJ2tOverlay);
+    //Event.observe($('j2t-overlay'), 'click', hideJ2tOverlay);
 
     var cartInt = setInterval(function(){
         if (typeof productAddToCartForm  != 'undefined'){
