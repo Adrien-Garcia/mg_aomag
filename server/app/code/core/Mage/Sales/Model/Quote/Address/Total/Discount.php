@@ -29,6 +29,7 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
 {
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
+ Mage::log('collect mage');
         $quote = $address->getQuote();
         $eventArgs = array(
             'website_id'=>Mage::app()->getStore($quote->getStoreId())->getWebsiteId(),

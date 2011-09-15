@@ -19,14 +19,10 @@
             </checkout>
  		</blocks>
  		<models>
-            <sales>
-                <rewrite>
-                    <quote_address_total_discount>Addonline_GiftProduct_Model_Sales_Quote_Address_Total_Discount</quote_address_total_discount>
-                 </rewrite>
-            </sales>
         	<salesrule>
         		<rewrite>
         			<validator>Addonline_GiftProduct_Model_SalesRule_Validator</validator>
+        			<quote_discount>Addonline_GiftProduct_Model_SalesRule_Quote_Discount</quote_discount>
         		</rewrite>
         	</salesrule>
  		</models>
