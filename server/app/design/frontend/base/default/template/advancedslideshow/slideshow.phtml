@@ -1,14 +1,7 @@
 <?php
 $result = $this->getSlideshowData();
 ?>
-	<div id="slideshow">
-	
-	
-		<div id="slideshow_pages">
-	
-	
-			<div class="slideshow_page">
-	
+			<div id="slideshow">
 	
 				<div class="scrollable">
 	
@@ -28,7 +21,7 @@ $_url = $block['url'];
 								$_image = $this->getSkinUrl('images/advancedslideshow/default_bkg.png');
 							}
 						?>
-							<div class="item product">
+							<div class="product">
 								<img src="<?php echo $_image; ?>" /><?php echo $block['image']; ?>
 								<div>
 									<a class="product-image" href="<?php echo $_url_produit; ?>"><img src="<?php echo $_image_produit; ?>" /></a>
@@ -40,7 +33,7 @@ $_url = $block['url'];
 								</div>
 							</div>
 						<?php } else {?>
-							<div class="item">
+							<div>
 								<a href="<?php echo $_url; ?>"><img src="<?php echo $_image; ?>" /></a>
 							</div>
 						<?php }?>
@@ -54,14 +47,7 @@ $_url = $block['url'];
 				</div>
 				
 				<div class="navi"></div>
+				<a href="#" class="next"></a>
+				<a href="#" class="prev"></a>
 				
 			</div>
-		
-	
-		</div>
-	
-	</div>
-
-
-
-

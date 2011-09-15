@@ -11,12 +11,12 @@
 	position: absolute;
 }
 
-.items .item {
+.scrollable .items > div {
 	float: left;
 	position: relative;
 }
 
-.item.product > div {
+.scrollable .product > div {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -29,29 +29,35 @@
 	box-sizing: border-box;
 }
 
-.product .product-image,
-.product .product-name,
-.product .price-box,
-.product .desc {
+.scrollable .product .product-image,
+.scrollable .product .product-name,
+.scrollable .product .price-box,
+.scrollable .product .desc {
 	float: left;	
 }
 
-.product .product-image {
+.scrollable .product .product-image {
 	margin: 18px 0 0 18px;	
 }
 
-.product .product-name {
+.scrollable .product .product-name {
 	font-size: 16px;
 	font-weight: bold;
 	margin: 18px 0 0 20px;
 	width: 375px;
 }
 
-.product .price-box,
-.product .desc {
+.scrollable .product .price-box,
+.scrollable .product .desc {
 	margin: 20px 0 0 20px;	
 }
 
-.product .desc {
+.scrollable .product .desc {
 	width: 375px;
+}
+
+.scrollable .next,
+.scrollable .prev,
+.scrollable .navi {
+	display: none;	
 }
