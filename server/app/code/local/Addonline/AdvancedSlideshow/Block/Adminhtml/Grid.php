@@ -6,8 +6,8 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Grid extends Mage_Adminhtml_Bl
 	{
 		$this->_controller = 'adminhtml_gestion';
 		$this->_blockGroup = 'advancedslideshow';
-		$this->_headerText = Mage::helper('advancedslideshow')->__('Slideshow Manager');
-		$this->_addButtonLabel = Mage::helper('advancedslideshow')->__('Add Item');
+		$this->_headerText = Mage::helper('advancedslideshow')->__('Manage Slideshows');
+		$this->_addButtonLabel = Mage::helper('advancedslideshow')->__('Add a slideshow');
 		parent::__construct();
 	}
   

@@ -95,6 +95,8 @@ class Addonline_AdvancedSlideshow_Adminhtml_Advancedslideshow_ItemController ext
 					unset($data['id']);
 					
 				}
+				//TODO : vérifier l'existence du produit corerspondant au SKU, vider l'url saisie ... 
+				
 				$model->setData($data);
 				$model->save();
 				
@@ -122,6 +124,26 @@ class Addonline_AdvancedSlideshow_Adminhtml_Advancedslideshow_ItemController ext
 		$this->_redirect('*/*/', array('id' => $model->getId()) );
 	}
 	
+	public function deleteAction()
+	{
+		$_slideitem_id = $this->getRequest()->getParam('id');
+		
+		if( $_slideitem_id > 0 ) {
+			try {
+				$model = Mage::getModel('advancedslideshow/advancedslideshow_item');
+				$model->load($_slideitem_id);
+				$model->delete();
+					 
+				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Slide was successfully deleted'));
+				Mage::log($this->getUrl('*/adminhtml_advancedslideshow/edit/', array('id' => $model->getIdSlideshow())));
+				$this->_redirect('*/adminhtml_advancedslideshow/edit/', array('id' => $model->getIdSlideshow()));
+			} catch (Exception $e) {
+				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+				$this->_redirect('*/*/edit', array('id' => $id));
+			}
+		}
+
+	}
 	
 	
 	

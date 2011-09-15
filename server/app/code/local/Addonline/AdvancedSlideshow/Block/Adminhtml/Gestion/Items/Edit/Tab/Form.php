@@ -47,7 +47,7 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Gestion_Items_Edit_Tab_Form ex
 	    ));
 	    
         $fieldset->addField('url', 'text', array(
-	    	'label'     => Mage::helper('advancedslideshow')->__('URL'),
+	    	'label'     => Mage::helper('advancedslideshow')->__('URL link'),
 	    	'name'      => 'url',
         	'class' 	=> 'required-entry',
 	    	'required'  => true,
@@ -55,21 +55,17 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Gestion_Items_Edit_Tab_Form ex
 	    
 	    
         $fieldset->addField('image', 'image', array(
-	    	'label'     => Mage::helper('advancedslideshow')->__('Image'),
+	    	'label'     => Mage::helper('advancedslideshow')->__('Background image'),
 	    	'name'      => 'image',
-        	'class' 	=> 'required-entry',
 	    	'required'  => true,
 	    ));
 	    
 	    
         $fieldset->addField('product_sku', 'text', array(
-	    	'label'     => Mage::helper('advancedslideshow')->__('Product SKU'),
+	    	'label'     => Mage::helper('advancedslideshow')->__('Linked product SKU'),
 	    	'name'      => 'product_sku',
 	    ));
-        $fieldset->addField('product_name', 'text', array(
-	    	'label'     => Mage::helper('advancedslideshow')->__('Product Name'),
-	    	'name'      => 'product_name',
-	    ));
+
         $fieldset->addField('sort_order', 'text', array(
 	    	'label'     => Mage::helper('advancedslideshow')->__('Position'),
 	    	'name'      => 'sort_order',

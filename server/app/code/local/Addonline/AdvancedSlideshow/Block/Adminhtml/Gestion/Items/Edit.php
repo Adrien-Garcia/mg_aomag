@@ -28,7 +28,7 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Gestion_Items_Edit extends Mag
     {
     	if (Mage::registry('advancedslideshow_item') && Mage::registry('advancedslideshow_item')->getId())
     	{
-    		return Mage::helper('advancedslideshow')->__('Edit Slide "%s"', $this->htmlEscape(Mage::registry('advancedslideshow_item')->getId()));
+    		return Mage::helper('advancedslideshow')->__("Edit Slide %s", $this->htmlEscape(Mage::registry('advancedslideshow_item')->getId()));
     	}
     	else
     	{

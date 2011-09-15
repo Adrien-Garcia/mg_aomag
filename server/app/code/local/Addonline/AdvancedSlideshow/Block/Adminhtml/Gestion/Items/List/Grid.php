@@ -16,7 +16,20 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Gestion_Items_List_Grid extend
 		$_id_slideshow = Mage::registry('cur_slideshow_id');
 		$collection = Mage::getModel('advancedslideshow/advancedslideshow_item')->getCollection();
 		$collection->addFilter('id_slideshow', $_id_slideshow);
+		foreach ($collection as $item) {
+			if ($item->getProductSku()) {
+				$product = Mage::getModel('catalog/product');
+				$productId = $product->getIdBySku($item->getProductSku());
+				if($productId) {
+					$product->load($productId);
+					$item->setData('product_name', $product->getName());
+				} else {
+					$item->setData('product_name', Mage::helper('advancedslideshow')->__("There's no product whith sku %s",$item->getProductSku()));
+				}
+			}
+		}
 		$this->setCollection($collection);
+		
 		return parent::_prepareCollection();
 	}
 	

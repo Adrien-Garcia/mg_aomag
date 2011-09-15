@@ -11,7 +11,7 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Gestion_New extends Mage_Admin
         $this->_blockGroup = 'advancedslideshow';
         $this->_controller = 'adminhtml_gestion';
         $this->_mode = 'new';
-        $this->_headerText = Mage::helper('advancedslideshow')->__('Add Slideshow');
+        $this->_headerText = Mage::helper('advancedslideshow')->__('Add a slideshow');
     }
 
 }

@@ -6,7 +6,7 @@ class Addonline_AdvancedSlideshow_Adminhtml_AdvancedslideshowController extends 
 	{
 		$this->loadLayout()
 			->_setActiveMenu('advancedslideshow/gestion')
-			->_addBreadcrumb(Mage::helper('adminhtml')->__('Items Manager'), Mage::helper('adminhtml')->__('Item Manager'));
+			->_addBreadcrumb(Mage::helper('advancedslideshow')->__('Manage Slides'), Mage::helper('advancedslideshow')->__('Manage Slideshows'));
 		return $this;
 	}
 	
@@ -38,8 +38,8 @@ class Addonline_AdvancedSlideshow_Adminhtml_AdvancedslideshowController extends 
 				$_advancedslideshowModel->setTitle( $postData['title'] )
 					->save();
 					
-				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Slideshow was successfully saved'));
-				$this->_redirect('*/*/');
+				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('advancedslideshow')->__('Slideshow was successfully saved'));
+				$this->_redirect('*/*/edit', array('id' => $_advancedslideshowModel->getId()));
 				return;
 			} catch (Exception $e) {
 				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -64,5 +64,24 @@ class Addonline_AdvancedSlideshow_Adminhtml_AdvancedslideshowController extends 
 		$this->renderLayout();
 	}
 	
+	public function deleteAction()
+	{
+		$id = $this->getRequest()->getParam('id_slideshow', false);
 
+		if( $id > 0 ) {
+			try {
+				$model = Mage::getModel('advancedslideshow/advancedslideshow');
+				$model->setId($id)
+					->delete();
+					 
+				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Slideshow was successfully deleted'));
+				$this->_redirect('*/*/');
+			} catch (Exception $e) {
+				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+				$this->_redirect('*/*/edit', array('id' => $id));
+			}
+		}
+
+	}
+	
 }

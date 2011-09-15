@@ -6,9 +6,10 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Gestion_Items_Grid extends Mag
 	{
 		$this->_controller = 'adminhtml_gestion_items_list';
 		$this->_blockGroup = 'advancedslideshow';
-		$this->_headerText = Mage::helper('advancedslideshow')->__('Slideshow') . ' '.Mage::registry('cur_slideshow_id').' : ' . Mage::helper('advancedslideshow')->__('Slide Manager');
+		$this->_headerText = Mage::helper('advancedslideshow')->__('Slideshow') . ' '.Mage::registry('cur_slideshow_id').' : ' . Mage::helper('advancedslideshow')->__('Manage slides');
 		$this->_addBackButton();
 		$this->_addButtonLabel = Mage::helper('advancedslideshow')->__('Add Slide');
+		$this->_addDeleteButton();
 		parent::__construct();		
 	}
 	
@@ -20,6 +21,23 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Gestion_Items_Grid extends Mag
             'class'     => 'back',
         ));
     }
+
+    protected function _addDeleteButton()
+    {
+		$this->_addButton('delete', array(
+             'label'     => Mage::helper('adminhtml')->__('Delete'),
+             'class'     => 'delete',
+             'onclick'   => 'deleteConfirm(\''. Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+                 .'\', \'' . $this->getDeleteUrl() . '\')',
+         ));
+    }
+    
+    public function getDeleteUrl()
+    {
+        $_id_slideshow = Mage::registry('cur_slideshow_id');
+    	return $this->getUrl('*/*/delete', array('id_slideshow'=>$_id_slideshow));
+    }
+    
     
     public function getCreateUrl()
     {

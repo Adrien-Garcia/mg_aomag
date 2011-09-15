@@ -14,8 +14,8 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Gestion_New_Tabs extends Mage_
 	protected function _beforeToHtml()
 	{
 		$this->addTab('form_section', array(
-			'label'     => Mage::helper('advancedslideshow')->__('Slide Information'),
-			'title'     => Mage::helper('advancedslideshow')->__('Slide Information'),
+			'label'     => Mage::helper('advancedslideshow')->__('Slideshow Information'),
+			'title'     => Mage::helper('advancedslideshow')->__('Slideshow Information'),
 			'content'   => $this->getLayout()->createBlock('advancedslideshow/adminhtml_gestion_new_tab_form')->toHtml(),
 		));
 		
