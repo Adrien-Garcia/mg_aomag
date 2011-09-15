@@ -12,6 +12,12 @@
  -->
 <layout version="0.1.0">
 
+	 <default>
+		<reference name="head">
+			<action method="addCss"><stylesheet>css/giftproduct.css</stylesheet></action>
+		</reference>
+	</default>
+
     <checkout_cart_index>
  
         <reference name="checkout.cart">
