@@ -1,0 +1,161 @@
+<!--
+/**
+ * @category   Addonline
+ * @package    Addonline_Sponsorship
+ * @author     Addonline
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+    <sections>
+        <sponsorship translate="label" module="sponsorship">
+            <label>Sponsorship</label>
+            <tab>customer</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <sponsor translate="label">
+                    <label>Sponsorship options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sponsor_enabled translate="label">
+                            <label>Sponsorship module activated</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sponsor_enabled>
+                        <sponsor_optional_order translate="label">
+                            <label>Allow to send invitations to customers who have never ordered</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sponsor_optional_order>
+                        <sponsor_link_validity translate="label">
+                            <label>Inactivity time before removal of the sponsorship link (days)</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>sponsorship/adminhtml_system_config_backend_sponsorship_entier</backend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sponsor_link_validity>
+                    </fields>
+                </sponsor>
+                <invitation translate="label">
+                    <label>Sponsorship mail options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sponsor_invitation_validity translate="label">
+                            <label>Time validity invitations (days)</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>sponsorship/adminhtml_system_config_backend_sponsorship_entier</backend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sponsor_invitation_validity>
+                        <time_before_boost translate="label">
+                            <label>Time to send it automatically (days)</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>sponsorship/adminhtml_system_config_backend_sponsorship_entier</backend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </time_before_boost>
+                        <max_recipients translate="label">
+                            <label>Max invitations</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>sponsorship/adminhtml_system_config_backend_sponsorship_entier</backend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_recipients>
+                        <template translate="label">
+                            <label>Email Template</label>                			
+                			<frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template>
+                    </fields>
+                </invitation>
+                <coupon translate="label">
+                    <label>Voucher exchange mail options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <template translate="label">
+                            <label>Email Template</label>                                         			
+                			<frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template>
+                    </fields>
+                </coupon>
+            	<open_inviter translate="label comment">
+                    <label>Open Inviter options</label>                                        
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+		            	<open_inviter_enabled>
+		            		<comment><![CDATA[Allows customers to import addressbook/contacts from different email providers like Yahoo, Gmail, Hotmail, Live etc. using different CMS software like Drupal, Joomla etc. or forum software like PHPBB, SMF etc. Learn more on <a href='http://openinviter.com'>openinviter.com</a>]]></comment>
+                            <label>Activated</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+		            	</open_inviter_enabled>
+		            	<username>
+                            <label>Username</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>sponsorship/adminhtml_system_config_backend_sponsorship_openinviter</backend_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+		            	</username>
+		            	<private_key>
+                            <label>Private Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+		            	</private_key>
+            		</fields>
+            	</open_inviter>
+            </groups>
+        </sponsorship>
+    </sections>
+</config>
