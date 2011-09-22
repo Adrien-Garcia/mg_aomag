@@ -31,10 +31,10 @@ INSERT INTO `{$this->getTable('cms_page')}`
         `update_time`, `is_active`, `sort_order`, `layout_update_xml`, `custom_theme`, `custom_theme_from`,
         `custom_theme_to`)
 VALUES (
-'Sample of sponsorship principles', 'two_columns_right', 'Sponsorship', 'Information on sponsorship', 'sponsorship_info',
-'Sample of sponsorship principles',
- '<p>By sponsoring friends you can earn:</p>\r\n<ul class=\"disc\">\r\n<li>Cash</li>\r\n<li>Vouchers</li>\r\n</ul>\r\n<p>Every time one of your godson order, you win 5% of its order !</p>\r\n<p>But that\'s not all, if your godson sponsors too, you earn 50% of what your godson has won...</p>\r\n<p>For example,</p>\r\n<ul class=\"disc\">\r\n<li>your godson place an order of 100 euros (you win 5 points)</li>\r\n<li>your godson sponsors 2 friends who order 100 euros each (you win 5 points)</li>\r\n<li>the godchildren of your godson each sponsor 2 people who order 100 euros each (you win 5 points)...</li>\r\n</ul>\r\n<p>Then you can exchange your points into cash or vouchers.</p>\r\n<p style=\"text-align:right;\"><a href=\"../sponsorship\">Yes I want sponsors friends to earn cash or vouchers !</a></p>',
- '$date', '$date', 1, 0, '', '', NULL , NULL
+'Principes du parrainage', 'two_columns_right', 'Parrainage', 'Informations sur le parrainage', 'sponsorship_info',
+'Principes du parrainage',
+ '<p>En parrainant vos amis vous pouvez gagner:</p>\r\n<ul class=\"disc\">\r\n<li>Cash</li>\r\n<li>Vouchers</li>\r\n</ul>\r\n<p>Every time one of your godson order, you win 5% of its order !</p>\r\n<p>But that\'s not all, if your godson sponsors too, you earn 50% of what your godson has won...</p>\r\n<p>For example,</p>\r\n<ul class=\"disc\">\r\n<li>your godson place an order of 100 euros (you win 5 points)</li>\r\n<li>your godson sponsors 2 friends who order 100 euros each (you win 5 points)</li>\r\n<li>the godchildren of your godson each sponsor 2 people who order 100 euros each (you win 5 points)...</li>\r\n</ul>\r\n<p>Then you can exchange your points into cash or vouchers.</p>\r\n<p style=\"text-align:right;\"><a href=\"../sponsorship\">Yes I want sponsors friends to earn cash or vouchers !</a></p>',
+ '$date', '$date', 0, 0, '', '', NULL , NULL
 );
 
 INSERT INTO `{$this->getTable('cms/page_store')}` (`page_id`, `store_id`) VALUES
