@@ -1567,8 +1567,7 @@ tr.summary-details-excluded { font-style:italic; }
 .my-wishlist textarea { display:block; width:97%; height:109px; }
 .my-wishlist .buttons-set { margin-top:2em; }
 .my-wishlist .buttons-set button.button { float:none; }
-.my-wishlist .buttons-set .btn-add span,
-.my-wishlist .buttons-set .btn-share span { border-color:#406a83; background:#618499; }
+.my-wishlist .btn-cart { margin: 10px 0; }
 #wishlist-table .add-to-links { white-space:nowrap; }
 
 /* My Tags */

@@ -24,6 +24,15 @@
 		
 		<!-- Le chien -->
 		<remove name="left.permanent.callout"/>
+		
+		<!-- Suppression des liens inutiles de la navigation -->
+		<reference name="customer_account_navigation" >
+            <action method="removeLink"><name>recurring_profiles</name></action>
+            <action method="removeLink"><name>tags</name></action>
+            <action method="removeLink"><name>billing_agreements</name></action>
+            <action method="removeLink"><name>downloadable_products</name></action>
+        </reference>
+		
 	</customer_account>
 	
 	  <catalog_product_compare_index translate="label">
