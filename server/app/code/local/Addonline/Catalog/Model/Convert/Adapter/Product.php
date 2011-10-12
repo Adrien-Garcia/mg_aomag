@@ -21,11 +21,17 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
      * @throws Mage_Core_Exception
      * @return bool
      */
-    public function saveRow(array $importData)
+    public function saveRow(array $importDataParam)
     {
         $product = $this->getProductModel()
             ->reset();
 
+   	    // Nettoyage du tableau d'entree, pour faciliter l'import de fichier dont les noms de colonne ont subi des modification (maj/minuscules, ajout d'espaces)            
+       	$importData = array();
+        foreach($importDataParam as $key => $value) {
+        	$importData[strtolower(trim($key))] = $value;
+        }            
+            
         if (empty($importData['store'])) {
             if (!is_null($this->getBatchParams('store'))) {
                 $store = $this->getStoreById($this->getBatchParams('store'));
@@ -219,6 +225,26 @@ class Addonline_Catalog_Model_Convert_Adapter_Product extends Mage_Catalog_Model
         }
         $product->setStockData($stockData);
 
+        // Added to remove all images for product before uploading new images
+        // => Il faut ajouter une colonne "remove_all_images" au fichier d'import avec comme valeur 'yes' si on veut effacÃ©s les images existantes de ce produit
+        if(isset($importData['remove_all_images']) && $importData['remove_all_images']=="yes" ){
+        	//check if gallery attribute exists then remove all images if it exists
+        	//Get products gallery attribute
+        	$attributes = $product->getTypeInstance()->getSetAttributes();
+        	if (isset($attributes['media_gallery'])) {
+        		$gallery = $attributes['media_gallery'];
+        		//Get the images
+        		$galleryData = $product->getMediaGallery();
+        		foreach($galleryData['images'] as $image){
+        			//If image exists
+        			if ($gallery->getBackend()->getImage($product, $image['file'])) {
+        				$gallery->getBackend()->removeImage($product, $image['file']);
+        			}
+        		}
+        	}
+        }
+        //END Remove Images
+                
         $mediaGalleryBackendModel = $this->getAttribute('media_gallery')->getBackend();
 
         $arrayToMassAdd = array();
