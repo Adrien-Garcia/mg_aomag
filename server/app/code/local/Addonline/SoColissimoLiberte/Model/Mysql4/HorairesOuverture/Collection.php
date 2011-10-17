@@ -14,9 +14,4 @@ class Addonline_SoColissimoLiberte_Model_Mysql4_HorairesOuverture_Collection
     public function _construct() {
         $this->_init('socolissimoliberte/horairesOuverture');
     }
-      
-    public function deleteAll(){
-        $db = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $result = $db->query("TRUNCATE TABLE mage_socolissimoliberte_horaire_ouverture");
-    }
 }

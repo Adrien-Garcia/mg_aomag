@@ -5,9 +5,11 @@ class Addonline_SoColissimoLiberte_Model_Batch {
 	private $_tabRelais;
 	
 	public function run() { 
-		$nom_rep = Mage::getStoreConfig('carriers/socolissimoliberte/rep_fichier_socolissimo', Mage::app()->getStore()->getId());
+		$_export_dir = Mage::getStoreConfig('carriers/socolissimoliberte/rep_fichier_socolissimo', Mage::app()->getStore()->getId());
 		
-	    $repertoire = opendir($nom_rep) or die("Erreur le repertoire $nom_rep existe pas");
+		$_export_path = BP . DS . $_export_dir;
+		
+	    $repertoire = opendir($_export_path) or die("Erreur le repertoire $_export_path existe pas");
 	    $file = null; 
 	    $timestamp = 0;
 	    while($nom_fichier = @readdir($repertoire)){
@@ -17,8 +19,8 @@ class Addonline_SoColissimoLiberte_Model_Batch {
 		       		continue;
 		       		
 		       // il faut prendre le fichier le plus récent dans le répértoire
-		       if( $timestamp < filemtime( $nom_rep.DS.$nom_fichier ) ){
-		       		$timestamp = filemtime( $nom_rep.DS.$nom_fichier );
+		       if( $timestamp < filemtime( $_export_path.DS.$nom_fichier ) ){
+		       		$timestamp = filemtime( $_export_path.DS.$nom_fichier );
 		       		$file = $nom_fichier;
 		       }
 	    	}
@@ -26,7 +28,7 @@ class Addonline_SoColissimoLiberte_Model_Batch {
 	    closedir($repertoire);
 
 	    if($file){
-	    	$this->_importRelais($nom_rep.DS.$file);
+	    	$this->_importRelais($_export_path.DS.$file);
 	    }else{
 	    	echo "Aucun fichier SoColissimo à importer";
 	    }
@@ -144,7 +146,7 @@ class Addonline_SoColissimoLiberte_Model_Batch {
 	
 	
 	function _viderTables(){
-		Mage::getModel('socolissimoliberte/horairesOuverture')->getCollection()->deleteAll();
-		Mage::getModel('socolissimoliberte/periodesFermeture')->getCollection()->deleteAll();
+		Mage::getResourceModel('socolissimoliberte/horairesOuverture')->deleteAll();
+		Mage::getResourceModel('socolissimoliberte/periodesFermeture')->deleteAll();
 	}
 }
