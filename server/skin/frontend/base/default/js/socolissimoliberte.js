@@ -134,7 +134,7 @@ function changeMap() {
 }
 var listRelaisSocolissimo=new Array();
 function loadListeRelais() {
-	jQuery("#img_load").show();
+	jQuery(".loader-wrapper").fadeTo(300, 1);
 	url = "/socolissimoliberte/ajax/listrelais?"
 	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
@@ -145,7 +145,7 @@ function loadListeRelais() {
 		listRelaisSocolissimo = response.items;
 		jQuery("#adresses_socolissimo").html(response.html);
 		showMap();
-		jQuery("#img_load").hide();
+		jQuery(".loader-wrapper").fadeTo(300, 0);
 	});
 	
 	
