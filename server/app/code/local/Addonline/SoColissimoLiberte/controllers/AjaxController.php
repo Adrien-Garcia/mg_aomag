@@ -25,13 +25,13 @@ class Addonline_SoColissimoLiberte_AjaxController extends Mage_Core_Controller_F
    		$cityssimo  = $this->getRequest()->getParam('cityssimo', false);
    		$commercant = $this->getRequest()->getParam('commercant', false);
    		$typesRelais = array();
-        if ($poste == 'true') {
+        if ($poste == 'true' || $poste === 'checked') {
     		$typesRelais[] = 'BPR';
     	} 
-    	if ($cityssimo == 'true') {
+    	if ($cityssimo == 'true' || $cityssimo === 'checked') {
     		$typesRelais[] = 'CIT';
     	} 
-    	if ($commercant == 'true') {
+    	if ($commercant == 'true' || $commercant === 'checked') {
     		$typesRelais[] = 'A2P';
     	} 
     	$dateLivraison = new Zend_Date();
@@ -45,7 +45,7 @@ class Addonline_SoColissimoLiberte_AjaxController extends Mage_Core_Controller_F
 	    $listrelais->prepareNearestByType($latitude, $longitude, $typesRelais, $dateLivraison);
    		
         foreach ($listrelais as $relais) {
-        	$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/commande/picto_".$relais->getType().".png"));
+        	$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
         	$relais->setData('type', $relais->getType());
         }
         $result = $listrelais->toArray();

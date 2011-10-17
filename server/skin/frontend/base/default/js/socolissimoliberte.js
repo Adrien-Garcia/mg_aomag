@@ -65,13 +65,13 @@ function socolissimoRadioCheck(input) {
 					  }
 				});
 		});
-		//mis à jour des checkbox de type de relais dans le layer selon le choix fait avant
+		//mise à jour des checkbox de type de relais dans le layer selon le choix fait avant
 		jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
-			check = jQuery(element);	
+			check = jQuery(element);
 			if (check.val() == input.value) {
-				check.attr("checked", "checked");
+				check.prop("checked", "checked");
 			} else {
-				check.attr("checked", "");
+				check.prop("checked", "");
 			}
 		});
 		//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
