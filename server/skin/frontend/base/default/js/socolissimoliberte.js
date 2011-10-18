@@ -45,12 +45,13 @@ function socolissimoRadioCheck(input) {
 		//initialisation de la liste déroulantes des villes "personnalisée"
 		jQuery("#socolissimo_city_select").change(function() {
 			jQuery(this).prevAll("span").eq(0).text(jQuery(this).find("option:selected").text());
+			jQuery(this).attr("selectedIndex", this.selectedIndex);	
 		});
 		//initilisation du rechargement de la liste déroulante des villes 
 		jQuery("#socolissimo_postcode").change(function(){
 				var postcode = this.value; 
 				jQuery.ajax({
-					  url: 'http://api.geonames.org/postalCodeSearchJSON?username=sylvain.pras&country=fr&postalcode='+postcode,
+					  url: 'http://api.geonames.org/postalCodeSearchJSON?username=addonline&country=fr&postalcode='+postcode,
 					  dataType:'jsonp',
 					  jsonpCallback: 'reloadCities',
 					  success: function(json){
