@@ -45,7 +45,6 @@ function socolissimoRadioCheck(input) {
 		//initialisation de la liste déroulantes des villes "personnalisée"
 		jQuery("#socolissimo_city_select").change(function() {
 			jQuery(this).prevAll("span").eq(0).text(jQuery(this).find("option:selected").text());
-			jQuery(this).attr("selectedIndex", this.selectedIndex);	
 		});
 		//initilisation du rechargement de la liste déroulante des villes 
 		jQuery("#socolissimo_postcode").change(function(){
@@ -55,13 +54,12 @@ function socolissimoRadioCheck(input) {
 					  dataType:'jsonp',
 					  jsonpCallback: 'reloadCities',
 					  success: function(json){
-						  var options = '';
+						  var options = '<option selected >Choisissez une commune</option>';
 						  for (i=0; i<json.postalCodes.length; i++){ 
 							  commune = json.postalCodes[i].placeName;
 							  options += '<option value="' + commune + '">' + commune + '</option>';
 						  }
 						  jQuery("#socolissimo_city_select").html(options);
-						  jQuery("#socolissimo_city_select").attr("selectedIndex", -1);		
 						  jQuery("#socolissimo_city").text("Choisissez une commune");
 					  }
 				});
@@ -110,7 +108,7 @@ function checkDisplayPhone(input) {
 }
 
 function geocodeAdresse() {
-	if (jQuery("#socolissimo_city_select option").length > 0 && jQuery("#socolissimo_city_select").attr("selectedIndex") == -1) {
+	if (jQuery("#socolissimo_city_select option").length > 0 && jQuery("#socolissimo_city_select")[0].selectedIndex == 0) {
 		alert("Veuillez sélectionner une commune");
 		return;
 	}
@@ -146,7 +144,7 @@ function loadListeRelais() {
 		listRelaisSocolissimo = response.items;
 		jQuery("#adresses_socolissimo").html(response.html);
 		showMap();
-		jQuery(".loader-wrapper").fadeTo(300, 0);
+		jQuery(".loader-wrapper").fadeTo(300, 0).hide();
 	});
 	
 	
@@ -258,11 +256,11 @@ function choisirRelais(index) {
 		radio = jQuery(element);	
 		if (radio.val() == relaisChoisi.type) {
 			checkDisplayPhone(radio);
-			radio.attr("checked", "checked");
+			radio.prop("checked", "checked");
 			radio.parent().next().html('<span>' + relaisChoisi.libelle + '</span>' + relaisChoisi.adresse + ' ' +relaisChoisi.code_postal + ' ' +relaisChoisi.commune);
 			jQuery("#socolissimo-location input[name=relais_socolissimo]").val(relaisChoisi.id_relais);
 		} else {
-			radio.attr("checked", "");
+			radio.prop("checked", "");
 			radio.parent().next().text("");
 		}
 	});
