@@ -16,7 +16,7 @@ class Addonline_AdvancedSlideshow_Block_Slideshow extends Mage_Catalog_Block_Pro
 		$id_slideshow = $this->getData("id_slideshow");
 		
 		$_slideshow_items = Mage::getModel('advancedslideshow/advancedslideshow_item')->getCollection();
-		$_slideshow_items->setOrder('sort_order', 'desc');
+		$_slideshow_items->setOrder('sort_order', 'asc');
 		$_slideshow_items->addFilter('id_slideshow', $id_slideshow);
 		
 		$block_data = $_slideshow_items->getData();
