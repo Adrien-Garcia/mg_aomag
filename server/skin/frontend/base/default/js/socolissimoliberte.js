@@ -90,6 +90,7 @@ function socolissimoRadioCheck(input) {
 					jQuery("#socolissimo-location input[name=type_socolissimo]").attr("checked","");
 				}
 			},
+			fixed: false,
 		    api: true 
 		  });
 		overlayApi.load();
