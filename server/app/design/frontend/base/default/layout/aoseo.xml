@@ -2,28 +2,60 @@
 
 <layout version="0.1.0">
 
-        <catalog_product_view>
+	<default>
+		<reference name="head">
+				<block type="page/html_head" name="head_url" as="head_url" template="aoseo/canonicalurl/head.phtml" />
+		</reference>
+	</default>
+
+<!--
+Product view, force to load Sitemap URL instead of current URL
+-->
+
+    <catalog_product_view>
 		<reference name="head">	
-			<block type="page/html_head_canonicalurl" name="head_url" as="head_url">
-				<action method="setTemplate" ifconfig="catalog/seo/product_canonical_tag"><template>aoseo/canonicalurl/head-product.phtml</template></action>
+			<action method="unsetChild" ifconfig="web/seo/products"><name>head_url</name></action>
+			<block type="page/html_head" name="head_url" as="head_url">
+				<action method="setTemplate" ifconfig="web/seo/products"><template>aoseo/canonicalurl/head-product.phtml</template></action>
 			</block>
 		</reference>
 	</catalog_product_view>
-        
-	<catalog_category_view>
-		<reference name="head">	
-			<block type="page/html_head_canonicalurl" name="head_url" as="head_url">
-				<action method="setTemplate" ifconfig="catalog/seo/category_canonical_tag"><template>aoseo/canonicalurl/head-category.phtml</template></action>
-			</block>
-		</reference>
-	</catalog_category_view>
-        
-        <review_product_list>
-		<reference name="head">
-			<block type="page/html_head_canonicalurl" name="head_url" as="head_url">
-				<action method="setTemplate" ifconfig="catalog/seo/product_canonical_tag"><template>aoseo/canonicalurl/head-product.phtml</template></action>
-			</block>
-		</reference>
-	</review_product_list>
 
+<!--
+Remove Canonincal URL header from search pages
+-->
+	<catalogsearch_result_index>
+		<reference name="head">	
+			<action method="unsetChild"><name>head_url</name></action>
+		</reference>
+	</catalogsearch_result_index>
+
+	<catalogsearch_advanced_index>
+		<reference name="head">	
+			<action method="unsetChild"><name>head_url</name></action>
+		</reference>
+	</catalogsearch_advanced_index>
+
+	<catalogsearch_advanced_result>
+		<reference name="head">	
+			<action method="unsetChild"><name>head_url</name></action>
+		</reference>
+	</catalogsearch_advanced_result>
+
+<!--
+Remove Canonincal URL header from checkout pages
+-->
+
+	 <checkout_cart_index>
+		<reference name="head">	
+			<action method="unsetChild"><name>head_url</name></action>
+		</reference>
+	</checkout_cart_index>
+
+	<checkout_onepage_index>
+		<reference name="head">	
+			<action method="unsetChild"><name>head_url</name></action>
+		</reference>
+	</checkout_onepage_index>
+	
 </layout>

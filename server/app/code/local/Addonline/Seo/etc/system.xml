@@ -38,76 +38,35 @@
                             <show_in_store>1</show_in_store>
                         </products>
 					</fields>
-					<fields>
-						<categories translate="label">
-                            <label>Use for Categories pages sitemap URL for canonical URL's</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>11</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </categories>
-					</fields>
                 </seo>
 			</groups>
         </web>
         
-        <catalog translate="label" module="catalog">
+        <catalog translate="label" >
         	<groups>
-                <seo translate="label">
-                    <label>Search Engine Optimizations</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>500</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <category_canonical_tag translate="label">
-                            <label>Use Canonical Link Meta Tag For Categories</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>7</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </category_canonical_tag>
-                        <product_canonical_tag translate="label">
-                            <label>Use Canonical Link Meta Tag For Products</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>8</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </product_canonical_tag>
-					</fields>
-				</seo>
-			</groups>
-		</catalog>
-        
-        <design translate="label" module="seo">
-        	<groups>
-        		<head translate="label">
+        		<seo translate="label">
         			<fields>
-                        <title_product translate="label">
-                            <label>Product Title</label>
+                        <title_product translate="label comment" module="seo">
+                            <label>Product Title Template</label>
+                            <comment>You can use the variables {{name}}, {{sku}}, {{category.name}}, {{parent.name}} and {{brand}} in this template</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </title_product>
-                        <description_product translate="label">
-                            <label>Product Description</label>
+                        <description_product translate="label comment" module="seo">
+                            <label>Product Description Template</label>
+                            <comment>You can use the variables {{name}}, {{sku}}, {{category.name}}, {{parent.name}} and {{brand}} in this template</comment>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>105</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </description_product>
-                        <keywords_product translate="label">
-                            <label>Product Keywords</label>
+                        <keywords_product translate="label comment" module="seo">
+                            <label>Product Keywords Template</label>
+                            <comment>You can use the variables {{name}}, {{sku}}, {{category.name}}, {{parent.name}} and {{brand}} in this template</comment>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
@@ -115,24 +74,27 @@
                             <show_in_store>1</show_in_store>
                         </keywords_product>
                         
-                        <title_category translate="label">
-                            <label>Category Title</label>
+                        <title_category translate="label comment" module="seo">
+                            <label>Category Title Template</label>
+                            <comment>You can use the variables {{category.name}} and {{parent.name}} in this template</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>115</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </title_category>
-                        <description_category translate="label">
-                            <label>Category Description</label>
+                        <description_category translate="label comment" module="seo">
+                            <label>Category Description Template</label>
+                            <comment>You can use the variables {{category.name}} and {{parent.name}} in this template</comment>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </description_category>
-                        <keywords_category translate="label">
-                            <label>Category Keywords</label>
+                        <keywords_category translate="label comment" module="seo">
+                            <label>Category Keywords Template</label>
+                            <comment>You can use the variables {{category.name}} and {{parent.name}} in this template</comment>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>125</sort_order>
                             <show_in_default>1</show_in_default>
@@ -140,8 +102,8 @@
                             <show_in_store>1</show_in_store>
                         </keywords_category>
         			</fields>
-        		</head>
+        		</seo>
         	</groups>
-        </design>
+        </catalog>
     </sections>
 </config>

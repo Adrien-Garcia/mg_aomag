@@ -11,18 +11,6 @@
                 <class>Addonline_Seo_Model</class>
             </seo>
         </models>
-	    <!-- 
-	    <resources>
-            <seo_setup>
-                <setup>
-                    <module>Addonline_Seo</module>
-                </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
-            </seo_setup>
-        </resources>
-         -->
 		<helpers>
             <seo>
                 <class>Addonline_Seo_Helper</class>
@@ -32,17 +20,9 @@
 		<blocks>
 			<page>
 				<rewrite>
-					<html_head_canonicalurl>Addonline_Seo_Block_Head_Canonicalurl</html_head_canonicalurl>
+					<html_head>Addonline_Seo_Block_Head</html_head>
 				</rewrite>
 			</page>
-			<!-- 
-			<catalog>
-				<rewrite>
-					<category_view>Addonline_Seo_Block_Catalog_Category_View</category_view>
-					<product_view>Addonline_Seo_Block_Catalog_Product_View</product_view>
-				</rewrite>
-			</catalog>
-			 -->
 		</blocks>
 		
 	</global>
@@ -67,46 +47,30 @@
             </controller_action_layout_generate_blocks_after>
         </events>
 	</frontend>
-	<!--  
 	<adminhtml>
 		<translate>
             <modules>
-                <Addonline_Seo>
+                <seo>
                      <files>
                           <default>Addonline_Seo.csv</default>
                      </files>
-                </Addonline_Seo>
+                </seo>
             </modules>
         </translate>	
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <seo>
-                                            <title>CanonicalUrl Section</title>
-                                        </seo>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
     </adminhtml>
 	<default>
+        <catalog>
+        	<seo>
+        		<category_canonical_tag>1</category_canonical_tag>
+        		<product_canonical_tag>1</product_canonical_tag>
+        	</seo>
+        </catalog>
         <web>
             <seo>
                 <enabled>1</enabled>
 				<trailingslash>1</trailingslash>
 				<products>1</products>
-				<categories>1</categories>
             </seo>
         </web>
     </default>
-    -->
 </config>
