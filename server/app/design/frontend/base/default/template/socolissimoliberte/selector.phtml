@@ -1,4 +1,4 @@
-    <div id="socolissimo-location" <?php if(strpos($this->getAddressShippingMethod(), 'socolissimoliberte')!==0): ?>style="display:none"<?php endif;?>><div>
+    <div id="socolissimo-location" <?php if($this->dontShowSelector()): ?>style="display:none"<?php endif;?>><div>
     	
     		<dl class="left">
     			<dt>A votre domicile</dt>

@@ -63,6 +63,10 @@
                         </label>
                    <?php endif ?>
                 </li>
+                <?php /* inserttion du layer socolissimo dans le template available.phtml de base : */
+                if (strpos($_rate->getCode(), 'socolissimoliberte')===0 ) :?>
+                <?php echo $this->getChildHtml('socolissimoliberte') ?>
+                <?php endif; ?>
             <?php endforeach; ?>
             </ul>
         </dd>
@@ -94,5 +98,3 @@
 //]]>
 </script>
 <?php endif; ?>
-<?php /* inserttion du layer socolissimo dans le template available.phtml de base : */?>
-<?php echo $this->getChildHtml('socolissimoliberte') ?>

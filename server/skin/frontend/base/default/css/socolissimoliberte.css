@@ -93,6 +93,7 @@
 	font-size: 11px !important;
 	cursor: pointer;
 	color: #3b3836 !important;
+    font-weight: normal;
 }
 
 #socolissimo-location label span {
