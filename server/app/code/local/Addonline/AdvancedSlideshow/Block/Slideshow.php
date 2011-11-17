@@ -47,11 +47,9 @@ class Addonline_AdvancedSlideshow_Block_Slideshow extends Mage_Catalog_Block_Pro
 					$product->load($productId);
 					
 					$result[$id]['is_product'] = true;
-					$result[$id]['product']          = $product;
+					$result[$id]['product'] = $product;
 					$result[$id]['product']['name']  = $product->getName();
-					$result[$id]['product']['price'] = Mage::helper('core')->currency($product->getPrice());
 					$result[$id]['product']['url']   = Mage::helper('catalog/product')->getProductUrl($product);
-					
 					$result[$id]['product']['image'] = $product->getImageUrl();
 				}
 				else
