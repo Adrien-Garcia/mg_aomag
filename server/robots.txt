@@ -1,4 +1,11 @@
 User-agent: *
 Disallow: /admin/ # partie administration 
 Disallow: /*?SID # liens avec le paramètre  de session SID
+Disallow: /no-route/ # erreur 404
+Disallow: *order=
+Disallow: /wishlist/
+Disallow: /catalog/product_compare/
+Disallow: /catalogsearch/
+Disallow: /checkout/cart/
+Disallow: /customer/account/
 #Sitemap: http://www.mondomaine.com/sitemap.xml
