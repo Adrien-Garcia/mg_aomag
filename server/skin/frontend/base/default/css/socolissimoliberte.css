@@ -69,6 +69,13 @@
 	padding: 10px 0 0 0;
 }
 
+#socolissimo-location dt span {
+	display: block;
+	font-size: 11px;
+	color: #000;
+	font-weight: normal;	
+}
+
 #socolissimo-location dd.rendez-vous {
 	background-image: url(../images/socolissimo/picto_rendez-vous.png);
 }

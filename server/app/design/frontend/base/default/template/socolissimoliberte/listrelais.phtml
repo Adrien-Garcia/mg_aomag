@@ -9,7 +9,7 @@ foreach ($this->getListRelais() as $relais) : ?>
 		<?php echo $relais->getAdresse() ?><br />
 		<?php echo $relais->getCodePostal().' '.$relais->getCommune() ?>
 	</div>
-	<button type="button" class="btn_socolissimoChoisir button <?php echo $relais->getType();?>" onclick="choisirRelais('<?php echo $i; ?>')" ><span>Choisir ce <?php if ($relais->getType()=="poste"): ?>bureau de poste<?php elseif($relais->getType()=="commercant"):?>commerçant<?php elseif($relais->getType()=="cityssimo"):?>relais cityssimo<?php endif;?></span></button>
+	<button type="button" class="btn_socolissimoChoisir button <?php echo $relais->getType();?>" onclick="choisirRelais('<?php echo $i; ?>')" ><span>Choisir <?php if ($relais->getType()=="poste"): ?>ce bureau de poste<?php elseif($relais->getType()=="commercant"):?>ce commerçant<?php elseif($relais->getType()=="cityssimo"):?> cette consigne cityssimo<?php endif;?></span></button>
 </div>
 <?php 
 $i++;
