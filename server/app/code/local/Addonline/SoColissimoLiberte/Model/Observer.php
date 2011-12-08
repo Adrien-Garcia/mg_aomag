@@ -106,6 +106,7 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 	            $shippingAddress->setCollectShippingRates(true);
 	            $shippingAddress->collectShippingRates();
 	            
+	            $shippingAdress->setData('save_in_address_book', 0);
 	            $shippingAddress->save();
 	            
 	            $quote->collectTotals()->save();
@@ -193,6 +194,10 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 				    if (isset($shippingData['CEEMAIL'])) {
 			    		$observer->getEvent()->getOrder()->setSocoEmail($shippingData['CEEMAIL']);
 				    }
+				    
+			    	$shippingData = array();
+					$checkoutSession->setData('socolissimoliberte_shipping_data', $shippingData);
+				    
 		    	}
     	    } catch (Exception $e) {
     	    	Mage::Log('Failed to save so-colissimo data : '.print_r($shippingData, true));
@@ -209,7 +214,7 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
     	} elseif ($type=='rdv') {
     		return 'RDV';
     	} elseif ($type=='livraison') {
-    		return 'DOM';
+    		return Mage::getStoreConfig('carriers/socolissimoliberte/domicile_signature')?'DOS':'DOM';
     	} else {
     		return false;
     	}

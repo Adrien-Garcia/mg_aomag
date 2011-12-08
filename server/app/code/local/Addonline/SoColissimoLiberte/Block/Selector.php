@@ -59,4 +59,8 @@ class Addonline_SoColissimoLiberte_Block_Selector extends Mage_Core_Block_Templa
 		}		
 	}
 	
+	public function isDomicileAvecSignature() {
+		return Mage::getStoreConfig('carriers/socolissimoliberte/domicile_signature');
+	}
+	
 }

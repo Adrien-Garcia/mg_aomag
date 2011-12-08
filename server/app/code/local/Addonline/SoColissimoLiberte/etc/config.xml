@@ -13,11 +13,10 @@
 <config>
     <modules>
         <Addonline_SoColissimoLiberte>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
             <depends>
                 <Owebia_Shipping2 />
                 <Mage_Shipping />
-		        <Addonline_JQuery />
             </depends>
         </Addonline_SoColissimoLiberte>
     </modules>
