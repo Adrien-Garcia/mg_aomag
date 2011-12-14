@@ -15,9 +15,13 @@ class Addonline_AdvancedSlideshow_Block_Slideshow extends Mage_Catalog_Block_Pro
 	{
 		$id_slideshow = $this->getData("id_slideshow");
 		
+		$todayDate  = Mage::app()->getLocale()->date()->toString(Varien_Date::DATE_INTERNAL_FORMAT);
+        
 		$_slideshow_items = Mage::getModel('advancedslideshow/advancedslideshow_item')->getCollection();
-		$_slideshow_items->setOrder('sort_order', 'desc');
-		$_slideshow_items->addFilter('id_slideshow', $id_slideshow);
+		$_slideshow_items->addFieldToFilter('id_slideshow', $id_slideshow);
+		$_slideshow_items->addFieldToFilter('from_date', array('date' => true, 'to' => $todayDate));
+		$_slideshow_items->addFieldToFilter('to_date', array('date' => true, 'from' => $todayDate));
+		$_slideshow_items->getSelect()->order('sort_order', 'asc');
 		
 		$block_data = $_slideshow_items->getData();
 		$result = array();
@@ -43,11 +47,9 @@ class Addonline_AdvancedSlideshow_Block_Slideshow extends Mage_Catalog_Block_Pro
 					$product->load($productId);
 					
 					$result[$id]['is_product'] = true;
-					$result[$id]['product']          = $product;
+					$result[$id]['product'] = $product;
 					$result[$id]['product']['name']  = $product->getName();
-					$result[$id]['product']['price'] = Mage::helper('core')->currency($product->getPrice());
 					$result[$id]['product']['url']   = Mage::helper('catalog/product')->getProductUrl($product);
-					
 					$result[$id]['product']['image'] = $product->getImageUrl();
 				}
 				else

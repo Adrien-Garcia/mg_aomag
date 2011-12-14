@@ -535,11 +535,30 @@ ShippingMethod.prototype = {
             return false;
         }
 
+        //SOCOLISSIMOLIBERTE
         for (var i=0; i<methods.length; i++) {
             if (methods[i].checked) {
-                return true;
+        	    if (methods[i].value.startWith("socolissimoliberte")) {
+                    var typeSocos = document.getElementsByName('type_socolissimo');
+                    for (var i=0; i<typeSocos.length; i++) {
+                        if (typeSocos[i].checked) {
+                            return true;
+                        }
+                    }
+                    alert('Socolissimo : ' + Translator.translate('Please specify shipping method.'));
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
+        //original :
+        //for (var i=0; i<methods.length; i++) {
+        //    if (methods[i].checked) {
+        //        return true;
+        //    }
+        //}
+        //FIN SOCOLISSIMOLIBERTE
         alert(Translator.translate('Please specify shipping method.'));
         return false;
     },

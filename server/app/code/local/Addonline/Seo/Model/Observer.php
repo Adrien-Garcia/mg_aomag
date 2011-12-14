@@ -14,7 +14,6 @@ class Addonline_Seo_Model_Observer {
         	if ($headBlock = $layout->getBlock('head')) {
 				
                 //BALISES METAS DES PAGES PRODUITS
-                //TODO : 
                 // - récupérer la balise head du produit
                 // - récupérer la blise head générique produit : dans Systeme>Configuration> design/head/title_product, design/head/description_product, design/head/keywords_product
   				// - appliquer les données du produit aux balises génériques 
@@ -22,9 +21,9 @@ class Addonline_Seo_Model_Observer {
         	    if($layout->getBlock('product.info') && $headBlock = $layout->getBlock('head'))
         	    {
         	    	$this->setProductVariables();
-        	    	$_head_title_template = Mage::getStoreConfig('design/head/title_product');
-        	    	$_head_description_template = Mage::getStoreConfig('design/head/description_product');
-        	    	$_head_keywords_template = Mage::getStoreConfig('design/head/keywords_product');
+        	    	$_head_title_template = Mage::getStoreConfig('catalog/seo/title_product');
+        	    	$_head_description_template = Mage::getStoreConfig('catalog/seo/description_product');
+        	    	$_head_keywords_template = Mage::getStoreConfig('catalog/seo/keywords_product');
 					
         	    	$_original_title = $headBlock->getTitle();
         	    	$_original_description = $headBlock->getDescription();
@@ -48,31 +47,36 @@ class Addonline_Seo_Model_Observer {
         	    	
                 }
                 //BALISES METAS DES PAGES CATEGORIES
-                // TODO : idem produit
-				if($layout->getBlock('category.products') && $headBlock = $layout->getBlock('head'))
+                // - récupérer la balise head de la catégorie
+                // - récupérer la blise head générique catégorie : dans Systeme>Configuration> design/head/title_category, design/head/description_category, design/head/keywords_category
+  				// - appliquer les données de la category aux balises génériques 
+
+                if($layout->getBlock('category.products') && $headBlock = $layout->getBlock('head'))
         	    {
+        	    	            Mage::log("category observer set head");
+        	    	
         	    	$this->setCategoryVariables();
-        	    	$_head_title_template = Mage::getStoreConfig('design/head/title_category');
-        	    	$_head_description_template = Mage::getStoreConfig('design/head/description_category');
-        	    	$_head_keywords_template = Mage::getStoreConfig('design/head/keywords_category');
+        	    	$_head_title_template = Mage::getStoreConfig('catalog/seo/title_category');
+        	    	$_head_description_template = Mage::getStoreConfig('catalog/seo/description_category');
+        	    	$_head_keywords_template = Mage::getStoreConfig('catalog/seo/keywords_category');
 					
         	    	$_original_title = $headBlock->getTitle();
         	    	$_original_description = $headBlock->getDescription();
         	    	$_original_keywords = $headBlock->getKeywords();
         	    	
-        	        if( !trim($this->_category->getMetaTitle()) )
+        	        if( !trim($this->_category->getMetaTitle()) && trim($_head_title_template) )
         	    	{
         	    		$_title = $this->filter($_head_title_template);
         	    		$headBlock->setTitle($_title);
         	    	}
         	    	
-        	        if( !trim($this->_category->getMetaDescription()) )
+        	        if( !trim($this->_category->getMetaDescription()) && trim($_head_description_template) )
         	    	{
         	    		$_description = $this->filter($_head_description_template);
         	    		$headBlock->setDescription($_description);
         	    	}
         	    	
-        	        if( !trim($this->_category->getMetaKeyword()) )
+        	        if( !trim($this->_category->getMetaKeyword())  && trim($_head_keywords_template) )
         	    	{
         	    		$_keywords = $this->filter($_head_keywords_template);
         	    		$headBlock->setKeywords($_keywords);
@@ -108,9 +112,9 @@ class Addonline_Seo_Model_Observer {
         
 		public function filter($value)
     	{
-    	    foreach($this->_templateVars as $var => $replacement)
+    		foreach($this->_templateVars as $var => $replacement)
 			{
-        		$value = preg_replace('#'.$var.'#is', $replacement, $value );
+				$value = preg_replace('#'.$var.'#is', $replacement, $value );
         	}
     		return $value;
     	}

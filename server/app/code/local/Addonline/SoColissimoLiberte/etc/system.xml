@@ -76,7 +76,7 @@
 						</stop_to_first_match>
 						<rdv_conditions translate="label comment">
 							<label>Conditions Rendez-vous</label>
-							<comment>Liste des codes portaux (séparés par des virgules) pour lesquels la prise de rendez-vous est possible</comment>
+							<comment>Liste des codes postaux (séparés par des virgules) pour lesquels la prise de rendez-vous est possible</comment>
 							<frontend_type>text</frontend_type>
 							<sort_order>8</sort_order>
 							<show_in_default>1</show_in_default>
