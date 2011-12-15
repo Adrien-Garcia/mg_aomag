@@ -31,11 +31,12 @@ class Addonline_Catalog_Block_Product_Promotion extends Mage_Catalog_Block_Produ
      */
     public function getCacheKeyInfo()
     {
+    	$currentCurrencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
         $currentCategoryId=0;
     	if ($category = $this->getCurrentCategory()) {
 			$currentCategoryId=$category->getId();
 		}
-
+		
 		return array(
            'CATALOG_PRODUCT_PROMOTION',
            Mage::app()->getStore()->getId(),
@@ -44,7 +45,8 @@ class Addonline_Catalog_Block_Product_Promotion extends Mage_Catalog_Block_Produ
            Mage::getDesign()->getTheme('template'),
            Mage::getSingleton('customer/session')->getCustomerGroupId(),
            'template' => $this->getTemplate(),
-           $this->getProductsCount()
+           $this->getProductsCount(),
+           $currentCurrencyCode
         );
     }
 

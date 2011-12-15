@@ -31,6 +31,7 @@ class Addonline_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abs
      */
     public function getCacheKeyInfo()
     {
+    	$currentCurrencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
     	$currentCategoryId=0;
     	if ($category = $this->getCurrentCategory()) {
 			$currentCategoryId=$category->getId();
@@ -44,7 +45,8 @@ class Addonline_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abs
            Mage::getDesign()->getTheme('template'),
            Mage::getSingleton('customer/session')->getCustomerGroupId(),
            'template' => $this->getTemplate(),
-           $this->getProductsCount()
+           $this->getProductsCount(),
+           $currentCurrencyCode
         );
     }
 
