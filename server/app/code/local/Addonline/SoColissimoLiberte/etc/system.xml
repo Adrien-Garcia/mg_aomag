@@ -109,6 +109,15 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</rep_fichier_socolissimo>						
+						<domicile_signature translate="label">
+							<label>Livrasion à domicile avec signature</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</domicile_signature>		
 						<sort_order translate="label">
 							<label>Sort order</label>
 							<frontend_type>text</frontend_type>

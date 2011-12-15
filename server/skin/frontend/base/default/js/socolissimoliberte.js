@@ -113,6 +113,14 @@ function geocodeAdresse() {
 		alert("Veuillez sÃ©lectionner une commune");
 		return;
 	}
+	if (jQuery("#socolissimo_postcode").val() == "") {
+		alert("Veuillez saisir un code postal");
+		return;
+	}
+	if (jQuery("#socolissimo_street").val() == "") {
+		alert("Veuillez saisir une adresse");
+		return;
+	}
 	var geocoder = new google.maps.Geocoder();
 	var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text();
 	//console.log('Search adresse : ' + searchAdress);
@@ -201,7 +209,7 @@ function infoBulleGenerator(relaisSocolissimo) {
 	contentString = '<div class="adresse">'+
     '<b>'+relaisSocolissimo.libelle+ '</b><br/>'+
     '<b>'+relaisSocolissimo.adresse+ ' ' + relaisSocolissimo.code_postal + ' ' + relaisSocolissimo.commune + '</b><br/>'+
-    '<b>Horaires d\'ouverture et de fermeture :</b>'+
+    '<b>Horaires d\'ouverture :</b>'+
     '<p>';
     if (relaisSocolissimo.horaire_lundi!='00:00-00:00 00:00-00:00') {contentString += '<b>Lundi:</b> '+ relaisSocolissimo.horaire_lundi + '<br/>'}
     if (relaisSocolissimo.horaire_mardi!='00:00-00:00 00:00-00:00') {contentString += '<b>Mardi:</b> '+ relaisSocolissimo.horaire_mardi + '<br/>'}
@@ -210,7 +218,9 @@ function infoBulleGenerator(relaisSocolissimo) {
     if (relaisSocolissimo.horaire_vendredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Vendredi:</b> '+ relaisSocolissimo.horaire_vendredi + '<br/>'}
     if (relaisSocolissimo.horaire_samedi!='00:00-00:00 00:00-00:00') {contentString += '<b>Samedi:</b> '+ relaisSocolissimo.horaire_samedi + '<br/>'}
     if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche}
+    if (relaisSocolissimo.indicateur_acces) { contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_handicap.png" />'; }
     contentString += '</p></div>';
+    contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enlève les horaires de l'après midi si ils sont vides
     
 	infowindow = new google.maps.InfoWindow({
 		content: contentString
@@ -270,3 +280,6 @@ function choisirRelais(index) {
 	return false;
 }
 
+Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
+    return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
+});

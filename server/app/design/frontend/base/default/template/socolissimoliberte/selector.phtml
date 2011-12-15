@@ -6,8 +6,13 @@
     				<label>
     					<input type="radio" name="type_socolissimo" value="livraison" onclick="socolissimoRadioCheck(this)" />
     					<span>mon domicile</span>
-    					Livraison &agrave; l'adresse de votre choix.<br/>
-    					En cas d'impossibilit&eacute;, votre colis sera mis &agrave; disposition en bureau de poste.
+    					<?php if ($this->isDomicileAvecSignature()) :?>
+    					<strong>Livraison &agrave; l'adresse de votre choix</strong> avec <strong>remise en mains propres.</strong><br/>
+    					En cas d'absence, votre colis sera mis &agrave; votre disposition en bureau de poste.
+						<?php else:?>
+    					<strong>Livraison &agrave; l'adresse de votre choix</strong> avec <strong>remise en bo&icirc;te aux lettres</strong> ou remise en mains propres selon les situations.<br/>
+    					En cas d'impossibilit&eacute;, votre colis sera mis &agrave; votre disposition en bureau de poste.
+						<?php endif;?>
     				</label>
     			</dd>
     			<?php if ($this->isRdvAvailable()): ?>

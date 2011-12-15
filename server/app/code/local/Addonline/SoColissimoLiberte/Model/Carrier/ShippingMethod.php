@@ -49,7 +49,7 @@ class Addonline_SoColissimoLiberte_Model_Carrier_ShippingMethod
 			$checkoutSession = Mage::getSingleton('checkout/session');
 			$shippingData = $checkoutSession->getData('socolissimoliberte_shipping_data');
 			if (isset($shippingData) && count($shippingData) > 0) {
-				if ($shippingData['DELIVERYMODE']=='DOM') {
+				if ($shippingData['DELIVERYMODE']=='DOM' || $shippingData['DELIVERYMODE']=='DOS') {
 		    		$text = $text.' – '.Mage::helper('socolissimoliberte')->__("Shipping at home");
 		    	} else if ($shippingData['DELIVERYMODE']=='RDV') {
 		    		$text = $text.' – '.Mage::helper('socolissimoliberte')->__("Making appointment");
