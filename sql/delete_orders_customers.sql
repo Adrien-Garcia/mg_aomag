@@ -19,6 +19,14 @@ TRUNCATE tag_summary;
 TRUNCATE wishlist;
 TRUNCATE log_quote;
 TRUNCATE report_event;
+TRUNCATE sales_bestsellers_aggregated_daily;
+TRUNCATE sales_bestsellers_aggregated_monthly;
+TRUNCATE sales_bestsellers_aggregated_yearly;
+TRUNCATE sales_invoiced_aggregated;
+TRUNCATE sales_invoiced_aggregated_order;
+TRUNCATE sales_order_aggregated_created;
+TRUNCATE sales_refunded_aggregated;
+TRUNCATE sales_refunded_aggregated_order;
 
 ALTER TABLE sales_flat_order AUTO_INCREMENT=1;
 ALTER TABLE sales_flat_order_grid AUTO_INCREMENT=1;
@@ -38,6 +46,14 @@ ALTER TABLE tag_summary AUTO_INCREMENT=1;
 ALTER TABLE wishlist AUTO_INCREMENT=1;
 ALTER TABLE log_quote AUTO_INCREMENT=1;
 ALTER TABLE report_event AUTO_INCREMENT=1;
+ALTER TABLE sales_bestsellers_aggregated_daily AUTO_INCREMENT=1;
+ALTER TABLE sales_bestsellers_aggregated_monthly AUTO_INCREMENT=1;
+ALTER TABLE sales_bestsellers_aggregated_yearly AUTO_INCREMENT=1;
+ALTER TABLE sales_invoiced_aggregated AUTO_INCREMENT=1;
+ALTER TABLE sales_invoiced_aggregated_order AUTO_INCREMENT=1;
+ALTER TABLE sales_order_aggregated_created AUTO_INCREMENT=1;
+ALTER TABLE sales_refunded_aggregated AUTO_INCREMENT=1;
+ALTER TABLE sales_refunded_aggregated_order AUTO_INCREMENT=1;
 
 -- reset customer
 TRUNCATE customer_address_entity; 
