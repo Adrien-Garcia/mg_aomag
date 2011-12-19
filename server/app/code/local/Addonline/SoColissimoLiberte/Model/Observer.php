@@ -106,7 +106,6 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 	            $shippingAddress->setCollectShippingRates(true);
 	            $shippingAddress->collectShippingRates();
 	            
-	            $shippingAdress->setData('save_in_address_book', 0);
 	            $shippingAddress->save();
 	            
 	            $quote->collectTotals()->save();

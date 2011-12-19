@@ -184,7 +184,10 @@ Checkout.prototype = {
 
     setStepResponse: function(response){
         if (response.update_section) {
-            $('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
+            //SOCOLISSIMO
+        	$$('body #layer_socolissimo').each(function(e){ e.remove(); });
+        	//FIN SOCOLISSIMO
+        	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
         }
         if (response.allow_sections) {
             response.allow_sections.each(function(e){
@@ -535,7 +538,7 @@ ShippingMethod.prototype = {
             return false;
         }
 
-        //SOCOLISSIMOLIBERTE
+        //SOCOLISSIMO
         for (var i=0; i<methods.length; i++) {
             if (methods[i].checked) {
         	    if (methods[i].value.startWith("socolissimoliberte")) {
@@ -558,7 +561,7 @@ ShippingMethod.prototype = {
         //        return true;
         //    }
         //}
-        //FIN SOCOLISSIMOLIBERTE
+        //FIN SOCOLISSIMO
         alert(Translator.translate('Please specify shipping method.'));
         return false;
     },
