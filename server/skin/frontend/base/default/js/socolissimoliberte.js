@@ -220,7 +220,7 @@ function infoBulleGenerator(relaisSocolissimo) {
     if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche}
     if (relaisSocolissimo.indicateur_acces) { contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_handicap.png" />'; }
     contentString += '</p></div>';
-    contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enlève les horaires de l'après midi si ils sont vides
+    contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enlï¿½ve les horaires de l'aprï¿½s midi si ils sont vides
     
 	infowindow = new google.maps.InfoWindow({
 		content: contentString
@@ -280,6 +280,6 @@ function choisirRelais(index) {
 	return false;
 }
 
-Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
+Validation.add('valid-telephone-portable', 'Veuillez saisir un numÃ©ro de tÃ©lÃ©phone portable correct', function(v) {
     return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
 });

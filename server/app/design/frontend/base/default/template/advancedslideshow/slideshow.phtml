@@ -2,7 +2,7 @@
 $result = $this->getSlideshowData();
 ?>
 			<div id="slideshow">
-	
+<?php if (count($result)>0 ):?>	
 				<div class="scrollable">
 	
 	
@@ -49,5 +49,5 @@ $_url = $block['url'];
 				<div class="navi"></div>
 				<a href="#" class="next"></a>
 				<a href="#" class="prev"></a>
-				
+				<?php endif;?>
 			</div>
