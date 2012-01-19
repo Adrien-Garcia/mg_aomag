@@ -137,7 +137,8 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
                	} else {
 	               	$shippingAdress->setData('telephone', $billingAddress->getData('telephone'));
                	}
-                $shippingAdress->save();
+                $shippingAdress->setData('save_in_address_book', 0);
+               	$shippingAdress->save();
 			}
 		}
 		
@@ -193,9 +194,6 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
 				    if (isset($shippingData['CEEMAIL'])) {
 			    		$observer->getEvent()->getOrder()->setSocoEmail($shippingData['CEEMAIL']);
 				    }
-				    
-			    	$shippingData = array();
-					$checkoutSession->setData('socolissimoflexibilite_shipping_data', $shippingData);
 				    
 		    	}
     	    } catch (Exception $e) {
