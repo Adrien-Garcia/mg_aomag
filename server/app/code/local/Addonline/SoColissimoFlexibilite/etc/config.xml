@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Addonline_SoColissimoFlexibilite
+ * 
+ * @category    Addonline
+ * @package     Addonline_SoColissimoFlexibilite
+ * @copyright   Copyright (c) 2011 Addonline
+ * @author 	    Addonline (http://www.Addonline.fr)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Addonline_SoColissimoFlexibilite>
+            <version>1.0.0</version>
+            <depends>
+                <Owebia_Shipping2 />
+                <Mage_Shipping />
+            </depends>
+        </Addonline_SoColissimoFlexibilite>
+    </modules>
+    
+    <global>
+    	<blocks>
+            <socolissimoflexibilite><class>Addonline_SoColissimoFlexibilite_Block</class></socolissimoflexibilite>
+        </blocks>
+    	<models>
+    		<socolissimoflexibilite>
+    			<class>Addonline_SoColissimoFlexibilite_Model</class>
+    		</socolissimoflexibilite>
+    	</models>	
+    	<helpers>
+            <socolissimoflexibilite>
+                <class>Addonline_SoColissimoFlexibilite_Helper</class>
+            </socolissimoflexibilite>
+        </helpers>
+    	<resources>
+    		<socolissimoflexibilite_setup>
+    			<setup>
+    				<module>Addonline_SoColissimoFlexibilite</module>
+    				 <class>Mage_Sales_Model_Mysql4_Setup</class>
+    			</setup>
+    			<connection>
+    				<use>core_setup</use>
+    			</connection>
+    		</socolissimoflexibilite_setup>
+    	</resources>
+    	<translate>
+            <modules>
+                <Addonline_SoColissimoFlexibilite>
+                    <files>
+                        <shipping>Mage_Shipping.csv</shipping>
+                        <owebia>Owebia_Shipping2.csv</owebia>
+                        <default>Addonline_SoColissimoFlexibilite.csv</default>
+                    </files>
+                </Addonline_SoColissimoFlexibilite>
+            </modules>
+        </translate>
+    </global>
+    
+    <frontend>
+    	<layout>
+            <updates>
+                <socolissimoflexibilite module="Addonline_SoColissimoFlexibilite">
+                    <file>socolissimoflexibilite.xml</file>
+                </socolissimoflexibilite>
+            </updates>
+        </layout>
+        
+        <routers>
+            <socolissimoflexibilite>
+                <use>standard</use>
+                <args>
+                    <module>Addonline_SoColissimoFlexibilite</module>
+                    <frontName>socolissimoflexibilite</frontName>
+                </args>
+            </socolissimoflexibilite>
+        </routers>
+        
+        <translate>
+            <modules>
+                <Addonline_SoColissimoFlexibilite>
+                    <files>
+                        <default>Addonline_SoColissimoFlexibilite.csv</default>
+                    </files>
+                </Addonline_SoColissimoFlexibilite>
+            </modules>
+        </translate>
+        
+	    <events> 
+	        <checkout_controller_onepage_save_shipping_method>
+                <observers>
+                    <socolissimoflexibilite_observer>
+                        <type>model</type>
+                        <class>socolissimoflexibilite/observer</class>
+                        <method>checkoutEventSocodata</method>
+                    </socolissimoflexibilite_observer>
+                </observers>
+            </checkout_controller_onepage_save_shipping_method>
+            <checkout_type_onepage_save_order>
+	            <observers>
+	                <laposte_socolissimosimplicite_observer>
+	                    <type>singleton</type>
+	            		<class>socolissimoflexibilite/observer</class>
+	            		<method>addSocoAttributesToOrder</method>
+	          		</laposte_socolissimosimplicite_observer>
+	        	</observers>
+	        </checkout_type_onepage_save_order>
+	    </events>
+    </frontend>
+    
+    <default>
+    	<carriers>
+    		<socolissimoflexibilite>
+    			<active>0</active>
+    			<title>So Colissimo</title>
+    			<model>Addonline_SoColissimoFlexibilite_Model_Carrier_ShippingMethod</model>    
+				<config><![CDATA[
+# So Colissimo (France, Monaco, Andorre)
+{
+	label: "So Colissimo",
+	code: "socolissimo",
+	destination: "FR,MC,AD",
+	fees: "{table {cart.weight} in 0.5:5.55, 1.0:6.80, 2.0:7.75, 3.0:8.70, 5.0:10.60, 7.0:12.50, 10.0:15.35, 15.0:17.45, 30.0:23.75}",
+}
+]]></config>
+				<tracking_view_url>http://www.coliposte.net/particulier/suivi_particulier.jsp?colispart={tracking_number}</tracking_view_url>
+				<display_when_unavailable>0</display_when_unavailable>
+				<stop_to_first_match>0</stop_to_first_match>
+				<rdv_conditions>75001,75002,75003,75004,75005,75006,75007,75008,75009,75010,75011,75012,75013,75014,75015,75016,75116,75017,75018,75019,75020</rdv_conditions>
+				<rdv_fees>4</rdv_fees>
+				<shipping_period>1</shipping_period>
+				<id_socolissimo>880514</id_socolissimo>
+				<password_socolissimo>DECO479</password_socolissimo>
+				<sort_order>1</sort_order>
+    		</socolissimoflexibilite>
+    	</carriers>
+    </default>
+</config>

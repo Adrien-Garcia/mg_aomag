@@ -27,7 +27,9 @@ class Addonline_SoColissimoLiberte_AjaxController extends Mage_Core_Controller_F
    		$typesRelais = array();
         if ($poste == 'true' || $poste === 'checked') {
     		$typesRelais[] = 'BPR';
-    	} 
+    		$typesRelais[] = 'CDI';
+    		$typesRelais[] = 'ACP';
+        } 
     	if ($cityssimo == 'true' || $cityssimo === 'checked') {
     		$typesRelais[] = 'CIT';
     	} 

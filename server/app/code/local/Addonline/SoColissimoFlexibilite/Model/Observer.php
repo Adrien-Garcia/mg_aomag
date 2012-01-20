@@ -1,15 +1,15 @@
 <?php
 /**
- * Addonline_SoColissimoLiberte
+ * Addonline_SoColissimoFlexibilite
  * 
  * @category    Addonline
- * @package     Addonline_SoColissimoLiberte
+ * @package     Addonline_SoColissimoFlexibilite
  * @copyright   Copyright (c) 2011 Addonline
  * @author 	    Addonline (http://www.addonline.fr)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
+class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
 {
 
 
@@ -21,18 +21,17 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 
     	
     	$adresseRelais = null;
-    	$socoShippingData = Mage::getSingleton('checkout/session')->getData('socolissimoliberte_shipping_data');
+    	$socoShippingData = Mage::getSingleton('checkout/session')->getData('socolissimoflexibilite_shipping_data');
     	//on positionne l'identitifant relais précédent si il existe
     	if (is_array($socoShippingData) && isset($socoShippingData['PRID'])) {
     		$adresseRelais = $socoShippingData['PRID'];
     	}
  		//on réinitilaise les données en session
     	$socoShippingData = array();
-		Mage::getSingleton('checkout/session')->setData('socolissimoliberte_shipping_data', $socoShippingData);
-    	if (strpos($request->getParam('shipping_method'),'socolissimoliberte_')===0) {
-			
+		Mage::getSingleton('checkout/session')->setData('socolissimoflexibilite_shipping_data', $socoShippingData);
+		if (strpos($request->getParam('shipping_method'),'socolissimoflexibilite_')===0) {
 	        if ($shippingAddress = $quote->getShippingAddress()) {
-	
+	        	
 	        	$arrayData = array();
 		        $street = array();
 		        $customerNotesArray = array();
@@ -63,36 +62,37 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 	            }
 	            
 	    		$idRelais = $request->getParam('relais_socolissimo');
-	    		$relais = Mage::getModel('socolissimoliberte/relais')->load($idRelais);
+	    		$relais = Mage::getModel('socolissimoflexibilite/service')->findPointRetraitAcheminementByID($idRelais);
 
-	    		if ($relais->getId()) {
+	    		if ($relais instanceof pointRetraitAcheminement) {
 	
 	        		$arrayData['customer_address_id'] = null;
 		            
 	        		$billingAddress = $quote->getBillingAddress();
 		            $arrayData['lastname'] = '('.$billingAddress->getFirstname().' '.$billingAddress->getLastname().')';
-		            $arrayData['firstname'] = $relais->getData('libelle');
-		            $arrayData['city'] = $relais->getData('commune');
-		            $arrayData['postcode'] =$relais->getData('code_postal');
+		            $arrayData['firstname'] = $relais->nom;
+		            $arrayData['city'] = $relais->localite;
+		            $arrayData['postcode'] =$relais->codePostal;
 		            $arrayData['telephone'] = '-';
 		            	        		
-		            $street['0'] = $relais->getData('adresse');
-		            $street['1'] = $relais->getData('complement_adr');
-		            $street['2'] = $relais->getData('lieu_dit');
-		            $street['3'] = $relais->getData('indice_localisation');
+		            $street['0'] = $relais->adresse1;
+		            $street['1'] = $relais->adresse2;
+		            $street['2'] = $relais->adresse3;
+		            $street['3'] = $relais->indiceDeLocalisation;
+		            
 	            	$shippingAddress->setStreet($street);
 		            
-		            $customerNotesArray['0']='Livraison relais colis : '.$relais->getIdentifiant();
+		            $customerNotesArray['0']='Livraison relais colis : '.$relais->identifiant;
 			        
-		            $socoShippingData['PRID'] = $relais->getIdentifiant();
+		            $socoShippingData['PRID'] = $relais->identifiant;
 			        
 	            	$arrayData['save_in_address_book'] = 0;
 	            
 	        	} else {
-		            $socoShippingData['PRID'] = '';
+		           Mage::log($relais);
 	        	}
 	        	//on initialise les données socolissimo en session
-	        	Mage::getSingleton('checkout/session')->setData('socolissimoliberte_shipping_data', $socoShippingData);
+	        	Mage::getSingleton('checkout/session')->setData('socolissimoflexibilite_shipping_data', $socoShippingData);
 	        	
 	        	if (! empty($customerNotesArray)) {
 		        	$arrayData['customer_notes'] = implode("\n",$customerNotesArray);
@@ -137,8 +137,8 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
                	} else {
 	               	$shippingAdress->setData('telephone', $billingAddress->getData('telephone'));
                	}
-               	$shippingAdress->setData('save_in_address_book', 0);
-                $shippingAdress->save();
+                $shippingAdress->setData('save_in_address_book', 0);
+               	$shippingAdress->save();
 			}
 		}
 		
@@ -155,7 +155,7 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
     {
     	try {
 		    	$checkoutSession = Mage::getSingleton('checkout/session');
-		    	$shippingData = $checkoutSession->getData('socolissimoliberte_shipping_data');
+		    	$shippingData = $checkoutSession->getData('socolissimoflexibilite_shipping_data');
 		    	
     			//on ne fait le traitement que si le mode d'expedition est socolissimo (et donc qu'on a recupere les donnees de socolissimo)
 		    	if (isset($shippingData) && count($shippingData) > 0) {
@@ -211,7 +211,7 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
     	} elseif ($type=='rdv') {
     		return 'RDV';
     	} elseif ($type=='livraison') {
-    		return Mage::getStoreConfig('carriers/socolissimoliberte/domicile_signature')?'DOS':'DOM';
+    		return Mage::getStoreConfig('carriers/socolissimoflexibilite/domicile_signature')?'DOS':'DOM';
     	} else {
     		return false;
     	}
