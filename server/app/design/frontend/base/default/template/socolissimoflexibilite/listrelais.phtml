@@ -10,7 +10,7 @@ foreach ($this->getListRelais() as $relais) : ?>
 ?>
 <div class="point_retrait" id="point_retrait_<?php echo $i; ?>">
 	<div class="distance">A <?php echo number_format (intval($relais->distanceEnMetre)/1000, 2, ',', '') ?>km</div>
-	<div class="point <?php echo $type ?>"><?php if (in_array($relais->typeDePoint, array("BPR","CDI", "ACP"))): ?>Bureau de poste<?php elseif($relais->typeDePoint=="A2P"):?>Commerçant<?php elseif($relais->typeDePoint=="CIT"):?>consigne cityssimo<?php endif;?></div>
+	<div class="point <?php echo $type ?>"><?php if (in_array($relais->typeDePoint, array("BPR","CDI", "ACP"))): ?>Bureau de poste<?php elseif($relais->typeDePoint=="A2P"):?>Commerçant<?php elseif($relais->typeDePoint=="CIT"):?>Consigne cityssimo<?php endif;?></div>
 	<?php if ($relais->accesPersonneMobiliteReduite) : ?>
 		<img class="handicap" alt="accessibles aux personnes en situation de handicap" src="<?php echo $this->getSkinUrl("images/socolissimo/picto_handicap.png"); ?>" />
 	<?php endif; ?>

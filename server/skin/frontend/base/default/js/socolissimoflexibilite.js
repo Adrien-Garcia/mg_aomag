@@ -218,6 +218,8 @@ function showMap() {
 
 //générateur d'infobulle
 function infoBulleGenerator(relaisSocolissimo) {
+	alert(relaisSocolissimo.listeConges);
+	console.log(relaisSocolissimo);
 	contentString = '<div class="adresse">';
 	contentString += '<b>'+relaisSocolissimo.nom+ '</b><br/>';
 	contentString += '<b>'+relaisSocolissimo.adresse1+ ' ' + relaisSocolissimo.codePostal + ' ' + relaisSocolissimo.localite + '</b><br/>';
@@ -236,11 +238,16 @@ function infoBulleGenerator(relaisSocolissimo) {
 	    if (relaisSocolissimo.horairesOuvertureSamedi!='00:00-00:00 00:00-00:00') {contentString += '<b>Samedi:</b> '+ relaisSocolissimo.horairesOuvertureSamedi + '<br/>'}
 	    if (relaisSocolissimo.horairesOuvertureDimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horairesOuvertureDimanche}
 	}
-    if (relaisSocolissimo.listeConges) {
-    	contentString +=  '<b>Périodes de congés :</b>'; 
-    	/* TODO si le WS renvoi bien l'information */
-    }
     if (relaisSocolissimo.accesPersonneMobiliteReduite) { contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_handicap.png" />'; }
+    if (relaisSocolissimo.listeConges) { contentString += '<br/><b>Periodes de fermeture :</b>'; 
+		for (i=0; i<relaisSocolissimo.listeConges.length; i++) {
+			fermeture = relaisSocolissimo.listeConges[i];
+			datedu = fermeture.deb_periode_fermeture;
+			dateau = fermeture.fin_periode_fermeture;
+			contentString += '<br/>du ' + datedu.substring(8,10) + '/' + datedu.substring(5,7) + '/' + datedu.substring(0,4) + ' au ' + dateau.substring(8,10) + '/' + dateau.substring(5,7) + '/' + dateau.substring(0,4);
+		}
+	}
+    
     contentString += '</p></div>';
     contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enl�ve les horaires de l'apr�s midi si ils sont vides
     

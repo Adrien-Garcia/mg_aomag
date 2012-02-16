@@ -100,13 +100,22 @@
             </checkout_controller_onepage_save_shipping_method>
             <checkout_type_onepage_save_order>
 	            <observers>
-	                <laposte_socolissimosimplicite_observer>
+	                <socolissimoflexibilite_observer>
 	                    <type>singleton</type>
 	            		<class>socolissimoflexibilite/observer</class>
 	            		<method>addSocoAttributesToOrder</method>
-	          		</laposte_socolissimosimplicite_observer>
+	          		</socolissimoflexibilite_observer>
 	        	</observers>
 	        </checkout_type_onepage_save_order>
+	        <checkout_onepage_controller_success_action>
+	            <observers>
+	                <socolissimoflexibilite_observer>
+	                    <type>singleton</type>
+	            		<class>socolissimoflexibilite/observer</class>
+	            		<method>resetSession</method>
+	          		</socolissimoflexibilite_observer>
+	        	</observers>
+	        </checkout_onepage_controller_success_action>
 	    </events>
     </frontend>
     
