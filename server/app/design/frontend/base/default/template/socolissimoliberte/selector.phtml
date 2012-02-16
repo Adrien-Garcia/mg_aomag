@@ -20,7 +20,7 @@
     				<label>
 	    				<input type="radio" name="type_socolissimo"  value="rdv" onclick="socolissimoRadioCheck(this)" />
 	    				<span>mon rendez-vous</span>
-	    				Livraison sur rendez-vous sur Paris pour un sumpl&eacute;ment de <?php echo $this->helper('core')->currency($this->getRdvShippingCost()) ?> entre 17h00 et 21h30 dans un créneau d'1h30 du lundi au vendredi.
+	    				Livraison sur rendez-vous sur Paris pour un suppl&eacute;ment de <?php echo $this->helper('core')->currency($this->getRdvShippingCost()) ?> entre 17h00 et 21h30 dans un créneau d'1h30 du lundi au vendredi.
 	    			</label>
     			</dd>
 	    		<?php endif;?>
@@ -58,7 +58,7 @@
     		
     	<label class="portable" style="display:none;">
 			<span class="poste" style="display:none;">Pour la livraison en bureau de poste, nous avons obligatoirement besoin d'un numéro de téléphone mobile pour vous informer de la disponibilité de votre colis. Merci de vérifier le numéro saisi ici :</span>
-			<span class="cityssimo" style="display:none;">Pour la livraison en consigne Cityssimo, nous avons obligatoirement besoin d'un numéro de téléphone mobile pour vous informer de la disponibilité de votre colis. Merci de vérifier le numéro saisi ici :</span>
+			<span class="cityssimo" style="display:none;">Pour la livraison en consigne Cityssimo, nous avons obligatoirement besoin d'un numéro de téléphone mobile pour vous envoyer vos codes permettant le retrait de vos colis. Merci de vérifier le numéro saisi ici :</span>
 			<span class="commercant" style="display:none;">Pour la livraison chez un commerçant, nous avons obligatoirement besoin d'un numéro de téléphone mobile pour pour vous informer de la disponibilité de votre colis. Merci de vérifier le numéro saisi ici :</span>
 			<span class="rdv" style="display:none;">Pour la livraison sur rendez-vous, nous avons besoin d'un numéro de téléphone mobile pour vous contacter et définir le créneau de livraison souhaité. Merci de vérifier le numéro saisi ici :</span>
 			<input type="text" name="tel_socolissimo" class="required-entry length_12 valid-telephone-portable" maxlength="12" />
@@ -145,13 +145,13 @@ ShippingMethod.prototype.validate = function() {
                 	<input id="check_poste" name="check_poste" type="checkbox" value="poste" onclick="changeMap()"/>
                 	<div class="txt2">
                     <b>mon bureau de poste</b><br />
-                    Horaires d’ouverture des bureaux de postes
+                    Horaires d’ouverture des bureaux de poste
                     </div>
                 </div>
                 <div class="choix choix3">
                 	<input id="check_commercant" name="check_commercant" type="checkbox" value="commercant" onclick="changeMap()" />
                 	<div class="txt2">
-                    <b>mon commerçants</b><br />
+                    <b>mon commerçant</b><br />
                     Commerces de proximité aux horaires étendus
                     </div>
                 </div>
