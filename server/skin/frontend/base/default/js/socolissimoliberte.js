@@ -219,6 +219,14 @@ function infoBulleGenerator(relaisSocolissimo) {
     if (relaisSocolissimo.horaire_samedi!='00:00-00:00 00:00-00:00') {contentString += '<b>Samedi:</b> '+ relaisSocolissimo.horaire_samedi + '<br/>'}
     if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche}
     if (relaisSocolissimo.indicateur_acces) { contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_handicap.png" />'; }
+    if (relaisSocolissimo.fermetures.totalRecords>0) { contentString += '<br/><b>Periodes de fermeture :</b>'; 
+		for (i=0; i<relaisSocolissimo.fermetures.items.length; i++) {
+			fermeture = relaisSocolissimo.fermetures.items[i];
+			datedu = fermeture.deb_periode_fermeture;
+			dateau = fermeture.fin_periode_fermeture;
+			contentString += '<br/>du ' + datedu.substring(8,10) + '/' + datedu.substring(5,7) + '/' + datedu.substring(0,4) + ' au ' + dateau.substring(8,10) + '/' + dateau.substring(5,7) + '/' + dateau.substring(0,4);
+		}
+	}
     contentString += '</p></div>';
     contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enl�ve les horaires de l'apr�s midi si ils sont vides
     

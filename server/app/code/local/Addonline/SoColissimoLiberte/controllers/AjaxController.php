@@ -49,6 +49,9 @@ class Addonline_SoColissimoLiberte_AjaxController extends Mage_Core_Controller_F
         foreach ($listrelais as $relais) {
         	$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
         	$relais->setData('type', $relais->getType());
+        	$listFermetures = Mage::getModel('socolissimoliberte/periodesFermeture')->getCollection();
+        	$listFermetures->addFieldToFilter('id_relais_fe',$relais->getId());
+        	$relais->setData('fermetures', $listFermetures->toArray());
         }
         $result = $listrelais->toArray();
         $result['html'] = $this->_getListRelaisHtml($listrelais);

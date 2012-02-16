@@ -40,7 +40,7 @@ class Addonline_SoColissimoLiberte_Model_Mysql4_Relais_Collection
 		//jointure sur le table des periodes de fermeture (pour exclure les relais fermés à la date de livraison)
 		$this->getSelect ()->joinLeft(array('f' => $this->getTable('socolissimoliberte/periodesFermeture')),
                     										'main_table.id_relais = f.id_relais_fe', array())
-							->where("f.deb_periode_fermeture IS NULL OR f.deb_periode_fermeture > STR_TO_DATE('$dateLivraisonDB', '%Y/%m/%d') OR f.fin_periode_fermeture < STR_TO_DATE('$dateLivraisonDB', '%Y/%m/%d')");
+							->where("f.deb_periode_fermeture IS NULL OR f.deb_periode_fermeture > STR_TO_DATE('$dateLivraisonDB', '%Y-%m-%d') OR f.fin_periode_fermeture < STR_TO_DATE('$dateLivraisonDB', '%Y-%m-%d')");
 				
 		$this->getSelect()->order('distance')
 							->limit(10);

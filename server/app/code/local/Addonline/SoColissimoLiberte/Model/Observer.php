@@ -201,6 +201,12 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
     	}	    
     }
   
+    public function resetSession($observer)
+    {
+		$checkoutSession = Mage::getSingleton('checkout/session');
+    	$checkoutSession->setData('socolissimoliberte_shipping_data', array());
+    }
+    
     protected function _getSocoProductCode($type) {
     	if ($type=='poste') {
     		return 'BPR';
