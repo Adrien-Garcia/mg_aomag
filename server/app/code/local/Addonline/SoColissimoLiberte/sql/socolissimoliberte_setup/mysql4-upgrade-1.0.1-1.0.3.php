@@ -11,7 +11,6 @@
 
 $installer = $this;
 $installer->startSetup();
-Mage::log($this);
 $this->addAttribute('quote_address', 'soco_product_code', array(
     'type'     => 'static',
     'label'    => 'Code livrasion socolissimo',
