@@ -13,7 +13,7 @@
 <config>
     <modules>
         <Addonline_SoColissimoFlexibilite>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
             <depends>
                 <Owebia_Shipping2 />
                 <Mage_Shipping />
@@ -89,7 +89,7 @@
         </translate>
         
 	    <events> 
-	        <checkout_controller_onepage_save_shipping_method>
+	        <sales_quote_collect_totals_before>
                 <observers>
                     <socolissimoflexibilite_observer>
                         <type>model</type>
@@ -97,7 +97,7 @@
                         <method>checkoutEventSocodata</method>
                     </socolissimoflexibilite_observer>
                 </observers>
-            </checkout_controller_onepage_save_shipping_method>
+            </sales_quote_collect_totals_before>
             <checkout_type_onepage_save_order>
 	            <observers>
 	                <socolissimoflexibilite_observer>

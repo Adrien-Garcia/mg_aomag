@@ -17,9 +17,11 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
     {
 
     	$quote = $observer->getEvent()->getQuote();
-    	$request = $observer->getEvent()->getRequest();
-
+    	$request = Mage::app()->getRequest();
     	
+    	$typeSocolissimo = $request->getParam('type_socolissimo');
+    	
+    	if ($typeSocolissimo) {
     	$adresseRelais = null;
     	$socoShippingData = Mage::getSingleton('checkout/session')->getData('socolissimoflexibilite_shipping_data');
     	//on positionne l'identitifant relais précédent si il existe
@@ -29,8 +31,9 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
  		//on réinitilaise les données en session
     	$socoShippingData = array();
 		Mage::getSingleton('checkout/session')->setData('socolissimoflexibilite_shipping_data', $socoShippingData);
-		if (strpos($request->getParam('shipping_method'),'socolissimoflexibilite_')===0) {
-	        if ($shippingAddress = $quote->getShippingAddress()) {
+	    if ($shippingAddress = $quote->getShippingAddress()) {
+	    	
+			if (strpos($shippingAddress->getShippingMethod(),'socolissimoflexibilite_')===0) {
 	        	
 	        	$arrayData = array();
 		        $street = array();
@@ -49,18 +52,13 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
 		        	$socoShippingData['CEPHONENUMBER'] = $telephone;
 	        	}   	
 
-	        	$type = $request->getParam('type_socolissimo');
-	        	$socoShippingData['DELIVERYMODE'] = $this->_getSocoProductCode($type);
-	        	if ($type == 'rdv') {
+	        	$socoShippingData['DELIVERYMODE'] = $this->_getSocoProductCode($typeSocolissimo);
+	        	 // marquer le mode RDV au niveau de l'adresse (calcul dépend du mode)
+	        	$arrayData['soco_product_code'] = $this->_getSocoProductCode($typeSocolissimo);
+	        	if ($typeSocolissimo == 'rdv') {
 	        		$customerNotesArray['0']='Livraison sur rendez-vous : '.$telephone;
-	        	    // marquer le mode RDV au niveau de l'adresse (calcul dépend du mode)
-	            	$arrayData['soco_mode_rdv'] = true;
 	            	$socoShippingData['CEDELIVERYINFORMATION'] = 'Prise de rendez-vous : '.$telephone;
-	            } else {
-	                // marquer le mode normal au niveau de l'adresse (calcul dépend du mode)
-	                $arrayData['soco_mode_rdv'] = false;
 	            }
-	            
 	    		$idRelais = $request->getParam('relais_socolissimo');
 	    		$relais = Mage::getModel('socolissimoflexibilite/service')->findPointRetraitAcheminementByID($idRelais);
 
@@ -89,7 +87,7 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
 	            	$arrayData['save_in_address_book'] = 0;
 	            
 	        	} else {
-		           Mage::log($relais);
+		            $socoShippingData['PRID'] = '';
 	        	}
 	        	//on initialise les données socolissimo en session
 	        	Mage::getSingleton('checkout/session')->setData('socolissimoflexibilite_shipping_data', $socoShippingData);
@@ -106,9 +104,7 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
 	            $shippingAddress->setCollectShippingRates(true);
 	            $shippingAddress->collectShippingRates();
 	            
-	            $shippingAddress->save();
-	            
-	            $quote->collectTotals()->save();
+
 	        }        
 		}
 		
@@ -138,10 +134,9 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
 	               	$shippingAdress->setData('telephone', $billingAddress->getData('telephone'));
                	}
                 $shippingAdress->setData('save_in_address_book', 0);
-               	$shippingAdress->save();
 			}
 		}
-		
+    	}
         return $this;
     }
 

@@ -25,7 +25,7 @@ class Addonline_SoColissimoFlexibilite_Model_Carrier_ShippingMethod
 
 		$rates = parent::collectRates($request);
 		$shippingAddress = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress();
-		if ($shippingAddress && $shippingAddress->getData('soco_mode_rdv')) {
+		if ($shippingAddress && $shippingAddress->getData('soco_product_code') == 'RDV') {
 			foreach ($rates->getAllRates() as $rate) {
 				if ($rate->getCarrier()===$this->_code) {
 					$rate->setPrice($rate->getPrice()+(int)Mage::getStoreConfig('carriers/socolissimoflexibilite/rdv_fees'));
