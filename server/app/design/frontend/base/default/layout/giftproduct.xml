@@ -24,6 +24,10 @@
 			<action method="setCartTemplate"><value>giftproduct/checkout/cart.phtml</value></action>
             <action method="setEmptyTemplate"><value>checkout/cart/noItems.phtml</value></action>
             <action method="chooseTemplate"/><!-- Il faut réappeler l'action choose template -->
+            <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>giftproduct/checkout/cart/item/default.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>giftproduct/checkout/cart/item/default.phtml</template></action>
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>giftproduct/checkout/cart/item/default.phtml</template></action>
+
             <block type="checkout/cart_giftproduct" name="checkout.cart.giftproduct" as="giftproduct" template="giftproduct/checkout/cart/giftproduct.phtml"/>
         </reference>
         

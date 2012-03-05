@@ -44,6 +44,15 @@
                 </Addonline_GiftProduct>
             </modules>
         </translate>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <Addonline_GiftProduct before="Mage_Checkout">Addonline_GiftProduct</Addonline_GiftProduct>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
     </frontend>
     <adminhtml>
         <translate>
@@ -56,4 +65,5 @@
             </modules>
         </translate>    
     </adminhtml>
+
 </config>
