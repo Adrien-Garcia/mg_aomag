@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<!-- 
+/** Magento  *  
+
+* NOTICE OF LICENSE  *  
+* This source file is subject to the Open Software License (OSL 3.0)  
+* that is bundled with this package in the file LICENSE.txt.  
+* It is also available through the world-wide-web at this URL:  
+* http://opensource.org/licenses/osl-3.0.php  
+* If you did not receive a copy of the license and are unable to  
+* obtain it through the world-wide-web, please send an email  
+* to license@magentocommerce.com so we can send you a copy immediately.  *  
+* @category   SprintSecure  
+* @package    Addonline_SprintSecure  
+* @copyright  Copyright (c) 2004-2007 Irubin Consulting Inc. DBA Varien (http://www.varien.com)  
+* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)  
+*/ -->
+<config>
+    <modules>
+        <Addonline_SprintSecure>
+            <version>0.1.0</version>
+        </Addonline_SprintSecure>
+    </modules>
+    <global>
+        <models>
+            <sprintsecure>
+                <class>Addonline_SprintSecure_Model</class>
+                <resourceModel>sprintsecure_mysql4</resourceModel>
+            </sprintsecure>
+            <sprintsecure_mysql4>
+                <class>Addonline_SprintSecure_Model_Mysql4</class>
+            </sprintsecure_mysql4>
+        </models>
+        <blocks>
+            <sprintsecure>
+                <class>Addonline_SprintSecure_Block</class>
+            </sprintsecure>
+        </blocks>
+        <helpers>
+            <sprintsecure>
+                <class>Addonline_SprintSecure_Helper</class>
+            </sprintsecure>
+        </helpers>
+        <resources>
+            <sprintsecure_setup>
+                <setup>
+                    <module>Addonline_SprintSecure</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </sprintsecure_setup>
+            <sprintsecure_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </sprintsecure_write>
+            <sprintsecure_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </sprintsecure_read>
+        </resources>
+        <payment>
+            <sprintsecure>
+                <!-- Liste des langages supportées -->
+                <languages>
+                    <fr>
+                        <code>fr</code>
+                        <name>Français</name>
+                    </fr>
+                    <en>
+                        <code>en</code>
+                        <name>Anglais</name>
+                    </en>
+                    <sp>
+                        <code>sp</code>
+                        <name>Espagnol</name>
+                    </sp>
+                    <ge>
+                        <code>ge</code>
+                        <name>Allemand</name>
+                    </ge>
+                    <it>
+                        <code>it</code>
+                        <name>Italien</name>
+                    </it>
+                </languages>
+                <!-- Liste des cartes de crédit supportées -->
+                <credit_card>
+                    <CB>
+                        <code>CB</code>
+                        <name>Carte Bleue</name>
+                    </CB>
+                    <MASTERCARD>
+                        <code>MASTERCARD</code>
+                        <name>MasterCard</name>
+                    </MASTERCARD>
+                    <VISA>
+                        <code>VISA</code>
+                        <name>Visa</name>
+                    </VISA>
+                    <AMEX>
+                        <code>AMEX</code>
+                        <name>American Express</name>
+                    </AMEX>
+                    <DINERS>
+                        <code>DINERS</code>
+                        <name>Diner's club</name>
+                    </DINERS>
+                    <JCB>
+                        <code>JCB</code>
+                        <name>Japanese Credit Bureau (JCB)</name>
+                    </JCB>
+                    <COFINOGA>
+                        <code>COFINOGA</code>
+                        <name>Cofinoga</name>
+                    </COFINOGA>
+                    <FINAREF>
+                        <code>FINAREF</code>
+                        <name>Finaref</name>
+                    </FINAREF>
+                </credit_card>
+                <!-- Liste des devises supportées -->
+                <currencies>
+                    <EUR>
+                        <code>978</code>
+                        <iso>EUR</iso>
+                        <name>Euro</name>
+                    </EUR>
+                    <USD>
+                        <code>840</code>
+                        <iso>USD</iso>
+                        <name>Dollar US</name>
+                    </USD>
+                    <CHF>
+                        <code>756</code>
+                        <iso>CHF</iso>
+                        <name>Franc Suisse</name>
+                    </CHF>
+                    <GBP>
+                        <code>826</code>
+                        <iso>GBP</iso>
+                        <name>Livre Sterling</name>
+                    </GBP>
+                    <CAD>
+                        <code>124</code>
+                        <iso>CAD</iso>
+                        <name>Dollar Canadien</name>
+                    </CAD>
+                    <JPY>
+                        <code>392</code>
+                        <iso>JPY</iso>
+                        <name>Yen japonais</name>
+                    </JPY>
+                    <MXP>
+                        <code>484</code>
+                        <iso>MXP</iso>
+                        <name>Peso mexicain</name>
+                    </MXP>
+                    <TRL>
+                        <code>792</code>
+                        <iso>TRL</iso>
+                        <name>Ancienne lire turque</name>
+                    </TRL>
+                    <AUD>
+                        <code>036</code>
+                        <iso>AUD</iso>
+                        <name>Dollar australien</name>
+                    </AUD>
+                    <NZD>
+                        <code>554</code>
+                        <iso>NZD</iso>
+                        <name>Dollar néo-zélandais</name>
+                    </NZD>
+                    <NOK>
+                        <code>578</code>
+                        <iso>NOK</iso>
+                        <name>Couronne norvégienne</name>
+                    </NOK>
+                    <BRC>
+                        <code>986</code>
+                        <iso>BRC</iso>
+                        <name>Cruzeiro Brésilien</name>
+                    </BRC>
+                    <ARP>
+                        <code>032</code>
+                        <iso>ARP</iso>
+                        <name>Peso argentin</name>
+                    </ARP>
+                    <KHR>
+                        <code>116</code>
+                        <iso>KHR</iso>
+                        <name>Riel Cambodge</name>
+                    </KHR>
+                    <TWD>
+                        <code>901</code>
+                        <iso>TWD</iso>
+                        <name>Dollar de Taiwan</name>
+                    </TWD>
+                    <DKK>
+                        <code>208</code>
+                        <iso>DKK</iso>
+                        <name>Couronne danoise</name>
+                    </DKK>
+					<CZK>
+						<code>203</code>
+						<iso>CZK</iso>
+						<name>Couronne tchèque</name>
+					</CZK>
+                    <SEK>
+                        <code>752</code>
+                        <iso>SEK</iso>
+                        <name>Couronne Suédoise</name>
+                    </SEK>
+                    <KRW>
+                        <code>410</code>
+                        <iso>KRW</iso>
+                        <name>Won sud-coréen</name>
+                    </KRW>
+                    <SGD>
+                        <code>702</code>
+                        <iso>SGD</iso>
+                        <name>Dollar de Singapour</name>
+                    </SGD>
+                </currencies>
+                <!-- Ip serveur sprintsecure pour la réponse automatique  -->
+                <authorized_ip>
+                    <value>193.56.46.18,193.56.46.96,193.56.46.97</value>
+                </authorized_ip>
+                <!-- Liste des mots clés du champ data -->
+                <data_field>
+                    <CARD_NO_LOGO>
+                        <code>CARD_NO_LOGO</code>
+                        <name>CARD_NO_LOGO</name>
+                    </CARD_NO_LOGO>
+                    <NO_COPYRIGHT>
+                        <code>NO_COPYRIGHT</code>
+                        <name>NO_COPYRIGHT</name>
+                    </NO_COPYRIGHT>
+                    <NO_DISPLAY_CARD>
+                        <code>NO_DISPLAY_CARD</code>
+                        <name>NO_DISPLAY_CARD</name>
+                    </NO_DISPLAY_CARD>
+                    <NO_DISPLAY_CANCEL>
+                        <code>NO_DISPLAY_CANCEL</code>
+                        <name>NO_DISPLAY_CANCEL</name>
+                    </NO_DISPLAY_CANCEL>
+                    <NO_SSL_SYMBOLS>
+                        <code>NO_SSL_SYMBOLS</code>
+                        <name>NO_SSL_SYMBOLS</name>
+                    </NO_SSL_SYMBOLS>
+                    <NO_WINDOWS_MSG>
+                        <code>NO_WINDOWS_MSG</code>
+                        <name>NO_WINDOWS_MSG</name>
+                    </NO_WINDOWS_MSG>
+                    <NO_DISPLAY_URL>
+                        <code>NO_DISPLAY_URL</code>
+                        <name>NO_DISPLAY_URL</name>
+                    </NO_DISPLAY_URL>
+                    <NO_RESPONSE_PAGE>
+                        <code>NO_RESPONSE_PAGE</code>
+                        <name>NO_RESPONSE_PAGE</name>
+                    </NO_RESPONSE_PAGE>
+                </data_field>
+            </sprintsecure>
+        </payment>
+    </global>
+    <frontend>
+        <secure_url>
+			<sprintsecure>/sprintsecure/payment</sprintsecure>
+        </secure_url>
+        <routers>
+            <sprintsecure>
+                <use>standard</use>
+                <args>
+                    <module>Addonline_SprintSecure</module>
+                    <frontName>sprintsecure</frontName>
+                </args>
+            </sprintsecure>
+        </routers>
+        <translate>
+            <modules>
+                <Addonline_SprintSecure>
+                    <files>
+                        <default>Addonline_SprintSecure.csv</default>
+                    </files>
+                </Addonline_SprintSecure>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <sprintsecure>
+                    <file>sprintsecure.xml</file>
+                </sprintsecure>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Addonline_SprintSecure>
+                    <files>
+                        <default>Addonline_SprintSecure.csv</default>
+                    </files>
+                </Addonline_SprintSecure>
+            </modules>
+        </translate>
+    </adminhtml>
+    <default>
+        <payment>
+            <sprintsecure>
+                <merchant_id></merchant_id>
+                <bin_request>request</bin_request>
+                <bin_response>response</bin_response>
+                <merchant_franfinance_id><![CDATA[a=fD7KgryFe%2F0%3D&b=yG3lzgubHOU%3D&c=FpuR0lGDTCI%3D&d=fsUaIcvwiKY%3D]]></merchant_franfinance_id>
+                <code_style_franfinance>COBR</code_style_franfinance>
+                <payment_action>Payment</payment_action>
+                <model>sprintsecure/method_sprintsecure</model>
+                <title>3x sans frais</title>
+                <allowspecific>0</allowspecific>
+            </sprintsecure>
+        </payment>
+        <logo>
+            <sprintsecure_standard>media/atos/CLEF.gif</sprintsecure_standard>
+        </logo>
+    </default>
+</config>
