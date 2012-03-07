@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>       
+	    <Addonline_OgoneDirectlink>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Addonline_OgoneDirectlink>  
+    </modules>
+</config>
