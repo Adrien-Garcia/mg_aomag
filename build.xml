@@ -62,7 +62,8 @@
 	</target>
 	
 	<target name="create_zip_socolissimoliberte" depends="">
-		<zip destfile="socolissimoliberte.zip" >
+		<property name="zip-name" value="socolissimoliberte_${DSTAMP}${TSTAMP}.zip" />
+		<zip destfile="${zip-name}" >
 			<zipfileset dir="server/app/code/local/Addonline/SoColissimoLiberte" prefix="app/code/local/Addonline/SoColissimoLiberte" ></zipfileset>
 			<zipfileset file="server/app/design/frontend/base/default/layout/socolissimoliberte.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
 			<zipfileset dir="server/app/design/frontend/base/default/template/socolissimoliberte" prefix="app/design/frontend/base/default/template/socolissimoliberte" ></zipfileset>
@@ -75,11 +76,12 @@
 			<zipfileset file="server/skin/frontend/base/default/js/opcheckout.js" prefix="skin/frontend/base/default/js" ></zipfileset>
 			<zipfileset dir="server/var/import/socolissimoliberte" prefix="var/import" ></zipfileset>
 		</zip>
-		<echo message="Refresh your project to see the generated socolissimoliberte.zip file"></echo>
+		<echo message="Refresh your project to see the generated ${zip-name}"></echo>
 	</target>
 
 	<target name="create_zip_socolissimoflexibilite" depends="">
-		<zip destfile="socolissimoflexibilite.zip" >
+		<property name="zip-name" value="socolissimoflexibilite_${DSTAMP}${TSTAMP}.zip" />
+		<zip destfile="${zip-name}" >
 			<zipfileset dir="server/app/code/local/Addonline/SoColissimoFlexibilite" prefix="app/code/local/Addonline/SoColissimoFlexibilite" ></zipfileset>
 			<zipfileset file="server/app/design/frontend/base/default/layout/socolissimoflexibilite.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
 			<zipfileset dir="server/app/design/frontend/base/default/template/socolissimoflexibilite" prefix="app/design/frontend/base/default/template/socolissimoflexibilite" ></zipfileset>
@@ -91,7 +93,7 @@
 			<zipfileset file="server/skin/frontend/base/default/js/socolissimoflexibilite.js" prefix="skin/frontend/base/default/js" ></zipfileset>
 			<zipfileset file="server/skin/frontend/base/default/js/opcheckout.js" prefix="skin/frontend/base/default/js" ></zipfileset>
 		</zip>
-		<echo message="Refresh your project to see the generated socolissimoflexibilite file"></echo>
+		<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
 	</target>
 	
 </project>
