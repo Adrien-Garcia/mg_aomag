@@ -13,12 +13,11 @@
 <config>
     <modules>
         <Addonline_SoColissimoLiberte>
-            <active>false</active>
+            <active>true</active>
             <codePool>local</codePool>
             <depends>
                 <Owebia_Shipping2 />
                 <Mage_Shipping />
-                <Addonline_JQuery />
             </depends>
         </Addonline_SoColissimoLiberte>
     </modules>
