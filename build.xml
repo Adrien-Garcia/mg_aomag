@@ -67,8 +67,8 @@
 			<zipfileset dir="server/app/code/local/Addonline/SoColissimoLiberte" prefix="app/code/local/Addonline/SoColissimoLiberte" ></zipfileset>
 			<zipfileset file="server/app/design/frontend/base/default/layout/socolissimoliberte.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
 			<zipfileset dir="server/app/design/frontend/base/default/template/socolissimoliberte" prefix="app/design/frontend/base/default/template/socolissimoliberte" ></zipfileset>
-			<zipfileset file="server/app/etc/modules/Addonline_SoColossimoLiberte.xml" prefix="app/etc/modules" ></zipfileset>
-			<zipfileset file="server/app/locale/fr_FR/Addonline_SoColossimoLiberte.csv" prefix="app/locale/fr_FR" ></zipfileset>
+			<zipfileset file="server/app/etc/modules/Addonline_SoColissimoLiberte.xml" prefix="app/etc/modules" ></zipfileset>
+			<zipfileset file="server/app/locale/fr_FR/Addonline_SoColissimoLiberte.csv" prefix="app/locale/fr_FR" ></zipfileset>
 			<zipfileset dir="server/js/jquery" prefix="js/jquery" ></zipfileset>
 			<zipfileset file="server/skin/frontend/base/default/css/socolissimoliberte.css" prefix="skin/frontend/base/default/css" ></zipfileset>
 			<zipfileset dir="server/skin/frontend/base/default/images/socolissimo" prefix="skin/frontend/base/default/images/socolissimo" ></zipfileset>
