@@ -483,3 +483,21 @@
 	display: block;
 	margin: auto;
 }
+
+.onestepcheckout-location > div{
+	background: none !important;
+}
+
+.onestepcheckout-location-dl{
+	width: 100% !important;
+}
+
+.onestepcheckout-location .portable input {
+	top: 77px !important;
+	width: 35% !important;	
+	right: 2px !important;	
+}
+
+.onestepcheckout-location .portable span {	
+	width: 100% !important;		
+}

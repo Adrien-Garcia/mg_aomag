@@ -1,6 +1,6 @@
-    <div id="socolissimo-location" <?php if($this->dontShowSelector()): Mage::log('display pas'); ?>style="display:none"<?php endif;?>><div>
+    <div id="socolissimo-location" class="onestepcheckout-location" <?php if($this->dontShowSelector()):?>style="display:none"<?php endif;?>><div>
     	
-    		<dl class="left">
+    		<dl class="onestepcheckout-location-dl">
     			<dt>Chez vous <span>ou toute autre adresse postale</span></dt>
     			<dd class="chez-vous">
     				<label>
@@ -24,8 +24,6 @@
 	    			</label>
     			</dd>
 	    		<?php endif;?>
-    		</dl>
-    		<dl class="right">
     			<dt>Dans un point de retrait &agrave; proximit&eacute; <span>de votre domicile, de votre lieu de travail ou de vacances</span></dt>
     			<dd class="cityssimo">
     				<label >

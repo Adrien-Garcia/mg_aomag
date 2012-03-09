@@ -182,24 +182,24 @@ function showMap() {
 	});
 	var init = false;
 	google.maps.event.addListener(map, 'tilesloaded', function () {
-		if (!init){
-			for (i=0; i<listRelaisSocolissimo.length; i++) {
-				relaisSocolissimo = listRelaisSocolissimo[i];
-				var relaisPosition =  new google.maps.LatLng(relaisSocolissimo.latitude,relaisSocolissimo.longitude);
+		if (!init){			
+			for (icounter=0; icounter<listRelaisSocolissimo.length; icounter++) {					
+				relaisSocolissimo = listRelaisSocolissimo[icounter];				
+				var relaisPosition =  new google.maps.LatLng(relaisSocolissimo.latitude,relaisSocolissimo.longitude);				
 				marker = new google.maps.Marker({
 				    map: map, 
 				    position: relaisPosition,
 				    title : relaisSocolissimo.libelle,
 				    icon : relaisSocolissimo.urlPicto
-				});
+				});								
 				if (!map.getBounds().contains(relaisPosition)){
 					newBounds = map.getBounds().extend(relaisPosition);
 					map.fitBounds(newBounds);
-				}
-				infowindow=infoBulleGenerator(relaisSocolissimo);
-				attachClick(marker,infowindow, i);			
-			}
-		}
+				}								
+				infowindow=infoBulleGenerator(relaisSocolissimo);				
+				attachClick(marker,infowindow, icounter);								
+			}			
+		}		
 		init=true;
 	});
 }

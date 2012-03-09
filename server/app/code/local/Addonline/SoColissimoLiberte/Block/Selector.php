@@ -27,10 +27,14 @@ class Addonline_SoColissimoLiberte_Block_Selector extends Mage_Core_Block_Templa
      *    - the selected shipping method is not socolissimo
      *    - there's more than one shipping method
      ***/
-    public function dontShowSelector() {
+    public function dontShowSelector() {    	    	
+    	Mage::log('get shipping method = '.$this->getAddressShippingMethod());
+    	Mage::log('get parent block = '.count($this->getParentBlock()->getShippingRates()));
         if (strpos($this->getAddressShippingMethod(), 'socolissimoliberte')===0 || count($this->getParentBlock()->getShippingRates())==1) {
+        	Mage::log('return false');
             return false;
         }
+        Mage::log('return true');
         return true;
     }
 
