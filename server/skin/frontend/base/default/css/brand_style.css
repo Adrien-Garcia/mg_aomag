@@ -1,0 +1,6 @@
+@CHARSET "ISO-8859-1";
+/* Brands */
+.div_brand {border: 1px solid black; float: left; width: 150px; min-height: 150px; margin: 5px; position: relative;}
+	.div_brand .name_brand {display: block; background-color: #ddd; height: 35px; padding: 5px 0 0 5px; }
+	.div_brand img {margin: 0 auto; }
+	

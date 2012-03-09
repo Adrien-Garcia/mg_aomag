@@ -1,9 +1,17 @@
-<h4><?php echo $this->__('Brands') ?></h4>
+<h4><?php echo $this->__('Our Brands') ?></h4>
 <?php 
 $brandCollection = $this->getBrandCollection();
-foreach($brandCollection as $brand): ?>
-	<?php echo $brand->getId();?><br/>
-	<?php echo $brand->getNom();?><br/>
-	<img src="<?php echo $brand->getUrlImage() ?>" alt="<?php echo $brand->getNom() ?>"/><br/>
-	<a href="<?php echo $brand->getUrlKey() ?>">Voir les produits de la marque <?php echo $brand->getNom()?></a><br/>
+?>
+<div id="list_brand">
+<?php foreach($brandCollection as $brand): ?>
+	<div id="id_brand_<?php echo $brand->getId() ?>" class="div_brand">
+		<span class="name_brand"><?php echo $brand->getNom();?></span><br/>
+		<a href="/<?php echo $brand->getUrlKey() ?>"><img src="<?php echo $brand->getUrlImage() ?>" alt="<?php echo $brand->getNom() ?>"/></a><br/>
+		<p class="desc_brand">
+			<?php echo $brand->getDescription() ?><br/>
+			<a href="/<?php echo $brand->getUrlKey() ?>">Voir les produits de la marque <?php echo $brand->getNom()?></a><br/>
+		</p>
+	</div>
 <?php endforeach;?>
+</div>
+

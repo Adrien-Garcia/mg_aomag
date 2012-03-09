@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
     <default>
+    	<reference name="left">
+         <!--   <block type="catalog/navigation" name="catalog.leftnav" after="currency" template="catalog/navigation/left.phtml"/> -->
+        </reference>
     </default>
     <brand_index_index>
         <reference name="content">
@@ -9,12 +12,22 @@
     </brand_index_index>
     
     <brand_index_liste>
+    	<reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
         <reference name="content">
             <block type="brand/brand_list" name="brand_listbrand" template="brand/listbrand.phtml" />
         </reference>
     </brand_index_liste>
     
     <brand_index_marque>
+    	<reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
         <reference name="content">
             <block type="brand/brand" name="brand_singlebrand" template="brand/singlebrand.phtml">
             	<block type="catalog/product_list" name="product_list_byBrand" template="brand/product/list.phtml">
