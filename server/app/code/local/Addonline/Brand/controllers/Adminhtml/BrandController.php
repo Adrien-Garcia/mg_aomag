@@ -96,6 +96,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 			$model->setData($data)
 				->setId($this->getRequest()->getParam('id'));
 			
+			
 			try {
 				if ($model->getCreatedTime == NULL || $model->getUpdateTime() == NULL) {
 					$model->setCreatedTime(now())
@@ -105,6 +106,7 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 				}	
 				
 				$model->save();
+				$model->saveUrlRewrite($model);
 				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('brand')->__('Brand was successfully saved'));
 
 				if ($this->getRequest()->getParam('back')) {

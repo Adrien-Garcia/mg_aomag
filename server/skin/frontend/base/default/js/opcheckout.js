@@ -651,6 +651,8 @@ Payment.prototype = {
     init : function () {
         this.beforeInit();
         var elements = Form.getElements(this.form);
+        //Non affichage de la description de la méthode à l'initialisation de la partie paiement
+        document.getElementById("payment_form_sprintsecure").style.display = "none";
         if ($(this.form)) {
             $(this.form).observe('submit', function(event){this.save();Event.stop(event);}.bind(this));
         }
