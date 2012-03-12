@@ -32,9 +32,6 @@ class Addonline_Brand_Model_Brand extends Mage_Core_Model_Abstract
     	
     	$modelUrl = Mage::getModel("core/url_rewrite");
     	$modelUrl->loadByIdPath($id_path);
-    	
-    	Mage::Log('test '.$modelUrl->getId());
-    	
     	if($modelUrl->getIdPath() == $id_path) {
     		$modelUrl->setRequestPath($request_path);
     		$modelUrl->save();
@@ -43,7 +40,7 @@ class Addonline_Brand_Model_Brand extends Mage_Core_Model_Abstract
     		->setTargetPath($target_path)
     		->setRequestPath($request_path)
     		->setIsSystem(1)
-    		->setStoreId(1);
+    		->setStoreId(Mage::app()->getStore()->getStoreId());
     		 
     		$modelUrl->save();
     	}

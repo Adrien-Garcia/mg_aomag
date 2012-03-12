@@ -109,4 +109,27 @@
 			<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
 		</target>
 	
+	<target name="create_zip_brand" depends="">
+				<property name="zip-name" value="brand_${DSTAMP}${TSTAMP}.zip" />
+				<zip destfile="${zip-name}" >
+					<zipfileset dir="server/app/code/local/Addonline/Brand" prefix="app/code/local/Addonline/Brand" ></zipfileset>
+					<zipfileset file="server/app/design/frontend/base/default/layout/brand.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
+					<zipfileset dir="server/app/design/frontend/base/default/template/brand" prefix="app/design/frontend/base/default/template/brand" ></zipfileset>
+					<zipfileset file="server/app/etc/modules/Addonline_Brand.xml" prefix="app/etc/modules" ></zipfileset>
+					<zipfileset file="server/app/locale/fr_FR/Addonline_Brand.csv" prefix="app/locale/fr_FR" ></zipfileset>
+					<zipfileset file="server/skin/frontend/base/default/css/brand.css" prefix="skin/frontend/base/default/css" ></zipfileset>
+				</zip>
+				<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
+	</target>
+	
+	<target name="create_zip_reviewboost" depends="">
+					<property name="zip-name" value="reviewboost_${DSTAMP}${TSTAMP}.zip" />
+					<zip destfile="${zip-name}" >
+						<zipfileset dir="server/app/code/local/Addonline/ReviewBoost" prefix="app/code/local/Addonline/ReviewBoost" ></zipfileset>
+						<zipfileset file="server/app/etc/modules/Addonline_ReviewBoost.xml" prefix="app/etc/modules" ></zipfileset>
+						<zipfileset file="server/app/locale/fr_FR/template/email/sales/review_boost.html" prefix="app/locale/fr_FR/template/email/sales" ></zipfileset>
+					</zip>
+					<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
+		</target>
+	
 </project>
