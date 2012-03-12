@@ -23,11 +23,6 @@ class Addonline_Brand_Block_Brand extends Mage_Core_Block_Template
     		throw new Exception("idMarque non renseign&eacute;");
     	}
      	
-     	/* if (!$this->hasData('brand')) {
-     	 $this->setData('brand', Mage::registry('brand'));
-     	}
-     	return $this->getData('brand');*/
-     	
      }
         
 

@@ -82,10 +82,8 @@ class Addonline_Brand_Block_Adminhtml_Brand_Edit_Tab_Form extends Mage_Adminhtml
 
       $fieldset->addField('url_key', 'text', array(
           'label'     => Mage::helper('brand')->__('Url Key'),
-          'class'     => 'required-entry',
-          'required'  => true,
+          'required'  => false,
           'name'      => 'url_key',
-          'note'	  => Mage::helper('brand')->__("Please enter a lower-case value"),
       ));
      
 	 if ( Mage::registry('brand_data') ) {

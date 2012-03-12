@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
     <default>
-    	<reference name="left">
-         <!--   <block type="catalog/navigation" name="catalog.leftnav" after="currency" template="catalog/navigation/left.phtml"/> -->
-        </reference>
+    	<reference name="head">
+    		<action method="addCss"><stylesheet>css/brand.css</stylesheet></action>
+    	</reference>
     </default>
     <brand_index_index>
         <reference name="content">
