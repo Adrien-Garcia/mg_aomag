@@ -95,6 +95,9 @@ class Addonline_SoColissimoFlexibilite_Model_Service {
 	     	$weight += $item->getRowWeight();
      	}
      	$weight = round($weight*1000);
+     	if ($weight==0) {
+     		$weight=1;
+     	}
      	return $weight;
 	}
 

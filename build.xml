@@ -48,6 +48,7 @@
 			<zipfileset dir="server/app/design/adminhtml" prefix="${zip-name}/app/design/adminhtml">
 			</zipfileset>
 			<zipfileset dir="server/app/etc/modules" prefix="${zip-name}/app/etc/modules">
+				<exclude name="Addonline_SoColissimoLiberte.xml" />
 			</zipfileset>
 			<zipfileset dir="server/app/locale" prefix="${zip-name}/app/locale">
 			</zipfileset>
@@ -60,4 +61,53 @@
 		</zip>
 
 	</target>
+	
+	<target name="create_zip_socolissimoliberte" depends="">
+		<property name="zip-name" value="socolissimoliberte_${DSTAMP}${TSTAMP}.zip" />
+		<zip destfile="${zip-name}" >
+			<zipfileset dir="server/app/code/local/Addonline/SoColissimoLiberte" prefix="app/code/local/Addonline/SoColissimoLiberte" ></zipfileset>
+			<zipfileset file="server/app/design/frontend/base/default/layout/socolissimoliberte.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
+			<zipfileset dir="server/app/design/frontend/base/default/template/socolissimoliberte" prefix="app/design/frontend/base/default/template/socolissimoliberte" ></zipfileset>
+			<zipfileset file="server/app/etc/modules/Addonline_SoColissimoLiberte.xml" prefix="app/etc/modules" ></zipfileset>
+			<zipfileset file="server/app/locale/fr_FR/Addonline_SoColissimoLiberte.csv" prefix="app/locale/fr_FR" ></zipfileset>
+			<zipfileset dir="server/js/jquery" prefix="js/jquery" ></zipfileset>
+			<zipfileset file="server/skin/frontend/base/default/css/socolissimoliberte.css" prefix="skin/frontend/base/default/css" ></zipfileset>
+			<zipfileset dir="server/skin/frontend/base/default/images/socolissimo" prefix="skin/frontend/base/default/images/socolissimo" ></zipfileset>
+			<zipfileset file="server/skin/frontend/base/default/js/socolissimoliberte.js" prefix="skin/frontend/base/default/js" ></zipfileset>
+			<zipfileset file="server/skin/frontend/base/default/js/opcheckout.js" prefix="skin/frontend/base/default/js" ></zipfileset>
+			<zipfileset dir="server/var/import/socolissimoliberte" prefix="var/import" ></zipfileset>
+		</zip>
+		<echo message="Refresh your project to see the generated ${zip-name}"></echo>
+	</target>
+
+	<target name="create_zip_socolissimoflexibilite" depends="">
+		<property name="zip-name" value="socolissimoflexibilite_${DSTAMP}${TSTAMP}.zip" />
+		<zip destfile="${zip-name}" >
+			<zipfileset dir="server/app/code/local/Addonline/SoColissimoFlexibilite" prefix="app/code/local/Addonline/SoColissimoFlexibilite" ></zipfileset>
+			<zipfileset file="server/app/design/frontend/base/default/layout/socolissimoflexibilite.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
+			<zipfileset dir="server/app/design/frontend/base/default/template/socolissimoflexibilite" prefix="app/design/frontend/base/default/template/socolissimoflexibilite" ></zipfileset>
+			<zipfileset file="server/app/etc/modules/Addonline_SoColossimoFlexibilite.xml" prefix="app/etc/modules" ></zipfileset>
+			<zipfileset file="server/app/locale/fr_FR/Addonline_SoColossimoFlexibilite.csv" prefix="app/locale/fr_FR" ></zipfileset>
+			<zipfileset dir="server/js/jquery" prefix="js/jquery" ></zipfileset>
+			<zipfileset file="server/skin/frontend/base/default/css/socolissimoflexibilite.css" prefix="skin/frontend/base/default/css" ></zipfileset>
+			<zipfileset dir="server/skin/frontend/base/default/images/socolissimo" prefix="skin/frontend/base/default/images/socolissimo" ></zipfileset>
+			<zipfileset file="server/skin/frontend/base/default/js/socolissimoflexibilite.js" prefix="skin/frontend/base/default/js" ></zipfileset>
+			<zipfileset file="server/skin/frontend/base/default/js/opcheckout.js" prefix="skin/frontend/base/default/js" ></zipfileset>
+		</zip>
+		<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
+	</target>
+	
+	<target name="create_zip_sprintsecure" depends="">
+			<property name="zip-name" value="sprintsecure_${DSTAMP}${TSTAMP}.zip" />
+			<zip destfile="${zip-name}" >
+				<zipfileset dir="server/app/code/local/Addonline/SprintSecure" prefix="app/code/local/Addonline/SprintSecure" ></zipfileset>
+				<zipfileset dir="server/app/code/local/Addonline/Sales" prefix="app/code/local/Addonline/Sales" ></zipfileset>
+				<zipfileset dir="server/app/design/frontend/base/default/template/sprintsecure" prefix="app/design/frontend/base/default/template/sprintsecure" ></zipfileset>
+				<zipfileset file="server/app/etc/modules/Addonline_SprintSecure.xml" prefix="app/etc/modules" ></zipfileset>
+				<zipfileset file="server/app/locale/fr_FR/Addonline_SprintSecure.csv" prefix="app/locale/fr_FR" ></zipfileset>
+				<zipfileset file="server/skin/frontend/base/default/js/opcheckout.js" prefix="skin/frontend/base/default/js" ></zipfileset>
+			</zip>
+			<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
+		</target>
+	
 </project>
