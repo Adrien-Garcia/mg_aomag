@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Magento
  *
@@ -186,7 +186,7 @@ class Addonline_Ogonedirectlink_Model_Api extends Mage_Payment_Model_Method_Cc
 			$formFields['ECOM_SHIPTO_POSTAL_STREET_LINE1'] = $this->_translate($shippingAddress->getStreet1());
 			$formFields['ECOM_SHIPTO_POSTAL_STREET_LINE2'] = $this->_translate($shippingAddress->getStreet2());
 			$formFields['ECOM_SHIPTO_TELECOM_PHONE_NUMBER'] = $shippingAddress->getTelephone();
-			
+                        
 			$secretSet = '';
 			if (!$this->getConfig()->getNewHashingMethod()) {
 				// ANCIENNE FORME DE CALCUL DU SHA (compte ogone antérieur à Mai 2010 ou configuré avec "Main parameters only. ")
@@ -195,8 +195,10 @@ class Addonline_Ogonedirectlink_Model_Api extends Mage_Payment_Model_Method_Cc
 			} else {	        
 				// NOUVELLE FORME DE CALCUL DU SHA (compte ogone postérieur à Mai 2010 ou ou configuré avec "Each parameter followed by the pass phrase. ")
 				//AMOUNT=56900+++HASHKEY+++BRAND=VISA+++HASHKEY+++CARDNO=41XXXXXXXXXX1111+++HASHKEY+++CN=Sylvain PRAS+++HASHKEY+++COM=PHILIPS 32 PFL 6605H+++HASHKEY+++CURRENCY=EUR+++HASHKEY+++CVC=XXXX++HASHKEY+++ECOM_PAYMENT_CARD_VERIFICATION=XXXX++HASHKEY+++ED=0112+++HASHKEY+++EMAIL=sylvain.pras@addonline.fr+++HASHKEY+++LANGUAGE=fr+++HASHKEY+++OPERATION=RES+++HASHKEY+++ORDERID=29000034+++HASHKEY+++OWNERADDRESS=3 rue Fochier+++HASHKEY+++OWNERCTY=FR+++HASHKEY+++OWNERTELNO=0662740296+++HASHKEY+++OWNERTOWN=BOURGOIN+++HASHKEY+++OWNERZIP=38300+++HASHKEY+++PSPID=cobrason+++HASHKEY+++PSWD=XXXXXXXXXXXXXXXXXXXXXXXXX+++HASHKEY+++USERID=cobrasonapi+++HASHKEY+++
-				foreach ($formFields as $fieldName => $fieldValue) {
-					$secretSet .= ($fieldName."=".$formFields[$fieldName]. $this->getConfig()->getShaInCode());
+			ksort($formFields);
+                            foreach ($formFields as $fieldName => $fieldValue) {
+					if($fieldValue !=='') $secretSet .= ($fieldName."="./*$this->myUrlEncode(*/iconv("UTF-8", "ISO-8859-1", $formFields[$fieldName])/*). $this->myUrlEncode(*/.iconv("UTF-8", "ISO-8859-1", $this->getConfig()->getShaInCode())/*)*/);
+
 				}
 			}
 	        //Mage::log($secretSet);
@@ -363,7 +365,7 @@ class Addonline_Ogonedirectlink_Model_Api extends Mage_Payment_Model_Method_Cc
 		//Mage::log($formFields);
     	$tmpArray = array(); 
         foreach ($formFields as $key => $value) {
-            $tmpArray[] = $key . '=' . $this->myUrlEncode(iconv("UTF-8", "ISO-8859-1", $value));
+            if($value !=='') $tmpArray[] = $key . '=' . $this->myUrlEncode(iconv("UTF-8", "ISO-8859-1", $value));
         }
         $requestBody = implode('&', $tmpArray);
 
@@ -384,15 +386,14 @@ class Addonline_Ogonedirectlink_Model_Api extends Mage_Payment_Model_Method_Cc
         	$url = $this->getConfig()->getOgoneMaintenanceDirectlinkUrl();
         }
         //Mage::log($url);
-        
         $http->write(Zend_Http_Client::POST, $url, '1.1', array(), $requestBody);
         $response = $http->read();
         
         $response = preg_split('/^\r?$/m', $response, 2);
         $response = trim($response[1]);
-             
         if ($http->getErrno()) {
             $http->close();
+            
             if ($this->getDebug()) {
 	           	$debug->setData('data',$response)->save();
 	        }
@@ -409,9 +410,8 @@ class Addonline_Ogonedirectlink_Model_Api extends Mage_Payment_Model_Method_Cc
 
         $parsedResArr = $this->parseResponseStr($response);
 		//Mage::log($parsedResArr);
-        
         if (isset($parsedResArr['NCERROR'])) {
-			$codeErreur = $parsedResArr['NCERROR'];
+                        $codeErreur = $parsedResArr['NCERROR'];
 			if ($codeErreur!='0') {
 //				if ($codeErreur == '50001113') { //déjà envoyée
 //					 return $parsedResArr;
@@ -444,7 +444,6 @@ class Addonline_Ogonedirectlink_Model_Api extends Mage_Payment_Model_Method_Cc
 			}
             
         }
-        
         return $parsedResArr;
  
     }
