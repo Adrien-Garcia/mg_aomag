@@ -218,8 +218,6 @@ function showMap() {
 
 //générateur d'infobulle
 function infoBulleGenerator(relaisSocolissimo) {
-	alert(relaisSocolissimo.listeConges);
-	console.log(relaisSocolissimo);
 	contentString = '<div class="adresse">';
 	contentString += '<b>'+relaisSocolissimo.nom+ '</b><br/>';
 	contentString += '<b>'+relaisSocolissimo.adresse1+ ' ' + relaisSocolissimo.codePostal + ' ' + relaisSocolissimo.localite + '</b><br/>';

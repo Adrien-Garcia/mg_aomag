@@ -3,7 +3,6 @@ class Addonline_Brand_IndexController extends Mage_Core_Controller_Front_Action
 {
     public function indexAction()
     {
-    	
     	/*
     	 * Load an object by id 
     	 * Request looking like:
@@ -43,5 +42,17 @@ class Addonline_Brand_IndexController extends Mage_Core_Controller_Front_Action
 			
 		$this->loadLayout();     
 		$this->renderLayout();
+    }
+    
+    public function listeAction() 
+    {
+   		$this->loadLayout();
+   		$this->renderLayout();
+    }
+    
+    public function marqueAction() 
+    {
+    	$this->loadLayout();
+    	$this->renderLayout();
     }
 }
