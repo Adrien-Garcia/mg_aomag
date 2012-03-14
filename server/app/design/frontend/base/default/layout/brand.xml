@@ -5,11 +5,11 @@
     		<action method="addCss"><stylesheet>css/brand.css</stylesheet></action>
     	</reference>
     </default>
-    <brand_index_index>
+    <!--<brand_index_index>
         <reference name="content">
             <block type="brand/brand" name="brand" template="brand/brand.phtml" />
         </reference>
-    </brand_index_index>
+    </brand_index_index>-->
     
     <brand_index_liste>
     	<reference name="root">
@@ -18,7 +18,9 @@
             <action method="setIsHandle"><applied>1</applied></action>
         </reference>
         <reference name="content">
-            <block type="brand/brand_list" name="brand_listbrand" template="brand/listbrand.phtml" />
+            <block type="cms/block" name="brand_listbrand">
+				<action method="setBlockId"><block_id>brand_listbrand</block_id></action>
+			</block>
         </reference>
     </brand_index_liste>
     

@@ -19,10 +19,19 @@ class Addonline_Brand_Model_Brand extends Mage_Core_Model_Abstract
     
     public function urlKeyNormalize(Addonline_Brand_Model_Brand $brand) {
     	if($brand->getUrlKey()) {
-    		return strtolower(str_replace(" ", "-", $brand->getUrlKey()));
+    		return $this->formatUrlKey($brand->getUrlKey());
     	} else {
-    		return strtolower(str_replace(" ", "-", $brand->getNom()));
+    		return $this->formatUrlKey($brand->getNom());
     	}
+    }
+    
+    public function formatUrlKey($str)
+    {
+    	$urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
+    	$urlKey = strtolower($urlKey);
+    	$urlKey = trim($urlKey, '-');
+    
+    	return $urlKey;
     }
     
     public function saveUrlRewrite(Addonline_Brand_Model_Brand $brand) {

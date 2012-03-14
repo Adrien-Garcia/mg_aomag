@@ -8,9 +8,19 @@ class Addonline_Brand_Block_Brand extends Mage_Core_Block_Template
     	if($idMarque = $this->getRequest()->getParam("id")) {
     		$_brand = $this->getBrand($idMarque);
     		$headBlock->setTitle($_brand->getData('meta_title'));
-    		$headBlock->setDescription($_brand->getData('meta_description'));
-    		$headBlock->setKeywords($_brand->getData('meta_keyword'));
-    	} 
+    		
+    		if($_brand->getData('meta_description')) {
+    			$headBlock->setDescription($_brand->getData('meta_description'));
+    		} else {
+    			$headBlock->setDescription("Découvrez tous les produits de la marque ".$_brand->getNom()." sur ".Mage::app()->getStore()->getName());
+    		}
+    		
+    		if($_brand->getData('meta_keyword')) {
+    			$headBlock->setKeywords($_brand->getData('meta_keyword'));
+    		} else {
+    			$headBlock->setKeywords($_brand->getNom());
+    		}
+    	}
 		return parent::_prepareLayout();
     }
     

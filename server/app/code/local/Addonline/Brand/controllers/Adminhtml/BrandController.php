@@ -94,8 +94,10 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 	  			
 			$model = Mage::getModel('brand/brand');	
 			if(!$data['url_key']) {
-				$data['url_key'] = strtolower(str_replace(" ", "-", $data['nom']));
-			} 
+				$data['url_key'] = $model->formatUrlKey($data['nom']);
+			} else {
+				$data['url_key'] = $model->formatUrlKey($data['url_key']);
+			}
 			$model->setData($data)
 				->setId($this->getRequest()->getParam('id'));
 			
