@@ -6,10 +6,12 @@ $brandCollection = $this->getBrandCollection();
 <?php foreach($brandCollection as $brand): ?>
 	<div id="id_brand_<?php echo $brand->getId() ?>" class="div_brand">
 		<span class="name_brand"><?php echo $brand->getNom();?></span><br/>
-		<a href="/<?php echo $brand->getUrlKey() ?>"><img src="<?php echo $brand->getUrlImage() ?>" alt="<?php echo $brand->getNom() ?>"/></a><br/>
+		<?php if($brand->getUrlImage()):?>
+			<a href="/<?php echo $brand->getUrlKey() ?>.html"><img src="<?php echo $brand->getUrlImage() ?>" alt="<?php echo $brand->getNom() ?>"/></a><br/>
+		<?php endif;?>
 		<p class="desc_brand">
 			<?php echo $brand->getDescription() ?><br/>
-			<a href="/<?php echo $brand->getUrlKey() ?>">Voir les produits de la marque <?php echo $brand->getNom()?></a><br/>
+			<a href="/<?php echo $brand->getUrlKey() ?>.html">Voir les produits de la marque <?php echo $brand->getNom()?></a><br/>
 		</p>
 	</div>
 <?php endforeach;?>

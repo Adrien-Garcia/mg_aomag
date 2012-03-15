@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <catalog>
+            <groups>
+                <review>
+                    <fields>
+                        <boost_template translate="label" module="reviewboost">
+                            <label>Boost Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </boost_template>
+                        <boost_identity translate="label" module="reviewboost">
+                            <label>Boost Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </boost_identity>
+                        <boost_delay translate="label" module="reviewboost">
+                            <label>Boost delay in (days)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </boost_delay>
+                    </fields>
+                </review>
+            </groups>
+	   </catalog>
+    </sections>
+</config>

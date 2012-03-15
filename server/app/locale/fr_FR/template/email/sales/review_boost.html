@@ -1,0 +1,57 @@
+<!--@subject {{var store.getFrontendName()}} : Notez vos produits pour la commande n°{{var order.increment_id}} @-->
+<!--@vars
+{"store url=\"\"":"Url de la boutique",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Logo de l'email",
+"htmlescape var=$order.getCustomerName()":"Nom du client",
+"var store.getFrontendName()":"Nom de la boutique",
+"store url=\"customer/account/\"":"Url du compte client",
+"var shipment.increment_id":"N° de l'expédition",
+"var order.increment_id":"N° de commande",
+"var order.billing_address.format('html')":"Adresse de facturation",
+"var payment_html":"Détails du paiement",
+"var order.shipping_address.format('html')":"Adresse de livraison",
+"var order.shipping_description":"Description de la livraison",
+"layout handle=\"sales_email_order_shipment_items\" shipment=$shipment order=$order":"Grille des articles de l'expédition",
+"block type='core/template' area='frontend' template='email/order/shipment/track.phtml' shipment=$shipment order=$order":"Détails du suivi de l'expédition",
+"var comment":"Commentaire de l'expédition"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+<table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+<tr>
+    <td align="center" valign="top">
+        <!-- [ header starts here] -->
+        <table cellspacing="0" cellpadding="0" border="0" width="650">
+            <tr>
+                <td valign="top"><a href="{{store url=""}}"><img src="{{skin url="images/logo_email.gif" _area='frontend'}}" alt="{{var store.getFrontendName()}}"  style="margin-bottom:10px;" border="0"/></a></td>
+            </tr>
+        </table>
+        <!-- [ middle starts here] -->
+        <table cellspacing="0" cellpadding="0" border="0" width="650">
+            <tr>
+                <td valign="top">
+                    <p>
+                        <strong>Bonjour {{htmlescape var=$order.getCustomerName()}}</strong>,<br/>
+                        Vous avez récemment commandé un produit sur {{var store.getFrontendName()}} et nous vous en remercions.
+						Nous espérons que vos produits vous donnent entière satisfaction, et vous invitons à venir faire vos retours 
+						en saisissant un commentaire directement sur le site, en cliquant sur les liens "notez ce produit" ci-dessous.
+                    </p>
+
+                    <br/>
+                    {{layout handle="sales_email_order_shipment_items" shipment=$shipment order=$order}}
+
+                    <br/>
+                    <p>
+                       A très bientôt sur "{{var store.getFrontendName()}}"<br/>
+                       L'équipe <strong>{{var store.getFrontendName()}}</strong>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+</table>
+</div>

@@ -4,12 +4,12 @@ $brand = $this->getBrand($idMarque);?>
 
 <?php if($brand):?>
 	Tous les produits de la marque <?php echo $brand->getNom() ?><br/>
-	<?php if($brand->getData('filename')):?>
-		<img src="<?php echo $brand->getUrlImage() ?>" alt="<?php echo $brand->getNom() ?>"/>
-	<?php endif;?>
 	<?php if($brand->getData('bloc_cms')):?>
 		<?php $block_cms = Mage::getModel('cms/block')->load($brand->getData('bloc_cms')); ?>
 		<?php echo $block_cms->getContent(); ?>
+	<?php endif;?>
+	<?php if($brand->getData('filename')):?>
+		<img src="<?php echo $brand->getUrlImage() ?>" alt="<?php echo $brand->getNom() ?>"/>
 	<?php endif;?>
 	<?php echo $this->getChildHtml('product_list_byBrand')?>
 <? endif; ?>
