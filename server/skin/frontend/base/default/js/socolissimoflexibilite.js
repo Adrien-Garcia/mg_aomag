@@ -189,8 +189,8 @@ function showMap() {
 	var init = false;
 	google.maps.event.addListener(map, 'tilesloaded', function () {
 		if (!init){
-			for (i=0; i<listRelaisSocolissimo.length; i++) {
-				relaisSocolissimo = listRelaisSocolissimo[i];
+			for (icounter=0; icounter<listRelaisSocolissimo.length; icounter++) {
+				relaisSocolissimo = listRelaisSocolissimo[icounter];
 				var relaisPosition =  new google.maps.LatLng(relaisSocolissimo.coordGeolocalisationLatitude,relaisSocolissimo.coordGeolocalisationLongitude);
 				var iconUrl = skinUrl + "picto_poste.png";
 				if (relaisSocolissimo.typeDePoint=="A2P") {
@@ -209,7 +209,7 @@ function showMap() {
 					map.fitBounds(newBounds);
 				}
 				infowindow=infoBulleGenerator(relaisSocolissimo);
-				attachClick(marker,infowindow, i);			
+				attachClick(marker,infowindow, icounter);			
 			}
 		}
 		init=true;

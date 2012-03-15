@@ -48,7 +48,7 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
 		        
 		        $telephone = $request->getParam('tel_socolissimo');
 		        if ($telephone) { 
-		            //$arrayData['telephone'] = $telephone;
+		            $arrayData['telephone'] = $telephone;
 		        	$socoShippingData['CEPHONENUMBER'] = $telephone;
 	        	}   	
 
