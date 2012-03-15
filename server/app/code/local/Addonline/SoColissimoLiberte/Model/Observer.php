@@ -48,7 +48,7 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 		        
 		        $telephone = $request->getParam('tel_socolissimo');
 		        if ($telephone) { 
-		            //$arrayData['telephone'] = $telephone;
+		            $arrayData['telephone'] = $telephone;
 		        	$socoShippingData['CEPHONENUMBER'] = $telephone;
 	        	}   	
 
@@ -71,7 +71,7 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 		            $arrayData['firstname'] = $relais->getData('libelle');
 		            $arrayData['city'] = $relais->getData('commune');
 		            $arrayData['postcode'] =$relais->getData('code_postal');
-		            $arrayData['telephone'] = '-';
+		            $arrayData['telephone'] = $telephone;
 		            	        		
 		            $street['0'] = $relais->getData('adresse');
 		            $street['1'] = $relais->getData('complement_adr');

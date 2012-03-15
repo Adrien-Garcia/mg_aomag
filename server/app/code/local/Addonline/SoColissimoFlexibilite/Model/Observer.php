@@ -71,7 +71,7 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
 		            $arrayData['firstname'] = $relais->nom;
 		            $arrayData['city'] = $relais->localite;
 		            $arrayData['postcode'] =$relais->codePostal;
-		            $arrayData['telephone'] = '-';
+		            $arrayData['telephone'] = $telephone;
 		            	        		
 		            $street['0'] = $relais->adresse1;
 		            $street['1'] = $relais->adresse2;
