@@ -79,12 +79,12 @@
     <?php endif; ?>
 
     function includingShipping(getShippingCode)
-    {        
-        <?php if (!empty($shippingMe)): ?>        	
+    {
+        <?php if (!empty($shippingMe)): ?>
             var newPrice = shippingMe[getShippingCode];
-            if (!lastPrice) {
+            if (typeof(window["lastPrice"])=== "undefined") {
                 lastPrice = newPrice;
-                quoteBaseGrandTotal += newPrice;
+                quoteBaseGrandTotal = newPrice;
             }
             if (newPrice != lastPrice) {
                 quoteBaseGrandTotal += (newPrice-lastPrice);

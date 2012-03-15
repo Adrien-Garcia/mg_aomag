@@ -22,7 +22,7 @@ class Addonline_SoColissimoFlexibilite_AjaxController extends Mage_Core_Controll
    		$adresse    = $this->getRequest()->getParam('adresse', false);
    		$zipcode    = $this->getRequest()->getParam('zipcode', false);
    		$ville      = $this->getRequest()->getParam('ville', false);
-   		$poste  	= $this->getRequest()->getParam('poste', false);	
+   		/*$poste  	= $this->getRequest()->getParam('poste', false);	
    		$cityssimo  = $this->getRequest()->getParam('cityssimo', false);
    		$commercant = $this->getRequest()->getParam('commercant', false);
 
@@ -31,7 +31,8 @@ class Addonline_SoColissimoFlexibilite_AjaxController extends Mage_Core_Controll
      	if ($commercant == 'true' || $commercant === 'checked') {
     		$filterRelay = 1;
      	} 
-
+		*/
+   		$filterRelay = 1;
      	$listrelais = Mage::getModel('socolissimoflexibilite/service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $filterRelay);
 	    
 	    if (is_array($listrelais->listePointRetraitAcheminement)) {
