@@ -29,7 +29,7 @@
     			<?php if ($this->isSocolissmoAvailable()): ?>
     			<dt>Dans un point de retrait &agrave; proximit&eacute; <span>de votre domicile, de votre lieu de travail ou de vacances</span></dt>
     			<dd class="cityssimo">
-    				<label >
+    				<label>
 	    				<input type="radio" name="type_socolissimo"  value="cityssimo" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;" />
 	    				<span>ma consigne cityssimo</span>
 	    				Livraison dans l'une des 31 consignes automatiques Cityssimo 7j/7 et 24h/24.
@@ -53,6 +53,7 @@
 	    			<label class="nom_relais"></label>
 	    		</dd>
 	    		<input type="hidden" name="relais_socolissimo" value="" />
+	    		<input type="hidden" name="type_socolissimo_choisi" value="" />
 	    		<?php endif;?>
     		</dl>
     		

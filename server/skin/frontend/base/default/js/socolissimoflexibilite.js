@@ -34,6 +34,7 @@ var overlayApi;
 function socolissimoRadioCheck(input) {
 	//on commence par ré-initialiser le relais qui a pu être déjà choisi 
 	jQuery("#socolissimo-location input[name=relais_socolissimo]").val("");
+	jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val("");
 	jQuery("#socolissimo-location .nom_relais").text("");	
 	relaisChoisi=undefined;
 	//on vérifie si le champ telephone doit apparaitre
@@ -300,12 +301,17 @@ function choisirRelais(index) {
 		};
 		if (radio.val() == type) {
 			checkDisplayPhone(radio);
-			radio.prop("checked", "checked");
+			//radio.prop("checked", "checked");
 			radio.parent().next().html('<span>' + relaisChoisi.nom + '</span>' + relaisChoisi.adresse1 + ' ' +relaisChoisi.codePostal + ' ' +relaisChoisi.localite);
 			jQuery("#socolissimo-location input[name=relais_socolissimo]").val(relaisChoisi.identifiant);
+			jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val(type);
 		} else {
-			radio.prop("checked", "");
+			//radio.prop("checked", "");
 			radio.parent().next().text("");
+		}
+		//on force le radio "poste" à être coché (spécial flexibilite qui ne peut filtrer correctement)
+		if (radio.val() == "poste") { 
+			radio.prop("checked", "checked");
 		}
 	});
 

@@ -19,7 +19,7 @@ class Addonline_SoColissimoFlexibilite_Model_Observer extends Varien_Object
     	$quote = $observer->getEvent()->getQuote();
     	$request = Mage::app()->getRequest();
     	
-    	$typeSocolissimo = $request->getParam('type_socolissimo');
+    	$typeSocolissimo = $request->getParam('type_socolissimo_choisi');
     	
     	if ($typeSocolissimo) {
     	$adresseRelais = null;
