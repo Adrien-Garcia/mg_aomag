@@ -89,4 +89,11 @@ class Addonline_SoColissimoFlexibilite_Block_Selector extends Mage_Core_Block_Te
 		return $this->getRdvPointRetraitAcheminement()->listePointRetraitAcheminement;
 	}
 	
+	public function _toHtml(){
+		if(Mage::getStoreConfig('socolissimoflexibilite/licence/active')){
+			echo (parent::_toHtml());
+		}else{
+			echo ("<H1>La clé de licence du module est invalide</H1>");
+		}
+	} 
 }
