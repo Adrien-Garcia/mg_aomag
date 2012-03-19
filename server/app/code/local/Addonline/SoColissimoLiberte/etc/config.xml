@@ -45,6 +45,17 @@
     			</entities>
     		</socolissimoliberte_mysql4>
     	</models>	
+    	<events>
+        	<admin_user_authenticate_after>
+                <observers>
+                    <Addonline_SoColissimoLiberte_Model_Observer>
+	                    <type>singleton</type>
+	            		<class>socolissimoliberte/observer</class>
+	            		<method>_9cd4777ae76310fd6977a5c559c51820</method>
+	          		</Addonline_SoColissimoLiberte_Model_Observer>
+                </observers>
+            </admin_user_authenticate_after>
+        </events>
     	
     	<helpers>
             <socolissimoliberte>
@@ -181,4 +192,31 @@
             </socolissimoliberte_import>
         </jobs>
     </crontab>
+    
+    <adminhtml>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <socolissimoliberte translate="title">
+                                        <title>Addonline config</title>
+                                        <sort_order>100</sort_order>
+                                    </socolissimoliberte>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+	</adminhtml>
+    
 </config>
