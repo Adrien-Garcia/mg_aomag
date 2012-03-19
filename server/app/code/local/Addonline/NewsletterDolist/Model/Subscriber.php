@@ -46,8 +46,7 @@ class Addonline_NewsletterDolist_Model_Subscriber extends Mage_Newsletter_Model_
     {
     	$this->centreInterets = $customer->getInterests();
     	    	
-        $subscriber = parent::subscribeCustomer($customer);
-        Mage::log("POST =>".print_r($_POST,true)); 
+        $subscriber = parent::subscribeCustomer($customer);        
         if (Mage::getStoreConfig(self::XML_PATH_DOLIST_ACTIVE)) {			
 				if ($subscriber->getStatus() == self::STATUS_SUBSCRIBED) {
 					$this->_sendDolistSubscriptionForm();
@@ -103,8 +102,7 @@ class Addonline_NewsletterDolist_Model_Subscriber extends Mage_Newsletter_Model_
     	$interets = explode(";",$this->centreInterets);
     	
     	$params[$formlist[1]] = $interets;    	    
-
-    	Mage::log($params);
+    	
     	$response = false;
 		
     	$config = array('maxredirects' => 0, 'timeout' => 30);
@@ -116,10 +114,8 @@ class Addonline_NewsletterDolist_Model_Subscriber extends Mage_Newsletter_Model_
 		{
 			$client->setParameterPost($params);
 		}
-		$response = $client->request();
-		Mage::log($response);
-		if ($response->getStatus() != '200' && $response->getStatus() != '302') {
-			Mage::log($response);
+		$response = $client->request();		
+		if ($response->getStatus() != '200' && $response->getStatus() != '302') {			
 			Mage::throwException("Erreur lors de l'envoi du formulaire dolist");
 		}
 
