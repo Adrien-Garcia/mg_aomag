@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Addonline_NewsletterDolist>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Addonline_NewsletterDolist>
     </modules>
 	
@@ -14,12 +14,52 @@
   					<subscriber>Addonline_NewsletterDolist_Model_Subscriber</subscriber>
   				</rewrite>
   			</newsletter>
-  		</models>
+  		</models>  		
+  		<resources>
+            <newsletterdolist_setup>
+                <setup>
+                    <module>Addonline_NewsletterDolist</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </newsletterdolist_setup>
+            <newsletterdolist_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </newsletterdolist_write>
+            <newsletterdolist_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </newsletterdolist_read>
+        </resources>
   		<helpers>
   			<newsletterdolist>
   				<class>Addonline_NewsletterDolist_Helper</class>
   			</newsletterdolist>
   		</helpers>
     </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <newsletterdolist>
+                    <file>newsletterdolist.xml</file>
+                </newsletterdolist>
+            </updates>
+        </layout>
+        <routers>
+     		<newsletter>
+         		<args>
+           			<modules>
+             			<Addonline_NewsletterDolist before="Mage_Newsletter">Addonline_NewsletterDolist</Addonline_NewsletterDolist>
+           			</modules>
+         		</args>
+     		</newsletter>
+   		</routers>
+    </frontend>            
+     
     
 </config>

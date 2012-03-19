@@ -6,12 +6,15 @@ class Addonline_NewsletterDolist_Model_Subscriber extends Mage_Newsletter_Model_
 	const XML_PATH_DOLIST_ACTIVE       = 'newsletter/dolist/active';
 	const XML_PATH_DOLIST_ID		   = 'newsletter/dolist/dolistid';
 	const XML_PATH_DOLIST_SUB_FORMID   = 'newsletter/dolist/subscribe_form_id';
+	const XML_PATH_DOLIST_SUB_FORM     = 'newsletter/dolist/subscribe_form';
 	const XML_PATH_DOLIST_SUB_EMAIL    = 'newsletter/dolist/subscribe_emailfield';
 	const XML_PATH_DOLIST_UNS_FORMID   = 'newsletter/dolist/unsubscribe_form_id';
 	const XML_PATH_DOLIST_UNS_EMAIL    = 'newsletter/dolist/unsubscribe_emailfield';
 		
 	const URL_SUBSCRIPTION_FORM        = 'http://form.dolist.net/sw/default.aspx';
 	const URL_UNSUBSCRIPTION_FORM      = 'http://form.dolist.net/uw/Default.aspx';
+	
+	public $centreInterets = '';
 	
 	public function subscribe($email)
     {
@@ -41,15 +44,16 @@ class Addonline_NewsletterDolist_Model_Subscriber extends Mage_Newsletter_Model_
      */
     public function subscribeCustomer($customer)
     {
-        $subscriber = parent::subscribeCustomer($customer); 
-        if (Mage::getStoreConfig(self::XML_PATH_DOLIST_ACTIVE)) {
-			if ($subscriber->getIsStatusChanged()) {
+    	$this->centreInterets = $customer->getInterests();
+    	    	
+        $subscriber = parent::subscribeCustomer($customer);
+        Mage::log("POST =>".print_r($_POST,true)); 
+        if (Mage::getStoreConfig(self::XML_PATH_DOLIST_ACTIVE)) {			
 				if ($subscriber->getStatus() == self::STATUS_SUBSCRIBED) {
 					$this->_sendDolistSubscriptionForm();
 				} else if ($subscriber->getStatus() == self::STATUS_UNSUBSCRIBED) {
 					$this->_sendDolistUnsubscriptionForm();					
-				}
-			}
+				}			
         }
 		return $subscriber;
     }
@@ -87,26 +91,33 @@ class Addonline_NewsletterDolist_Model_Subscriber extends Mage_Newsletter_Model_
     	
     }
     
-    private function _sendDolistForm($url, $formNameId, $formId, $emailName) {
+    private function _sendDolistForm($url, $formNameId, $formId, $emailName) {    	    	
+    	
+    	// Récupération des centre d'intérets disponible
+    	$formlist = Mage::helper('newsletterdolist')->load();    	    	
     	
     	$params['do_ListId'] = Mage::getStoreConfig(self::XML_PATH_DOLIST_ID);
     	$params[$formNameId] = $formId;
     	$params[$emailName] = $this->getSubscriberEmail();
+    	
+    	$interets = explode(";",$this->centreInterets);
+    	
+    	$params[$formlist[1]] = $interets;    	    
 
     	Mage::log($params);
     	$response = false;
 		
     	$config = array('maxredirects' => 0, 'timeout' => 30);
 			
-		$client = new Zend_Http_Client($url, $config);
-		$client->setMethod(Zend_Http_Client::POST);
+		$client = new Addonline_NewsletterDolist_Http_Client($url, $config);
+		$client->setMethod(Addonline_NewsletterDolist_Http_Client::POST);
 		
 		if (is_array($params) && count($params) > 0)
 		{
 			$client->setParameterPost($params);
 		}
 		$response = $client->request();
-		
+		Mage::log($response);
 		if ($response->getStatus() != '200' && $response->getStatus() != '302') {
 			Mage::log($response);
 			Mage::throwException("Erreur lors de l'envoi du formulaire dolist");
@@ -122,6 +133,6 @@ class Addonline_NewsletterDolist_Model_Subscriber extends Mage_Newsletter_Model_
     // ... ni de confirmation de déinscription
     public function sendUnsubscriptionEmail() {
     	return $this;
-    }
+    }         
             
 }
