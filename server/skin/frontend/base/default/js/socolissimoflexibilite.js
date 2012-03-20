@@ -95,6 +95,8 @@ function socolissimoRadioCheck(input) {
 		  });
 		overlayApi.load();
 
+	} else {
+		jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val(input.value);
 	}
 }
 
