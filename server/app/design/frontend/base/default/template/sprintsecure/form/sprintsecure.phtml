@@ -19,16 +19,10 @@
  */
 ?>
 <?php $_code = $this->getMethodCode(); ?>
-
-<fieldset id="payment_form_<?php echo $_code ?>" class="form-list" >
-<img src="<?php echo $this->getSkinUrl('images/media/logo_sprint_secure_35x_fre.jpg') ?>" alt="3 fois sans frais" />
-<ul id="payment_desc_<?php echo $_code ?>">
-	<li><br/>
-		3X sans frais<br/>
-		Crédit en 5, 10, 20 fois<br/><br/>
-
-		Sprint secure est un service gratuit pour vous nécessitant l'ouverture d'un compte et d'une réserve auprès de notre partenaire Franfinance. 
+<ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
+	<li>3X sans frais</li>
+	<li>Crédit en 5, 10, 20 fois</li>
+	<li>Sprint secure est un service gratuit pour vous nécessitant l'ouverture d'un compte et d'une réserve auprès de notre partenaire Franfinance. 
 		Un crédit vous engage et doit être remboursé.
 	</li>
 </ul>
-</fieldset>
