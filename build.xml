@@ -105,7 +105,6 @@
 				<zipfileset dir="server/app/design/frontend/base/default/template/sprintsecure" prefix="app/design/frontend/base/default/template/sprintsecure" ></zipfileset>
 				<zipfileset file="server/app/etc/modules/Addonline_SprintSecure.xml" prefix="app/etc/modules" ></zipfileset>
 				<zipfileset file="server/app/locale/fr_FR/Addonline_SprintSecure.csv" prefix="app/locale/fr_FR" ></zipfileset>
-				<zipfileset file="server/skin/frontend/base/default/js/opcheckout.js" prefix="skin/frontend/base/default/js" ></zipfileset>
 			</zip>
 			<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
 		</target>

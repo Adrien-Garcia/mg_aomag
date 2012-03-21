@@ -41,13 +41,13 @@ class Mage_Atos_Model_Api_Files extends Mage_Atos_Model_Abstract
 		      $content.= '#' . "\n";
 		      $content.= '# Pathfile' . "\n";
 		      $content.= '#' . "\n";
-		      $content.= '# Liste fichiers parametres utilisés par le module de paiement' . "\n";
+		      $content.= '# Liste fichiers parametres utilisï¿½s par le module de paiement' . "\n";
 		      $content.= '#' . "\n";
 		      $content.= '#########################################################################' . "\n";
 		      $content.= "\n";
 		      $content.= '# ------------------------------------------------------------------------'. "\n";
-		      $content.= '# Chemin vers le répertoire des logos depuis le web alias' . "\n";
-		      $content.= '# Exemple pour le répertoire www.merchant.com/cyberplus/payment/logo/' . "\n";
+		      $content.= '# Chemin vers le rï¿½pertoire des logos depuis le web alias' . "\n";
+		      $content.= '# Exemple pour le rï¿½pertoire www.merchant.com/cyberplus/payment/logo/' . "\n";
 		      $content.= '# indiquer:' . "\n";
 		      $content.= '# ------------------------------------------------------------------------' . "\n";
 		      $content.= '#' . "\n";
@@ -61,11 +61,11 @@ class Mage_Atos_Model_Api_Files extends Mage_Atos_Model_Abstract
 	          $content.= '#' . "\n";
 	          $content.= 'F_CERTIFICATE!' . $path . 'certif!' . "\n";
 	          $content.= '#' . "\n";
-	          $content.= '# Fichier paramètre commercant' . "\n";
+	          $content.= '# Fichier paramï¿½tre commercant' . "\n";
 	          $content.= '#' . "\n";
 	          $content.= 'F_PARAM!' . $path . 'parmcom!' . "\n";
 	          $content.= '#' . "\n";
-	          $content.= '# Fichier des paramètres communs' . "\n";
+	          $content.= '# Fichier des paramï¿½tres communs' . "\n";
 	          $content.= '#' . "\n";
 	          $content.= 'F_DEFAULT!' . $pathfile . '!' . "\n";
 	          $content.= '#' . "\n";
@@ -114,7 +114,7 @@ class Mage_Atos_Model_Api_Files extends Mage_Atos_Model_Abstract
             $dir = dir($path);
 	        while ( $file = $dir->read() ) 
 			{
-			    $data = split('\.', $file);
+			    $data = explode('\.', $file);
 	            $n = sizeof($data) - 1;
 			
 	            if ($data[0] == 'certif') 
@@ -207,7 +207,7 @@ class Mage_Atos_Model_Api_Files extends Mage_Atos_Model_Abstract
 	        while ( $file = $dir->read() ) 
 		    {
 			    
-				$data = split('\.', $file);
+				$data = explode('\.', $file);
 				
 				if ( ($data[0] == 'parmcom') && !file_exists($path . 'certif.fr.' . $data[1])) 
 				{

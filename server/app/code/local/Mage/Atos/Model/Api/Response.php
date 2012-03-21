@@ -117,7 +117,7 @@ class Mage_Atos_Model_Api_Response extends Mage_Atos_Model_Api_Parameters
 // Credit card number
         if (isset($response['card_number']) && !empty($response['card_number'])) 
 		{
-	        $cc = split('\.', $response['card_number']);
+	        $cc = explode('\.', $response['card_number']);
 			$array['card_number'] = $cc[0] . ' #### #### ##' . $cc[1];
 			
 		    $string.= Mage::helper('atos')->__('Numero de carte bancaire : %s', $array['card_number']) . "\n";
