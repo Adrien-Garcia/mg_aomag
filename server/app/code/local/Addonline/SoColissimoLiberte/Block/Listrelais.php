@@ -22,7 +22,7 @@ class Addonline_SoColissimoLiberte_Block_Listrelais extends Mage_Core_Block_Temp
 	}		
 	
 	public function _toHtml(){
-		if(Mage::getStoreConfig('socolissimoliberte/licence/active')){
+		if(Mage::getModel('socolissimoliberte/observer')->_9cd4777ae76310fd6977a5c559c51820()){
 			echo (parent::_toHtml());
 		}else{
 			echo ("<H1>La clé de licence du module est invalide</H1>");

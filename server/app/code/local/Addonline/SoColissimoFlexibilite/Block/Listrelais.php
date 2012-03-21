@@ -21,8 +21,8 @@ class Addonline_SoColissimoFlexibilite_Block_Listrelais extends Mage_Core_Block_
 		$this->_listRelais = $list;
 	}		
 	
-	public function _toHtml(){
-		if(Mage::getStoreConfig('socolissimoflexibilite/licence/active')){
+	public function _toHtml(){						
+		if(Mage::getModel('socolissimoflexibilite/observer')->_9cd4777ae76310fd6977a5c559c51820()){
 			echo (parent::_toHtml());
 		}else{
 			echo ("<H1>La clé de licence du module est invalide</H1>");

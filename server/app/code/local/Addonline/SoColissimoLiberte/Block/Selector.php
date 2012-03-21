@@ -63,11 +63,11 @@ class Addonline_SoColissimoLiberte_Block_Selector extends Mage_Core_Block_Templa
 		return Mage::getStoreConfig('carriers/socolissimoliberte/domicile_signature');
 	}		
 	
-	public function _toHtml(){
-		if(Mage::getStoreConfig('socolissimoflexibilite/licence/active')){
+	public function _toHtml(){		
+		if(Mage::getModel('socolissimoliberte/observer')->_9cd4777ae76310fd6977a5c559c51820()){
 			echo (parent::_toHtml());
 		}else{
-			echo ("<H1>La clé de licence du module est invalide</H1>");
+			echo ("<H1>La clé de licence du module liberte est invalide</H1>");
 		}
 	} 
 	
