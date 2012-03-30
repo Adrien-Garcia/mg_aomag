@@ -243,8 +243,8 @@ function infoBulleGenerator(relaisSocolissimo) {
     if (relaisSocolissimo.listeConges) { contentString += '<br/><b>Periodes de fermeture :</b>'; 
 		for (i=0; i<relaisSocolissimo.listeConges.length; i++) {
 			fermeture = relaisSocolissimo.listeConges[i];
-			datedu = fermeture.deb_periode_fermeture;
-			dateau = fermeture.fin_periode_fermeture;
+			datedu = fermeture.calendarDeDebut;
+			dateau = fermeture.calendarDeFin;
 			contentString += '<br/>du ' + datedu.substring(8,10) + '/' + datedu.substring(5,7) + '/' + datedu.substring(0,4) + ' au ' + dateau.substring(8,10) + '/' + dateau.substring(5,7) + '/' + dateau.substring(0,4);
 		}
 	}

@@ -12,7 +12,7 @@
 $installer = $this;
 $installer->startSetup();
 $this->addAttribute('quote_address', 'soco_product_code', array(
-    'type'     => 'static',
+    'type'     => 'varchar',
     'label'    => 'Code livrasion socolissimo',
     'required' => false,
     'input'    => 'text',
