@@ -56,7 +56,8 @@ class Addonline_SoColissimoFlexibilite_Model_Service {
 		
 		require_once dirname(__FILE__).'/PointRetraitServiceWSService.php';
 
-		$urlWsdl='https://217.108.161.163/pointretrait-ws-cxf/PointRetraitServiceWS?wsdl';
+		//$urlWsdl='https://217.108.161.163/pointretrait-ws-cxf/PointRetraitServiceWS?wsdl';
+		$urlWsdl='http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS?wsdl';
 		
 		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $urlWsdl);
 
