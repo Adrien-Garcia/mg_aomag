@@ -20,66 +20,57 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * XmlConnect Queue model
+ *
+ * @category    Mage
+ * @package     Mage_Xmlconnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
 {
     /**
      * Status in queue identifier
-     *
-     * @var int
      */
     const STATUS_IN_QUEUE   = 0;
 
     /**
      * Status cenceled identifier
-     *
-     * @var int
      */
     const STATUS_CANCELED   = 1;
 
     /**
      * Status completed identifier
-     *
-     * @var int
      */
     const STATUS_COMPLETED  = 2;
 
     /**
      * Status deleted identifier
-     *
-     * @var int
      */
     const STATUS_DELETED    = 3;
 
     /**
      * Airmail message type
-     *
-     * @var string
      */
     const MESSAGE_TYPE_AIRMAIL  = 'airmail';
 
     /**
      * Push notification message type
-     *
-     * @var string
      */
     const MESSAGE_TYPE_PUSH     = 'push';
 
     /**
      * Notification type config path
-     *
-     * @var string
      */
     const XML_PATH_NOTIFICATION_TYPE = 'xmlconnect/devices/%s/notification_type';
 
     /**
      * Count of message in queue for cron
      * config path
-     *
-     * @var string
      */
     const XML_PATH_CRON_MESSAGES_COUNT = 'xmlconnect/mobile_application/cron_send_messages_count';
 
@@ -93,7 +84,7 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
     /**
      * Initialize queue message
      *
-     * @return void
+     * @return null
      */
     protected function _construct()
     {
@@ -103,17 +94,16 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
     /**
      * Load object data
      *
-     * @param   integer $id
-     * @return  Mage_Core_Model_Abstract
+     * @param int $id
+     * @param string $field
+     * @return Mage_XmlConnect_Model_Queue
      */
-    public function load($id, $field=null)
+    public function load($id, $field = null)
     {
         parent::load($id, $field);
 
         if ($this->getTemplateId()) {
-            $this->setName(
-                Mage::getModel('xmlconnect/template')->load($this->getTemplateId())->getName()
-            );
+            $this->setName(Mage::getModel('xmlconnect/template')->load($this->getTemplateId())->getName());
         }
         return $this;
     }
@@ -149,7 +139,11 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
      */
     public function getAppName()
     {
-        return $this->getApplicationName() ? $this->getApplicationName() : Mage::helper('xmlconnect')->getApplicationName($this->getAppCode());
+        if ($this->getApplicationName()) {
+            return $this->getApplicationName();
+        } else {
+            return Mage::helper('xmlconnect')->getApplicationName($this->getAppCode());
+        }
     }
 
     /**
@@ -159,17 +153,20 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
      */
     public function getTplName()
     {
-        return $this->getTemplateName() ? $this->getTemplateName() : Mage::helper('xmlconnect')->getTemplateName($this->getTemplateId());
+        if ($this->getTemplateName()) {
+            return $this->getTemplateName();
+        } else {
+            return Mage::helper('xmlconnect')->getTemplateName($this->getTemplateId());
+        }
     }
 
     /**
      * Retrieve processed template
      *
      * @param array $variables
-     * @param bool $usePreprocess
      * @return string
      */
-    public function getProcessedTemplate(array $variables = array(), $usePreprocess = false)
+    public function getProcessedTemplate(array $variables = array())
     {
         /* @var $processor Mage_Widget_Model_Template_Filter */
         $processor = Mage::getModel('widget/template_filter');
@@ -182,17 +179,23 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
             $processor->setStoreId(1);
         }
 
-        $htmlDescription = '<div style="font-size: 0.8em; text-decoration: underline; margin-top: 1.5em; line-height: 2em;">%s:</div>';
+        $htmlDescription = <<<EOT
+<div style="font-size: 0.8em; text-decoration: underline; margin-top: 1.5em; line-height: 2em;">%s:</div>
+EOT;
 
         switch ($this->getData('type')) {
             case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_AIRMAIL:
-                $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title')) . $this->getPushTitle();
-                $html .= sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message title')) . $this->getMessageTitle();
-                $html .= sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message content')) . $processor->filter($this->getContent());
+                $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
+                    . $this->getPushTitle()
+                    . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message title'))
+                    . $this->getMessageTitle()
+                    . sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Message content'))
+                    . $processor->filter($this->getContent());
                 break;
             case Mage_XmlConnect_Model_Queue::MESSAGE_TYPE_PUSH:
             default:
-                $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title')) . $this->getPushTitle();
+                $html  = sprintf($htmlDescription, Mage::helper('xmlconnect')->__('Push title'))
+                    . $this->getPushTitle();
                 break;
         }
         return $html;
@@ -232,14 +235,12 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
      */
     public function getAirmailBroadcastParams()
     {
-        $notificationType = Mage::getStoreConfig(sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType()));
+        $notificationType = Mage::getStoreConfig(
+            sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
+        );
 
         $payload = array(
-            'push' => array(
-                $notificationType => array(
-                    'alert' => $this->getPushTitle(),
-                )
-            ),
+            'push' => array($notificationType => array('alert' => $this->getPushTitle())),
             'title' => $this->getMessageTitle(),
             'message' => $this->getContent(),
         );
@@ -265,7 +266,9 @@ class Mage_XmlConnect_Model_Queue extends Mage_Core_Model_Template
      */
     public function getPushBroadcastParams()
     {
-        $notificationType = Mage::getStoreConfig(sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType()));
+        $notificationType = Mage::getStoreConfig(
+            sprintf(Mage_XmlConnect_Model_Queue::XML_PATH_NOTIFICATION_TYPE, $this->getApplicationType())
+        );
 
         $payload = array(
             $notificationType => array(

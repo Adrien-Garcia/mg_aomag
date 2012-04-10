@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,11 +42,6 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
 
     public function _initAction()
     {
-        $act = $this->getRequest()->getActionName();
-        if(!$act) {
-            $act = 'default';
-        }
-
         $this->loadLayout()
             ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Sales'), Mage::helper('reports')->__('Sales'));
@@ -463,7 +458,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
                 return $this->_getSession()->isAllowed('report/salesroot/shipping');
                 break;
             case 'bestsellers':
-                return $this->_getSession()->isAllowed('report/products/ordered');
+                return $this->_getSession()->isAllowed('report/products/bestsellers');
                 break;
             default:
                 return $this->_getSession()->isAllowed('report/salesroot');

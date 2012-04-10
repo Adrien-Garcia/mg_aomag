@@ -20,16 +20,16 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * XmlConnect application history grid
  *
- * @category   Mage
- * @package    Mage_XmlConnect
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -70,18 +70,21 @@ class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_
             'align'     => 'left',
             'index'     => 'title',
             'type'      => 'text',
+            'escape'    => true
         ));
 
         $this->addColumn('name', array(
             'header'    => $this->__('App Name'),
             'align'     => 'left',
             'index'     => 'name',
+            'escape'    => true
         ));
 
         $this->addColumn('code', array(
             'header'    => $this->__('App Code'),
             'align'     => 'left',
             'index'     => 'code',
+            'escape'    => true
         ));
 
         $this->addColumn('created_at', array(
@@ -95,6 +98,7 @@ class Mage_XmlConnect_Block_Adminhtml_History_Grid extends Mage_Adminhtml_Block_
             'header'    => $this->__('Activation Key'),
             'align'     => 'left',
             'index'     => 'activation_key',
+            'escape'    => true
         ));
         return parent::_prepareColumns();
     }

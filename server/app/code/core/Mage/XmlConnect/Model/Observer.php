@@ -20,14 +20,16 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * XmlConnect module observer
  *
- * @author  Magento Mobile Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_Xmlconnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Model_Observer
 {
@@ -37,11 +39,15 @@ class Mage_XmlConnect_Model_Observer
      * @var array
      */
     protected $_appDependOnConfigFieldPathes = array(
-        'paypal/general/business_account',
+        Mage_XmlConnect_Model_Application::XML_PATH_PAYPAL_BUSINESS_ACCOUNT,
         'sendfriend/email/max_recipients',
         'sendfriend/email/allow_guest',
         'general/locale/code',
-        'currency/options/default'
+        'currency/options/default',
+        Mage_XmlConnect_Model_Application::XML_PATH_SECURE_BASE_LINK_URL,
+        Mage_XmlConnect_Model_Application::XML_PATH_GENERAL_RESTRICTION_IS_ACTIVE,
+        Mage_XmlConnect_Model_Application::XML_PATH_GENERAL_RESTRICTION_MODE,
+        Mage_XmlConnect_Model_Application::XML_PATH_DEFAULT_CACHE_LIFETIME
     );
 
     /**
@@ -64,11 +70,9 @@ class Mage_XmlConnect_Model_Observer
     public function changeUpdatedAtParamOnConfigSave($observer)
     {
         $configData = $observer->getEvent()->getConfigData();
-        if ($configData
-            && (int)$configData->isValueChanged()
+        if ($configData && (int)$configData->isValueChanged()
             && in_array($configData->getPath(), $this->_appDependOnConfigFieldPathes)
-        )
-        {
+        ) {
             Mage::getModel('xmlconnect/application')->updateAllAppsUpdatedAtParameter();
         }
     }
@@ -77,16 +81,14 @@ class Mage_XmlConnect_Model_Observer
      * Send a message if Start Date (Queue Date) is empty
      *
      * @param Varien_Event_Observer $observer
+     * @return bool
      */
     public function sendMessageImmediately($observer)
     {
         $message = $observer->getEvent()->getData('queueMessage');
-        if ($message instanceof Mage_XmlConnect_Model_Queue
-            && (strtolower($message->getExecTime()) == 'null'
-                || !$message->getExecTime()
-            )
-        )
-        {
+        if ($message instanceof Mage_XmlConnect_Model_Queue && (strtolower($message->getExecTime()) == 'null'
+            || !$message->getExecTime())
+        ) {
             $message->setExecTime(Mage::getSingleton('core/date')->gmtDate());
             Mage::helper('xmlconnect')->sendBroadcastMessage($message);
             return true;
@@ -96,19 +98,16 @@ class Mage_XmlConnect_Model_Observer
     }
 
     /**
-     * Send sheduled messages
+     * Send scheduled messages
      *
-     * @param mixed $schedule
+     * @return null
      */
-    public function scheduledSend($schedule = null)
+    public function scheduledSend()
     {
         $countOfQueue = Mage::getStoreConfig(Mage_XmlConnect_Model_Queue::XML_PATH_CRON_MESSAGES_COUNT);
 
-        $collection = Mage::getModel('xmlconnect/queue')->getCollection()
-            ->addOnlyForSendingFilter()
-            ->setPageSize($countOfQueue)
-            ->setCurPage(1)
-            ->load();
+        $collection = Mage::getModel('xmlconnect/queue')->getCollection()->addOnlyForSendingFilter()
+            ->setPageSize($countOfQueue)->setCurPage(1)->load();
 
         foreach ($collection as $message) {
             if ($message->getId()) {

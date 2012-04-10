@@ -20,12 +20,32 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
+
+/**
+ * Xmlconnect template edit form block
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form
+    extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
 {
+    /**
+     * Enabled fields flag
+     *
+     * @var bool
+     */
     protected $_fieldsEnabled = true;
+
+    /**
+     * Field dependencies
+     *
+     * @var array
+     */
     protected $_dependentFields = array();
 
     /**
@@ -54,7 +74,12 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
 
         $action = $this->getUrl('*/*/saveTemplate');
 
-        $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $action, 'method' => 'post', 'enctype' => 'multipart/form-data'));
+        $form = new Varien_Data_Form(array(
+            'id'        => 'edit_form',
+            'action'    => $action,
+            'method'    => 'post',
+            'enctype'   => 'multipart/form-data'
+        ));
         $form->setHtmlIdPrefix('template_');
 
         $fieldset = $form->addFieldset('edit_template', array('legend' => $this->__('Template')));
@@ -69,8 +94,8 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
             ));
         }
 
-        $fieldset->addField('app_code', 'select', array(
-            'name'      => 'app_code',
+        $fieldset->addField('application_id', 'select', array(
+            'name'      => 'application_id',
             'label'     => $this->__('Application'),
             'title'     => $this->__('Application'),
             'disabled'  => $model->getId() || !$this->_fieldsEnabled ? true : false,
@@ -123,7 +148,6 @@ class Mage_XmlConnect_Block_Adminhtml_Template_Edit_Form extends Mage_XmlConnect
             'style'     => 'height:30em;',
             'state'     => 'html',
             'required'  => true,
-//            'disabled'  => false,
             'disabled'  => !$this->_fieldsEnabled ? true : false,
             'config'    => $wysiwygConfig
         ));

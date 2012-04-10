@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -46,10 +46,11 @@
             <block type="xmlconnect/catalog_product_list" name="xmlconnect.catalog.product.list" as="product_list" output="">
                 <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                     <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                    <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_price_giftcard</renderer></action>
                 </block>
             </block>
 
-            <block type="xmlconnect/catalog_category_info" name="xmlconnect.catalog.category.nfo" as="category_info" output=""/>
+            <block type="xmlconnect/catalog_category_info" name="xmlconnect.catalog.category.info" as="category_info" output=""/>
         </block>
     </xmlconnect_catalog_category>
 
@@ -61,6 +62,7 @@
 
             <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                 <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_price_giftcard</renderer></action>
             </block>
 
             <block type="xmlconnect/catalog_product_attributes" name="xmlconnect.catalog.product.attributes" as="additional_info" output="" />
@@ -71,6 +73,7 @@
                 <action method="addRenderer"><type>configurable</type><renderer>xmlconnect/catalog_product_options_configurable</renderer></action>
                 <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_options_bundle</renderer></action>
                 <action method="addRenderer"><type>grouped</type><renderer>xmlconnect/catalog_product_options_grouped</renderer></action>
+                <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_options_giftcard</renderer></action>
             </block>
         </block>
     </xmlconnect_catalog_product>
@@ -82,6 +85,7 @@
             <action method="addRenderer"><type>configurable</type><renderer>xmlconnect/catalog_product_options_configurable</renderer></action>
             <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_options_bundle</renderer></action>
             <action method="addRenderer"><type>grouped</type><renderer>xmlconnect/catalog_product_options_grouped</renderer></action>
+            <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_options_giftcard</renderer></action>
         </block>
     </xmlconnect_catalog_productoptions>
 
@@ -104,6 +108,7 @@
             <block type="xmlconnect/catalog_product_list" name="xmlconnect.catalog.product.list" as="product_list" output="">
                 <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                     <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                    <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_price_giftcard</renderer></action>
                 </block>
             </block>
         </block>
@@ -120,10 +125,12 @@
             <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/item/default.phtml</template></action>
             <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/cart/item/default.phtml</template></action>
             <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/item/default.phtml</template></action>
+            <action method="addItemRender"><type>giftcard</type><block>enterprise_giftcard/checkout_cart_item_renderer</block><template>checkout/cart/item/default.phtml</template></action>
 
             <block type="xmlconnect/cart_crosssell" name="xmlconnect.cart.crosssell" as="crosssell">
                 <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                     <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                    <action method="addRenderer"><type>giftcard</type><renderer>giftcard/catalog_product_price_giftcard</renderer></action>
                 </block>
             </block>
         </block>
@@ -145,6 +152,7 @@
         <block type="xmlconnect/wishlist" name="xmlconnect.wishlist" output="toHtml">
             <block type="xmlconnect/catalog_product_price" name="xmlconnect.catalog.product.price" as="product_price" output="">
                 <action method="addRenderer"><type>bundle</type><renderer>xmlconnect/catalog_product_price_bundle</renderer></action>
+                <action method="addRenderer"><type>giftcard</type><renderer>xmlconnect/catalog_product_price_giftcard</renderer></action>
             </block>
         </block>
     </xmlconnect_wishlist_index>
@@ -160,6 +168,30 @@
     <xmlconnect_customer_orderlist>
         <block type="xmlconnect/customer_order_list" name="xmlconnect.customer.order.list" output="toHtml"/>
     </xmlconnect_customer_orderlist>
+
+    <xmlconnect_customer_orderdetails>
+        <block type="xmlconnect/customer_order_details" name="xmlconnect.customer.order.details" output="toHtml">
+            <block type="xmlconnect/customer_order_items" name="xmlconnect.customer.order.items" as="order_items" output="">
+                <action method="addItemRender"><type>default</type><block>xmlconnect/customer_order_item_renderer_default</block><template></template></action>
+                <action method="addItemRender"><type>grouped</type><block>xmlconnect/customer_order_item_renderer_grouped</block><template></template></action>
+                <action method="addItemRender"><type>bundle</type><block>xmlconnect/customer_order_item_renderer_bundle</block><template></template></action>
+                <action method="addItemRender"><type>downloadable</type><block>xmlconnect/customer_order_item_renderer_downloadable</block><template></template></action>
+                <action method="addItemRender"><type>giftcard</type><block>xmlconnect/customer_order_item_renderer_giftcard</block><template></template></action>
+
+                <block type="xmlconnect/customer_order_totals" name="xmlconnect.customer.order.totals" output="">
+                    <block type="xmlconnect/customer_order_totals_tax" name="xmlconnect.customer.order.tax" output=""/>
+                </block>
+            </block>
+        </block>
+    </xmlconnect_customer_orderdetails>
+
+    <xmlconnect_customer_storecredit>
+        <block type="xmlconnect/customer_storecredit" name="xmlconnect.customer.storecredit" output="toHtml"/>
+    </xmlconnect_customer_storecredit>
+
+    <xmlconnect_customer_giftcardcheck>
+        <block type="xmlconnect/customer_giftcardCheck" name="xmlconnect.customer.giftcardCheck" output="toHtml"/>
+    </xmlconnect_customer_giftcardcheck>
 
     <!-- Configuration -->
 
@@ -182,7 +214,7 @@
     </xmlconnect_checkout_billingaddress>
 
     <xmlconnect_checkout_newbillingaddressform>
-        <block type="xmlconnect/checkout_address_form" name="xmlconnect.checkout.new.billing.addreess.form" output="toHtml">
+        <block type="xmlconnect/checkout_address_form" name="xmlconnect.checkout.new.billing.address.form" output="toHtml">
             <action method="setType"><type>billing</type></action>
         </block>
     </xmlconnect_checkout_newbillingaddressform>
@@ -194,13 +226,13 @@
     </xmlconnect_checkout_shippingaddress>
 
     <xmlconnect_checkout_newshippingaddressform>
-        <block type="xmlconnect/checkout_address_form" name="xmlconnect.checkout.new.billing.addreess.form" output="toHtml">
+        <block type="xmlconnect/checkout_address_form" name="xmlconnect.checkout.new.billing.address.form" output="toHtml">
             <action method="setType"><type>shipping</type></action>
         </block>
     </xmlconnect_checkout_newshippingaddressform>
 
     <xmlconnect_checkout_shippingmethods>
-        <block type="xmlconnect/checkout_shipping_method_avaliable" name="xmlconnect.checkout.shipping.method.avalieble" output="toHtml"/>
+        <block type="xmlconnect/checkout_shipping_method_available" name="xmlconnect.checkout.shipping.method.available" output="toHtml"/>
     </xmlconnect_checkout_shippingmethods>
 
     <xmlconnect_checkout_paymentmethods>
@@ -221,6 +253,7 @@
                 <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
                 <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
+                <action method="addItemRender"><type>giftcard</type><block>enterprise_giftcard/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
             </block>
 
             <block type="xmlconnect/cart_totals" name="xmlconnect.checkout.order.review.totals" as="totals"/>
@@ -231,12 +264,29 @@
     <!-- Checkout with PayPal MEP -->
 
     <xmlconnect_paypal_mep_shippingmethods>
-        <block type="xmlconnect/checkout_shipping_method_avaliable" name="xmlconnect.checkout.shipping.method.avalieble" output="toHtml"/>
+        <block type="xmlconnect/checkout_shipping_method_available" name="xmlconnect.checkout.shipping.method.available" output="toHtml"/>
     </xmlconnect_paypal_mep_shippingmethods>
 
     <xmlconnect_paypal_mep_carttotals>
         <block type="xmlconnect/cart_paypal_mep_totals" name="xmlconnect.cart.paypal.mep.totals" output="toHtml"/>
     </xmlconnect_paypal_mep_carttotals>
+
+    <!-- Checkout with PayPal MECL -->
+
+    <xmlconnect_paypal_mecl_review>
+        <block type="xmlconnect/cart_paypal_mecl_review" name="xmlconnect.cart.paypal.mecl.review" output="toHtml">
+            <block type="xmlconnect/cart_paypal_mecl_details" name="xmlconnect.cart.paypal.mecl.details" as="details">
+                <action method="addItemRender"><type>default</type><block>xmlconnect/cart_item_renderer</block><template></template></action>
+                <action method="addItemRender"><type>grouped</type><block>xmlconnect/cart_item_renderer_grouped</block><template></template></action>
+                <action method="addItemRender"><type>configurable</type><block>xmlconnect/cart_item_renderer_configurable</block><template></template></action>
+                <block type="xmlconnect/cart_totals" name="xmlconnect.cart.totals" as="totals"/>
+            </block>
+        </block>
+    </xmlconnect_paypal_mecl_review>
+
+    <xmlconnect_paypal_mecl_shippingmethods>
+        <block type="xmlconnect/cart_paypal_mecl_shippingmethods" name="xmlconnect.cart.paypal.mecl.shippingmethods" output="toHtml"></block>
+    </xmlconnect_paypal_mecl_shippingmethods>
 
     <!-- Cms -->
 
@@ -244,4 +294,15 @@
         <block type="xmlconnect/cms_page" name="xmlconnect.cms.page" output="toHtml"/>
     </xmlconnect_cms_page>
 
+    <!-- Payment bridge -->
+
+    <xmlconnect_pbridge_result>
+        <block type="xmlconnect/checkout_pbridge_result" name="xmlconnect.checkout.pbridge.result" template="xmlconnect/pbridge/result.phtml" output="toHtml" />
+    </xmlconnect_pbridge_result>
+
+    <!-- Product review -->
+
+    <xmlconnect_review_form>
+        <block type="xmlconnect/review_form" name="xmlconnect.review.form" output="toHtml"/>
+    </xmlconnect_review_form>
 </layout>

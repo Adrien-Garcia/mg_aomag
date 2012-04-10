@@ -20,15 +20,9 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
-// Récupération des centre d'intérets disponible
-$formlist = Mage::helper('newsletterdolist')->load();
-// Récupération des centre d'intérêts du client
-$interests = explode(";",$this->getCustomer()->getInterests());
-
 ?>
 <div class="page-title">
     <h1><?php echo $this->__('Newsletter Subscription') ?></h1>
@@ -40,29 +34,7 @@ $interests = explode(";",$this->getCustomer()->getInterests());
         <?php echo $this->getBlockHtml('formkey')?>
         <h2 class="legend"><?php echo $this->__('Newsletter Subscription') ?></h2>
         <ul class="form-list">
-            <li class="control"><input type="checkbox" name="is_subscribed" id="subscription" value="1" title="<?php echo $this->__('General Subscription') ?>"<?php if($this->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox"  onchange="showhide_centresinterets();"/><label for="subscription"><?php echo $this->__('General Subscription') ?></label></li>
-            <?php if(isset($formlist[0])): ?>
-			 	<div id="newsletterdolist_centresinterets">
-					<p>Les differents centres d'intérets :</p> 
-					<?php foreach($formlist[0] as $key => $value):?>
-					<li class="control">				
-						<input type="checkbox" name="centreinteret_<?php echo $key?>" id="centreinteret_<?php echo $key?>" value="1" <?php if(in_array($key,$interests)) echo "checked='checked'";  ?>title="<?php echo $this->__('General Subscription') ?>"  class="checkbox"/>
-						<label for="centre_interet"><?php echo $value; ?></label>					
-					</li>
-					<?php endforeach;?>	 
-				</div>
-			<script type="text/javascript">	
-			function showhide_centresinterets(){		
-				var inscrit = jQuery('#subscription:checked').val();
-				if(inscrit == 1){			
-					jQuery('#newsletterdolist_centresinterets').slideDown();
-				} else {
-					jQuery('#newsletterdolist_centresinterets').slideUp();
-				} 
-			}
-			showhide_centresinterets();
-			</script>
-			<?php endif; ?>
+            <li class="control"><input type="checkbox" name="is_subscribed" id="subscription" value="1" title="<?php echo $this->__('General Subscription') ?>"<?php if($this->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" /><label for="subscription"><?php echo $this->__('General Subscription') ?></label></li>
         </ul>
     </div>
     <div class="buttons-set">

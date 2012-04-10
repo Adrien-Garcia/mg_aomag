@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,9 +61,16 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         try {
             $this->_initCheckout();
 
+            if ($this->_getQuote()->getIsMultiShipping()) {
+                $this->_getQuote()->setIsMultiShipping(false);
+                $this->_getQuote()->removeAllAddresses();
+            }
+
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             if ($customer && $customer->getId()) {
-                $this->_checkout->setCustomerWithAddressChange($customer, null, $this->_getQuote()->getShippingAddress());
+                $this->_checkout->setCustomerWithAddressChange(
+                    $customer, null, $this->_getQuote()->getShippingAddress()
+                );
             }
 
             // billing agreement
@@ -187,7 +194,9 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
         }
         catch (Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($this->__('Unable to initialize Express Checkout review.'));
+            Mage::getSingleton('checkout/session')->addError(
+                $this->__('Unable to initialize Express Checkout review.')
+            );
             Mage::logException($e);
         }
         $this->_redirect('checkout/cart');
@@ -245,6 +254,14 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     public function placeOrderAction()
     {
         try {
+            $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
+            if ($requiredAgreements) {
+                $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
+                if (array_diff($requiredAgreements, $postedAgreements)) {
+                    Mage::throwException(Mage::helper('paypal')->__('Please agree to all the terms and conditions before placing the order.'));
+                }
+            }
+
             $this->_initCheckout();
             $this->_checkout->place($this->_initToken());
 
@@ -326,7 +343,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         if (null !== $setToken) {
             if (false === $setToken) {
-                if (!$this->_getSession()->getExpressCheckoutToken()) { // security measure for avoid unsetting token twice
+                // security measure for avoid unsetting token twice
+                if (!$this->_getSession()->getExpressCheckoutToken()) {
                     Mage::throwException($this->__('PayPal Express Checkout Token does not exist.'));
                 }
                 $this->_getSession()->unsExpressCheckoutToken();

@@ -66,8 +66,10 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
      */
     private function _isFileAccessible()
     {
-        return false; // Added as I know my local.xml is protected and to bring sanity to my Apache error log (see http://www.magentocommerce.com/boards/viewthread/213947/)    	
-        $defaultUnsecureBaseURL = (string) Mage::getConfig()->getNode('default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL);
+        //ADDONLINE
+    	return false; // Added as I know my local.xml is protected and to bring sanity to my Apache error log (see http://www.magentocommerce.com/boards/viewthread/213947/)    	
+        //ADDONLINE
+    	$defaultUnsecureBaseURL = (string) Mage::getConfig()->getNode('default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL);
 
         $http = new Varien_Http_Adapter_Curl();
         $http->setConfig(array('timeout' => $this->_verificationTimeOut));

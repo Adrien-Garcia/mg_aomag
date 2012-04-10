@@ -62,4 +62,16 @@
             </adminhtml>
         </routers>
     </admin>
+    <stores>
+        <admin>
+            <design>
+                <package>
+                    <name>default</name>
+                </package>
+                <theme>
+                    <default>addonline</default>
+                </theme>
+            </design>
+        </admin>
+    </stores>
 </config>

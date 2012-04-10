@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,7 +105,47 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         $addressForm = $this->_getAddressForm()
             ->setEntity($addressModel);
 
-        $this->_addAttributesToForm($addressForm->getAttributes(), $fieldset);
+        $attributes = $addressForm->getAttributes();
+        if(isset($attributes['street'])) {
+            Mage::helper('adminhtml/addresses')
+                ->processStreetAttribute($attributes['street']);
+        }
+        $this->_addAttributesToForm($attributes, $fieldset);
+
+        $prefixElement = $this->_form->getElement('prefix');
+        if ($prefixElement) {
+            $prefixOptions = $this->helper('customer')->getNamePrefixOptions($this->getStore());
+            if (!empty($prefixOptions)) {
+                $fieldset->removeField($prefixElement->getId());
+                $prefixField = $fieldset->addField($prefixElement->getId(),
+                    'select',
+                    $prefixElement->getData(),
+                    '^'
+                );
+                $prefixField->setValues($prefixOptions);
+                if ($this->getAddressId()) {
+                    $prefixField->addElementValues($this->getAddress()->getPrefix());
+                }
+            }
+        }
+
+        $suffixElement = $this->_form->getElement('suffix');
+        if ($suffixElement) {
+            $suffixOptions = $this->helper('customer')->getNameSuffixOptions($this->getStore());
+            if (!empty($suffixOptions)) {
+                $fieldset->removeField($suffixElement->getId());
+                $suffixField = $fieldset->addField($suffixElement->getId(),
+                    'select',
+                    $suffixElement->getData(),
+                    $this->_form->getElement('lastname')->getId()
+                );
+                $suffixField->setValues($suffixOptions);
+                if ($this->getAddressId()) {
+                    $suffixField->addElementValues($this->getAddress()->getSuffix());
+                }
+            }
+        }
+
 
         $regionElement = $this->_form->getElement('region_id');
         if ($regionElement) {
@@ -115,7 +155,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         $this->_form->setValues($this->getFormValues());
 
         if (!$this->_form->getElement('country_id')->getValue()) {
-            $this->_form->getElement('country_id')->setValue(Mage::helper('core')->getDefaultCountry($this->getStore()));
+            $this->_form->getElement('country_id')->setValue(
+                Mage::helper('core')->getDefaultCountry($this->getStore())
+            );
         }
 
         return $this;

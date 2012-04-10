@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,13 +64,14 @@ class Mage_Paypal_Model_Config
      * Payflow Pro Gateway
      * @var string
      */
-    const METHOD_PAYFLOWPRO   = 'verisign';
+    const METHOD_PAYFLOWPRO         = 'verisign';
 
-    const METHOD_PAYFLOWLINK  = 'payflow_link';
+    const METHOD_PAYFLOWLINK        = 'payflow_link';
+    const METHOD_PAYFLOWADVANCED    = 'payflow_advanced';
 
-    const METHOD_HOSTEDPRO  = 'hosted_pro';
+    const METHOD_HOSTEDPRO          = 'hosted_pro';
 
-    const METHOD_BILLING_AGREEMENT = 'paypal_billing_agreement';
+    const METHOD_BILLING_AGREEMENT  = 'paypal_billing_agreement';
 
     /**
      * Buttons and images
@@ -94,6 +95,16 @@ class Mage_Paypal_Model_Config
     const PAYMENT_ACTION_SALE  = 'Sale';
     const PAYMENT_ACTION_ORDER = 'Order';
     const PAYMENT_ACTION_AUTH  = 'Authorization';
+
+    /**
+     * Authorization amounts for Account Verification
+     *
+     * @deprecated since 1.6.2.0
+     * @var int
+     */
+    const AUTHORIZATION_AMOUNT_ZERO = 0;
+    const AUTHORIZATION_AMOUNT_ONE = 1;
+    const AUTHORIZATION_AMOUNT_FULL = 2;
 
     /**
      * Fraud management actions
@@ -149,6 +160,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Current store id
+     *
      * @var int
      */
     protected $_storeId = null;
@@ -168,6 +180,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Style system config map (Express Checkout)
+     *
      * @var array
      */
     protected $_ecStyleConfigMap = array(
@@ -180,13 +193,15 @@ class Mage_Paypal_Model_Config
 
     /**
      * Currency codes supported by PayPal methods
+     *
      * @var array
      */
     protected $_supportedCurrencyCodes = array('AUD', 'CAD', 'CZK', 'DKK', 'EUR', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN',
-        'NOK', 'NZD', 'PLN', 'GBP', 'SGD', 'SEK', 'CHF', 'USD');
+        'NOK', 'NZD', 'PLN', 'GBP', 'SGD', 'SEK', 'CHF', 'USD', 'TWD', 'THB');
 
     /**
      * Merchant country supported by PayPal
+     *
      * @var array
      */
     protected $_supportedCountryCodes = array(
@@ -220,6 +235,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Locale codes supported by misc images (marks, shortcuts etc)
+     *
      * @var array
      * @link https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_ECButtonIntegration#id089QD0O0TX4__id08AH904I0YK
      */
@@ -229,6 +245,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Set method and store id, if specified
+     *
      * @param array $params
      */
     public function __construct($params = array())
@@ -261,6 +278,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Payment method instance code getter
+     *
      * @return string
      */
     public function getMethodCode()
@@ -270,6 +288,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Store ID setter
+     *
      * @param int $storeId
      * @return Mage_Paypal_Model_Config
      */
@@ -288,8 +307,8 @@ class Mage_Paypal_Model_Config
     public function isMethodActive($method)
     {
         if ($this->isMethodSupportedForCountry($method)
-            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId))
-        {
+            && Mage::getStoreConfigFlag("payment/{$method}/active", $this->_storeId)
+        ) {
             return true;
         }
         return false;
@@ -321,7 +340,8 @@ class Mage_Paypal_Model_Config
                     break;
                 }
                 // check for direct payments dependence
-                if ($this->isMethodActive(self::METHOD_WPP_DIRECT) || $this->isMethodActive(self::METHOD_WPP_PE_DIRECT)) {
+                if ($this->isMethodActive(self::METHOD_WPP_DIRECT)
+                    || $this->isMethodActive(self::METHOD_WPP_PE_DIRECT)) {
                     $result = false;
                 }
                 break;
@@ -337,7 +357,8 @@ class Mage_Paypal_Model_Config
                 // check for direct payments dependence
                 if ($this->isMethodActive(self::METHOD_WPP_PE_DIRECT)) {
                     $result = true;
-                } elseif (!$this->isMethodActive(self::METHOD_WPP_PE_DIRECT) && !$this->isMethodActive(self::METHOD_PAYFLOWPRO)) {
+                } elseif (!$this->isMethodActive(self::METHOD_WPP_PE_DIRECT)
+                          && !$this->isMethodActive(self::METHOD_PAYFLOWPRO)) {
                     $result = false;
                 }
                 break;
@@ -458,15 +479,18 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_WPP_PE_DIRECT,
                 self::METHOD_WPP_PE_EXPRESS,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_PAYFLOWLINK,
+                self::METHOD_PAYFLOWADVANCED,
             ),
             'CA' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_PAYFLOWLINK,
             ),
@@ -474,6 +498,7 @@ class Mage_Paypal_Model_Config
                 self::METHOD_WPS,
                 self::METHOD_WPP_DIRECT,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_WPP_PE_DIRECT,
                 self::METHOD_WPP_PE_EXPRESS,
                 self::METHOD_HOSTEDPRO,
@@ -481,23 +506,27 @@ class Mage_Paypal_Model_Config
             'AU' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_HOSTEDPRO,
             ),
             'NZ' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_PAYFLOWPRO,
                 self::METHOD_HOSTEDPRO,
             ),
             'DE' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_HOSTEDPRO,
             ),
             'other' => array(
                 self::METHOD_WPS,
                 self::METHOD_WPP_EXPRESS,
+                self::METHOD_BILLING_AGREEMENT,
                 self::METHOD_HOSTEDPRO,
             )
         );
@@ -508,6 +537,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Get url for dispatching customer to express checkout start
+     *
      * @param string $token
      * @return string
      */
@@ -521,6 +551,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Get url that allows to edit checkout details on paypal side
+     *
      * @param $token
      * @return string
      */
@@ -536,6 +567,7 @@ class Mage_Paypal_Model_Config
     /**
      * Get url for additional actions that PayPal may require customer to do after placing the order.
      * For instance, redirecting customer to bank for payment confirmation.
+     *
      * @param string $token
      * @return string
      */
@@ -577,6 +609,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Whether Express Checkout button should be rendered dynamically
+     *
      * @return bool
      */
     public function areButtonsDynamic()
@@ -781,6 +814,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Express Checkout button "flavors" source getter
+     *
      * @return array
      */
     public function getExpressCheckoutButtonFlavors()
@@ -793,6 +827,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Express Checkout button types source getter
+     *
      * @return array
      */
     public function getExpressCheckoutButtonTypes()
@@ -805,6 +840,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Payment actions source getter
+     *
      * @return array
      */
     public function getPaymentActions()
@@ -821,6 +857,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Mapper from PayPal-specific payment actions to Magento payment actions
+     *
      * @return string|null
      */
     public function getPaymentAction()
@@ -833,6 +870,17 @@ class Mage_Paypal_Model_Config
             case self::PAYMENT_ACTION_ORDER:
                 return Mage_Payment_Model_Method_Abstract::ACTION_ORDER;
         }
+    }
+
+    /**
+     * Returns array of possible Authorization Amounts for Account Verification
+     *
+     * @deprecated since 1.6.2.0
+     * @return array
+     */
+    public function getAuthorizationAmounts()
+    {
+        return array();
     }
 
     /**
@@ -897,6 +945,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Payment data delivery methods getter for PayPal Standard
+     *
      * @return array
      */
     public function getWpsPaymentDeliveryMethods()
@@ -927,7 +976,7 @@ class Mage_Paypal_Model_Config
      */
     public function getWppPeCcTypesAsOptionArray()
     {
-        $model = Mage::getModel('payment/source_cctype')->setAllowedTypes(array('VI', 'MC', 'SM', 'SO', 'OT'));
+        $model = Mage::getModel('payment/source_cctype')->setAllowedTypes(array('VI', 'MC', 'SM', 'SO', 'OT', 'AE'));
         return $model->toOptionArray();
     }
 
@@ -955,6 +1004,7 @@ class Mage_Paypal_Model_Config
             case self::METHOD_WPP_PE_DIRECT:
             case self::METHOD_PAYFLOWPRO:
             case self::METHOD_PAYFLOWLINK:
+            case self::METHOD_PAYFLOWADVANCED:
             case self::METHOD_HOSTEDPRO:
                 return true;
         }
@@ -963,16 +1013,27 @@ class Mage_Paypal_Model_Config
 
     /**
      * Check whether specified currency code is supported
+     *
      * @param string $code
      * @return bool
      */
     public function isCurrencyCodeSupported($code)
     {
-        return in_array($code, $this->_supportedCurrencyCodes);
+        if (in_array($code, $this->_supportedCurrencyCodes)) {
+            return true;
+        }
+        if ($this->getMerchantCountry() == 'BR' && $code == 'BRL') {
+            return true;
+        }
+        if ($this->getMerchantCountry() == 'MY' && $code == 'MYR') {
+            return true;
+        }
+        return false;
     }
 
     /**
      * Export page style current settings to specified object
+     *
      * @param Varien_Object $to
      */
     public function exportExpressCheckoutStyleSettings(Varien_Object $to)
@@ -1027,6 +1088,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Map any supported payment method into a config path by specified field name
+     *
      * @param string $fieldName
      * @return string|null
      */
@@ -1127,6 +1189,9 @@ class Mage_Paypal_Model_Config
             case 'solution_type':
             case 'visible_on_cart':
             case 'visible_on_product':
+            case 'authorization_honor_period':
+            case 'order_valid_period':
+            case 'child_authorization_number':
             case 'allow_ba_signup':
                 return "payment/{$this->_methodCode}/{$fieldName}";
             default:
@@ -1190,7 +1255,8 @@ class Mage_Paypal_Model_Config
     {
         $pathPrefix = 'paypal/wpuk';
         // Use PUMP credentials from Verisign for EC when Direct Payments are unavailable
-        if ($this->_methodCode == self::METHOD_WPP_PE_EXPRESS && !$this->isMethodAvailable(self::METHOD_WPP_PE_DIRECT)) {
+        if ($this->_methodCode == self::METHOD_WPP_PE_EXPRESS
+            && !$this->isMethodAvailable(self::METHOD_WPP_PE_DIRECT)) {
             $pathPrefix = 'payment/verisign';
         }
         switch ($fieldName) {

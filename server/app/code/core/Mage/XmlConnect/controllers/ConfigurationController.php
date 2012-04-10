@@ -20,21 +20,23 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * XmlConnect index controller
  *
- * @author  Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Declare content type header
      *
-     * @return void
+     * @return null
      */
     public function preDispatch()
     {
@@ -50,21 +52,25 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
      */
     protected function _initApp()
     {
-
         $cookieName = Mage_XmlConnect_Model_Application::APP_CODE_COOKIE_NAME;
-        $screenSizeCookieName = Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME;
         $code = $this->getRequest()->getParam($cookieName);
-        $screenSize = (string) $this->getRequest()->getParam($screenSizeCookieName);
+        $screenSize = (string) $this->getRequest()->getParam(
+            Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME
+        );
         /** @var $app Mage_XmlConnect_Model_Application */
         $app = Mage::getModel('xmlconnect/application');
         if ($app) {
             $app->loadByCode($code);
-            Mage::app()->setCurrentStore(Mage::app()->getStore($app->getStoreId())->getCode());
+            Mage::app()->setCurrentStore(
+                Mage::app()->getStore($app->getStoreId())->getCode()
+            );
             Mage::getSingleton('core/locale')->emulate($app->getStoreId());
             $app->setScreenSize($screenSize);
+
             if (!$app->getId()) {
                 Mage::throwException($this->__('App with specified code does not exist.'));
             }
+
             $app->loadConfiguration();
         } else {
             Mage::throwException($this->__('App code required.'));
@@ -74,44 +80,59 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
     }
 
     /**
+     * Set application cookies
+     *
+     * Set application coolies: application code and device screen size.
+     *
+     * @param Mage_XmlConnect_Model_Application $app
+     * @return null
+     */
+    protected function _initCookies(Mage_XmlConnect_Model_Application $app)
+    {
+        $cookieToSetArray = array(
+            array(
+                'cookieName'    => Mage_XmlConnect_Model_Application::APP_CODE_COOKIE_NAME,
+                'paramName'     => Mage_XmlConnect_Model_Application::APP_CODE_COOKIE_NAME,
+                'value'         => $app->getCode()
+            ),
+            array(
+                'cookieName'    => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
+                'paramName'     => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
+                'value'         => $app->getScreenSize()
+        ));
+
+        foreach ($cookieToSetArray as $item) {
+            if (!isset($_COOKIE[$item['cookieName']])
+                || $_COOKIE[$item['cookieName']] != $this->getRequest()->getParam($item['paramName'])
+            ) {
+                /**
+                 * @todo add management of cookie expire to application admin panel
+                 */
+                $cookieExpireOffset = 3600 * 24 * 30;
+                Mage::getSingleton('core/cookie')->set(
+                    $item['cookieName'], $item['value'], $cookieExpireOffset, '/', null, null, true
+                );
+            }
+        }
+    }
+
+    /**
      * Default action
      *
-     * @return void
+     * @return null
      */
     public function indexAction()
     {
         try {
-
+            /** @var $app Mage_XmlConnect_Model_Application */
             $app = $this->_initApp();
-
-            $cookieToSetArray = array (
-                array(
-                    'cookieName' => Mage_XmlConnect_Model_Application::APP_CODE_COOKIE_NAME,
-                    'paramName' => 'app_code',
-                    'value' => $app->getCode()),
-                array(
-                    'cookieName' => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
-                    'paramName' => Mage_XmlConnect_Model_Application::APP_SCREEN_SIZE_NAME,
-                    'value' => $app->getScreenSize())
-            );
-            foreach ($cookieToSetArray as $item) {
-                if (!isset($_COOKIE[$item['cookieName']]) ||
-                    (isset($_COOKIE[$item['cookieName']]) &&
-                        ($_COOKIE[$item['cookieName']] != $this->getRequest()->getParam($item['paramName']))
-                    )) {
-                    /**
-                     * @todo add management of cookie expire to application admin panel
-                     */
-                    $cookieExpireOffset = 3600 * 24 * 30;
-                    Mage::getSingleton('core/cookie')->set($item['cookieName'], $item['value'], $cookieExpireOffset, '/', null, null, true);
-                }
-            }
+            $this->_initCookies($app);
 
             if ($this->getRequest()->getParam('updated_at')) {
                 $updatedAt = strtotime($app->getUpdatedAt());
                 $loadedAt = (int) $this->getRequest()->getParam('updated_at');
                 if ($loadedAt >= $updatedAt) {
-                    $message = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
+                    $message = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
                     $message->addChild('status', Mage_XmlConnect_Controller_Action::MESSAGE_STATUS_SUCCESS);
                     $message->addChild('no_changes', '1');
                     $this->getResponse()->setBody($message->asNiceXml());
@@ -121,17 +142,28 @@ class Mage_XmlConnect_ConfigurationController extends Mage_Core_Controller_Front
             $this->loadLayout(false);
             $this->renderLayout();
         } catch (Mage_Core_Exception $e) {
-            $message = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
-            $message->addChild('status', Mage_XmlConnect_Controller_Action::MESSAGE_STATUS_ERROR);
-            $message->addChild('text', $e->getMessage());
-            $this->getResponse()->setBody($message->asNiceXml());
+            $this->_message($e->getMessage(), Mage_XmlConnect_Controller_Action::MESSAGE_STATUS_ERROR);
         } catch (Exception $e) {
-            $message = new Mage_XmlConnect_Model_Simplexml_Element('<message></message>');
-            $message->addChild('status', Mage_XmlConnect_Controller_Action::MESSAGE_STATUS_ERROR);
-            $message->addChild('text', $this->__('Can\'t show configuration.'));
+            $this->_message(
+                $this->__('Can\'t show configuration.'), Mage_XmlConnect_Controller_Action::MESSAGE_STATUS_ERROR
+            );
             Mage::logException($e);
-            $this->getResponse()->setBody($message->asNiceXml());
         }
+    }
 
+    /**
+     * Generate message xml and set it to response body
+     *
+     * @param string $text
+     * @param string $status
+     * @return null
+     */
+    protected function _message($text, $status)
+    {
+        /** @var $message Mage_XmlConnect_Model_Simplexml_Element */
+        $message = Mage::getModel('xmlconnect/simplexml_element', '<message></message>');
+        $message->addCustomChild('status', $status);
+        $message->addCustomChild('text', $text);
+        $this->getResponse()->setBody($message->asNiceXml());
     }
 }

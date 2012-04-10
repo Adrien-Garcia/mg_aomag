@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -142,13 +142,9 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStateStatuses($state, $addLabels = true)
     {
-    	//addonline : correction bug magento ...
-    	//on mettait en cache sur le premier item du tableau du coup les status renvoyés
-    	// ne correspondaient pas au states demandés en paramètres.   
-    	//$key = $state . $addLabels;
-    	$key = is_array($state)?implode($state):$state . $addLabels;
+        $key = $state . $addLabels;
         if (isset($this->_stateStatuses[$key])) {
-        	return $this->_stateStatuses[$key];
+            return $this->_stateStatuses[$key];
         }
         $statuses = array();
         if (empty($state) || !is_array($state)) {
@@ -156,7 +152,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         }
         foreach ($state as $_state) {
             if ($stateNode = $this->_getState($_state)) {
-            	$collection = Mage::getResourceModel('sales/order_status_collection')
+                $collection = Mage::getResourceModel('sales/order_status_collection')
                     ->addStateFilter($_state)
                     ->orderByLabel();
                 foreach ($collection as $status) {
@@ -207,7 +203,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             foreach ($this->getNode('states')->children() as $state) {
                 $name = $state->getName();
                 $this->_states['all'][] = $name;
-                if ($state->visible_on_front){
+                $isVisibleOnFront = (string)$state->visible_on_front;
+                if ((bool)$isVisibleOnFront || ($state->visible_on_front && $isVisibleOnFront == '')) {
                     $this->_states['visible'][] = $name;
                 }
                 else {

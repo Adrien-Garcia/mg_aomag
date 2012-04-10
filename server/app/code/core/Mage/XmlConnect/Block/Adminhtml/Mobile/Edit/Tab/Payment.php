@@ -20,8 +20,16 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Tab for Payments Management
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
     extends Mage_XmlConnect_Block_Adminhtml_Mobile_Widget_Form
@@ -30,7 +38,7 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
     protected $_pages;
 
     /**
-     * Construnctor
+     * Constructor
      * Setting view options
      */
     public function __construct()
@@ -51,61 +59,189 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Edit_Tab_Payment
 
         $this->setForm($form);
 
-        $data = $this->getApplication()->getFormData();
+        $data = Mage::helper('xmlconnect')->getApplication()->getFormData();
         $yesNoValues = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
         $fieldset = $form->addFieldset('onepage_checkout', array('legend' => $this->__('Standard Checkout')));
 
+        if (isset($data['conf[native][defaultCheckout][isActive]'])) {
+            $checkoutStatus = $data['conf[native][defaultCheckout][isActive]'];
+        } else {
+            $checkoutStatus = '1';
+        }
+
         $fieldset->addField('conf/native/defaultCheckout/isActive', 'select', array(
             'label'     => $this->__('Enable Standard Checkout'),
             'name'      => 'conf[native][defaultCheckout][isActive]',
-            'values'   => $yesNoValues,
-            'note'      => $this->__('Standard Checkout uses the checkout methods provided by Magento. Only inline payment methods are supported. (e.g PayPal Direct,  Authorize.Net, etc.)'),
-            'value'     => (isset($data['conf[native][defaultCheckout][isActive]']) ? $data['conf[native][defaultCheckout][isActive]'] : '1')
-        ));
-
-
-        /**
-         * PayPal MEP management
-         */
-        $isExpressCheckoutAvaliable = Mage::getModel('xmlconnect/payment_method_paypal_mep')->isAvailable(null);
-
-        $paypalActive = 0;
-        if (isset($data['conf[native][paypal][isActive]'])) {
-            $paypalActive = (int)($data['conf[native][paypal][isActive]'] && $isExpressCheckoutAvaliable);
-        }
-        $fieldsetPaypal = $form->addFieldset('paypal_mep_checkout', array('legend' => $this->__('PayPal Mobile Embedded Payment (MEP)')));
-
-        $activateMepMethodNote = $this->__('To activate PayPal MEP payment method activate Express checkout first. ');
-        $paypalConfigurationUrl = $this->escapeHtml($this->getUrl('adminhtml/system_config/edit', array('section' => 'paypal')));
-        $businessAccountNote = $this->__('MEP is PayPal`s native checkout experience for the iPhone. You can choose to use MEP alongside standard checkout, or use it as your only checkout method for Magento mobile. PayPal MEP requires a <a href="%s">PayPal business account</a>', $paypalConfigurationUrl);
-
-        $paypalActiveField = $fieldsetPaypal->addField('conf/native/paypal/isActive', 'select', array(
-            'label'     => $this->__('Activate PayPal Checkout'),
-            'name'      => 'conf[native][paypal][isActive]',
-            'note'      => (!$isExpressCheckoutAvaliable ? $activateMepMethodNote : $businessAccountNote),
             'values'    => $yesNoValues,
-            'value'     => $paypalActive,
-            'disabled'  => !$isExpressCheckoutAvaliable
+            'note'      => $this->__('Standard Checkout uses the checkout methods provided by Magento. Only inline payment methods are supported. (e.g PayPal Direct,  Authorize.Net, etc.)'),
+            'value'     => $checkoutStatus
         ));
 
-        $merchantlabelField = $fieldsetPaypal->addField('conf/special/merchantLabel', 'text', array(
-            'name'      => 'conf[special][merchantLabel]',
-            'label'     => $this->__('Merchant Label'),
-            'title'     => $this->__('Merchant Label'),
-            'required'  => true,
-            'value'     => (isset($data['conf[special][merchantLabel]']) ? $data['conf[special][merchantLabel]'] : '')
-        ));
+        $deviceType = Mage::helper('xmlconnect')->getDeviceType();
+        switch ($deviceType) {
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
+                /**
+                 * PayPal MEP management
+                 */
+                $fieldsetPaypal = $form->addFieldset('paypal_mep_checkout', array(
+                    'legend' => $this->__('PayPal Mobile Embedded Payment (MEP)')
+                ));
 
-        // field dependencies
-        $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
-            ->addFieldMap($merchantlabelField->getHtmlId(), $merchantlabelField->getName())
-            ->addFieldMap($paypalActiveField->getHtmlId(), $paypalActiveField->getName())
-            ->addFieldDependence(
-                $merchantlabelField->getName(),
-                $paypalActiveField->getName(),
-                1)
-        );
+                $paypalMepIsAvailable = Mage::getModel('xmlconnect/payment_method_paypal_mep')
+                    ->isAvailable(null);
+
+                $paypalActive = 0;
+                if (isset($data['conf[native][paypal][isActive]'])) {
+                    $paypalActive = (int)($data['conf[native][paypal][isActive]'] && $paypalMepIsAvailable);
+                }
+
+                $paypalConfigurationUrl = $this->escapeHtml(
+                    $this->getUrl('adminhtml/system_config/edit', array('section' => 'paypal'))
+                );
+
+                $activateMepMethodNote = $this->__('To activate PayPal MEP payment method activate Express checkout first. ');
+
+                $businessAccountNote = $this->__('MEP is PayPal\'s native checkout experience for the iPhone. You can choose to use MEP alongside standard checkout, or use it as your only checkout method for Magento mobile. PayPal MEP requires a <a href="%s">PayPal business account</a>', $paypalConfigurationUrl);
+
+                $paypalActiveField = $fieldsetPaypal->addField('conf/native/paypal/isActive', 'select', array(
+                    'label'     => $this->__('Activate PayPal Checkout'),
+                    'name'      => 'conf[native][paypal][isActive]',
+                    'note'      => (!$paypalMepIsAvailable ? $activateMepMethodNote : $businessAccountNote),
+                    'values'    => $yesNoValues,
+                    'value'     => $paypalActive,
+                    'disabled'  => !$paypalMepIsAvailable
+                ));
+
+                if (isset($data['conf[special][merchantLabel]'])) {
+                    $merchantLabelValue = $data['conf[special][merchantLabel]'];
+                } else {
+                    $merchantLabelValue = '';
+                }
+                $merchantlabelField = $fieldsetPaypal->addField('conf/special/merchantLabel', 'text', array(
+                    'name'      => 'conf[special][merchantLabel]',
+                    'label'     => $this->__('Merchant Label'),
+                    'title'     => $this->__('Merchant Label'),
+                    'required'  => true,
+                    'value'     => $merchantLabelValue
+                ));
+
+                if (isset($data['config_data[payment][paypalmep/allowspecific]'])) {
+                    $paypalMepAllow = (int) $data['config_data[payment][paypalmep/allowspecific]'];
+                } else {
+                    $paypalMepAllow = 0;
+                }
+                $paypalMepAllowSpecific = $fieldsetPaypal->addField(
+                    'config_data/paypalmep/allowspecific',
+                    'select',
+                    array(
+                        'name'      => 'config_data[payment:paypalmep/allowspecific]',
+                        'label'     => $this->__('Payment Applicable From'),
+                        'values' => array(
+                            array('value' => 0, 'label' => $this->__('All Allowed Countries')),
+                            array('value' => 1, 'label' => $this->__('Specific Countries'))
+                        ),
+                        'value' => $paypalMepAllow
+                ));
+
+                $countries = Mage::getModel('adminhtml/system_config_source_country')->toOptionArray(true);
+
+                if (empty($data['config_data[payment][paypalmep/allowspecific]'])) {
+                    $countrySelected = array();
+                } else {
+                    $countrySelected = explode(',', $data['config_data[payment][paypalmep/applicable]']);
+                }
+
+                $paypalMepApplicable = $fieldsetPaypal->addField(
+                    'config_data/paypalmep/applicable',
+                    'multiselect',
+                    array(
+                        'name'  => 'config_data[payment:paypalmep/applicable]',
+                        'label' => $this->__('Countries Payment Applicable From'),
+                        'values' => $countries,
+                        'value' => $countrySelected
+                ));
+
+                // field dependencies
+                $this->setChild('form_after', $this->getLayout()
+                    ->createBlock('adminhtml/widget_form_element_dependence')
+                    ->addFieldMap($paypalMepAllowSpecific->getHtmlId(), $paypalMepAllowSpecific->getName())
+                    ->addFieldMap($paypalMepApplicable->getHtmlId(), $paypalMepApplicable->getName())
+                    ->addFieldMap($merchantlabelField->getHtmlId(), $merchantlabelField->getName())
+                    ->addFieldMap($paypalActiveField->getHtmlId(), $paypalActiveField->getName())
+                    ->addFieldDependence(
+                        $paypalMepApplicable->getName(),
+                        $paypalMepAllowSpecific->getName(),
+                        1
+                    )
+                    ->addFieldDependence(
+                        $paypalMepAllowSpecific->getName(),
+                        $paypalActiveField->getName(),
+                        1
+                    )
+                    ->addFieldDependence(
+                        $paypalMepApplicable->getName(),
+                        $paypalActiveField->getName(),
+                        1
+                    )
+                    ->addFieldDependence(
+                        $merchantlabelField->getName(),
+                        $paypalActiveField->getName(),
+                        1
+                    )
+                );
+                break;
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
+                /**
+                 * PayPal MECL management
+                 */
+                if (Mage::app()->isSingleStoreMode() || Mage::helper('xmlconnect')->getApplication()->getId()) {
+                    $paypalMeclIsAvailable = Mage::getModel('xmlconnect/payment_method_paypal_mecl')
+                        ->isAvailable();
+                    $activateMeclMethodNote = $this->__('You need to enable PayPal Express Checkout first from the Payment configuration before enabling PayPal MECL.');
+                } else {
+                    $paypalMeclIsAvailable = false;
+                    $activateMeclMethodNote = $this->__('Please create and save an application first.');
+                }
+
+                $fieldsetMecl = $form->addFieldset('paypal_mecl_checkout', array(
+                    'legend' => $this->__('PayPal Mobile Express Checkout Library (MECL)')
+                ));
+
+                $meclAccountNote = $this->__('PayPal MECL is the mobile version of PayPal\'s Express Checkout service. You can choose to use MECL alongside standard checkout, or use it as your only checkout method for Magento Mobile.');
+
+                $paypalMeclActive = 0;
+                if (isset($data['config_data[payment][paypalmecl_is_active]'])) {
+                    $paypalMeclActive = (int) $data['config_data[payment][paypalmecl_is_active]'];
+                }
+
+                $fieldsetMecl->addField('config_data/paypalmecl_is_active', 'select', array(
+                    'label'     => $this->__('Activate PayPal MECL'),
+                    'name'      => 'config_data[payment:paypalmecl_is_active]',
+                    'note'      => (!$paypalMeclIsAvailable ? $activateMeclMethodNote : $meclAccountNote),
+                    'values'    => $yesNoValues,
+                    'value'     => $paypalMeclActive,
+                    'disabled'  => !$paypalMeclIsAvailable
+                ));
+
+                /**
+                 * PayPal MEP management
+                 */
+                $fieldsetPaypal = $form->addFieldset('paypal_mep_checkout', array(
+                    'legend' => $this->__('PayPal Mobile Embedded Payment (MEP)')
+                ));
+                $fieldsetPaypal->addField('paypal_note', 'note', array(
+                    'label' => $this->__('Notice'),
+                    'text'  => $this->__('Currently, PayPal MEP is not available for the Android application')
+                ));
+                break;
+            default:
+                Mage::throwException(
+                    $this->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
+                );
+                break;
+        }
 
         return parent::_prepareForm();
     }

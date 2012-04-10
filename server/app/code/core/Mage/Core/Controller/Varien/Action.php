@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -282,7 +282,9 @@ abstract class Mage_Core_Controller_Varien_Action
 
         // load theme handle
         $package = Mage::getSingleton('core/design_package');
-        $update->addHandle('THEME_'.$package->getArea().'_'.$package->getPackageName().'_'.$package->getTheme('layout'));
+        $update->addHandle(
+            'THEME_'.$package->getArea().'_'.$package->getPackageName().'_'.$package->getTheme('layout')
+        );
 
         // load action handle
         $update->addHandle(strtolower($this->getFullActionName()));
@@ -490,7 +492,8 @@ abstract class Mage_Core_Controller_Varien_Action
 
         Mage::app()->loadArea($this->getLayout()->getArea());
 
-        if ($this->getFlag('', self::FLAG_NO_COOKIES_REDIRECT) && Mage::getStoreConfig('web/browser_capabilities/cookies')) {
+        if ($this->getFlag('', self::FLAG_NO_COOKIES_REDIRECT)
+            && Mage::getStoreConfig('web/browser_capabilities/cookies')) {
             $this->_forward('noCookies', 'index', 'core');
             return;
         }
@@ -624,6 +627,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $block = $this->getLayout()->getMessagesBlock();
                 $block->addMessages($storage->getMessages(true));
                 $block->setEscapeMessageFlag($storage->getEscapeMessages(true));
+                $block->addStorageType($storageName);
             }
             else {
                 Mage::throwException(
@@ -741,6 +745,8 @@ abstract class Mage_Core_Controller_Varien_Action
             $refererUrl = Mage::helper('core')->urlDecode($url);
         }
 
+        $refererUrl = Mage::helper('core')->escapeUrl($refererUrl);
+
         if (!$this->_isUrlInternal($refererUrl)) {
             $refererUrl = Mage::app()->getStore()->getBaseUrl();
         }
@@ -760,7 +766,8 @@ abstract class Mage_Core_Controller_Varien_Action
              * Url must start from base secure or base unsecure url
              */
             if ((strpos($url, Mage::app()->getStore()->getBaseUrl()) === 0)
-                || (strpos($url, Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true)) === 0)) {
+                || (strpos($url, Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true)) === 0)
+            ) {
                 return true;
             }
         }
@@ -987,7 +994,11 @@ abstract class Mage_Core_Controller_Varien_Action
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
      * @return Mage_Core_Controller_Varien_Action
      */
-    protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/octet-stream', $contentLength = null)
+    protected function _prepareDownloadResponse(
+        $fileName,
+        $content,
+        $contentType = 'application/octet-stream',
+        $contentLength = null)
     {
         $session = Mage::getSingleton('admin/session');
         if ($session->isFirstPageAfterLogin()) {

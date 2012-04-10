@@ -20,86 +20,127 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * XmlConnect device helper for Android
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
 {
     /**
-     * Android landscape orientation identificator
-     *
-     * @var string
+     * Submission title length
      */
-    const ORIENTATION_LANDSCAPE = 'landscape';
+    const SUBMISSION_TITLE_LENGTH = 30;
 
     /**
-     * Android portrait orientation identificator
-     *
-     * @var string
+     * Submission description length
      */
-    const ORIENTATION_PORTRAIT = 'portrait';
+    const SUBMISSION_DESCRIPTION_LENGTH = 4000;
 
     /**
      * Android preview banner widht
-     *
-     * @var int
      */
     const PREVIEW_BANNER_WIDTH = 320;
 
     /**
      * Android preview banner image height
-     *
-     * @var int
      */
     const PREVIEW_BANNER_HEIGHT = 258;
 
     /**
-     * Android landscape orientation preview image widht
-     *
-     * @var int
-     */
-    const PREVIEW_LANDSCAPE_BACKGROUND_WIDTH = 480;
-
-    /**
-     * Android landscape orientation preview image height
-     *
-     * @var int
-     */
-    const PREVIEW_LANDSCAPE_BACKGROUND_HEIGHT = 250;
-
-    /**
-     * Android portrait orientation preview image widht
-     *
-     * @var int
-     */
-    const PREVIEW_PORTRAIT_BACKGROUND_WIDTH = 320;
-
-    /**
-     * Android portrait orientation preview image height
-     *
-     * @var int
-     */
-    const PREVIEW_PORTRAIT_BACKGROUND_HEIGHT = 410;
-
-    /**
      * Tags identifier for title bar
-     *
-     * @var int
      */
     const TAGS_ID_FOR_TITLE_BAR = 1;
 
     /**
      * Tags identifier for options menu
-     *
-     * @var int
      */
     const TAGS_ID_FOR_OPTION_MENU = 2;
 
     /**
+     * Country renderer for submission
+     */
+    const SUBMISSION_COUNTRY_RENDERER = 'androidmarket';
+
+    /**
+     * Country columns for submission
+     */
+    const SUBMISSION_COUNTRY_COLUMNS = 2;
+
+    /**
+     * Submit images that are stored in "params" field of history table
+     *
+     * @var array
+     */
+    protected $_imageIds = array('icon', 'android_loader_image', 'android_logo', 'big_logo');
+
+    /**
+     * Country field renderer
+     *
+     * @var Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Androidmarket
+     */
+    protected $_countryRenderer = null;
+
+    /**
+     * List of coutries that allowed in Ituens by Apple Store
+     *
+     * array(
+     *      'country name' => 'country id at directory model'
+     * )
+     *
+     * @var array
+     */
+    protected $_allowedCountries = array(
+        'Argentina' => 'AR',
+        'Australia' => 'AU',
+        'Austria'   => 'AT',
+        'Belgium'   => 'BE',
+        'Brazil'    =>'BR',
+        'Canada'    => 'CA',
+        'Denmark'   => 'DK',
+        'Finland'   => 'FI',
+        'France'    => 'FR',
+        'Germany'   => 'DE',
+        'Hong Kong SAR China' => 'HK',
+        'Ireland'   => 'IE',
+        'Israel'    => 'IL',
+        'Italy'     => 'IT',
+        'Japan'     => 'JP',
+        'Mexico'    => 'MX',
+        'Netherlands' => 'NL',
+        'New Zealand' => 'NZ',
+        'Norway'    => 'NO',
+        'Portugal'  => 'PT',
+        'Russia'    => 'RU',
+        'Singapore' => 'SG',
+        'Spain'     => 'ES',
+        'South Korea' => 'KR',
+        'Sweden'    => 'SE',
+        'Switzerland' => 'CH',
+        'Taiwan'    => 'TW',
+        'United Kingdom' => 'GB',
+        'United States' => 'US',
+    );
+
+    /**
+     * Get submit images that are required for application submit
+     *
+     * @return array
+     */
+    public function getSubmitImages()
+    {
+        return $this->_imageIds;
+    }
+
+    /**
      * Get default application tabs
      *
-     * @param string
      * @return array
      */
     public function getDefaultDesignTabs()
@@ -154,74 +195,74 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
      */
      public function getDefaultConfiguration()
      {
-        return array(
-            'native' => array(
-                'body' => array(
-                    'backgroundColor' => '#ABABAB',
-                    'scrollBackgroundColor' => '#EDEDED',
-                ),
-                'itemActions' => array(
-                    'relatedProductBackgroundColor' => '#404040',
-                ),
-                'fonts' => array(
-                    'Title1' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '14',
-                        'color' => '#FEFEFE',
-                    ),
-                    'Title2' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '12',
-                        'color' => '#222222',
-                    ),
-                    'Title3' => array(
-                        'name' => 'HelveticaNeue',
-                        'size' => '13',
-                        'color' => '#000000',
-                    ),
-                    'Title4' => array(
-                        'name' => 'HelveticaNeue',
-                        'size' => '12',
-                        'color' => '#FFFFFF',
-                    ),
-                    'Title5' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '13',
-                        'color' => '#dc5f02',
-                    ),
-                    'Title6' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '16',
-                        'color' => '#222222',
-                    ),
-                    'Title7' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '13',
-                        'color' => '#000000',
-                    ),
-                    'Title8' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '11',
-                        'color' => '#FFFFFF',
-                    ),
-                    'Title9' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '12',
-                        'color' => '#FFFFFF',
-                    ),
-                    'Text1' => array(
-                        'name' => 'HelveticaNeue-Bold',
-                        'size' => '12',
-                        'color' => '#777777',
-                    ),
-                    'Text2' => array(
-                        'name' => 'HelveticaNeue',
-                        'size' => '10',
-                        'color' => '#555555',
-                    ),
-                ),
-            ),
-        );
+         return array(
+             'native' => array(
+                 'body' => array(
+                     'backgroundColor' => '#ABABAB',
+                     'scrollBackgroundColor' => '#EDEDED',
+                 ),
+                 'itemActions' => array(
+                     'relatedProductBackgroundColor' => '#404040',
+                 ),
+                 'fonts' => array(
+                     'Title1' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '14',
+                         'color' => '#FEFEFE',
+                     ),
+                     'Title2' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '12',
+                         'color' => '#222222',
+                     ),
+                     'Title3' => array(
+                         'name' => 'HelveticaNeue',
+                         'size' => '13',
+                         'color' => '#000000',
+                     ),
+                     'Title4' => array(
+                         'name' => 'HelveticaNeue',
+                         'size' => '12',
+                         'color' => '#FFFFFF',
+                     ),
+                     'Title5' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '13',
+                         'color' => '#dc5f02',
+                     ),
+                     'Title6' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '16',
+                         'color' => '#222222',
+                     ),
+                     'Title7' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '13',
+                         'color' => '#000000',
+                     ),
+                     'Title8' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '11',
+                         'color' => '#FFFFFF',
+                     ),
+                     'Title9' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '12',
+                         'color' => '#FFFFFF',
+                     ),
+                     'Text1' => array(
+                         'name' => 'HelveticaNeue-Bold',
+                         'size' => '12',
+                         'color' => '#777777',
+                     ),
+                     'Text2' => array(
+                         'name' => 'HelveticaNeue',
+                         'size' => '10',
+                         'color' => '#555555',
+                     ),
+                 ),
+             ),
+         );
      }
 
     /**
@@ -450,7 +491,7 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
      */
     public function getFontSizes()
     {
-        $result = array( );
+        $result = array();
         for ($i = 6; $i < 32; $i++) {
             $result[] = array(
                 'value' => $i,
@@ -458,5 +499,222 @@ class Mage_XmlConnect_Helper_Android extends Mage_Core_Helper_Abstract
             );
         }
         return $result;
+    }
+
+    /**
+     * Validate submit application data
+     *
+     * @param array $params
+     * @return array
+     */
+    public function validateSubmit($params)
+    {
+        $errors = array();
+
+        if (!Zend_Validate::is(isset($params['title']) ? $params['title'] : null, 'NotEmpty')) {
+            $errors[] = Mage::helper('xmlconnect')->__('Please enter the Title.');
+        }
+
+        if (isset($params['title'])) {
+            $titleLength = self::SUBMISSION_TITLE_LENGTH;
+            $strRules = array('min' => '1', 'max' => $titleLength);
+            if (!Zend_Validate::is($params['title'], 'StringLength', $strRules)) {
+                $errors[] = Mage::helper('xmlconnect')->__('"Title" is more than %d characters long', $strRules['max']);
+            }
+        }
+
+        if (!Zend_Validate::is(isset($params['description']) ? $params['description'] : null, 'NotEmpty')) {
+            $errors[] = Mage::helper('xmlconnect')->__('Please enter the Description.');
+        }
+
+        if (isset($params['description'])) {
+            $descriptionLength = self::SUBMISSION_DESCRIPTION_LENGTH;
+            $strRules = array('min' => '1', 'max' => $descriptionLength);
+            if (!Zend_Validate::is($params['title'], 'StringLength', $strRules)) {
+                $errors[] = Mage::helper('xmlconnect')->__('"Description" is more than %d characters long', $strRules['max']);
+            }
+        }
+
+        if (!Zend_Validate::is(isset($params['copyright']) ? $params['copyright'] : null, 'NotEmpty')) {
+            $errors[] = Mage::helper('xmlconnect')->__('Please enter the Copyright.');
+        }
+
+        if (empty($params['price_free'])) {
+            if (!Zend_Validate::is(isset($params['price']) ? $params['price'] : null, 'NotEmpty')) {
+                $errors[] = Mage::helper('xmlconnect')->__('Please enter the Price.');
+            }
+        }
+
+        if (!Zend_Validate::is(isset($params['country']) ? $params['country'] : null, 'NotEmpty')) {
+            $errors[] = Mage::helper('xmlconnect')->__('Please select at least one country.');
+        }
+
+        $keyLenght = Mage_XmlConnect_Model_Application::APP_MAX_KEY_LENGTH;
+        if (Mage::helper('xmlconnect')->getApplication()->getIsResubmitAction()) {
+            if (isset($params['resubmission_activation_key'])) {
+                $resubmissionKey = $params['resubmission_activation_key'];
+            } else {
+                $resubmissionKey = null;
+            }
+
+            if (!Zend_Validate::is($resubmissionKey, 'NotEmpty')) {
+                $errors[] = Mage::helper('xmlconnect')->__('Please enter the Resubmission Key.');
+            } elseif (!Zend_Validate::is($resubmissionKey, 'StringLength', array(1, $keyLenght))) {
+                $errors[] = Mage::helper('xmlconnect')->__('Submit App failure. Invalid activation key provided');
+            }
+        } else {
+            $key = isset($params['key']) ? $params['key'] : null;
+            if (!Zend_Validate::is($key, 'NotEmpty')) {
+                $errors[] = Mage::helper('xmlconnect')->__('Please enter the Activation Key.');
+            } elseif (!Zend_Validate::is($key, 'StringLength', array(1, $keyLenght))) {
+                $errors[] = Mage::helper('xmlconnect')->__('Submit App failure. Invalid activation key provided');
+            }
+        }
+        return $errors;
+    }
+
+    /**
+     * Check config for valid values
+     *
+     * @param array $native
+     * @return array
+     */
+    public function validateConfig($native)
+    {
+        $errors = array();
+        if ($native === false || !isset($native['navigationBar']['icon'])
+            || !Zend_Validate::is($native['navigationBar']['icon'], 'NotEmpty')
+        ) {
+            $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Logo in Header" field from Design Tab.');
+        }
+
+        if (!Mage::helper('xmlconnect')->validateConfFieldNotEmpty('bannerAndroidImage', $native)) {
+            $errors[] = Mage::helper('xmlconnect')->__('Please upload  an image for "Banner on Home Screen" field from Design Tab.');
+        }
+
+        return $errors;
+    }
+
+    /**
+     * Get renderer for submission country
+     *
+     * @return Mage_XmlConnect_Block_Adminhtml_Mobile_Submission_Renderer_Country_Androidmarket
+     */
+    public function getCountryRenderer()
+    {
+        if (empty($this->_countryRenderer)) {
+            $renderer = 'xmlconnect/adminhtml_mobile_submission_renderer_country_'
+                . self::SUBMISSION_COUNTRY_RENDERER;
+            $this->_countryRenderer = Mage::app()->getLayout()->createBlock($renderer);
+        }
+        return $this->_countryRenderer;
+    }
+
+    /**
+     * Get label for submission country
+     *
+     * @return string
+     */
+    public function getCountryLabel()
+    {
+        return Mage::helper('xmlconnect')->__('Locations');
+    }
+
+    /**
+     * Get columns for submission country
+     *
+     * @return int
+     */
+    public function getCountryColumns()
+    {
+        return self::SUBMISSION_COUNTRY_COLUMNS;
+    }
+
+    /**
+     * Get placement of Country Names for submission country
+     *
+     * @return bool
+     */
+    public function isCountryNamePlaceLeft()
+    {
+        return false;
+    }
+
+    /**
+     * Get class name for submission country
+     *
+     * @return string
+     */
+    public function getCountryClass()
+    {
+        return self::SUBMISSION_COUNTRY_RENDERER;
+    }
+
+    /**
+     * Get list of countries that allowed by Magento Inc. for Android
+     *
+     * @return array
+     */
+    public function getAndroidMarketCountriesArray()
+    {
+        return $this->_allowedCountries;
+    }
+
+    /**
+     * Check image fields
+     *
+     * We set empty value for image field if file was missed in some reason
+     *
+     * @param array $data
+     * @return array
+     */
+    public function checkImages(array $data)
+    {
+        /** @var $helper Mage_XmlConnect_Helper_Image */
+        $helper = Mage::helper('xmlconnect/image');
+
+        $icon =& $data['conf']['native']['navigationBar']['icon'];
+
+        if (!empty($icon) && !$helper->checkAndGetImagePath($icon)) {
+            $icon = '';
+        }
+
+        $banner =& $data['conf']['native']['body']['bannerAndroidImage'];
+        if (!empty($banner) && !$helper->checkAndGetImagePath($banner)) {
+            $banner = '';
+        }
+        return $data;
+    }
+
+    /**
+     * Check required fields of a config for a front-end
+     *
+     * @throws Mage_Core_Exception
+     * @param array $data
+     * @return null
+     */
+    public function checkRequiredConfigFields($data)
+    {
+        if (!is_array($data)) {
+            return;
+        }
+
+        if (isset($data['navigationBar']['icon']) && empty($data['navigationBar']['icon'])) {
+            Mage::throwException(Mage::helper('xmlconnect')->__('Logo in Header image missing.'));
+        }
+
+        if (isset($data['body']['bannerAndroidImage']) && empty($data['body']['bannerAndroidImage'])) {
+            Mage::throwException(Mage::helper('xmlconnect')->__('Banner on Home Screen image missing.'));
+        }
+    }
+
+    /**
+     * Check the notifications are allowed for current type of application
+     *
+     * @return bool
+     */
+    public function isNotificationsAllowed()
+    {
+        return true;
     }
 }

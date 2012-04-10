@@ -20,11 +20,19 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image extends Varien_Data_Form_Element_Image
+/**
+ * XmlConnect image form element
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image
+    extends Varien_Data_Form_Element_Image
 {
     /**
      * Function fetches image Url actual or default
@@ -33,10 +41,10 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image extends Varien_D
      */
     protected function _getUrl()
     {
-        $url = false;
         if ($this->getValue()) {
-            if (strpos($this->getValue(), '://') === FALSE ) {
-                $url = Mage::getBaseUrl('media') . 'xmlconnect/' . Mage::helper('xmlconnect/image')->getFileDefaultSizeSuffixAsUrl($this->getValue());
+            if (strpos($this->getValue(), '://') === false) {
+                $url = Mage::helper('xmlconnect/image')->getFileDefaultSizeSuffixAsUrl($this->getValue());
+                $url = Mage::helper('xmlconnect/image')->getMediaUrl($url);
             } else {
                 $url = $this->getValue();
             }
@@ -71,17 +79,20 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Form_Element_Image extends Varien_D
         $html = '<div style="white-space: nowrap">';
 
         $url = $this->_getUrl();
-        $html .= '<a href="'.$url.'" onclick="imagePreview(\''.$this->getHtmlId().'_image\'); return false;"><img src="'.$url.'" id="'.$this->getHtmlId().'_image" title="'.$this->getValue().'" alt="'.$this->getValue().'" height="22" width="22" class="small-image-preview v-middle" /></a> ';
+        $html .= '<a href="' . $url . '" onclick="imagePreview(\'' . $this->getHtmlId() . '_image\'); return false;">';
+        $html .= '<img src="' . $url . '" id="' . $this->getHtmlId() . '_image"';
+        $html .= ' alt="" height="22" width="22" class="small-image-preview v-middle" /></a> ';
 
-        $html .= '<input id="'.$this->getHtmlId().'_hidden" name="'.$this->getName()
-             .'" value="'.$this->getEscapedValue().'" type="hidden" />';
+        $html .= '<input id="' . $this->getHtmlId() . '_hidden" name="' . $this->getName();
+        $html .= '" value="' . $this->getEscapedValue() . '" type="hidden" />';
 
         $this->setClass('input-file');
-        $html .= '<input id="'.$this->getHtmlId().'" name="'.$this->getUploadName()
-             .'" value="'.$this->getEscapedValue().'" '.$this->serialize($this->getHtmlAttributes()).'/>'."\n";
-        $html.= $this->getAfterElementHtml();
+        $html .= '<input id="' . $this->getHtmlId() . '" name="' . $this->getUploadName();
+        $attr = $this->serialize($this->getHtmlAttributes());
+        $html .= '" value="' . $this->getEscapedValue() . '" ' . $attr . '/>' . PHP_EOL;
+        $html .= $this->getAfterElementHtml();
 
-        $html.= '</div>';
+        $html .= '</div>';
 
         return $html;
     }

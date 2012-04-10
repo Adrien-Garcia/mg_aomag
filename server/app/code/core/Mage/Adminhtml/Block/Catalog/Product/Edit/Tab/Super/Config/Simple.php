@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,6 +79,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                     continue;
                 }
                 $attributeCode = $attribute->getAttributeCode();
+                $attribute->setAttributeCode('simple_product_' . $attributeCode);
                 $element = $fieldset->addField(
                     'simple_product_' . $attributeCode,
                      $inputType,

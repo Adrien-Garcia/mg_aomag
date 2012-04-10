@@ -20,14 +20,21 @@
  *
  * @category    Mage
  * @package     Mage_XmlConnect
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission extends Mage_Adminhtml_Block_Widget_Form_Container
+
+/**
+ * Application submission block
+ *
+ * @category    Mage
+ * @package     Mage_XmlConnect
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission
+    extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     /**
-     * Class construct
-     *
      * Setting buttons for submit application page
      */
     public function __construct()
@@ -56,20 +63,58 @@ class Mage_XmlConnect_Block_Adminhtml_Mobile_Submission extends Mage_Adminhtml_B
         ));
 
         $this->_updateButton('back', 'label', $this->__('Back to App Edit'));
-        $this->_updateButton('back', 'onclick', 'setLocation(\''. $this->getUrl('*/*/edit',
-            array('application_id' => $app->getId())) . '\')');
+        $this->_updateButton(
+            'back',
+            'onclick',
+            'setLocation(\'' . $this->getUrl('*/*/edit', array('application_id' => $app->getId())) . '\')'
+        );
+    }
+
+    /**
+     * Adding styles to block
+     *
+     * @throws Mage_Core_Exception
+     * @return Mage_Adminhtml_Block_Widget_Form_Container
+     */
+    protected function _prepareLayout()
+    {
+        $this->getLayout()->getBlock('head')->addJs('jscolor/jscolor.js');
+        $this->getLayout()->getBlock('head')->addJs('scriptaculous/scriptaculous.js');
+
+
+        $deviceType = Mage::helper('xmlconnect')->getDeviceType();
+        switch ($deviceType) {
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPHONE:
+                $this->getLayout()->getBlock('head')->addItem('skin_css', 'xmlconnect/mobile-home.css');
+                $this->getLayout()->getBlock('head')->addItem('skin_css', 'xmlconnect/mobile-catalog.css');
+                break;
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_IPAD:
+                $this->getLayout()->getBlock('head')->addItem('skin_css', 'xmlconnect/mobile-ipad-home.css');
+                $this->getLayout()->getBlock('head')->addItem('skin_css', 'xmlconnect/mobile-ipad-catalog.css');
+                break;
+            case Mage_XmlConnect_Helper_Data::DEVICE_TYPE_ANDROID:
+                $this->getLayout()->getBlock('head')->addItem('skin_css', 'xmlconnect/mobile-android.css');
+                break;
+            default:
+                Mage::throwException(
+                    $this->__('Device doesn\'t recognized: "%s". Unable to load preview model.', $deviceType)
+                );
+                break;
+        }
+
+        return parent::_prepareLayout();
     }
 
     /**
      * Get form header title
-     * 
+     *
      * @return string
      */
     public function getHeaderText()
     {
         $app = Mage::helper('xmlconnect')->getApplication();
         if ($app && $app->getId()) {
-            return $this->__('Submit App "%s"', $this->htmlEscape($app->getName()));
+            return $this->__('Submit App "%s"', $this->escapeHtml($app->getName()));
         }
         return '';
     }
