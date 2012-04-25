@@ -16,6 +16,7 @@ if(!isset($_SESSION['password'])):?>
 				<OPTION VALUE="SoColissimoLiberte">SoColissimoLiberte</OPTION>
 				<OPTION VALUE="AdvancedSlideshow">AdvancedSlideshow</OPTION>
 				<OPTION VALUE="NewsletterDolist">NewsletterDolist</OPTION>
+				<OPTION VALUE="GiftProduct">GiftProduct</OPTION>
 				<OPTION VALUE="Brand">Brand</OPTION>
 				<OPTION VALUE="ReviewBoost">ReviewBoost</OPTION>
 				<OPTION VALUE="OgoneDirectLink">OgoneDirectlink</OPTION>
