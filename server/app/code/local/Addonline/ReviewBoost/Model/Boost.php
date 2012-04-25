@@ -4,7 +4,7 @@ class Addonline_ReviewBoost_Model_Boost
 {
 
 	public function run() {
-		if(Mage::getModel('socolissimoflexibilite/observer')->_9cd4777ae76310fd6977a5c559c51820()){
+		if(Mage::getModel('reviewboost/observer')->_9cd4777ae76310fd6977a5c559c51820()){
 			$delay = Mage::getStoreConfig('catalog/review/boost_delay');
 			//Lister les expéditions avec date creation = date du jour - 5
 			$shipments = Mage::getResourceModel('sales/order_shipment_collection')
