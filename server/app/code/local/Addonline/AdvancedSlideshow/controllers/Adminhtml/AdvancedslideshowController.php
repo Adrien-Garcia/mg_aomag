@@ -12,9 +12,13 @@ class Addonline_AdvancedSlideshow_Adminhtml_AdvancedslideshowController extends 
 	
 	public function indexAction()
 	{
-		$this->_initAction();
-		$this->_addContent($this->getLayout()->createBlock('advancedslideshow/adminhtml_grid'));
-		$this->renderLayout();
+		if(Mage::getModel('advancedslideshow/advancedslideshow')->_9cd4777ae76310fd6977a5c559c51820()){
+			$this->_initAction();
+			$this->_addContent($this->getLayout()->createBlock('advancedslideshow/adminhtml_grid'));
+			$this->renderLayout();
+		}else{
+			echo "Merci de renseigner la clé de licence du module";
+		}
 	}
 	
 	public function newAction()

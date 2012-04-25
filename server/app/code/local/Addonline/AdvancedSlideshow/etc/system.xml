@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <addonline translate="label">
+            <label>Addonline config</label>
+            <sort_order>202</sort_order>
+        </addonline>        
+    </tabs>
+    <sections>        
+        <advancedslideshow translate="label">
+			<label>advancedslideshow</label>
+			<tab>addonline</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>100</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+          	<groups>
+                <licence translate="label">
+                    <label>Licence</label>                                                                                                                               
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>     		
+					<fields>	
+						<serial translate="label">
+							<label>Serial</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</serial>							
+					</fields>						
+				</licence>				                
+			</groups>
+		</advancedslideshow>
+    </sections>
+</config>
