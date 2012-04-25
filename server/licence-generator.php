@@ -14,6 +14,8 @@ if(!isset($_SESSION['password'])):?>
   Module: 	<SELECT name="module">
 				<OPTION VALUE="SoColissimoFlexibilite">SoColissimoFlexibilite</OPTION>
 				<OPTION VALUE="SoColissimoLiberte">SoColissimoLiberte</OPTION>
+				<OPTION VALUE="AdvancedSlideshow">AdvancedSlideshow</OPTION>
+				<OPTION VALUE="NewsletterDolist">NewsletterDolist</OPTION>
 				<OPTION VALUE="Brand">Brand</OPTION>
 				<OPTION VALUE="ReviewBoost">ReviewBoost</OPTION>
 				<OPTION VALUE="OgoneDirectLink">OgoneDirectlink</OPTION>
