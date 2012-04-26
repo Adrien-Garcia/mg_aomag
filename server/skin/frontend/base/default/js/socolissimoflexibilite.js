@@ -146,7 +146,7 @@ var listRelaisSocolissimo=new Array();
 var skinUrl="";
 function loadListeRelais() {
 	jQuery(".loader-wrapper").fadeTo(300, 1);
-	url = "/socolissimoflexibilite/ajax/listrelais?"
+	url = BASE_URL_SOCOLISSIMO + "socolissimoflexibilite/ajax/listrelais?"
 	/*jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
 		url = url + check.val() + "=" + check.attr("checked") + "&";

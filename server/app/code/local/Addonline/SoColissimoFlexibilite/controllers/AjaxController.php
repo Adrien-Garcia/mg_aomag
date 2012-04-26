@@ -35,7 +35,7 @@ class Addonline_SoColissimoFlexibilite_AjaxController extends Mage_Core_Controll
    		$filterRelay = 1;
      	$listrelais = Mage::getModel('socolissimoflexibilite/service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $filterRelay);
 	    
-	    if (is_array($listrelais->listePointRetraitAcheminement)) {
+     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
 	        $result['items'] = $listrelais->listePointRetraitAcheminement;
 	        $result['html'] = $this->_getListRelaisHtml($listrelais->listePointRetraitAcheminement);
 	        $result['skinUrl'] = Mage::getDesign()->getSkinUrl("images/socolissimo/");
