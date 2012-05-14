@@ -64,6 +64,15 @@
         </helpers>
     </global>
     <adminhtml>
+         <translate>
+            <modules>
+                <Find_Feed>
+                    <files>
+                        <default>Find_Feed.csv</default>
+                    </files>
+                </Find_Feed>
+            </modules>
+        </translate>
         <events>
             <admin_system_config_changed_section_feed>
                 <observers>
