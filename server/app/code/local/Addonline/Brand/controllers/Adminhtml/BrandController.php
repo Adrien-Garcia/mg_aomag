@@ -12,8 +12,12 @@ class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controlle
 	}   
  
 	public function indexAction() {
-		$this->_initAction()
-			->renderLayout();
+		if(Mage::getModel('brand/status')->_9cd4777ae76310fd6977a5c559c51820()){
+			$this->_initAction()
+				->renderLayout();
+		} else{
+			echo "Merci de renseigner la clé de licence du module";
+		}
 	}
 
 	public function editAction() {

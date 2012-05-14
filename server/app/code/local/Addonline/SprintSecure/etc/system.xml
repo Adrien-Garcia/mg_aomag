@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <!-- /*  * Magento  *  * NOTICE OF LICENSE  *  * This source file is subject to the Open Software License (OSL 3.0)  * that is bundled with this package in the file LICENSE.txt.  * It is also available through the world-wide-web at this URL:  * http://opensource.org/licenses/osl-3.0.php  * If you did not receive a copy of the license and are unable to  * obtain it through the world-wide-web, please send an email  * to license@magentocommerce.com so we can send you a copy immediately.  *  * @category   Mage  * @package    Mage_Atos  * @copyright  Copyright (c) 2004-2007 Irubin Consulting Inc. DBA Varien (http://www.varien.com)  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)  */ -->
 <config>
+	<tabs>
+        <addonline translate="label">
+            <label>Addonline config</label>
+            <sort_order>202</sort_order>
+        </addonline>        
+    </tabs>
     <sections>
         <payment>
             <groups>
@@ -209,5 +215,34 @@
                 </sprintsecure>
             </groups>
         </payment>
+        <sprintsecure translate="label">
+			<label>sprintsecure</label>
+			<tab>addonline</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>100</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+          	<groups>
+                <licence translate="label">
+                    <label>Licence</label>                                                                                                                               
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>     		
+					<fields>	
+						<serial translate="label">
+							<label>Serial</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</serial>							
+					</fields>						
+				</licence>				                
+			</groups>
+		</sprintsecure>   
     </sections>
 </config>

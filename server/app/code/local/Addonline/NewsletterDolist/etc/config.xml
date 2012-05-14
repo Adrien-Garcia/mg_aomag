@@ -11,9 +11,12 @@
   		<models>
   			<newsletter>
   				<rewrite>
-  					<subscriber>Addonline_NewsletterDolist_Model_Subscriber</subscriber>
+  					<subscriber>Addonline_NewsletterDolist_Model_Subscriber</subscriber>  					
   				</rewrite>
   			</newsletter>
+  			<newsletterdolist>
+             	<class>Addonline_NewsletterDolist_Model</class>
+        	</newsletterdolist>
   		</models>  		
   		<resources>
             <newsletterdolist_setup>
@@ -40,6 +43,17 @@
   				<class>Addonline_NewsletterDolist_Helper</class>
   			</newsletterdolist>
   		</helpers>
+  		<events>
+        	<admin_user_authenticate_after>
+                <observers>
+                    <Addonline_NewsletterDolist_Model_Observer>
+	                    <type>singleton</type>
+	            		<class>newsletterdolist/observer</class>
+	            		<method>_9cd4777ae76310fd6977a5c559c51820</method>
+	          		</Addonline_NewsletterDolist_Model_Observer>
+                </observers>
+            </admin_user_authenticate_after>
+        </events>
     </global>
 
     <frontend>
@@ -59,7 +73,32 @@
          		</args>
      		</newsletter>
    		</routers>
-    </frontend>            
+    </frontend>   
+    <adminhtml>
+	    <acl>
+    	   <resources>
+        	    <all>
+            	    <title>Allow Everything</title>
+            	</all>
+	            <admin>
+    	            <children>
+        	            <system>
+            	            <children>
+                	            <config>
+                    	            <children>
+                        	            <newsletterdolist translate="title">
+                            	            <title>Addonline config</title>
+                                	        <sort_order>100</sort_order>
+                                    	</newsletterdolist>
+	                                </children>
+    	                        </config>
+        	                </children>
+            	        </system>
+                	</children>
+	            </admin>
+    	    </resources>
+    	</acl>	
+    </adminhtml>         
      
     
 </config>

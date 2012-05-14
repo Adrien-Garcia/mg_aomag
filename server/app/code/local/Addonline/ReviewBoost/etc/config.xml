@@ -25,6 +25,17 @@
                </catalog_review_boost_template>
             </email>
         </template>  
+        <events>
+        	<admin_user_authenticate_after>
+                <observers>
+                    <Addonline_ReviewBoost_Model_Observer>
+	                    <type>singleton</type>
+	            		<class>reviewboost/observer</class>
+	            		<method>_9cd4777ae76310fd6977a5c559c51820</method>
+	          		</Addonline_ReviewBoost_Model_Observer>
+                </observers>
+            </admin_user_authenticate_after>
+        </events>
     </global>
     <adminhtml>
         <translate>
@@ -35,7 +46,30 @@
                     </files>
                 </Addonline_ReviewBoost>
             </modules>
-        </translate>
+        </translate>        
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <reviewboost translate="title">
+                                        <title>Addonline config</title>
+                                        <sort_order>100</sort_order>
+                                    </reviewboost>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>	
     </adminhtml>
     <frontend>
         <translate>

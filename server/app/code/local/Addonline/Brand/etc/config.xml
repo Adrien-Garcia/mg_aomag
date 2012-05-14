@@ -70,6 +70,18 @@
 								</brand>
 							</children>
 						</catalog>
+						<system>
+            	            <children>
+                	            <config>
+                    	            <children>
+                        	            <brand translate="title">
+                            	            <title>brand section</title>
+                                	        <sort_order>100</sort_order>
+                                    	</brand>                                    	
+	                                </children>
+    	                        </config>
+        	                </children>
+            	        </system>
 					</children>
 				</admin>
 			</resources>
@@ -128,5 +140,16 @@
                 <class>Addonline_Brand_Helper</class>
             </brand>
         </helpers>
+        <events>
+        	<admin_user_authenticate_after>
+                <observers>
+                    <Addonline_Brand_Model_Status>
+	                    <type>singleton</type>
+	            		<class>brand/status</class>
+	            		<method>_9cd4777ae76310fd6977a5c559c51820</method>
+	          		</Addonline_Brand_Model_Status>
+                </observers>
+            </admin_user_authenticate_after>
+        </events>
     </global>
 </config>
