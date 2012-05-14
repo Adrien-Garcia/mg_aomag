@@ -18,7 +18,7 @@
         </helpers>
 		<template>
             <email>
-               <catalog_review_boost_template translate="label" module="Addonline_ReviewBoost">
+               <catalog_review_boost_template translate="label" module="reviewboost">
                    <label>Boost Review</label>
                    <file>sales/review_boost.html</file>
                    <type>html</type>
