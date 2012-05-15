@@ -6,6 +6,7 @@ class Addonline_Brand_Model_Status extends Varien_Object
     const STATUS_DISABLED	= 2;
     
     public function _9cd4777ae76310fd6977a5c559c51820(){
+	    if (Mage::getStoreConfig('addonline/licence/aomagento')) { return true; }
     	$key = 'e983cfc54f88c7114e99da95f5757df6'; if(md5(Mage::getStoreConfig('web/unsecure/base_url').$key.'Brand')!=Mage::getStoreConfig('brand/licence/serial')){
     		Mage::log(md5(Mage::getStoreConfig('web/unsecure/base_url').$key.'Brand'));
     		$severity=Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;$title= "Vous devez renseigner une clé licence valide pour le module Brand. Le module a été désactivé";$description= "Le module Brand n'a pas une clé licence valide";	$date = date('Y-m-d H:i:s'); Mage::getModel('adminnotification/inbox')->parse(array(array('severity' => $severity,'date_added'=> $date,'title'=> $title,'description'   => $description,'url'=> '','internal'      => true)));
