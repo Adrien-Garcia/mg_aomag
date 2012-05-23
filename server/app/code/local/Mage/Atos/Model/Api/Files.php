@@ -114,7 +114,7 @@ class Mage_Atos_Model_Api_Files extends Mage_Atos_Model_Abstract
             $dir = dir($path);
 	        while ( $file = $dir->read() ) 
 			{
-			    $data = explode('\.', $file);
+			    $data = preg_split('/\./', $file);
 	            $n = sizeof($data) - 1;
 			
 	            if ($data[0] == 'certif') 
@@ -207,7 +207,7 @@ class Mage_Atos_Model_Api_Files extends Mage_Atos_Model_Abstract
 	        while ( $file = $dir->read() ) 
 		    {
 			    
-				$data = explode('\.', $file);
+				$data = preg_split('/\./', $file);
 				
 				if ( ($data[0] == 'parmcom') && !file_exists($path . 'certif.fr.' . $data[1])) 
 				{
