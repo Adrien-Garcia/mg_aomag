@@ -74,6 +74,7 @@
 </dl>
 <script type="text/javascript">
 //<![CDATA[
+    var BASE_URL_SOCOLISSIMO = '<?php echo $this->getUrl('') ?>';
     <?php if (!empty($shippingMe)): ?>
         var shippingMe = {<?php echo implode(',',$shippingMe); ?>};
     <?php endif; ?>
@@ -82,9 +83,9 @@
     {
         <?php if (!empty($shippingMe)): ?>
             var newPrice = shippingMe[getShippingCode];
-            if (typeof(window["lastPrice"])=== "undefined") {
+            if (!lastPrice) {
                 lastPrice = newPrice;
-                quoteBaseGrandTotal = newPrice;
+                quoteBaseGrandTotal += newPrice;
             }
             if (newPrice != lastPrice) {
                 quoteBaseGrandTotal += (newPrice-lastPrice);
