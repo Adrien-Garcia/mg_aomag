@@ -99,7 +99,7 @@ function socolissimoRadioCheck(input) {
 }
 
 function checkDisplayPhone(input) {
-	if (jQuery(input).val() == "rdv" || jQuery(input).val() == "cityssimo" || jQuery(input).val() == "commercant" || jQuery(input).val() == "poste"){
+	if (jQuery(input).val() == "rdv" || jQuery(input).val() == "cityssimo" || jQuery(input).val() == "commercant" || jQuery(input).val() == "poste" || jQuery(input).val() == "livraison"){
 		jQuery("#socolissimo-location label.portable").show().css("display:block;");
 		jQuery("#socolissimo-location label.portable span").hide();
 		jQuery("#socolissimo-location label.portable span."+jQuery(input).val()).show();
