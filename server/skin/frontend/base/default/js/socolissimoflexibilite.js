@@ -9,6 +9,8 @@
 
 
 jQuery(function($) {
+	var $ma_div = jQuery("#socolissimo-location");
+	jQuery("#s_method_socolissimoflexibilite_socolissimo").parents('dt').append($ma_div);
 	
 	$("input[id^=\"s_method\"]").live("change", function() {
 		shippingRadioCheck(this);
@@ -21,7 +23,7 @@ String.prototype.startWith = function(t, i) { if (i==false) { return
 == this.substring(0, t.length).toLowerCase()); } } 
 
 function shippingRadioCheck(element) {
-	if (element.id.startWith("s_method_socolissimoflexibilite") && jQuery(element).attr("checked", "checked")){
+	if (element.id.startWith("s_method_socolissimoflexibilite") && jQuery(element).attr("checked", "checked")){		
 		jQuery("#socolissimo-location").show();
 	} else {
 		jQuery("#socolissimo-location").hide();

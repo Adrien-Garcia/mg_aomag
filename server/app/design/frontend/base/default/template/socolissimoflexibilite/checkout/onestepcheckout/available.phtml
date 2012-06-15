@@ -24,6 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<h1>Socolissimo</h1>
 <?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
     <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
 <?php else: ?>
@@ -64,8 +65,8 @@
                    <?php endif ?>
                 </li>
                 <?php /* inserttion du layer socolissimo dans le template available.phtml de base : */
-                if (strpos($_rate->getCode(), 'socolissimoliberte')===0 ) :?>
-                <?php echo $this->getChildHtml('socolissimoliberte') ?>
+                if (strpos($_rate->getCode(), 'socolissimoflexibilite')===0 ) :?>
+                <?php echo $this->getChildHtml('socolissimoflexibilite') ?>
                 <?php endif; ?>
             <?php endforeach; ?>
             </ul>

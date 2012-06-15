@@ -32,31 +32,21 @@
 
 <onestepcheckout_index_index>
    <reference name="head">
-   <action method="addCss"><stylesheet>css/socolissimoflexibilite.css</stylesheet></action>
-   <!-- Ces fichiers sont inclus par le module Addonline_JQuery 
-	<action method="addJs"><script>jquery/jquery-1.6.3.min.js</script></action>
-	<action method="addJs"><script>jquery/jquery.noconflict.js</script></action>
-	<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
-	-->
+   	<action method="addCss"><stylesheet>css/socolissimoflexibilite.css</stylesheet></action>
     <action method="addItem"><type>skin_js</type><script>js/socolissimoflexibilite.js</script></action>
-    <block type="core/text" name="map.js"><action method="setText"><text><![CDATA[<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&region=FR"></script>]]></text></action></block>
-    
-    <reference name="checkout.onepage.shipping_method.available">
-		<action method="setTemplate"><template>socolissimoflexibilite/checkout/onepage/shipping_method/available.phtml</template></action>		
-    </reference>
-    
-   </reference>
-   
-</onestepcheckout_index_index>
-
-<onestepcheckout_index_index>
-	<reference name="choose-shipping-method">
-		<action method="setTemplate"><template>socolissimoflexibilite/checkout/onepage/shipping_method/available.phtml</template></action>	
+    <block type="core/text" name="map.js"><action method="setText"><text><![CDATA[<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&region=FR"></script>]]></text></action></block>        
+   </reference>  
+         
+	<reference name="content">				
+		<!-- <action method="setTemplate"><template>socolissimoflexibilite/checkout/onestepcheckout/available.phtml</template></action> -->	
 		<block type="socolissimoflexibilite/selector" name="socolissimoflexibilite" template="socolissimoflexibilite/checkout/onestepcheckout/selector.phtml" >
 		    <block type="socolissimoflexibilite/listrelais" name="listrelais" template="socolissimoflexibilite/listrelais.phtml"/>
-   		</block>	
-   	</reference>
+   		</block>
+   	</reference>   	   	
+   	
 </onestepcheckout_index_index>
+
+
 
 <checkout_onepage_shippingmethod>
 	<reference name="root">

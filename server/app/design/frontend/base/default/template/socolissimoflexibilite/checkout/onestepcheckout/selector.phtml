@@ -154,3 +154,29 @@ ShippingMethod.prototype.validate = function() {
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+//<![CDATA[
+    var BASE_URL_SOCOLISSIMO = '<?php echo $this->getUrl('') ?>';
+    <?php if (!empty($shippingMe)): ?>
+        var shippingMe = {<?php echo implode(',',$shippingMe); ?>};
+    <?php endif; ?>
+
+    function includingShipping(getShippingCode)
+    {
+        <?php if (!empty($shippingMe)): ?>
+            var newPrice = shippingMe[getShippingCode];
+            if (!lastPrice) {
+                lastPrice = newPrice;
+                quoteBaseGrandTotal += newPrice;
+            }
+            if (newPrice != lastPrice) {
+                quoteBaseGrandTotal += (newPrice-lastPrice);
+                lastPrice = newPrice;
+
+            }
+        <?php endif; ?>
+        checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+        return false;
+    }
+//]]>
+</script>
