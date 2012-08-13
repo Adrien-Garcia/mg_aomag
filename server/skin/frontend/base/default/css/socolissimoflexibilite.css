@@ -348,7 +348,7 @@
 	margin: 18px 0 0 10px;
 }
 #layer_socolissimo .colgauche, #layer_socolissimo .coldroite {
-	float: left;
+	float: left;	
 }
 #layer_socolissimo .adresses {
 	clear: both;
@@ -363,9 +363,11 @@
 	font-size: 12px;
 	height: 424px;
 	overflow-y: scroll;
+	position:relative;
 }
 #layer_socolissimo .colgauche {
 	width: 265px;
+	overflow : hidden;
 }
 #layer_socolissimo .coldroite {
 	width: 590px;
@@ -376,9 +378,9 @@
 	float: left;
 	margin: 0 7px;
 	padding-bottom: 12px;
-	width: 235px;
-	*width: 230px;
+	width: 230px;
 	margin-top: 10px;
+	display: inline-block;
 }
 #layer_socolissimo .point_retrait .distance {
 	font-size: 11px;
@@ -411,9 +413,9 @@
 	background-image: url(../images/socolissimo/picto_cityssimo.png);
 }
 #layer_socolissimo .btn_socolissimoChoisir {
-	height: 20px;
+	height: 30px;
 	background-repeat: no-repeat;
-	float: right;
+	float:right;
 }
 
 #layer_socolissimo .close {
