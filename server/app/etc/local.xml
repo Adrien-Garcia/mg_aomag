@@ -41,8 +41,8 @@
             <default_setup>
                 <connection>
                     <host><![CDATA[localhost]]></host>
-                    <username><![CDATA[aomagento]]></username>
-                    <password><![CDATA[aomagento]]></password>
+                    <username><![CDATA[root]]></username>
+                    <password><![CDATA[]]></password>
                     <dbname><![CDATA[aomagento]]></dbname>
                     <active>1</active>
                 </connection>
