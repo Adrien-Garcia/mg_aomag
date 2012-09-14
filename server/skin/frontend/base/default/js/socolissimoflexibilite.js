@@ -114,19 +114,29 @@ function checkDisplayPhone(input) {
 
 function geocodeAdresse() {
 	if (jQuery("#socolissimo_city_select option").length > 0 && jQuery("#socolissimo_city_select")[0].selectedIndex == 0) {
-		alert("Veuillez sélectionner une commune");
-		return;
+		if(jQuery('#billing\\:city').val() == ""){
+			alert("Veuillez sélectionner une commune");		
+			return;
+		}
 	}
 	if (jQuery("#socolissimo_postcode").val() == "") {
-		alert("Veuillez saisir un code postal");
-		return;
+		if(jQuery('#billing\\:postcode').val() == ""){
+			alert("Veuillez saisir un code postal");		
+			return;
+		}
 	}
 	if (jQuery("#socolissimo_street").val() == "") {
-		alert("Veuillez saisir une adresse");
-		return;
+		if(jQuery('#billing\\:street1').val() == ""){
+			alert("Veuillez saisir une adresse");
+			return;
+		}
 	}
 	var geocoder = new google.maps.Geocoder();
-	var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text();
+	if(jQuery("#socolissimo_street").val() == "") {
+		var searchAdress = jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + ' ' + jQuery('#billing\\:postcode').val() + ' ' + jQuery('#billing\\:city').val();
+	} else{
+		var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text();
+	}
 	//console.log('Search adresse : ' + searchAdress);
 	geocoder.geocode({'address': searchAdress}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
@@ -153,7 +163,14 @@ function loadListeRelais() {
 		check = jQuery(element);
 		url = url + check.val() + "=" + check.attr("checked") + "&";
 	});*/
-	url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text();
+	if(jQuery("#socolissimo_street").val() == "") {		
+		url = url + "adresse=" + jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + "&zipcode=" + jQuery('#billing\\:postcode').val()+ "&ville=" + jQuery('#billing\\:city').val();
+		jQuery("#socolissimo_street").val(jQuery('#billing\\:street1').val()+' '+jQuery('#billing\\:street2').val());
+		jQuery("#socolissimo_postcode").val(jQuery('#billing\\:postcode').val());
+		jQuery("#socolissimo_city").text(jQuery('#billing\\:city').val());
+	} else{
+		url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text();
+	}	
 	jQuery.getJSON( url, function(response) {
 		if (!response.error) {
 			listRelaisSocolissimo = response.items;
@@ -252,7 +269,7 @@ function infoBulleGenerator(relaisSocolissimo) {
 	}
     
     contentString += '</p></div>';
-    contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enl�ve les horaires de l'apr�s midi si ils sont vides
+    contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enl?ve les horaires de l'apr?s midi si ils sont vides
     
 	infowindow = new google.maps.InfoWindow({
 		content: contentString
