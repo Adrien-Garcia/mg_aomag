@@ -9,11 +9,24 @@
 
 
 jQuery(function($) {
+	
+	jQuery('.address-select').live("change", function() {
+		if(jQuery('#socolissimo-location').size() <= 0 ){	
+			$("#attentionSoColissimo").remove();
+			$("label[for=\"billing-address-select\"]").parent().before('<p id="attentionSoColissimo" style="font-weight:bold;color:red;text-align:justify; padding-right:5px;">Suite à la modification de votre adresse et si votre mode de livraison est So Colissimo, veuillez séléctionner votre point de retrait en cliquant sur le mode de livraison.</p>');
+		}
+	});	
+	
 	var $ma_div = jQuery("#socolissimo-location");
 	jQuery("#s_method_socolissimoflexibilite_socolissimo").parents('dt').append($ma_div);
+	jQuery("#socolissimo-location-orig").hide();
 	
 	$("input[id^=\"s_method\"]").live("change", function() {
 		shippingRadioCheck(this);
+	});		
+	
+	$("label[for=\"s_method_socolissimoflexibilite_socolissimo\"]").live("click",function(){
+		reloadSocolissimo();
 	});
 	
 });
@@ -22,10 +35,25 @@ String.prototype.startWith = function(t, i) { if (i==false) { return
 (t == this.substring(0, t.length)); } else { return (t.toLowerCase()
 == this.substring(0, t.length).toLowerCase()); } } 
 
-function shippingRadioCheck(element) {
-	if (element.id.startWith("s_method_socolissimoflexibilite") && jQuery(element).attr("checked", "checked")){		
+function reloadSocolissimo(){		
+	if(jQuery('#socolissimo-location').size() <= 0 ){		
+		var ma_div_clone = jQuery("#socolissimo-location-orig").clone();	
+		var cible = jQuery("#s_method_socolissimoflexibilite_socolissimo").parents('dt');
+		cible.delay(100).append(ma_div_clone);		
+		jQuery("#s_method_socolissimoflexibilite_socolissimo").next().next().attr("id","socolissimo-location");
 		jQuery("#socolissimo-location").show();
-	} else {
+	}
+}
+
+function shippingRadioCheck(element) {	
+	if (element.id.startWith("s_method_socolissimoflexibilite") && jQuery(element).attr("checked", "checked")){		
+		if(jQuery('#socolissimo-location').size() <= 0 ){		
+			var $ma_div = jQuery("#socolissimo-location-orig").clone();		
+			jQuery("#s_method_socolissimoflexibilite_socolissimo").parents('dt').append($ma_div);		
+			jQuery("#s_method_socolissimoflexibilite_socolissimo").next().next().attr("id","socolissimo-location");
+			jQuery("#socolissimo-location").show();
+		}
+	} else {		
 		jQuery("#socolissimo-location").hide();
 	}
 }
@@ -33,7 +61,7 @@ function shippingRadioCheck(element) {
 var myPositionSocolissimo;
 var overlayApi;
 
-function socolissimoRadioCheck(input) {
+function socolissimoRadioCheck(input) {		
 	//on commence par ré-initialiser le relais qui a pu être déjà choisi 
 	jQuery("#socolissimo-location input[name=relais_socolissimo]").val("");
 	jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val("");
