@@ -138,45 +138,6 @@
 		</label>
 		
     </div>
-<!-- ShippingMethod est défini dans opcheckout.js qui est inséré au début du template onepage.phtml (et non dans le header)
-on est donc obligé de le surcharger ici... -->    
-<?php /* : finalement on fait la modification directement dans opcheckout (tant-pis pour le côté modulaire...) car ça ne fonctionne pas sur IE8 ?>
-<script type="text/javascript">
-<!--
-ShippingMethod.prototype.validate = function() {
-    var methods = document.getElementsByName('shipping_method');
-    if (methods.length==0) {
-        alert(Translator.translate('Your order can not be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.'));
-        return false;
-    }
-
-    if(!this.validator.validate()) {
-        return false;
-    }
-
-    
-    for (var i=0; i<methods.length; i++) {
-        if (methods[i].checked) {
-        	if (methods[i].value.startWith("socolissimoflexibilite")) {
-        		var typeSocos = document.getElementsByName('type_socolissimo');
-        		for (var i=0; i<typeSocos.length; i++) {
-        	        if (typeSocos[i].checked) {
-        	        	return true;
-        	        }
-        		}
-        		alert('Socolissimo : ' + Translator.translate('Please specify shipping method.'));
-        	    return false;
-        	} else {
-        		return true;
-        	}
-        }
-    }
-    alert(Translator.translate('Please specify shipping method.'));
-    return false;
-}
-//-->
-</script>
-<?php */ ?>    
 <div class="layer" id="layer_socolissimo" style="display:none">
 	<a class="close">Fermer</a>
 	<div>
