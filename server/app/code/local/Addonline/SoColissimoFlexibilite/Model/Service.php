@@ -2,13 +2,13 @@
 
 class Addonline_SoColissimoFlexibilite_Model_Service {
 	
+	protected $_urlWsdl = 'http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS?wsdl';
+	
 	function findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $filterRelay) {
 		
 		require_once dirname(__FILE__).'/PointRetraitServiceWSService.php';
 
-		$urlWsdl='http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS?wsdl';
-		
-		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $urlWsdl);
+		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->urlWsdl);
 
 		try {
 				$findRDVPointRetraitAcheminement = new findRDVPointRetraitAcheminement();
@@ -55,9 +55,7 @@ class Addonline_SoColissimoFlexibilite_Model_Service {
 		
 		require_once dirname(__FILE__).'/PointRetraitServiceWSService.php';
 		
-		$urlWsdl='http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS?wsdl';
-		
-		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $urlWsdl);
+		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->urlWsdl);
 
 		try {
 				$findPointRetraitAcheminementByID = new findPointRetraitAcheminementByID();
