@@ -26,8 +26,8 @@
 	<target name="create_zip_prod" depends="">
 		<property name="zip-name" value="aomagento_prod_${DSTAMP}${TSTAMP}" />
 		<property name="conf" value="conf/prod" />
-		<antcall target="create_zip"></antcall>
-		<!-- transfert par ftp sur mag1.host.addonline.fr -->
+		<antcall target="create_zip_upgrade"></antcall>
+		<!-- transfert par ftp sur mag1.host.addonline.fr --> 
 		<ftp server="mag1.host.addonline.fr" port="21" remotedir="deploiements" userid="addonline" password="mo8Y6icK!851" passive="true">
 			<fileset file="${zip-name}.zip"></fileset>
 		</ftp>
@@ -35,6 +35,18 @@
 	</target>
 
 	<target name="create_zip" depends="">
+		
+		<delete file="${conf}/deploy.dirs"  />
+		<echo file="${conf}/deploy.dirs" append="yes" message="app/code/local${line.separator}" ></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="app/code/community${line.separator}"></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="app/design/frontend/CLIENT${line.separator}"></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="app/design/frontend/base${line.separator}"></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="app/design/adminhtml${line.separator}"></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="app/etc/modules${line.separator}"></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="app/locale${line.separator}"></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="skin/frontend/CLIENT${line.separator}"></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="skin/frontend/base${line.separator}"></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="shell${line.separator}"></echo>
 
 		<zip destfile="${zip-name}.zip" >
 			<zipfileset dir="server/app/code/local" prefix="${zip-name}/app/code/local" >
@@ -56,26 +68,55 @@
 			</zipfileset>
 			<zipfileset dir="server/skin/frontend/base" prefix="${zip-name}/skin/frontend/base">
 			</zipfileset>
+			<zipfileset dir="server/shell" prefix="${zip-name}/shell">
+			</zipfileset>
 			<zipfileset file="server/*.php" prefix="${zip-name}" />
+			<zipfileset file="${conf}/deploy.dirs" prefix="${zip-name}" />
 			<zipfileset file="${conf}/deploy.sh" prefix="${zip-name}" />
 		</zip>
 
 	</target>
-	
+
+	<target name="create_zip_upgrade" depends="">
+		
+		<delete file="${conf}/deploy.dirs"  />
+		<echo file="${conf}/deploy.dirs" append="yes" message="app${line.separator}" ></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="errors${line.separator}" ></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="js${line.separator}" ></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="lib${line.separator}" ></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="shell${line.separator}" ></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="skin${line.separator}" ></echo>
+		
+		<zip destfile="${zip-name}.zip" >
+			<zipfileset dir="server/app" prefix="${zip-name}/app" >
+				<exclude name="etc/local.xml" />
+			</zipfileset>
+			<zipfileset dir="server/errors" prefix="${zip-name}/errors" ></zipfileset>
+			<zipfileset dir="server/js" prefix="${zip-name}/js" ></zipfileset>
+			<zipfileset dir="server/lib" prefix="${zip-name}/lib" ></zipfileset>
+			<zipfileset dir="server/shell" prefix="${zip-name}/shell" ></zipfileset>
+			<zipfileset dir="server/skin" prefix="${zip-name}/skin" ></zipfileset>
+			<zipfileset file="server/*.php" prefix="${zip-name}" />
+			<zipfileset file="${conf}/deploy.dirs" prefix="${zip-name}" />
+			<zipfileset file="${conf}/deploy.sh" prefix="${zip-name}" />
+		</zip>
+
+	</target>
+
 	<target name="create_zip_socolissimoliberte" depends="">
 		<property name="zip-name" value="socolissimoliberte_${DSTAMP}${TSTAMP}.zip" />
 		<zip destfile="${zip-name}" >
 			<zipfileset dir="server/app/code/local/Addonline/SoColissimoLiberte" prefix="app/code/local/Addonline/SoColissimoLiberte" ></zipfileset>
 			<zipfileset file="server/app/design/frontend/base/default/layout/socolissimoliberte.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
 			<zipfileset dir="server/app/design/frontend/base/default/template/socolissimoliberte" prefix="app/design/frontend/base/default/template/socolissimoliberte" ></zipfileset>
-			<zipfileset file="server/app/etc/modules/Addonline_SoColissimoLiberte.xml" prefix="app/etc/modules" ></zipfileset>
+			<zipfileset file="conf/socolissimoliberte/Addonline_SoColissimoLiberte.xml" prefix="app/etc/modules" ></zipfileset>
 			<zipfileset file="server/app/locale/fr_FR/Addonline_SoColissimoLiberte.csv" prefix="app/locale/fr_FR" ></zipfileset>
 			<zipfileset dir="server/js/jquery" prefix="js/jquery" ></zipfileset>
 			<zipfileset file="server/skin/frontend/base/default/css/socolissimoliberte.css" prefix="skin/frontend/base/default/css" ></zipfileset>
 			<zipfileset dir="server/skin/frontend/base/default/images/socolissimo" prefix="skin/frontend/base/default/images/socolissimo" ></zipfileset>
 			<zipfileset file="server/skin/frontend/base/default/js/socolissimoliberte.js" prefix="skin/frontend/base/default/js" ></zipfileset>
 			<zipfileset file="server/skin/frontend/base/default/js/opcheckout.js" prefix="skin/frontend/base/default/js" ></zipfileset>
-			<zipfileset dir="server/var/import/socolissimoliberte" prefix="var/import" ></zipfileset>
+			<zipfileset dir="server/var/import/socolissimoliberte" prefix="var/import" ><exclude name=".gitignore" /></zipfileset>
 		</zip>
 		<echo message="Refresh your project to see the generated ${zip-name}"></echo>
 	</target>

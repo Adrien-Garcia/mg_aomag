@@ -1,0 +1,1 @@
+plaer dans ce répertoire le fichier des points de retrait fourni par socolissimo
