@@ -24,6 +24,7 @@ class Addonline_SoColissimoLiberte_Model_Carrier_ShippingMethod
 	public function collectRates(Mage_Shipping_Model_Rate_Request $request) {
 
 		$rates = parent::collectRates($request);
+		Mage::log($rates);
 		$shippingAddress = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress();
 		if ($shippingAddress && $shippingAddress->getData('soco_product_code') == 'RDV') {
 			foreach ($rates->getAllRates() as $rate) {

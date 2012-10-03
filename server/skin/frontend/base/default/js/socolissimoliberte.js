@@ -11,8 +11,23 @@
 
 jQuery(function($) {
 	
+	jQuery('.address-select').live("change", function() {
+		if(jQuery('#socolissimo-location').size() <= 0 ){	
+			$("#attentionSoColissimo").remove();
+			$("label[for=\"billing-address-select\"]").parent().before('<p id="attentionSoColissimo" style="font-weight:bold;color:red;text-align:justify; padding-right:5px;">Suite à la modification de votre adresse et si votre mode de livraison est So Colissimo, veuillez séléctionner votre point de retrait en cliquant sur le mode de livraison.</p>');
+		}
+	});	
+	
+	var $ma_div = jQuery("#socolissimo-location");
+	jQuery("#s_method_socolissimoliberte_socolissimo").parents('dt').append($ma_div);
+	jQuery("#socolissimo-location-orig").hide();
+	
 	$("input[id^=\"s_method\"]").live("change", function() {
 		shippingRadioCheck(this);
+	});		
+	
+	$("label[for=\"s_method_socolissimoliberte_socolissimo\"]").live("click",function(){
+		reloadSocolissimo();
 	});
 	
 });
@@ -21,10 +36,25 @@ String.prototype.startWith = function(t, i) { if (i==false) { return
 (t == this.substring(0, t.length)); } else { return (t.toLowerCase()
 == this.substring(0, t.length).toLowerCase()); } } 
 
-function shippingRadioCheck(element) {
-	if (element.id.startWith("s_method_socolissimoliberte") && jQuery(element).attr("checked", "checked")){
+function reloadSocolissimo(){		
+	if(jQuery('#socolissimo-location').size() <= 0 ){		
+		var ma_div_clone = jQuery("#socolissimo-location-orig").clone();	
+		var cible = jQuery("#s_method_socolissimoliberte_socolissimo").parents('dt');
+		cible.delay(100).append(ma_div_clone);		
+		jQuery("#s_method_socolissimoliberte_socolissimo").next().next().attr("id","socolissimo-location");
 		jQuery("#socolissimo-location").show();
-	} else {
+	}
+}
+
+function shippingRadioCheck(element) {	
+	if (element.id.startWith("s_method_socolissimoliberte") && jQuery(element).attr("checked", "checked")){		
+		if(jQuery('#socolissimo-location').size() <= 0 ) { //cas onestepcheckout
+			var $ma_div = jQuery("#socolissimo-location-orig").clone();		
+			jQuery("#s_method_socolissimoliberte_socolissimo").parents('dt').append($ma_div);		
+			jQuery("#s_method_socolissimoliberte_socolissimo").next().next().attr("id","socolissimo-location");
+		} 
+		jQuery("#socolissimo-location").show();
+	} else {		
 		jQuery("#socolissimo-location").hide();
 	}
 }
@@ -110,19 +140,29 @@ function checkDisplayPhone(input) {
 
 function geocodeAdresse() {
 	if (jQuery("#socolissimo_city_select option").length > 0 && jQuery("#socolissimo_city_select")[0].selectedIndex == 0) {
-		alert("Veuillez sélectionner une commune");
-		return;
+		if(jQuery('#billing\\:city').val() == ""){
+			alert("Veuillez sélectionner une commune");
+			return;
+		}
 	}
 	if (jQuery("#socolissimo_postcode").val() == "") {
-		alert("Veuillez saisir un code postal");
-		return;
+		if(jQuery('#billing\\:postcode').val() == ""){
+			alert("Veuillez saisir un code postal");
+			return;
+		}
 	}
 	if (jQuery("#socolissimo_street").val() == "") {
-		alert("Veuillez saisir une adresse");
-		return;
+		if(jQuery('#billing\\:street1').val() == ""){
+			alert("Veuillez saisir une adresse");
+			return;
+		}
 	}
 	var geocoder = new google.maps.Geocoder();
-	var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text();
+	if(jQuery("#socolissimo_street").val() == "") {
+		var searchAdress = jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + ' ' + jQuery('#billing\\:postcode').val() + ' ' + jQuery('#billing\\:city').val();
+	} else{
+		var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text();
+	}
 	//console.log('Search adresse : ' + searchAdress);
 	geocoder.geocode({'address': searchAdress}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
@@ -143,12 +183,20 @@ function changeMap() {
 var listRelaisSocolissimo=new Array();
 function loadListeRelais() {
 	jQuery(".loader-wrapper").fadeTo(300, 1);
-	url = "/socolissimoliberte/ajax/listrelais?"
-	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
+	url = BASE_URL_SOCOLISSIMO + "socolissimoliberte/ajax/listrelais?"
+	/*jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
 		url = url + check.val() + "=" + check.attr("checked") + "&";
-	});
-	url = url + "latitude=" + myPositionSocolissimo.lat() + "&longitude=" + myPositionSocolissimo.lng();
+	});*/
+	if(jQuery("#socolissimo_street").val() == "") {		
+		url = url + "adresse=" + jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + "&zipcode=" + jQuery('#billing\\:postcode').val()+ "&ville=" + jQuery('#billing\\:city').val();
+		jQuery("#socolissimo_street").val(jQuery('#billing\\:street1').val()+' '+jQuery('#billing\\:street2').val());
+		jQuery("#socolissimo_postcode").val(jQuery('#billing\\:postcode').val());
+		jQuery("#socolissimo_city").text(jQuery('#billing\\:city').val());
+	} else{
+		url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text();
+	}	
+	url = url + "&latitude=" + myPositionSocolissimo.lat() + "&longitude=" + myPositionSocolissimo.lng();
 	jQuery.getJSON( url, function(response) {
 		listRelaisSocolissimo = response.items;
 		jQuery("#adresses_socolissimo").html(response.html);
@@ -228,7 +276,7 @@ function infoBulleGenerator(relaisSocolissimo) {
 		}
 	}
     contentString += '</p></div>';
-    contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enl�ve les horaires de l'apr�s midi si ils sont vides
+    contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enlève les horaires de l'après midi si ils sont vides
     
 	infowindow = new google.maps.InfoWindow({
 		content: contentString
@@ -291,3 +339,68 @@ function choisirRelais(index) {
 Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
     return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
 });
+//On surcharge la méthode validate de ShippingMethod définie dans opcheckout.js (dans le cas du onepagecheckout seulement)
+if ((typeof ShippingMethod) != "undefined")  {
+ShippingMethod.prototype.validate = function() {
+    var methods = document.getElementsByName('shipping_method');
+    if (methods.length==0) {
+        alert(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.').stripTags());
+        return false;
+    }
+
+    if(!this.validator.validate()) {
+        return false;
+    }
+
+    //SOCOLISSIMO
+    for (var i=0; i<methods.length; i++) {
+        if (methods[i].checked) {
+    	    if (methods[i].value.startWith("socolissimo")) {
+    	    	var typeSocos = document.getElementsByName('type_socolissimo');
+                for (var j=0; j<typeSocos.length; j++) {
+                    if (typeSocos[j].checked) {
+                        return true;
+                    }
+                }
+                alert('Socolissimo : ' + Translator.translate('Please specify shipping method.'));
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+    alert(Translator.translate('Please specify shipping method.').stripTags());
+    return false;
+}
+}
+//On surcharge la méthode setStepResponse de Checkout définie dans opcheckout.js (dans le cas du onepagecheckout seulement)
+if ((typeof Checkout) != "undefined") {
+	Checkout.prototype.setStepResponse = function(response){
+        if (response.update_section) {
+            //SOCOLISSIMO
+        	$$('body #layer_socolissimo').each(function(e){ e.remove(); });
+        	//FIN SOCOLISSIMO
+        	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
+        }
+        if (response.allow_sections) {
+            response.allow_sections.each(function(e){
+                $('opc-'+e).addClassName('allow');
+            });
+        }
+
+        if(response.duplicateBillingInfo)
+        {
+            shipping.setSameAsBilling(true);
+        }
+
+        if (response.goto_section) {
+            this.gotoSection(response.goto_section);
+            return true;
+        }
+        if (response.redirect) {
+            location.href = response.redirect;
+            return true;
+        }
+        return false;
+    }	
+}

@@ -13,8 +13,37 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 {
 	
 	public function _9cd4777ae76310fd6977a5c559c51820(){						
-		if (Mage::getStoreConfig('addonline/licence/aomagento')) { return true; }
-		$key = 'e983cfc54f88c7114e99da95f5757df6'; if(md5(Mage::getStoreConfig('web/unsecure/base_url').$key.'SoColissimoLiberte')!=Mage::getStoreConfig('socolissimoliberte/licence/serial')){ $severity=Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;$title= "Vous devez renseigner une clé licence valide pour le module So colissimo Liberté. Le module a été désactivé";$description= "Le module So colissimo Liberté n'a pas une clé licence valide";	$date = date('Y-m-d H:i:s'); Mage::getModel('adminnotification/inbox')->parse(array(array('severity' => $severity,'date_added'=> $date,'title'=> $title,'description' => $description,'url'=> '','internal' => true))); return false; }else{ $_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 0); foreach($_unreadNotices as $notice): if(strpos($notice->getData('description'),'So colissimo Libert')): $notice->setIsRead(1)->save(); endif; endforeach; return true; }	
+		if (Mage::getStoreConfig('addonline/licence/aomagento')) { return true; }				
+		
+		$key = 'e983cfc54f88c7114e99da95f5757df6';
+		$store_error = null;
+		$stores = Mage::getModel('core/store')->getCollection();
+		foreach($stores as $store) {
+			$storeurl = Mage::app()->getStore($store['store_id'])->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+			$storekey = Mage::getStoreConfig('socolissimoliberte/licence/serial',$store);			
+			if(($storekey != 'DISABLED')){					
+				if(md5($storeurl.$key.'SoColissimoLiberte')!=$storekey){
+					$severity=Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;$title= "Vous devez renseigner une clé licence valide pour le module So colissimo Liberté, pour le magasin ".$store['code'].". Le module a été désactivé";$description= "Le module So colissimo Liberté n'a pas une clé licence valide";	$date = date('Y-m-d H:i:s'); Mage::getModel('adminnotification/inbox')->parse(array(array('severity' => $severity,'date_added'=> $date,'title'=> $title,'description'   => $description,'url'=> '','internal'      => true)));
+					$store_error .= 1;
+				}
+			}
+			
+		}
+					
+		if(!is_object($store_id)){			
+			$thisStore =  Mage::getModel('core/store')->load($store_id);
+			$thisStorekey = Mage::getStoreConfig('socolissimoliberte/licence/serial',$thisStore);
+			if($thisStorekey == 'DISABLED'){
+				return false;
+			}
+		} 
+		
+		if(!$store_error){
+			$_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 0); foreach($_unreadNotices as $notice): if(strpos($notice->getData('description'),'So colissimo Flexibilit')): $notice->setIsRead(1)->save();	endif;endforeach;
+			return true;
+		}else{								
+			return false;
+		}
 	}
 
     public function checkoutEventSocodata($observer)

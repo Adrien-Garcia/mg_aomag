@@ -115,7 +115,6 @@
 			<zipfileset file="server/skin/frontend/base/default/css/socolissimoliberte.css" prefix="skin/frontend/base/default/css" ></zipfileset>
 			<zipfileset dir="server/skin/frontend/base/default/images/socolissimo" prefix="skin/frontend/base/default/images/socolissimo" ></zipfileset>
 			<zipfileset file="server/skin/frontend/base/default/js/socolissimoliberte.js" prefix="skin/frontend/base/default/js" ></zipfileset>
-			<zipfileset file="server/skin/frontend/base/default/js/opcheckout.js" prefix="skin/frontend/base/default/js" ></zipfileset>
 			<zipfileset dir="server/var/import/socolissimoliberte" prefix="var/import" ><exclude name=".gitignore" /></zipfileset>
 		</zip>
 		<echo message="Refresh your project to see the generated ${zip-name}"></echo>

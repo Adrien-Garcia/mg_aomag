@@ -64,7 +64,8 @@ class Addonline_SoColissimoLiberte_Block_Selector extends Mage_Core_Block_Templa
 	}		
 	
 	public function _toHtml(){		
-		if(Mage::getModel('socolissimoliberte/observer')->_9cd4777ae76310fd6977a5c559c51820()){
+		$thisStore = Mage::app()->getStore()->getStoreId();			
+		if(Mage::getModel('socolissimoliberte/observer')->_9cd4777ae76310fd6977a5c559c51820($thisStore)){
 			echo (parent::_toHtml());
 		}else{
 			echo ("<H1>La clé de licence du module liberte est invalide</H1>");
