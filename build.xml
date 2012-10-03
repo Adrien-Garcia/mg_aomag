@@ -26,7 +26,7 @@
 	<target name="create_zip_prod" depends="">
 		<property name="zip-name" value="aomagento_prod_${DSTAMP}${TSTAMP}" />
 		<property name="conf" value="conf/prod" />
-		<antcall target="create_zip_upgrade"></antcall>
+		<antcall target="create_zip"></antcall>
 		<!-- transfert par ftp sur mag1.host.addonline.fr --> 
 		<ftp server="mag1.host.addonline.fr" port="21" remotedir="deploiements" userid="addonline" password="mo8Y6icK!851" passive="true">
 			<fileset file="${zip-name}.zip"></fileset>
