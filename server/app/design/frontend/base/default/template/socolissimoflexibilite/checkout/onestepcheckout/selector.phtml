@@ -4,7 +4,7 @@
     			<dt>Chez vous <span>ou toute autre adresse postale</span></dt>
     			<dd class="chez-vous">
     				<label>
-    					<input type="radio" name="type_socolissimo" value="livraison" onclick="socolissimoRadioCheck(this)" />
+    					<input type="radio" name="type_socolissimo" class="validate-one-required-by-name" value="livraison" onclick="socolissimoRadioCheck(this)" />
     					<span>mon domicile</span>
     					<?php if ($this->isDomicileAvecSignature()) :?>
     					<strong>Livraison &agrave; l'adresse de votre choix</strong> avec <strong>remise en mains propres.</strong><br/>
@@ -18,7 +18,7 @@
     			<?php if ($this->isRdvAvailable()): ?>
     			<dd class="rendez-vous">
     				<label>
-	    				<input type="radio" name="type_socolissimo"  value="rdv" onclick="socolissimoRadioCheck(this)" />
+	    				<input type="radio" name="type_socolissimo" class="validate-one-required-by-name"  value="rdv" onclick="socolissimoRadioCheck(this)" />
 	    				<span>mon rendez-vous</span>
 	    				Livraison sur rendez-vous sur Paris pour un suppl&eacute;ment de <?php echo $this->helper('core')->currency($this->getRdvShippingCost()) ?> entre 17h00 et 21h30 dans un créneau d'1h30 du lundi au vendredi.
 	    			</label>
@@ -28,7 +28,7 @@
     			<dt>Dans un point de retrait &agrave; proximit&eacute; <span>de votre domicile, de votre lieu de travail ou de vacances</span></dt>
     			<dd class="cityssimo">
     				<label >
-	    				<input type="radio" name="type_socolissimo"  value="cityssimo" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;" />
+	    				<input type="radio" name="type_socolissimo" class="validate-one-required-by-name"  value="cityssimo" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;" />
 	    				<span>ma consigne cityssimo</span>
 	    				Livraison dans l'une des 31 consignes automatiques Cityssimo 7j/7 et 24h/24.
 	    			</label>
@@ -36,7 +36,7 @@
 				</dd>
     			<dd class="poste">
 	    			<label>
-	    				<input type="radio"  name="type_socolissimo" value="poste" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" />
+	    				<input type="radio"  name="type_socolissimo" class="validate-one-required-by-name"  value="poste" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" />
 	    				<span>mon bureau de poste</span>
 	    				Livraison dans l'un des 10 000 points de retrait La Poste de votre choix en France.
 	    			</label>
@@ -44,7 +44,7 @@
 	    		</dd>
 	    		<dd class="commercant">
 	    			<label>
-	    				<input type="radio"  name="type_socolissimo" value="commercant" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;"/>
+	    				<input type="radio"  name="type_socolissimo" class="validate-one-required-by-name" value="commercant" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;"/>
 	    				<span>mon commerçant</span>
 	    				Livraison dans l'un des 3 700 commerces du r&eacute;seau  PICKUP, Groupe La Poste.
 	    			</label>
@@ -75,7 +75,7 @@
     			<dt>Chez vous <span>ou toute autre adresse postale</span></dt>
     			<dd class="chez-vous">
     				<label>
-    					<input type="radio" name="type_socolissimo" value="livraison" onclick="socolissimoRadioCheck(this)" />
+    					<input type="radio" name="type_socolissimo" value="livraison" class="validate-one-required-by-name" onclick="socolissimoRadioCheck(this)" />
     					<span>mon domicile</span>
     					<?php if ($this->isDomicileAvecSignature()) :?>
     					<strong>Livraison &agrave; l'adresse de votre choix</strong> avec <strong>remise en mains propres.</strong><br/>
@@ -89,7 +89,7 @@
     			<?php if ($this->isRdvAvailable()): ?>
     			<dd class="rendez-vous">
     				<label>
-	    				<input type="radio" name="type_socolissimo"  value="rdv" onclick="socolissimoRadioCheck(this)" />
+	    				<input type="radio" name="type_socolissimo"  value="rdv" class="validate-one-required-by-name" onclick="socolissimoRadioCheck(this)" />
 	    				<span>mon rendez-vous</span>
 	    				Livraison sur rendez-vous sur Paris pour un suppl&eacute;ment de <?php echo $this->helper('core')->currency($this->getRdvShippingCost()) ?> entre 17h00 et 21h30 dans un créneau d'1h30 du lundi au vendredi.
 	    			</label>
@@ -99,7 +99,7 @@
     			<dt>Dans un point de retrait &agrave; proximit&eacute; <span>de votre domicile, de votre lieu de travail ou de vacances</span></dt>
     			<dd class="cityssimo">
     				<label >
-	    				<input type="radio" name="type_socolissimo"  value="cityssimo" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;" />
+	    				<input type="radio" name="type_socolissimo"  value="cityssimo" class="validate-one-required-by-name" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;" />
 	    				<span>ma consigne cityssimo</span>
 	    				Livraison dans l'une des 31 consignes automatiques Cityssimo 7j/7 et 24h/24.
 	    			</label>
@@ -107,7 +107,7 @@
 				</dd>
     			<dd class="poste">
 	    			<label>
-	    				<input type="radio"  name="type_socolissimo" value="poste" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" />
+	    				<input type="radio"  name="type_socolissimo" value="poste" class="validate-one-required-by-name"  onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" />
 	    				<span>mon bureau de poste</span>
 	    				Livraison dans l'un des 10 000 points de retrait La Poste de votre choix en France.
 	    			</label>
@@ -115,7 +115,7 @@
 	    		</dd>
 	    		<dd class="commercant">
 	    			<label>
-	    				<input type="radio"  name="type_socolissimo" value="commercant" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;"/>
+	    				<input type="radio"  name="type_socolissimo" value="commercant" class="validate-one-required-by-name" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;"/>
 	    				<span>mon commerçant</span>
 	    				Livraison dans l'un des 3 700 commerces du r&eacute;seau  PICKUP, Groupe La Poste.
 	    			</label>
@@ -189,26 +189,29 @@
 <script type="text/javascript">
 //<![CDATA[
     var BASE_URL_SOCOLISSIMO = '<?php echo $this->getUrl('') ?>';
-    <?php if (!empty($shippingMe)): ?>
-        var shippingMe = {<?php echo implode(',',$shippingMe); ?>};
-    <?php endif; ?>
+<?php if (!empty($shippingCodePrice)): ?>
+    var shippingCodePrice = {<?php echo implode(',',$shippingCodePrice); ?>};
+<?php endif; ?>
 
-    function includingShipping(getShippingCode)
-    {
-        <?php if (!empty($shippingMe)): ?>
-            var newPrice = shippingMe[getShippingCode];
-            if (!lastPrice) {
-                lastPrice = newPrice;
-                quoteBaseGrandTotal += newPrice;
-            }
-            if (newPrice != lastPrice) {
-                quoteBaseGrandTotal += (newPrice-lastPrice);
-                lastPrice = newPrice;
-
-            }
-        <?php endif; ?>
-        checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
-        return false;
-    }
+$$('input[type="radio"][name="shipping_method"]').each(function(el){
+    Event.observe(el, 'click', function(){
+        if (el.checked == true) {
+            var getShippingCode = el.getValue();
+            <?php if (!empty($shippingCodePrice)): ?>
+                var newPrice = shippingCodePrice[getShippingCode];
+                if (!lastPrice) {
+                    lastPrice = newPrice;
+                    quoteBaseGrandTotal += newPrice;
+                }
+                if (newPrice != lastPrice) {
+                    quoteBaseGrandTotal += (newPrice-lastPrice);
+                    lastPrice = newPrice;
+                }
+            <?php endif; ?>
+            checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+            return false;
+        }
+   });
+});
 //]]>
 </script>

@@ -47,12 +47,12 @@ function reloadSocolissimo(){
 
 function shippingRadioCheck(element) {	
 	if (element.id.startWith("s_method_socolissimoflexibilite") && jQuery(element).attr("checked", "checked")){		
-		if(jQuery('#socolissimo-location').size() <= 0 ){		
+		if(jQuery('#socolissimo-location').size() <= 0 ) { //cas onestepcheckout
 			var $ma_div = jQuery("#socolissimo-location-orig").clone();		
 			jQuery("#s_method_socolissimoflexibilite_socolissimo").parents('dt').append($ma_div);		
 			jQuery("#s_method_socolissimoflexibilite_socolissimo").next().next().attr("id","socolissimo-location");
-			jQuery("#socolissimo-location").show();
-		}
+		} 
+		jQuery("#socolissimo-location").show();
 	} else {		
 		jQuery("#socolissimo-location").hide();
 	}
@@ -371,3 +371,69 @@ function choisirRelais(index) {
 Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
     return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
 });
+
+//On surcharge la méthode validate de ShippingMethod définie dans opcheckout.js (dans le cas du onepagecheckout seulement)
+if ((typeof ShippingMethod) != "undefined")  {
+ShippingMethod.prototype.validate = function() {
+    var methods = document.getElementsByName('shipping_method');
+    if (methods.length==0) {
+        alert(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.').stripTags());
+        return false;
+    }
+
+    if(!this.validator.validate()) {
+        return false;
+    }
+
+    //SOCOLISSIMO
+    for (var i=0; i<methods.length; i++) {
+        if (methods[i].checked) {
+    	    if (methods[i].value.startWith("socolissimo")) {
+    	    	var typeSocosChoisi = document.getElementsByName('type_socolissimo_choisi');
+    	    	for (var j=0; j<typeSocosChoisi.length; j++) {
+    	    		if (typeSocosChoisi[j].value!='') {
+                        return true;
+                    }
+                }
+                alert('Socolissimo : ' + Translator.translate('Please specify shipping method.'));
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+    alert(Translator.translate('Please specify shipping method.').stripTags());
+    return false;
+}
+}
+//On surcharge la méthode setStepResponse de Checkout définie dans opcheckout.js (dans le cas du onepagecheckout seulement)
+if ((typeof Checkout) != "undefined") {
+	Checkout.prototype.setStepResponse = function(response){
+        if (response.update_section) {
+            //SOCOLISSIMO
+        	$$('body #layer_socolissimo').each(function(e){ e.remove(); });
+        	//FIN SOCOLISSIMO
+        	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
+        }
+        if (response.allow_sections) {
+            response.allow_sections.each(function(e){
+                $('opc-'+e).addClassName('allow');
+            });
+        }
+
+        if(response.duplicateBillingInfo)
+        {
+            shipping.setSameAsBilling(true);
+        }
+
+        if (response.goto_section) {
+            this.gotoSection(response.goto_section);
+            return true;
+        }
+        if (response.redirect) {
+            location.href = response.redirect;
+            return true;
+        }
+        return false;
+    }	
+}

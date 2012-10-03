@@ -202,9 +202,6 @@ Checkout.prototype = {
 
     setStepResponse: function(response){
         if (response.update_section) {
-            //SOCOLISSIMO
-        	$$('body #layer_socolissimo').each(function(e){ e.remove(); });
-        	//FIN SOCOLISSIMO
         	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
         }
         if (response.allow_sections) {
@@ -556,42 +553,11 @@ ShippingMethod.prototype = {
             return false;
         }
 
-        //SOCOLISSIMO
         for (var i=0; i<methods.length; i++) {
             if (methods[i].checked) {
-        	    if (methods[i].value.startWith("socolissimo")) {
-                    //cas socolissimo flexibilite : on utilise le champ hidden type_socolissimo_choisi
-        	    	var typeSocosChoisi = document.getElementsByName('type_socolissimo_choisi');
-                    var flexibilite= false;
-        	    	for (var j=0; j<typeSocosChoisi.length; j++) {
-        	    		flexibilite= true;
-        	    		if (typeSocosChoisi[j].value!='') {
-                            return true;
-                        }
-                    }
-        	    	if (!flexibilite) {
-	                    //cas socolissimo liberte : on utilise les radio type_socolissimo
-	                    var typeSocos = document.getElementsByName('type_socolissimo');
-	                    for (var j=0; j<typeSocos.length; j++) {
-	                        if (typeSocos[j].checked) {
-	                            return true;
-	                        }
-	                    }
-        	    	}
-                    alert('Socolissimo : ' + Translator.translate('Please specify shipping method.'));
-                    return false;
-                } else {
-                    return true;
-                }
+                return true;
             }
         }
-        //original :
-        //for (var i=0; i<methods.length; i++) {
-        //    if (methods[i].checked) {
-        //        return true;
-        //    }
-        //}
-        //FIN SOCOLISSIMO
         alert(Translator.translate('Please specify shipping method.').stripTags());
         return false;
     },
