@@ -2,13 +2,21 @@
 
 class Addonline_SoColissimoFlexibilite_Model_Service {
 	
-	protected $_urlWsdl = 'http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS?wsdl';
+	protected $_urlWsdl;
+	
+	public function getUrlWsdl()
+	{
+		if (!$this->_urlWsdl) {
+			$this->_urlWsdl = Mage::getStoreConfig('carriers/socolissimoflexibilite/url_socolissimo')."?wsdl";
+		}
+		return $this->_urlWsdl;
+	}
 	
 	function findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $filterRelay) {
 		
 		require_once dirname(__FILE__).'/PointRetraitServiceWSService.php';
 
-		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->urlWsdl);
+		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->getUrlWsdl());
 
 		try {
 				$findRDVPointRetraitAcheminement = new findRDVPointRetraitAcheminement();
@@ -55,7 +63,7 @@ class Addonline_SoColissimoFlexibilite_Model_Service {
 		
 		require_once dirname(__FILE__).'/PointRetraitServiceWSService.php';
 		
-		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->urlWsdl);
+		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->getUrlWsdl());
 
 		try {
 				$findPointRetraitAcheminementByID = new findPointRetraitAcheminementByID();

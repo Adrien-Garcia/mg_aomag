@@ -152,6 +152,7 @@
 				<rdv_conditions>75001,75002,75003,75004,75005,75006,75007,75008,75009,75010,75011,75012,75013,75014,75015,75016,75116,75017,75018,75019,75020</rdv_conditions>
 				<rdv_fees>4</rdv_fees>
 				<shipping_period>1</shipping_period>
+				<url_socolissimo>http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS</url_socolissimo>
 				<id_socolissimo></id_socolissimo>
 				<password_socolissimo></password_socolissimo>
 				<sort_order>1</sort_order>
