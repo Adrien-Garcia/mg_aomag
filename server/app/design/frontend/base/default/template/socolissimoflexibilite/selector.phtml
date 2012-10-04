@@ -25,8 +25,9 @@
     			</dd>
 	    		<?php endif;?>
     		</dl>
-    		<dl class="right">
-    			<?php if ($this->isSocolissmoAvailable()): ?>
+    		<dl class="right">    		
+    			<?php if ($this->isSocolissmoAvailable()): ?>    			    			
+    			
     			<dt>Dans un point de retrait &agrave; proximit&eacute; <span>de votre domicile, de votre lieu de travail ou de vacances</span></dt>
     			<dd class="cityssimo">
     				<label>
@@ -117,3 +118,14 @@
 		</div>
 	</div>
 </div>
+
+<script>    
+    var montant_normal = jQuery('#f_montant_normal').text();
+    var montant_commercant = jQuery('#f_montant_commercant').text();
+    var text_commercant = jQuery('dd.commercant label > span:first').text();
+    var text_poste = jQuery('dd.poste label > span:first').text();
+    var text_cityssimo = jQuery('dd.cityssimo label > span:first').text();
+	jQuery('dd.commercant label > span:first').text(text_commercant+' '+montant_commercant);
+	jQuery('dd.poste label > span:first').text(text_poste+' '+montant_normal);
+	jQuery('dd.cityssimo label > span:first').text(text_cityssimo+' '+montant_normal);
+</script>

@@ -58,6 +58,18 @@
                         <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
                         <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                         <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                        
+                        <?php $remise_commercant = Mage::getStoreConfig('carriers/socolissimoflexibilite/remise_commercant');                        		
+                        	  $priceMin = $_rate->getPrice() - (float)$remise_commercant;
+                        			if($priceMin <0){
+                        				$priceMin = 0;
+                        			}
+                        			$_excl = $this->__('from').' '.Mage::helper('core')->currency($priceMin);                        			
+                        			$_normalprice = $this->__('from').' '.Mage::helper('core')->currency($_rate->getPrice());
+                        ?>                        	  
+                        
+                        <span id="f_montant_commercant" style="display:none"><?php echo Mage::helper('core')->currency($priceMin); ?></span>
+                        <span id="f_montant_normal" style="display:none"><?php echo Mage::helper('core')->currency($_rate->getPrice()); ?></span>
                         <?php echo $_excl; ?>
                         <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                             (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
