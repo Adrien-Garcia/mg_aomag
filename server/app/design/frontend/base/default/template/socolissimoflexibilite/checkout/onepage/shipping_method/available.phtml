@@ -66,10 +66,11 @@
                         			}
                         			$_excl = $this->__('from').' '.Mage::helper('core')->currency($priceMin);                        			
                         			$_normalprice = $this->__('from').' '.Mage::helper('core')->currency($_rate->getPrice());
-                        ?>                        	  
-                        
+                        ?>                        	 
+                        <?php if($_rate->getCode() == 'socolissimoflexibilite_socolissimo'): ?> 
                         <span id="f_montant_commercant" style="display:none"><?php echo Mage::helper('core')->currency($priceMin); ?></span>
                         <span id="f_montant_normal" style="display:none"><?php echo Mage::helper('core')->currency($_rate->getPrice()); ?></span>
+			<?php endif; ?>
                         <?php echo $_excl; ?>
                         <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                             (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
