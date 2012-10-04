@@ -125,7 +125,10 @@
     var text_commercant = jQuery('dd.commercant label > span:first').text();
     var text_poste = jQuery('dd.poste label > span:first').text();
     var text_cityssimo = jQuery('dd.cityssimo label > span:first').text();
+    var text_domicile = jQuery('dd.chez-vous label > span:first').text();
+    
 	jQuery('dd.commercant label > span:first').text(text_commercant+' '+montant_commercant);
 	jQuery('dd.poste label > span:first').text(text_poste+' '+montant_normal);
 	jQuery('dd.cityssimo label > span:first').text(text_cityssimo+' '+montant_normal);
+	jQuery('dd.chez-vous label > span:first').text(text_domicile+' '+montant_normal);
 </script>

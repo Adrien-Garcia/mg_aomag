@@ -36,7 +36,9 @@ class Addonline_SoColissimoFlexibilite_Model_Carrier_ShippingMethod
 		if ($shippingAddress && $shippingAddress->getData('soco_product_code') == 'A2P') {
 			foreach ($rates->getAllRates() as $rate) {
 				if ($rate->getCarrier()===$this->_code) {
-					$rate->setPrice($rate->getPrice()-(float)Mage::getStoreConfig('carriers/socolissimoflexibilite/remise_commercant'));
+					$price = $rate->getPrice()-(float)Mage::getStoreConfig('carriers/socolissimoflexibilite/remise_commercant');
+					if($price < 0){ $price = 0; }
+					$rate->setPrice($price);
 				}
 			}
 		}
