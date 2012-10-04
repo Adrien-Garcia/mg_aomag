@@ -25,10 +25,21 @@ class Addonline_SoColissimoFlexibilite_Model_Carrier_ShippingMethod
 
 		$rates = parent::collectRates($request);
 		$shippingAddress = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress();
+		
+		Mage::log($shippingAddress->getData('soco_product_code'));
+		Mage::log($this->_code);
+		
 		if ($shippingAddress && $shippingAddress->getData('soco_product_code') == 'RDV') {
+			foreach ($rates->getAllRates() as $rate) {			
+				if ($rate->getCarrier()===$this->_code) {										
+					$rate->setPrice($rate->getPrice()+(int)Mage::getStoreConfig('carriers/socolissimoflexibilite/rdv_fees'));
+				}
+			}
+		}
+		if ($shippingAddress && $shippingAddress->getData('soco_product_code') == 'A2P') {
 			foreach ($rates->getAllRates() as $rate) {
 				if ($rate->getCarrier()===$this->_code) {
-					$rate->setPrice($rate->getPrice()+(int)Mage::getStoreConfig('carriers/socolissimoflexibilite/rdv_fees'));
+					$rate->setPrice($rate->getPrice()-(int)Mage::getStoreConfig('carriers/socolissimoflexibilite/remise_commercant'));
 				}
 			}
 		}
