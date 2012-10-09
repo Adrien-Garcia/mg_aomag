@@ -77,6 +77,7 @@
 
 	</target>
 
+	<!-- modifier le taget de antcall dans create_zip_prod et create_zip_preprod quand on veux déployer un uprgae de version magento (partie core, etc ...) : mettre target="create_zip_upgrade" -->
 	<target name="create_zip_upgrade" depends="">
 		
 		<delete file="${conf}/deploy.dirs"  />
@@ -91,6 +92,7 @@
 			<zipfileset dir="server/app" prefix="${zip-name}/app" >
 				<exclude name="etc/local.xml" />
 			</zipfileset>
+			<zipfileset file="${conf}/server/app/etc/local.xml" prefix="${zip-name}/app/etc/" />
 			<zipfileset dir="server/errors" prefix="${zip-name}/errors" ></zipfileset>
 			<zipfileset dir="server/js" prefix="${zip-name}/js" ></zipfileset>
 			<zipfileset dir="server/lib" prefix="${zip-name}/lib" ></zipfileset>

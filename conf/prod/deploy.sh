@@ -10,6 +10,10 @@
 # Historique :
 #  17/02/2011 :
 #      Création : Script applelé par aodeploy.sh le script de déploiement commun
+#  04/10/2012 :
+#      Evolution : on déploie une liste de répertoires qui sont remplacés au lieu 
+#      d'être simplement écrasé comme auparavent (les fichiers obsolères sont 
+#      donc maintenant supprimés du serveur 
 #
 ################################################################################
 
@@ -21,18 +25,21 @@ apps_directory=/srv/www/vhosts.d/
 destination=aomagento
 # /!\ doit contenir _prod_ : sert pour supprimer les anciennes versions.
 pattern_zip=aomagento_prod_*
-NB_VERSIONS=5
+NB_VERSIONS=3
 APPLI_OWNER_USER=www-data
 
 function recup_fichier_create_ln
 {
 
 echo "$0 : recopie des fichiers et creation des liens logiques"
-# on récupère le fichier local.xml de la version en place sur le serveur
-cp ${destination}/app/etc/local.xml ${appli}/app/etc/ 
+# on récupère les fichiers atos de la version en place sur le serveur
+cp -Rf ${destination}/lib/atos ${appli}/lib/ 
 # pour chaque répertoire défini dans le fichier deploy.dirs, on supprime l'ancien et on le remplace par le nouveau
-for rep in $(cut -f 1 deploy.dirs);
+dos2unix ${appli}/deploy.dirs
+for rep in $(cut -f 1 ${appli}/deploy.dirs);
 do
+  echo "$0 : déploiement répertoire ${rep}"
+  tar -zcf ${appli}/${rep}.tgz ${destination}/${rep}
 	rm -r ${destination}/${rep}
 	sudo -u $APPLI_OWNER_USER cp -Rf  ${appli}/${rep} ${destination}/${rep} 
 done

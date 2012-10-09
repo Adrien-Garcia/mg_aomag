@@ -40,17 +40,23 @@
             </db>
             <default_setup>
                 <connection>
-                    <host><![CDATA[localhost]]></host>
-                    <username><![CDATA[root]]></username>
-                    <password><![CDATA[]]></password>
+                    <host><![CDATA[127.0.0.1]]></host>
+                    <username><![CDATA[aomagento]]></username>
+                    <password><![CDATA[tyz4ityap]]></password>
                     <dbname><![CDATA[aomagento]]></dbname>
+                    <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
+                    <model><![CDATA[mysql4]]></model>
+                    <type><![CDATA[pdo_mysql]]></type>
+                    <pdoType><![CDATA[]]></pdoType>
                     <active>1</active>
                 </connection>
             </default_setup>
         </resources>
         <session_save><![CDATA[files]]></session_save>
         <cache>
-            <backend>file</backend><!-- apc / memcached / empty=file -->
+            <backend>apc</backend><!-- apc / memcached / empty=file -->
+             <slow_backend>File</slow_backend>
+            <prefix>aomagento_</prefix>
         </cache>
     </global>
     <admin>
