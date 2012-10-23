@@ -69,7 +69,11 @@ class Addonline_SoColissimoFlexibilite_Block_Selector extends Mage_Core_Block_Te
 
 	public function isSocolissmoAvailable() {
 		if (!$this->socolissimoAvaliable) {
-			$this->socolissimoAvaliable = file_get_contents ("http://ws.colissimo.fr/supervision-wspudo/supervision.jsp");
+			 try {
+			 	$this->socolissimoAvaliable = file_get_contents ("http://ws.colissimo.fr/supervision-wspudo/supervision.jsp");
+			 } catch(Exception $e){
+          		$this->socolissimoAvaliable = "[KO]";
+        	 }
 		}
 		return 	trim($this->socolissimoAvaliable) === "[OK]";	
 	}

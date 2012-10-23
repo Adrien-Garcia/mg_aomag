@@ -39,8 +39,11 @@ dos2unix ${appli}/deploy.dirs
 for rep in $(cut -f 1 ${appli}/deploy.dirs);
 do
   echo "$0 : déploiement répertoire ${rep}"
+  # sauvegarde (archive) du répertoire actuel (vraiement au cas où)
   tar -zcf ${appli}/${rep}.tgz ${destination}/${rep}
+	# suppression du répertoire actuel
 	rm -r ${destination}/${rep}
+  # recopie du nouveau répertoire avec les droits du user qui lance l'application
 	sudo -u $APPLI_OWNER_USER cp -Rf  ${appli}/${rep} ${destination}/${rep} 
 done
 # on remplace les fichiers php qui sont à la racine
@@ -61,12 +64,13 @@ function change_droits
 }
 function undeploy
 {
- echo "${0} : ******************************************************************************* "
+ echo "${0} : on commence le déploiement : on passe magento en mode maintenance "
+ touch ${destination}/maintenance.flag
 }
-
 function deploy
 {
- echo "${0} : ******************************************************************************* "
+ echo "${0} : on fini le déploiement : on passe magento en mode production "
+ rm ${destination}/maintenance.flag
 }
 function switch
 {
