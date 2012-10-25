@@ -45,6 +45,7 @@
                     <password><![CDATA[]]></password>
                     <dbname><![CDATA[aomagento]]></dbname>
                     <active>1</active>
+                    <profiler>1</profiler>
                 </connection>
             </default_setup>
         </resources>
