@@ -200,7 +200,7 @@ function loadListeRelais() {
 		url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text();
 	}	
 	jQuery.getJSON( url, function(response) {
-		if (!response.error) {
+		if (response.errorCode == 0) {
 			listRelaisSocolissimo = response.items;
 			skinUrl = response.skinUrl;
 			jQuery("#adresses_socolissimo").html(response.html);

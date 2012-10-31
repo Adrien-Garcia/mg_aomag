@@ -193,7 +193,7 @@ $$('input[type="radio"][name="shipping_method"]').each(function(el){
             var getShippingCode = el.getValue();
             <?php if (!empty($shippingCodePrice)): ?>
                 var newPrice = shippingCodePrice[getShippingCode];
-                if (!lastPrice) {
+                if (typeof(window["lastPrice"])=== "undefined" || !lastPrice) {
                     lastPrice = newPrice;
                     quoteBaseGrandTotal += newPrice;
                 }
