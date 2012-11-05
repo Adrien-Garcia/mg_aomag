@@ -42,7 +42,6 @@ class Addonline_SoColissimoFlexibilite_Model_Service {
 						//Mage::log($relais	);
 						//$this->findPointRetraitAcheminementByID($relais->identifiant);
 					//} 
-					$result->return->error = '';
 					return $result->return;
 				} else {
 					Mage::log($result->return);
