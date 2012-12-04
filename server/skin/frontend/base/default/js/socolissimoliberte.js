@@ -184,10 +184,10 @@ var listRelaisSocolissimo=new Array();
 function loadListeRelais() {
 	jQuery(".loader-wrapper").fadeTo(300, 1);
 	url = BASE_URL_SOCOLISSIMO + "socolissimoliberte/ajax/listrelais?"
-	/*jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
+	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
 		url = url + check.val() + "=" + check.attr("checked") + "&";
-	});*/
+	});
 	if(jQuery("#socolissimo_street").val() == "") {		
 		url = url + "adresse=" + jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + "&zipcode=" + jQuery('#billing\\:postcode').val()+ "&ville=" + jQuery('#billing\\:city').val();
 		jQuery("#socolissimo_street").val(jQuery('#billing\\:street1').val()+' '+jQuery('#billing\\:street2').val());
