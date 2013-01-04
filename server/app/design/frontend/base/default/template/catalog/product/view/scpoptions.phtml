@@ -114,7 +114,7 @@ if (count($_options) || $this->getProduct()->isConfigurable()):
                             $A(element.options).each(function(selectOption){
                                 if (selectOption.selected) {
                                     if (this.config[optionId][selectOption.value]) {
-                                        price += parseFloat(this.config[optionId][selectOption.value]);
+                                        price += parseFloat(this.config[optionId][selectOption.value].price);
                                     }
                                 }
                             });
