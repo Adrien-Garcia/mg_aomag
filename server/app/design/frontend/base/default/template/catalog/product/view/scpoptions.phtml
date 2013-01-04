@@ -95,7 +95,7 @@ if (count($_options) || $this->getProduct()->isConfigurable()):
                     if (element.type == 'checkbox' || element.type == 'radio') {
                         if (element.checked) {
                             if (config[optionId][element.getValue()]) {
-                                price += parseFloat(config[optionId][element.getValue()]);
+                            	price += parseFloat(config[optionId][element.getValue()].price);
                             }
                         }
                     } else if(element.hasClassName('datetime-picker') && !skipIds.include(optionId)) {
