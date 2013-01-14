@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Addonline_EmailCgv>
+            <version>0.0.2</version>
+        </Addonline_EmailCgv>
+    </modules>
+
+    <global>
+        <models>
+            <emailcgv>
+                <class>Addonline_EmailCgv_Model</class>
+            </emailcgv>
+            <sales>
+                <rewrite>
+                    <order>Addonline_EmailCgv_Model_Emailcgv</order>
+                </rewrite>
+            </sales>
+        </models>
+        <template>
+	        <email>
+	            <emailcgv_order_template translate="label" module="EmailCgv">
+	                <label>Email CGV</label>
+	                <file>sales/cgv.html</file>
+	                <type>html</type>
+	            </emailcgv_order_template>
+	            <emailcgv_cgv translate="label" module="EmailCgv">
+	                <label>Email CGV</label>
+	                <file>sales/emailcgv.html</file>
+	                <type>html</type>
+	            </emailcgv_cgv>
+	        </email>
+
+	    </template>
+        <resources>
+            <emailcgv_setup>
+                <setup>
+                    <module>Addonline_EmailCgv</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </emailcgv_setup>
+            <emailcgv_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </emailcgv_write>
+            <emailcgv_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </emailcgv_read>
+        </resources>
+        <!-- <blocks>
+            <advancedslideshow><class>Addonline_AdvancedSlideshow_Block</class></advancedslideshow>
+        </blocks>-->
+        <helpers>
+            <emailcgv><class>Addonline_Emailcgv_Helper</class></emailcgv>
+        </helpers>
+        <events>
+        	<admin_user_authenticate_after>
+                <observers>
+                    <Addonline_EmailCgv_Model_Emailcgv>
+	                    <type>singleton</type>
+	            		<class>emailcgv/emailcgv</class>
+	            		<method>_9cd4777ae76310fd6977a5c559c51820</method>
+	          		</Addonline_EmailCgv_Model_Emailcgv>
+                </observers>
+            </admin_user_authenticate_after>
+        </events>
+    </global>
+</config>
