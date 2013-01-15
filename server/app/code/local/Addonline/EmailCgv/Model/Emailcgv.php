@@ -47,13 +47,13 @@ class Addonline_EmailCgv_Model_Emailcgv extends Mage_Sales_Model_Order
 			//Récuperation du contenu des CGV
 			if ($type=='cms') {
 				$model = Mage::getModel('cms/page');
+				$data = $model->load($idContent);
 				if ($data) {
-					$data = $model->load($idContent);
 					$content = $data->getData();
 					$texte = $content['content'];
 					$title = $content['title'];
 				} else{
-					$texte = '';
+					$texte = 'NO DATA CONTENT :'.$idContent.'<br />'.var_export();
 					$title = '';
 				}
 			} else {
@@ -68,7 +68,7 @@ class Addonline_EmailCgv_Model_Emailcgv extends Mage_Sales_Model_Order
 					}
 					$title = $content['name'];
 				} else{
-					$texte = '';
+					$texte = ' NO DATA CONTENT :'.$idContent;
 					$title = '';
 				}
 
