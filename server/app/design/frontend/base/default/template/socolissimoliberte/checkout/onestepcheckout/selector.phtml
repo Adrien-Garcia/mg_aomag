@@ -161,6 +161,31 @@
                 <button type="button" id="btn_modifierAdresse" onclick="geocodeAdresse()" class="button" ><span>Modifier votre adresse</span></button>
             </div>
          </div>
+          <div class="ligne2">
+          		<div class="titre">Affinez votre recherche par type de point de retrait</div>
+          		<div class="choix choix1">
+                	<input id="check_cityssimo" name="check_cityssimo" type="checkbox" value="cityssimo" onclick="changeMap()"/>
+                	<div class="txt2">
+                    <b>ma consigne cityssimo</b><br />
+                    Espace Colis disponibles 7j/7 - 24h/24
+                    </div>
+                </div>
+                <div class="choix choix2">
+                	<input id="check_poste" name="check_poste" type="checkbox" value="poste" onclick="changeMap()"/>
+                	<div class="txt2">
+                    <b>mon bureau de poste</b><br />
+                    Horaires d’ouverture des bureaux de poste
+                    </div>
+                </div>
+                <div class="choix choix3">
+                	<input id="check_commercant" name="check_commercant" type="checkbox" value="commercant" onclick="changeMap()" />
+                	<div class="txt2">
+                    <b>mon commerçant</b><br />
+                    Commerces de proximité aux horaires étendus
+                    </div>
+                </div>
+            </div>
+         </div>
          <div class="adresses">
          	<div class="loader-wrapper">
 	         	<div class="loader"></div>
