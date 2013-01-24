@@ -9,6 +9,12 @@
 			<action method="addCss"><stylesheet>css/theme.css</stylesheet></action>
 			<action method="addItem"><type>skin_js</type><name>js/charte.js</name><params/></action>
 		</reference>
+		<reference name="left">
+			<remove name="tags_popular"/>
+		</reference>
+		<remove name="tags_all"/>
+		<remove name="right.poll"/>
+		
 	</default>
 	
 	<!-- COMPTE CLIENT -->
