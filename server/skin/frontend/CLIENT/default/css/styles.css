@@ -1164,6 +1164,9 @@ tr.summary-details-excluded { font-style:italic; }
 .cart-table .btn-continue span,
 .cart-table .btn-update span { border-color:#406a83; background:#618499; }
 
+/* Mise en forme ligne concernant la règle de prix panier avec produit offert */
+.giftproduct .product strong { font-size: 12px; }
+
 /* Shopping Cart Collateral boxes */
 .cart .cart-collaterals { padding:25px 0 0; }
 .cart .cart-collaterals .col2-set { float:left; width:605px; }

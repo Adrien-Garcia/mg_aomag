@@ -28,6 +28,16 @@
         	<giftproduct>
              	<class>Addonline_GiftProduct_Model</class>
         	</giftproduct>
+        	<sales>
+        		<rewrite>
+        			<quote_address_total_grand>Addonline_GiftProduct_Model_Sales_Quote_Address_Total_Grand</quote_address_total_grand>
+        		</rewrite>
+        	</sales>
+        	<tax>
+        		<rewrite>
+        			<sales_total_quote_tax>Addonline_GiftProduct_Model_Tax_Total_Quote_Tax</sales_total_quote_tax>
+        		</rewrite>
+        	</tax>
  		</models>
  		<events>
         	<admin_user_authenticate_after>

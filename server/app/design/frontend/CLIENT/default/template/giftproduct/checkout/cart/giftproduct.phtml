@@ -1,0 +1,20 @@
+<?php
+?>
+<?php
+/**
+ * Shopping cart gift product template
+ *
+ * @see Addonline_GiftProduct_Block_Checkout_Cart_GiftProduct
+ */
+?>
+
+<?php if ($rule = $this->getGiftProductRule()): ?>
+<tr class="giftproduct">
+	<td colspan="50">
+		<span class="product">
+			<strong><?php echo $rule->getName() ?></strong><br/>
+			<?php echo $rule->getDescription() ?>
+		</span>
+	</td>
+</tr>
+<?php endif; ?>
