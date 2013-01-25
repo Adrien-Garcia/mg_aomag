@@ -11,8 +11,10 @@
 <?php if ($rule = $this->getGiftProductRule()): ?>
 <tr class="giftproduct">
 	<td colspan="50">
-		<span class="product"><a href="<?php echo $rule->getProduct()->getProductUrl()?>"><?php echo $rule->getProduct()->getName()?></a> <?php echo $this->helper('core')->currency($this->helper('tax')->getPrice($rule->getProduct(), $rule->getProduct()->getFinalPrice())) ?> <span><?php echo $this->__("FREE") ?></span> <?php echo $rule->getDescription() ?></span>
-		<span class="info">Encore XX,XX € pour l’obtenir</span>
+		<span class="product">
+			<strong><?php echo $rule->getName() ?></strong><br/>
+			<?php echo $rule->getDescription() ?>
+		</span>
 	</td>
 </tr>
 <?php endif; ?>
