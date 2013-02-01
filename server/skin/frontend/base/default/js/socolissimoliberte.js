@@ -19,7 +19,7 @@ jQuery(function($) {
 	});	
 	
 	var $ma_div = jQuery("#socolissimo-location");
-	jQuery("#s_method_socolissimoliberte_socolissimo").parents('dt').append($ma_div);
+	jQuery("input[id^='s_method_socolissimoliberte']").parents('dt').append($ma_div);
 	jQuery("#socolissimo-location-orig").hide();
 	
 	$("input[id^=\"s_method\"]").live("change", function() {
@@ -97,11 +97,11 @@ function socolissimoRadioCheck(input) {
 		//mise à jour des checkbox de type de relais dans le layer selon le choix fait avant
 		jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 			check = jQuery(element);
-			if (check.val() == input.value) {
+			//if (check.val() == input.value) {
 				check.prop("checked", "checked");
-			} else {
-				check.prop("checked", "");
-			}
+			//} else {
+			//	check.prop("checked", "");
+			//}
 		});
 		//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
 		geocodeAdresse();
