@@ -52,7 +52,20 @@ class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head
             $if = !empty($item['if']) ? $item['if'] : '';
             switch ($item['type']) {
                 case 'js':
-                    $lines[$if]['script'][] = "/".$webroot."js/".$item['name'];
+                    if(strpos($item['name'], 'packaging.js') !==false) {
+                        $item['name'] = $baseJs.$item['name'];
+                        $lines[$if]['script_direct'][] = $item;
+                    } else {
+                        $lines[$if]['script']['global'][] = "/".$webroot."js/".$item['name'];
+                    }
+                    break;
+
+                case 'script_direct':
+                    $lines[$if]['script_direct'][] = $item;
+                    break;
+
+                case 'css_direct':
+                    $lines[$if]['css_direct'][] = $item;
                     break;
 
                 case 'js_css':
@@ -61,7 +74,7 @@ class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head
 
                 case 'skin_js':
                     $chunks=explode('/skin', $this->getSkinUrl($item['name']),2);
-                    $lines[$if]['script'][] = "/".$webroot."skin".$chunks[1];
+                    $lines[$if]['script']['skin'][] = "/".$webroot."skin".$chunks[1];
                     break;
 
                 case 'skin_css':
@@ -103,10 +116,27 @@ class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head
                     $html .= sprintf($stylesheet, $item, 'media="all"')."\n";
                 }
             }
-            if (!empty($items['script'])) {
-                $jsBuild = Mage::getModel('speedster/buildSpeedster')->__construct($items['script'],BP);
-                foreach ($this->getChunkedItems($items['script'], $baseJsFast.$jsBuild->getLastModified()) as $item) {
+            if (!empty($items['script']['global']) || !empty($items['script']['skin'])) {
+                if(!empty($items['script']['global']) && !empty($items['script']['skin'])) {
+                    $mergedScriptItems = array_merge($items['script']['global'], $items['script']['skin']);
+                } elseif(!empty($items['script']['global']) && empty($items['script']['skin'])) {
+                    $mergedScriptItems = $items['script']['global'];
+                } else {
+                    $mergedScriptItems = $items['script']['skin'];
+                }
+                $jsBuild = Mage::getModel('speedster/buildSpeedster')->__construct($mergedScriptItems,BP);
+                foreach ($this->getChunkedItems($mergedScriptItems, $baseJsFast.$jsBuild->getLastModified()) as $item) {
                     $html .= sprintf($script, $item, '')."\n";
+                }
+            }
+            if (!empty($items['css_direct'])) {
+                foreach ($items['css_direct'] as $item) {
+                    $html .= sprintf($stylesheet, $item['name'])."\n";
+                }
+            }
+            if (!empty($items['script_direct'])) {
+                foreach ($items['script_direct'] as $item) {
+                    $html .= sprintf($script, $item['name'],'')."\n";
                 }
             }
             if (!empty($items['stylesheet_print'])) {
@@ -122,7 +152,6 @@ class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head
                 $html .= '<![endif]-->'."\n";
             }
         }
-
         return $html;
     }
 
@@ -148,6 +177,5 @@ class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head
         $chunks[] = $chunk;
         return $chunks;
     }
-
 
 }

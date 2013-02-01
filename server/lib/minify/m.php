@@ -37,6 +37,8 @@ if (strlen($dir[0])==0){
     // we are in a subdirectory adjust symlink
     $rootdir= preg_replace('!'.$dir[0].'$!','',BP);
     $min_symlinks=array('//' => $rootdir);
+    //use this for ~user apache installs
+    //$min_symlinks=array( '/'.$dir[0]=>$rootdir);
 }
 
 // Prepends include_path. You could alternately do this via .htaccess or php.ini
@@ -79,7 +81,7 @@ if (isset($_GET['f'])) {
                 $servefiles[]=BP . $filename;
             }
     }
-    
+
     //options for minify request
     $serveOptions = array(
         'rewriteCssUris'=>true
