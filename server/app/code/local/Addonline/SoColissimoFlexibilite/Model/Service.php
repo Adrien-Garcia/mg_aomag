@@ -28,6 +28,7 @@ class Addonline_SoColissimoFlexibilite_Model_Service {
 				$findRDVPointRetraitAcheminement->weight = $this->_getQuoteWeight();
 				$findRDVPointRetraitAcheminement->shippingDate =  $this->_getShippingDate();
 				$findRDVPointRetraitAcheminement->filterRelay = $filterRelay;
+				//$findRDVPointRetraitAcheminement->typeDePoint = $typeDePoint;
 				$date = new Zend_Date();
 				$quote = Mage::getSingleton('checkout/session')->getQuote();
 				$findRDVPointRetraitAcheminement->requestId = Mage::getStoreConfig('carriers/socolissimoflexibilite/id_socolissimo').$quote->getCustomerId().$date->toString('yyyyMMddHHmmss');
