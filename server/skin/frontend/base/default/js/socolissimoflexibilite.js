@@ -18,14 +18,14 @@ jQuery(function($) {
 	});	
 	
 	var $ma_div = jQuery("#socolissimo-location");
-	jQuery("#s_method_socolissimoflexibilite_socolissimo").parents('dt').append($ma_div);
+	jQuery("input[id^='s_method_socolissimoflexibilite']").parents('dt').append($ma_div);
 	jQuery("#socolissimo-location-orig").hide();
 	
 	$("input[id^=\"s_method\"]").live("change", function() {
 		shippingRadioCheck(this);
 	});		
 	
-	$("label[for=\"s_method_socolissimoflexibilite_socolissimo\"]").live("click",function(){
+	$("label[for^='s_method_socolissimoflexibilite']").live("click",function(){
 		reloadSocolissimo();
 	});
 	
@@ -38,9 +38,9 @@ String.prototype.startWith = function(t, i) { if (i==false) { return
 function reloadSocolissimo(){		
 	if(jQuery('#socolissimo-location').size() <= 0 ){		
 		var ma_div_clone = jQuery("#socolissimo-location-orig").clone();	
-		var cible = jQuery("#s_method_socolissimoflexibilite_socolissimo").parents('dt');
+		var cible = jQuery("input[id^='s_method_socolissimoflexibilite']").parents('dt');
 		cible.delay(100).append(ma_div_clone);		
-		jQuery("#s_method_socolissimoflexibilite_socolissimo").next().next().attr("id","socolissimo-location");
+		jQuery("input[id^='s_method_socolissimoflexibilite']").next().next().attr("id","socolissimo-location");
 		jQuery("#socolissimo-location").show();
 	}
 }
@@ -49,8 +49,8 @@ function shippingRadioCheck(element) {
 	if (element.id.startWith("s_method_socolissimoflexibilite") && jQuery(element).attr("checked", "checked")){		
 		if(jQuery('#socolissimo-location').size() <= 0 ) { //cas onestepcheckout
 			var $ma_div = jQuery("#socolissimo-location-orig").clone();		
-			jQuery("#s_method_socolissimoflexibilite_socolissimo").parents('dt').append($ma_div);		
-			jQuery("#s_method_socolissimoflexibilite_socolissimo").next().next().attr("id","socolissimo-location");
+			jQuery("input[id^='s_method_socolissimoflexibilite']").parents('dt').append($ma_div);		
+			jQuery("input[id^='s_method_socolissimoflexibilite']").next().next().attr("id","socolissimo-location");
 		} 
 		jQuery("#socolissimo-location").show();
 	} else {		
