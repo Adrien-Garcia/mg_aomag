@@ -141,25 +141,30 @@ class Addonline_GiftProduct_Model_Sales_Quote_Address_Total_Discount extends Mag
         $rules->load();
         foreach ($rules as $rule) { 
 			$giftProduct = Mage::getModel('catalog/product')->load($rule->getDiscountAmount());
-			Mage::log('discount ');
 			if ($giftProduct) {
-			Mage::log('discount ' .$giftProduct->getId());
 				$giftQty=$rule->getDiscountQty()==0?1:$rule->getDiscountQty();
-				$giftPrice=$rule->getDiscountStep();
+				$giftPrice=(float)$rule->getDiscountStep();
 				$giftRequest=new Varien_Object(array('qty'=>$giftQty));
 				$giftCandidates = $giftProduct->getTypeInstance(true)->prepareForCart($giftRequest, $giftProduct);
 				$giftItem = $quote->getItemByProduct($giftProduct);
-				Mage::log($rule->getId());
-				Mage::log( $quote->getAppliedRuleIds());
-				Mage::log( $giftItem);
 				if (in_array($rule->getId(), explode(',', $quote->getAppliedRuleIds()))) {
 					if (!$giftItem) {
 						$giftItem = $quote->addProduct($giftProduct, $giftRequest);
 					}
+					$giftItem->setPrice($giftPrice);
+					$giftItem->setBasePrice($giftPrice);
 					$giftItem->setCustomPrice($giftPrice);
+					$giftItem->setRowTotal($giftPrice);
+					$giftItem->setPriceInclTax($giftPrice);
+					$giftItem->setTaxPercent($giftPrice);
+					$giftItem->setTaxAmount($giftPrice);
+					$giftItem->setBaseTaxAmount($giftPrice);
+					$giftItem->setBasePriceInclTax($giftPrice);
+					$giftItem->setRowTotalInclTax($giftPrice);
+					$giftItem->setBaseRowTotalInclTax($giftPrice);
 					$giftItem->setAdditionalData(Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION);
 				} else {
-					if ($giftItem) {					
+					if ($giftItem && $giftItem->isProduitCadeau()) {	
 						$quote->removeItem($giftItem->getId());
 					}
 				}

@@ -12,7 +12,7 @@
 class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 {
 	
-	public function _9cd4777ae76310fd6977a5c559c51820(){						
+	public function _9cd4777ae76310fd6977a5c559c51820($store_id){						
 		if (Mage::getStoreConfig('addonline/licence/aomagento')) { return true; }				
 		
 		$key = 'e983cfc54f88c7114e99da95f5757df6';
@@ -39,7 +39,7 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
 		} 
 		
 		if(!$store_error){
-			$_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 0); foreach($_unreadNotices as $notice): if(strpos($notice->getData('description'),'So colissimo Flexibilit')): $notice->setIsRead(1)->save();	endif;endforeach;
+			$_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 0); foreach($_unreadNotices as $notice): if(strpos($notice->getData('description'),'So colissimo Libert')): $notice->setIsRead(1)->save();	endif;endforeach;
 			return true;
 		}else{								
 			return false;
@@ -52,7 +52,7 @@ class Addonline_SoColissimoLiberte_Model_Observer extends Varien_Object
     	$quote = $observer->getEvent()->getQuote();
     	$request = Mage::app()->getRequest();
     	
-    	$typeSocolissimo = $request->getParam('type_socolissimo');
+    	$typeSocolissimo = $request->getParam('type_socolissimo_choisi');
     	
     	if ($typeSocolissimo) {
     	$adresseRelais = null;

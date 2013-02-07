@@ -52,6 +52,10 @@ class Addonline_GiftProduct_Model_SalesRule_Quote_Discount extends Mage_SalesRul
 
         $items = $this->_getAddressItems($address);
         if (!count($items)) {
+        	$address->setDiscountAmount(0);
+        	$address->setSubtotalWithDiscount(0);
+        	$address->setBaseDiscountAmount(0);
+        	$address->setBaseSubtotalWithDiscount(0);
             return $this;
         }
 
@@ -103,33 +107,64 @@ class Addonline_GiftProduct_Model_SalesRule_Quote_Discount extends Mage_SalesRul
         $rules->setValidationFilter(Mage::app()->getStore($quote->getStoreId())->getWebsiteId(), $quote->getCustomerGroupId(), $quote->getCouponCode());
         $rules->getSelect()->where('simple_action=\''.Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION.'\'');
         $rules->load();
+        $product_price = $product_price_tax = $tax_amount = "";
+        $item_found = false;
         foreach ($rules as $rule) { 
-			$giftProduct = Mage::getModel('catalog/product')->load($rule->getDiscountAmount());
+			$giftProduct = Mage::getModel('catalog/product')->load((int)$rule->getDiscountAmount());
 			if ($giftProduct) {
 				$giftQty=$rule->getDiscountQty()==0?1:$rule->getDiscountQty();
-				$giftPrice=$rule->getDiscountStep();
+				$giftPrice=(float)$rule->getDiscountStep();
 				$giftRequest=new Varien_Object(array('qty'=>$giftQty));
 				$giftCandidates = $giftProduct->getTypeInstance(true)->prepareForCart($giftRequest, $giftProduct);
 				$giftItem = $quote->getItemByProduct($giftProduct);
+				$product_price = $giftProduct->getPrice();
+				$product_price_tax = Mage::helper("tax")->getPrice($giftProduct, $giftProduct->getFinalPrice());
+				$tax_amount = $product_price_tax - $product_price;
 				if (in_array($rule->getId(), explode(',', $quote->getAppliedRuleIds()))) {
+					$item_found = true;
 					if (!$giftItem) {
 						$giftItem = $quote->addProduct($giftProduct, $giftRequest);
+						$item_found = false;
 					}
+					$giftItem->setPrice($giftPrice);
+					$giftItem->setBasePrice($giftPrice);
 					$giftItem->setCustomPrice($giftPrice);
+					$giftItem->setRowTotal($giftPrice);
+					$giftItem->setBaseRowTotal($giftPrice);
+					$giftItem->setPriceInclTax($giftPrice);
+					$giftItem->setTaxPercent($giftPrice);
+					$giftItem->setTaxAmount($giftPrice);
+					$giftItem->setBaseTaxAmount($giftPrice);
+					$giftItem->setBasePriceInclTax($giftPrice);
+					$giftItem->setRowTotalInclTax($giftPrice);
+					$giftItem->setBaseRowTotalInclTax($giftPrice);
 					$giftItem->setAdditionalData(Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION);
 				} else {
-					if ($giftItem) {					
+					if ($giftItem) {
 						$quote->removeItem($giftItem->getId());
 					}
 				}
 			}
         }
         
+        
         /**
          * Process shipping amount discount
          */
-        $address->setShippingDiscountAmount(0);
-        $address->setBaseShippingDiscountAmount(0);
+        
+        if($item_found) {
+	        $address->setSubtotal(($address->getSubtotal() - $product_price));
+	        $address->setBaseSubtotal($address->getSubtotal());
+	        $address->setSubtotalInclTax($address->getSubtotalInclTax() - $product_price_tax);
+	        $address->setShippingDiscountAmount(0);
+	        $address->setBaseShippingDiscountAmount(0);
+        } else {
+        	//$address->setSubtotal($address->getSubtotal());
+        	//$address->setBaseSubtotal($address->getSubtotal());
+        	//$address->setSubtotalInclTax($address->getSubtotalInclTax());
+        	$address->setShippingDiscountAmount(0);
+        	$address->setBaseShippingDiscountAmount(0);
+        }
         if ($address->getShippingAmount()) {
             $this->_calculator->processShippingAmount($address);
             $this->_addAmount(-$address->getShippingDiscountAmount());

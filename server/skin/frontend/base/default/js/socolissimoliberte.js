@@ -19,14 +19,14 @@ jQuery(function($) {
 	});	
 	
 	var $ma_div = jQuery("#socolissimo-location");
-	jQuery("#s_method_socolissimoliberte_socolissimo").parents('dt').append($ma_div);
+	jQuery("input[id^='s_method_socolissimoliberte']").parents('dt').append($ma_div);
 	jQuery("#socolissimo-location-orig").hide();
 	
 	$("input[id^=\"s_method\"]").live("change", function() {
 		shippingRadioCheck(this);
 	});		
 	
-	$("label[for=\"s_method_socolissimoliberte_socolissimo\"]").live("click",function(){
+	$("label[for^='s_method_socolissimoliberte']").live("click",function(){
 		reloadSocolissimo();
 	});
 	
@@ -39,9 +39,9 @@ String.prototype.startWith = function(t, i) { if (i==false) { return
 function reloadSocolissimo(){		
 	if(jQuery('#socolissimo-location').size() <= 0 ){		
 		var ma_div_clone = jQuery("#socolissimo-location-orig").clone();	
-		var cible = jQuery("#s_method_socolissimoliberte_socolissimo").parents('dt');
+		var cible = jQuery("input[id^='s_method_socolissimoliberte']").parents('dt');
 		cible.delay(100).append(ma_div_clone);		
-		jQuery("#s_method_socolissimoliberte_socolissimo").next().next().attr("id","socolissimo-location");
+		jQuery("input[id^='s_method_socolissimoliberte']").next().next().attr("id","socolissimo-location");
 		jQuery("#socolissimo-location").show();
 	}
 }
@@ -50,8 +50,8 @@ function shippingRadioCheck(element) {
 	if (element.id.startWith("s_method_socolissimoliberte") && jQuery(element).attr("checked", "checked")){		
 		if(jQuery('#socolissimo-location').size() <= 0 ) { //cas onestepcheckout
 			var $ma_div = jQuery("#socolissimo-location-orig").clone();		
-			jQuery("#s_method_socolissimoliberte_socolissimo").parents('dt').append($ma_div);		
-			jQuery("#s_method_socolissimoliberte_socolissimo").next().next().attr("id","socolissimo-location");
+			jQuery("input[id^='s_method_socolissimoliberte']").parents('dt').append($ma_div);		
+			jQuery("input[id^='s_method_socolissimoliberte']").next().next().attr("id","socolissimo-location");
 		} 
 		jQuery("#socolissimo-location").show();
 	} else {		
@@ -65,6 +65,7 @@ var overlayApi;
 function socolissimoRadioCheck(input) {
 	//on commence par ré-initialiser le relais qui a pu être déjà choisi 
 	jQuery("#socolissimo-location input[name=relais_socolissimo]").val("");
+	jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val("");
 	jQuery("#socolissimo-location .nom_relais").text("");	
 	relaisChoisi=undefined;
 	//on vérifie si le champ telephone doit apparaitre
@@ -97,11 +98,11 @@ function socolissimoRadioCheck(input) {
 		//mise à jour des checkbox de type de relais dans le layer selon le choix fait avant
 		jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 			check = jQuery(element);
-			if (check.val() == input.value) {
+			//if (check.val() == input.value) {
 				check.prop("checked", "checked");
-			} else {
-				check.prop("checked", "");
-			}
+			//} else {
+			//	check.prop("checked", "");
+			//}
 		});
 		//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
 		geocodeAdresse();
@@ -125,6 +126,8 @@ function socolissimoRadioCheck(input) {
 		  });
 		overlayApi.load();
 
+	} else {
+		jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val(input.value);
 	}
 }
 
@@ -134,7 +137,7 @@ function checkDisplayPhone(input) {
 		jQuery("#socolissimo-location label.portable span").hide();
 		jQuery("#socolissimo-location label.portable span."+jQuery(input).val()).show();
 	} else {
-		jQuery("#socolissimo-location label.portable").hide();
+		jQuery("#socolissimo-location label.portable").hide().css("display:hide;");;
 	}
 }
 
@@ -323,11 +326,10 @@ function choisirRelais(index) {
 		radio = jQuery(element);	
 		if (radio.val() == relaisChoisi.type) {
 			checkDisplayPhone(radio);
-			radio.prop("checked", "checked");
 			radio.parent().next().html('<span>' + relaisChoisi.libelle + '</span>' + relaisChoisi.adresse + ' ' +relaisChoisi.code_postal + ' ' +relaisChoisi.commune);
 			jQuery("#socolissimo-location input[name=relais_socolissimo]").val(relaisChoisi.id_relais);
+			jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val(relaisChoisi.type);
 		} else {
-			radio.prop("checked", "");
 			radio.parent().next().text("");
 		}
 	});
@@ -356,9 +358,9 @@ ShippingMethod.prototype.validate = function() {
     for (var i=0; i<methods.length; i++) {
         if (methods[i].checked) {
     	    if (methods[i].value.startWith("socolissimo")) {
-    	    	var typeSocos = document.getElementsByName('type_socolissimo');
-                for (var j=0; j<typeSocos.length; j++) {
-                    if (typeSocos[j].checked) {
+    	    	var typeSocosChoisi = document.getElementsByName('type_socolissimo_choisi');
+    	    	for (var j=0; j<typeSocosChoisi.length; j++) {
+    	    		if (typeSocosChoisi[j].value!='') {
                         return true;
                     }
                 }

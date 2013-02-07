@@ -11,6 +11,12 @@
 			<action method="addItem"><type>skin_js</type><name>js/libs/cloud-zoom.1.0.2.min.js</name><params/></action>
 			<action method="addItem"><type>skin_js</type><name>js/charte.js</name><params/></action>
 		</reference>
+		<reference name="left">
+			<remove name="tags_popular"/>
+		</reference>
+		<remove name="tags_all"/>
+		<remove name="right.poll"/>
+		
 	</default>
 	
 	<!-- COMPTE CLIENT -->

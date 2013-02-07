@@ -1,5 +1,4 @@
 <?php
-
 if (!(string)Mage::getConfig()->getModuleConfig('Fooman_Speedster')->active == 'true')
 {
   class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head{}
@@ -67,4 +66,19 @@ if (!(string)Mage::getConfig()->getModuleConfig('Fooman_Speedster')->active == '
 		}
 		return $this->_data['urlKey'];
 	} 
+	
+	public function getRobots()
+	{
+		$route = $this->getRequest()->getRouteName();
+		$controller = $this->getRequest()->getControllerName();
+		$cms_page_id = Mage::getSingleton('cms/page')->getId();
+		if($route == "catalogsearch" || $route == "checkout" || $route == "contacts" || $route == "customer" || $controller == "product_compare" || $controller = "seo_sitemap") {
+			$this->_data['robots'] = "noindex,nofollow";
+		} elseif($cms_page_id = 3 || $cms_page_id == 11 || $cms_page_id == 18) {
+			$this->_data['robots'] = "noindex,follow";
+		} elseif (empty($this->_data['robots'])) {
+			$this->_data['robots'] = Mage::getStoreConfig('design/head/default_robots');
+		}
+		return $this->_data['robots'];
+	}
 }
