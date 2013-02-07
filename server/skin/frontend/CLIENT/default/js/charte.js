@@ -11,4 +11,7 @@
  */
 jQuery(function($) {
 	
+	//Zoom sur l'image de la page produit
+	$('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
+	
 })
