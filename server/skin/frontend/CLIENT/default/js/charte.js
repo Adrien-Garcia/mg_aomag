@@ -25,6 +25,7 @@ jQuery(function($) {
 jQuery.fn.fields = function() {
 	this.each(function(index, element) {
 		jQuery(element).data("defaultValue", jQuery(element).val());
+
 		jQuery(element).focus(function() {
 			if(jQuery(this).val() == jQuery(this).data("defaultValue")) {
 				jQuery(this).val("");
