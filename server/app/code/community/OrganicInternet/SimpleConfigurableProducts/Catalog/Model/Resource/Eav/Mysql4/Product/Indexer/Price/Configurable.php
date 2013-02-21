@@ -6,13 +6,13 @@ class OrganicInternet_SimpleConfigurableProducts_Catalog_Model_Resource_Eav_Mysq
     {
         return Mage::getStoreConfigFlag(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
     }
-
+ 
     #Don't pay any attention to cost of specific conf product options, as SCP doesn't use them
     protected function _applyConfigurableOption()
     {
         return $this;
     }
-
+ 
     #This calculates final price using SCP logic: minimal child product finalprice
     #instead of the just the entered configurable price
     #It uses a subquery/group-by hack to ensure that the various column values are all from the row with the lowest final price.
@@ -21,7 +21,7 @@ class OrganicInternet_SimpleConfigurableProducts_Catalog_Model_Resource_Eav_Mysq
     protected function _prepareFinalPriceData($entityIds = null)
     {
         $this->_prepareDefaultFinalPriceTable();
-
+ 
         $write  = $this->_getWriteAdapter();
         $select = $write->select()
             ->from(
@@ -60,19 +60,19 @@ class OrganicInternet_SimpleConfigurableProducts_Catalog_Model_Resource_Eav_Mysq
                 'cisi.stock_id = cis.stock_id AND cisi.product_id = ce.entity_id',
                 array())
             ->where('e.type_id=?', $this->getTypeId()); ## is this one needed?
-
-
+ 
+ 
         $productStatusExpr  = $this->_addAttributeToSelect($select, 'status', 'ce.entity_id', 'cs.store_id');
-
+ 
         if ($this->_isManageStock()) {
             $stockStatusExpr = new Zend_Db_Expr('IF(cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0,' . ' 1, cisi.is_in_stock)');
         } else {
             $stockStatusExpr = new Zend_Db_Expr('IF(cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1,' . 'cisi.is_in_stock, 1)');
         }
         $isInStockExpr = new Zend_Db_Expr("IF({$stockStatusExpr}, 1, 0)");
-
+ 
         $isValidChildProductExpr = new Zend_Db_Expr("{$productStatusExpr}");
-
+ 
         $select->columns(array(
             'entity_id'         => new Zend_Db_Expr('e.entity_id'),
             'customer_group_id' => new Zend_Db_Expr('pi.customer_group_id'),
@@ -84,21 +84,24 @@ class OrganicInternet_SimpleConfigurableProducts_Catalog_Model_Resource_Eav_Mysq
             'max_price'         => new Zend_Db_Expr('pi.final_price'),
             'tier_price'        => new Zend_Db_Expr('pi.tier_price'),
             'base_tier'         => new Zend_Db_Expr('pi.tier_price'),
+            // modifications for 1.7
+            'group_price'       => new Zend_Db_Expr('pi.group_price'),
+            'base_group_price'  => new Zend_Db_Expr('pi.group_price')
         ));
-
-
-
+ 
+ 
+ 
         if (!is_null($entityIds)) {
             $select->where('e.entity_id IN(?)', $entityIds);
         }
-
+ 
         #Inner select order needs to be:
         #1st) If it's in stock come first (out of stock product prices aren't used if not-all products are out of stock)
         #2nd) Finalprice
         #3rd) $price, in case all finalPrices are NULL. (this gives the lowest price for all associated products when they're all out of stock)
         $sortExpr = new Zend_Db_Expr("${isInStockExpr} DESC, pi.final_price ASC, pi.price ASC");
         $select->order($sortExpr);
-
+ 
         /**
          * Add additional external limitation
          */
@@ -108,14 +111,14 @@ class OrganicInternet_SimpleConfigurableProducts_Catalog_Model_Resource_Eav_Mysq
             'website_field' => new Zend_Db_Expr('cw.website_id'),
             'store_field'   => new Zend_Db_Expr('cs.store_id')
         ));
-
-
+ 
+ 
         #This uses the fact that mysql's 'group by' picks the first row, and the subselect is ordered as we want it
-        #Bit hacky, but lots of people do it :)
+        #Bit hacky, but lots of people do it <img src="http://wrightcreativelabs.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley"> 
         $outerSelect = $write->select()
             ->from(array("inner" => $select), 'entity_id')
             ->group(array('inner.entity_id', 'inner.customer_group_id', 'inner.website_id'));
-
+ 
         $outerSelect->columns(array(
             'customer_group_id',
             'website_id',
@@ -126,14 +129,16 @@ class OrganicInternet_SimpleConfigurableProducts_Catalog_Model_Resource_Eav_Mysq
             'max_price'     => new Zend_Db_Expr('MAX(inner.max_price)'),
             'tier_price',
             'base_tier',
+            // modifications for 1.7
+            'group_price',
+            'base_group_price' 
             #'child_entity_id'
         ));
-
         $query = $outerSelect->insertFromSelect($this->_getDefaultFinalPriceTable());
         $write->query($query);
         #Mage::log("SCP Price inner query: " . $select->__toString());
         #Mage::log("SCP Price outer query: " . $outerSelect->__toString());
-
+ 
         return $this;
     }
 }
