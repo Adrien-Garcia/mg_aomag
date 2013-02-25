@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+*
+ */
+-->
+<config>
+    <sections>
+        <system>
+            <groups>
+                <external_page_cache translate="label">
+                    <fields>
+						<varnish_servers>
+	                           <label>Varnish servers</label>
+	                           <frontend_type>textarea</frontend_type>
+	                           <sort_order>20</sort_order>
+	                           <show_in_default>1</show_in_default>
+	                           <show_in_website>1</show_in_website>
+	                           <show_in_store>1</show_in_store>
+	                           <depends><control>varnish_page_cache</control></depends>
+	                           <comment><![CDATA[Specify where varnish servers can be found.
+	                           You can specify multiple varnish servers separating them by comma: 127.0.0.1:80,127.0.0.2:80]]></comment>
+	                     </varnish_servers>
+                    </fields>
+                </external_page_cache>
+            </groups>
+        </system>
+    </sections>
+</config>

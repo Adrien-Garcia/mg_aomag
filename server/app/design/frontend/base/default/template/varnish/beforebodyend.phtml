@@ -1,0 +1,12 @@
+<?php ?><script type="text/javascript">
+//<![CDATA[
+    <?php $cookieDomain = Mage::getUrl('/', Mage::app()->getStore()->isCurrentlySecure() ? array('_secure' => 1) : array()); ?>
+    <?php $cookieDomain = '.'.str_replace('/', '',str_replace('http://', '', str_replace('https://', '', $cookieDomain))); ?>
+    var COOKIE_DOMAIN = '<?php echo $cookieDomain ?>'; 
+	var VARNISH_DYN_URL = '<?php echo Mage::getUrl('varnish/dyn/index', Mage::app()->getStore()->isCurrentlySecure() ? array('_secure' => 1) : array()) ?>'; 
+    var FULLACTIONNAME = '<?php echo $this->getAction()->getFullActionName() ?>';
+    <?php if (($_product = Mage::registry('product')) == true) : ?>
+    var CURRENTPRODUCTID = '<?php echo $_product->getId() ?>';
+    <?php endif; ?>
+//]]>
+</script>

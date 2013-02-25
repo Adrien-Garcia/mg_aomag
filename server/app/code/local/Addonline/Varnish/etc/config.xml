@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<modules>
+		<Addonline_Varnish>
+			<version>0.0.1</version>
+			<depends>
+                <Mage_PageCache />
+            </depends>
+		</Addonline_Varnish>
+	</modules>
+
+	<global>
+		<blocks>
+			<varnish>
+				<class>Addonline_Varnish_Block</class>
+			</varnish>
+			<page>
+				<rewrite>
+					<template_links>Addonline_Varnish_Block_Page_Template_Links</template_links>
+				</rewrite>
+			</page>
+			<checkout>
+				<rewrite>
+					<links>Addonline_Varnish_Block_Checkout_Links</links>
+				</rewrite>
+			</checkout>
+		</blocks>
+        <models>
+            <varnish>
+                <class>Addonline_Varnish_Model</class>
+            </varnish>
+            <customer>
+				<rewrite>
+					<observer>Addonline_Varnish_Model_Customer_Observer</observer>
+				</rewrite>
+			</customer>
+        </models>
+        <helpers>
+            <varnish>
+                <class>Addonline_Varnish_Helper</class>
+            </varnish>
+        </helpers>
+        <external_cache>
+            <controls>
+                <varnish_page_cache translate="label" module="varnish">
+                    <label>Varnish Full Page Cache</label>
+                    <class>varnish/control_varnish</class>
+                </varnish_page_cache>
+            </controls>
+        </external_cache>
+        <events>
+            <application_clean_cache>
+                <observers>
+                    <varnish>
+                        <type>singleton</type>
+                        <class>varnish/observer</class>
+                        <method>purgeCache</method>
+                    </varnish>
+                </observers>
+            </application_clean_cache>
+            <catalog_category_save_commit_after>
+                <observers>
+                    <varnish>
+                        <type>singleton</type>
+                        <class>varnish/observer</class>
+                        <method>onCategorySave</method>
+                    </varnish>
+                </observers>
+            </catalog_category_save_commit_after>
+        </events>
+	</global>
+
+	<frontend>
+		<layout>
+			<updates>
+				<varnish>
+					<file>varnish.xml</file>
+				</varnish>
+				<!-- layout spécifique à la charte graphique du client -->
+				<varnish_local>
+					<file>varnish_local.xml</file>
+				</varnish_local>
+			</updates>
+		</layout>
+		<routers>
+			<varnish>
+				<use>standard</use>
+				<args>
+					<module>Addonline_Varnish</module>
+					<frontName>varnish</frontName>
+				</args>
+			</varnish>
+		</routers>   
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <varnish>
+                        <class>varnish/observer</class>
+                        <method>processPreDispatch</method>
+                    </varnish>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+	</frontend>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <varnish before="Mage_Adminhtml">Addonline_Varnish</varnish>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+	
+	<default>
+		<system>
+			<external_page_cache>
+				<varnish_servers>127.0.0.1:80</varnish_servers>
+			</external_page_cache>
+		</system>
+	</default>
+	
+</config>
