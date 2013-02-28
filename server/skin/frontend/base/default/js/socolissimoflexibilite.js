@@ -97,11 +97,11 @@ function socolissimoRadioCheck(input) {
 		//mise à jour des checkbox de type de relais dans le layer selon le choix fait avant
 		jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 			check = jQuery(element);
-			if (check.val() == input.value) {
+			//if (check.val() == input.value) {
 				check.prop("checked", "checked");
-			} else {
-				check.prop("checked", "");
-			}
+			//} else {
+			//	check.prop("checked", "");
+			//}
 		});
 		//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
 		geocodeAdresse();

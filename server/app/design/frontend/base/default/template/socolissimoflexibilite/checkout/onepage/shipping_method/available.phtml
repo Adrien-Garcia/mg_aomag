@@ -67,7 +67,7 @@
                         			$_excl = $this->__('from').' '.Mage::helper('core')->currency($priceMin);                        			
                         			$_normalprice = $this->__('from').' '.Mage::helper('core')->currency($_rate->getPrice());
                         ?>                        	 
-                        <?php if($_rate->getCode() == 'socolissimoflexibilite_socolissimo'): ?> 
+                        <?php if (strpos($_rate->getCode(), 'socolissimoflexibilite')===0 ) :?>
                         <span id="f_montant_commercant" style="display:none"><?php echo Mage::helper('core')->currency($priceMin); ?></span>
                         <span id="f_montant_normal" style="display:none"><?php echo Mage::helper('core')->currency($_rate->getPrice()); ?></span>
 			<?php endif; ?>

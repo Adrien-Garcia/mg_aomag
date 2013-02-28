@@ -24,7 +24,7 @@ class Addonline_SoColissimoLiberte_Model_Carrier_ShippingMethod
 	public function collectRates(Mage_Shipping_Model_Rate_Request $request) {
 
 		$rates = parent::collectRates($request);
-		Mage::log($rates);
+		//Mage::log($rates);
 		$shippingAddress = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress();
 		if ($shippingAddress && $shippingAddress->getData('soco_product_code') == 'RDV') {
 			foreach ($rates->getAllRates() as $rate) {
@@ -36,7 +36,7 @@ class Addonline_SoColissimoLiberte_Model_Carrier_ShippingMethod
 		if ($shippingAddress && $shippingAddress->getData('soco_product_code') == 'A2P') {
 			foreach ($rates->getAllRates() as $rate) {
 				if ($rate->getCarrier()===$this->_code) {
-					$price = $rate->getPrice()-(float)Mage::getStoreConfig('carriers/socolissimoflexibilite/remise_commercant');
+					$price = $rate->getPrice()-(float)Mage::getStoreConfig('carriers/socolissimoliberte/remise_commercant');
 					if($price < 0){
 						$price = 0;
 					}
