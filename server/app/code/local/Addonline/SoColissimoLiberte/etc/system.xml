@@ -108,6 +108,15 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</rdv_fees>
+						<remise_commercant translate="label comment">
+							<label>Remise livraison commerçant</label>
+							<comment>Montant de la remise pour une livraison chez un commerçant</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</remise_commercant>
 						<shipping_period translate="label comment">
 							<label>Shipping period</label>
 							<comment>Délai pour calculer les relais ouverts à la date de livraison = date du jour + délai</comment>
