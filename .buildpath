@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <buildpath>
-	<buildpathentry kind="src" path="server/app"/>
-	<buildpathentry kind="src" path="server/lib"/>
+	<buildpathentry kind="src" path="server/lib/Zend"/>
+	<buildpathentry kind="src" path="server/lib/Varien"/>
 	<buildpathentry kind="src" path="server/shell"/>
+	<buildpathentry kind="src" path="server/app/code"/>
 </buildpath>
