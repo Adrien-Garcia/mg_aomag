@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Addonline_SoColissimo
+ * 
+ * @category    Addonline
+ * @package     Addonline_SoColissimo
+ * @copyright   Copyright (c) 2013 Addonline
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+-->
+<config>
+    <modules>
+        <Addonline_SoColissimo>
+            <version>2.0.0</version>
+            <depends>
+                <Mage_Shipping />
+            </depends>
+        </Addonline_SoColissimo>
+    </modules>
+    
+    <global>
+    	<blocks>
+            <socolissimo><class>Addonline_SoColissimo_Block</class></socolissimo>
+        </blocks>
+    	<helpers>
+            <socolissimo>
+                <class>Addonline_SoColissimo_Helper</class>
+            </socolissimo>
+        </helpers>
+    	<models>
+    		<socolissimo>
+    			<class>Addonline_SoColissimo_Model</class>
+    			<resourceModel>socolissimo_resource</resourceModel>
+    		</socolissimo>
+    		<socolissimo_resource>
+    			<class>Addonline_SoColissimo_Model_Resource</class>
+                <deprecatedNode>socolissimo_mysql4</deprecatedNode>
+    			<entities>
+    				<relais>
+    					<table>socolissimoliberte_relais</table>
+    				</relais>
+    				<horairesOuverture>
+    					<table>socolissimoliberte_horaire_ouverture</table>
+    				</horairesOuverture>
+    				<periodesFermeture>
+    					<table>socolissimoliberte_periode_fermeture</table>
+    				</periodesFermeture>
+    			</entities>
+    		</socolissimo_resource>
+    	</models>	
+    	<resources>
+    		<socolissimo_setup>
+                <setup>
+                    <module>Addonline_Socolissimo</module>
+                </setup>
+    		</socolissimo_setup>
+    	</resources>
+    	<translate>
+            <modules>
+                <Addonline_SoColissimo>
+                    <files>
+                        <!-- <shipping>Mage_Shipping.csv</shipping> -->
+                        <default>Addonline_SoColissimo.csv</default>
+                    </files>
+                </Addonline_SoColissimo>
+            </modules>
+        </translate>
+        <events>
+        	<admin_user_authenticate_after>
+                <observers>
+                    <Addonline_SoColissimo_Model_Observer>
+	                    <type>singleton</type>
+	            		<class>socolissimo/observer</class>
+	            		<method>_9cd4777ae76310fd6977a5c559c51820</method>
+	          		</Addonline_SoColissimo_Model_Observer>
+                </observers>
+            </admin_user_authenticate_after>
+        </events>
+    </global>
+    
+    <frontend>
+    	<layout>
+            <updates>
+                <socolissimo module="Addonline_SoColissimo">
+                    <file>socolissimo.xml</file>
+                </socolissimo>
+            </updates>
+        </layout>
+        
+        <routers>
+            <socolissimo>
+                <use>standard</use>
+                <args>
+                    <module>Addonline_SoColissimo</module>
+                    <frontName>socolissimo</frontName>
+                </args>
+            </socolissimo>
+        </routers>
+        <!-- 
+        <translate>
+            <modules>
+                <Addonline_SoColissimo>
+                    <files>
+                        <default>Addonline_SoColissimo.csv</default>
+                    </files>
+                </Addonline_SoColissimo>
+            </modules>
+        </translate>
+         -->
+	    <events> 
+	        <sales_quote_collect_totals_before>
+                <observers>
+                    <socolissimo_observer>
+                        <type>model</type>
+                        <class>socolissimo/observer</class>
+                        <method>checkoutEventSocodata</method>
+                    </socolissimo_observer>
+                </observers>
+            </sales_quote_collect_totals_before>
+            <checkout_type_onepage_save_order>
+	            <observers>
+	                <socolissimo_observer>
+	                    <type>singleton</type>
+	            		<class>socolissimo/observer</class>
+	            		<method>addSocoAttributesToOrder</method>
+	          		</socolissimo_observer>
+	        	</observers>
+	        </checkout_type_onepage_save_order>
+	        <checkout_onepage_controller_success_action>
+	            <observers>
+	                <socolissimo_observer>
+	                    <type>singleton</type>
+	            		<class>socolissimo/observer</class>
+	            		<method>resetSession</method>
+	          		</socolissimo_observer>
+	        	</observers>
+	        </checkout_onepage_controller_success_action>	        
+	    </events>
+    </frontend>
+    
+    <default>
+    	<carriers>
+    		<socolissimo>
+    			<active>0</active>
+    			<title>So Colissimo</title>
+    			<model>Addonline_SoColissimo_Model_Carrier_ShippingMethod</model>    
+				<config><![CDATA[
+# So Colissimo (France, Monaco, Andorre)
+{
+	label: "So Colissimo",
+	code: "socolissimo",
+	destination: "FR,MC,AD",
+	conditions: "{cart.weight}<20",
+	fees: "{table {cart.weight} in 0.5:5.55, 1.0:6.80, 2.0:7.75, 3.0:8.70, 5.0:10.60, 7.0:12.50, 10.0:15.35, 15.0:17.45, 30.0:23.75}",
+}
+]]></config>
+				<tracking_view_url>http://www.coliposte.net/particulier/suivi_particulier.jsp?colispart={tracking_number}</tracking_view_url>
+				<display_when_unavailable>0</display_when_unavailable>
+				<stop_to_first_match>0</stop_to_first_match>
+				<rdv_conditions>75001,75002,75003,75004,75005,75006,75007,75008,75009,75010,75011,75012,75013,75014,75015,75016,75116,75017,75018,75019,75020</rdv_conditions>
+				<rdv_fees>4</rdv_fees>
+				<remise_commercant>0</remise_commercant>
+				<shipping_period>1</shipping_period>
+				<url_socolissimo>http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS</url_socolissimo>				
+				<id_socolissimo></id_socolissimo>
+				<password_socolissimo></password_socolissimo>
+				<sort_order>1</sort_order>
+    		</socolissimo>
+    	</carriers>
+    </default>    
+</config>
