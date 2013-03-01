@@ -120,7 +120,7 @@ class Addonline_Varnish_Model_Observer
     		//catalog_product_100 or catalog_category_186
     		$tag_fields = explode('_', $tag);
     		if (count($tag_fields)==3) {
-    			if ($tag_fields[0]=='varnish' && $tag_fields[1]=='product') {
+    			if ($tag_fields[1]=='product') {
     				 //Mage::log("Purge urls for product " . $tag_fields[2]);
     
     				// get urls for product
