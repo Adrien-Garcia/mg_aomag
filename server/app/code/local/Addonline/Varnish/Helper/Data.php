@@ -7,36 +7,7 @@
  */
 class Addonline_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    /**
-     * Check if a fullActionName is configured as cacheable
-     *
-     * @param string $fullActionName
-     * @return false|int false if not cacheable, otherwise lifetime in seconds
-     *
-     * NON utilise : utiliser la conf de pagecache
-     * 
-    public function isCacheableAction($fullActionName)
-    {
-        $cacheActionsString = Mage::getStoreConfig('system/varnish/cache_actions');
-        foreach (explode(',', $cacheActionsString) as $singleActionConfiguration) {
-            list($actionName, $lifeTime) = explode(';', $singleActionConfiguration);
-            if (trim($actionName) == $fullActionName) {
-                return intval(trim($lifeTime));
-            }
-        }
-        return false;
-	}
-	*/
-	/**
-	 * Check if varnish is enabled in Cache management.
-	 *
-	 * @return boolean  True if varnish is enable in Cache management.
-	 * 
-	 * NON UTILISE ??
-	public function useVarnishCache(){
-		return Mage::app()->useCache('varnish');
-	}
-	 */
+
 	/**
 	 * Check if varnish page cache is enabled 
 	 *
@@ -53,7 +24,7 @@ class Addonline_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
 	 */
 	public function getVarnishServers()
 	{
-		$serverConfig = Mage::getStoreConfig('external_page_cache/varnish_servers');
+		$serverConfig = Mage::getStoreConfig('system/external_page_cache/varnish_servers');
 		$varnishServers = array();
 	
 		foreach (explode(',', $serverConfig) as $value ) {
