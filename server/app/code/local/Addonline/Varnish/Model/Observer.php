@@ -18,7 +18,8 @@ class Addonline_Varnish_Model_Observer
 	{
     	 
         if (!Mage::helper("varnish")->isEnabled()) {
-		    return $this;
+        	Mage::register('varnish_dyn', true);
+        	return $this;
         }
         $action = $observer->getEvent()->getControllerAction();
         $request = $action->getRequest();
