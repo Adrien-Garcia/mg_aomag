@@ -103,16 +103,6 @@ class Addonline_Varnish_Model_Observer
     
     	$tags = $observer->getTags();
     	$urls = array();
-    
-    	if ($tags == array()) {
-    		$errors = Mage::helper('varnish')->purgeAll();
-    		if (!empty($errors)) {
-    			Mage::getSingleton('adminhtml/session')->addError("Varnish Purge failed");
-    		} else {
-    			Mage::getSingleton('adminhtml/session')->addSuccess("The Varnish cache storage has been flushed.");
-    		}
-    		return;
-    	}
     	
     	$categories= array();//cache des catéogries chargées
     	// compute the urls for affected entities
