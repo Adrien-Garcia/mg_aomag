@@ -5,7 +5,7 @@
 			<!-- need Jquery 
 			<action method="addJs"><script>jquery/jquery-1.6.3.min.js</script></action>
 			-->
-			<action method="addJs"><script>jqueryjquery.cookie.js</script></action>
+			<action method="addJs"><script>jquery/jquery.cookie.js</script></action>
 			<action method="addJs"><script>varnish.js</script></action>
 		</reference>
 

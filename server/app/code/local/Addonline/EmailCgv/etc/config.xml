@@ -56,7 +56,7 @@
             <advancedslideshow><class>Addonline_AdvancedSlideshow_Block</class></advancedslideshow>
         </blocks>-->
         <helpers>
-            <emailcgv><class>Addonline_Emailcgv_Helper</class></emailcgv>
+            <emailcgv><class>Addonline_EmailCgv_Helper</class></emailcgv>
         </helpers>
         <events>
         	<admin_user_authenticate_after>

@@ -44,6 +44,7 @@
 		<echo file="${conf}/deploy.dirs" append="yes" message="app/design/adminhtml${line.separator}"></echo>
 		<echo file="${conf}/deploy.dirs" append="yes" message="app/etc/modules${line.separator}"></echo>
 		<echo file="${conf}/deploy.dirs" append="yes" message="app/locale${line.separator}"></echo>
+		<echo file="${conf}/deploy.dirs" append="yes" message="js${line.separator}"></echo>
 		<echo file="${conf}/deploy.dirs" append="yes" message="skin/frontend/CLIENT${line.separator}"></echo>
 		<echo file="${conf}/deploy.dirs" append="yes" message="skin/frontend/base${line.separator}"></echo>
 		<echo file="${conf}/deploy.dirs" append="yes" message="shell${line.separator}"></echo>
@@ -61,6 +62,8 @@
 			</zipfileset>
 			<zipfileset dir="server/app/etc/modules" prefix="${zip-name}/app/etc/modules">
 				<exclude name="Addonline_SoColissimoLiberte.xml" />
+			</zipfileset>
+			<zipfileset dir="server/js" prefix="${zip-name}/js">
 			</zipfileset>
 			<zipfileset dir="server/app/locale" prefix="${zip-name}/app/locale">
 			</zipfileset>

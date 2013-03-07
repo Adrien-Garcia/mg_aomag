@@ -12,7 +12,6 @@ jQuery(document).ready(function($) {
 	
 	// add placeholders
 	$('.varnish_placeholder').each(function() {
-		console.log($(this).attr('id')+ ' ' + $(this).attr('rel'));
 		data.getBlocks[$(this).attr('id')] = $(this).attr('rel');
 	});
 

@@ -23,8 +23,7 @@ class Addonline_Varnish_Block_Placeholder extends Mage_Core_Block_Abstract
 	protected function _toHtml()
 	{
 		$html = "";
-		if (!Mage::registry('varnish_dyn')) {
-			Mage::log("placeholder");
+		if (Mage::registry('varnish_static')) {
 			//id=BlockAlias pour pouvoir le sélectionner en javascript (sans . dans le nom), par contre on met rel=NameInLayout pour pouvoir le sélectionner dans la layout (avec . dans le nom) 
 			$html = '<div id="'.($this->getReplacedBlockAlias()).'" class="varnish_placeholder" rel="'.($this->_replacedBlockName).'" ></div>';
 		}
@@ -39,7 +38,7 @@ class Addonline_Varnish_Block_Placeholder extends Mage_Core_Block_Abstract
 	public function setReplacedBlockName($replacedBlockName)
 	{
 		$this->_replacedBlockName = $replacedBlockName;		
-		if (!Mage::registry('varnish_dyn')) {
+		if (Mage::registry('varnish_static')) {
 			$this->getParentBlock()->unsetChild($this->_replacedBlockName);
 		}
 	}

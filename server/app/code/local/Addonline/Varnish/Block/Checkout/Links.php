@@ -20,8 +20,10 @@ class Addonline_Varnish_Block_Checkout_Links extends Mage_Checkout_Block_Links
     	$parentBlock = $this->getParentBlock();
         if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
         	
-        	if (Mage::registry('varnish_dyn')) {
-	            $count = $this->getSummaryQty() ? $this->getSummaryQty()
+        	if (Mage::registry('varnish_static')) {
+        		$text = $this->__('My Cart');
+        	} else {
+        		$count = $this->getSummaryQty() ? $this->getSummaryQty()
 	                : $this->helper('checkout/cart')->getSummaryCount();
 	            if ($count == 1) {
 	                $text = $this->__('My Cart (%s item)', $count);
@@ -30,8 +32,6 @@ class Addonline_Varnish_Block_Checkout_Links extends Mage_Checkout_Block_Links
 	            } else {
 	                $text = $this->__('My Cart');
 	            }
-        	} else {
-        		$text = $this->__('My Cart');
         	}
 
             $parentBlock->removeLinkByUrl($this->getUrl('checkout/cart'));

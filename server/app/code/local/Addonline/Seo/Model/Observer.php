@@ -53,7 +53,6 @@ class Addonline_Seo_Model_Observer {
 
                 if($layout->getBlock('category.products') && $headBlock = $layout->getBlock('head'))
         	    {
-        	    	            Mage::log("category observer set head");
         	    	
         	    	$this->setCategoryVariables();
         	    	$_head_title_template = Mage::getStoreConfig('catalog/seo/title_category');

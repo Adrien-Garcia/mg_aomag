@@ -14,7 +14,7 @@ class Addonline_Varnish_Model_Customer_Observer extends Mage_Customer_Model_Obse
      */
     public function beforeLoadLayout($observer)
     {
-		if (!Mage::registry('varnish_dyn')) {
+		if (Mage::registry('varnish_static')) {
 			return;
 		} else {
 			return parent::beforeLoadLayout($observer);

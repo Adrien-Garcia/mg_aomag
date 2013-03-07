@@ -18,7 +18,7 @@ class Addonline_Varnish_Model_Observer
 	{
     	 
         if (!Mage::helper("varnish")->isEnabled()) {
-		    return $this;
+        	return $this;
         }
         $action = $observer->getEvent()->getControllerAction();
         $request = $action->getRequest();
@@ -53,7 +53,10 @@ class Addonline_Varnish_Model_Observer
 
         if ($needCaching) {
         	
-	        $response = $action->getResponse();
+        	//Flag qui indique aux blocks qu'ils sont en "mode static"
+        	Mage::register('varnish_static', true);
+
+        	$response = $action->getResponse();
 	
 	        $lifetime = Mage::helper('pagecache')->getNoCacheCookieLifetime();	
 	        $response->setHeader('X-Magento-Lifetime', $lifetime, true); // Only for debugging and information
@@ -61,9 +64,6 @@ class Addonline_Varnish_Model_Observer
 	        $response->setHeader('Cache-Control', 'max-age='. $lifetime, true);
 	        $response->setHeader('varnish', 'cache', true);
 
-        } else {
-        	//Flag qui indique aux blocks qu'ils sont en "mode dynamique"
-        	Mage::register('varnish_dyn', true);
         }
 	}
 
@@ -76,9 +76,13 @@ class Addonline_Varnish_Model_Observer
     {
     	$category = $observer->getCategory(); /* @var $category Mage_Catalog_Model_Category */
     	if ($category->getData('include_in_menu')) {
-    		// notify user that varnish needs to be refreshed
-    		//TODO : créer une notification ?
-    		//Mage::app()->getCacheInstance()->invalidateType(array('varnish'));
+    		Mage::getModel('adminnotification/inbox')->parse(array(
+    														array('severity' => Mage_AdminNotification_Model_Inbox::SEVERITY_MINOR,
+    															    'date_added'=> date('Y-m-d H:i:s'),
+    																'title'=> Mage::helper('varnish')->__('External Page Cache Varnish need to be refreshed'),
+    																'description'   => Mage::helper('varnish')->__('You modified a category "included in navigation", which means your navigation menu might be modified, in this case you need to refresh the entire external page cache Varnish'),
+    																'url'=> Mage::helper('adminhtml')->getUrl('*/pageCache/clean'),
+    																'internal'      => true)));
     	}
     
     	return $this;
@@ -93,7 +97,6 @@ class Addonline_Varnish_Model_Observer
     public function purgeCache($observer)
     {
     	// If Varnish is not enabled on admin don't do anything
-    	//if (!Mage::app()->useCache('varnish')) {
     	if (!Mage::helper('varnish')->isEnabled()) {
     		return;
     	}
@@ -117,7 +120,7 @@ class Addonline_Varnish_Model_Observer
     		//catalog_product_100 or catalog_category_186
     		$tag_fields = explode('_', $tag);
     		if (count($tag_fields)==3) {
-    			if ($tag_fields[0]=='varnish' && $tag_fields[1]=='product') {
+    			if ($tag_fields[1]=='product') {
     				 //Mage::log("Purge urls for product " . $tag_fields[2]);
     
     				// get urls for product
@@ -133,7 +136,7 @@ class Addonline_Varnish_Model_Observer
     					$urls = array_unique(array_merge($urls, $category_urls));
     				 }
     				
-    				if($category->getLevel()== 3) {
+    				if($category->getLevel()>= 3) {
     					if (!isset($categories[$category->getParentId()])) {
     						$category = Mage::getModel('catalog/category')->load($category->getParentId());
     						$categories[$category->getParentId()] = $category;
