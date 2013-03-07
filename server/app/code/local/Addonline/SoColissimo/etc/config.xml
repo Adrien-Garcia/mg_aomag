@@ -24,9 +24,7 @@
             <socolissimo><class>Addonline_SoColissimo_Block</class></socolissimo>
         </blocks>
     	<helpers>
-            <socolissimo>
-                <class>Addonline_SoColissimo_Helper</class>
-            </socolissimo>
+            <socolissimo><class>Addonline_SoColissimo_Helper</class></socolissimo>
         </helpers>
     	<models>
     		<socolissimo>

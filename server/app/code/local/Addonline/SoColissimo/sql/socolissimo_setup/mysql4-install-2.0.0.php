@@ -12,6 +12,26 @@ $installer = $this;
 
 $installer->startSetup();
 
+/**
+ * On nettoie la table core_config dans le cas d'une installation préalable
+ * des Modules SocolissimoFlexibilite ou SocolissimoLiberte, et on récupère les 
+ * paramètres de l'installation préalable
+ */
+$installer->run("
+	UPDATE {$this->getTable('core_config_data')} as s, {$this->getTable('core_config')} as sl SET s.value=sl.value
+	      WHERE s.path=replace(sl.path, 'socolissimoliberte', 'socolissimo') AND s.scope=sl.scope AND s.scope_id=sl.scope_id;   
+	DELETE FROM {$this->getTable('core_config_data')} WHERE path like 'carriers/socolissimoliberte%';		      
+	UPDATE {$this->getTable('core_config_data')} as s, {$this->getTable('core_config')} as sf SET s.value=sf.value
+	      WHERE s.path=replace(sf.path, 'socolissimoflexibilite', 'socolissimo') AND s.scope=sf.scope AND s.scope_id=sf.scope_id;   
+	DELETE FROM {$this->getTable('core_config_data')} WHERE path like 'carriers/socolissimoflexibilite%';		      
+		");
+
+/**
+ * On crée les tables pour la version Liberté si elles n'existent pas déjà
+ * 
+ */
+
+
 if (!$installer->tableExists($installer->getTable('socolissimo_relais'))) {
 
 $installer->run("
@@ -87,16 +107,11 @@ CREATE TABLE {$this->getTable('socolissimo_periode_fermeture')} (
 
 }
 
-// $this->removeAttribute('order', 'soco_product_code');
-// $this->removeAttribute('order', 'soco_shipping_instruction');
-// $this->removeAttribute('order', 'soco_door_code1');
-// $this->removeAttribute('order', 'soco_door_code2');
-// $this->removeAttribute('order', 'soco_interphone');
-// $this->removeAttribute('order', 'soco_relay_point_code');
-// $this->removeAttribute('order', 'soco_civility');
-// $this->removeAttribute('order', 'soco_phone_number');
-// $this->removeAttribute('order', 'soco_email');
-
+/**
+ * Les attributs suivants sont les mêmes que ceux créés par le module SocolissimoSimplicité et utilisés 
+ * par le module ExpeditorInet qui permet de faire l'export vers l'éditeur de vignettes
+ * On les crée tels quel pour être compatible avec ExpeditorInet
+ **/
 $this->addAttribute('order', 'soco_product_code', array(
 		'type'     => 'varchar',
 		'label'    => 'Code produit So Colissimo',
@@ -169,6 +184,9 @@ $this->addAttribute('order', 'soco_email', array(
 		'input'    => 'text',
 ));
 
+/**
+ * Attribut soco_product_code sur l'adresse de livraison de la quote
+ */
 $this->addAttribute('quote_address', 'soco_product_code', array(
 		'type'     => 'varchar',
 		'label'    => 'Code livrasion socolissimo',
