@@ -54,10 +54,14 @@ class Addonline_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
 		foreach ((array)$varnishServers as $varnishServer) {
 			foreach ($urls as $url) {
 				$varnishUrl = "http://" . $varnishServer . $url;
-	
+				$purgeHost = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+				$purgeHost = substr($purgeHost, 0, strlen($purgeHost)-1);
+				$purgeHost = substr($purgeHost,strlen( "http://") );
+				
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, $varnishUrl);
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PURGE');
+				curl_setopt($ch, CURLOPT_HTTPHEADER,array("X-Purge-Host:".$purgeHost,"X-Purge-URL-Regex:^".$url));
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
@@ -65,7 +69,7 @@ class Addonline_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
 				curl_multi_add_handle($mh, $ch);
 				$curlHandlers[] = $ch;
 				
-				//Mage::log($varnishUrl, null, 'varnish.log');
+				//Mage::log($url, null, 'varnish.log');
 			}
 		}
 

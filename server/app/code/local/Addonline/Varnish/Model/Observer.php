@@ -229,7 +229,7 @@ class Addonline_Varnish_Model_Observer
     	}
     
     	if ($category->getId()==3) { //Root category : on flush aussi la Home-page
-    		$urls[] = str_replace('index.php/', '', Mage::getUrl());
+    		$urls[] = '/$';
     	}
     	
     	return $urls;
@@ -245,7 +245,11 @@ class Addonline_Varnish_Model_Observer
     	if ($page->getId()) {
     		$urls[] = '/' . $page->getIdentifier();
     	}
-    
+    	//si on met à jour la page cms Home on met à jour le cache de la home page
+    	if ($page->getIdentifier() == 'home') {
+    		$urls[] = '/$';
+    	}
+    	 
     	return $urls;
     }
 }
