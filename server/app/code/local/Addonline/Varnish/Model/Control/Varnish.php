@@ -15,5 +15,12 @@ class Addonline_Varnish_Model_Control_Varnish implements Mage_PageCache_Model_Co
     public function clean()
     {
 		Mage::helper('varnish')->purge(array('/.*'));
+		//On marque comme lus les messages Varnish
+		$_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 0);
+		foreach($_unreadNotices as $notice) {
+			if(strpos($notice->getData('description'),'Varnish')) {
+				$notice->setIsRead(1)->save();
+			}
+		}
     }
 }

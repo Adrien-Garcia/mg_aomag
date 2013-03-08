@@ -25,6 +25,11 @@
 					<links>Addonline_Varnish_Block_Checkout_Links</links>
 				</rewrite>
 			</checkout>
+			<catalog>
+				<rewrite>
+					<product_price>Addonline_Varnish_Block_Catalog_Product_Price</product_price>
+				</rewrite>
+			</catalog>
 		</blocks>
         <models>
             <varnish>
@@ -35,6 +40,16 @@
 					<observer>Addonline_Varnish_Model_Customer_Observer</observer>
 				</rewrite>
 			</customer>
+            <catalog_resource>
+				<rewrite>
+					<product_collection>Addonline_Varnish_Model_Catalog_Resource_Product_Collection</product_collection>
+				</rewrite>
+			</catalog_resource>
+			<catalogrule_resource>
+				<rewrite>
+					<rule>Addonline_Varnish_Model_CatalogRule_Resource_Rule</rule>
+				</rewrite>
+			</catalogrule_resource>
         </models>
         <helpers>
             <varnish>

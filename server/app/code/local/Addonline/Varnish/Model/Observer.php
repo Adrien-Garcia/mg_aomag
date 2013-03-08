@@ -16,7 +16,6 @@ class Addonline_Varnish_Model_Observer
      */
     public function processPreDispatch(Varien_Event_Observer $observer)
 	{
-    	 
         if (!Mage::helper("varnish")->isEnabled()) {
         	return $this;
         }
@@ -103,6 +102,7 @@ class Addonline_Varnish_Model_Observer
     
     	$tags = $observer->getTags();
     	$urls = array();
+    
     	
     	$categories= array();//cache des catéogries chargées
     	// compute the urls for affected entities
@@ -249,7 +249,7 @@ class Addonline_Varnish_Model_Observer
     	if ($page->getIdentifier() == 'home') {
     		$urls[] = '/$';
     	}
-    	 
+    	
     	return $urls;
     }
 }

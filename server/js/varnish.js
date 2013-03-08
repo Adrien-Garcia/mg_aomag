@@ -8,11 +8,15 @@
 
 jQuery(document).ready(function($) {
 
-	var data = { getBlocks: {} };
+	var data = { getBlocks: {} , getPriceBlocks{} };
 	
 	// add placeholders
 	$('.varnish_placeholder').each(function() {
 		data.getBlocks[$(this).attr('id')] = $(this).attr('rel');
+	});
+
+	$('.varnish_catalog_product').each(function() {
+		data.getPriceBlocks[$(this).attr('id')] = $(this).attr('rel');
 	});
 
 	// add current product
@@ -20,7 +24,7 @@ jQuery(document).ready(function($) {
 		data.currentProductId = CURRENTPRODUCTID;
 	}
 
-	if (Object.keys(data.getBlocks).length > 0) {
+	if (Object.keys(data.getBlocks).length > 0 || Object.keys(data.getPriceBlocks).length > 0) {
 		$.get(
 			VARNISH_DYN_URL,
 			data,

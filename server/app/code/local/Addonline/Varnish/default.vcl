@@ -2,10 +2,12 @@
 #
 # Default backend definition.  Set this to point to your magento server.
 #
+#Attention il faut que le backend déclarré soient accessible sinon  varnish ne fonctionne pas, meême si le backend n'est pas utilise
 #backend default {
 #    .host = "127.0.0.1";
 #    .port = "8080";
 #}
+
 backend mag1 {
     .host = "bk_mag1";
     .port = "8080";
@@ -24,7 +26,16 @@ acl purge {
      "bk_mag2";
 }
 
+
 sub vcl_recv {
+
+        if (req.http.Host == "aomagento.addonline.biz") {
+                set req.backend = mag1;
+        }
+        if (req.http.Host == "www.covalab.com") {
+                set req.backend = mag2;
+        }
+
 
         # Purge
         ## 
@@ -32,7 +43,9 @@ sub vcl_recv {
             if (!client.ip ~ purge) {
                 error 405 "Not allowed.";
             }
-            purge("req.url ~ " req.url);
+            #purge("req.url ~ " req.url);
+	   log "Purge req.http.Host ==  " req.http.X-Purge-Host " && req.url ~ " req.http.X-Purge-URL-Regex;
+	    purge ("req.http.Host ==  " req.http.X-Purge-Host " && req.url ~ " req.http.X-Purge-URL-Regex);
             error 200 "Purged.";
         }
 
@@ -72,6 +85,7 @@ sub vcl_recv {
            return (pipe);
        }
        
+
         # Some known-static file types
         if (req.url ~ "^[^?]*\.(css|js|htc|xml|txt|swf|flv|pdf|gif|jpe?g|png|ico)$") {
                 # Pretent no cookie was passed
@@ -82,17 +96,14 @@ sub vcl_recv {
         if (req.http.Cache-Control ~ "no-cache") {
                 purge_url(req.url);
         }
-
        
        /* We only deal with GET and HEAD by default */
        if (req.request != "GET" && req.request != "HEAD") {
            return (pass);
        }
        
-       # if (req.http.Authorization || req.http.Cookie) {
-       # le fontionnement de magento nécéssite des cookies on va donc chercher en cache quand même les requêtes avec des cookies
        if (req.http.Authorization) {
-             /* Not cacheable by default */
+           /* Not cacheable by default */
            return (pass);
        }
        
@@ -100,18 +111,26 @@ sub vcl_recv {
 }
 
 /*
+ Add host domain to the hash key in order to have mutliple vhosts in the same varnish server
+*/
+sub vcl_hash {
+	set req.hash += req.http.Host;
+	set req.hash += req.url;
+	return (hash);
+}
+
+/*
 Remove cookies from backend response so this page can be cached
 */
 sub vcl_fetch {
-        #set req.backend = default;
-        
-        if (req.http.Host == "aomagento.addonline.biz") {
-                set req.backend = mag1;
-        }
-        if (req.http.Host == "www.covalab.com") {
+		
+	if (req.http.Host == "aomagento.addonline.biz") {
+	        set req.backend = mag1;
+	}
+	if (req.http.Host == "www.covalab.com") {
                 set req.backend = mag2;
         }
-        
+
         if (beresp.status == 302 || beresp.status == 301 || beresp.status == 418) {
                 return (pass);
         }

@@ -69,7 +69,7 @@ class Addonline_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
 				curl_multi_add_handle($mh, $ch);
 				$curlHandlers[] = $ch;
 				
-				//Mage::log($url, null, 'varnish.log');
+				//Mage::log($varnishUrl, null, 'varnish.log');
 			}
 		}
 
