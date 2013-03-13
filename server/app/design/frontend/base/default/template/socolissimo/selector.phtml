@@ -1,0 +1,134 @@
+    <div id="socolissimo-location" <?php if($this->dontShowSelector()): ?>style="display:none"<?php endif;?>><div>
+    	
+    		<dl class="left">
+    			<dt>Chez vous <span>ou toute autre adresse postale</span></dt>
+    			<dd class="chez-vous">
+    				<label>
+    					<input type="radio" name="type_socolissimo" value="livraison" onclick="socolissimoRadioCheck(this)" />
+    					<span>mon domicile</span>
+    					<?php if ($this->isDomicileAvecSignature()) :?>
+    					<strong>Livraison &agrave; l'adresse de votre choix</strong> avec <strong>remise en mains propres.</strong><br/>
+    					En cas d'absence, votre colis sera mis &agrave; votre disposition en bureau de poste.
+						<?php else:?>
+    					<strong>Livraison &agrave; l'adresse de votre choix</strong> avec <strong>remise en bo&icirc;te aux lettres</strong> ou remise en mains propres selon les situations.<br/>
+    					En cas d'impossibilit&eacute;, votre colis sera mis &agrave; votre disposition en bureau de poste.
+						<?php endif;?>
+    				</label>
+    			</dd>
+    			<?php if ($this->isRdvAvailable()): ?>
+    			<dd class="rendez-vous">
+    				<label>
+	    				<input type="radio" name="type_socolissimo"  value="rdv" onclick="socolissimoRadioCheck(this)" />
+	    				<span>mon rendez-vous</span>
+	    				Livraison sur rendez-vous sur Paris pour un suppl&eacute;ment de <?php echo $this->helper('core')->currency($this->getRdvShippingCost()) ?> entre 17h00 et 21h30 dans un créneau d'1h30 du lundi au vendredi.
+	    			</label>
+    			</dd>
+	    		<?php endif;?>
+    		</dl>
+    		<dl class="right">    		
+    			<?php if ($this->isSocolissmoAvailable()): ?>    			    			
+    			
+    			<dt>Dans un point de retrait &agrave; proximit&eacute; <span>de votre domicile, de votre lieu de travail ou de vacances</span></dt>
+    			<dd class="cityssimo">
+    				<label>
+	    				<input type="radio" name="type_socolissimo"  value="cityssimo" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;" />
+	    				<span>ma consigne cityssimo</span>
+	    				Livraison dans l'une des 31 consignes automatiques Cityssimo 7j/7 et 24h/24.
+	    			</label>
+	    			<label class="nom_relais"></label>
+				</dd>
+    			<dd class="poste">
+	    			<label>
+	    				<input type="radio"  name="type_socolissimo" value="poste" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" />
+	    				<span>mon bureau de poste</span>
+	    				Livraison dans l'un des 10 000 points de retrait La Poste de votre choix en France.
+	    			</label>
+	    			<label class="nom_relais"></label>
+	    		</dd>
+	    		<dd class="commercant">
+	    			<label>
+	    				<input type="radio"  name="type_socolissimo" value="commercant" onclick="socolissimoRadioCheck(this)" rel="#layer_socolissimo" style="display:none;"/>
+	    				<span>mon commerçant</span>
+	    				Livraison dans l'un des 3 700 commerces du r&eacute;seau  PICKUP, Groupe La Poste.
+	    			</label>
+	    			<label class="nom_relais"></label>
+	    		</dd>
+	    		<input type="hidden" name="relais_socolissimo" value="" />
+	    		<input type="hidden" name="type_socolissimo_choisi" value="" />
+	    		<?php endif;?>
+    		</dl>
+    		
+    	</div>
+    		
+    	<label class="portable" style="display:none;">
+			<span class="poste" style="display:none;">Pour la livraison en bureau de poste, nous avons obligatoirement besoin d'un numéro de téléphone mobile pour vous informer de la disponibilité de votre colis. Merci de vérifier le numéro saisi ici :</span>
+			<span class="cityssimo" style="display:none;">Pour la livraison en consigne Cityssimo, nous avons obligatoirement besoin d'un numéro de téléphone mobile pour vous envoyer vos codes permettant le retrait de vos colis. Merci de vérifier le numéro saisi ici :</span>
+			<span class="commercant" style="display:none;">Pour la livraison chez un commerçant, nous avons obligatoirement besoin d'un numéro de téléphone mobile pour pour vous informer de la disponibilité de votre colis. Merci de vérifier le numéro saisi ici :</span>
+			<span class="rdv" style="display:none;">Pour la livraison sur rendez-vous, nous avons besoin d'un numéro de téléphone mobile pour vous contacter et définir le créneau de livraison souhaité. Merci de vérifier le numéro saisi ici :</span>
+			<span class="livraison" style="display:none;">Pour la livraison à domicile, nous avons besoin d'un numéro de téléphone mobile pour vous contacter. Merci de vérifier le numéro saisi ici :</span>
+			<input type="text" name="tel_socolissimo" class="required-entry length_12 valid-telephone-portable" maxlength="12" />
+		</label>
+		
+    </div>
+<div class="layer" id="layer_socolissimo">
+	<a class="close">Fermer</a>
+	<div>
+		<div>
+			<h3>Choisissez Votre lieu de livraison</h3>
+         <div class="contenu">
+         	<div class="ligne1">
+          		<div class="titres">
+                <div class="titre titre1">A proximité de quelle adresse souhaitez-vous être livré ?</div>
+                <div class="titre2"> <span class="obli">*</span> Champs obligatoires</div>
+                </div>
+                <div class="col adresse">
+                    <label>Adresse</label>
+                    <input id="socolissimo_street" name="street" type="text" value="<?php echo $this->getShippingStreet() ?>" class="adresse"/>
+                </div>
+                <div class="col cp">
+                    <label>Code postal<span class="obli">*</span></label>
+                    <input id="socolissimo_postcode" name="postcode" type="text" value="<?php echo $this->getShippingPostcode() ?>" class="cp" />
+                </div>
+                <div class="col commune">
+                    <label>Commune</label>
+                    <div class="select">
+                        <span  id="socolissimo_city" ><?php echo $this->getShippingCity() ?></span>
+                        <select id="socolissimo_city_select" name="Commune"><!-- liste chargée en javascript --></select>
+                    </div>
+                </div>
+                <button type="button" id="btn_modifierAdresse" onclick="geocodeAdresse()" class="button" ><span>Modifier votre adresse</span></button>
+            </div>
+         </div>
+         <div class="adresses">
+         	<div class="loader-wrapper" style="display:none;">
+	         	<div class="loader"></div>
+	         	<div class="loader-wheel">
+					<img src="<?php echo $this->getSkinUrl('images/socolissimo/loader.gif') ?>" />
+					chargement...
+				</div>
+			</div>
+             <div class="colgauche">
+            	<div class="liste" id ="adresses_socolissimo" >
+					<?php echo $this->getChildHtml('listrelais') ?>
+                </div>
+             </div>
+             <div class="coldroite" id="map_canvas">
+             </div>
+         </div>    
+		</div>
+	</div>
+</div>
+
+<script>    
+    var montant_normal = jQuery('#f_montant_normal').text();
+    var montant_commercant = jQuery('#f_montant_commercant').text();
+    var text_commercant = jQuery('dd.commercant label > span:first').text();
+    var text_poste = jQuery('dd.poste label > span:first').text();
+    var text_cityssimo = jQuery('dd.cityssimo label > span:first').text();
+    var text_domicile = jQuery('dd.chez-vous label > span:first').text();
+    
+	jQuery('dd.commercant label > span:first').text(text_commercant+' '+montant_commercant);
+	jQuery('dd.poste label > span:first').text(text_poste+' '+montant_normal);
+	jQuery('dd.cityssimo label > span:first').text(text_cityssimo+' '+montant_normal);
+	jQuery('dd.chez-vous label > span:first').text(text_domicile+' '+montant_normal);
+</script>
