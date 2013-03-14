@@ -218,7 +218,9 @@ class WebMods_Solrsearch_Model_Solr extends Mage_Core_Model_Abstract {
 			return $returnData;
 			
 		}else{
-			$queryText = strtolower($returnData['spellcheck']['suggestions']['collation']);
+			if (isset($returnData['spellcheck']['suggestions']['collation'])) {
+				$queryText = strtolower($returnData['spellcheck']['suggestions']['collation']);
+			}
 			
 			if (empty($queryText)) $queryText = $this->getParams('q');
 			$this->queryText = $queryText;

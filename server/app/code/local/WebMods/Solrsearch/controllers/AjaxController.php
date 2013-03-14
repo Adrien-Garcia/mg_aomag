@@ -137,7 +137,9 @@ class WebMods_Solrsearch_AjaxController extends Mage_Core_Controller_Front_Actio
 			//die(print_r($returnData));
 			//echo $url = $this->getRequest()->getParam('r');
 			//die($returnData['spellcheck']['suggestions']['collation']);
-			$data = $this->doRequest($returnData['spellcheck']['suggestions']['collation']);
+			if  (isset($returnData['spellcheck']['suggestions']['collation'])) {
+				$data = $this->doRequest($returnData['spellcheck']['suggestions']['collation']);
+			}
 		}	
 		$jsonp_callback = $enable_jsonp && isset($_GET['json_wrf']) ? $_GET['json_wrf'] : null;
 		echo $jsonp_callback.'('.$data[count($data)-1].')';
