@@ -29,33 +29,71 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
      */
     public function listRelaisAction()
     {
-		$response = new Varien_Object();
     	
    		$adresse    = $this->getRequest()->getParam('adresse', false);
    		$zipcode    = $this->getRequest()->getParam('zipcode', false);
    		$ville      = $this->getRequest()->getParam('ville', false);
-   		/*$poste  	= $this->getRequest()->getParam('poste', false);	
+   		$poste  	= $this->getRequest()->getParam('poste', false);	
    		$cityssimo  = $this->getRequest()->getParam('cityssimo', false);
    		$commercant = $this->getRequest()->getParam('commercant', false);
+   		
+   		$typesRelais = array();
+   		if ($poste == 'true' || $poste === 'checked') {
+   			$typesRelais[] = 'BPR';
+   			$typesRelais[] = 'CDI';
+   			$typesRelais[] = 'ACP';
+   		}
+   		if ($cityssimo == 'true' || $cityssimo === 'checked') {
+   			$typesRelais[] = 'CIT';
+   		}
+   		if ($commercant == 'true' || $commercant === 'checked') {
+   			$typesRelais[] = 'A2P';
+   		}
+   		 
+   		if (Mage::getStoreConfig('carriers/socolissimo/contrat') == 'flexibilite') {
+   		
+   			//le filtre du WS permet seulement d'exclure les commerçants : on filtre les résultats après l'appel au WS */
+   			$filterRelay = 0;
+   			if ($commercant == 'true' || $commercant === 'checked') {
+   				$filterRelay = 1;
+   			}
+   			
+	     	$listrelais = Mage::getModel('socolissimo/flexibilite/service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, 1, $typesRelais);
+		    
+	     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
+		        $result['items'] = $listrelais->listePointRetraitAcheminement;
+		        $result['html'] = $this->_getListRelaisHtml($listrelais->listePointRetraitAcheminement);
+		        $result['skinUrl'] = Mage::getDesign()->getSkinUrl("images/socolissimo/");
+		    } else {
+		        $result['error'] = $listrelais->errorMessage;
+		    }
+	        
+   		} else {
 
-     	//le filtre du WS permet seulement d'exclure les commerçants
-    	$filterRelay = 0;
-     	if ($commercant == 'true' || $commercant === 'checked') {
-    		$filterRelay = 1;
-     	} 
-		*/
-   		$filterRelay = 1;
-     	$listrelais = Mage::getModel('socolissimo/service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $filterRelay);
+   			$dateLivraison = new Zend_Date();
+   			if ($delai = Mage::getStoreConfig('carriers/socolissimoliberte/shipping_period')) {
+   				$dateLivraison->addDay($delai);
+   			} else {
+   				$dateLivraison->addDay(1);
+   			}
+   			 
+   			$listrelais = Mage::getModel('socolissimoliberte/relais')->getCollection();
+   			$listrelais->prepareNearestByType($latitude, $longitude, $typesRelais, $dateLivraison);
+   			 
+   			foreach ($listrelais as $relais) {
+   				$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
+   				$relais->setData('type', $relais->getType());
+   				$listFermetures = Mage::getModel('socolissimoliberte/periodesFermeture')->getCollection();
+   				$listFermetures->addFieldToFilter('id_relais_fe',$relais->getId());
+   				$relais->setData('fermetures', $listFermetures->toArray());
+   			}
+   			$result = $listrelais->toArray();
+   			$result['html'] = $this->_getListRelaisHtml($listrelais);
+   			
+   		}
 	    
-     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
-	        $result['items'] = $listrelais->listePointRetraitAcheminement;
-	        $result['html'] = $this->_getListRelaisHtml($listrelais->listePointRetraitAcheminement);
-	        $result['skinUrl'] = Mage::getDesign()->getSkinUrl("images/socolissimo/");
-	    } else {
-	        $result['error'] = $listrelais->errorMessage;
-	    }
-        
         $this->getResponse()->setBody(Zend_Json::encode($result));
+
     }
     
     protected function _getListRelaisHtml($list)
