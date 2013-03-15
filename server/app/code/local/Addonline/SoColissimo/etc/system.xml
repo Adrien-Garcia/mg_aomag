@@ -117,7 +117,6 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</rdv_fees>
-						 -->
 						<remise_commercant translate="label comment">
 							<label>Remise livraison commerçant</label>
 							<comment>Montant de la remise pour une livraison chez un commerçant</comment>
@@ -127,6 +126,7 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</remise_commercant>
+						 -->
 						<shipping_period translate="label comment">
 							<label>Shipping period</label>
 							<comment>Délai pour calculer les relais ouverts à la date de livraison = date du jour + délai</comment>
@@ -136,33 +136,43 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</shipping_period>
-						<url_socolissimo translate="label">
+						<url_socolissimo_flexibilite translate="label">
 							<label>URL webservice Socolissmo</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>13</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends><type>flexibilite</type></depends>
-						</url_socolissimo>	
-						<id_socolissimo translate="label">
+							<depends><contrat>flexibilite</contrat></depends>
+						</url_socolissimo_flexibilite>	
+						<id_socolissimo_flexibilite translate="label">
 							<label>Identifiant Socolissmo</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>14</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends><type>flexibilite</type></depends>
-						</id_socolissimo>						
-						<password_socolissimo translate="label">
+							<depends><contrat>flexibilite</contrat></depends>
+						</id_socolissimo_flexibilite>						
+						<password_socolissimo_flexibilite translate="label">
 							<label>Password Socolissmo</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>15</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends><type>flexibilite</type></depends>
-						</password_socolissimo>						
+							<depends><contrat>flexibilite</contrat></depends>
+						</password_socolissimo_flexibilite>
+						<rep_fichier_liberte translate="label">
+							<label>Répértoire des fichiers SoColissimo</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>13</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><contrat>liberte</contrat></depends>
+							<comment>Répertoire (chemin absolu) où sont uploadés les fichiers SoColissimo Liberté</comment>
+						</rep_fichier_liberte>						
 						<domicile_signature translate="label">
 							<label>Livrasion à domicile avec signature</label>
 							<frontend_type>select</frontend_type>

@@ -71,19 +71,19 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    		} else {
 
    			$dateLivraison = new Zend_Date();
-   			if ($delai = Mage::getStoreConfig('carriers/socolissimoliberte/shipping_period')) {
+   			if ($delai = Mage::getStoreConfig('carriers/socolissimo/shipping_period')) {
    				$dateLivraison->addDay($delai);
    			} else {
    				$dateLivraison->addDay(1);
    			}
    			 
-   			$listrelais = Mage::getModel('socolissimoliberte/relais')->getCollection();
+   			$listrelais = Mage::getModel('socolissimo/liberte/relais')->getCollection();
    			$listrelais->prepareNearestByType($latitude, $longitude, $typesRelais, $dateLivraison);
    			 
    			foreach ($listrelais as $relais) {
    				$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
    				$relais->setData('type', $relais->getType());
-   				$listFermetures = Mage::getModel('socolissimoliberte/periodesFermeture')->getCollection();
+   				$listFermetures = Mage::getModel('socolissimo/liberte/periodesFermeture')->getCollection();
    				$listFermetures->addFieldToFilter('id_relais_fe',$relais->getId());
    				$relais->setData('fermetures', $listFermetures->toArray());
    			}

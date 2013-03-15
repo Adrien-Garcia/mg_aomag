@@ -7,7 +7,7 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 	public function getUrlWsdl()
 	{
 		if (!$this->_urlWsdl) {
-			$this->_urlWsdl = Mage::getStoreConfig('carriers/socolissimo/url_socolissimo')."?wsdl";
+			$this->_urlWsdl = Mage::getStoreConfig('carriers/socolissimo/url_socolissimo_flexibilite')."?wsdl";
 		}
 		return $this->_urlWsdl;
 	}
@@ -20,8 +20,8 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 
 		try {
 				$findRDVPointRetraitAcheminement = new findRDVPointRetraitAcheminement();
-				$findRDVPointRetraitAcheminement->accountNumber = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo');
-				$findRDVPointRetraitAcheminement->password = Mage::getStoreConfig('carriers/socolissimo/password_socolissimo');
+				$findRDVPointRetraitAcheminement->accountNumber = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite');
+				$findRDVPointRetraitAcheminement->password = Mage::getStoreConfig('carriers/socolissimo/password_socolissimo_flexibilite');
 				$findRDVPointRetraitAcheminement->address = $adresse;
 				$findRDVPointRetraitAcheminement->zipCode = $zipcode;
 				$findRDVPointRetraitAcheminement->city = $ville;
@@ -31,7 +31,7 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				//$findRDVPointRetraitAcheminement->typeDePoint = $typeDePoint;
 				$date = new Zend_Date();
 				$quote = Mage::getSingleton('checkout/session')->getQuote();
-				$findRDVPointRetraitAcheminement->requestId = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo').$quote->getCustomerId().$date->toString('yyyyMMddHHmmss');
+				$findRDVPointRetraitAcheminement->requestId = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite').$quote->getCustomerId().$date->toString('yyyyMMddHHmmss');
 
 				$result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
 				
@@ -68,8 +68,8 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 
 		try {
 				$findPointRetraitAcheminementByID = new findPointRetraitAcheminementByID();
-				$findPointRetraitAcheminementByID->accountNumber = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo');
-				$findPointRetraitAcheminementByID->password = Mage::getStoreConfig('carriers/socolissimo/password_socolissimo');
+				$findPointRetraitAcheminementByID->accountNumber = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite');
+				$findPointRetraitAcheminementByID->password = Mage::getStoreConfig('carriers/socolissimo/password_socolissimo_flexibilite');
 				$findPointRetraitAcheminementByID->id = $id;
 				$findPointRetraitAcheminementByID->weight = $this->_getQuoteWeight();
 				$findPointRetraitAcheminementByID->date = $this->_getShippingDate();

@@ -13,15 +13,15 @@ class  Addonline_SoColissimo_Model_Liberte_Relais extends Mage_Core_Model_Abstra
  
     /**
      * Constructeur par défaut
-     * @return  Addonline_SoColissimo_Model_Relais
+     * @return  Addonline_SoColissimo_Model_Liberte_Relais
      */
     public function _construct() {
         parent::_construct();
-        $this->_init('socolissimo/relais');
+        $this->_init('socolissimo/liberte/relais');
     }
     
     public function getType() {
-    	if ($this->getTypeRelais()=='BPR') {
+    	if ($this->getTypeRelais()=='BPR' || $this->getTypeRelais()=='CDI' || $this->getTypeRelais()=='ACP') {
     		return 'poste';
     	} elseif ($this->getTypeRelais()=='CIT') {
     		return 'cityssimo';
