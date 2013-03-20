@@ -108,7 +108,7 @@ class SocolissimoShippingHelper
 	public $debug_output = '';
 	public $debug_header = null;
 
-	public function OwebiaShippingHelper($input) {
+	public function SocolissimoShippingHelper($input) {
 		$this->_formula_cache = array();
 		$this->_messages = array();
 		$this->_input = $input;
@@ -136,7 +136,7 @@ class SocolissimoShippingHelper
 	}
 
 	public function initDebug($code, $data) {
-		$header = 'DEBUG app/code/community/Owebia/Shipping2/includes/OwebiaShippingHelper.php<br/>';
+		$header = 'DEBUG SocolissimoShippingHelper.php<br/>';
 		foreach ($data as $key => $data) {
 			$header .= '   <span class="osh-key">'.str_replace('.','</span>.<span class="osh-key">',$key).'</span> = <span class="osh-formula">'.$this->_toString($data).'</span><br/>';
 		}
@@ -209,7 +209,7 @@ class SocolissimoShippingHelper
 		if (isset($enabled)) {
 			if (!$is_checking && !$enabled) {
 				$this->addMessage('info',$row,'enabled','Configuration disabled');
-				return new OS_Result(false);
+				return new SOCO_Result(false);
 			}
 		}
 
@@ -220,11 +220,12 @@ class SocolissimoShippingHelper
 				if (!$result->success) return $result;
 				if (!$result->result) {
 					$this->addMessage('info',$row,'conditions',"The cart doesn't match conditions");
-					return new OS_Result(false);
+					return new SOCO_Result(false);
 				}
 			}
 		}
 
+		//TODO : SUPPRIMER la condition sur la destination dans config ? pour ne laisser que FR et BE ? 
 		$destination = $this->getRowProperty($row,'destination');
 		if (isset($destination)) {
 			$destination_match = $this->_addressMatch($destination,array(
@@ -234,7 +235,7 @@ class SocolissimoShippingHelper
 			));
 			if (!$is_checking && !$destination_match) {
 				$this->addMessage('info',$row,'destination',"The shipping method doesn't cover the zone");
-				return new OS_Result(false);
+				return new SOCO_Result(false);
 			}
 		}
 
@@ -247,7 +248,7 @@ class SocolissimoShippingHelper
 			));
 			if (!$is_checking && !$origin_match) {
 				$this->addMessage('info',$row,'origin',"The shipping method doesn't match to shipping origin");
-				return new OS_Result(false);
+				return new SOCO_Result(false);
 			}
 		}
 
@@ -267,7 +268,7 @@ class SocolissimoShippingHelper
 			}
 			if (!$is_checking && !$group_match) {
 				$this->addMessage('info',$row,'customer_groups',"The shipping method doesn't match to customer group (%s)",$process['data']['customer.group.code']);
-				return new OS_Result(false);
+				return new SOCO_Result(false);
 			}
 		}
 
@@ -276,9 +277,34 @@ class SocolissimoShippingHelper
 			$result = $this->_processFormula($process,$row,'fees',$fees,$is_checking);
 			if (!$result->success) return $result;
 			self::debug('   => <span class="osh-info">result = <span class="osh-formula">'.$this->_toString($result->result).'</span>');
-			return new OS_Result(true,(float)$result->result);
+			return new SOCO_Result(true,(float)$result->result);
 		}
-		return new OS_Result(false);
+		
+		$poste_fees = $this->getRowProperty($row,'poste_fees');
+		if (isset($post_fees)) {
+			$result = $this->_processFormula($process,$row,'poste_fees',$poste_fees,$is_checking);
+			if (!$result->success) return $result;
+			self::debug('   => <span class="osh-info">result = <span class="osh-formula">'.$this->_toString($result->result).'</span>');
+			return new SOCO_Result(true,(float)$result->result);
+		}
+		
+		$rdv_fees = $this->getRowProperty($row,'rdv_fees');
+		if (isset($rdv_fees)) {
+			$result = $this->_processFormula($process,$row,'rdv_fees',$rdv_fees,$is_checking);
+			if (!$result->success) return $result;
+			self::debug('   => <span class="osh-info">result = <span class="osh-formula">'.$this->_toString($result->result).'</span>');
+			return new SOCO_Result(true,(float)$result->result);
+		}
+
+		$commercant_fees = $this->getRowProperty($row,'commercant_fees');
+		if (isset($commercant_fees)) {
+			$result = $this->_processFormula($process,$row,'commercant_fees',$commercant_fees,$is_checking);
+			if (!$result->success) return $result;
+			self::debug('   => <span class="osh-info">result = <span class="osh-formula">'.$this->_toString($result->result).'</span>');
+			return new SOCO_Result(true,(float)$result->result);
+		}
+		
+		return new SOCO_Result(false);
 	}
 
 	public function getRowProperty(&$row, $key, $original_row=null, $original_key=null) {
@@ -359,12 +385,12 @@ class SocolissimoShippingHelper
 		$eval_result = $this->_evalFormula($result->result);
 		if (!isset($eval_result)) {
 			$this->addMessage('error',$row,$property_key,'Invalid formula');
-			$result = new OS_Result(false);
+			$result = new SOCO_Result(false);
 			if ($use_cache) $this->setCache($formula_string,$result);
 			return $result;
 		}
 		self::debug('      formula evaluation = <span class="osh-formula">'.$this->_toString($eval_result).'</span>');
-		$result = new OS_Result(true,$eval_result);
+		$result = new SOCO_Result(true,$eval_result);
 		if ($use_cache) $this->setCache($formula_string,$result);
 		return $result;
 	}
@@ -375,7 +401,7 @@ class SocolissimoShippingHelper
 	}
 
 	protected function setCache($expression, $value) {
-		if ($value instanceof OS_Result) {
+		if ($value instanceof SOCO_Result) {
 			$this->_formula_cache[$expression] = $value;
 			self::debug('      cache <span class="osh-replacement">'.$expression.'</span> = <span class="osh-formula">'.$this->_toString($this->_formula_cache[$expression]).'</span>');
 		} else {
@@ -490,7 +516,7 @@ class SocolissimoShippingHelper
 					
 					if (!preg_match('#^'.self::$COUPLE_REGEX.'(?:, *'.self::$COUPLE_REGEX.')*$#',$fees_table_string)) {
 						$this->addMessage('error',$row,$property_key,'Error in table %s','<span class="osh-formula">'.htmlentities($result[0]).'</span>');
-						$result = new OS_Result(false);
+						$result = new SOCO_Result(false);
 						if ($use_cache) $this->setCache($formula_string,$result);
 						return $result;
 					}
@@ -521,7 +547,7 @@ class SocolissimoShippingHelper
 			}
 			$formula = $this->replace($original,$replacement,$formula);
 		}
-		$result = new OS_Result(true,$formula);
+		$result = new SOCO_Result(true,$formula);
 		return $result;
 	}
 
@@ -752,7 +778,7 @@ class SocolissimoShippingHelper
 
 		$this->_config = array();
 		$available_keys = array(
-			'code','label','enabled','description','fees','conditions','destination','origin','customer_groups','tracking_url',
+			'code','label','enabled','description','fees','poste_fees','rdv_fees','commercant_fees','conditions','destination','origin','customer_groups','tracking_url',
 			'fees_table','fees_formula','fixed_fees','reference_value',
 			'prices_range','weights_range','product_properties',
 			'free_shipping__fees_table','free_shipping__fees_formula','free_shipping__fixed_fees','free_shipping__label',
@@ -809,7 +835,10 @@ class SocolissimoShippingHelper
 			$formula_fields_to_check = array();
 			if (isset($row['conditions'])) $formula_fields_to_check[] = 'conditions';
 			if (isset($row['fees'])) $formula_fields_to_check[] = 'fees';
-			
+			if (isset($row['poste_fees'])) $formula_fields_to_check[] = 'poste_fees';
+			if (isset($row['rdv_fees'])) $formula_fields_to_check[] = 'rdv_fees';
+			if (isset($row['commercant_fees'])) $formula_fields_to_check[] = 'commercant_fees';
+				
 			if (count($formula_fields_to_check)>0) {
 				foreach ($formula_fields_to_check as $property) {
 					$property_value = $row[$property]['value'];
@@ -937,7 +966,10 @@ class SocolissimoShippingHelper
 				unset($row['fixed_fees']);
 			}
 			if (!isset($row['fees']) && count($fees)>0) $row['fees'] = array('value' => implode('+',$fees));
-
+			if (!isset($row['poste_fees']) && count($poste_fees)>0) $row['poste_fees'] = array('value' => implode('+',$poste_fees));
+			if (!isset($row['rdv_fees']) && count($rdv_fees)>0) $row['rdv_fees'] = array('value' => implode('+',$rdv_fees));
+			if (!isset($row['commercant_fees']) && count($commercant_fees)>0) $row['commercant_fees'] = array('value' => implode('+',$commercant_fees));
+				
 			$fs_fees = array();
 			if (isset($row['free_shipping__fees_table'])) {
 				if (!in_array('free_shipping__fees_table',$deprecated_properties)) $deprecated_properties[] = 'free_shipping__fees_table';
@@ -980,6 +1012,7 @@ class SocolissimoShippingHelper
 				$row2 = $row;
 				if (isset($row['code'])) $row2['code']['value'] = $row['code']['value'].'__free_shipping';
 				$row2['fees']['value'] = implode('+',$fs_fees);
+				//TODO : gérer le cas des poste_fee, etc ...
 				$row2['conditions']['value'] = isset($row2['conditions']) ? '('.$row2['conditions']+') and {free_shipping}' : '{free_shipping}';
 				$row['conditions']['value'] = isset($row['conditions']) ? '('.$row['conditions']+') and !{free_shipping}' : '!{free_shipping}';
 				if (isset($row['free_shipping__label'])) {
@@ -1008,7 +1041,7 @@ class SocolissimoShippingHelper
 		array_shift($args);
 		array_shift($args);
 		array_shift($args);
-		$message = new OS_Message($type,$args);
+		$message = new SOCO_Message($type,$args);
 		if (isset($row)) {
 			if (isset($property)) {
 				$row[$property]['messages'][] = $message;
@@ -1239,7 +1272,7 @@ class SocolissimoShippingHelper
 
 }
 
-interface OS_Product {
+interface SOCO_Product {
 	public function getOption($option);
 	public function getAttribute($attribute);
 	public function getName();
@@ -1248,12 +1281,12 @@ interface OS_Product {
 	public function getStockData($key);
 }
 
-class OS_Message {
+class SOCO_Message {
 	public $type;
 	public $message;
 	public $args;
 
-	public function OS_Message($type, $args) {
+	public function SOCO_Message($type, $args) {
 		$this->type = $type;
 		$this->message = array_shift($args);
 		$this->args = $args;
@@ -1264,11 +1297,11 @@ class OS_Message {
 	}
 }
 
-class OS_Result {
+class SOCO_Result {
 	public $success;
 	public $result;
 
-	public function OS_Result($success, $result=null) {
+	public function SOCO_Result($success, $result=null) {
 		$this->success = $success;
 		$this->result = $result;
 	}
