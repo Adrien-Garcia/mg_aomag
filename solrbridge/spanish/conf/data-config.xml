@@ -1,0 +1,175 @@
+<dataConfig>
+<dataSource type="JdbcDataSource"
+   driver="${dataimporter.request.databaseDriver}"
+   url="${dataimporter.request.databaseUrl}"
+   user="${dataimporter.request.databaseUser}" 
+   password="${dataimporter.request.databasePassword}"/>
+        <document name="products">
+            <entity name="item" pk="entity_id"
+			query="SELECT `e`.entity_id, `e`.sku,
+							(SELECT `entity_type_id` FROM `eav_entity_type` WHERE `entity_type_code`='catalog_product') as product_entity_type_id, 
+							(SELECT `entity_type_id` FROM `eav_entity_type` WHERE `entity_type_code`='catalog_category') as category_entity_type_id
+					FROM `catalog_product_entity` AS `e`
+					 LEFT JOIN `cataloginventory_stock_item` AS `at_qty` ON (at_qty.`product_id`=e.entity_id) AND (at_qty.stock_id=1)
+					 INNER JOIN `catalog_product_website` AS `product_website` 
+						ON product_website.product_id = e.entity_id 
+						AND product_website.website_id IN (
+													
+												SELECT DISTINCT ws.`website_id` FROM core_website AS ws
+													INNER JOIN core_store AS cst
+													ON ws.`website_id` = cst.`website_id`
+													WHERE
+													cst.store_id IN (IFNULL((SELECT `value` FROM core_config_data 
+													WHERE `path`='webmods_solrsearch/main_settings/stores' AND `scope`='default'),0))
+														)
+					 INNER JOIN `catalog_product_entity_int` AS `at_status_default` 
+						ON (`at_status_default`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_status_default`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'status')) 
+						AND `at_status_default`.`store_id` = 0
+					 LEFT JOIN `catalog_product_entity_int` AS `at_status` 
+						ON (`at_status`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_status`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'status')) 
+						AND (`at_status`.`store_id` IN (IFNULL((SELECT `value` FROM core_config_data WHERE `path`='webmods_solrsearch/main_settings/stores' AND `scope`='default'),0)))
+					 INNER JOIN `catalog_product_entity_int` AS `at_visibility_default` 
+						ON (`at_visibility_default`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_visibility_default`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'visibility')) 
+						AND `at_visibility_default`.`store_id` = 0
+					 LEFT JOIN `catalog_product_entity_int` AS `at_visibility` 
+						ON (`at_visibility`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_visibility`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'visibility')) 
+						AND (`at_visibility`.`store_id` IN (IFNULL((SELECT `value` FROM core_config_data WHERE `path`='webmods_solrsearch/main_settings/stores' AND `scope`='default'),0)))
+					 WHERE 
+						(IF(at_visibility.value_id > 0, at_visibility.value, at_visibility_default.value) = '4') 
+						AND (IF(at_status.value_id > 0, at_status.value, at_status_default.value) = '1')
+						AND `at_qty`.is_in_stock > 0 
+					 ORDER BY `e`.`entity_id`
+			" 
+			deltaImportQuery="SELECT `e`.entity_id, `e`.sku,
+							(SELECT `entity_type_id` FROM `eav_entity_type` WHERE `entity_type_code`='catalog_product') as product_entity_type_id, 
+							(SELECT `entity_type_id` FROM `eav_entity_type` WHERE `entity_type_code`='catalog_category') as category_entity_type_id
+					FROM `catalog_product_entity` AS `e`
+					 LEFT JOIN `cataloginventory_stock_item` AS `at_qty` ON (at_qty.`product_id`=e.entity_id) AND (at_qty.stock_id=1)
+					 INNER JOIN `catalog_product_website` AS `product_website` 
+						ON product_website.product_id = e.entity_id 
+						AND product_website.website_id IN (
+													
+												SELECT DISTINCT ws.`website_id` FROM core_website AS ws
+													INNER JOIN core_store AS cst
+													ON ws.`website_id` = cst.`website_id`
+													WHERE
+													cst.store_id IN (IFNULL((SELECT `value` FROM core_config_data 
+													WHERE `path`='webmods_solrsearch/main_settings/stores' AND `scope`='default'),0))
+														)
+					 INNER JOIN `catalog_product_entity_int` AS `at_status_default` 
+						ON (`at_status_default`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_status_default`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'status')) 
+						AND `at_status_default`.`store_id` = 0
+					 LEFT JOIN `catalog_product_entity_int` AS `at_status` 
+						ON (`at_status`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_status`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'status')) 
+						AND (`at_status`.`store_id` IN (IFNULL((SELECT `value` FROM core_config_data WHERE `path`='webmods_solrsearch/main_settings/stores' AND `scope`='default'),0)))
+					 INNER JOIN `catalog_product_entity_int` AS `at_visibility_default` 
+						ON (`at_visibility_default`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_visibility_default`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'visibility')) 
+						AND `at_visibility_default`.`store_id` = 0
+					 LEFT JOIN `catalog_product_entity_int` AS `at_visibility` 
+						ON (`at_visibility`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_visibility`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'visibility')) 
+						AND (`at_visibility`.`store_id` IN (IFNULL((SELECT `value` FROM core_config_data WHERE `path`='webmods_solrsearch/main_settings/stores' AND `scope`='default'),0)))
+					 WHERE 
+						(IF(at_visibility.value_id > 0, at_visibility.value, at_visibility_default.value) = '4') 
+						AND (IF(at_status.value_id > 0, at_status.value, at_status_default.value) = '1')
+						AND `at_qty`.is_in_stock > 0 AND `e`.`entity_id` ='${dataimporter.delta.entity_id}'
+					 ORDER BY `e`.`entity_id`					
+			" 
+			deltaQuery="SELECT `e`.entity_id, `e`.sku,
+							(SELECT `entity_type_id` FROM `eav_entity_type` WHERE `entity_type_code`='catalog_product') as product_entity_type_id, 
+							(SELECT `entity_type_id` FROM `eav_entity_type` WHERE `entity_type_code`='catalog_category') as category_entity_type_id
+					FROM `catalog_product_entity` AS `e`
+					 LEFT JOIN `cataloginventory_stock_item` AS `at_qty` ON (at_qty.`product_id`=e.entity_id) AND (at_qty.stock_id=1)
+					 INNER JOIN `catalog_product_website` AS `product_website` 
+						ON product_website.product_id = e.entity_id 
+						AND product_website.website_id IN (
+													
+												SELECT DISTINCT ws.`website_id` FROM core_website AS ws
+													INNER JOIN core_store AS cst
+													ON ws.`website_id` = cst.`website_id`
+													WHERE
+													cst.store_id IN (IFNULL((SELECT `value` FROM core_config_data 
+													WHERE `path`='webmods_solrsearch/main_settings/stores' AND `scope`='default'),0))
+														)
+					 INNER JOIN `catalog_product_entity_int` AS `at_status_default` 
+						ON (`at_status_default`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_status_default`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'status')) 
+						AND `at_status_default`.`store_id` = 0
+					 LEFT JOIN `catalog_product_entity_int` AS `at_status` 
+						ON (`at_status`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_status`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'status')) 
+						AND (`at_status`.`store_id` IN (IFNULL((SELECT `value` FROM core_config_data WHERE `path`='webmods_solrsearch/main_settings/stores' AND `scope`='default'),0)))
+					 INNER JOIN `catalog_product_entity_int` AS `at_visibility_default` 
+						ON (`at_visibility_default`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_visibility_default`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'visibility')) 
+						AND `at_visibility_default`.`store_id` = 0
+					 LEFT JOIN `catalog_product_entity_int` AS `at_visibility` 
+						ON (`at_visibility`.`entity_id` = `e`.`entity_id`) 
+						AND (`at_visibility`.`attribute_id` = (SELECT `attribute_id` FROM eav_attribute WHERE entity_type_id=(SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code='catalog_product') AND attribute_code = 'visibility')) 
+						AND (`at_visibility`.`store_id` IN (IFNULL((SELECT `value` FROM core_config_data WHERE `path`='webmods_solrsearch/main_settings/stores' AND `scope`='default'),0)))
+					 WHERE 
+						(IF(at_visibility.value_id > 0, at_visibility.value, at_visibility_default.value) = '4') 
+						AND (IF(at_status.value_id > 0, at_status.value, at_status_default.value) = '1')
+						AND `at_qty`.is_in_stock > 0 AND e.updated_at &gt; '${dataimporter.last_index_time}'
+					 ORDER BY `e`.`entity_id`
+			">
+										
+				<field column="entity_id" name="products_id" />		
+				<field column="sku" name="sku" />
+				
+				<entity name="attributes" query="SELECT `attribute_id`,`attribute_code`, `backend_type` FROM eav_attribute WHERE entity_type_id = '${item.product_entity_type_id}' AND `backend_type` != 'static' AND `backend_type` != 'datetime'">	
+					<entity name="attr_item" query="SELECT `value` FROM catalog_product_entity_${attributes.backend_type} WHERE entity_id = '${item.entity_id}' AND attribute_id='${attributes.attribute_id}'">
+						<field column="value" name="${attributes.attribute_code}_${attributes.backend_type}" />
+					</entity>
+				</entity>
+				
+				<entity name="facets" query="SELECT `attribute_id`,`attribute_code`, `backend_type` FROM eav_attribute WHERE entity_type_id = '${item.product_entity_type_id}' AND `backend_type` = 'varchar'">					
+					<entity name="attr_item_1" query="SELECT `value` FROM catalog_product_entity_${facets.backend_type} WHERE entity_id = '${item.entity_id}' AND attribute_id='${facets.attribute_id}'">
+						<field column="value" name="${facets.attribute_code}_facets" />
+						<field column="value" name="${facets_int.attribute_code}_text" />
+					</entity>
+				</entity>
+				
+				<entity name="facets_int" query="SELECT `attribute_id`,`attribute_code`, `backend_type` FROM eav_attribute WHERE entity_type_id = '${item.product_entity_type_id}' AND `backend_type` = 'int'">					
+					<entity name="attr_item_2" query="
+									SELECT t3.value FROM catalog_product_entity_int t1
+									INNER JOIN 
+									eav_attribute_option t2 ON t1.attribute_id = t2.attribute_id
+									INNER JOIN 
+									eav_attribute_option_value t3 ON t2.option_id = t3.option_id
+									WHERE
+									t2.attribute_id = '${facets_int.attribute_id}' 
+									AND t2.option_id = t1.value
+									AND t1.entity_type_id = '${item.product_entity_type_id}'
+									AND t1.entity_id = '${item.entity_id}'">
+						<field column="value" name="${facets_int.attribute_code}_facets" />
+						<field column="value" name="${facets_int.attribute_code}_text" />
+					</entity>
+				</entity>
+				
+				
+				
+				<entity name="cat" query="
+				SELECT `value`,`entity_id` FROM catalog_category_entity_varchar 
+				WHERE 
+				`entity_id` IN ((SELECT `category_id` FROM catalog_category_product WHERE `product_id` = '${item.entity_id}'))
+				AND
+				`attribute_id` = (SELECT attribute_id FROM eav_attribute WHERE attribute_code='name' AND entity_type_id='${item.category_entity_type_id}')
+				">
+						<field column="value" name="category" />
+						<field column="value" name="category_name" />
+						<field column="entity_id" name="category_id" />
+						<entity name="cat_path" query="SELECT sb_find_category_path(${cat.entity_id}) as paths">
+							<field column="paths" name="category_path" />
+						</entity>						
+				</entity>
+			</entity>
+    </document>
+</dataConfig>

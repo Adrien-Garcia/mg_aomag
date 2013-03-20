@@ -36,5 +36,14 @@
 	<core name="polish" instanceDir="polish">
 		<property name="dataDir" value="polish/data" />
 	</core>
+	<core name="dutch" instanceDir="dutch">
+		<property name="dataDir" value="dutch/data" />
+	</core>
+	<core name="spanish" instanceDir="spanish">
+		<property name="dataDir" value="spanish/data" />
+	</core>
+	<core name="portuguese" instanceDir="portuguese">
+		<property name="dataDir" value="portuguese/data" />
+	</core>
   </cores>
 </solr>

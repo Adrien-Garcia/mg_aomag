@@ -94,6 +94,14 @@ class WebMods_Solrsearch_Block_Result extends Mage_Core_Block_Template
 		$collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addMinimalPrice()
             ->addFinalPrice()
+            ->addFieldToFilter('status',Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
+			//->addFieldToFilter('is_in_stock', 1)
+			->addFieldToFilter(
+                array(
+                     array('attribute'=>'visibility','eq'=>Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH),
+                     array('attribute'=>'visibility','eq'=>Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_SEARCH)
+                )
+        	)
             ->addTaxPercents();
 			//->addAttributeToSort($orderby, $direction);
 		if (empty($orderby)){

@@ -303,7 +303,10 @@ Autocomplete.prototype = {
 	    }
   },
   getSuggestions: function() {
-	  	this.manager.store.addByValue('q', this.currentValue);
+		if(this.currentValue == this.options.searchTextPlaceHolder) {
+			return false;
+		}
+		this.manager.store.addByValue('q', this.currentValue);
 	  	this.manager.store.addByValue('json.nl', 'map');
 	  	this.manager.store.addByValue('rows', '5');
 	  	this.manager.store.addByValue('fl', 'name_varchar,products_id,price_decimal,special_price_decimal,image_varchar,url_path_varchar');

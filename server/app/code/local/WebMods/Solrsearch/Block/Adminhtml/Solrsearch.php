@@ -13,10 +13,19 @@ public function getCollectionData($store) {
 		if(intval($itemsPerCommitConfig) > 0) $itemsPerCommit = $itemsPerCommitConfig;
 		 $collection = Mage::getModel('catalog/product')->getCollection()
 		->addFieldToFilter('status',Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
-		->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+		->addFieldToFilter(
+                array(
+                     array('attribute'=>'visibility','eq'=>Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH),
+                     array('attribute'=>'visibility','eq'=>Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_SEARCH)
+                ))
 		->addStoreFilter($store->getId())
-		->addFinalPrice()
-		->addWebsiteFilter($store->getWebsiteId()); // set the offset (useful for pagination) 
+		->addWebsiteFilter($store->getWebsiteId()) // set the offset (useful for pagination) 
+		->addFinalPrice();
+		 $collection->getSelect()->joinLeft(
+                  array('stock' => 'cataloginventory_stock_item'),
+                  "e.entity_id = stock.product_id",
+                  array('stock.is_in_stock')
+          )->where('stock.is_in_stock = 1');
 		//->load();	
 		$productCount = $collection->getSize();
 		$totalPages = ceil($productCount/$itemsPerCommit);

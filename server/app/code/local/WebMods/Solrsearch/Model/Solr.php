@@ -7,7 +7,7 @@ class WebMods_Solrsearch_Model_Solr extends Mage_Core_Model_Abstract {
 	//start off set
 	protected $_start = 0;	
 	//Field list
-	protected $_fieldList = 'products_id,name_varchar';
+	protected $_fieldList = 'products_id,name_varchar,store_id,website_id';
 	//Query field - which field search for
 	protected $_queryField = 'textSearch';
 	//Search OP
@@ -17,7 +17,7 @@ class WebMods_Solrsearch_Model_Solr extends Mage_Core_Model_Abstract {
 	//Filter query
 	protected $_filterQuery = '';
 	//Facet fields
-	protected $_facetFields = array('category_facet');
+	protected $_facetFields = array();
 	//Boost fields
 	protected $_boostfields = array();
 	
@@ -141,16 +141,28 @@ class WebMods_Solrsearch_Model_Solr extends Mage_Core_Model_Abstract {
     	if ($this->getStandardFilterQuery()) {
     		$filterQuery = $this->getStandardFilterQuery();
     	}
-
+    	
+    	$filterQuery = array_merge($filterQuery, array(
+    												'store_id' => array(Mage::app()->getStore()->getId()),
+    												'website_id' => array(Mage::app()->getStore()->getWebsiteId()),
+    												'product_status' => array(1)
+    											));
+    											
 		$filterQueryArray = array();
 		foreach($filterQuery as $key=>$filterItem){
 			if(count($filterItem) > 0){
 				$query = '';
 				foreach($filterItem as $value){
 					if ($key == 'price_decimal') {
-						$query .= $key.':'.urlencode(trim($value)).'+OR+';
+						$query .= $key.':['.urlencode(trim($value)).']+OR+';
+					}else if($key == 'price'){
+						$query .= $key.'_decimal:['.urlencode(trim($value)).']+OR+';
 					}else{
-						$query .= $key.':%22'.urlencode(trim($value)).'%22+OR+';
+						if ($key == 'price_facet') {
+							$query .= 'price_decimal:['.urlencode(trim($value)).']+OR+';
+						}else{
+							$query .= $key.':%22'.urlencode(trim($value)).'%22+OR+';
+						}
 					}
 				}
 				
@@ -159,7 +171,7 @@ class WebMods_Solrsearch_Model_Solr extends Mage_Core_Model_Abstract {
 				$filterQueryArray[] = $query;
 			}			
 		}
-				
+		
 		if(count($filterQueryArray) > 0) {
 			if(count($filterQueryArray) < 2) {
 				$url .= '&fq='.$filterQueryArray[0];
@@ -202,6 +214,8 @@ class WebMods_Solrsearch_Model_Solr extends Mage_Core_Model_Abstract {
 			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		}
 		
+		//die($url);
+		
 		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
 		  
 		curl_setopt( $ch, CURLOPT_USERAGENT, isset($_GET['user_agent']) ? $_GET['user_agent'] : $_SERVER['HTTP_USER_AGENT'] );
@@ -218,6 +232,7 @@ class WebMods_Solrsearch_Model_Solr extends Mage_Core_Model_Abstract {
 			return $returnData;
 			
 		}else{
+			//ADDONLINE: cas où il n'y a pas de suggestion
 			if (isset($returnData['spellcheck']['suggestions']['collation'])) {
 				$queryText = strtolower($returnData['spellcheck']['suggestions']['collation']);
 			}
@@ -352,8 +367,15 @@ class WebMods_Solrsearch_Model_Solr extends Mage_Core_Model_Abstract {
 		
 		
 		$use_category_as_facet = Mage::getStoreConfig('webmods_solrsearch/settings/use_category_as_facet', 0);
-    	if ($use_category_as_facet) {
-			$facetFields[] = 'category_facet';			
+		
+    	if ($use_category_as_facet > 0) {
+    		$display_category_as_hierachy = Mage::getStoreConfig('webmods_solrsearch/settings/display_category_as_hierachy', 0);
+    		if ($display_category_as_hierachy > 0) {
+    			$facetFields[] = 'category_path';
+    		}else{
+    			$facetFields[] = 'category_facet';
+    		}
+						
 		}
 		
     	if (count($facetFields)) {			
