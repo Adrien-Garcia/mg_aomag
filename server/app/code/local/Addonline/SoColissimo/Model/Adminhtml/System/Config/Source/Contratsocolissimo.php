@@ -12,7 +12,7 @@
  * Used in creating options for Socolissimo Contract selection
 *
 */
-class Addonline_SoColissimo_Adminhtml_Model_System_Config_Source_Contratsocolissimo
+class Addonline_SoColissimo_Model_Adminhtml_System_Config_Source_Contratsocolissimo
 {
 
 	/**
@@ -24,7 +24,7 @@ class Addonline_SoColissimo_Adminhtml_Model_System_Config_Source_Contratsocoliss
 	{
 
 		$options = array();
-		$observer = Mage::getSingleton('socolissimo/obsserver');
+		$observer = Mage::getSingleton('socolissimo/observer');
 		$storeId = Mage::app()->getStore()->getId();
 		if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::FLEXIBILITE)) {
 			$options[] = array('value' => 'flexibilite', 'label'=>Mage::helper('adminhtml')->__('Flexibilité'));
@@ -32,7 +32,7 @@ class Addonline_SoColissimo_Adminhtml_Model_System_Config_Source_Contratsocoliss
 		if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::LIBERTE)) {
 			$options[] = array('value' => 'liberte', 'label'=>Mage::helper('adminhtml')->__('Liberté'));
 		}
-		return $otions;
+		return $options;
 		
 	}
 

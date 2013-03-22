@@ -15,7 +15,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 	const FLEXIBILITE = 1;
 	const LIBERTE = 2;	
 	
-	public function _9cd4777ae76310fd6977a5c559c51820($store_id, $contrat = sefl::BOTH){
+	public function _9cd4777ae76310fd6977a5c559c51820($store_id, $contrat = self::BOTH){
 		
 		if (Mage::getStoreConfig('addonline/licence/aomagento')) {
 			return true;
@@ -28,14 +28,14 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 			$storeurl = Mage::app()->getStore($store['store_id'])->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
 			$storekey = Mage::getStoreConfig('socolissimo/licence/serial',$store);			
 			if(($storekey != 'DISABLED')){					
-				if($contrat==sefl::BOTH && md5($storeurl.$key.'SoColissimo')!=$storekey && md5($storeurl.$key.'SoColissimoLiberte')!=$storekey){
+				if($contrat==self::BOTH && md5($storeurl.$key.'SoColissimo')!=$storekey && md5($storeurl.$key.'SoColissimoLiberte')!=$storekey){
 					$severity=Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;$title= "Vous devez renseigner une clé licence valide pour le module So Colissimo , pour le magasin ".$store['code'].". Le module a été désactivé";$description= "Le module So Colissimo n'a pas une clé licence valide";	$date = date('Y-m-d H:i:s'); Mage::getModel('adminnotification/inbox')->parse(array(array('severity' => $severity,'date_added'=> $date,'title'=> $title,'description'   => $description,'url'=> '','internal'      => true)));
 					$store_error .= 1;
 				}
-				if($contrat==sefl::FLEXIBILITE && md5($storeurl.$key.'SoColissimo')!=$storekey){
+				if($contrat==self::FLEXIBILITE && md5($storeurl.$key.'SoColissimo')!=$storekey){
 					$store_error .= 1;
 				}
-				if($contrat==sefl::LIBERTE && md5($storeurl.$key.'SoColissimoLiberte')!=$storekey){
+				if($contrat==self::LIBERTE && md5($storeurl.$key.'SoColissimoLiberte')!=$storekey){
 					$store_error .= 1;
 				}
 			}
@@ -51,7 +51,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 		} 
 		
 		if(!$store_error){
-			if($contrat==sefl::BOTH) {
+			if($contrat==self::BOTH) {
 				$_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 0); foreach($_unreadNotices as $notice): if(strpos($notice->getData('description'),'So Colissimo')): $notice->setIsRead(1)->save();	endif;endforeach;
 			}
 			return true;

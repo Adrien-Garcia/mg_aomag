@@ -50,7 +50,8 @@
     	<resources>
     		<socolissimo_setup>
                 <setup>
-                    <module>Addonline_Socolissimo</module>
+                    <module>Addonline_SoColissimo</module>
+                     <class>Mage_Sales_Model_Resource_Setup</class>
                 </setup>
     		</socolissimo_setup>
     	</resources>
@@ -147,10 +148,24 @@
 # So Colissimo (France, Monaco, Andorre)
 {
 	label: "So Colissimo",
-	code: "socolissimo",
+	code: "socolissimo_fr",
 	destination: "FR,MC,AD",
 	conditions: "{cart.weight}<20",
 	fees: "{table {cart.weight} in 0.5:5.55, 1.0:6.80, 2.0:7.75, 3.0:8.70, 5.0:10.60, 7.0:12.50, 10.0:15.35, 15.0:17.45, 30.0:23.75}",
+	rdv_fees: "{fees} + 4",
+	poste_fees: "{table {cart.weight} in 0.5:5.55, 1.0:6.80, 2.0:7.75, 3.0:8.70, 5.0:10.60, 7.0:12.50, 10.0:15.35, 15.0:17.45, 30.0:23.75}",
+	marchand_fees: "{table {cart.weight} in 0.5:5.55, 1.0:6.80, 2.0:7.75, 3.0:8.70, 5.0:10.60, 7.0:12.50, 10.0:15.35, 15.0:17.45, 30.0:23.75}",
+}
+# So Colissimo (Belgique)
+{
+	label: "So Colissimo",
+	code: "socolissimo_be",
+	destination: "BE",
+	conditions: "{cart.weight}<20",
+	fees: "{table {cart.weight} in 0.5:5.55, 1.0:6.80, 2.0:7.75, 3.0:8.70, 5.0:10.60, 7.0:12.50, 10.0:15.35, 15.0:17.45, 30.0:23.75}",
+	rdv_fees: "{fees} + 4",
+	poste_fees: "{table {cart.weight} in 0.5:5.55, 1.0:6.80, 2.0:7.75, 3.0:8.70, 5.0:10.60, 7.0:12.50, 10.0:15.35, 15.0:17.45, 30.0:23.75}",
+	marchand_fees: "{table {cart.weight} in 0.5:5.55, 1.0:6.80, 2.0:7.75, 3.0:8.70, 5.0:10.60, 7.0:12.50, 10.0:15.35, 15.0:17.45, 30.0:23.75}",
 }
 ]]></config>
 				<tracking_view_url>http://www.coliposte.net/particulier/suivi_particulier.jsp?colispart={tracking_number}</tracking_view_url>
