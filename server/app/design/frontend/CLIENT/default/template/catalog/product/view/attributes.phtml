@@ -42,7 +42,7 @@
         <tbody>
         <?php foreach ($_additional as $_data): ?>
         <?php $value = $_helper->productAttribute($_product, $_data['value'], $_data['code']); ?>
-        <?php if(trim($value) != "") {?>
+        <?php if(trim($value) != "" && trim($value) != $this->__("No")) {?>
             <tr>
                 <th class="label"><?php echo $this->htmlEscape($this->__($_data['label'])) ?></th>
                 <td class="data"><?php echo $value; ?></td>
