@@ -39,7 +39,7 @@ class Addonline_AdvancedSlideshow_Block_Slideshow extends Mage_Catalog_Block_Pro
 			$sku = $block['product_sku'];
 			if(!empty($sku))
 			{
-				$result[$id]['image'] = null;
+				//$result[$id]['image'] = null;
 				$product = Mage::getModel('catalog/product');
 				$productId = $product->getIdBySku($sku);
 				if($productId)
