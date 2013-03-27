@@ -39,6 +39,8 @@
             <action method="removeLink"><name>tags</name></action>
             <action method="removeLink"><name>billing_agreements</name></action>
             <action method="removeLink"><name>downloadable_products</name></action>
+            <action method="removeLink"><name>reviews</name></action>
+            <action method="removeLink"><name>OAuth Customer Tokens</name></action>
         </reference>
 		
 	</customer_account>
