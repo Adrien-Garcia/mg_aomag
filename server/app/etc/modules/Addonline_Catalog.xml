@@ -6,6 +6,7 @@
             <codePool>local</codePool>
             <depends>
                 <Mage_Catalog />
+                <OrganicInternet_SimpleConfigurableProducts />
             </depends>
 	    </Addonline_Catalog>  
     </modules>
