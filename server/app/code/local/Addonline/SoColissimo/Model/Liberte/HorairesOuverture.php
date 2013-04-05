@@ -12,6 +12,6 @@ class  Addonline_SoColissimo_Model_Liberte_HorairesOuverture extends Mage_Core_M
 {
     public function _construct() {
         parent::_construct();
-        $this->_init('socolissimo/liberte/horairesOuverture');
+        $this->_init('socolissimo/liberte_horairesOuverture');
     }
 }

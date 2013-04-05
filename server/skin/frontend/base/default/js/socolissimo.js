@@ -70,19 +70,14 @@ function shippingRadioCheck(element) {
 			jQuery("input[id^='s_method_socolissimo']").next().next().attr("id","socolissimo-location");
 		} 
 		*/
-		if (jQuery("#socolissimo-location").size()==0) {
-			socoRadio.parent().append("<div id=\"socolissimo-location\" ></div>");
+		
+		if (jQuery("#socolissimo-hook").size()==0) {
+			socoRadio.parent().append("<div id=\"socolissimo-hook\" rel=\"#layer_socolissimo\"><div id=\"layer_socolissimo\" class=\"layer\"></div></div>");
+			jQuery("#layer_socolissimo").append("<img src=\"/ajax-loader.gif\" />");
 		}
-		jQuery("#socolissimo-location").append("<img src=\"ajax-loader.gif\" />");
-		url = "/socolissimo/ajax/selector?"
-		jQuery.ajax({
-			  url: url,
-			  success: function(data){
-				  jQuery("#socolissimo-location").append(data);
-			  }
-		});
-		//TODO : mettre l'attribut rel qui va bien sur le element ? 
-		socolissimoOverlayApi = jQuery(element).overlay({
+		//on déplace le layer sur le body pour qu'il soit bien positionné au centre
+		jQuery(jQuery("#socolissimo-hook").attr("rel")).appendTo("body");
+		socolissimoOverlayApi = jQuery("#socolissimo-hook").overlay({
 		    expose: { 
 		        color: '#000', 
 		        loadSpeed: 200, 
@@ -97,6 +92,14 @@ function shippingRadioCheck(element) {
 		    api: true 
 		  });
 		socolissimoOverlayApi.load();
+
+		url = "/socolissimo/ajax/selector?"
+		jQuery.ajax({
+			  url: url,
+			  success: function(data){
+				  jQuery("#layer_socolissimo").html(data);
+			  }
+		});
 		
 	} else {		
 		socolissimoOverlayApi.close();
@@ -125,8 +128,6 @@ function socolissimoRadioCheck(input) {
 	//on vérifie si le champ telephone doit apparaitre
 	checkDisplayPhone(input);
 	if (input.value == "poste" || input.value == "cityssimo" || input.value == "commercant"){
-		//on déplace le layer sur le body pour qu'il soit bien positionné au centre
-		jQuery(jQuery(input).attr("rel")).appendTo("body");
 		//initialisation de la liste déroulantes des villes "personnalisée"
 		jQuery("#socolissimo_city_select").change(function() {
 			jQuery(this).prevAll("span").eq(0).text(jQuery(this).find("option:selected").text());
@@ -161,26 +162,10 @@ function socolissimoRadioCheck(input) {
 		//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
 		geocodeAdresse();
 	
-		/* TODO : le layer est déjà chargé : gérer le non choix du relais
-		socolissimoOverlayApi = jQuery(input).overlay({
-		    expose: { 
-		        color: '#000', 
-		        loadSpeed: 200, 
-		        opacity: 0.5 
-		    }, 
-		    closeOnClick: false,
-		    top: "center",
-			onBeforeClose : function(event){
-				//si on n'a pas choisi de relais on décoche le mode de livraison
-				if (socolissimoRelaisChoisi == undefined || socolissimoRelaisChoisi == null) {
-					jQuery("#socolissimo-location input[name=type_socolissimo]").attr("checked","");
-				}
-			},
-			fixed: false,
-		    api: true 
-		  });
-		socolissimoOverlayApi.load();
-		*/
+		/* TODO : le layer est déjà chargé : gérer le non choix du relais */
+		jQuery("#socolissimo-location").hide();
+		jQuery("#socolissimo-map").show();
+	
 	} else {
 		jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val(input.value);
 	}
@@ -226,7 +211,7 @@ function geocodeAdresse() {
 	//console.log('Search adresse : ' + searchAdress);
 	geocoder.geocode({'address': searchAdress}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
- 			socolissimoMyPosition= results[0].geometry.location;
+ 			socolissimoMyPosition = results[0].geometry.location;
  			//on met à jour la carte avec cette position
  			changeMap();
 		} else {

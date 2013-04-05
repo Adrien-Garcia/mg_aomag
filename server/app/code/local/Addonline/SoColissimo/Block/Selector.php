@@ -31,8 +31,8 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
      *    - there's more than one shipping method
      ***/
     public function dontShowSelector() {
-        if (strpos($this->getAddressShippingMethod(), 'socolissimo')===0 || count($this->getParentBlock()->getShippingRates())==1) {
-            return false;
+        if (strpos($this->getAddressShippingMethod(), 'socolissimoflexibilite')===0 || count($this->_getShippingAddress()->getGroupedAllShippingRates())==1) {
+    	     return false;
         }
         return true;
     }
@@ -50,11 +50,13 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
 	}
 	
 	public function getRdvShippingCost() {
-		return Mage::getStoreConfig('carriers/socolissimo/rdv_fees'); 
+		//TODO : à récupérer dans la conf "owebia"
+		return 0;//Mage::getStoreConfig('carriers/socolissimo/rdv_fees'); 
 	}
 
 	public function isRdvAvailable() {
-		if ($this->isSocolissmoAvailable()) {
+		//TODO : à récupérer dans la conf "owebia"
+		if (Mage::helper('socolissimo')->isFlexibilite() && $this->isSocolissmoAvailable()) {
 			$rdv = $this->getRdvPointRetraitAcheminement();
 			return $rdv->rdv;
 		} else {
@@ -69,11 +71,15 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
 
 	public function isSocolissmoAvailable() {
 		if (!$this->socolissimoAvaliable) {
-			 try {
-			 	$this->socolissimoAvaliable = file_get_contents ("http://ws.colissimo.fr/supervision-wspudo/supervision.jsp");
-			 } catch(Exception $e){
-          		$this->socolissimoAvaliable = "[KO]";
-        	 }
+			if (Mage::helper('socolissimo')->isFlexibilite()) {
+				try {
+				 	$this->socolissimoAvaliable = file_get_contents ("http://ws.colissimo.fr/supervision-wspudo/supervision.jsp");
+				 } catch(Exception $e){
+	          		$this->socolissimoAvaliable = "[KO]";
+	        	 }
+			} else {
+				$this->socolissimoAvaliable = "[OK]";
+			}
 		}
 		return 	trim($this->socolissimoAvaliable) === "[OK]";	
 	}
@@ -84,7 +90,7 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
 	
 	public function getRdvPointRetraitAcheminement() {
 		if (!$this->rdvPointRetraitAcheminement) {
-			$this->rdvPointRetraitAcheminement = Mage::getModel('socolissimo/service')->findRDVPointRetraitAcheminement($this->getShippingStreet(), $this->getShippingPostcode(), $this->getShippingCity(), 0);
+			$this->rdvPointRetraitAcheminement = Mage::getModel('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($this->getShippingStreet(), $this->getShippingPostcode(), $this->getShippingCity(), 0);
 		}
 		return $this->rdvPointRetraitAcheminement; 	
 	}
@@ -98,7 +104,7 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
 		if(Mage::getModel('socolissimo/observer')->_9cd4777ae76310fd6977a5c559c51820($thisStore)){
 			echo (parent::_toHtml());
 		}else{
-			echo ("<H1>La clé de licence du module est invalide</H1>");
+			echo ("<H1>La clé de licence du module SoColissimo est invalide</H1>");
 		}
 	} 
 }

@@ -968,7 +968,7 @@ class SocolissimoShippingHelper
 			if (!isset($row['fees']) && count($fees)>0) $row['fees'] = array('value' => implode('+',$fees));
 			if (!isset($row['poste_fees']) && count($poste_fees)>0) $row['poste_fees'] = array('value' => implode('+',$poste_fees));
 			if (!isset($row['rdv_fees']) && count($rdv_fees)>0) $row['rdv_fees'] = array('value' => implode('+',$rdv_fees));
-			if (!isset($row['commercant_fees']) && count($commercant_fees)>0) $row['commercant_fees'] = array('value' => implode('+',$commercant_fees));
+			//if (!isset($row['commercant_fees']) && count($commercant_fees)>0) $row['commercant_fees'] = array('value' => implode('+',$commercant_fees));
 				
 			$fs_fees = array();
 			if (isset($row['free_shipping__fees_table'])) {

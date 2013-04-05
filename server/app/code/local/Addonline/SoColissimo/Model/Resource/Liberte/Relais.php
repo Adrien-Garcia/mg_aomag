@@ -10,6 +10,6 @@
 class Addonline_SoColissimo_Model_Resource_Liberte_Relais extends Mage_Core_Model_Resource_Abstract
 {
     public function _construct() {
-        $this->_init('socolissimo/liberte/relais','id_relais');
+        $this->_init('socolissimo/liberte_relais','id_relais');
     }
 }

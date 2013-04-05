@@ -28,6 +28,71 @@
   cursor: pointer;
 }
 
+#layer_socolissimo {
+	width: 885px;
+	z-index: 1000;
+}
+
+#layer_socolissimo .close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	cursor: pointer;
+	background: #dcdcdc;
+	border: 1px solid #666666;
+	color: #666666;
+	padding: 0 5px;
+	font-size: 10px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+#layer_socolissimo .close:hover {
+	background: #666666;
+	border: 1px solid #dcdcdc;
+	color: #dcdcdc;
+}
+
+#layer_socolissimo .loader-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+}
+
+#layer_socolissimo .loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background: #000;
+	opacity: 0.2;
+}
+
+#layer_socolissimo .loader-wheel {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -50px 0 0 -16px;
+	width: 100px;
+	background: #fff;
+	border: 1px solid 000;
+	border-radius: 3px;
+	text-align: center;
+	z-index: 1001;
+	color: #878787;
+	font-style: italic;
+}
+
+#layer_socolissimo .loader-wheel img {
+	display: block;
+	margin: auto;
+}
+
 #socolissimo {
 	width: 223px !important;	
 }
@@ -146,20 +211,15 @@
 	margin: 0 0 0 15px;	
 }
 
-#layer_socolissimo {
-	width: 885px;
-	z-index: 1000;
-}
-
-#layer_socolissimo > div > div {
+#socolissimo-map > div > div {
 	padding: 15px;	
 }
 
-#layer_socolissimo form {
+#socolissimo-map form {
 	width: 100%;
 }
 
-#layer_socolissimo .contenu {
+#socolissimo-map .contenu {
 	background: #fff;
 	color: #3b3836;
 	font-size: 11px;
@@ -168,106 +228,106 @@
 	margin-bottom: 15px;
 	overflow: auto;
 }
-#layer_socolissimo input, #layer_socolissimo select {
+#socolissimo-map input, #socolissimo-map select {
 	font-size: 12px;
 }
-#layer_socolissimo .col1, #layer_socolissimo .col2 {
+#socolissimo-map .col1, #socolissimo-map .col2 {
 	width: 406px;
 	float: left;
 	height: 185px;
 }
-#layer_socolissimo .col1 b, #layer_socolissimo .col2 b {
+#socolissimo-map .col1 b, #socolissimo-map .col2 b {
 	color: #645258;
 }
-#layer_socolissimo .col1 {
+#socolissimo-map .col1 {
 	border-right: 1px solid #d1cdcd;
 }
-#layer_socolissimo .ligne1 {
+#socolissimo-map .ligne1 {
 	border-bottom: 1px solid #dcd4cf;
 	padding-bottom: 15px;
 	margin: 0 14px 0 0;
 	background: url(../images/socolissimo/bg.png) 0px 57px no-repeat;
 }
-#layer_socolissimo .col2 {
+#socolissimo-map .col2 {
 	border-left: 1px solid #ffffff;
 	padding-left: 16px;
 }
-#layer_socolissimo .ligne2 {
+#socolissimo-map .ligne2 {
 	border-top: 1px solid #ffffff;
 	padding: 5px 0 0 0;
 }
-#layer_socolissimo .titre {
+#socolissimo-map .titre {
 	color: #cc3333;
 	font-size: 14px;
 	font-weight: bold;
 	margin-top: 10px;
 }
-#layer_socolissimo .titre1 {
+#socolissimo-map .titre1 {
 	float: left;
 }
-#layer_socolissimo .titre2 {
+#socolissimo-map .titre2 {
 	float: right;
 	margin-top: 10px;
 }
-#layer_socolissimo .titres {
+#socolissimo-map .titres {
 	width: 100%;
 	overflow: hidden;
 	*margin-bottom: 15px;
 }
-#layer_socolissimo .ligne2 .choix {
+#socolissimo-map .ligne2 .choix {
 	margin-left: 60px;
 }
-#layer_socolissimo .ligne2 .choix1 {
+#socolissimo-map .ligne2 .choix1 {
 	margin-left: 0;
 }
-#layer_socolissimo .choix {
+#socolissimo-map .choix {
 	float: left;
 }
-#layer_socolissimo .ligne2 input {
+#socolissimo-map .ligne2 input {
 	margin: 6px 0 0 0;	
 }
-#layer_socolissimo .choix img {
+#socolissimo-map .choix img {
 	float: left;
 	margin-left: 5px;
 	margin-top: -3px;
 	margin-right: 8px;
 }
-#layer_socolissimo .choix .txt {
+#socolissimo-map .choix .txt {
 	float: left;
 	width: 270px;
 }
-#layer_socolissimo .choix .txt2 {
+#socolissimo-map .choix .txt2 {
 	float: left;
 	width: 160px;
 	padding: 6px 0 0 44px;
 	background: url(../images/socolissimo/picto_cityssimo.png) no-repeat 10px 0;
 	text-align: left;
 }
-#layer_socolissimo .choix2 .txt2 {
+#socolissimo-map .choix2 .txt2 {
 	background-image: url(../images/socolissimo/picto_poste.png);
 }
-#layer_socolissimo .choix3 .txt2 {
+#socolissimo-map .choix3 .txt2 {
 	background-image: url(../images/socolissimo/picto_commercant.png);
 }
-#layer_socolissimo .choix .txt2 b {
+#socolissimo-map .choix .txt2 b {
 	color: #645258;
 }
-#layer_socolissimo .col2 .choix .txt {
+#socolissimo-map .col2 .choix .txt {
 	width: 330px;
 }
-#layer_socolissimo input {
+#socolissimo-map input {
 	float: left;
 	background: #fff;
 }
-#layer_socolissimo a.valide {
+#socolissimo-map a.valide {
 	margin-top: 12px;
 	margin-left: 404px;
 }
-#layer_socolissimo .ligne1 .titre, #layer_socolissimo .ligne2 .titre {
+#socolissimo-map .ligne1 .titre, #socolissimo-map .ligne2 .titre {
 	margin-bottom: 15px;
 	text-align: left;
 }
-#layer_socolissimo input.adresse {
+#socolissimo-map input.adresse {
 	float: left;
 	width: 239px;
 	border: 1px solid #b8acaf;
@@ -278,7 +338,7 @@
 	color: #3b3836;
 	*margin-left: -48px;
 }
-#layer_socolissimo input.cp {
+#socolissimo-map input.cp {
 	width: 73px;
 	border: 1px solid #b8acaf;
 	line-height: 19px;
@@ -289,7 +349,7 @@
 	color: #54343f;
 	*margin-left: -8px;
 }
-#layer_socolissimo select {
+#socolissimo-map select {
 	background: none;
 	border: none;
 	opacity: 0;
@@ -301,16 +361,16 @@
 	font-size: 12px;
 	color: #54343f;
 }
-#layer_socolissimo option {
+#socolissimo-map option {
 	background-color: #FFFFFF;
 	color: #54343f;
 	padding-left: 9px;
 }
-#layer_socolissimo .select {
+#socolissimo-map .select {
 	float: left;
 	position: relative;
 }
-#layer_socolissimo .select span {
+#socolissimo-map .select span {
 	background: url(../images/socolissimo/bg_select.gif) no-repeat;
 	display: block;
 	width: 228px;
@@ -319,45 +379,45 @@
 	line-height: 21px;
 	padding-left: 9px;
 }
-#layer_socolissimo label {
+#socolissimo-map label {
 	float: left;
 	line-height: 18px;
 	height: 18px;
 	*width: 100%;
 }
-#layer_socolissimo .col {
+#socolissimo-map .col {
 	float: left;
 }
-#layer_socolissimo .col.adresse {
+#socolissimo-map .col.adresse {
 	width: 251px;
 	margin-left: 48px;
 }
-#layer_socolissimo .col.cp {
+#socolissimo-map .col.cp {
 	width: 84px;
 	margin-left: 8px;
 }
-#layer_socolissimo .col.commune {
+#socolissimo-map .col.commune {
 	width: 237px;
 	margin-left: 8px;
 }
-#layer_socolissimo .obli {
+#socolissimo-map .obli {
 	color: #ff0056;
 	font-size: 11px;
 }
 #btn_modifierAdresse {
 	margin: 18px 0 0 10px;
 }
-#layer_socolissimo .colgauche, #layer_socolissimo .coldroite {
+#socolissimo-map .colgauche, #socolissimo-map .coldroite {
 	float: left;
 }
-#layer_socolissimo .adresses {
+#socolissimo-map .adresses {
 	clear: both;
 	height: 424px;
 	background: #fff;
 	position: relative;
 }
 
-#layer_socolissimo .liste {
+#socolissimo-map .liste {
 	color: #3B3836;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
@@ -365,15 +425,15 @@
 	overflow-y: scroll;
 	position:relative;
 }
-#layer_socolissimo .colgauche {
+#socolissimo-map .colgauche {
 	width: 265px;
 	overflow : hidden;
 }
-#layer_socolissimo .coldroite {
+#socolissimo-map .coldroite {
 	width: 590px;
 	height: 424px;
 }
-#layer_socolissimo .point_retrait {
+#socolissimo-map .point_retrait {
 	border-bottom: 1px dotted #54343F;
 	float: left;
 	margin: 0 7px;
@@ -382,19 +442,19 @@
 	margin-top: 10px;
 	display: inline-block;
 }
-#layer_socolissimo .point_retrait .distance {
+#socolissimo-map .point_retrait .distance {
 	font-size: 11px;
 	color: #3b3836;
 	float: left;
 	line-height: 26px;
 }
-#layer_socolissimo .adresse_point {
+#socolissimo-map .adresse_point {
 	text-align: right;
 	clear: both;
 	padding: 7px 0 0 0;
 	margin: 0 0 12px 0;
 }
-#layer_socolissimo .point {
+#socolissimo-map .point {
 	font-weight: bold;
 	line-height: 26px;
 	float: right;
@@ -402,23 +462,23 @@
 	padding: 0 0 0 30px;
 	background: url(../images/socolissimo/picto_commercant.png) no-repeat;
 }
-#layer_socolissimo .handicap {
+#socolissimo-map .handicap {
 	clear: both;
 	float: right;	
 }
-#layer_socolissimo .point.poste {
+#socolissimo-map .point.poste {
 	background-image: url(../images/socolissimo/picto_poste.png);
 }
-#layer_socolissimo .point.cityssimo {
+#socolissimo-map .point.cityssimo {
 	background-image: url(../images/socolissimo/picto_cityssimo.png);
 }
-#layer_socolissimo .btn_socolissimoChoisir {
+#socolissimo-map .btn_socolissimoChoisir {
 	height: 30px;
 	background-repeat: no-repeat;
 	float:right;
 }
 
-#layer_socolissimo .close {
+#socolissimo-map .close {
 	position: absolute;
 	top: 15px;
 	right: 15px;
@@ -432,13 +492,13 @@
 	text-transform: uppercase;
 }
 
-#layer_socolissimo .close:hover {
+#socolissimo-map .close:hover {
 	background: #666666;
 	border: 1px solid #dcdcdc;
 	color: #dcdcdc;
 }
 
-#layer_socolissimo h3 {
+#socolissimo-map h3 {
 	font-size: 16px;
 	font-weight: bold;
 	color: #cc3333;
@@ -446,7 +506,7 @@
 	margin: 0 0 11px 0;
 }
 
-#layer_socolissimo .loader-wrapper {
+#socolissimo-map .loader-wrapper {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -455,7 +515,7 @@
 	z-index: 999;
 }
 
-#layer_socolissimo .loader {
+#socolissimo-map .loader {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -466,7 +526,7 @@
 	opacity: 0.2;
 }
 
-#layer_socolissimo .loader-wheel {
+#socolissimo-map .loader-wheel {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -481,7 +541,7 @@
 	font-style: italic;
 }
 
-#layer_socolissimo .loader-wheel img {
+#socolissimo-map .loader-wheel img {
 	display: block;
 	margin: auto;
 }

@@ -11,11 +11,11 @@
 class Addonline_SoColissimo_Model_Observer extends Varien_Object
 {
 
-	const BOTH = 0;
-	const FLEXIBILITE = 1;
-	const LIBERTE = 2;	
+	const CONTRAT_BOTH = 0;
+	const CONTRAT_FLEXIBILITE = 1;
+	const CONTRAT_LIBERTE = 2;	
 	
-	public function _9cd4777ae76310fd6977a5c559c51820($store_id, $contrat = self::BOTH){
+	public function _9cd4777ae76310fd6977a5c559c51820($store_id, $contrat = self::CONTRAT_BOTH){
 		
 		if (Mage::getStoreConfig('addonline/licence/aomagento')) {
 			return true;
@@ -27,15 +27,18 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 		foreach($stores as $store) {
 			$storeurl = Mage::app()->getStore($store['store_id'])->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
 			$storekey = Mage::getStoreConfig('socolissimo/licence/serial',$store);			
-			if(($storekey != 'DISABLED')){					
-				if($contrat==self::BOTH && md5($storeurl.$key.'SoColissimo')!=$storekey && md5($storeurl.$key.'SoColissimoLiberte')!=$storekey){
+			if(($storekey != 'DISABLED')){	
+				//Cas appel pour affichage layer socolissimo
+				if($contrat==self::CONTRAT_BOTH && md5($storeurl.$key.'SoColissimoFlexibilite')!=$storekey && md5($storeurl.$key.'SoColissimoLiberte')!=$storekey){
 					$severity=Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;$title= "Vous devez renseigner une clé licence valide pour le module So Colissimo , pour le magasin ".$store['code'].". Le module a été désactivé";$description= "Le module So Colissimo n'a pas une clé licence valide";	$date = date('Y-m-d H:i:s'); Mage::getModel('adminnotification/inbox')->parse(array(array('severity' => $severity,'date_added'=> $date,'title'=> $title,'description'   => $description,'url'=> '','internal'      => true)));
 					$store_error .= 1;
 				}
-				if($contrat==self::FLEXIBILITE && md5($storeurl.$key.'SoColissimo')!=$storekey){
+				//Cas appel pour contruction liste déroulante contrat avec la clé SocolissimoFlexibilité activée :
+				if($contrat==self::CONTRAT_FLEXIBILITE && md5($storeurl.$key.'SoColissimoFlexibilite')!=$storekey){
 					$store_error .= 1;
 				}
-				if($contrat==self::LIBERTE && md5($storeurl.$key.'SoColissimoLiberte')!=$storekey){
+				//Cas appel pour contruction  liste déroulante contrat avec la clé SocolissimoFlexibilité activée :
+				if($contrat==self::CONTRAT_LIBERTE && md5($storeurl.$key.'SoColissimoLiberte')!=$storekey){
 					$store_error .= 1;
 				}
 			}
@@ -51,7 +54,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 		} 
 		
 		if(!$store_error){
-			if($contrat==self::BOTH) {
+			if($contrat==self::CONTRAT_BOTH) {
 				$_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 0); foreach($_unreadNotices as $notice): if(strpos($notice->getData('description'),'So Colissimo')): $notice->setIsRead(1)->save();	endif;endforeach;
 			}
 			return true;
@@ -108,7 +111,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 	            	$socoShippingData['CEDELIVERYINFORMATION'] = 'Prise de rendez-vous : '.$telephone;
 	            }
 	    		$idRelais = $request->getParam('relais_socolissimo');
-	    		$relais = Mage::getModel('socolissimo/service')->findPointRetraitAcheminementByID($idRelais);
+	    		$relais = Mage::getModel('socolissimo/flexibilite_service')->findPointRetraitAcheminementByID($idRelais);
 
 	    		if ($relais instanceof pointRetraitAcheminement) {
 	

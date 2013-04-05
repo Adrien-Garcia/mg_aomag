@@ -12,6 +12,6 @@ class  Addonline_SoColissimo_Model_Liberte_PeriodesFermeture extends Mage_Core_M
 {
     public function _construct() {
         parent::_construct();
-        $this->_init('socolissimo/liberte/periodesFermeture');
+        $this->_init('socolissimo/liberte_periodesFermeture');
     }
 }

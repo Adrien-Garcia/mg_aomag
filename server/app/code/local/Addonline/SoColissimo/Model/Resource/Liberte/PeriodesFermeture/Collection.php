@@ -11,6 +11,6 @@ class Addonline_SoColissimo_Model_Resource_Liberte_PeriodesFermeture_Collection
     extends Mage_Core_Model_Mysql4Resource_Collection_Abstract
 {
     public function _construct() {
-        $this->_init('socolissimo/liberte/periodesFermeture');
+        $this->_init('socolissimo/liberte_periodesFermeture');
     }  
 }

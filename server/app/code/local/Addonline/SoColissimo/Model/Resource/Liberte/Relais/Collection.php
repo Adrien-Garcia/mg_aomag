@@ -11,7 +11,7 @@ class Addonline_SoColissimo_Model_Resource_Liberte_Relais_Collection
     extends Mage_Core_Model_Resource_Collection_Abstract
 {
     public function _construct() {
-        $this->_init('socolissimo/liberte/relais');
+        $this->_init('socolissimo/liberte_relais');
     }
     
     public function loadByIdentifiant($identifiant){
@@ -31,13 +31,13 @@ class Addonline_SoColissimo_Model_Resource_Liberte_Relais_Collection
 		$anneeLivraison = $dateLivraison->get(Zend_Date::YEAR);
 		$dateLivraisonDB =  $dateLivraison->toString('yyyy-MM-dd');
 		//jointure sur le table des horaires : on selectionne tous ses champs et on filtre sur la date de livraison
-		$this->getSelect()->join(array('h' => $this->getTable('socolissimo/liberte/horairesOuverture')),
+		$this->getSelect()->join(array('h' => $this->getTable('socolissimo/liberte_horairesOuverture')),
                     										'main_table.id_relais = h.id_relais_ho', '*')
 							->where("STR_TO_DATE(concat(h.deb_periode_horaire , '/$anneeLivraison'), '%d/%m/%Y') <= ?" , $dateLivraisonDB)
 							->where("STR_TO_DATE(concat(h.fin_periode_horaire , '/$anneeLivraison'), '%d/%m/%Y') >= ?" , $dateLivraisonDB);
 
 		//jointure sur le table des periodes de fermeture (pour exclure les relais fermés à la date de livraison)
-		$this->getSelect ()->joinLeft(array('f' => $this->getTable('socolissimo/periodesFermeture')),
+		$this->getSelect ()->joinLeft(array('f' => $this->getTable('socolissimo/liberte_periodesFermeture')),
                     										'main_table.id_relais = f.id_relais_fe', array())
 							->where("f.deb_periode_fermeture IS NULL OR f.deb_periode_fermeture > STR_TO_DATE('$dateLivraisonDB', '%Y-%m-%d') OR f.fin_periode_fermeture < STR_TO_DATE('$dateLivraisonDB', '%Y-%m-%d')");
 				

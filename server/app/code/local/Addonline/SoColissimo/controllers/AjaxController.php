@@ -50,7 +50,7 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    			$typesRelais[] = 'A2P';
    		}
    		 
-   		if (Mage::getStoreConfig('carriers/socolissimo/contrat') == 'flexibilite') {
+   		if (Mage::helper('socolissimo')->isFlexibilite()) {
    		
    			//le filtre du WS permet seulement d'exclure les commerçants : on filtre les résultats après l'appel au WS */
    			$filterRelay = 0;
@@ -58,7 +58,7 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    				$filterRelay = 1;
    			}
    			
-	     	$listrelais = Mage::getModel('socolissimo/flexibilite/service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, 1, $typesRelais);
+	     	$listrelais = Mage::getModel('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, 1, $typesRelais);
 		    
 	     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
 		        $result['items'] = $listrelais->listePointRetraitAcheminement;

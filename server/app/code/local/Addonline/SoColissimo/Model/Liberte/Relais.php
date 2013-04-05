@@ -17,7 +17,7 @@ class  Addonline_SoColissimo_Model_Liberte_Relais extends Mage_Core_Model_Abstra
      */
     public function _construct() {
         parent::_construct();
-        $this->_init('socolissimo/liberte/relais');
+        $this->_init('socolissimo/liberte_relais');
     }
     
     public function getType() {

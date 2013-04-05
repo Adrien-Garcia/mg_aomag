@@ -77,9 +77,9 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	}
 	
     public function loadByIdentifiant( $identifiant ){
-    	$relais = Mage::getModel('socolissimo/liberte/relais');
+    	$relais = Mage::getModel('socolissimo/liberte_relais');
   
-        $item = Mage::getModel('socolissimo/liberte/relais')->getCollection()->loadByIdentifiant( $identifiant )->getFirstItem();
+        $item = Mage::getModel('socolissimo/liberte_relais')->getCollection()->loadByIdentifiant( $identifiant )->getFirstItem();
         if($item->getIdentifiant()!="") 
         	$relais = $item;
         return $relais;
@@ -117,7 +117,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	 */
 	function remplirHoraireOuverture( $ligneHO ){	
 		$donnes_horaire = explode(";", $ligneHO);
-		$horaire_ouverture = Mage::getModel('socolissimo/liberte/horairesOuverture');
+		$horaire_ouverture = Mage::getModel('socolissimo/liberte_horairesOuverture');
 		
 		if( isset($this->_tabRelais[$donnes_horaire[1]]) ){
 			$horaire_ouverture->setId_relais_ho( $this->_tabRelais[$donnes_horaire[1]] );
@@ -139,7 +139,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	 */
 	function remplirPeriodeFermeture( $ligneFE ){
 		$donnes_fe = explode(";", $ligneFE);
-		$periode_fermeture = Mage::getModel('socolissimo/liberte/periodesFermeture');
+		$periode_fermeture = Mage::getModel('socolissimo/liberte_periodesFermeture');
 
 		if( isset($this->_tabRelais[$donnes_fe[1]]) ){
 			$dd = new Zend_Date( $donnes_fe[2], "dd/MM/yyyy");
@@ -154,7 +154,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	
 	
 	function _viderTables(){
-		Mage::getResourceModel('socolissimo/liberte/horairesOuverture')->deleteAll();
-		Mage::getResourceModel('socolissimo/liberte/periodesFermeture')->deleteAll();
+		Mage::getResourceModel('socolissimo/liberte_horairesOuverture')->deleteAll();
+		Mage::getResourceModel('socolissimo/liberte_periodesFermeture')->deleteAll();
 	}
 }

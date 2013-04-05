@@ -9,5 +9,7 @@
  */
 class Addonline_SoColissimo_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
+	public function isFlexibilite() {
+		return Mage::getStoreConfig('carriers/socolissimo/contrat') == 'flexibilite';
+	}
 }
