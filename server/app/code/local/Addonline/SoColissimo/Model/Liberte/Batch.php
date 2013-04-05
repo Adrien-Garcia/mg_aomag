@@ -13,6 +13,11 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	private $_tabRelais;
 	
 	public function run() { 
+		
+		if (Mage::helper('socolissimo')->isFlexibilite()) {
+			return;
+		}
+		
 		$_export_dir = Mage::getStoreConfig('carriers/socolissimo/rep_fichier_liberte', Mage::app()->getStore()->getId());
 		
 		$_export_path = BP . DS . $_export_dir;
@@ -48,7 +53,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 		/*Ouverture du fichier en lecture seule*/
 		$file = fopen($nom_fichier, 'r');
 		/*Si on a réussi à ouvrir le fichier*/
-		if ($file){	$i=0;
+		if ($file){
 			// on vide les tables socolissimo_horaire_ouverture et socolissimo_periode_fermeture pour mettre à jour leur données
 			$this->_viderTables ();	
 			

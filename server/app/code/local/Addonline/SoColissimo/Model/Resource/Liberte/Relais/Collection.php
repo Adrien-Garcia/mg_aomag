@@ -8,7 +8,7 @@
  * @author 	    Addonline (http://www.addonline.fr)
  */
 class Addonline_SoColissimo_Model_Resource_Liberte_Relais_Collection
-    extends Mage_Core_Model_Resource_Collection_Abstract
+    extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     public function _construct() {
         $this->_init('socolissimo/liberte_relais');
@@ -43,7 +43,7 @@ class Addonline_SoColissimo_Model_Resource_Liberte_Relais_Collection
 				
 		$this->getSelect()->order('distance')
 							->limit(10);
-   		//Mage::log($this->getSelect()->__toString());
+   		Mage::log($this->getSelect()->__toString());
    		
     }
 }

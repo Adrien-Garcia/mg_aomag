@@ -14,13 +14,6 @@
   overflow: auto;
 }
 
-.layer .loading {
-	padding-top : 45px;
-	min-height: 100px;
-	overflow: auto;
-	text-align: center;
-}
-
 .layer img.close {
   position: absolute;
   top: 7px;
@@ -30,7 +23,13 @@
 
 #layer_socolissimo {
 	width: 885px;
+	min-height: 300px;
 	z-index: 1000;
+	text-align: left;
+}
+
+#layer_socolissimo > div > div {
+	padding: 15px;	
 }
 
 #layer_socolissimo .close {
@@ -110,7 +109,6 @@
 #socolissimo-location > div {
 	background: url(../images/socolissimo/socolissimo_sep.gif) repeat-y 50% 0;
 	overflow: auto;
-	padding: 0 10px;
 }
 
 #socolissimo-location dl {
@@ -209,10 +207,6 @@
 .checkout-onepage-success .socolissimo_logo_type {
 	vertical-align: middle;
 	margin: 0 0 0 15px;	
-}
-
-#socolissimo-map > div > div {
-	padding: 15px;	
 }
 
 #socolissimo-map form {
@@ -504,6 +498,7 @@
 	color: #cc3333;
 	text-transform: uppercase;
 	margin: 0 0 11px 0;
+	text-align: center;
 }
 
 #socolissimo-map .loader-wrapper {

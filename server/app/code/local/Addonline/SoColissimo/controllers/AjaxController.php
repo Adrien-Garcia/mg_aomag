@@ -30,13 +30,10 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
     public function listRelaisAction()
     {
     	
-   		$adresse    = $this->getRequest()->getParam('adresse', false);
-   		$zipcode    = $this->getRequest()->getParam('zipcode', false);
-   		$ville      = $this->getRequest()->getParam('ville', false);
    		$poste  	= $this->getRequest()->getParam('poste', false);	
    		$cityssimo  = $this->getRequest()->getParam('cityssimo', false);
    		$commercant = $this->getRequest()->getParam('commercant', false);
-   		
+   		Mage::log($poste.' - '.$cityssimo.' - '.$commercant);
    		$typesRelais = array();
    		if ($poste == 'true' || $poste === 'checked') {
    			$typesRelais[] = 'BPR';
@@ -52,6 +49,10 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    		 
    		if (Mage::helper('socolissimo')->isFlexibilite()) {
    		
+	   		$adresse    = $this->getRequest()->getParam('adresse', false);
+	   		$zipcode    = $this->getRequest()->getParam('zipcode', false);
+	   		$ville      = $this->getRequest()->getParam('ville', false);
+   			
    			//le filtre du WS permet seulement d'exclure les commerçants : on filtre les résultats après l'appel au WS */
    			$filterRelay = 0;
    			if ($commercant == 'true' || $commercant === 'checked') {
@@ -70,6 +71,9 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 	        
    		} else {
 
+	   		$latitude   = $this->getRequest()->getParam('latitude', false);
+   			$longitude  = $this->getRequest()->getParam('longitude', false);
+
    			$dateLivraison = new Zend_Date();
    			if ($delai = Mage::getStoreConfig('carriers/socolissimo/shipping_period')) {
    				$dateLivraison->addDay($delai);
@@ -77,13 +81,13 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    				$dateLivraison->addDay(1);
    			}
    			 
-   			$listrelais = Mage::getModel('socolissimo/liberte/relais')->getCollection();
+   			$listrelais = Mage::getModel('socolissimo/liberte_relais')->getCollection();
    			$listrelais->prepareNearestByType($latitude, $longitude, $typesRelais, $dateLivraison);
    			 
    			foreach ($listrelais as $relais) {
    				$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
    				$relais->setData('type', $relais->getType());
-   				$listFermetures = Mage::getModel('socolissimo/liberte/periodesFermeture')->getCollection();
+   				$listFermetures = Mage::getModel('socolissimo/liberte_periodesFermeture')->getCollection();
    				$listFermetures->addFieldToFilter('id_relais_fe',$relais->getId());
    				$relais->setData('fermetures', $listFermetures->toArray());
    			}

@@ -26,10 +26,10 @@ class Addonline_SoColissimo_Model_Adminhtml_System_Config_Source_Contratsocoliss
 		$options = array();
 		$observer = Mage::getSingleton('socolissimo/observer');
 		$storeId = Mage::app()->getStore()->getId();
-		if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::FLEXIBILITE)) {
+		if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_FLEXIBILITE)) {
 			$options[] = array('value' => 'flexibilite', 'label'=>Mage::helper('adminhtml')->__('Flexibilité'));
 		}
-		if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::LIBERTE)) {
+		if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_LIBERTE)) {
 			$options[] = array('value' => 'liberte', 'label'=>Mage::helper('adminhtml')->__('Liberté'));
 		}
 		return $options;

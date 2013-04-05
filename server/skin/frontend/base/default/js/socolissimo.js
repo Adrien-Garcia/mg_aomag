@@ -71,39 +71,47 @@ function shippingRadioCheck(element) {
 		} 
 		*/
 		
-		if (jQuery("#socolissimo-hook").size()==0) {
-			socoRadio.parent().append("<div id=\"socolissimo-hook\" rel=\"#layer_socolissimo\"><div id=\"layer_socolissimo\" class=\"layer\"></div></div>");
-			jQuery("#layer_socolissimo").append("<img src=\"/ajax-loader.gif\" />");
-		}
-		//on déplace le layer sur le body pour qu'il soit bien positionné au centre
-		jQuery(jQuery("#socolissimo-hook").attr("rel")).appendTo("body");
-		socolissimoOverlayApi = jQuery("#socolissimo-hook").overlay({
-		    expose: { 
-		        color: '#000', 
-		        loadSpeed: 200, 
-		        opacity: 0.5 
-		    }, 
-		    closeOnClick: false,
-		    top: "center",
-			onBeforeClose : function(event){
-				//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo ?
-			},
-			fixed: false,
-		    api: true 
-		  });
-		socolissimoOverlayApi.load();
-
+		//on affiche le picto de chargement étape suivante du opc
+		jQuery("#shipping-method-please-wait").show();
+		//on charge en ajax le layer de choix socolissimo
 		url = "/socolissimo/ajax/selector?"
 		jQuery.ajax({
 			  url: url,
 			  success: function(data){
-				  jQuery("#layer_socolissimo").html(data);
+				  
+					//une fois chargé, on cache le picto de chargement, on ouvre un layer et on met de résultat dedans:
+				  
+					jQuery("#shipping-method-please-wait").hide();
+					
+			 		if (jQuery("#socolissimo-hook").size()==0) {
+						socoRadio.parent().append("<div id=\"socolissimo-hook\" rel=\"#layer_socolissimo\"><div id=\"layer_socolissimo\" class=\"layer\"></div></div>");
+					}
+					//on déplace le layer sur le body pour qu'il soit bien positionné au centre
+					jQuery("#layer_socolissimo").appendTo("body");
+					socolissimoOverlayApi = jQuery("#socolissimo-hook").overlay({
+					    expose: { 
+					        color: '#000', 
+					        loadSpeed: 200, 
+					        opacity: 0.5 
+					    }, 
+					    closeOnClick: false,
+					    top: "center",
+						onBeforeClose : function(event){
+							//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo ?
+						},
+						fixed: false,
+					    api: true 
+					  });
+					socolissimoOverlayApi.load();
+					jQuery("#layer_socolissimo").html(data);
+
 			  }
 		});
 		
 	} else {		
 		socolissimoOverlayApi.close();
-		jQuery("#socolissimo-location").hide();
+		jQuery("#socolissimo-map").hide();
+		jQuery("#socolissimo-location").show();
 	}
 }
 
@@ -163,6 +171,7 @@ function socolissimoRadioCheck(input) {
 		geocodeAdresse();
 	
 		/* TODO : le layer est déjà chargé : gérer le non choix du relais */
+		
 		jQuery("#socolissimo-location").hide();
 		jQuery("#socolissimo-map").show();
 	
@@ -221,7 +230,7 @@ function geocodeAdresse() {
 }
 
 function changeMap() {
-	if (socolossimoMyPosition!=undefined) {
+	if (socolissimoMyPosition!=undefined) {
 		loadListeRelais();
 	}
 }

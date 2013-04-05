@@ -137,7 +137,14 @@
 	        </checkout_onepage_controller_success_action>	        
 	    </events>
     </frontend>
-    
+    <crontab>
+        <jobs>
+            <socolissimo_liberte_import>
+                <schedule><cron_expr>0 1 * * *</cron_expr></schedule>
+                <run><model>socolissimo/liberte_batch::run</model></run>
+            </socolissimo_liberte_import>
+        </jobs>
+    </crontab>
     <default>
     	<carriers>
     		<socolissimo>
