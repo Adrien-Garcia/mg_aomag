@@ -32,7 +32,8 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Addonline_Catalog_Block_Product_View_Attributes extends Mage_Catalog_Block_Product_View_Attributes
+class Addonline_Catalog_Block_Product_View_Attributes extends OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_View_Attributes
+//class Addonline_Catalog_Block_Product_View_Attributes extends Mage_Catalog_Block_Product_View_Attributes
 {
     
     public function getAdditionalData(array $excludeAttr = array())
@@ -48,7 +49,7 @@ class Addonline_Catalog_Block_Product_View_Attributes extends Mage_Catalog_Block
                 if (!$product->hasData($attribute->getAttributeCode())) {
                     //$value = Mage::helper('catalog')->__('N/A');
                     continue;
-                } elseif ((string)$value == '') {
+                } elseif (!$product->getData($attribute->getAttributeCode())) {
                     //$value = Mage::helper('catalog')->__('No');
                     continue;
                 } elseif ($attribute->getFrontendInput() == 'price' && is_string($value)) {
