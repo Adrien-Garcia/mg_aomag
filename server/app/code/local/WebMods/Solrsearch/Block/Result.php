@@ -189,4 +189,23 @@ class WebMods_Solrsearch_Block_Result extends Mage_Core_Block_Template
     	$product_list_block = $this->getLayout()->getBlockSingleton('catalog/product_list');
     	return $product_list_block->getAddToCartUrl($product,array('_secure'=>Mage::app()->getFrontController()->getRequest()->isSecure()));
     }
+    public function _getAttributeAdminLabel($attribute_code, $attributeValueId, $admin=false){
+    	if($admin) {
+    		$filter = 0;
+    	} else {
+    		$filter = 1;
+    	}
+    	$attribute = Mage::getModel('catalog/product')->getResource()->getAttribute($attribute_code);
+    	$_collection = Mage::getResourceModel('eav/entity_attribute_option_collection')
+    	->setStoreFilter($filter)
+    	->setAttributeFilter($attribute->getId())
+    	->load();
+    
+    
+    	foreach( $_collection->toOptionArray() as $key => $_option ) {
+    		if ($_option['value'] == $attributeValueId){
+    			return trim($_option['label']);
+    		}
+    	}
+    }
 }

@@ -566,11 +566,11 @@ class WebMods_Solrsearch_Model_Observer {
 		//Log index fields
 		$resource = Mage::getSingleton('core/resource');
 		$writeConnection = $resource->getConnection('core_write');
-		$logtable = $resource->getTableName('solrsearch/logs');
+		$logIndexedproductTable = $resource->getTableName('solrsearch/logs_indexedproduct');
 		
 		$connectionRead = $resource->getConnection('core_read');
 		
-		$results = $connectionRead->query("SELECT * FROM {$logtable} WHERE `logs_type` = 'INDEXEDPRODUCT' AND `store_id`=".$store_id." AND `value`=".$id.";");
+		$results = $connectionRead->query("SELECT * FROM {$logIndexedproductTable} WHERE `store_id`=".$store_id." AND `value`=".$id.";");
 
 		$row = $results->fetch();
 		
@@ -582,10 +582,9 @@ class WebMods_Solrsearch_Model_Observer {
 		//Log index fields
 		$insertArray = array();
 		$insertArray['logs_id'] = NULL;
-		$insertArray['logs_type'] = 'INDEXEDPRODUCT';
 		$insertArray['value'] = $id;
 		$insertArray['store_id'] = $store_id;
-		$writeConnection->insert($logtable, $insertArray);
+		$writeConnection->insert($logIndexedproductTable, $insertArray);
 		
 		$writeConnection->commit();
 	}

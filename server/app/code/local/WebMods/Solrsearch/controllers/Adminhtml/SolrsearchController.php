@@ -198,6 +198,7 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		$resource = Mage::getSingleton('core/resource');
 		$connection = $resource->getConnection('core_read');
 		$logtable = $resource->getTableName('solrsearch/logs');
+		$logIndexedproductTable = $resource->getTableName('solrsearch/logs_indexedproduct');
 		
 		$results = $connection->query("SELECT * FROM {$logtable} WHERE `logs_type` = 'INDEXEDFIELDS' ORDER BY update_at DESC LIMIT 1;");
 			
@@ -216,18 +217,9 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 				
 				$storeMappingString = trim($storeMappingString, ',');
 				if (!empty($storeMappingString)) {
-					$resource = Mage::getSingleton('core/resource');
 					$connection = $resource->getConnection('core_write');
-					$logtable = $resource->getTableName('solrsearch/logs');
-					
-					$results = $connection->query("DELETE FROM {$logtable} WHERE `logs_type` = 'INDEXEDPRODUCT' AND store_id IN({$storeMappingString});");
+					$results = $connection->query("DELETE FROM {$logIndexedproductTable} WHERE `logs_type` = 'INDEXEDPRODUCT' AND store_id IN({$storeMappingString});");
 				}
-				
-				$resource = Mage::getSingleton('core/resource');
-				$connection = $resource->getConnection('core_write');
-				$logtable = $resource->getTableName('solrsearch/logs');
-				
-				$results = $connection->query("DELETE FROM {$logtable} WHERE `logs_type` = 'INDEXEDPRODUCT' AND store_id IN({$storeMappingString});");
 				
 				$this->doRequest($clearnSolrIndexUrl);
 				$returnData = array();
@@ -261,14 +253,12 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 				'solr_query_url' => $SolrQueryUrl,
 				'page' => $page
 			);
-			Mage::log($newParams);
+			//Mage::log($newParams);
 			$numberOfDocuments = $this->processNewSolrIndex($newParams);
 		}
 		
 		//Log index fields
-		$resource = Mage::getSingleton('core/resource');
 		$writeConnection = $resource->getConnection('core_write');
-		$logtable = $resource->getTableName('solrsearch/logs');
 		$writeConnection->beginTransaction();
 		
 		//Delete old log record
@@ -357,7 +347,7 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		$textSearch = array();
 		
 		$documents = "{";
-		Mage::log($collection->getSelect()->__toString());
+		//Mage::log($collection->getSelect()->__toString());
 		//loop products
 		foreach ($collection as $product) {
 			$textSearch = array();
@@ -436,8 +426,10 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 			$categoryPaths = array();
 			foreach ($cats as $category_id) {
 				$_cat = Mage::getModel('catalog/category')->load($category_id) ;
-				$catNames[] = $_cat->getName();
-				$categoryPaths[] = $this->getCategoryPath($_cat);
+				if ($_cat->getIsActive()) {
+					$catNames[] = $_cat->getName();
+					$categoryPaths[] = $this->getCategoryPath($_cat);
+				}
 			} 
 			
 			if ($solr_include_category_in_search > 0) {
@@ -524,9 +516,13 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 				
 				if (isset($returnData['response']['numFound']) && intval($returnData['response']['numFound']) > 0){
 					if (is_array($returnData['response']['docs'])) {
+						$indexedProducts = array();
 						foreach ($returnData['response']['docs'] as $doc) {
-							$this->logProductId($doc['products_id'], $doc['store_id']);
+//							$this->logProductId($doc['products_id'], $doc['store_id']);
+							$indexedProducts[$doc['store_id']][$doc['products_id']]=$doc['products_id'];
 						}
+						$this->logProductIds($indexedProducts);
+						
 					}
 					return $returnData['response']['numFound'];
 				}
@@ -581,10 +577,12 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		if (!file_exists($productImagePath) || empty($image)){
 			$productImagePath = Mage::getBaseDir("skin").DS.'frontend'.DS.'base'.DS.'default'.DS.'images'.DS.'catalog'.DS.'product'.DS.'placeholder'.DS.'image.jpg';
 		}
-		if (!file_exists($productImagePath)){						
+		$info = getimagesize($productImagePath);
+		$image_mime = $info['mime'];
+		if (!file_exists($productImagePath) || $image_mime != "image/jpeg"){						
 			return false;
 		}
-								 
+					 
 
 		$productImageThumbPath = Mage::getBaseDir('media').DS."catalog".DS."product".DS."sb_thumb".DS.$productId.'.jpg';
 		if (file_exists($productImageThumbPath)) {
@@ -631,9 +629,9 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 				if (!empty($storeMappingString)) {
 					$resource = Mage::getSingleton('core/resource');
 					$connection = $resource->getConnection('core_write');
-					$logtable = $resource->getTableName('solrsearch/logs');
+					$logIndexedproductTable = $resource->getTableName('solrsearch/logs_indexedproduct');
 					
-					$results = $connection->query("DELETE FROM {$logtable} WHERE `logs_type` = 'INDEXEDPRODUCT' AND store_id IN({$storeMappingString});");
+					$results = $connection->query("DELETE FROM {$logIndexedproductTable} WHERE store_id IN({$storeMappingString});");
 				}
 				break;
 			}
@@ -642,33 +640,37 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		echo 'true';
 		exit;
 	}
-	
-	public function logProductId($id, $store_id){
+
+	public function logProductIds($indexedProducts){
 		//Log index fields
 		$resource = Mage::getSingleton('core/resource');
 		$writeConnection = $resource->getConnection('core_write');
-		$logtable = $resource->getTableName('solrsearch/logs');
-		
+		$logIndexedproductTable = $resource->getTableName('solrsearch/logs_indexedproduct');
+	
 		$connectionRead = $resource->getConnection('core_read');
-		
-		$results = $connectionRead->query("SELECT * FROM {$logtable} WHERE `logs_type` = 'INDEXEDPRODUCT' AND `store_id`=".$store_id." AND `value`=".$id.";");
+	
+		$results = $connectionRead->query("SELECT `store_id`, `value` FROM {$logIndexedproductTable} ORDER BY `store_id`, `value`;");
 
-		$row = $results->fetch();
-		
-		if (is_array($row) && $row['logs_id'] > 0) {
-			return false;
+		$indexedDBProducts = array();
+		foreach ($results->fetchAll() as $row) {
+			$indexedDBProducts[$row['store_id']][$row['value']]=$row['value'];				
+		}	
+	
+		foreach ($indexedProducts as $store => $products) {
+			foreach ($products as $product) {
+				if (!isset($indexedDBProducts[$store][$product])) {					
+					$writeConnection->beginTransaction();
+					//Log index fields
+					$insertArray = array();
+					$insertArray['logs_id'] = NULL;
+					$insertArray['value'] = $product;
+					$insertArray['store_id'] = $store;
+					$writeConnection->insert($logIndexedproductTable, $insertArray);
+				
+					$writeConnection->commit();
+				}
+			}
 		}
-		
-		$writeConnection->beginTransaction();
-		//Log index fields
-		$insertArray = array();
-		$insertArray['logs_id'] = NULL;
-		$insertArray['logs_type'] = 'INDEXEDPRODUCT';
-		$insertArray['value'] = $id;
-		$insertArray['store_id'] = $store_id;
-		$writeConnection->insert($logtable, $insertArray);
-		
-		$writeConnection->commit();
 	}
 	
 	public function loadProductCollection($websiteId, $storeId, $page = 1){
@@ -707,17 +709,17 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		$la_time = new DateTimeZone($timezone);
 		$datetime->setTimezone($la_time);
 		$lastIndexTime = $datetime->format('Y-m-d H:i:s');
-		
-		$whereClause = 'e.updated_at > \''.$lastIndexTime.'\'';
-		
+				
 		$resource = Mage::getSingleton('core/resource');
-		$logTable = $resource->getTableName('solrsearch/logs');
+		$logIndexedproductTable = $resource->getTableName('solrsearch/logs_indexedproduct');
 		
-		$whereClause .= " OR NOT EXISTS (
-    						SELECT `value` FROM `{$logTable}` WHERE `logs_type` = 'INDEXEDPRODUCT' AND value = e.entity_id
-  						)";
-			
-		$collection->getSelect()->where($whereClause);
+		//On Fait une Jointure LEFT avec une condition Where = NULL pour sélectionner les enregsitrement qui ne sont PAS dans la table des logs
+		// plus une condition OR sur la date de modification dans le WHERE pour sélectionner les produits qui ont été modifiés depuis la dernière indexation 
+		$collection->getSelect()->joinLeft(
+				array('log' => $logIndexedproductTable),
+				"e.entity_id = log.value AND log.store_id=$storeId ",
+				array()
+		)->where('(log.logs_id IS NULL OR e.updated_at > \''.$lastIndexTime.'\')');
 		
 		return $collection;
 	}

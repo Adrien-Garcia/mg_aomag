@@ -325,8 +325,9 @@ class WebMods_Solrsearch_Model_Solr extends Mage_Core_Model_Abstract {
 		
 		$attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
 		->setEntityTypeFilter($catalogProductEntityTypeId)
-		->addSetInfo()
-		->getData();
+		->addSetInfo();
+        $attributesInfo->getSelect()->order('position');
+        $attributesInfo->getData();
 		
     	foreach($attributesInfo as $attribute){
 		   if(isset($attribute['solr_search_field_weight']) && !empty($attribute['solr_search_field_weight']) && $attribute['solr_search_field_weight'] > 0){

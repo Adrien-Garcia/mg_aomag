@@ -33,8 +33,9 @@ class WebMods_Solrsearch_Block_Faces extends Mage_Core_Block_Template
     	$startPoint = strrpos($facetCode, '_')+1;
     	$endPoint = strlen($facetCode);
     	$attributeCode = substr($facetCode, 0, ($startPoint-1));
+    	$storeId = Mage::app()->getStore()->getId();
     	
-    	$facetLabelCache = Mage::app()->loadCache('solr_bridge_'.$facetCode.'_cache');
+    	$facetLabelCache = Mage::app()->loadCache('solr_bridge_'.$facetCode.'_store_'.$storeId.'_cache');
     	
     	if ( isset($facetLabelCache) && !empty($facetLabelCache) ) {
     		return $facetLabelCache;
@@ -46,18 +47,20 @@ class WebMods_Solrsearch_Block_Faces extends Mage_Core_Block_Template
 			->setEntityTypeFilter($catalogProductEntityTypeId)
 			->setCodeFilter(array($attributeCode))
 			->addSetInfo()
+			->addStoreLabel(Mage::app()->getStore()->getId())
 			->getData();
 			
 			$facetLabel = '';
 			foreach($facetFieldsInfo as $att){
 				if ($att['attribute_code'] == $attributeCode) {
-					$facetLabel = $att['frontend_label'];
-					Mage::app()->saveCache($facetLabel, 'solr_bridge_'.$facetCode.'_cache', array(), 60*60*24*360);
+					$facetLabel = $att['store_label'];
+					Mage::app()->saveCache($facetLabel, 'solr_bridge_'.$facetCode.'_store_'.$storeId.'_cache', array(), 60*60*24*360);
 					break;
 				}
 			}
 			if ($attributeCode == 'category') {
 				$facetLabel = $this->helper('catalog')->__('Category');
+				Mage::app()->saveCache($facetLabel, 'solr_bridge_'.$facetCode.'_store_'.$storeId.'_cache', array(), 60*60*24*360);
 			}
 			return $facetLabel;
     	}

@@ -356,7 +356,6 @@ class WebMods_Solrsearch_AjaxController extends Mage_Core_Controller_Front_Actio
 		
 		$html = $resultBlock->setTemplate("solrsearch/result-ajax.phtml")->toHtml();
 		
-		
 		$faceshtml = $facetsBlock->setTemplate("solrsearch/searchfaces-ajax.phtml")->toHtml();
 		echo $html.$faceshtml;
 		exit();
