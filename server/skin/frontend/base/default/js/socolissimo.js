@@ -284,7 +284,7 @@ function showMap() {
 	google.maps.event.addListener(socolissimoMap, 'tilesloaded', function () {
 		if (!init){			
 			for (icounter=0; icounter<socolissimoListRelais.length; icounter++) {					
-				relaisSocolissimo = socolissimoListRelais[icounter];				
+				relaisSocolissimo = socolissimoListRelais[icounter];	
 				var relaisPosition =  new google.maps.LatLng(relaisSocolissimo.latitude,relaisSocolissimo.longitude);				
 				marker = new google.maps.Marker({
 				    map: socolissimoMap, 
@@ -365,22 +365,10 @@ function attachClick(marker,infowindow, index){
 
 function choisirRelais(index) {
 	socolissimoRelaisChoisi = socolissimoListRelais[index];
-	//on - resélectionne le radio correspondant au type du relais choisi.
-	//   - affiche son nom
-	//   - positionne son l'identifiant dans le champ input
+	//on - positionne son l'identifiant dans le champ input
 	//   - on affiche eventuellement le champ téléphone
-	jQuery("#socolissimo-location input:radio").each(function(index, element){
-		radio = jQuery(element);	
-		if (radio.val() == socolissimoRelaisChoisi.type) {
-			checkDisplayPhone(radio);
-			radio.parent().next().html('<span>' + socolissimoRelaisChoisi.libelle + '</span>' + socolissimoRelaisChoisi.adresse + ' ' +socolissimoRelaisChoisi.code_postal + ' ' +socolissimoRelaisChoisi.commune);
-			jQuery("#socolissimo-location input[name=relais_socolissimo]").val(socolissimoRelaisChoisi.id_relais);
-			jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val(socolissimoRelaisChoisi.type);
-		} else {
-			radio.parent().next().text("");
-		}
-	});
-
+	jQuery("#socolissimo-hook").html('<input type="hidden" name="relais_socolissimo" value="'+socolissimoRelaisChoisi.id_relais+'" />' +
+								'<input type="hidden" name="type_socolissimo_choisi" value="'+socolissimoRelaisChoisi.type+'" />');
 	socolissimoOverlayApi.close(); 
 	return false;
 }

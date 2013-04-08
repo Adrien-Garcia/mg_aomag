@@ -33,7 +33,7 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    		$poste  	= $this->getRequest()->getParam('poste', false);	
    		$cityssimo  = $this->getRequest()->getParam('cityssimo', false);
    		$commercant = $this->getRequest()->getParam('commercant', false);
-   		Mage::log($poste.' - '.$cityssimo.' - '.$commercant);
+
    		$typesRelais = array();
    		if ($poste == 'true' || $poste === 'checked') {
    			$typesRelais[] = 'BPR';
@@ -60,10 +60,16 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    			}
    			
 	     	$listrelais = Mage::getModel('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, 1, $typesRelais);
-		    
+	     	
 	     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
-		        $result['items'] = $listrelais->listePointRetraitAcheminement;
-		        $result['html'] = $this->_getListRelaisHtml($listrelais->listePointRetraitAcheminement);
+	     		$items = array();
+	     		foreach ($listrelais->listePointRetraitAcheminement as $pointRetraitAcheminement) {
+	     			$relais = Mage::getModel('socolissimo/flexibilite/relais');
+	     			$relais->setPointRetraitAcheminement($pointRetraitAcheminement); 
+	     			$items[] = $relais;
+	     		}
+	     		$result['items'] = $items;
+		        $result['html'] = $this->_getListRelaisHtml($items);
 		        $result['skinUrl'] = Mage::getDesign()->getSkinUrl("images/socolissimo/");
 		    } else {
 		        $result['error'] = $listrelais->errorMessage;
@@ -91,8 +97,9 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    				$listFermetures->addFieldToFilter('id_relais_fe',$relais->getId());
    				$relais->setData('fermetures', $listFermetures->toArray());
    			}
-   			$result = $listrelais->toArray();
+   			$result = $listrelais->toArray(); //Pas besoin de spécifier le clé 'items', l'objet array porte déjà ses élélments sur 'items'
    			$result['html'] = $this->_getListRelaisHtml($listrelais);
+   			$result['skinUrl'] = Mage::getDesign()->getSkinUrl("images/socolissimo/");
    			
    		}
 	    

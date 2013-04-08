@@ -19,7 +19,8 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->getUrlWsdl());
 
 		try {
-				$findRDVPointRetraitAcheminement = new findRDVPointRetraitAcheminement();
+				//$findRDVPointRetraitAcheminement = new findRDVPointRetraitAcheminement();
+				$findRDVPointRetraitAcheminement = new findInternalRDVPointRetraitAcheminement();
 				$findRDVPointRetraitAcheminement->accountNumber = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite');
 				$findRDVPointRetraitAcheminement->password = Mage::getStoreConfig('carriers/socolissimo/password_socolissimo_flexibilite');
 				$findRDVPointRetraitAcheminement->address = $adresse;
@@ -33,10 +34,12 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				$quote = Mage::getSingleton('checkout/session')->getQuote();
 				$findRDVPointRetraitAcheminement->requestId = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite').$quote->getCustomerId().$date->toString('yyyyMMddHHmmss');
 
-				$result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
-				
-				//Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
-				//Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
+				//$result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
+				$result = $pointRetraitServiceWSService->findInternalRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
+
+				Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
+				Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
+				Mage::log($result);
 				
 				if ($result->return->errorCode == 0) {			
 					//foreach ($result->return->listePointRetraitAcheminement as $relais) {
@@ -78,8 +81,10 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				$result = $pointRetraitServiceWSService->findPointRetraitAcheminementByID($findPointRetraitAcheminementByID);
 				
 				if ($result->return->errorCode == 0) {			
-					Mage::log($result->return->pointRetraitAcheminement);		
-					return $result->return->pointRetraitAcheminement;
+					Mage::log($result->return->pointRetraitAcheminement);	
+					$relais = Mage::getModel('socolissimo/flexibilite/relais');
+					$relais->setPointRetraitAcheminement($result->return->pointRetraitAcheminement);
+					return $relais;
 				} else {
 					return $result->return->errorMessage;
 				}

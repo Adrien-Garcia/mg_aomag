@@ -8,7 +8,7 @@
  * @author 	    Addonline (http://www.addonline.fr)
  */
 
-class  Addonline_SoColissimo_Model_Liberte_Relais extends Mage_Core_Model_Abstract
+class  Addonline_SoColissimo_Model_Liberte_Relais extends Addonline_SoColissimo_Model_Relais_Abstract
 {
  
     /**
@@ -20,15 +20,52 @@ class  Addonline_SoColissimo_Model_Liberte_Relais extends Mage_Core_Model_Abstra
         $this->_init('socolissimo/liberte_relais');
     }
     
-    public function getType() {
-    	if ($this->getTypeRelais()=='BPR' || $this->getTypeRelais()=='CDI' || $this->getTypeRelais()=='ACP') {
-    		return 'poste';
-    	} elseif ($this->getTypeRelais()=='CIT') {
-    		return 'cityssimo';
-    	} elseif ($this->getTypeRelais()=='A2P') {
-    		return 'commercant';
-    	} else {
-    		return false;
-    	}
+	public function getIdentifiant() {
+		return $this->getData('identifiant');
+	}
+	
+    public function getTypeRelais() {
+    	return $this->getData('type_relais');
     }
+    
+    public function getDistance() {
+    	return $this->getData('distance');
+    }
+    
+    public function getLibelle() {
+    	return $this->getData('libelle');
+    }
+    
+    public function getAdresse() {
+    	return $this->getData('adresse');
+    }
+
+    public function getAdresse1() {
+    	return $this->getData('complement_adr');
+    }
+    
+    public function getAdresse2() {
+    	return $this->getData('lieu_dit');
+    }
+    
+    public function getAdresse3() {
+    	return $this->getData('indice_localisation');
+    }
+    
+    public function getCodePostal() {
+    	return $this->getData('code_postal');
+    }
+    
+    public function getCommune() {
+    	return $this->getData('commune');
+    }
+    
+    public function getIndicateurAcces() {
+    	return $this->getData('indicateur_acces');
+    }
+    
+    public function getCongeTotal() {
+    	return false;
+    }
+    
 }

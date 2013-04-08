@@ -46,6 +46,7 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
 	}
 
 	public function getShippingCity() {
+		Mage::log($this->_getShippingAddress()->getCity());
 		return $this->_getShippingAddress()->getCity();
 	}
 	
