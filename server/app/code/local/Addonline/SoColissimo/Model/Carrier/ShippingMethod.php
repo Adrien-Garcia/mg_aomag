@@ -203,7 +203,7 @@ class Addonline_SoColissimo_Model_Carrier_ShippingMethod extends Mage_Shipping_M
 				'origin.region.code' => $request->_data['region_id'],
 				'origin.postcode' => $request->_data['postcode'],
 				'free_shipping' => $request->getFreeShipping(),
-				'socolisimo_type' => $socolissimoType
+				'socolissimo_type' => $socolissimoType
 		));
 	
 		$tax_amount = 0;

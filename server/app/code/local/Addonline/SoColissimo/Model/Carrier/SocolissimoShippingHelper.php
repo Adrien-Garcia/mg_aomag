@@ -225,7 +225,6 @@ class SocolissimoShippingHelper
 			}
 		}
 
-		//TODO : SUPPRIMER la condition sur la destination dans config ? pour ne laisser que FR et BE ? 
 		$destination = $this->getRowProperty($row,'destination');
 		if (isset($destination)) {
 			$destination_match = $this->_addressMatch($destination,array(
@@ -272,38 +271,19 @@ class SocolissimoShippingHelper
 			}
 		}
 
-		$fees = $this->getRowProperty($row,'fees');
+		$fees_code = 'fees';
+		Mage::log($process['data']);
+		if ($process['data']['socolissimo_type']=='commercant') {
+			$fees_code = 'commercant_fees';
+		}	
+		$fees = $this->getRowProperty($row,$fees_code);
 		if (isset($fees)) {
-			$result = $this->_processFormula($process,$row,'fees',$fees,$is_checking);
+			$result = $this->_processFormula($process,$row,$fees_code,$fees,$is_checking);
 			if (!$result->success) return $result;
 			self::debug('   => <span class="osh-info">result = <span class="osh-formula">'.$this->_toString($result->result).'</span>');
 			return new SOCO_Result(true,(float)$result->result);
 		}
-		
-		$poste_fees = $this->getRowProperty($row,'poste_fees');
-		if (isset($post_fees)) {
-			$result = $this->_processFormula($process,$row,'poste_fees',$poste_fees,$is_checking);
-			if (!$result->success) return $result;
-			self::debug('   => <span class="osh-info">result = <span class="osh-formula">'.$this->_toString($result->result).'</span>');
-			return new SOCO_Result(true,(float)$result->result);
-		}
-		
-		$rdv_fees = $this->getRowProperty($row,'rdv_fees');
-		if (isset($rdv_fees)) {
-			$result = $this->_processFormula($process,$row,'rdv_fees',$rdv_fees,$is_checking);
-			if (!$result->success) return $result;
-			self::debug('   => <span class="osh-info">result = <span class="osh-formula">'.$this->_toString($result->result).'</span>');
-			return new SOCO_Result(true,(float)$result->result);
-		}
-
-		$commercant_fees = $this->getRowProperty($row,'commercant_fees');
-		if (isset($commercant_fees)) {
-			$result = $this->_processFormula($process,$row,'commercant_fees',$commercant_fees,$is_checking);
-			if (!$result->success) return $result;
-			self::debug('   => <span class="osh-info">result = <span class="osh-formula">'.$this->_toString($result->result).'</span>');
-			return new SOCO_Result(true,(float)$result->result);
-		}
-		
+				
 		return new SOCO_Result(false);
 	}
 
@@ -935,6 +915,7 @@ class SocolissimoShippingHelper
 			if (count($conditions)>0) $row['conditions'] = array('value' => count($conditions)==1 ? $conditions[0] : '('.implode(') && (',$conditions).')');
 
 			$fees = array();
+			$commercant_fees = array();
 			if (isset($row['fees_table'])) {
 				if (!in_array('fees_table',$deprecated_properties)) $deprecated_properties[] = 'fees_table';
 				$options_and_data = $this->_getOptionsAndData($row['fees_table']['value']);
@@ -966,9 +947,9 @@ class SocolissimoShippingHelper
 				unset($row['fixed_fees']);
 			}
 			if (!isset($row['fees']) && count($fees)>0) $row['fees'] = array('value' => implode('+',$fees));
-			if (!isset($row['poste_fees']) && count($poste_fees)>0) $row['poste_fees'] = array('value' => implode('+',$poste_fees));
-			if (!isset($row['rdv_fees']) && count($rdv_fees)>0) $row['rdv_fees'] = array('value' => implode('+',$rdv_fees));
-			//if (!isset($row['commercant_fees']) && count($commercant_fees)>0) $row['commercant_fees'] = array('value' => implode('+',$commercant_fees));
+			//if (!isset($row['poste_fees']) && count($poste_fees)>0) $row['poste_fees'] = array('value' => implode('+',$poste_fees));
+			//if (!isset($row['rdv_fees']) && count($rdv_fees)>0) $row['rdv_fees'] = array('value' => implode('+',$rdv_fees));
+			if (!isset($row['commercant_fees']) && count($commercant_fees)>0) $row['commercant_fees'] = array('value' => implode('+',$commercant_fees));
 				
 			$fs_fees = array();
 			if (isset($row['free_shipping__fees_table'])) {
@@ -1012,7 +993,6 @@ class SocolissimoShippingHelper
 				$row2 = $row;
 				if (isset($row['code'])) $row2['code']['value'] = $row['code']['value'].'__free_shipping';
 				$row2['fees']['value'] = implode('+',$fs_fees);
-				//TODO : gérer le cas des poste_fee, etc ...
 				$row2['conditions']['value'] = isset($row2['conditions']) ? '('.$row2['conditions']+') and {free_shipping}' : '{free_shipping}';
 				$row['conditions']['value'] = isset($row['conditions']) ? '('.$row['conditions']+') and !{free_shipping}' : '!{free_shipping}';
 				if (isset($row['free_shipping__label'])) {
@@ -1121,7 +1101,7 @@ class SocolissimoShippingHelper
 			$address_filter = trim($address_filter);
 			if (preg_match('#([A-Z]{2}) *(-)? *(?:\( *(-)? *(.*)\))?#s', $address_filter, $result)) {
 				$country_code = $result[1];
-				if ($address['country_code']==$country_code) {
+				if ($address['country_code']==$country_code && in_array($country_code, array('FR', 'MC', 'AD', 'BE'))) {//ADDONLINE : on limite SOcolissimo à la France (Monaco et Andorre) et la Belgique
 					self::debug('      country code <span class="osh-replacement">'.$address['country_code'].'</span> matches');
 					if (!isset($result[4]) || $result[4]=='') return !$excluding;
 					else {
