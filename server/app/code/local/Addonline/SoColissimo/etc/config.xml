@@ -183,6 +183,10 @@
 				<remise_commercant>0</remise_commercant>
 				<shipping_period>1</shipping_period>
 				<url_socolissimo_flexibilite>http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS</url_socolissimo_flexibilite>				
+				<!-- URLs de test
+				<url_socolissimo_flexibilite>http://217.108.161.163/pointretrait-ws-cxf/PointRetraitServiceWS</url_socolissimo_flexibilite>				
+				<url_socolissimo_flexibilite>http://pfi.telintrans.fr/pointretrait-ws-cxf/PointRetraitServiceWS</url_socolissimo_flexibilite>				
+				 -->
 				<sort_order>1</sort_order>
     		</socolissimo>
     	</carriers>
