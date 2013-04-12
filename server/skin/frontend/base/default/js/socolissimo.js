@@ -47,7 +47,7 @@ jQuery(function($) {
 	/** 
 	 * Sur l'événement change des radios boutons de choix de mode de livraison
 	 */
-	$("input[id^=\"s_method\"]").live("change", function() {
+	$("input[id^=\"s_method_socolissimo\"]").live("change", function() {
 		shippingRadioCheck(this);
 	});		
 	
@@ -61,72 +61,103 @@ jQuery(function($) {
 });
 
 function shippingRadioCheck(element) {	
-	var socoRadio = jQuery(element);
-	if (element.id.startWith("s_method_socolissimo") && socoRadio.attr("checked", "checked")){		
-		/*
-		if(jQuery('#socolissimo-location').size() <= 0 ) { //cas onestepcheckout
-			var $ma_div = jQuery("#socolissimo-location-orig").clone();		
-			jQuery("input[id^='s_method_socolissimo']").parents('dt').append($ma_div);		
-			jQuery("input[id^='s_method_socolissimo']").next().next().attr("id","socolissimo-location");
-		} 
-		*/
-		
-		//on affiche le picto de chargement étape suivante du opc
-		jQuery("#shipping-method-please-wait").show();
-		//on charge en ajax le layer de choix socolissimo
-		url = "/socolissimo/ajax/selector?"
-		jQuery.ajax({
-			  url: url,
-			  success: function(data){
-				  
-					//une fois chargé, on cache le picto de chargement, on ouvre un layer et on met de résultat dedans:
-				  
-					jQuery("#shipping-method-please-wait").hide();
-					
-			 		if (jQuery("#socolissimo-hook").size()==0) {
-						socoRadio.parent().append("<div id=\"socolissimo-hook\" rel=\"#layer_socolissimo\"><div id=\"layer_socolissimo\" class=\"layer\"></div></div>");
-					}
-					//on déplace le layer sur le body pour qu'il soit bien positionné au centre
-					jQuery("#layer_socolissimo").appendTo("body");
-					socolissimoOverlayApi = jQuery("#socolissimo-hook").overlay({
-					    expose: { 
-					        color: '#000', 
-					        loadSpeed: 200, 
-					        opacity: 0.5 
-					    }, 
-					    closeOnClick: false,
-					    top: "center",
-						onBeforeClose : function(event){
-							//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo ?
-						},
-						fixed: false,
-					    api: true 
-					  });
-					socolissimoOverlayApi.load();
-					jQuery("#layer_socolissimo").html(data);
+	var socoRadio = jQuery(element);	
 
-			  }
-		});
-		
-	} else {		
-		socolissimoOverlayApi.close();
-		jQuery("#socolissimo-map").hide();
-		jQuery("#socolissimo-location").show();
+	//on affiche le picto de chargement étape suivante du opc
+	jQuery("#shipping-method-please-wait").show();
+
+	//on charge en ajax le layer socolissimo (carte choix relais et/ou saisie numéro de téléphone)
+	url = "/socolissimo/ajax/selector/type/";
+	var shippingMethod = socoRadio.attr("value");
+	var typeSocolissimo = shippingMethod.replace("socolissimo_","");
+	if (typeSocolissimo.startWith("poste")) {
+		url = url + 'poste';
+	} else if (typeSocolissimo.startWith("cityssimo")) {
+		url = url + 'cityssimo';
+	} else if (typeSocolissimo.startWith("commercant")){ 
+		url = url + 'commercant';
+	} else if (typeSocolissimo.startWith("livraison")) {
+		url = url + 'livraison';
+	} else if (typeSocolissimo.startWith("rdv")){ 
+		url = url + 'rdv';
+	} else {
+		//Sinon c'est un type de livraison inconnu
+		alert("Mauvaise configuration du module Socolissimo : dans le champ configuration le code doit commencer par livraison, rdv, poste, commercant ou cityssimo");
+		return;
 	}
+
+	jQuery.ajax({
+		url: url,
+		success: function(data){
+
+			//une fois chargé, on cache le picto de chargement, on ouvre un layer et on met de résultat dedans:
+
+			jQuery("#shipping-method-please-wait").hide();
+
+			if (jQuery("#socolissimo-hook").size()==0) {
+				socoRadio.parent().append("<div id=\"socolissimo-hook\" rel=\"#layer_socolissimo\"><div id=\"layer_socolissimo\" class=\"layer\"></div></div>");
+			}
+			//on déplace le layer sur le body pour qu'il soit bien positionné au centre
+			jQuery("#layer_socolissimo").appendTo("body");
+			socolissimoOverlayApi = jQuery("#socolissimo-hook").overlay({
+				expose: { 
+					color: '#000', 
+					loadSpeed: 200, 
+					opacity: 0.5 
+				}, 
+				closeOnClick: false,
+				top: "center",
+				onBeforeClose : function(event){
+					//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo ?
+				},
+				fixed: false,
+				api: true 
+			});
+			socolissimoOverlayApi.load();
+			jQuery("#layer_socolissimo").html(data);
+
+			if (typeSocolissimo.startWith("poste") || typeSocolissimo.startWith("cityssimo") || typeSocolissimo.startWith("commercant")){ 
+
+				//initialisation de la liste déroulantes des villes "personnalisée"
+				jQuery("#socolissimo_city_select").change(function() {
+					jQuery(this).prevAll("span").eq(0).text(jQuery(this).find("option:selected").text());
+				});
+				//initilisation du rechargement de la liste déroulante des villes 
+				jQuery("#socolissimo_postcode").change(function(){
+					var postcode = this.value; 
+					jQuery.ajax({
+						url: 'http://api.geonames.org/postalCodeSearchJSON?username=addonline&country=fr&postalcode='+postcode,
+						dataType:'jsonp',
+						jsonpCallback: 'reloadCities',
+						success: function(json){
+							var options = '<option selected >Choisissez une commune</option>';
+							for (i=0; i<json.postalCodes.length; i++){ 
+								commune = json.postalCodes[i].placeName;
+								options += '<option value="' + commune + '">' + commune + '</option>';
+							}
+							jQuery("#socolissimo_city_select").html(options);
+							jQuery("#socolissimo_city").text("Choisissez une commune");
+						}
+					});
+				});
+
+				//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
+				geocodeAdresse();
+
+			}					
+
+
+		},
+		error : function(jqXHR, textStatus){
+			alert("Erreur de chargement des données "+textStatus);
+		}
+	});
+
+
+
 }
 
 /*
-function reloadSocolissimo(){		
-	if(jQuery('#socolissimo-location').size() <= 0 ){		
-		var ma_div_clone = jQuery("#socolissimo-location-orig").clone();	
-		var cible = jQuery("input[id^='s_method_socolissimo']").parents('dt');
-		cible.delay(100).append(ma_div_clone);		
-		jQuery("input[id^='s_method_socolissimo']").next().next().attr("id","socolissimo-location");
-		jQuery("#socolissimo-location").show();
-	}
-}
-*/
-
 function socolissimoRadioCheck(input) {
 	//on commence par ré-initialiser le relais qui a pu être déjà choisi 
 	jQuery("#socolissimo-location input[name=relais_socolissimo]").val("");
@@ -170,7 +201,6 @@ function socolissimoRadioCheck(input) {
 		//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
 		geocodeAdresse();
 	
-		/* TODO : le layer est déjà chargé : gérer le non choix du relais */
 		
 		jQuery("#socolissimo-location").hide();
 		jQuery("#socolissimo-map").show();
@@ -179,7 +209,6 @@ function socolissimoRadioCheck(input) {
 		jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val(input.value);
 	}
 }
-
 function checkDisplayPhone(input) {
 	if (jQuery(input).val() == "rdv" || jQuery(input).val() == "cityssimo" || jQuery(input).val() == "commercant" || jQuery(input).val() == "poste" || jQuery(input).val() == "livraison"){
 		jQuery("#socolissimo-location label.portable").show().css("display:block;");
@@ -189,10 +218,10 @@ function checkDisplayPhone(input) {
 		jQuery("#socolissimo-location label.portable").hide().css("display:hide;");;
 	}
 }
+*/
 
 function geocodeAdresse() {
 
-	//TODO : charger les infos de l'adresse directement dans le template, vu qu'on le recharge en ajax à chaque fois
 	if (jQuery("#socolissimo_city_select option").length > 0 && jQuery("#socolissimo_city_select")[0].selectedIndex == 0) {
 		if(jQuery('#billing\\:city').val() == ""){
 			alert("Veuillez sélectionner une commune");
@@ -213,11 +242,11 @@ function geocodeAdresse() {
 	}
 	var geocoder = new google.maps.Geocoder();
 	if(jQuery("#socolissimo_street").val() == "") {
-		var searchAdress = jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + ' ' + jQuery('#billing\\:postcode').val() + ' ' + jQuery('#billing\\:city').val();
+		var searchAdress = jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + ' ' + jQuery('#billing\\:postcode').val() + ' ' + jQuery('#billing\\:city').val() + ', ' + jQuery('#billing\\:country').val();
 	} else{
-		var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text();
+		var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text() + ', ' + jQuery('#socolissimo_country').val();
 	}
-	//console.log('Search adresse : ' + searchAdress);
+	//alert('Search adresse : ' + searchAdress);
 	geocoder.geocode({'address': searchAdress}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
  			socolissimoMyPosition = results[0].geometry.location;
@@ -243,12 +272,12 @@ function loadListeRelais() {
 		url = url + check.val() + "=" + check.attr("checked") + "&";
 	});
 	if(jQuery("#socolissimo_street").val() == "") {		
-		url = url + "adresse=" + jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + "&zipcode=" + jQuery('#billing\\:postcode').val()+ "&ville=" + jQuery('#billing\\:city').val();
+		url = url + "adresse=" + jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + "&zipcode=" + jQuery('#billing\\:postcode').val()+ "&ville=" + jQuery('#billing\\:city').val()+ "&country=" + jQuery('#billing\\:country').val();
 		jQuery("#socolissimo_street").val(jQuery('#billing\\:street1').val()+' '+jQuery('#billing\\:street2').val());
 		jQuery("#socolissimo_postcode").val(jQuery('#billing\\:postcode').val());
 		jQuery("#socolissimo_city").text(jQuery('#billing\\:city').val());
 	} else{
-		url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text();
+		url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text()+ "&country=" + jQuery("#socolissimo_country").val();
 	}	
 	url = url + "&latitude=" + socolissimoMyPosition.lat() + "&longitude=" + socolissimoMyPosition.lng();
 	jQuery.getJSON( url, function(response) {

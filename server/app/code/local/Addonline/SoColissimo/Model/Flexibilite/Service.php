@@ -7,39 +7,47 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 	public function getUrlWsdl()
 	{
 		if (!$this->_urlWsdl) {
-			$this->_urlWsdl = Mage::getStoreConfig('carriers/socolissimo/url_socolissimo_flexibilite')."?wsdl";
+			if (Mage::getStoreConfig('carriers/socolissimo/testws_socolissimo_flexibilite')) {
+				$this->_urlWsdl = "https://pfi.telintrans.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0?wsdl";
+			} else {
+				$this->_urlWsdl = "http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0?wsdl";
+			}
 		}
 		return $this->_urlWsdl;
 	}
 	
-	function findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $filterRelay) {
+	function findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay) {
 		
-		require_once dirname(__FILE__).'/PointRetraitServiceWSService.php';
+		/* 
+		 * On inclu la class Stub générée avec wsdl2phpgenrator : https://github.com/walle/wsdl2phpgenerator/wiki/ExampleUsage 
+		 * ./wsdl2php -et -i http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0?wsdl
+		 */
+		require_once dirname(__FILE__).'/Service/PointRetraitServiceWSService.php';
 
 		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->getUrlWsdl());
 
 		try {
-				//$findRDVPointRetraitAcheminement = new findRDVPointRetraitAcheminement();
-				$findRDVPointRetraitAcheminement = new findInternalRDVPointRetraitAcheminement();
+				$findRDVPointRetraitAcheminement = new findRDVPointRetraitAcheminement();
 				$findRDVPointRetraitAcheminement->accountNumber = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite');
 				$findRDVPointRetraitAcheminement->password = Mage::getStoreConfig('carriers/socolissimo/password_socolissimo_flexibilite');
 				$findRDVPointRetraitAcheminement->address = $adresse;
 				$findRDVPointRetraitAcheminement->zipCode = $zipcode;
 				$findRDVPointRetraitAcheminement->city = $ville;
+				$findRDVPointRetraitAcheminement->countryCode = $country;
 				$findRDVPointRetraitAcheminement->weight = $this->_getQuoteWeight();
 				$findRDVPointRetraitAcheminement->shippingDate =  $this->_getShippingDate();
 				$findRDVPointRetraitAcheminement->filterRelay = $filterRelay;
-				//$findRDVPointRetraitAcheminement->typeDePoint = $typeDePoint;
 				$date = new Zend_Date();
 				$quote = Mage::getSingleton('checkout/session')->getQuote();
 				$findRDVPointRetraitAcheminement->requestId = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite').$quote->getCustomerId().$date->toString('yyyyMMddHHmmss');
+				$findRDVPointRetraitAcheminement->lang = 'FR'; //TODO : gérer le NL
+				$findRDVPointRetraitAcheminement->optionInter = ($country=='FR')?0:2;
+				
+				$result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
 
-				//$result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
-				$result = $pointRetraitServiceWSService->findInternalRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
-
-				Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
-				Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
-				Mage::log($result);
+				//Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
+				//Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
+				//Mage::log($result);
 				
 				if ($result->return->errorCode == 0) {			
 					//foreach ($result->return->listePointRetraitAcheminement as $relais) {

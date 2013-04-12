@@ -33,7 +33,8 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    		$poste  	= $this->getRequest()->getParam('poste', false);	
    		$cityssimo  = $this->getRequest()->getParam('cityssimo', false);
    		$commercant = $this->getRequest()->getParam('commercant', false);
-
+	   	$country      = $this->getRequest()->getParam('country', false);
+   		   		 
    		$typesRelais = array();
    		if ($poste == 'true' || $poste === 'checked') {
    			$typesRelais[] = 'BPR';
@@ -52,20 +53,21 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 	   		$adresse    = $this->getRequest()->getParam('adresse', false);
 	   		$zipcode    = $this->getRequest()->getParam('zipcode', false);
 	   		$ville      = $this->getRequest()->getParam('ville', false);
-   			
+	   		
    			//le filtre du WS permet seulement d'exclure les commerçants : on filtre les résultats après l'appel au WS */
    			$filterRelay = 0;
    			if ($commercant == 'true' || $commercant === 'checked') {
    				$filterRelay = 1;
    			}
    			
-	     	$listrelais = Mage::getModel('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, 1, $typesRelais);
+	     	$listrelais = Mage::getModel('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay, $typesRelais);
 	     	
 	     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
 	     		$items = array();
 	     		foreach ($listrelais->listePointRetraitAcheminement as $pointRetraitAcheminement) {
-	     			$relais = Mage::getModel('socolissimo/flexibilite/relais');
+	     			$relais = Mage::getModel('socolissimo/flexibilite_relais');
 	     			$relais->setPointRetraitAcheminement($pointRetraitAcheminement); 
+	     			//TODO : le Zend_Json::encode($result) fait perdre toutes données. .. 
 	     			$items[] = $relais;
 	     		}
 	     		$result['items'] = $items;
