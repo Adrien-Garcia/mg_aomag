@@ -20,52 +20,28 @@ class  Addonline_SoColissimo_Model_Liberte_Relais extends Addonline_SoColissimo_
         $this->_init('socolissimo/liberte_relais');
     }
     
-	public function getIdentifiant() {
-		return $this->getData('identifiant');
-	}
-	
-    public function getTypeRelais() {
-    	return $this->getData('type_relais');
-    }
-    
-    public function getDistance() {
-    	return $this->getData('distance');
-    }
-    
     public function getLibelle() {
-    	return $this->getData('libelle');
+    	 if (Mage::app()->getStore()->getLanguageCode() == 'NL') {
+    	 	return $this->getData('libelle_nl');
+    	 } else {
+    		return $this->getData('libelle');
+    	 }
     }
     
     public function getAdresse() {
-    	return $this->getData('adresse');
+        if (Mage::app()->getStore()->getLanguageCode() == 'NL') {
+    	 	return $this->getData('adresse_nl');
+    	} else {
+    		return $this->getData('adresse');
+    	}
     }
 
-    public function getAdresse1() {
-    	return $this->getData('complement_adr');
-    }
-    
-    public function getAdresse2() {
-    	return $this->getData('lieu_dit');
-    }
-    
-    public function getAdresse3() {
-    	return $this->getData('indice_localisation');
-    }
-    
-    public function getCodePostal() {
-    	return $this->getData('code_postal');
-    }
-    
     public function getCommune() {
-    	return $this->getData('commune');
-    }
-    
-    public function getIndicateurAcces() {
-    	return $this->getData('indicateur_acces');
-    }
-    
-    public function getCongeTotal() {
-    	return false;
+            if (Mage::app()->getStore()->getLanguageCode() == 'NL') {
+    	 	return $this->getData('commune_nl');
+    	} else {
+    		return $this->getData('commune');
+    	}
     }
     
 }

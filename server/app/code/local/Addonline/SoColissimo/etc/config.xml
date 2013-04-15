@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Addonline_SoColissimo>
-            <version>2.0.0</version>
+            <version>2.0.1</version>
             <depends>
                 <Mage_Shipping />
             </depends>
@@ -150,7 +150,8 @@
     		<socolissimo>
     			<active>0</active>
     			<title>So Colissimo</title>
-    			<model>Addonline_SoColissimo_Model_Carrier_ShippingMethod</model>    
+    			<model>Addonline_SoColissimo_Model_Carrier_ShippingMethod</model>   
+    			<international>0</international> 
 				<config><![CDATA[
 # So Colissimo Livraison à domicile (France, Monaco, Andorre) (Mars 2013)
 {
@@ -161,11 +162,11 @@
 	fees: "{table {cart.weight} in 0.25:5.95, 0.5:6.70, 0.75:7.45, 1.0:7.95, 2.0:8.72, 3.0:9.49, 4.0:10.26, 5.0:11.03, 6.0:11.80, 7.0:12.57, 8.0:13.34, 9.0:14.11, 10.0:14.88, 11.0:15.65, 12.0:16.42, 13.0:17.19, 14.0:17.96, 15.0:18.73, 16.0:19.50, 17.0:20.27, 18.0:21.04, 19.0:21.81, 20.0:22.58, 21.0:23.35, 22.0:24.12, 23.0:24.89, 24.0:25.66, 25.0:26.43, 26.0:27.20, 27.0:27.97, 28.0:28.74, 29.0:29.51, 30.0:30.28}",
 }
 
-# So Colissimo Sur Rendez-vous (Paris code postal 75*) (Mars 2013)
+# So Colissimo Sur Rendez-vous (Paris code postal 750xx) (Mars 2013)
 {
 	label: "Sur Rendez-vous",
 	code: "rdv_fr",
-	destination: "FR(/^75[0-9]{3}$/)",
+	destination: "FR(/^75(0[0-1][0-9])|020|116$/)",
 	conditions: "{cart.weight}<20",
 	fees: "{livraison_fr.fees} + 3",
 }

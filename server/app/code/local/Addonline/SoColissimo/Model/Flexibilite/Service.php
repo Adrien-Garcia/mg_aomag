@@ -40,8 +40,8 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				$date = new Zend_Date();
 				$quote = Mage::getSingleton('checkout/session')->getQuote();
 				$findRDVPointRetraitAcheminement->requestId = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite').$quote->getCustomerId().$date->toString('yyyyMMddHHmmss');
-				$findRDVPointRetraitAcheminement->lang = 'FR'; //TODO : gérer le NL
-				$findRDVPointRetraitAcheminement->optionInter = ($country=='FR')?0:2;
+				$findRDVPointRetraitAcheminement->lang = (Mage::app()->getStore()->getLanguageCode() == 'NL')?'NL':'FR';
+				$findRDVPointRetraitAcheminement->optionInter = Mage::getStoreConfig('carriers/socolissimo/international');
 				
 				$result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
 

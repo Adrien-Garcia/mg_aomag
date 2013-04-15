@@ -19,11 +19,18 @@ class Addonline_SoColissimo_Model_Resource_Liberte_Relais_Collection
         return $this->load();
     }     
     
-    public function prepareNearestByType($latitude, $longitude, $typesRelais, $dateLivraison) {
+    public function prepareNearestByType($latitude, $longitude, $typesRelais) {
 
    		//calcul de la distance d'un arc de cercle à la surface de la terre entre deux points coordonnées : http://fr.wikipedia.org/wiki/Orthodromie
    		$formuleDistance = '(6371 * ACOS(COS(RADIANS(main_table.latitude)) * COS(RADIANS('.$latitude.')) * COS(RADIANS('.$longitude.'-main_table.longitude)) + SIN(RADIANS(main_table.latitude)) * SIN(RADIANS('.$latitude.'))))';
     	
+   		$dateLivraison = new Zend_Date();
+   		if ($delai = Mage::getStoreConfig('carriers/socolissimo/shipping_period')) {
+   			$dateLivraison->addDay($delai);
+   		} else {
+   			$dateLivraison->addDay(1);
+   		}
+   		 
     	$this->getSelect()->distinct()
     						->columns(array('distance'=>$formuleDistance))
 							->where('type_relais IN (?)', $typesRelais);

@@ -16,11 +16,11 @@ abstract class  Addonline_SoColissimo_Model_Relais_Abstract extends Mage_Core_Mo
     const TYPE_COMMERCANT = 'commercant';
     
     public function getType() {
-    	if ($this->getTypeRelais()=='BPR' || $this->getTypeRelais()=='CDI' || $this->getTypeRelais()=='ACP') {
+    	if ($this->getTypeRelais()=='BPR' || $this->getTypeRelais()=='CDI' || $this->getTypeRelais()=='ACP' || $this->getTypeRelais()=='BDP') {
     		return self::TYPE_POSTE;
     	} elseif ($this->getTypeRelais()=='CIT') {
     		return self::TYPE_CITYSSIMO;
-    	} elseif ($this->getTypeRelais()=='A2P') {
+    	} elseif ($this->getTypeRelais()=='A2P' || $this->getTypeRelais()=='CMT') {
     		return self::TYPE_COMMERCANT;
     	} else {
     		return false;
@@ -39,6 +39,7 @@ abstract class  Addonline_SoColissimo_Model_Relais_Abstract extends Mage_Core_Mo
     	return $this->getType() == self::TYPE_COMMERCANT;
     }
     
+    /*
     abstract public function getIdentifiant();
     
     abstract public function getTypeRelais();
@@ -62,5 +63,5 @@ abstract class  Addonline_SoColissimo_Model_Relais_Abstract extends Mage_Core_Mo
     abstract public function getIndicateurAcces();
     
     abstract public function getCongeTotal();
-    
+    */
 }

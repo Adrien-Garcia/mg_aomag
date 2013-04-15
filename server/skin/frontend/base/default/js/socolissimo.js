@@ -99,12 +99,14 @@ function shippingRadioCheck(element) {
 			}
 			//on déplace le layer sur le body pour qu'il soit bien positionné au centre
 			jQuery("#layer_socolissimo").appendTo("body");
+			jQuery("#layer_socolissimo").html(data);
 			socolissimoOverlayApi = jQuery("#socolissimo-hook").overlay({
 				expose: { 
 					color: '#000', 
 					loadSpeed: 200, 
 					opacity: 0.5 
 				}, 
+				close:".close",
 				closeOnClick: false,
 				top: "center",
 				onBeforeClose : function(event){
@@ -114,7 +116,7 @@ function shippingRadioCheck(element) {
 				api: true 
 			});
 			socolissimoOverlayApi.load();
-			jQuery("#layer_socolissimo").html(data);
+
 
 			if (typeSocolissimo.startWith("poste") || typeSocolissimo.startWith("cityssimo") || typeSocolissimo.startWith("commercant")){ 
 
@@ -346,8 +348,14 @@ function infoBulleGenerator(relaisSocolissimo) {
     if (relaisSocolissimo.horaire_jeudi!='00:00-00:00 00:00-00:00') {contentString += '<b>Jeudi:</b> '+ relaisSocolissimo.horaire_jeudi + '<br/>'}
     if (relaisSocolissimo.horaire_vendredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Vendredi:</b> '+ relaisSocolissimo.horaire_vendredi + '<br/>'}
     if (relaisSocolissimo.horaire_samedi!='00:00-00:00 00:00-00:00') {contentString += '<b>Samedi:</b> '+ relaisSocolissimo.horaire_samedi + '<br/>'}
-    if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche}
-    if (relaisSocolissimo.indicateur_acces) { contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_handicap.png" />'; }
+    if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche+ '<br/>'}
+    if (relaisSocolissimo.type_relais =='ACP' || relaisSocolissimo.type_relais =='CDI') { 
+    	contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_parking.jpg" />'; 
+    	contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_manutention.jpg" />'; 
+    }
+    if (relaisSocolissimo.indicateur_acces==1) { 
+    	contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_mobilite_reduite.jpg" />'; 
+    }
     if (relaisSocolissimo.fermetures.totalRecords>0) { contentString += '<br/><b>Periodes de fermeture :</b>'; 
 		for (i=0; i<relaisSocolissimo.fermetures.items.length; i++) {
 			fermeture = relaisSocolissimo.fermetures.items[i];
@@ -356,9 +364,10 @@ function infoBulleGenerator(relaisSocolissimo) {
 			contentString += '<br/>du ' + datedu.substring(8,10) + '/' + datedu.substring(5,7) + '/' + datedu.substring(0,4) + ' au ' + dateau.substring(8,10) + '/' + dateau.substring(5,7) + '/' + dateau.substring(0,4);
 		}
 	}
+    
     contentString += '</p></div>';
     contentString = contentString.replace(new RegExp(' 00:00-00:00', 'g'),''); //on enlève les horaires de l'après midi si ils sont vides
-    
+
 	infowindow = new google.maps.InfoWindow({
 		content: contentString
 	});
@@ -407,7 +416,11 @@ Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de télé
     return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
 });
 
-//On surcharge la méthode validate de ShippingMethod définie dans opcheckout.js (dans le cas du onepagecheckout seulement)
+Validation.add('valid-telephone-portable-belgique', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
+    return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
+});
+
+/*On surcharge la méthode validate de ShippingMethod définie dans opcheckout.js (dans le cas du onepagecheckout seulement)
 if ((typeof ShippingMethod) != "undefined")  {
 ShippingMethod.prototype.validate = function() {
     var methods = document.getElementsByName('shipping_method');
@@ -471,4 +484,4 @@ if ((typeof Checkout) != "undefined") {
         }
         return false;
     }	
-}
+}*/

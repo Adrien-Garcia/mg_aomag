@@ -102,7 +102,7 @@
 					<?php if ($type=='livraison' ) : ?>
 						<span class="livraison" >Pour la livraison à domicile, nous avons besoin d'un numéro de téléphone mobile pour vous contacter. Merci de vérifier le numéro saisi ici :</span>
 					<?php endif;?>
-					<input type="text" name="tel_socolissimo" class="required-entry length_12 valid-telephone-portable" maxlength="12" value="<?php echo $this->getTelephone(); ?>" />
+					<input type="text" name="tel_socolissimo" class="required-entry length_12 valid-telephone-portable<?php if ($this->getShippingCountry()=='BE') :?>-belgique<?php endif;?>" maxlength="12" value="<?php echo $this->getTelephone(); ?>" />
 					<button type="button" class="btn_socolissimoChoisir button" ><span>OK</span></button> 	
 				</label>
 			</div>

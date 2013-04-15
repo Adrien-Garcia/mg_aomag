@@ -36,16 +36,29 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 	   	$country      = $this->getRequest()->getParam('country', false);
    		   		 
    		$typesRelais = array();
+   		$optInternational = Mage::getStoreConfig('carriers/socolissimo/international');
    		if ($poste == 'true' || $poste === 'checked') {
-   			$typesRelais[] = 'BPR';
-   			$typesRelais[] = 'CDI';
-   			$typesRelais[] = 'ACP';
+			if ($country === 'FR' || $optInternational) {
+	   			$typesRelais[] = 'BPR';
+	   			$typesRelais[] = 'CDI';
+	   			$typesRelais[] = 'ACP';
+			}
+			if ($country === 'BE' || $optInternational) {
+				$typesRelais[] = 'BDP';
+			}
    		}
    		if ($cityssimo == 'true' || $cityssimo === 'checked') {
-   			$typesRelais[] = 'CIT';
+			if ($country === 'FR' || $optInternational) {
+   				$typesRelais[] = 'CIT';
+			}
    		}
    		if ($commercant == 'true' || $commercant === 'checked') {
-   			$typesRelais[] = 'A2P';
+			if ($country === 'FR' || $optInternational) {
+   				$typesRelais[] = 'A2P';
+			}
+			if ($country === 'BE' || $optInternational) {
+				$typesRelais[] = 'CMT';
+			}
    		}
    		 
    		if (Mage::helper('socolissimo')->isFlexibilite()) {
@@ -53,26 +66,29 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 	   		$adresse    = $this->getRequest()->getParam('adresse', false);
 	   		$zipcode    = $this->getRequest()->getParam('zipcode', false);
 	   		$ville      = $this->getRequest()->getParam('ville', false);
-	   		
+
    			//le filtre du WS permet seulement d'exclure les commerçants : on filtre les résultats après l'appel au WS */
    			$filterRelay = 0;
    			if ($commercant == 'true' || $commercant === 'checked') {
    				$filterRelay = 1;
    			}
    			
-	     	$listrelais = Mage::getModel('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay, $typesRelais);
+	     	$listrelais = Mage::getModel('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay);
 	     	
 	     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
-	     		$items = array();
+	     		$itemsObject = array();
+	     		$itemsArray = array();
 	     		foreach ($listrelais->listePointRetraitAcheminement as $pointRetraitAcheminement) {
-	     			$relais = Mage::getModel('socolissimo/flexibilite_relais');
-	     			$relais->setPointRetraitAcheminement($pointRetraitAcheminement); 
-	     			//TODO : le Zend_Json::encode($result) fait perdre toutes données. .. 
-	     			$items[] = $relais;
+	     			if (in_array($pointRetraitAcheminement->typeDePoint, $typesRelais)) {
+		     			$relais = Mage::getModel('socolissimo/flexibilite_relais');
+		     			$relais->setPointRetraitAcheminement($pointRetraitAcheminement); 
+						$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
+		     			$itemsObject[] = $relais;
+		     			$itemsArray[] = $relais->getData();
+	     			}
 	     		}
-	     		$result['items'] = $items;
-		        $result['html'] = $this->_getListRelaisHtml($items);
-		        $result['skinUrl'] = Mage::getDesign()->getSkinUrl("images/socolissimo/");
+	     		$result['items'] = $itemsArray;
+		        $result['html'] = $this->_getListRelaisHtml($itemsObject);
 		    } else {
 		        $result['error'] = $listrelais->errorMessage;
 		    }
@@ -82,15 +98,8 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 	   		$latitude   = $this->getRequest()->getParam('latitude', false);
    			$longitude  = $this->getRequest()->getParam('longitude', false);
 
-   			$dateLivraison = new Zend_Date();
-   			if ($delai = Mage::getStoreConfig('carriers/socolissimo/shipping_period')) {
-   				$dateLivraison->addDay($delai);
-   			} else {
-   				$dateLivraison->addDay(1);
-   			}
-   			 
    			$listrelais = Mage::getModel('socolissimo/liberte_relais')->getCollection();
-   			$listrelais->prepareNearestByType($latitude, $longitude, $typesRelais, $dateLivraison);
+   			$listrelais->prepareNearestByType($latitude, $longitude, $typesRelais);
    			 
    			foreach ($listrelais as $relais) {
    				$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));

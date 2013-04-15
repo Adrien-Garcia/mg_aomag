@@ -12,9 +12,5 @@ class Addonline_SoColissimo_Model_Resource_Liberte_HorairesOuverture extends Mag
     public function _construct() {
         $this->_init('socolissimo/liberte_horairesOuverture','id_horaire_ouverture');
     }
-    
-    public function deleteAll(){
-        $db = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $result = $db->query("TRUNCATE TABLE ".$this->getMainTable());
-    }
+
 }
