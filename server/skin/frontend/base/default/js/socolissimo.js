@@ -47,6 +47,37 @@ jQuery(function($) {
 	
 });
 
+function initSocolissimoLogos() {
+	jQuery("input[id^=\"s_method_socolissimo\"]").each(function(index, element){
+		var typeSocolissimo =  getTypeSocolissimoFromRadio(jQuery(element));
+		if (typeSocolissimo) {
+			var radioParent = jQuery(element).parent();
+			radioParent.prepend('<img src="/skin/frontend/base/default/images/socolissimo/picto_'+typeSocolissimo+'.png" >');
+			jQuery("#socolissimo_description_"+typeSocolissimo).appendTo(radioParent).attr("style","display:block;");
+		}
+	});
+}
+
+function getTypeSocolissimoFromRadio(radio) {
+	var shippingMethod = radio.attr("value");
+	var typeSocolissimo = shippingMethod.replace("socolissimo_","");
+	if (typeSocolissimo.startWith("poste")) {
+		return 'poste';
+	} else if (typeSocolissimo.startWith("cityssimo")) {
+		return 'cityssimo';
+	} else if (typeSocolissimo.startWith("commercant")){ 
+		return 'commercant';
+	} else if (typeSocolissimo.startWith("livraison")) {
+		return 'livraison';
+	} else if (typeSocolissimo.startWith("rdv")){ 
+		return 'rdv';
+	} else {
+		//Sinon c'est un type de livraison inconnu
+		alert("Mauvaise configuration du module Socolissimo : dans le champ configuration le code doit commencer par livraison, rdv, poste, commercant ou cityssimo");
+		return false;
+	}
+}
+
 function shippingRadioCheck(element) {	
 	var socoRadio = jQuery(element);	
 
@@ -55,21 +86,10 @@ function shippingRadioCheck(element) {
 
 	//on charge en ajax le layer socolissimo (carte choix relais et/ou saisie numéro de téléphone)
 	url = "/socolissimo/ajax/selector/type/";
-	var shippingMethod = socoRadio.attr("value");
-	var typeSocolissimo = shippingMethod.replace("socolissimo_","");
-	if (typeSocolissimo.startWith("poste")) {
-		url = url + 'poste';
-	} else if (typeSocolissimo.startWith("cityssimo")) {
-		url = url + 'cityssimo';
-	} else if (typeSocolissimo.startWith("commercant")){ 
-		url = url + 'commercant';
-	} else if (typeSocolissimo.startWith("livraison")) {
-		url = url + 'livraison';
-	} else if (typeSocolissimo.startWith("rdv")){ 
-		url = url + 'rdv';
+	var typeSocolissimo =  getTypeSocolissimoFromRadio(socoRadio);
+	if (typeSocolissimo) {
+		url = url + typeSocolissimo;
 	} else {
-		//Sinon c'est un type de livraison inconnu
-		alert("Mauvaise configuration du module Socolissimo : dans le champ configuration le code doit commencer par livraison, rdv, poste, commercant ou cityssimo");
 		return;
 	}
 
@@ -416,72 +436,7 @@ Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de télé
 });
 
 Validation.add('valid-telephone-portable-belgique', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
-	//TODO : réécrire l'expression régulières
-	return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
+	//Pour les destinataires belges, le numéro de téléphone portable doit commencer par le caractère + suivi de 324, suivi de 8 chiffres
+	return (/^\+324\d{8}$/.test(v) && !(/^\+324(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
 });
 
-/*On surcharge la méthode validate de ShippingMethod définie dans opcheckout.js (dans le cas du onepagecheckout seulement)
-if ((typeof ShippingMethod) != "undefined")  {
-ShippingMethod.prototype.validate = function() {
-    var methods = document.getElementsByName('shipping_method');
-    if (methods.length==0) {
-        alert(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.').stripTags());
-        return false;
-    }
-
-    if(!this.validator.validate()) {
-        return false;
-    }
-
-    //SOCOLISSIMO
-    for (var i=0; i<methods.length; i++) {
-        if (methods[i].checked) {
-    	    if (methods[i].value.startWith("socolissimo")) {
-    	    	var typeSocosChoisi = document.getElementsByName('type_socolissimo_choisi');
-    	    	for (var j=0; j<typeSocosChoisi.length; j++) {
-    	    		if (typeSocosChoisi[j].value!='') {
-                        return true;
-                    }
-                }
-                alert('Socolissimo : ' + Translator.translate('Please specify shipping method.'));
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
-    alert(Translator.translate('Please specify shipping method.').stripTags());
-    return false;
-}
-}
-//On surcharge la méthode setStepResponse de Checkout définie dans opcheckout.js (dans le cas du onepagecheckout seulement)
-if ((typeof Checkout) != "undefined") {
-	Checkout.prototype.setStepResponse = function(response){
-        if (response.update_section) {
-            //SOCOLISSIMO
-        	$$('body #layer_socolissimo').each(function(e){ e.remove(); });
-        	//FIN SOCOLISSIMO
-        	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
-        }
-        if (response.allow_sections) {
-            response.allow_sections.each(function(e){
-                $('opc-'+e).addClassName('allow');
-            });
-        }
-
-        if(response.duplicateBillingInfo)
-        {
-            shipping.setSameAsBilling(true);
-        }
-
-        if (response.goto_section) {
-            this.gotoSection(response.goto_section);
-            return true;
-        }
-        if (response.redirect) {
-            location.href = response.redirect;
-            return true;
-        }
-        return false;
-    }	
-}*/

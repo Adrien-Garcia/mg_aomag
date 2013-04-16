@@ -127,7 +127,7 @@
 
 #socolissimo-location dd {
 	color: #3b3836;
-	background: url(../images/socolissimo/picto_chez-vous.png) no-repeat 25px 5px;
+	background: url(../images/socolissimo/picto_livraison.png) no-repeat 25px 5px;
 	margin: 0 0 15px 0;
 	padding: 10px 0 0 0;
 }
@@ -140,7 +140,7 @@
 }
 
 #socolissimo-location dd.rendez-vous {
-	background-image: url(../images/socolissimo/picto_rendez-vous.png);
+	background-image: url(../images/socolissimo/picto_rdv.png);
 }
 
 #socolissimo-location dd.cityssimo {
