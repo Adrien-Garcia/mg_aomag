@@ -46,6 +46,11 @@
     				</liberte_periodesFermeture>
     			</entities>
     		</socolissimo_resource>
+    		<shipping>
+    			<rewrite>
+    				<rate_result>Addonline_Socolissimo_Model_Shipping_Rate_Result</rate_result>
+    			</rewrite>
+    		</shipping>
     	</models>	
     	<resources>
     		<socolissimo_setup>

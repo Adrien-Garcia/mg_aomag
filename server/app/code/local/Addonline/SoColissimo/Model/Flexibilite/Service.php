@@ -45,15 +45,11 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				
 				$result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
 
-				//Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
+				Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
 				//Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
 				//Mage::log($result);
 				
 				if ($result->return->errorCode == 0) {			
-					//foreach ($result->return->listePointRetraitAcheminement as $relais) {
-						//Mage::log($relais	);
-						//$this->findPointRetraitAcheminementByID($relais->identifiant);
-					//} 
 					return $result->return;
 				} else {
 					Mage::log($result->return);

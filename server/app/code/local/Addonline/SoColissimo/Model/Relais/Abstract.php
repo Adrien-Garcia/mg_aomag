@@ -16,15 +16,18 @@ abstract class  Addonline_SoColissimo_Model_Relais_Abstract extends Mage_Core_Mo
     const TYPE_COMMERCANT = 'commercant';
     
     public function getType() {
-    	if ($this->getTypeRelais()=='BPR' || $this->getTypeRelais()=='CDI' || $this->getTypeRelais()=='ACP' || $this->getTypeRelais()=='BDP') {
-    		return self::TYPE_POSTE;
-    	} elseif ($this->getTypeRelais()=='CIT') {
-    		return self::TYPE_CITYSSIMO;
-    	} elseif ($this->getTypeRelais()=='A2P' || $this->getTypeRelais()=='CMT') {
-    		return self::TYPE_COMMERCANT;
-    	} else {
-    		return false;
+    	if (!$this->hasData('type')) {
+	    	if ($this->getTypeRelais()=='BPR' || $this->getTypeRelais()=='CDI' || $this->getTypeRelais()=='ACP' || $this->getTypeRelais()=='BDP') {
+	    		$this->setData('type',self::TYPE_POSTE);
+	    	} elseif ($this->getTypeRelais()=='CIT') {
+	    		$this->setData('type',self::TYPE_CITYSSIMO);
+	    	} elseif ($this->getTypeRelais()=='A2P' || $this->getTypeRelais()=='CMT') {
+	    		$this->setData('type',self::TYPE_COMMERCANT);
+	    	} else {
+	    		$this->setData('type','');
+	    	}
     	}
+    	return $this->getData('type');
     }
 
     public function isBureauPoste() {
@@ -38,30 +41,18 @@ abstract class  Addonline_SoColissimo_Model_Relais_Abstract extends Mage_Core_Mo
     public function isCommercant() {
     	return $this->getType() == self::TYPE_COMMERCANT;
     }
+
+    public function isParking() {
+    	if (!$this->hasData('parking')) {
+	    	$this->setParking($this->getTypeRelais()=='CDI' || $this->getTypeRelais()=='ACP');
+    	}
+    	return $this->getParking();
+    }
     
-    /*
-    abstract public function getIdentifiant();
-    
-    abstract public function getTypeRelais();
-    
-    abstract public function getDistance();
-    
-    abstract public function getLibelle();
-    
-    abstract public function getAdresse();
-    
-    abstract public function getAdresse1();
-    
-    abstract public function getAdresse2();
-    
-    abstract public function getAdresse3();
-    
-    abstract public function getCodePostal();
-    
-    abstract public function getCommune();
-    
-    abstract public function getIndicateurAcces();
-    
-    abstract public function getCongeTotal();
-    */
+    public function isManutention() {
+    	if (!$this->hasData('manutention')) {
+	    	$this->setManutention($this->getTypeRelais()=='CDI' || $this->getTypeRelais()=='ACP');
+    	}
+    	return $this->getManutention();
+    }
 }

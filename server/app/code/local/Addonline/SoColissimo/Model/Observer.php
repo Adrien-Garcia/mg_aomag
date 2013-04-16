@@ -70,131 +70,129 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 		$quote = $observer->getEvent()->getQuote();
 		$request = Mage::app()->getRequest();
 		 
-		$typeSocolissimo = $request->getParam('type_socolissimo_choisi');
 		$idRelais = $request->getParam('relais_socolissimo');
 		$telephone = $request->getParam('tel_socolissimo');
+		$shippingAddress = $quote->getShippingAddress();
+		$shippingMethod = $shippingAddress->getShippingMethod();
 		
-		if ($typeSocolissimo) {
-			$relaisPrecedent = null;
-			$socoShippingData = Mage::getSingleton('checkout/session')->getData('socolissimo_shipping_data');
-			//on positionne l'identitifant relais précédent si il existe
-			if (is_array($socoShippingData) && isset($socoShippingData['PRID'])) {
-				$relaisPrecedent = $socoShippingData['PRID'];
-			}
-			//on réinitilaise les données en session
+		$socoShippingData = Mage::getSingleton('checkout/session')->getData('socolissimo_shipping_data');
+		//on positionne l'identitifant relais précédent si il existe
+		$relaisPrecedent = null;
+		if (is_array($socoShippingData) && isset($socoShippingData['PRID'])) {
+			$relaisPrecedent = $socoShippingData['PRID'];
+		}
+		
+		if (strpos($shippingMethod,'socolissimo_')===0) {
+
+			$typeSocolissimo = explode("_",$shippingMethod);
+			$typeSocolissimo = $typeSocolissimo[1];
+				
+			//on réinitilaise les données Socolissimo en session
 			$socoShippingData = array();
 			Mage::getSingleton('checkout/session')->setData('socolissimo_shipping_data', $socoShippingData);
-			if ($shippingAddress = $quote->getShippingAddress()) {
 
-				if (strpos($shippingAddress->getShippingMethod(),'socolissimo_')===0) {
+			$arrayAddressData = array();
+			$street = array();
+			$customerNotesArray = array();
 
-					$arrayData = array();
-					$street = array();
-					$customerNotesArray = array();
+			$socoShippingData['CEDELIVERYINFORMATION'] = '';
+			$socoShippingData['CEDOORCODE1'] = '';
+			$socoShippingData['CEDOORCODE2'] = '';
+			$socoShippingData['CEENTRYPHONE'] = '';
+			$socoShippingData['CECIVILITY'] = '';
+			$socoShippingData['CEEMAIL'] = $quote->getCustomer()->getData('email');
 
-					$socoShippingData['CEDELIVERYINFORMATION'] = '';
-					$socoShippingData['CEDOORCODE1'] = '';
-					$socoShippingData['CEDOORCODE2'] = '';
-					$socoShippingData['CEENTRYPHONE'] = '';
-					$socoShippingData['CECIVILITY'] = '';
-					$socoShippingData['CEEMAIL'] = $quote->getCustomer()->getData('email');
-
-					if ($telephone) {
-						$arrayData['telephone'] = $telephone;
-						$socoShippingData['CEPHONENUMBER'] = $telephone;
-					}
-
-					$socoShippingData['DELIVERYMODE'] = $this->_getSocoProductCode($typeSocolissimo);
-					// marquer le mode RDV au niveau de l'adresse (calcul dépend du mode)
-					$arrayData['soco_product_code'] = $this->_getSocoProductCode($typeSocolissimo);
-					if ($typeSocolissimo == 'rdv') {
-						$customerNotesArray['0']='Livraison sur rendez-vous : '.$telephone;
-						$socoShippingData['CEDELIVERYINFORMATION'] = 'Prise de rendez-vous : '.$telephone;
-					}
-
-					if (Mage::helper('socolissimo')->isFlexibilite()) {
-						$relais = Mage::getModel('socolissimo/flexibilite_service')->findPointRetraitAcheminementByID($idRelais);
-					} else {
-						$relais = Mage::getModel('socolissimo/liberte_relais')->load($idRelais);
-					}
-
-					if ($relais instanceof Addonline_SoColissimo_Model_Flexibilite_Relais ||
-							$relais->getId()) {
-
-						$arrayData['customer_address_id'] = null;
-
-						$billingAddress = $quote->getBillingAddress();
-						$arrayData['lastname'] = $billingAddress->getLastname();
-						$arrayData['firstname'] = $billingAddress->getFirstname();
-						$arrayData['company'] = $relais->getLibelle();
-						$arrayData['city'] = $relais->getCommune();
-						$arrayData['postcode'] =$relais->getCodePostal();
-						$arrayData['telephone'] = $telephone;
-						 
-						$street['0'] = $relais->getAdresse();
-						$street['1'] = $relais->getAdresse1();
-						$street['2'] = $relais->getAdresse2();
-						$street['3'] = $relais->getAdresse3();
-
-						$shippingAddress->setStreet($street);
-
-						$customerNotesArray['0']='Livraison relais colis socolissimo : '.$relais->getIdentifiant();
-						 
-						$socoShippingData['PRID'] = $relais->getIdentifiant();
-						 
-						$arrayData['save_in_address_book'] = 0;
-	      
-					} else {
-						$socoShippingData['PRID'] = '';
-					}
-					//on initialise les données socolissimo en session
-					Mage::getSingleton('checkout/session')->setData('socolissimo_shipping_data', $socoShippingData);
-
-					if (! empty($customerNotesArray)) {
-						$arrayData['customer_notes'] = implode("\n",$customerNotesArray);
-					}
-
-					// sauvegarder l'adresse
-					$shippingAddress->addData($arrayData);
-
-					// relancer le calcul du prix (modification du shipping amount via socolissimo)
-					// voir getCalculatedPrice() de ShippingMethod
-					$shippingAddress->setCollectShippingRates(true);
-					$shippingAddress->collectShippingRates();
-					 
-
-				}
+			if ($telephone) {
+				$arrayAddressData['telephone'] = $telephone;
+				$socoShippingData['CEPHONENUMBER'] = $telephone;
 			}
 
-			if ($relaisPrecedent && $relaisPrecedent != '') {
-				if (!isset($socoShippingData['PRID']) || $socoShippingData['PRID'] == '') {
-					//si l'adresse de livraison était un relais et que maintenant ça ne l'est plus il faut remettre l'adresse de facturation :
-					$billingAddress = $quote->getBillingAddress();
-					$shippingAdress = $quote->getShippingAddress();
-					$shippingAdress->setData('customer_id', $billingAddress->getData('customer_id'));
-					$shippingAdress->setData('customer_address_id', $billingAddress->getData('customer_address_id'));
-					$shippingAdress->setData('email', $billingAddress->getData('email'));
-					$shippingAdress->setData('prefix', $billingAddress->getData('prefix'));
-					$shippingAdress->setData('firstname', $billingAddress->getData('firstname'));
-					$shippingAdress->setData('middlename', $billingAddress->getData('middlename'));
-					$shippingAdress->setData('lastname', $billingAddress->getData('lastname'));
-					$shippingAdress->setData('suffix', $billingAddress->getData('suffix'));
-					$shippingAdress->setData('company', $billingAddress->getData('company'));
-					$shippingAdress->setData('street', $billingAddress->getData('street'));
-					$shippingAdress->setData('city', $billingAddress->getData('city'));
-					$shippingAdress->setData('region', $billingAddress->getData('region'));
-					$shippingAdress->setData('region_id', $billingAddress->getData('region_id'));
-					$shippingAdress->setData('postcode', $billingAddress->getData('postcode'));
-					$shippingAdress->setData('country_id', $billingAddress->getData('country_id'));
-					if (is_array($socoShippingData) && isset($socoShippingData['CEPHONENUMBER'])) {
-						$shippingAdress->setData('telephone', $socoShippingData['CEPHONENUMBER']);
-					} else {
-						$shippingAdress->setData('telephone', $billingAddress->getData('telephone'));
-					}
-					$shippingAdress->setData('save_in_address_book', 0);
+			$socoShippingData['DELIVERYMODE'] = $this->_getSocoProductCode($typeSocolissimo);
+			if ($typeSocolissimo == 'rdv') {
+				$customerNotesArray['0']='Livraison sur rendez-vous : '.$telephone;
+				$socoShippingData['CEDELIVERYINFORMATION'] = 'Prise de rendez-vous : '.$telephone;
+			}
+
+			$relaisFound = false;
+			if (Mage::helper('socolissimo')->isFlexibilite()) {
+				$relais = Mage::getModel('socolissimo/flexibilite_service')->findPointRetraitAcheminementByID($idRelais);
+				$relaisFound = ($relais instanceof Addonline_SoColissimo_Model_Flexibilite_Relais);
+			} else {
+				$relais = Mage::getModel('socolissimo/liberte_relais')->load($idRelais);
+				$relaisFound = $relais->getId();
+			}
+
+			if ($relaisFound) {
+
+				$socoShippingData['PRID'] = $relais->getIdentifiant();
+				$socoShippingData['DELIVERYMODE'] = $relais->getTypeRelais();//on écrase pour mettre les bons types pour la belgique
+				
+				$arrayAddressData['customer_address_id'] = null;
+
+				$billingAddress = $quote->getBillingAddress();
+				$arrayAddressData['lastname'] = $billingAddress->getLastname();
+				$arrayAddressData['firstname'] = $billingAddress->getFirstname();
+				$arrayAddressData['company'] = $relais->getLibelle();
+				$arrayAddressData['city'] = $relais->getCommune();
+				$arrayAddressData['postcode'] =$relais->getCodePostal();
+				$arrayAddressData['telephone'] = $telephone;
+					 
+				$street['0'] = $relais->getAdresse();
+				$street['1'] = $relais->getAdresse1();
+				$street['2'] = $relais->getAdresse2();
+				$street['3'] = $relais->getAdresse3();
+
+				$shippingAddress->setStreet($street);//on appelle setStreet directement sur l'objet address au lieu de passer par addData, pour la gestion en plusieurs lignes
+
+				$customerNotesArray['0']='Livraison relais colis socolissimo : '.$relais->getIdentifiant();
+					 
+				$arrayAddressData['save_in_address_book'] = 0;
+      
+			} else {
+				$socoShippingData['PRID'] = '';
+			}
+
+			//on initialise les données socolissimo en session
+			Mage::getSingleton('checkout/session')->setData('socolissimo_shipping_data', $socoShippingData);
+
+			if (! empty($customerNotesArray)) {
+				$arrayAddressData['customer_notes'] = implode("\n",$customerNotesArray);
+			}
+
+			// sauvegarder l'adresse
+			$shippingAddress->addData($arrayAddressData);
+
+		}
+
+		if ($relaisPrecedent && $relaisPrecedent != '') {
+			if (!isset($socoShippingData['PRID']) || $socoShippingData['PRID'] == '') {
+				//si l'adresse de livraison était un relais et que maintenant ça ne l'est plus il faut remettre l'adresse de facturation :
+				$billingAddress = $quote->getBillingAddress();
+				$shippingAdress = $quote->getShippingAddress();
+				$shippingAdress->setData('customer_id', $billingAddress->getData('customer_id'));
+				$shippingAdress->setData('customer_address_id', $billingAddress->getData('customer_address_id'));
+				$shippingAdress->setData('email', $billingAddress->getData('email'));
+				$shippingAdress->setData('prefix', $billingAddress->getData('prefix'));
+				$shippingAdress->setData('firstname', $billingAddress->getData('firstname'));
+				$shippingAdress->setData('middlename', $billingAddress->getData('middlename'));
+				$shippingAdress->setData('lastname', $billingAddress->getData('lastname'));
+				$shippingAdress->setData('suffix', $billingAddress->getData('suffix'));
+				$shippingAdress->setData('company', $billingAddress->getData('company'));
+				$shippingAdress->setData('street', $billingAddress->getData('street'));
+				$shippingAdress->setData('city', $billingAddress->getData('city'));
+				$shippingAdress->setData('region', $billingAddress->getData('region'));
+				$shippingAdress->setData('region_id', $billingAddress->getData('region_id'));
+				$shippingAdress->setData('postcode', $billingAddress->getData('postcode'));
+				$shippingAdress->setData('country_id', $billingAddress->getData('country_id'));
+				if (is_array($socoShippingData) && isset($socoShippingData['CEPHONENUMBER'])) {
+					$shippingAdress->setData('telephone', $socoShippingData['CEPHONENUMBER']);
+				} else {
+					$shippingAdress->setData('telephone', $billingAddress->getData('telephone'));
 				}
+				$shippingAdress->setData('save_in_address_book', 0);
 			}
 		}
+		
 		return $this;
 	}
 

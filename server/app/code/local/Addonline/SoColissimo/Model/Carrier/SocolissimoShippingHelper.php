@@ -272,10 +272,6 @@ class SocolissimoShippingHelper
 		}
 
 		$fees_code = 'fees';
-		Mage::log($process['data']);
-		if ($process['data']['socolissimo_type']=='commercant') {
-			$fees_code = 'commercant_fees';
-		}	
 		$fees = $this->getRowProperty($row,$fees_code);
 		if (isset($fees)) {
 			$result = $this->_processFormula($process,$row,$fees_code,$fees,$is_checking);
@@ -758,7 +754,7 @@ class SocolissimoShippingHelper
 
 		$this->_config = array();
 		$available_keys = array(
-			'code','label','enabled','description','fees','poste_fees','rdv_fees','commercant_fees','conditions','destination','origin','customer_groups','tracking_url',
+			'code','label','enabled','description','fees','conditions','destination','origin','customer_groups','tracking_url',
 			'fees_table','fees_formula','fixed_fees','reference_value',
 			'prices_range','weights_range','product_properties',
 			'free_shipping__fees_table','free_shipping__fees_formula','free_shipping__fixed_fees','free_shipping__label',
@@ -815,9 +811,6 @@ class SocolissimoShippingHelper
 			$formula_fields_to_check = array();
 			if (isset($row['conditions'])) $formula_fields_to_check[] = 'conditions';
 			if (isset($row['fees'])) $formula_fields_to_check[] = 'fees';
-			if (isset($row['poste_fees'])) $formula_fields_to_check[] = 'poste_fees';
-			if (isset($row['rdv_fees'])) $formula_fields_to_check[] = 'rdv_fees';
-			if (isset($row['commercant_fees'])) $formula_fields_to_check[] = 'commercant_fees';
 				
 			if (count($formula_fields_to_check)>0) {
 				foreach ($formula_fields_to_check as $property) {
@@ -915,7 +908,6 @@ class SocolissimoShippingHelper
 			if (count($conditions)>0) $row['conditions'] = array('value' => count($conditions)==1 ? $conditions[0] : '('.implode(') && (',$conditions).')');
 
 			$fees = array();
-			$commercant_fees = array();
 			if (isset($row['fees_table'])) {
 				if (!in_array('fees_table',$deprecated_properties)) $deprecated_properties[] = 'fees_table';
 				$options_and_data = $this->_getOptionsAndData($row['fees_table']['value']);
@@ -947,9 +939,6 @@ class SocolissimoShippingHelper
 				unset($row['fixed_fees']);
 			}
 			if (!isset($row['fees']) && count($fees)>0) $row['fees'] = array('value' => implode('+',$fees));
-			//if (!isset($row['poste_fees']) && count($poste_fees)>0) $row['poste_fees'] = array('value' => implode('+',$poste_fees));
-			//if (!isset($row['rdv_fees']) && count($rdv_fees)>0) $row['rdv_fees'] = array('value' => implode('+',$rdv_fees));
-			if (!isset($row['commercant_fees']) && count($commercant_fees)>0) $row['commercant_fees'] = array('value' => implode('+',$commercant_fees));
 				
 			$fs_fees = array();
 			if (isset($row['free_shipping__fees_table'])) {
@@ -1101,7 +1090,16 @@ class SocolissimoShippingHelper
 			$address_filter = trim($address_filter);
 			if (preg_match('#([A-Z]{2}) *(-)? *(?:\( *(-)? *(.*)\))?#s', $address_filter, $result)) {
 				$country_code = $result[1];
-				if ($address['country_code']==$country_code && in_array($country_code, array('FR', 'MC', 'AD', 'BE'))) {//ADDONLINE : on limite SOcolissimo à la France (Monaco et Andorre) et la Belgique
+				$socoCountries = array('FR', 'MC', 'AD', 'BE');
+				$international = Mage::getStoreConfig('carriers/socolissimo/international');
+				if ($international == '0') {
+					$socoCountries = array('FR', 'MC', 'AD');
+				} elseif ($international == '1') {
+					$socoCountries = array('FR', 'MC', 'AD', 'BE');
+				} elseif ($international == '2') {
+					$socoCountries = array('BE');
+				}
+				if ($address['country_code']==$country_code && in_array($country_code, $socoCountries)) {//ADDONLINE : on limite SOcolissimo à la France (Monaco et Andorre) et la Belgique selon la configuration de l'option international
 					self::debug('      country code <span class="osh-replacement">'.$address['country_code'].'</span> matches');
 					if (!isset($result[4]) || $result[4]=='') return !$excluding;
 					else {

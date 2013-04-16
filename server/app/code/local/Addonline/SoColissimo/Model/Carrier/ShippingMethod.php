@@ -174,21 +174,6 @@ class Addonline_SoColissimo_Model_Carrier_ShippingMethod extends Mage_Shipping_M
 		if (!$this->__getConfigData('active')) return false;
 	
 		//$this->display($request->_data);
-	
-		$checkoutSession = Mage::getSingleton('checkout/session');
-		$shippingData = $checkoutSession->getData('socolissimo_shipping_data');
-		$socolissimoType = 'livraison';
-		if (isset($shippingData) && count($shippingData) > 0) {
-			if ($shippingData['DELIVERYMODE']=='RDV') {
-				$socolissimoType = 'rdv';
-			} else if ($shippingData['DELIVERYMODE']=='BPR') {
-				$socolissimoType = 'poste';
-			} else if ($shippingData['DELIVERYMODE']=='CIT') {
-				$socolissimoType = 'cityssimo';
-			} else if ($shippingData['DELIVERYMODE']=='A2P') {
-				$socolissimoType = 'commercant';
-			}
-		} 
 		
 		$process = $this->__getDefaultProcess();
 		$process['data'] = array_merge($this->__getDefaultProcessData($request->_data['store_id']),array(
@@ -202,8 +187,7 @@ class Addonline_SoColissimo_Model_Carrier_ShippingMethod extends Mage_Shipping_M
 				'origin.country.code' => $request->_data['country_id'],
 				'origin.region.code' => $request->_data['region_id'],
 				'origin.postcode' => $request->_data['postcode'],
-				'free_shipping' => $request->getFreeShipping(),
-				'socolissimo_type' => $socolissimoType
+				'free_shipping' => $request->getFreeShipping()
 		));
 	
 		$tax_amount = 0;
@@ -372,46 +356,29 @@ class Addonline_SoColissimo_Model_Carrier_ShippingMethod extends Mage_Shipping_M
 	protected function _getMethodText($process, $row, $property) {
 		if (!isset($row[$property])) return '';
 
-		$checkoutSession = Mage::getSingleton('checkout/session');
-		$shippingData = $checkoutSession->getData('socolissimo_shipping_data');
-		if ($property == 'label' && isset($shippingData) && count($shippingData) > 0) {
-			if ($shippingData['DELIVERYMODE']=='DOM' || $shippingData['DELIVERYMODE']=='DOS') {
-				$text = Mage::helper('socolissimo')->__("Shipping at home");
-			} else if ($shippingData['DELIVERYMODE']=='RDV') {
-				$text = Mage::helper('socolissimo')->__("Making appointment");
-			} else if ($shippingData['DELIVERYMODE']=='BPR') {
-				$text = Mage::helper('socolissimo')->__("Post office");
-			} else if ($shippingData['DELIVERYMODE']=='CIT') {
-				$text = Mage::helper('socolissimo')->__("Cityssimo space");
-			} else if ($shippingData['DELIVERYMODE']=='A2P') {
-				$text = Mage::helper('socolissimo')->__("Shop");
-			}
-		} else {
-		
-			$output = '';
-	
-			$text = $output . ' '.$this->_helper->evalInput($process,$row,$property,str_replace(
-					array(
-							'{cart.weight}',
-							'{cart.price_including_tax}',
-							'{cart.price_excluding_tax}',
-							'{cart.price-tax+discount}',
-							'{cart.price-tax-discount}',
-							'{cart.price+tax+discount}',
-							'{cart.price+tax-discount}',
-					),
-					array(
-							$process['data']['cart.weight'].$process['data']['cart.weight.unit'],
-							$this->__formatPrice($process['data']['cart.price_including_tax']),
-							$this->__formatPrice($process['data']['cart.price_excluding_tax']),
-							$this->__formatPrice($process['data']['cart.price-tax+discount']),
-							$this->__formatPrice($process['data']['cart.price-tax-discount']),
-							$this->__formatPrice($process['data']['cart.price+tax+discount']),
-							$this->__formatPrice($process['data']['cart.price+tax-discount']),
-					),
-					$this->_helper->getRowProperty($row, $property)
-			));
-		}
+		$output = '';
+
+		$text = $output . ' '.$this->_helper->evalInput($process,$row,$property,str_replace(
+				array(
+						'{cart.weight}',
+						'{cart.price_including_tax}',
+						'{cart.price_excluding_tax}',
+						'{cart.price-tax+discount}',
+						'{cart.price-tax-discount}',
+						'{cart.price+tax+discount}',
+						'{cart.price+tax-discount}',
+				),
+				array(
+						$process['data']['cart.weight'].$process['data']['cart.weight.unit'],
+						$this->__formatPrice($process['data']['cart.price_including_tax']),
+						$this->__formatPrice($process['data']['cart.price_excluding_tax']),
+						$this->__formatPrice($process['data']['cart.price-tax+discount']),
+						$this->__formatPrice($process['data']['cart.price-tax-discount']),
+						$this->__formatPrice($process['data']['cart.price+tax+discount']),
+						$this->__formatPrice($process['data']['cart.price+tax-discount']),
+				),
+				$this->_helper->getRowProperty($row, $property)
+		));
 		
 		return $text;
 	}
@@ -494,7 +461,6 @@ class Addonline_SoColissimo_Model_Carrier_ShippingMethod extends Mage_Shipping_M
 		->setPrice($fees)
 		->setCost($fees)
 		;
-
 		$process['result']->append($method);
 	}
 

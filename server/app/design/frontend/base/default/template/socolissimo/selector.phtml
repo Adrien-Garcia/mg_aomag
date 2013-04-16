@@ -44,21 +44,21 @@
 			<div class="ligne2">
           		<div class="titre">Affinez votre recherche par type de point de retrait</div>
           		<div class="choix choix1">
-                	<input id="check_cityssimo" name="check_cityssimo" type="checkbox" value="cityssimo" onclick="changeMap()" <?php if ($type=='cityssimo' ) : ?>checked="checked"<?php endif; ?> />
+                	<input id="check_cityssimo" name="check_cityssimo" type="checkbox" value="cityssimo" onchange="changeMap()" <?php if ($type=='cityssimo' ) : ?>checked="checked"<?php endif; ?> />
                 	<div class="txt2">
                     <b>ma consigne cityssimo</b><br />
                     Espace Colis disponibles 7j/7 - 24h/24
                     </div>
                 </div>
                 <div class="choix choix2">
-                	<input id="check_poste" name="check_poste" type="checkbox" value="poste" onclick="changeMap()" <?php if ($type=='poste' ) : ?>checked="checked"<?php endif; ?>/>
+                	<input id="check_poste" name="check_poste" type="checkbox" value="poste" onchange="changeMap()" <?php if ($type=='poste' ) : ?>checked="checked"<?php endif; ?>/>
                 	<div class="txt2">
                     <b>mon bureau de poste</b><br />
                     Horaires d’ouverture des bureaux de poste
                     </div>
                 </div>
                 <div class="choix choix3">
-                	<input id="check_commercant" name="check_commercant" type="checkbox" value="commercant" onclick="changeMap()" <?php if ($type=='commercant' ) : ?>checked="checked"<?php endif; ?>/>
+                	<input id="check_commercant" name="check_commercant" type="checkbox" value="commercant" onchange="changeMap()" <?php if ($type=='commercant' ) : ?>checked="checked"<?php endif; ?>/>
                 	<div class="txt2">
                     <b>mon commerçant</b><br />
                     Commerces de proximité aux horaires étendus
@@ -91,6 +91,7 @@
 		<div class="contenu">
 			<div class="ligne1">
 				<label class="portable" >
+					<form id="socolissimo-telephone-form" >
 					<?php if ($type=='poste' || $type=='cityssimo' || $type=='commercant') : ?>
 						<span class="poste" <?php if ($type!='poste') : ?>style="display: none;"<?php endif;?> >Pour la livraison en bureau de poste, nous avons obligatoirement besoin d'un numéro de téléphone mobile pour vous informer de la disponibilité de votre colis. Merci de vérifier le numéro saisi ici :</span>
 						<span class="cityssimo" <?php if ($type!='cityssimo') : ?>style="display: none;"<?php endif;?> >Pour la livraison en consigne Cityssimo, nous avons obligatoirement besoin d'un numéro de téléphone mobile pour vous envoyer vos codes permettant le retrait de vos colis. Merci de vérifier le numéro saisi ici :</span>
@@ -103,7 +104,13 @@
 						<span class="livraison" >Pour la livraison à domicile, nous avons besoin d'un numéro de téléphone mobile pour vous contacter. Merci de vérifier le numéro saisi ici :</span>
 					<?php endif;?>
 					<input type="text" name="tel_socolissimo" class="required-entry length_12 valid-telephone-portable<?php if ($this->getShippingCountry()=='BE') :?>-belgique<?php endif;?>" maxlength="12" value="<?php echo $this->getTelephone(); ?>" />
-					<button type="button" class="btn_socolissimoChoisir button" ><span>OK</span></button> 	
+					<button type="button" class="btn_socolissimoChoisir button" onclick="validerTelephone()"  ><span>OK</span></button> 	
+					</form>
+					 <script type="text/javascript">
+					    //<![CDATA[
+					        var socolissimoTelephoneForm = new VarienForm('socolissimo-telephone-form');
+					    //]]>
+					</script>
 				</label>
 			</div>
 		</div>

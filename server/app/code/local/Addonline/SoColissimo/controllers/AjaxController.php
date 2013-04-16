@@ -37,26 +37,26 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    		   		 
    		$typesRelais = array();
    		$optInternational = Mage::getStoreConfig('carriers/socolissimo/international');
-   		if ($poste == 'true' || $poste === 'checked') {
-			if ($country === 'FR' || $optInternational) {
+   		if ($poste == 'true') {
+			if ($country === 'FR' || $optInternational === '1') {
 	   			$typesRelais[] = 'BPR';
 	   			$typesRelais[] = 'CDI';
 	   			$typesRelais[] = 'ACP';
 			}
-			if ($country === 'BE' || $optInternational) {
+			if ($country === 'BE' || $optInternational === '1') {
 				$typesRelais[] = 'BDP';
 			}
    		}
-   		if ($cityssimo == 'true' || $cityssimo === 'checked') {
-			if ($country === 'FR' || $optInternational) {
+   		if ($cityssimo == 'true') {
+			if ($country === 'FR' || $optInternational === '1') {
    				$typesRelais[] = 'CIT';
 			}
    		}
-   		if ($commercant == 'true' || $commercant === 'checked') {
-			if ($country === 'FR' || $optInternational) {
+   		if ($commercant == 'true') {
+			if ($country === 'FR' || $optInternational === '1') {
    				$typesRelais[] = 'A2P';
 			}
-			if ($country === 'BE' || $optInternational) {
+			if ($country === 'BE' || $optInternational === '1') {
 				$typesRelais[] = 'CMT';
 			}
    		}
@@ -75,21 +75,27 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    			
 	     	$listrelais = Mage::getModel('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay);
 	     	
-	     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
-	     		$itemsObject = array();
-	     		$itemsArray = array();
-	     		foreach ($listrelais->listePointRetraitAcheminement as $pointRetraitAcheminement) {
-	     			if (in_array($pointRetraitAcheminement->typeDePoint, $typesRelais)) {
-		     			$relais = Mage::getModel('socolissimo/flexibilite_relais');
-		     			$relais->setPointRetraitAcheminement($pointRetraitAcheminement); 
-						$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
-		     			$itemsObject[] = $relais;
-		     			$itemsArray[] = $relais->getData();
-	     			}
-	     		}
-	     		$result['items'] = $itemsArray;
-		        $result['html'] = $this->_getListRelaisHtml($itemsObject);
-		    } else {
+	     	if ($listrelais->errorCode == 0) {
+		     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
+		     		$itemsObject = array();
+		     		$itemsArray = array();
+		     		foreach ($listrelais->listePointRetraitAcheminement as $pointRetraitAcheminement) {
+		     			if (in_array($pointRetraitAcheminement->typeDePoint, $typesRelais)) {
+			     			$relais = Mage::getModel('socolissimo/flexibilite_relais');
+			     			$relais->setPointRetraitAcheminement($pointRetraitAcheminement); 
+							$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
+			     			$itemsObject[] = $relais;
+			     			$itemsArray[] = $relais->getData();
+		     			}
+		     		}
+		     		$result['items'] = $itemsArray;
+			        $result['html'] = $this->_getListRelaisHtml($itemsObject);
+			    } else {
+			    	$result['error'] = 'Aucun point de livraison trouvé';
+		     		$result['items'] = array();
+			        $result['html'] = '';
+			    }
+			 } else {
 		        $result['error'] = $listrelais->errorMessage;
 		    }
 	        
@@ -103,7 +109,9 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    			 
    			foreach ($listrelais as $relais) {
    				$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
-   				$relais->setData('type', $relais->getType());
+   				$relais->getType(); //set the value
+   				$relais->isParking();//set the value
+   				$relais->isManutention();//set the value
    				$listFermetures = Mage::getModel('socolissimo/liberte_periodesFermeture')->getCollection();
    				$listFermetures->addFieldToFilter('id_relais_fe',$relais->getId());
    				$relais->setData('fermetures', $listFermetures->toArray());

@@ -38,25 +38,12 @@ jQuery(function($) {
 		}
 	});	
 	
-	/** pour onestep checkout ...
-	var $ma_div = jQuery("#socolissimo-location");
-	jQuery("input[id^='s_method_socolissimo']").parents('dt').append($ma_div);
-	jQuery("#socolissimo-location-orig").hide();
-	**/
-	
 	/** 
 	 * Sur l'événement change des radios boutons de choix de mode de livraison
 	 */
-	$("input[id^=\"s_method_socolissimo\"]").live("change", function() {
+	$("input[id^=\"s_method_socolissimo\"]").live("click", function() {
 		shippingRadioCheck(this);
 	});		
-	
-	/** 
-	 * Sur l'événement click des radios boutons de choix de type de livraison socolissimo
-	$("label[for^='s_method_socolissimo']").live("click",function(){
-		reloadSocolissimo();
-	});
-	 */
 	
 });
 
@@ -95,7 +82,7 @@ function shippingRadioCheck(element) {
 			jQuery("#shipping-method-please-wait").hide();
 
 			if (jQuery("#socolissimo-hook").size()==0) {
-				socoRadio.parent().append("<div id=\"socolissimo-hook\" rel=\"#layer_socolissimo\"><div id=\"layer_socolissimo\" class=\"layer\"></div></div>");
+				socoRadio.parent().parent().append("<div id=\"socolissimo-hook\" rel=\"#layer_socolissimo\"><div id=\"layer_socolissimo\" class=\"layer\"></div></div>");
 			}
 			//on déplace le layer sur le body pour qu'il soit bien positionné au centre
 			jQuery("#layer_socolissimo").appendTo("body");
@@ -110,7 +97,21 @@ function shippingRadioCheck(element) {
 				closeOnClick: false,
 				top: "center",
 				onBeforeClose : function(event){
-					//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo ?
+					//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo 
+					var telephoneElt = jQuery("#socolissimo-hook input[name='tel_socolissimo']");
+					if (!telephoneElt || telephoneElt.val() == undefined) {
+						resetShippingMethod();
+					}
+					var shippingMethod = jQuery("#checkout-shipping-method-load input[name='shipping_method']:checked").val();
+					if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
+						var relaisElt = jQuery("#socolissimo-hook input[name='relais_socolissimo']");
+						if (!relaisElt || relaisElt.val() == undefined) {
+							resetShippingMethod();
+						}
+					}
+					
+					if (shippingMethod.startWith("commercant"))
+					jQuery("input[id^=\"s_method_socolissimo\"]").attr("checked", "");
 				},
 				fixed: false,
 				api: true 
@@ -127,8 +128,13 @@ function shippingRadioCheck(element) {
 				//initilisation du rechargement de la liste déroulante des villes 
 				jQuery("#socolissimo_postcode").change(function(){
 					var postcode = this.value; 
+					if(jQuery("#socolissimo_street").val() == "") {
+						var country = jQuery('#billing\\:country').val();
+					} else{
+						var country = jQuery('#socolissimo_country').val();
+					}
 					jQuery.ajax({
-						url: 'http://api.geonames.org/postalCodeSearchJSON?username=addonline&country=fr&postalcode='+postcode,
+						url: 'http://api.geonames.org/postalCodeSearchJSON?username=addonline&country='+country+'&postalcode='+postcode,
 						dataType:'jsonp',
 						jsonpCallback: 'reloadCities',
 						success: function(json){
@@ -159,68 +165,10 @@ function shippingRadioCheck(element) {
 
 }
 
-/*
-function socolissimoRadioCheck(input) {
-	//on commence par ré-initialiser le relais qui a pu être déjà choisi 
-	jQuery("#socolissimo-location input[name=relais_socolissimo]").val("");
-	jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val("");
-	jQuery("#socolissimo-location .nom_relais").text("");	
-	socolissimoRelaisChoisi=undefined;
-	//on vérifie si le champ telephone doit apparaitre
-	checkDisplayPhone(input);
-	if (input.value == "poste" || input.value == "cityssimo" || input.value == "commercant"){
-		//initialisation de la liste déroulantes des villes "personnalisée"
-		jQuery("#socolissimo_city_select").change(function() {
-			jQuery(this).prevAll("span").eq(0).text(jQuery(this).find("option:selected").text());
-		});
-		//initilisation du rechargement de la liste déroulante des villes 
-		jQuery("#socolissimo_postcode").change(function(){
-				var postcode = this.value; 
-				jQuery.ajax({
-					  url: 'http://api.geonames.org/postalCodeSearchJSON?username=addonline&country=fr&postalcode='+postcode,
-					  dataType:'jsonp',
-					  jsonpCallback: 'reloadCities',
-					  success: function(json){
-						  var options = '<option selected >Choisissez une commune</option>';
-						  for (i=0; i<json.postalCodes.length; i++){ 
-							  commune = json.postalCodes[i].placeName;
-							  options += '<option value="' + commune + '">' + commune + '</option>';
-						  }
-						  jQuery("#socolissimo_city_select").html(options);
-						  jQuery("#socolissimo_city").text("Choisissez une commune");
-					  }
-				});
-		});
-		//mise à jour des checkbox de type de relais dans le layer selon le choix fait avant
-		jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
-			check = jQuery(element);
-			if (check.val() == input.value) {
-				check.prop("checked", "checked");
-			} else {
-				check.prop("checked", "");
-			}
-		});
-		//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
-		geocodeAdresse();
-	
-		
-		jQuery("#socolissimo-location").hide();
-		jQuery("#socolissimo-map").show();
-	
-	} else {
-		jQuery("#socolissimo-location input[name=type_socolissimo_choisi]").val(input.value);
-	}
+function resetShippingMethod() {
+	//TODO à tester
+	jQuery("#checkout-shipping-method-load input[name='shipping_method']:checked").attr("checked","");
 }
-function checkDisplayPhone(input) {
-	if (jQuery(input).val() == "rdv" || jQuery(input).val() == "cityssimo" || jQuery(input).val() == "commercant" || jQuery(input).val() == "poste" || jQuery(input).val() == "livraison"){
-		jQuery("#socolissimo-location label.portable").show().css("display:block;");
-		jQuery("#socolissimo-location label.portable span").hide();
-		jQuery("#socolissimo-location label.portable span."+jQuery(input).val()).show();
-	} else {
-		jQuery("#socolissimo-location label.portable").hide().css("display:hide;");;
-	}
-}
-*/
 
 function geocodeAdresse() {
 
@@ -242,22 +190,33 @@ function geocodeAdresse() {
 			return;
 		}
 	}
-	var geocoder = new google.maps.Geocoder();
-	if(jQuery("#socolissimo_street").val() == "") {
-		var searchAdress = jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + ' ' + jQuery('#billing\\:postcode').val() + ' ' + jQuery('#billing\\:city').val() + ', ' + jQuery('#billing\\:country').val();
-	} else{
-		var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text() + ', ' + jQuery('#socolissimo_country').val();
-	}
-	//alert('Search adresse : ' + searchAdress);
-	geocoder.geocode({'address': searchAdress}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
- 			socolissimoMyPosition = results[0].geometry.location;
- 			//on met à jour la carte avec cette position
- 			changeMap();
-		} else {
-			alert('Adresse invalide '+searchAdress);
+	
+	if ((typeof google) != "undefined") {
+		var geocoder = new google.maps.Geocoder();
+		if(jQuery("#socolissimo_street").val() == "") {
+			var searchAdress = jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + ' ' + jQuery('#billing\\:postcode').val() + ' ' + jQuery('#billing\\:city').val() + ', ' + jQuery('#billing\\:country').val();
+		} else{
+			var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text() + ', ' + jQuery('#socolissimo_country').val();
 		}
-    });
+		//alert('Search adresse : ' + searchAdress);
+		geocoder.geocode({'address': searchAdress}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+	 			socolissimoMyPosition = results[0].geometry.location;
+	 			//on met à jour la carte avec cette position
+	 			changeMap();
+			} else {
+				alert('Adresse invalide '+searchAdress);
+			}
+	    });
+	} else {
+		alert("Géolocalisation de l'adresse impossible, vérifiez votre connexion internet (Google inaccessible).");
+		//pour tester quand même sans géolocalisation :
+		var socolissimoMyPositionClass = Class.create();
+		socolissimoMyPositionClass.prototype.lat = function() { return 5; }
+		socolissimoMyPositionClass.prototype.lng = function() { return 60; }
+		socolissimoMyPosition = new socolissimoMyPositionClass();
+		changeMap();
+	}
 }
 
 function changeMap() {
@@ -271,7 +230,7 @@ function loadListeRelais() {
 	url = "/socolissimo/ajax/listrelais?"
 	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
-		url = url + check.val() + "=" + check.attr("checked") + "&";
+		url = url + check.val() + "=" + check.is(":checked") + "&";
 	});
 	if(jQuery("#socolissimo_street").val() == "") {		
 		url = url + "adresse=" + jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + "&zipcode=" + jQuery('#billing\\:postcode').val()+ "&ville=" + jQuery('#billing\\:city').val()+ "&country=" + jQuery('#billing\\:country').val();
@@ -283,8 +242,14 @@ function loadListeRelais() {
 	}	
 	url = url + "&latitude=" + socolissimoMyPosition.lat() + "&longitude=" + socolissimoMyPosition.lng();
 	jQuery.getJSON( url, function(response) {
-		socolissimoListRelais = response.items;
-		jQuery("#adresses_socolissimo").html(response.html);
+		if (!response.error) {
+			socolissimoListRelais = response.items;
+			jQuery("#adresses_socolissimo").html(response.html);
+		} else {
+			socolissimoListRelais = array();
+			jQuery("#adresses_socolissimo").html('');
+			alert(response.error);
+		}
 		showMap();
 		jQuery(".loader-wrapper").fadeTo(300, 0).hide();
 	});
@@ -293,46 +258,48 @@ function loadListeRelais() {
 }
 
 function showMap() {
-	var myOptions = {
-	    	zoom: 15,
-	    	center: socolissimoMyPosition,
-	    	mapTypeId: google.maps.MapTypeId.ROADMAP
+	if ((typeof google)!="undefined") {
+		var myOptions = {
+		    	zoom: 15,
+		    	center: socolissimoMyPosition,
+		    	mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		socolissimoMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		iconUrl = jQuery("#layer_socolissimo .ligne1").css("background-image");
+		iconMatch = iconUrl.match("url\\(\"(.*)\"\\)");
+		if (iconMatch == null) {
+			//chrome
+			iconMatch = iconUrl.match("url\\((.*)\\)");
+		}
+		iconUrl = iconMatch[1];
+		var marker = new google.maps.Marker({
+		    map: socolissimoMap, 
+		    position: socolissimoMyPosition,
+		    icon : iconUrl
+		});
+		var init = false;
+		google.maps.event.addListener(socolissimoMap, 'tilesloaded', function () {
+			if (!init){			
+				for (icounter=0; icounter<socolissimoListRelais.length; icounter++) {					
+					relaisSocolissimo = socolissimoListRelais[icounter];	
+					var relaisPosition =  new google.maps.LatLng(relaisSocolissimo.latitude, relaisSocolissimo.longitude);				
+					marker = new google.maps.Marker({
+					    map: socolissimoMap, 
+					    position: relaisPosition,
+					    title : relaisSocolissimo.libelle,
+					    icon : relaisSocolissimo.urlPicto
+					});								
+					if (!socolissimoMap.getBounds().contains(relaisPosition)){
+						newBounds = socolissimoMap.getBounds().extend(relaisPosition);
+						socolissimoMap.fitBounds(newBounds);
+					}								
+					infowindow=infoBulleGenerator(relaisSocolissimo);				
+					attachClick(marker,infowindow, icounter);								
+				}			
+			}		
+			init=true;
+		});
 	}
-	socolissimoMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-	iconUrl = jQuery("#layer_socolissimo .ligne1").css("background-image");
-	iconMatch = iconUrl.match("url\\(\"(.*)\"\\)");
-	if (iconMatch == null) {
-		//chrome
-		iconMatch = iconUrl.match("url\\((.*)\\)");
-	}
-	iconUrl = iconMatch[1];
-	var marker = new google.maps.Marker({
-	    map: socolissimoMap, 
-	    position: socolissimoMyPosition,
-	    icon : iconUrl
-	});
-	var init = false;
-	google.maps.event.addListener(socolissimoMap, 'tilesloaded', function () {
-		if (!init){			
-			for (icounter=0; icounter<socolissimoListRelais.length; icounter++) {					
-				relaisSocolissimo = socolissimoListRelais[icounter];	
-				var relaisPosition =  new google.maps.LatLng(relaisSocolissimo.latitude,relaisSocolissimo.longitude);				
-				marker = new google.maps.Marker({
-				    map: socolissimoMap, 
-				    position: relaisPosition,
-				    title : relaisSocolissimo.libelle,
-				    icon : relaisSocolissimo.urlPicto
-				});								
-				if (!socolissimoMap.getBounds().contains(relaisPosition)){
-					newBounds = socolissimoMap.getBounds().extend(relaisPosition);
-					socolissimoMap.fitBounds(newBounds);
-				}								
-				infowindow=infoBulleGenerator(relaisSocolissimo);				
-				attachClick(marker,infowindow, icounter);								
-			}			
-		}		
-		init=true;
-	});
 }
 
 //générateur d'infobulle
@@ -349,8 +316,10 @@ function infoBulleGenerator(relaisSocolissimo) {
     if (relaisSocolissimo.horaire_vendredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Vendredi:</b> '+ relaisSocolissimo.horaire_vendredi + '<br/>'}
     if (relaisSocolissimo.horaire_samedi!='00:00-00:00 00:00-00:00') {contentString += '<b>Samedi:</b> '+ relaisSocolissimo.horaire_samedi + '<br/>'}
     if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche+ '<br/>'}
-    if (relaisSocolissimo.type_relais =='ACP' || relaisSocolissimo.type_relais =='CDI') { 
+    if (relaisSocolissimo.parking==1) { 
     	contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_parking.jpg" />'; 
+    }
+    if (relaisSocolissimo.manutention==1) { 
     	contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_manutention.jpg" />'; 
     }
     if (relaisSocolissimo.indicateur_acces==1) { 
@@ -402,12 +371,42 @@ function attachClick(marker,infowindow, index){
 }
 
 function choisirRelais(index) {
+	
 	socolissimoRelaisChoisi = socolissimoListRelais[index];
-	//on - positionne son l'identifiant dans le champ input
-	//   - on affiche eventuellement le champ téléphone
-	jQuery("#socolissimo-hook").html('<input type="hidden" name="relais_socolissimo" value="'+socolissimoRelaisChoisi.id_relais+'" />' +
-								'<input type="hidden" name="type_socolissimo_choisi" value="'+socolissimoRelaisChoisi.type+'" />');
-	socolissimoOverlayApi.close(); 
+	jQuery("#socolissimo-hook").html('<input type="hidden" name="relais_socolissimo" value="'+socolissimoRelaisChoisi.id_relais+'" />');
+	
+	jQuery("input[id^=\"s_method_socolissimo\"]").each(function(index, element){
+		//on sélectionne le bon radio, si on a changé de type de relais sur la carte, et on change le texte du numéro de téléphone
+		var radio = jQuery(element);
+		var types = new Array('poste','commercant','cityssimo');
+		var len=types.length;
+		for (var index=0; index<len; index++) {
+			var socolissimoType = types[index];
+			if (radio.val().startWith("socolissimo_"+socolissimoType)) {
+				if (socolissimoRelaisChoisi.type==socolissimoType) {
+					radio.attr("checked", "checked");	
+					jQuery("#socolissimo-telephone span."+socolissimoType).attr("style","display:block;");
+				} else {
+					radio.attr("checked", "");
+					jQuery("#socolissimo-telephone span."+socolissimoType).attr("style","display:none;");
+				}
+			}
+		}
+	});
+	
+	jQuery("#socolissimo-map").hide();
+	jQuery("#socolissimo-telephone").show();
+	
+	return;
+}
+
+function validerTelephone() {
+	
+	 if(socolissimoTelephoneForm.validator && socolissimoTelephoneForm.validator.validate()){
+    	var telephone = jQuery("#socolissimo-telephone input[name='tel_socolissimo']").val();
+    	jQuery("#socolissimo-hook").append('<input type="hidden" name="tel_socolissimo" value="'+telephone+'" />');
+    	socolissimoOverlayApi.close();
+    }
 	return false;
 }
 
@@ -417,7 +416,8 @@ Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de télé
 });
 
 Validation.add('valid-telephone-portable-belgique', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
-    return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
+	//TODO : réécrire l'expression régulières
+	return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
 });
 
 /*On surcharge la méthode validate de ShippingMethod définie dans opcheckout.js (dans le cas du onepagecheckout seulement)
