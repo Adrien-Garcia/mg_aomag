@@ -71,6 +71,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 		$request = Mage::app()->getRequest();
 		 
 		$idRelais = $request->getParam('relais_socolissimo');
+		$reseau = $request->getParam('reseau_socolissimo');
 		$telephone = $request->getParam('tel_socolissimo');
 		$shippingAddress = $quote->getShippingAddress();
 		$shippingMethod = $shippingAddress->getShippingMethod();
@@ -115,10 +116,10 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 
 			$relaisFound = false;
 			if (Mage::helper('socolissimo')->isFlexibilite()) {
-				$relais = Mage::getModel('socolissimo/flexibilite_service')->findPointRetraitAcheminementByID($idRelais);
+				$relais = Mage::getModel('socolissimo/flexibilite_service')->findPointRetraitAcheminementByID($idRelais, $reseau);
 				$relaisFound = ($relais instanceof Addonline_SoColissimo_Model_Flexibilite_Relais);
 			} else {
-				$relais = Mage::getModel('socolissimo/liberte_relais')->load($idRelais);
+				$relais = Mage::getModel('socolissimo/liberte_relais')->loadByIdentifiantReseau($idRelais, $reseau);
 				$relaisFound = $relais->getId();
 			}
 

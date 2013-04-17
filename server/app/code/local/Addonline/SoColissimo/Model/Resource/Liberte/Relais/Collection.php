@@ -14,11 +14,6 @@ class Addonline_SoColissimo_Model_Resource_Liberte_Relais_Collection
         $this->_init('socolissimo/liberte_relais');
     }
     
-    public function loadByIdentifiant($identifiant){
-        $this->getSelect()->where('main_table.identifiant = ?', $identifiant);
-        return $this->load();
-    }     
-    
     public function prepareNearestByType($latitude, $longitude, $typesRelais) {
 
    		//calcul de la distance d'un arc de cercle à la surface de la terre entre deux points coordonnées : http://fr.wikipedia.org/wiki/Orthodromie

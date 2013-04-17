@@ -188,14 +188,4 @@ $this->addAttribute('order', 'soco_email', array(
 		'input'    => 'text',
 ));
 
-/**
- * Attribut soco_product_code sur l'adresse de livraison de la quote
- */
-$this->addAttribute('quote_address', 'soco_product_code', array(
-		'type'     => 'varchar',
-		'label'    => 'Code livrasion socolissimo',
-		'required' => false,
-		'input'    => 'text',
-));
-
 $installer->endSetup();

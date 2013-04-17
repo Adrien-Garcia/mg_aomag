@@ -13,6 +13,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	const LOG_FILE = 'import_socolissimo_liberte.log';
 	
 	private $_tabRelais;
+	private $_tabRelaisBelgique;
 	
 	public function run() { 
 		
@@ -123,15 +124,6 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 		}		
 	}
 	
-    public function loadByIdentifiant( $identifiant ){
-    	$relais = Mage::getModel('socolissimo/liberte_relais');
-  
-        $item = Mage::getModel('socolissimo/liberte_relais')->getCollection()->loadByIdentifiant( $identifiant )->getFirstItem();
-        if($item->getIdentifiant()!="") 
-        	$relais = $item;
-        return $relais;
-    }	
-	
 	/**
 	 * maj dans la table socolissimo_relais'
 	 */
@@ -139,7 +131,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 		$donnes_relais = explode(";", $ligneRelais);
 
 		$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
-		if($id = $this->getIdRelais($donnes_relais[1])){
+		if($id = $this->getIdRelais($donnes_relais[1], 'R01')){
 			$updateQuery = "UPDATE socolissimoliberte_relais SET ";
 			$updateQuery .= "libelle='".str_replace("'","\'",$donnes_relais[2])."', ";
 			$updateQuery .= "adresse='".str_replace("'","\'",$donnes_relais[3])."', ";
@@ -161,23 +153,23 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			$connectionWrite->query($updateQuery);
 		} else {
 			$insertQuery = "INSERT INTO socolissimoliberte_relais (";
-			$insertQuery .= "identifiant, libelle, adresse,complement_adr,lieu_dit,indice_localisation,code_postal,commune,latitude,";
+			$insertQuery .= "reseau, identifiant, libelle, adresse,complement_adr,lieu_dit,indice_localisation,code_postal,commune,latitude,";
 			$insertQuery .= "longitude,indicateur_acces,type_relais,point_max,lot_acheminement,distribution_sort,version) ";
-			$insertQuery .= "VALUES (".$donnes_relais[1].",'".str_replace("'","\'",$donnes_relais[2])."','".str_replace("'","\'",$donnes_relais[3]);
+			$insertQuery .= "VALUES ('R01',".$donnes_relais[1].",'".str_replace("'","\'",$donnes_relais[2])."','".str_replace("'","\'",$donnes_relais[3]);
 			$insertQuery .= "','".str_replace("'","\'",$donnes_relais[4])."','".str_replace("'","\'",$donnes_relais[5]);
 			$insertQuery .= "','".str_replace("'","\'",$donnes_relais[6])."','".$donnes_relais[7]."','".str_replace("'","\'",$donnes_relais[8]);
 			$insertQuery .= "',".str_replace(',','.',$donnes_relais[9]).",".str_replace(',','.',$donnes_relais[10]);
 			$insertQuery .= ",'".$donnes_relais[11]."','".$donnes_relais[12]."','".$donnes_relais[13]."','".$donnes_relais[14];
 			$insertQuery .= "','".$donnes_relais[15]."','".$donnes_relais[16]."')";
 			$connectionWrite->query($insertQuery);
-			$id = $this->getIdRelais($donnes_relais[1]);
+			$id = $this->getIdRelais($donnes_relais[1], 'R01');
 		}	
 
 		// sauvegarde des clé primaire de chaque identifiants relais	
 		$this->_tabRelais[$donnes_relais[1]] = $id;
 	}
 	
-	function getIdRelais($identifiant) {
+	function getIdRelais($identifiant, $reseau) {
 		$connectionRead = Mage::getSingleton('core/resource')->getConnection('core_read');
 		$results = $connectionRead->fetchAll("SELECT id_relais FROM socolissimoliberte_relais WHERE identifiant=".$identifiant);
 		if($results){
@@ -228,7 +220,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 		$donnes_relais = explode(";", $ligneRelais);
 		
 		$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
-		if($id = $this->getIdRelais($donnes_relais[2])){
+		if($id = $this->getIdRelais($donnes_relais[2], $donnes_relais[1])){
 			$updateQuery = "UPDATE socolissimoliberte_relais SET ";
 			$updateQuery .= "code_reseau='".$donnes_relais[1]."', ";
 			$updateQuery .= "libelle='".str_replace("'","\'",$donnes_relais[3])."', ";
@@ -256,11 +248,11 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			$insertQuery .= "',".str_replace(',','.',$donnes_relais[10]).",".str_replace(',','.',$donnes_relais[11]);
 			$insertQuery .= ",'".$donnes_relais[12]."','".$donnes_relais[13]."','".$donnes_relais[14]."')";
 			$connectionWrite->query($insertQuery);
-			$id = $this->getIdRelais($donnes_relais[2]);
+			$id = $this->getIdRelais($donnes_relais[2],$donnes_relais[1]);
 		}
 		
 		// sauvegarde des clé primaire de chaque identifiants relais
-		$this->_tabRelais[$donnes_relais[2]] = $id;
+		$this->_tabRelaisBelgique[$donnes_relais[2]] = $id;
 	}
 	
 	/**
@@ -269,12 +261,12 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	function remplirHoraireOuvertureBelgique( $ligneHB ){
 		$donnes_horaire = explode(";", $ligneHB);
 	
-		if( isset($this->_tabRelais[$donnes_horaire[2]]) ){
+		if( isset($this->_tabRelaisBelgique[$donnes_horaire[2]]) ){
 			$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
 			$insertQuery = "INSERT INTO socolissimoliberte_horaire_ouverture (";
 			$insertQuery .= "id_relais_ho, deb_periode_horaire, fin_periode_horaire,horaire_lundi,horaire_mardi,horaire_mercredi,";
 			$insertQuery .= "horaire_jeudi,horaire_vendredi,horaire_samedi,horaire_dimanche) ";
-			$insertQuery .= "VALUES (".$this->_tabRelais[$donnes_horaire[2]].",'".$donnes_horaire[3]."','".$donnes_horaire[4];
+			$insertQuery .= "VALUES (".$this->_tabRelaisBelgique[$donnes_horaire[2]].",'".$donnes_horaire[3]."','".$donnes_horaire[4];
 			$insertQuery .= "','".$donnes_horaire[5]."','".$donnes_horaire[6]."','".$donnes_horaire[7]."','".$donnes_horaire[8];
 			$insertQuery .= "','".$donnes_horaire[9]."','".$donnes_horaire[10]."','".$donnes_horaire[11]."')";
 			$connectionWrite->query($insertQuery);
@@ -288,13 +280,13 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	function remplirPeriodeFermetureBelgique( $ligneFB ){
 		$donnes_fe = explode(";", $ligneFB);
 	
-		if( isset($this->_tabRelais[$donnes_fe[2]]) ){
+		if( isset($this->_tabRelaisBelgique[$donnes_fe[2]]) ){
 			$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
 			$dd = new Zend_Date( $donnes_fe[3], "dd/MM/yyyy");
 			$df = new Zend_Date( $donnes_fe[4], "dd/MM/yyyy" );	
 			$insertQuery = "INSERT INTO socolissimoliberte_periode_fermeture (";
 			$insertQuery .= "id_relais_fe, deb_periode_fermeture, fin_periode_fermeture) ";
-			$insertQuery .= "VALUES (".$this->_tabRelais[$donnes_fe[2]].",'".$dd->toString("yyyy-MM-dd") ."','".$df->toString("yyyy-MM-dd")."')";
+			$insertQuery .= "VALUES (".$this->_tabRelaisBelgique[$donnes_fe[2]].",'".$dd->toString("yyyy-MM-dd") ."','".$df->toString("yyyy-MM-dd")."')";
 			$connectionWrite->query($insertQuery);
 		}
 	}

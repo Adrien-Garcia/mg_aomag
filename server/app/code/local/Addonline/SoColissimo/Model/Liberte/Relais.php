@@ -20,6 +20,13 @@ class  Addonline_SoColissimo_Model_Liberte_Relais extends Addonline_SoColissimo_
         $this->_init('socolissimo/liberte_relais');
     }
     
+    public function loadByIdentifiantReseau($identifiant, $reseau) {
+        $collection = $this->getCollection();
+    	$collection->addFieldToFIlter('identifiant', $identifiant);
+        $collection->addFieldToFIlter('code_reseau', $reseau);
+        return $collection->getFirstItem();
+    }     
+    
     public function getLibelle() {
     	 if (Mage::app()->getStore()->getLanguageCode() == 'NL') {
     	 	return $this->getData('libelle_nl');

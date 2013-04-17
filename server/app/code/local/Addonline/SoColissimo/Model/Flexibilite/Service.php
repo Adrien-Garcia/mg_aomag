@@ -45,9 +45,9 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				
 				$result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
 
-				Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
+				//Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
 				//Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
-				//Mage::log($result);
+				Mage::log($result);
 				
 				if ($result->return->errorCode == 0) {			
 					return $result->return;
@@ -67,9 +67,9 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 			
 	}
 	
-	function findPointRetraitAcheminementByID($id) {
+	function findPointRetraitAcheminementByID($id, $reseau) {
 		
-		require_once dirname(__FILE__).'/PointRetraitServiceWSService.php';
+		require_once dirname(__FILE__).'/Service/PointRetraitServiceWSService.php';
 		
 		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->getUrlWsdl());
 
@@ -80,13 +80,15 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				$findPointRetraitAcheminementByID->id = $id;
 				$findPointRetraitAcheminementByID->weight = $this->_getQuoteWeight();
 				$findPointRetraitAcheminementByID->date = $this->_getShippingDate();
-				$findPointRetraitAcheminementByID->filterRelay = 1;
-
+				$findPointRetraitAcheminementByID->filterRelay = 1; //pout tous les avoir, même les commerçants
+				$findPointRetraitAcheminementByID->reseau = $reseau;
+				$findPointRetraitAcheminementByID->langue = (Mage::app()->getStore()->getLanguageCode() == 'NL')?'NL':'FR';
+				
 				$result = $pointRetraitServiceWSService->findPointRetraitAcheminementByID($findPointRetraitAcheminementByID);
 				
 				if ($result->return->errorCode == 0) {			
 					Mage::log($result->return->pointRetraitAcheminement);	
-					$relais = Mage::getModel('socolissimo/flexibilite/relais');
+					$relais = Mage::getModel('socolissimo/flexibilite_relais');
 					$relais->setPointRetraitAcheminement($result->return->pointRetraitAcheminement);
 					return $relais;
 				} else {

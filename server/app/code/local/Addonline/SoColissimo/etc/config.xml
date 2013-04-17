@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Addonline_SoColissimo>
-            <version>2.0.1</version>
+            <version>2.0.2</version>
             <depends>
                 <Mage_Shipping />
             </depends>
@@ -48,7 +48,7 @@
     		</socolissimo_resource>
     		<shipping>
     			<rewrite>
-    				<rate_result>Addonline_Socolissimo_Model_Shipping_Rate_Result</rate_result>
+    				<rate_result>Addonline_SoColissimo_Model_Shipping_Rate_Result</rate_result>
     			</rewrite>
     		</shipping>
     	</models>	
@@ -160,7 +160,7 @@
 				<config><![CDATA[
 # So Colissimo Livraison à domicile (France, Monaco, Andorre) (Mars 2013)
 {
-	label: "Livraison à domicile",
+	label: "mon domicile",
 	code: "livraison_fr",
 	destination: "FR,MC,AD",
 	conditions: "{cart.weight}<20",
@@ -169,7 +169,7 @@
 
 # So Colissimo Sur Rendez-vous (Paris code postal 750xx) (Mars 2013)
 {
-	label: "Sur Rendez-vous",
+	label: "mon rendez-vous",
 	code: "rdv_fr",
 	destination: "FR(/^75(0[0-1][0-9])|020|116$/)",
 	conditions: "{cart.weight}<20",
@@ -178,7 +178,7 @@
 
 # So Colissimo Bureau de Poste (France, Monaco, Andorre) (Mars 2013)
 {
-	label: "Dans un bureau de poste",
+	label: "mon bureau de poste",
 	code: "poste_fr",
 	destination: "FR,MC,AD",
 	conditions: "{cart.weight}<20",
@@ -187,16 +187,16 @@
 
 # So Colissimo Commerçant (France, Monaco, Andorre) (Mars 2013)
 {
-	label: "Chez un commerçant",
+	label: "mon commerçant",
 	code: "commercant_fr",
 	destination: "FR,MC,AD",
-	conditions: "{cart.weight}<20",
+	conditions: "{cart.weight}<10",
 	fees: "{table {cart.weight} in 0.25:3.75, 0.5:4.30, 0.75:5.05, 1.0:5.55, 2.0:6.32, 3.0:7.09, 4.0:7.86, 5.0:8.63, 6.0:9.40, 7.0:10.17, 8.0:10.94, 9.0:11.71, 10.0:12.48, 11.0:13.25, 12.0:14.02, 13.0:14.79, 14.0:15.56, 15.0:16.33, 16.0:17.10, 17.0:17.87, 18.0:18.64, 19.0:19.41, 20.0:20.18, 21.0:20.95, 22.0:21.72, 23.0:22.49, 24.0:23.26, 25.0:24.03, 26.0:24.80, 27.0:25.57, 28.0:26.34, 29.0:27.11, 30.0:27.88}",
 }
 
 # So Colissimo Consigne Cityssimo (France, Monaco, Andorre) (Mars 2013)
 {
-	label: "Dans une consigne Cityssimo",
+	label: "mon espace cityssimo",
 	code: "cityssimo_fr",
 	destination: "FR,MC,AD",
 	conditions: "{cart.weight}<20",
@@ -206,7 +206,7 @@
 
 # So Colissimo Livraison à domicile (Belgique) (Mars 2013)
 {
-	label: "Livraison à domicile",
+	label: "mon domicile",
 	code: "livraison_be",
 	destination: "BE",
 	conditions: "{cart.weight}<20",
@@ -215,7 +215,7 @@
 
 # So Colissimo Bureau de Poste (Belgique) (Mars 2013)
 {
-	label: "Dans un bureau de poste",
+	label: "mon bureau de poste",
 	code: "poste_be",
 	destination: "BE",
 	conditions: "{cart.weight}<20",
@@ -224,10 +224,10 @@
 
 # So Colissimo Commerçant (Belgique) (Mars 2013)
 {
-	label: "Chez un commerçant",
+	label: "mon commerçant",
 	code: "commercant_be",
 	destination: "BE",
-	conditions: "{cart.weight}<20",
+	conditions: "{cart.weight}<10",
 	fees: "{poste_be.fees}",
 }
 ]]></config>

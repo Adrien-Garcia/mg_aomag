@@ -393,7 +393,8 @@ function attachClick(marker,infowindow, index){
 function choisirRelais(index) {
 	
 	socolissimoRelaisChoisi = socolissimoListRelais[index];
-	jQuery("#socolissimo-hook").html('<input type="hidden" name="relais_socolissimo" value="'+socolissimoRelaisChoisi.id_relais+'" />');
+	jQuery("#socolissimo-hook").html('<input type="hidden" name="relais_socolissimo" value="'+socolissimoRelaisChoisi.identifiant+'" />'+
+									'<input type="hidden" name="reseau_socolissimo" value="'+socolissimoRelaisChoisi.code_reseau+'" />');
 	
 	jQuery("input[id^=\"s_method_socolissimo\"]").each(function(index, element){
 		//on sélectionne le bon radio, si on a changé de type de relais sur la carte, et on change le texte du numéro de téléphone
@@ -404,10 +405,10 @@ function choisirRelais(index) {
 			var socolissimoType = types[index];
 			if (radio.val().startWith("socolissimo_"+socolissimoType)) {
 				if (socolissimoRelaisChoisi.type==socolissimoType) {
-					radio.attr("checked", "checked");	
+					radio.prop("checked", "checked");	//on utilise prop au lieu de attr pour que le radio soit bien mis à jour
 					jQuery("#socolissimo-telephone span."+socolissimoType).attr("style","display:block;");
 				} else {
-					radio.attr("checked", "");
+					radio.prop("checked", "");	//on utilise prop au lieu de attr pour que le radio soit bien mis à jour
 					jQuery("#socolissimo-telephone span."+socolissimoType).attr("style","display:none;");
 				}
 			}

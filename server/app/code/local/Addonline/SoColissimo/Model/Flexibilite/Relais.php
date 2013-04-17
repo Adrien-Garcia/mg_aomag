@@ -14,6 +14,7 @@ class  Addonline_SoColissimo_Model_Flexibilite_Relais extends Addonline_SoColiss
 	
 	public function setPointRetraitAcheminement($pointRetraitAcheminement) {
 		$this->setIdentifiant($pointRetraitAcheminement->identifiant);
+		$this->setCodeReseau($pointRetraitAcheminement->reseau);
 		$this->setTypeRelais($pointRetraitAcheminement->typeDePoint);
 		$this->setDistance(intval($pointRetraitAcheminement->distanceEnMetre)/1000);
 		$this->setLibelle($pointRetraitAcheminement->nom);
@@ -29,6 +30,9 @@ class  Addonline_SoColissimo_Model_Flexibilite_Relais extends Addonline_SoColiss
 		$this->getType();//set the value
 		$this->isParking();//set the value
 		$this->isManutention();//set the value
+		//à décommenter quand le webservice renverra la valeur...
+		//$this->setParking($pointRetraitAcheminement->parking);//set the value
+		//$this->setManutention($pointRetraitAcheminement->loanOfHandlingTool);//set the value
 		
 		//Ouvertures
 		$this->setHoraireLundi($pointRetraitAcheminement->horairesOuvertureLundi);

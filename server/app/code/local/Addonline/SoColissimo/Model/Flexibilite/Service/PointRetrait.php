@@ -187,6 +187,48 @@ class PointRetrait
    */
   public $typeDePoint;
 
+  /**
+   * 
+   * @var string $codePays
+   * @access public
+   */  
+   public $codePays;
+  /**
+   * 
+   * @var string $codePays
+   * @access public
+   */  
+   public $langue;
+   
+  /**
+   * 
+   * @var string $codePays
+   * @access public
+   */  
+   public $libellePays;
+   
+  /**
+   * 
+   * @var string $codePays
+   * @access public
+   */  
+   
+   public $loanOfHandlingTool;
+   
+  /**
+   * 
+   * @var string $codePays
+   * @access public
+   */  
+   
+   public $parking;
+  
+  /**
+   * 
+   * @var string $codePays
+   * @access public
+   */  
+   public $reseau;
 }
 
 }
