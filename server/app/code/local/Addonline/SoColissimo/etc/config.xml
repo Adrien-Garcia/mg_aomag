@@ -248,7 +248,7 @@
 	fees: "{domicile_be.fees}",
 }
 ]]></config>
-				<tracking_view_url>http://www.coliposte.net/particulier/suivi_particulier.jsp?colispart={tracking_number}</tracking_view_url>
+				<tracking_view_url>http://www.colissimo.fr/portail_colissimo/suivre.do?colispart={tracking_number}</tracking_view_url>
 				<display_when_unavailable>0</display_when_unavailable>
 				<stop_to_first_match>0</stop_to_first_match>
 				<shipping_period>1</shipping_period>

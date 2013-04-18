@@ -274,7 +274,6 @@ class Addonline_SoColissimo_Model_Carrier_ShippingMethod extends Mage_Shipping_M
 		return true;
 	}
 
-	//TODO : à simplifer : on n'a besoin que du cas de traking Socolissimo
 	public function getTrackingInfo($tracking_number) {
 		$tracking_url = $this->__getConfigData('tracking_view_url');
 		$parts = explode(':',$tracking_number);
