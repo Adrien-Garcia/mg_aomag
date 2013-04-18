@@ -159,5 +159,14 @@
 					</zip>
 					<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
 		</target>
+		
+	<target name="create_zip_emailcgv" depends="">
+                    <property name="zip-name" value="emailcgv_${DSTAMP}${TSTAMP}.zip" />
+                    <zip destfile="${zip-name}" >
+                        <zipfileset dir="server/app/code/local/Addonline/EmailCgv" prefix="app/code/local/Addonline/EmailCgv" ></zipfileset>
+                        <zipfileset file="server/app/etc/modules/Addonline_EmailCgv.xml" prefix="app/etc/modules" ></zipfileset>
+                    </zip>
+                    <echo message="Refresh your project to see the generated ${zip-name} file"></echo>
+        </target>
 	
 </project>
