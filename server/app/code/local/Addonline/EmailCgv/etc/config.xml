@@ -19,12 +19,12 @@
         </models>
         <template>
 	        <email>
-	            <emailcgv_order_template translate="label" module="EmailCgv">
+	            <emailcgv_order_template translate="label" module="emailcgv">
 	                <label>Email CGV</label>
 	                <file>sales/cgv.html</file>
 	                <type>html</type>
 	            </emailcgv_order_template>
-	            <emailcgv_cgv translate="label" module="EmailCgv">
+	            <emailcgv_cgv translate="label" module="emailcgv">
 	                <label>Email CGV</label>
 	                <file>sales/emailcgv.html</file>
 	                <type>html</type>
@@ -32,6 +32,9 @@
 	        </email>
 
 	    </template>
+	     <helpers>
+            <emailcgv><class>Addonline_EmailCgv_Helper</class></emailcgv>
+        </helpers>
         <resources>
             <emailcgv_setup>
                 <setup>
@@ -52,12 +55,8 @@
                 </connection>
             </emailcgv_read>
         </resources>
-        <!-- <blocks>
-            <advancedslideshow><class>Addonline_AdvancedSlideshow_Block</class></advancedslideshow>
-        </blocks>-->
-        <helpers>
-            <emailcgv><class>Addonline_EmailCgv_Helper</class></emailcgv>
-        </helpers>
+
+
         <events>
         	<admin_user_authenticate_after>
                 <observers>
