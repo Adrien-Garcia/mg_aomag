@@ -15,7 +15,7 @@
    <reference name="head">
    <action method="addCss"><stylesheet>css/socolissimo.css</stylesheet></action>
 
-	<action method="addJs"><script>jquery/jquery-1.6.3.min.js</script></action>
+	<action method="addJs"><script>jquery/jquery-1.7.1.min.js</script></action>
 	<action method="addJs"><script>jquery/jquery.noconflict.js</script></action>
 	<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
     <action method="addItem"><type>skin_js</type><script>js/socolissimo.js</script></action>
@@ -34,7 +34,7 @@
    <reference name="head">
    	<action method="addCss"><stylesheet>css/socolissimo.css</stylesheet></action>
    	
-	<action method="addJs"><script>jquery/jquery-1.6.3.min.js</script></action>
+	<action method="addJs"><script>jquery/jquery-1.7.1.min.js</script></action>
 	<action method="addJs"><script>jquery/jquery.noconflict.js</script></action>
 	<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
 	
