@@ -58,8 +58,7 @@ CREATE TABLE {$this->getTable('socolissimoliberte_relais')} (
   lot_acheminement varchar(10) default NULL,
   distribution_sort varchar(10) default NULL,
   version varchar(2) default NULL,
-  PRIMARY KEY  (id_relais),
-  UNIQUE KEY `identifiant` (`identifiant`)
+  PRIMARY KEY  (id_relais)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ");
