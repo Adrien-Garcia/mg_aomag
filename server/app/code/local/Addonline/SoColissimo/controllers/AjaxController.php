@@ -73,7 +73,7 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    				$filterRelay = 1;
    			}
    			
-	     	$listrelais = Mage::getModel('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay);
+	     	$listrelais = Mage::getSingleton('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay);
 	     	
 	     	if ($listrelais->errorCode == 0) {
 		     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {

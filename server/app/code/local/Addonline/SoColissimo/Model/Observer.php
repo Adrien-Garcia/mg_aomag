@@ -115,12 +115,16 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 			}
 
 			$relaisFound = false;
-			if (Mage::helper('socolissimo')->isFlexibilite()) {
-				$relais = Mage::getModel('socolissimo/flexibilite_service')->findPointRetraitAcheminementByID($idRelais, $reseau);
-				$relaisFound = ($relais instanceof Addonline_SoColissimo_Model_Flexibilite_Relais);
-			} else {
-				$relais = Mage::getModel('socolissimo/liberte_relais')->loadByIdentifiantReseau($idRelais, $reseau);
-				$relaisFound = $relais->getId();
+			if (strpos($shippingMethod,'socolissimo_poste')===0 ||
+				strpos($shippingMethod,'socolissimo_cityssimo')===0 ||
+				strpos($shippingMethod,'socolissimo_commercant')===0 ) {
+					if (Mage::helper('socolissimo')->isFlexibilite()) {
+						$relais = Mage::getSingleton('socolissimo/flexibilite_service')->findPointRetraitAcheminementByID($idRelais, $reseau);
+						$relaisFound = ($relais instanceof Addonline_SoColissimo_Model_Flexibilite_Relais);
+					} else {
+						$relais = Mage::getModel('socolissimo/liberte_relais')->loadByIdentifiantReseau($idRelais, $reseau);
+						$relaisFound = $relais->getId();
+					}
 			}
 
 			if ($relaisFound) {

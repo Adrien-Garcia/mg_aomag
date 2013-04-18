@@ -150,6 +150,7 @@ class Addonline_SoColissimo_Model_Carrier_ShippingMethod extends Mage_Shipping_M
 {
 	protected $_code = 'socolissimo';
 	
+	
 	/**
 	 * Collect rates for this shipping method based on information in $request
 	 * 

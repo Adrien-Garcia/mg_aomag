@@ -154,6 +154,15 @@ class SocolissimoShippingHelper
 		return $messages;
 	}
 	
+	public function isSocolissmoAvailable() {
+		if (!Mage::helper('socolissimo')->isFlexibilite()) {
+			//si on est en Liberté, le service est toujours accessible
+			return true;
+		} else {
+			return Mage::getSingleton('socolissimo/flexibilite_service')->isAvailable();
+		}
+	}
+	
 	public function formatConfig($compress,$keys_to_remove=array()) {
 		$output = '';
 		foreach ($this->_config as $code => $row) {
@@ -223,12 +232,19 @@ class SocolissimoShippingHelper
 				} 
 			} else {
 				if(strpos($code, 'domicile_sign_') === 0 ) {
-					$this->addMessage('info',$row,'conditions',"Configuration disabled (domicile_sign)");
+					$this->addMessage('info',$row,'socolissimo',"Configuration disabled (domicile_sign)");
 					return new SOCO_Result(false);
 				}
 			}
 		}
 		
+		//ADDONLINE : on exclu les points de relais si le webservice est innaccessible
+		if (strpos($code, 'poste_') === 0 || strpos($code, 'commercant_') === 0 || strpos($code, 'cityssimo_') === 0) {
+			if  (!$this->isSocolissmoAvailable()) {
+				$this->addMessage('info',$row,'socolissimo',"Webservices unavailable");
+				return new SOCO_Result(false);				
+			}
+		}
 		
 		$conditions = $this->getRowProperty($row,'conditions');
 		if (isset($conditions)) {

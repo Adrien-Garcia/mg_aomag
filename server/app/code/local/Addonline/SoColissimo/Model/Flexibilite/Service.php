@@ -3,6 +3,8 @@
 class Addonline_SoColissimo_Model_Flexibilite_Service {
 	
 	protected $_urlWsdl;
+
+	protected $_available;
 	
 	public function getUrlWsdl()
 	{
@@ -14,6 +16,23 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 			}
 		}
 		return $this->_urlWsdl;
+	}
+	
+	public function isAvailable() {
+
+		if (!$this->_available) {
+			try {
+				$supervisionUrl = "http://ws.colissimo.fr/supervision-wspudo/supervision.jsp";
+				if (Mage::getStoreConfig('carriers/socolissimo/testws_socolissimo_flexibilite')) {
+					$supervisionUrl = "http://pfi.telintrans.fr/supervision-wspudo/supervision.jsp";
+				}
+				$ctx=stream_context_create(array('http'=> array( 'timeout' => 0.5 )));//Si on n'a pas de réponse en moins d'une demi seconde
+				$this->_available = file_get_contents ($supervisionUrl,false,$ctx);
+			} catch(Exception $e){
+				$this->_available = "[KO]";
+			}
+		}
+		return 	trim($this->_available) === "[OK]";
 	}
 	
 	function findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay) {
@@ -47,7 +66,7 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 
 				//Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
 				//Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
-				Mage::log($result);
+				//Mage::log($result);
 				
 				if ($result->return->errorCode == 0) {			
 					return $result->return;
@@ -57,13 +76,13 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				}				
 				
 		} catch (SoapFault $fault) {
-				Mage::log('RequestHeaders '.$pointRetraitServiceWSService->__getLastRequestHeaders());
-				Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
-				Mage::log('ResponseHeaders '.$pointRetraitServiceWSService->__getLastResponseHeaders());
-				Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
-				Mage::log($fault);
-				return false;
-			}
+			Mage::log('RequestHeaders '.$pointRetraitServiceWSService->__getLastRequestHeaders());
+			Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
+			Mage::log('ResponseHeaders '.$pointRetraitServiceWSService->__getLastResponseHeaders());
+			Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
+			Mage::log($fault);
+			return false;
+		}
 			
 	}
 	
@@ -95,13 +114,13 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 					return $result->return->errorMessage;
 				}
 		} catch (SoapFault $fault) {
-				Mage::log('RequestHeaders '.$pointRetraitServiceWSService->__getLastRequestHeaders());
-				Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
-				Mage::log('ResponseHeaders '.$pointRetraitServiceWSService->__getLastResponseHeaders());
-				Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
-				Mage::log($fault);
-				return false;
-			}
+			Mage::log('RequestHeaders '.$pointRetraitServiceWSService->__getLastRequestHeaders());
+			Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
+			Mage::log('ResponseHeaders '.$pointRetraitServiceWSService->__getLastResponseHeaders());
+			Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
+			Mage::log($fault);
+			return false;
+		}
 			
 	}
 	
