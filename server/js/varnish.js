@@ -8,7 +8,7 @@
 
 jQuery(document).ready(function($) {
 
-	var data = { getBlocks: {} , getPriceBlocks{} };
+	var data = { getBlocks: {} , getPriceBlocks: {} };
 	
 	// add placeholders
 	$('.varnish_placeholder').each(function() {
