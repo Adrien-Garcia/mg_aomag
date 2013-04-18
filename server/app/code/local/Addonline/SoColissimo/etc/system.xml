@@ -53,11 +53,20 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</contrat>						
+						<domicile_signature translate="label">
+							<label>Livrasion à domicile</label>
+							<frontend_type>select</frontend_type>
+							<source_model>socolissimo/adminhtml_system_config_source_domicilesignature</source_model>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</domicile_signature>		
 						<international translate="label">
 							<label>Option international</label>
 							<frontend_type>select</frontend_type>
 							<source_model>socolissimo/adminhtml_system_config_source_optioninternationnal</source_model>
-							<sort_order>4</sort_order>
+							<sort_order>5</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -67,7 +76,7 @@
 							<label>Configuration</label>
 							<comment>{configuration_syntax_help}</comment>
 							<frontend_type>textarea</frontend_type>
-							<sort_order>5</sort_order>
+							<sort_order>6</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -75,7 +84,7 @@
 						<tracking_view_url translate="label">
 							<label>Tracking URL</label>
 							<frontend_type>text</frontend_type>
-							<sort_order>6</sort_order>
+							<sort_order>7</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -85,7 +94,7 @@
 							<comment>{debug_help}</comment>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>7</sort_order>
+							<sort_order>8</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -94,7 +103,7 @@
 							<label>Display when unavailable</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>8</sort_order>
+							<sort_order>9</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -103,7 +112,7 @@
 							<label>Stop to first match</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>9</sort_order>
+							<sort_order>10</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -112,7 +121,7 @@
 							<label>Shipping period</label>
 							<comment>Délai pour calculer les relais ouverts à la date de livraison = date du jour + délai</comment>
 							<frontend_type>text</frontend_type>
-							<sort_order>10</sort_order>
+							<sort_order>11</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -120,7 +129,7 @@
 						<id_socolissimo_flexibilite translate="label">
 							<label>Identifiant Socolissmo</label>
 							<frontend_type>text</frontend_type>
-							<sort_order>11</sort_order>
+							<sort_order>12</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -129,7 +138,7 @@
 						<password_socolissimo_flexibilite translate="label">
 							<label>Password Socolissmo</label>
 							<frontend_type>text</frontend_type>
-							<sort_order>12</sort_order>
+							<sort_order>13</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -139,7 +148,7 @@
 							<label>Webservice Socolissmo de test</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>13</sort_order>
+							<sort_order>14</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -149,22 +158,13 @@
 						<rep_fichier_liberte translate="label">
 							<label>Répértoire des fichiers SoColissimo</label>
 							<frontend_type>text</frontend_type>
-							<sort_order>14</sort_order>
+							<sort_order>15</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 							<depends><contrat>liberte</contrat></depends>
 							<comment>Répertoire (chemin absolu) où sont uploadés les fichiers SoColissimo Liberté</comment>
 						</rep_fichier_liberte>						
-						<domicile_signature translate="label">
-							<label>Livrasion à domicile avec signature</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>15</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</domicile_signature>		
 						<sort_order translate="label">
 							<label>Sort order</label>
 							<frontend_type>text</frontend_type>
@@ -197,6 +197,7 @@
 						<serial translate="label" module="socolissimo">
 							<label>Serial</label>
 							<frontend_type>text</frontend_type>
+							<comment>Set here the serial number given by addonline, for multi-store : let DISABLED on default configuration, and set each serial on each corresponding store configuration scope</comment>
 							<sort_order>1</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>

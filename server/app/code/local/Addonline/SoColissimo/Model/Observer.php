@@ -268,7 +268,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 			return 'A2P';
 		} elseif ($type=='rdv') {
 			return 'RDV';
-		} elseif ($type=='livraison') {
+		} elseif ($type=='domicile') {
 			return Mage::getStoreConfig('carriers/socolissimo/domicile_signature')?'DOS':'DOM';
 		} else {
 			return false;

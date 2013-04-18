@@ -213,6 +213,23 @@ class SocolissimoShippingHelper
 			}
 		}
 
+		//ADDONLINE : on exclu la livraison domicile avec ou sans signature selon la configuration
+		$code = $row['code']['value'];
+		if(strpos($code, 'domicile_') === 0 ) { 
+			if (Mage::helper('socolissimo')->isDomicileAvecSignature()) {
+				if(strpos($code, 'domicile_sign_') !== 0 ) {
+					$this->addMessage('info',$row,'socolissimo','Configuration disabled (domicile)');
+					return new SOCO_Result(false);
+				} 
+			} else {
+				if(strpos($code, 'domicile_sign_') === 0 ) {
+					$this->addMessage('info',$row,'conditions',"Configuration disabled (domicile_sign)");
+					return new SOCO_Result(false);
+				}
+			}
+		}
+		
+		
 		$conditions = $this->getRowProperty($row,'conditions');
 		if (isset($conditions)) {
 			$result = $this->_processFormula($process,$row,'conditions',$conditions,$is_checking);
@@ -1099,7 +1116,7 @@ class SocolissimoShippingHelper
 				} elseif ($international == '2') {
 					$socoCountries = array('BE');
 				}
-				if ($address['country_code']==$country_code && in_array($country_code, $socoCountries)) {//ADDONLINE : on limite SOcolissimo à la France (Monaco et Andorre) et la Belgique selon la configuration de l'option international
+				if ($address['country_code']==$country_code && in_array($country_code, $socoCountries)) {//ADDONLINE : on limite SoColissimo à la France (Monaco et Andorre) et la Belgique selon la configuration de l'option international
 					self::debug('      country code <span class="osh-replacement">'.$address['country_code'].'</span> matches');
 					if (!isset($result[4]) || $result[4]=='') return !$excluding;
 					else {

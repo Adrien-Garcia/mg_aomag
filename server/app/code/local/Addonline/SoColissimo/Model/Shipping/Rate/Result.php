@@ -20,7 +20,7 @@ class Addonline_Socolissimo_Model_Shipping_Rate_Result extends Mage_Shipping_Mod
          	foreach ($this->_rates as $i => $rate) {
          		$method = $rate->getMethod();
          		$methodOrder = 9;
-         		if (strpos($method, 'livraison')===0) {
+         		if (strpos($method, 'domicile')===0) {
          			$methodOrder = 1;
          		}
          	    if (strpos($method, 'rdv')===0) {

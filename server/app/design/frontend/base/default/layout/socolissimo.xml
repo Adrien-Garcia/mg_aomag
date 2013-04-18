@@ -24,19 +24,11 @@
    
    </reference>
 
-    <reference name="checkout.onepage.shipping_method.additional">
-		<action method="setTemplate"><template>socolissimo/additional.phtml</template></action>
+ 	<reference name="before_body_end">
+    	<block type="core/template" name="socolissimo_additional" after="-" template="socolissimo/additional.phtml" />
     </reference>
    
 </checkout_onepage_index>
-
-<checkout_onepage_additional>
-
-	<reference name="root">
-		<action method="setTemplate"><template>socolissimo/additional.phtml</template></action>
-    </reference>
-
-</checkout_onepage_additional>
     
 <onestepcheckout_index_index>
    <reference name="head">
@@ -49,11 +41,11 @@
     <action method="addItem"><type>skin_js</type><script>js/socolissimo.js</script></action>
     <block type="core/text" name="map.js"><action method="setText"><text><![CDATA[<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&region=FR"></script>]]></text></action></block>        
    </reference>  
-<!-- 
-    <reference name="checkout.onepage.shipping_method.additional">
-		<action method="setTemplate"><template>socolissimo/additional.phtml</template></action>
+
+ 	<reference name="before_body_end">
+    	<block type="core/template" name="socolissimo_additional" after="-" template="socolissimo/additional.phtml" />
     </reference>
-   	 -->
+
 </onestepcheckout_index_index>
 
 <socolissimo_ajax_selector>

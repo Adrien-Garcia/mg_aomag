@@ -1,20 +1,19 @@
 <?php
 
 ?>
-<?php if (!$this->getQuote()->isVirtual()): ?>
-    <?php echo $this->helper('giftmessage/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
-<?php endif; ?>
-<div id="socolissimo_description_livraison" style="display:none;">
-<?php if ($this->helper('socolissimo')->isDomicileAvecSignature()) :?>
+<div id="socolissimo_description_domicile_sign" style="display:none;">
 <strong>Livraison &agrave; l'adresse de votre choix</strong> avec <strong>remise en mains propres.</strong><br/>
 En cas d'absence, votre colis sera mis &agrave; votre disposition en bureau de poste.
-<?php else:?>
+</div>
+<div id="socolissimo_description_domicile" style="display:none;">
 <strong>Livraison &agrave; l'adresse de votre choix</strong> avec <strong>remise en bo&icirc;te aux lettres</strong> ou remise en mains propres selon les situations.<br/>
 En cas d'impossibilit&eacute;, votre colis sera mis &agrave; votre disposition en bureau de poste.
-<?php endif;?>
 </div>
 <div id="socolissimo_description_rdv" style="display:none;">
 Livraison sur rendez-vous sur Paris pour un suppl&eacute;ment de <?php echo $this->helper('core')->currency(3) ?> entre 17h00 et 21h30 dans un créneau d'1h30 du lundi au vendredi.
+</div>
+<div id="socolissimo_description_poste_be" style="display:none;">
+Livraison dans l'un des bureaux de Poste du groupe BPOST en Belgique.
 </div>
 <div id="socolissimo_description_poste" style="display:none;">
 Livraison dans l'un des 10 000 points de retrait La Poste de votre choix en France.
@@ -25,37 +24,42 @@ Livraison dans l'une des 31 consignes automatiques Cityssimo 7j/7 et 24h/24.
 <div id="socolissimo_description_commercant" style="display:none;">
 Livraison dans l'un des 3 700 commerces du r&eacute;seau  PICKUP, Groupe La Poste.
 </div>
+<div id="socolissimo_description_commercant_be" style="display:none;">
+Livraison dans l'un des commerces de proximité du réseau BPOST en Belgique.
+</div>
 <script type="text/javascript">
-//<![CDATA[
-//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'affichage des pictos et descriptions Socolissimo
-Checkout.prototype.setStepResponse = function() {
-	if (response.update_section) {
-    	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
-		//AJOUT pour Socolissimo
-    	if (response.update_section.name == 'shipping-method') {
-    		initSocolissimoLogos();
-    	}
-    }
-    if (response.allow_sections) {
-        response.allow_sections.each(function(e){
-            $('opc-'+e).addClassName('allow');
-        });
-    }
-
-    if(response.duplicateBillingInfo)
-    {
-        shipping.setSameAsBilling(true);
-    }
-
-    if (response.goto_section) {
-        this.gotoSection(response.goto_section);
-        return true;
-    }
-    if (response.redirect) {
-        location.href = response.redirect;
-        return true;
-    }
-    return false;
+//<![CDATA[       
+if ((typeof Checkout) != "undefined") {
+	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'affichage des pictos et descriptions Socolissimo
+	Checkout.prototype.setStepResponse = function() {
+		if (response.update_section) {
+	    	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
+			//AJOUT pour Socolissimo
+	    	if (response.update_section.name == 'shipping-method') {
+	    		initSocolissimoLogos();
+	    	}
+	    }
+	    if (response.allow_sections) {
+	        response.allow_sections.each(function(e){
+	            $('opc-'+e).addClassName('allow');
+	        });
+	    }
+	
+	    if(response.duplicateBillingInfo)
+	    {
+	        shipping.setSameAsBilling(true);
+	    }
+	
+	    if (response.goto_section) {
+	        this.gotoSection(response.goto_section);
+	        return true;
+	    }
+	    if (response.redirect) {
+	        location.href = response.redirect;
+	        return true;
+	    }
+	    return false;
+	}
 }
 //]]>
 </script>

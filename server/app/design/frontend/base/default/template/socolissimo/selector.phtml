@@ -2,7 +2,7 @@
 ?>
 <a class="close">Fermer</a>
 <?php $type = $this->getRequest()->getParam("type"); ?>
-<?php if ($type!='livraison' && $type!='rdv' ) : /* on n'affiche pas la carte pour les livraison à domicile est sur rdv */ ?>
+<?php if ($type!='domicile' && $type!='rdv' ) : /* on n'affiche pas la carte pour les livraison à domicile est sur rdv */ ?>
 <div id="socolissimo-map" >
 	<div>
 		<h3>Choisissez Votre lieu de livraison</h3>
@@ -85,7 +85,7 @@
 	</div>
 </div>
 <?php endif; ?>
-<div id="socolissimo-telephone" <?php if ($type!='livraison' && $type!='rdv' ) : ?>style="display:none;"<?php endif;?> >
+<div id="socolissimo-telephone" <?php if ($type!='domicile' && $type!='rdv' ) : ?>style="display:none;"<?php endif;?> >
 	<div>
 		<h3>Informations complémentaires</h3>
 		<div class="contenu">
@@ -100,8 +100,8 @@
 					<?php if ($type=='rdv' ) : ?>
 						<span class="rdv" >Pour la livraison sur rendez-vous, nous avons besoin d'un numéro de téléphone mobile pour vous contacter et définir le créneau de livraison souhaité. Merci de vérifier le numéro saisi ici :</span>
 					<?php endif;?>
-					<?php if ($type=='livraison' ) : ?>
-						<span class="livraison" >Pour la livraison à domicile, nous avons besoin d'un numéro de téléphone mobile pour vous contacter. Merci de vérifier le numéro saisi ici :</span>
+					<?php if ($type=='domicile' ) : ?>
+						<span class="domicile" >Pour la livraison à domicile, nous avons besoin d'un numéro de téléphone mobile pour vous contacter. Merci de vérifier le numéro saisi ici :</span>
 					<?php endif;?>
 					<input type="text" name="tel_socolissimo" class="required-entry length_12 valid-telephone-portable<?php if ($this->getShippingCountry()=='BE') :?>-belgique<?php endif;?>" maxlength="12" value="<?php echo $this->getTelephone(); ?>" />
 					<button type="button" class="btn_socolissimoChoisir button" onclick="validerTelephone()"  ><span>OK</span></button> 	

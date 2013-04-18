@@ -44,36 +44,59 @@ jQuery(function($) {
 	$("input[id^=\"s_method_socolissimo\"]").live("click", function() {
 		shippingRadioCheck(this);
 	});		
+
+	initSocolissimoLogos();
 	
 });
 
+/**
+ * Initialise les logos, descriptions, style sur le radio bouttons socolissimo
+ * ceci est fait en javascript pour ne pas surcharger le template available.phtml et ainsi éviter des conflits avec d'autres modules.
+ * (appelé au chargement du DOM mais aussi au rechargement ajax (voir Checkout.prototype.setStepResponse dans  socolissimo\additional.phtml)
+ */
 function initSocolissimoLogos() {
 	jQuery("input[id^=\"s_method_socolissimo\"]").each(function(index, element){
-		var typeSocolissimo =  getTypeSocolissimoFromRadio(jQuery(element));
+		var typeSocolissimo =  getTypeSocolissimoFromRadio(jQuery(element), false);
 		if (typeSocolissimo) {
 			var radioParent = jQuery(element).parent();
 			radioParent.prepend('<img src="/skin/frontend/base/default/images/socolissimo/picto_'+typeSocolissimo+'.png" >');
-			jQuery("#socolissimo_description_"+typeSocolissimo).appendTo(radioParent).attr("style","display:block;");
+			var typeSocolissimoDesc =  getTypeSocolissimoFromRadio(jQuery(element), true);
+			jQuery("#socolissimo_description_"+typeSocolissimoDesc).clone().appendTo(radioParent).attr("style","display:block;");
 		}
 	});
 }
 
-function getTypeSocolissimoFromRadio(radio) {
+function getTypeSocolissimoFromRadio(radio, forDescription) {
 	var shippingMethod = radio.attr("value");
 	var typeSocolissimo = shippingMethod.replace("socolissimo_","");
 	if (typeSocolissimo.startWith("poste")) {
+		if (forDescription) {
+			if (typeSocolissimo.startWith("poste_be")) {
+				return 'poste_be';
+			}
+		}
 		return 'poste';
 	} else if (typeSocolissimo.startWith("cityssimo")) {
 		return 'cityssimo';
 	} else if (typeSocolissimo.startWith("commercant")){ 
+		if (forDescription) {
+			if (typeSocolissimo.startWith("commercant_be")) {
+				return 'commercant_be';
+			}
+		}
 		return 'commercant';
-	} else if (typeSocolissimo.startWith("livraison")) {
-		return 'livraison';
+	} else if (typeSocolissimo.startWith("domicile")) {
+		if (forDescription) {
+			if (typeSocolissimo.startWith("domicile_sign")) {
+				return 'domicile_sign';
+			}
+		}
+		return 'domicile';
 	} else if (typeSocolissimo.startWith("rdv")){ 
 		return 'rdv';
 	} else {
 		//Sinon c'est un type de livraison inconnu
-		alert("Mauvaise configuration du module Socolissimo : dans le champ configuration le code doit commencer par livraison, rdv, poste, commercant ou cityssimo");
+		alert("Mauvaise configuration du module Socolissimo : dans le champ configuration le code doit commencer par domicile, domicile_sign, rdv, poste, poste_be, commercant, commercant_be, ou cityssimo");
 		return false;
 	}
 }
@@ -86,7 +109,7 @@ function shippingRadioCheck(element) {
 
 	//on charge en ajax le layer socolissimo (carte choix relais et/ou saisie numéro de téléphone)
 	url = "/socolissimo/ajax/selector/type/";
-	var typeSocolissimo =  getTypeSocolissimoFromRadio(socoRadio);
+	var typeSocolissimo =  getTypeSocolissimoFromRadio(socoRadio, false);
 	if (typeSocolissimo) {
 		url = url + typeSocolissimo;
 	} else {
@@ -149,7 +172,7 @@ function shippingRadioCheck(element) {
 				jQuery("#socolissimo_postcode").change(function(){
 					var postcode = this.value; 
 					if(jQuery("#socolissimo_street").val() == "") {
-						var country = jQuery('#billing\\:country').val();
+						var country = jQuery('#billing\\:country_id').val();
 					} else{
 						var country = jQuery('#socolissimo_country').val();
 					}
@@ -214,7 +237,7 @@ function geocodeAdresse() {
 	if ((typeof google) != "undefined") {
 		var geocoder = new google.maps.Geocoder();
 		if(jQuery("#socolissimo_street").val() == "") {
-			var searchAdress = jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + ' ' + jQuery('#billing\\:postcode').val() + ' ' + jQuery('#billing\\:city').val() + ', ' + jQuery('#billing\\:country').val();
+			var searchAdress = jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + ' ' + jQuery('#billing\\:postcode').val() + ' ' + jQuery('#billing\\:city').val() + ', ' + jQuery('#billing\\:country_id').val();
 		} else{
 			var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text() + ', ' + jQuery('#socolissimo_country').val();
 		}
@@ -253,7 +276,7 @@ function loadListeRelais() {
 		url = url + check.val() + "=" + check.is(":checked") + "&";
 	});
 	if(jQuery("#socolissimo_street").val() == "") {		
-		url = url + "adresse=" + jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + "&zipcode=" + jQuery('#billing\\:postcode').val()+ "&ville=" + jQuery('#billing\\:city').val()+ "&country=" + jQuery('#billing\\:country').val();
+		url = url + "adresse=" + jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + "&zipcode=" + jQuery('#billing\\:postcode').val()+ "&ville=" + jQuery('#billing\\:city').val()+ "&country=" + jQuery('#billing\\:country_id').val();
 		jQuery("#socolissimo_street").val(jQuery('#billing\\:street1').val()+' '+jQuery('#billing\\:street2').val());
 		jQuery("#socolissimo_postcode").val(jQuery('#billing\\:postcode').val());
 		jQuery("#socolissimo_city").text(jQuery('#billing\\:city').val());
