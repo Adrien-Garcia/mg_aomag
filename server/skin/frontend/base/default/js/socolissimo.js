@@ -19,7 +19,6 @@ String.prototype.startWith = function(t, i) { if (i==false) { return
  */
 
 var socolissimoMyPosition;
-var socolissimoOverlayApi;
 var socolissimoListRelais=new Array();
 var socolissimoMap;
 var socolissimoOpenedInfowindow;
@@ -122,15 +121,12 @@ function shippingRadioCheck(element) {
 		success: function(data){
 
 			//une fois chargé, on cache le picto de chargement, on ouvre un layer et on met de résultat dedans:
-
 			jQuery("#shipping-method-please-wait").hide();
 
 			if (jQuery("#socolissimo-hook").size()==0) {
-				socoRadio.parent().parent().append("<div id=\"socolissimo-hook\" rel=\"#layer_socolissimo\"><div id=\"layer_socolissimo\" class=\"layer\"></div></div>");
+				socoRadio.parent().parent().append("<div id=\"socolissimo-hook\" ></div>");
 			}
-			//on déplace le layer sur le body pour qu'il soit bien positionné au centre
-			jQuery("#layer_socolissimo").appendTo("body");
-			jQuery("#layer_socolissimo").html(data);
+			jQuery("#layer_socolissimo_wrapper").html(data);
 			//on supprime les filtres si le mode de livraison correspondant n'est pas proposé
 			if (jQuery("input[id^=\"s_method_socolissimo_poste\"]").length == 0) {
 				jQuery("#filtre_poste").remove();
@@ -142,37 +138,35 @@ function shippingRadioCheck(element) {
 				jQuery("#filtre_commercant").remove();
 			}
 			//on affiche le layer
-			socolissimoOverlayApi = jQuery("#socolissimo-hook").overlay({
-				expose: { 
-					color: '#000', 
-					loadSpeed: 200, 
-					opacity: 0.5 
-				}, 
-				close:".close",
-				closeOnClick: false,
-				top: "center",
-				onBeforeClose : function(event){
-					//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo 
-					var telephoneElt = jQuery("#socolissimo-hook input[name='tel_socolissimo']");
-					if (!telephoneElt || telephoneElt.val() == undefined) {
-						resetShippingMethod();
-					}
-					var shippingMethod = jQuery("#checkout-shipping-method-load input[name='shipping_method']:checked").val();
-					if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
-						var relaisElt = jQuery("#socolissimo-hook input[name='relais_socolissimo']");
-						if (!relaisElt || relaisElt.val() == undefined) {
+			if (jQuery("#layer_socolissimo").data("overlay") == undefined) {
+				jQuery("#layer_socolissimo").overlay({
+					expose: { 
+						color: '#000', 
+						loadSpeed: 200, 
+						opacity: 0.5 
+					}, 
+					load: true,
+					closeOnClick: false,
+					top: "center",
+					onBeforeClose : function(event){
+						//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo 
+						var telephoneElt = jQuery("#socolissimo-hook input[name='tel_socolissimo']");
+						if (!telephoneElt || telephoneElt.val() == undefined) {
 							resetShippingMethod();
 						}
-					}
-					
-					if (shippingMethod.startWith("commercant"))
-					jQuery("input[id^=\"s_method_socolissimo\"]").attr("checked", "");
-				},
-				fixed: false,
-				api: true 
-			});
-			socolissimoOverlayApi.load();
-
+						var shippingMethod = jQuery("#checkout-shipping-method-load input[name='shipping_method']:checked").val();
+						if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
+							var relaisElt = jQuery("#socolissimo-hook input[name='relais_socolissimo']");
+							if (!relaisElt || relaisElt.val() == undefined) {
+								resetShippingMethod();
+							}
+						}
+					},
+					fixed: false
+				});
+			} else {
+				jQuery("#layer_socolissimo").data("overlay").load();
+			}
 
 			if (typeSocolissimo.startWith("poste") || typeSocolissimo.startWith("cityssimo") || typeSocolissimo.startWith("commercant")){ 
 
@@ -461,7 +455,7 @@ function validerTelephone() {
 	 if(socolissimoTelephoneForm.validator && socolissimoTelephoneForm.validator.validate()){
     	var telephone = jQuery("#socolissimo-telephone input[name='tel_socolissimo']").val();
     	jQuery("#socolissimo-hook").append('<input type="hidden" name="tel_socolissimo" value="'+telephone+'" />');
-    	socolissimoOverlayApi.close();
+    	jQuery("#layer_socolissimo").data("overlay").close();
     }
 	return false;
 }
