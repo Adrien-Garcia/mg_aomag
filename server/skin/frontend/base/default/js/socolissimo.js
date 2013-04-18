@@ -56,6 +56,7 @@ jQuery(function($) {
  */
 function initSocolissimoLogos() {
 	jQuery("input[id^=\"s_method_socolissimo\"]").each(function(index, element){
+		jQuery(element).prop("checked", "");
 		var typeSocolissimo =  getTypeSocolissimoFromRadio(jQuery(element), false);
 		if (typeSocolissimo) {
 			var radioParent = jQuery(element).parent();
@@ -130,6 +131,17 @@ function shippingRadioCheck(element) {
 			//on déplace le layer sur le body pour qu'il soit bien positionné au centre
 			jQuery("#layer_socolissimo").appendTo("body");
 			jQuery("#layer_socolissimo").html(data);
+			//on supprime les filtres si le mode de livraison correspondant n'est pas proposé
+			if (jQuery("input[id^=\"s_method_socolissimo_poste\"]").length == 0) {
+				jQuery("#filtre_poste").remove();
+			}
+			if (jQuery("input[id^=\"s_method_socolissimo_cityssimo\"]").length == 0) {
+				jQuery("#filtre_cityssimo").remove();
+			}
+			if (jQuery("input[id^=\"s_method_socolissimo_commercant\"]").length == 0) {
+				jQuery("#filtre_commercant").remove();
+			}
+			//on affiche le layer
 			socolissimoOverlayApi = jQuery("#socolissimo-hook").overlay({
 				expose: { 
 					color: '#000', 
@@ -289,7 +301,7 @@ function loadListeRelais() {
 			socolissimoListRelais = response.items;
 			jQuery("#adresses_socolissimo").html(response.html);
 		} else {
-			socolissimoListRelais = array();
+			socolissimoListRelais = new Array();
 			jQuery("#adresses_socolissimo").html('');
 			alert(response.error);
 		}

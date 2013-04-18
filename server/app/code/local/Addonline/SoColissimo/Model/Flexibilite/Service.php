@@ -26,7 +26,7 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				if (Mage::getStoreConfig('carriers/socolissimo/testws_socolissimo_flexibilite')) {
 					$supervisionUrl = "http://pfi.telintrans.fr/supervision-wspudo/supervision.jsp";
 				}
-				$ctx=stream_context_create(array('http'=> array( 'timeout' => 0.5 )));//Si on n'a pas de réponse en moins d'une demi seconde
+				$ctx=stream_context_create(array('http'=> array( 'timeout' => 0.6 )));//Si on n'a pas de réponse en moins d'une demi seconde
 				$this->_available = file_get_contents ($supervisionUrl,false,$ctx);
 			} catch(Exception $e){
 				$this->_available = "[KO]";
@@ -53,8 +53,8 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				$findRDVPointRetraitAcheminement->zipCode = $zipcode;
 				$findRDVPointRetraitAcheminement->city = $ville;
 				$findRDVPointRetraitAcheminement->countryCode = $country;
-				$findRDVPointRetraitAcheminement->weight = $this->_getQuoteWeight();
-				$findRDVPointRetraitAcheminement->shippingDate =  $this->_getShippingDate();
+				$findRDVPointRetraitAcheminement->weight = Mage::helper('socolissimo')->getQuoteWeight();
+				$findRDVPointRetraitAcheminement->shippingDate =  Mage::helper('socolissimo')->getShippingDate();
 				$findRDVPointRetraitAcheminement->filterRelay = $filterRelay;
 				$date = new Zend_Date();
 				$quote = Mage::getSingleton('checkout/session')->getQuote();
@@ -68,12 +68,10 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				//Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
 				//Mage::log($result);
 				
-				if ($result->return->errorCode == 0) {			
-					return $result->return;
-				} else {
-					Mage::log($result->return);
-					return $result->return;
-				}				
+				//if ($result->return->errorCode != 0) {			
+				//	Mage::log($result->return);
+				//}				
+				return $result->return;
 				
 		} catch (SoapFault $fault) {
 			Mage::log('RequestHeaders '.$pointRetraitServiceWSService->__getLastRequestHeaders());
@@ -97,8 +95,8 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				$findPointRetraitAcheminementByID->accountNumber = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite');
 				$findPointRetraitAcheminementByID->password = Mage::getStoreConfig('carriers/socolissimo/password_socolissimo_flexibilite');
 				$findPointRetraitAcheminementByID->id = $id;
-				$findPointRetraitAcheminementByID->weight = $this->_getQuoteWeight();
-				$findPointRetraitAcheminementByID->date = $this->_getShippingDate();
+				$findPointRetraitAcheminementByID->weight = Mage::helper('socolissimo')->getQuoteWeight();
+				$findPointRetraitAcheminementByID->date = Mage::helper('socolissimo')->getShippingDate();
 				$findPointRetraitAcheminementByID->filterRelay = 1; //pout tous les avoir, même les commerçants
 				$findPointRetraitAcheminementByID->reseau = $reseau;
 				$findPointRetraitAcheminementByID->langue = (Mage::app()->getStore()->getLanguageCode() == 'NL')?'NL':'FR';
@@ -124,31 +122,6 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 			
 	}
 	
-	private function _getQuoteWeight() {
-		//on récupère le poids du colis en gramme de type entier
-     	$quote = Mage::getSingleton('checkout/session')->getQuote();
-     	$weight = 0;
-     	foreach ($quote->getAllItems() as $item) {
-	     	$weight += $item->getRowWeight();
-     	}
-     	$weight = round($weight*1000);
-     	if ($weight==0) {
-     		$weight=1;
-     	}
-     	return $weight;
-	}
-
-	
-	private function _getShippingDate() {
-	
-   		$shippingDate = new Zend_Date();
-    	if ($delay = Mage::getStoreConfig('carriers/socolissimo/shipping_period')) {
-	    	$shippingDate->addDay($delay);
-    	} else {
-	    	$shippingDate->addDay(1);
-    	}
-     	return $shippingDate->toString('dd/MM/yyyy');
-	}
 /**
  * Codes erreurs WS
  * 

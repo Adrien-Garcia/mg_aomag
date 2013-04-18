@@ -190,7 +190,7 @@
 	label: "mon bureau de poste",
 	code: "poste_fr",
 	destination: "FR,MC,AD",
-	conditions: "{cart.weight}<20",
+	conditions: "{cart.weight}<30",
 	fees: "{domicile_fr.fees}",
 }
 
@@ -235,7 +235,7 @@
 	label: "mon bureau de poste",
 	code: "poste_be",
 	destination: "BE",
-	conditions: "{cart.weight}<20",
+	conditions: "{cart.weight}<30",
 	fees: "{domicile_be.fees}",
 }
 

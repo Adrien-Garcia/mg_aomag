@@ -70,9 +70,15 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 		$quote = $observer->getEvent()->getQuote();
 		$request = Mage::app()->getRequest();
 		 
+		//si on n'a pas le paramètre shipping_method c'est qu'on n'est pas sur la requête de mise à jour du mode de livraison
+		//dans ce cas on ne change rien
+		if (!$request->getParam('shipping_method')) {
+			return $this;
+		}
+		
+		$telephone = $request->getParam('tel_socolissimo');
 		$idRelais = $request->getParam('relais_socolissimo');
 		$reseau = $request->getParam('reseau_socolissimo');
-		$telephone = $request->getParam('tel_socolissimo');
 		$shippingAddress = $quote->getShippingAddress();
 		$shippingMethod = $shippingAddress->getShippingMethod();
 		

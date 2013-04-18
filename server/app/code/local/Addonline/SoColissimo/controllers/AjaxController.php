@@ -103,9 +103,10 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 
 	   		$latitude   = $this->getRequest()->getParam('latitude', false);
    			$longitude  = $this->getRequest()->getParam('longitude', false);
+   			$weight     = Mage::helper('socolissimo')->getQuoteWeight()/1000; //poids en kg dans la base liberte
 
    			$listrelais = Mage::getModel('socolissimo/liberte_relais')->getCollection();
-   			$listrelais->prepareNearestByType($latitude, $longitude, $typesRelais);
+   			$listrelais->prepareNearestByType($latitude, $longitude, $typesRelais, $weight);
    			 
    			foreach ($listrelais as $relais) {
    				$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));

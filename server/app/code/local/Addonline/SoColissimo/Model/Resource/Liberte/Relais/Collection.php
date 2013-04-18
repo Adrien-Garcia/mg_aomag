@@ -14,7 +14,7 @@ class Addonline_SoColissimo_Model_Resource_Liberte_Relais_Collection
         $this->_init('socolissimo/liberte_relais');
     }
     
-    public function prepareNearestByType($latitude, $longitude, $typesRelais) {
+    public function prepareNearestByType($latitude, $longitude, $typesRelais, $weight) {
 
    		//calcul de la distance d'un arc de cercle à la surface de la terre entre deux points coordonnées : http://fr.wikipedia.org/wiki/Orthodromie
    		$formuleDistance = '(6371 * ACOS(COS(RADIANS(main_table.latitude)) * COS(RADIANS('.$latitude.')) * COS(RADIANS('.$longitude.'-main_table.longitude)) + SIN(RADIANS(main_table.latitude)) * SIN(RADIANS('.$latitude.'))))';
@@ -30,6 +30,8 @@ class Addonline_SoColissimo_Model_Resource_Liberte_Relais_Collection
     						->columns(array('distance'=>$formuleDistance))
 							->where('type_relais IN (?)', $typesRelais);
 
+    	$this->getSelect()->where('point_max > ?', $weight);
+    	
 		$anneeLivraison = $dateLivraison->get(Zend_Date::YEAR);
 		$dateLivraisonDB =  $dateLivraison->toString('yyyy-MM-dd');
 		//jointure sur le table des horaires : on selectionne tous ses champs et on filtre sur la date de livraison

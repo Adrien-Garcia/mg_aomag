@@ -43,21 +43,21 @@
 			</div>
 			<div class="ligne2">
           		<div class="titre">Affinez votre recherche par type de point de retrait</div>
-          		<div class="choix choix1">
+          		<div class="choix choix1" id="filtre_cityssimo">
                 	<input id="check_cityssimo" name="check_cityssimo" type="checkbox" value="cityssimo" onchange="changeMap()" <?php if ($type=='cityssimo' ) : ?>checked="checked"<?php endif; ?> />
                 	<div class="txt2">
                     <b>ma consigne cityssimo</b><br />
                     Espace Colis disponibles 7j/7 - 24h/24
                     </div>
                 </div>
-                <div class="choix choix2">
+                <div class="choix choix2" id="filtre_poste">
                 	<input id="check_poste" name="check_poste" type="checkbox" value="poste" onchange="changeMap()" <?php if ($type=='poste' ) : ?>checked="checked"<?php endif; ?>/>
                 	<div class="txt2">
                     <b>mon bureau de poste</b><br />
                     Horaires d’ouverture des bureaux de poste
                     </div>
                 </div>
-                <div class="choix choix3">
+                <div class="choix choix3"  id="filtre_commercant">
                 	<input id="check_commercant" name="check_commercant" type="checkbox" value="commercant" onchange="changeMap()" <?php if ($type=='commercant' ) : ?>checked="checked"<?php endif; ?>/>
                 	<div class="txt2">
                     <b>mon commerçant</b><br />
