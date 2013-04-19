@@ -153,7 +153,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			$connectionWrite->query($updateQuery);
 		} else {
 			$insertQuery = "INSERT INTO socolissimoliberte_relais (";
-			$insertQuery .= "reseau, identifiant, libelle, adresse,complement_adr,lieu_dit,indice_localisation,code_postal,commune,latitude,";
+			$insertQuery .= "code_reseau, identifiant, libelle, adresse,complement_adr,lieu_dit,indice_localisation,code_postal,commune,latitude,";
 			$insertQuery .= "longitude,indicateur_acces,type_relais,point_max,lot_acheminement,distribution_sort,version) ";
 			$insertQuery .= "VALUES ('R01',".$donnes_relais[1].",'".str_replace("'","\'",$donnes_relais[2])."','".str_replace("'","\'",$donnes_relais[3]);
 			$insertQuery .= "','".str_replace("'","\'",$donnes_relais[4])."','".str_replace("'","\'",$donnes_relais[5]);
@@ -171,7 +171,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	
 	function getIdRelais($identifiant, $reseau) {
 		$connectionRead = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$results = $connectionRead->fetchAll("SELECT id_relais FROM socolissimoliberte_relais WHERE identifiant=".$identifiant);
+		$results = $connectionRead->fetchAll("SELECT id_relais FROM socolissimoliberte_relais WHERE identifiant=".$identifiant." AND code_reseau='".$reseau."'");
 		if($results){
 			return $results[0]["id_relais"];
 		} else {

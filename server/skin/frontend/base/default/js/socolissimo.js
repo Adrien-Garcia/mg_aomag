@@ -30,7 +30,7 @@ var socolissimoRelaisChoisi;
 jQuery(function($) {
 	
 	//Cas du onestep checkout, si on change l'adresse de livraison après avoir choisi socolissimo
-	jQuery('.address-select').live("change", function() {
+	jQuery('.onestepcheckout-index-index .address-select').live("change", function() {
 		if(jQuery('#socolissimo-location').size() <= 0 ){	
 			$("#attentionSoColissimo").remove();
 			$("label[for=\"billing-address-select\"]").parent().before('<p id="attentionSoColissimo" style="font-weight:bold;color:red;text-align:justify; padding-right:5px;">Suite à la modification de votre adresse et si votre mode de livraison est So Colissimo, veuillez séléctionner votre point de retrait en cliquant sur le mode de livraison.</p>');
@@ -177,11 +177,7 @@ function shippingRadioCheck(element) {
 				//initilisation du rechargement de la liste déroulante des villes 
 				jQuery("#socolissimo_postcode").change(function(){
 					var postcode = this.value; 
-					if(jQuery("#socolissimo_street").val() == "") {
-						var country = jQuery('#billing\\:country_id').val();
-					} else{
-						var country = jQuery('#socolissimo_country').val();
-					}
+					var country = jQuery('#socolissimo_country').val();
 					jQuery.ajax({
 						url: 'http://api.geonames.org/postalCodeSearchJSON?username=addonline&country='+country+'&postalcode='+postcode,
 						dataType:'jsonp',
@@ -242,11 +238,7 @@ function geocodeAdresse() {
 	
 	if ((typeof google) != "undefined") {
 		var geocoder = new google.maps.Geocoder();
-		if(jQuery("#socolissimo_street").val() == "") {
-			var searchAdress = jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + ' ' + jQuery('#billing\\:postcode').val() + ' ' + jQuery('#billing\\:city').val() + ', ' + jQuery('#billing\\:country_id').val();
-		} else{
-			var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text() + ', ' + jQuery('#socolissimo_country').val();
-		}
+		var searchAdress = jQuery("#socolissimo_street").val() + ' ' + jQuery("#socolissimo_postcode").val() + ' ' + jQuery("#socolissimo_city").text() + ', ' + jQuery('#socolissimo_country').val();
 		//alert('Search adresse : ' + searchAdress);
 		geocoder.geocode({'address': searchAdress}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
@@ -281,14 +273,7 @@ function loadListeRelais() {
 		check = jQuery(element);
 		url = url + check.val() + "=" + check.is(":checked") + "&";
 	});
-	if(jQuery("#socolissimo_street").val() == "") {		
-		url = url + "adresse=" + jQuery('#billing\\:street1').val() + ' ' +jQuery('#billing\\:street2').val() + "&zipcode=" + jQuery('#billing\\:postcode').val()+ "&ville=" + jQuery('#billing\\:city').val()+ "&country=" + jQuery('#billing\\:country_id').val();
-		jQuery("#socolissimo_street").val(jQuery('#billing\\:street1').val()+' '+jQuery('#billing\\:street2').val());
-		jQuery("#socolissimo_postcode").val(jQuery('#billing\\:postcode').val());
-		jQuery("#socolissimo_city").text(jQuery('#billing\\:city').val());
-	} else{
-		url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text()+ "&country=" + jQuery("#socolissimo_country").val();
-	}	
+	url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text()+ "&country=" + jQuery("#socolissimo_country").val();
 	url = url + "&latitude=" + socolissimoMyPosition.lat() + "&longitude=" + socolissimoMyPosition.lng();
 	jQuery.getJSON( url, function(response) {
 		if (!response.error) {

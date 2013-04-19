@@ -156,7 +156,7 @@
     			<active>0</active>
     			<title>So Colissimo</title>
     			<model>Addonline_SoColissimo_Model_Carrier_ShippingMethod</model>   
-    			<international>0</international> 
+    			<international>1</international> 
 				<config><![CDATA[
 # So Colissimo Livraison à domicile sans Signature (France, Monaco, Andorre) (Mars 2013)
 {

@@ -68,9 +68,9 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				//Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
 				//Mage::log($result);
 				
-				//if ($result->return->errorCode != 0) {			
-				//	Mage::log($result->return);
-				//}				
+				if ($result->return->errorCode != 0) {			
+					Mage::log($result->return);
+				}				
 				return $result->return;
 				
 		} catch (SoapFault $fault) {
