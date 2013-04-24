@@ -30,6 +30,7 @@ Livraison dans l'un des commerces de proximité du réseau BPOST en Belgique.
 </div>
 <script type="text/javascript">
 //<![CDATA[       
+var socolissimoBaseUrl = '<?php echo $this->getUrl('/') ?>';
 if ((typeof Checkout) != "undefined") {
 	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'affichage des pictos et descriptions Socolissimo
 	Checkout.prototype.setStepResponse = function() {

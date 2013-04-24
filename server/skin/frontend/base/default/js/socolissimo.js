@@ -108,7 +108,7 @@ function shippingRadioCheck(element) {
 	jQuery("#shipping-method-please-wait").show();
 
 	//on charge en ajax le layer socolissimo (carte choix relais et/ou saisie numéro de téléphone)
-	url = "/socolissimo/ajax/selector/type/";
+	url = socolissimoBaseUrl + "socolissimo/ajax/selector/type/";
 	var typeSocolissimo =  getTypeSocolissimoFromRadio(socoRadio, false);
 	if (typeSocolissimo) {
 		url = url + typeSocolissimo;
@@ -154,7 +154,7 @@ function shippingRadioCheck(element) {
 						if (!telephoneElt || telephoneElt.val() == undefined) {
 							resetShippingMethod();
 						}
-						var shippingMethod = jQuery("#checkout-shipping-method-load input[name='shipping_method']:checked").val();
+						var shippingMethod = jQuery("input[name='shipping_method']:checked").val();
 						if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
 							var relaisElt = jQuery("#socolissimo-hook input[name='relais_socolissimo']");
 							if (!relaisElt || relaisElt.val() == undefined) {
@@ -211,8 +211,7 @@ function shippingRadioCheck(element) {
 }
 
 function resetShippingMethod() {
-	//TODO à tester
-	jQuery("#checkout-shipping-method-load input[name='shipping_method']:checked").attr("checked","");
+	jQuery("input[name='shipping_method']:checked").attr("checked","");
 }
 
 function geocodeAdresse() {
@@ -268,7 +267,7 @@ function changeMap() {
 
 function loadListeRelais() {
 	jQuery(".loader-wrapper").fadeTo(300, 1);
-	url = "/socolissimo/ajax/listrelais?"
+	url = socolissimoBaseUrl + "socolissimo/ajax/listrelais?"
 	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
 		url = url + check.val() + "=" + check.is(":checked") + "&";
