@@ -55,6 +55,15 @@ jQuery(function($) {
  */
 function initSocolissimoLogos() {
 	jQuery("input[id^=\"s_method_socolissimo\"]").each(function(index, element){
+		
+		if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
+			jQuery(element).parents("dd").addClass("s_method_socolissimo");
+		} else {
+			jQuery("input[id^=\"s_method_socolissimo\"]").parents("dt").addClass("s_method_socolissimo");
+			var dd = jQuery("input[id^=\"s_method_socolissimo\"]").eq(0).parents("dt").addClass("first").prev();
+			dd.addClass("s_method_socolissimo-title");
+		}
+		
 		jQuery(element).prop("checked", "");
 		var typeSocolissimo =  getTypeSocolissimoFromRadio(jQuery(element), false);
 		if (typeSocolissimo) {
@@ -64,6 +73,12 @@ function initSocolissimoLogos() {
 			jQuery("#socolissimo_description_"+typeSocolissimoDesc).clone().appendTo(radioParent).attr("style","display:block;");
 		}
 	});
+	if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
+		jQuery(".s_method_socolissimo li:first-child").addClass("first");
+		jQuery(".s_method_socolissimo").prev().addClass("s_method_socolissimo-title").append('<img src="/skin/frontend/base/default/images/socolissimo/socolissimo.png" >');
+	} else {
+		jQuery(".s_method_socolissimo-title").append('<img src="/skin/frontend/base/default/images/socolissimo/socolissimo.png" >');
+	}
 }
 
 function getTypeSocolissimoFromRadio(radio, forDescription) {
@@ -140,7 +155,7 @@ function shippingRadioCheck(element) {
 			//on affiche le layer
 			if (jQuery("#layer_socolissimo").data("overlay") == undefined) {
 				jQuery("#layer_socolissimo").overlay({
-					expose: { 
+					mask: {
 						color: '#000', 
 						loadSpeed: 200, 
 						opacity: 0.5 

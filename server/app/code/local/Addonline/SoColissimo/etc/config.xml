@@ -154,7 +154,7 @@
     	<carriers>
     		<socolissimo>
     			<active>0</active>
-    			<title>So Colissimo</title>
+    			<title>Les modes de livraison</title>
     			<model>Addonline_SoColissimo_Model_Carrier_ShippingMethod</model>   
     			<international>1</international> 
 				<config><![CDATA[

@@ -23,7 +23,7 @@
 
 #layer_socolissimo {
 	width: 885px;
-	min-height: 300px;
+	/*min-height: 300px;*/
 	z-index: 1000;
 	text-align: left;
 }
@@ -37,19 +37,13 @@
 	top: 15px;
 	right: 15px;
 	cursor: pointer;
-	background: #dcdcdc;
-	border: 1px solid #666666;
-	color: #666666;
-	padding: 0 5px;
-	font-size: 10px;
-	text-decoration: none;
-	text-transform: uppercase;
+	background: url(../images/socolissimo/close.gif) 0 100%;
+	width: 17px;
+	height: 17px;
 }
 
 #layer_socolissimo .close:hover {
-	background: #666666;
-	border: 1px solid #dcdcdc;
-	color: #dcdcdc;
+	background-position: 0 0;
 }
 
 #layer_socolissimo .loader-wrapper {
@@ -435,4 +429,64 @@
 
 .onestepcheckout-location-dl{
 	width: 100% !important;
+}
+
+/* Mode de paiement */
+.s_method_socolissimo {
+	
+}
+
+.s_method_socolissimo li,
+.onestepcheckout-index-index .s_method_socolissimo {
+	position: relative;
+	padding: 15px 0 0;
+}
+	.s_method_socolissimo li.first,
+	.onestepcheckout-index-index .s_method_socolissimo.first {
+		border-bottom: 1px solid #e0e0e0;
+		padding-bottom: 15px;
+	}
+
+.s_method_socolissimo .radio,
+.onestepcheckout-index-index .s_method_socolissimo input {
+	margin: 0 37px 0 0;
+}
+
+.s_method_socolissimo img {
+	position: absolute;
+	top: 11px;
+	left: 20px;
+}
+
+.s_method_socolissimo label {
+	font: bold 12px/normal Arial;
+	color: #fb4f14;
+}
+
+.s_method_socolissimo label span {
+	color: #666;
+}
+
+.s_method_socolissimo div {
+	margin: 10px 0 0 53px;
+}
+
+.s_method_socolissimo-title img {
+	vertical-align: middle;
+	position: relative;
+	top: -2px;
+}
+
+#socolissimo-telephone h3 {
+	color: #CC3333;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 11px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#socolissimo-telephone-form .rdv {
+	display: block;
+    margin: 0 0 10px;
 }
