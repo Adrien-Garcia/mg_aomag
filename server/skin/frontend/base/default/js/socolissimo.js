@@ -185,6 +185,14 @@ function shippingRadioCheck(element) {
 
 			if (typeSocolissimo.startWith("poste") || typeSocolissimo.startWith("cityssimo") || typeSocolissimo.startWith("commercant")){ 
 
+				//initialisation des champs "adresse" du layer qui peuvent être vides dans le cas du onestepcheckout avec un nouveau client sans adresse enregistrée
+				if (jQuery("#socolissimo_postcode").val() == '') {
+					jQuery("#socolissimo_street").val(jQuery("input[name='billing[street][]']").val());
+					jQuery("#socolissimo_postcode").val(jQuery("input[name='billing[postcode]']").val());
+					jQuery("#socolissimo_city").text(jQuery("input[name='billing[city]']").val());
+					jQuery("#socolissimo_country").val(jQuery("input[name='billing[country_id]']").find("option:selected").val());
+				}
+				
 				//initialisation de la liste déroulantes des villes "personnalisée"
 				jQuery("#socolissimo_city_select").change(function() {
 					jQuery(this).prevAll("span").eq(0).text(jQuery(this).find("option:selected").text());
@@ -232,22 +240,16 @@ function resetShippingMethod() {
 function geocodeAdresse() {
 
 	if (jQuery("#socolissimo_city_select option").length > 0 && jQuery("#socolissimo_city_select")[0].selectedIndex == 0) {
-		if(jQuery('#billing\\:city').val() == ""){
-			alert("Veuillez sélectionner une commune");
-			return;
-		}
+		alert("Veuillez sélectionner une commune");
+		return;
 	}
 	if (jQuery("#socolissimo_postcode").val() == "") {
-		if(jQuery('#billing\\:postcode').val() == ""){
-			alert("Veuillez saisir un code postal");
-			return;
-		}
+		alert("Veuillez saisir un code postal");
+		return;
 	}
 	if (jQuery("#socolissimo_street").val() == "") {
-		if(jQuery('#billing\\:street1').val() == ""){
-			alert("Veuillez saisir une adresse");
-			return;
-		}
+		alert("Veuillez saisir une adresse");
+		return;
 	}
 	
 	if ((typeof google) != "undefined") {
