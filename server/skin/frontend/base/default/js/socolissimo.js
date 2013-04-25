@@ -191,7 +191,7 @@ function shippingRadioCheck(element) {
 					jQuery("#socolissimo_street").val(jQuery("input[name='billing[street][]']").val());
 					jQuery("#socolissimo_postcode").val(jQuery("input[name='billing[postcode]']").val());
 					jQuery("#socolissimo_city").text(jQuery("input[name='billing[city]']").val());
-					jQuery("#socolissimo_country").val(jQuery("input[name='billing[country_id]']").find("option:selected").val());
+					jQuery("#socolissimo_country").val(jQuery("select[name='billing[country_id]']").find("option:selected").val());
 				}
 				
 				//initialisation de la liste déroulantes des villes "personnalisée"
