@@ -441,8 +441,9 @@
 	position: relative;
 	padding: 15px 0 0;
 }
-	.s_method_socolissimo li.first,
-	.onestepcheckout-index-index .s_method_socolissimo.first {
+
+.s_method_socolissimo li.first,
+.onestepcheckout-index-index .s_method_socolissimo.first {
 		border-bottom: 1px solid #e0e0e0;
 		padding-bottom: 15px;
 	}

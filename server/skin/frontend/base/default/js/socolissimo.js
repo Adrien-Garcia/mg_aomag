@@ -60,8 +60,7 @@ function initSocolissimoLogos() {
 			jQuery(element).parents("dd").addClass("s_method_socolissimo");
 		} else {
 			jQuery("input[id^=\"s_method_socolissimo\"]").parents("dt").addClass("s_method_socolissimo");
-			var dd = jQuery("input[id^=\"s_method_socolissimo\"]").eq(0).parents("dt").addClass("first").prev();
-			dd.addClass("s_method_socolissimo-title");
+			var dd = jQuery("input[id^=\"s_method_socolissimo\"]").eq(0).parents("dt").prev().addClass("s_method_socolissimo-title");
 		}
 		
 		jQuery(element).prop("checked", "");
@@ -71,10 +70,12 @@ function initSocolissimoLogos() {
 			radioParent.prepend('<img src="/skin/frontend/base/default/images/socolissimo/picto_'+typeSocolissimo+'.png" >');
 			var typeSocolissimoDesc =  getTypeSocolissimoFromRadio(jQuery(element), true);
 			jQuery("#socolissimo_description_"+typeSocolissimoDesc).clone().appendTo(radioParent).attr("style","display:block;");
+			if (typeSocolissimo=='rdv' || (typeSocolissimo=='domicile' && jQuery("input[id^=\"s_method_socolissimo_rdv\"]").length==0)) {
+				radioParent.addClass("first");
+			}
 		}
 	});
 	if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
-		jQuery(".s_method_socolissimo li:first-child").addClass("first");
 		jQuery(".s_method_socolissimo").prev().addClass("s_method_socolissimo-title").append('<img src="/skin/frontend/base/default/images/socolissimo/socolissimo.png" >');
 	} else {
 		jQuery(".s_method_socolissimo-title").append('<img src="/skin/frontend/base/default/images/socolissimo/socolissimo.png" >');
