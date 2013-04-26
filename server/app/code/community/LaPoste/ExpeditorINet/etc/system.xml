@@ -77,12 +77,85 @@
                         <company_commercial_name translate="label comment">
                             <label>Company commercial name</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>100</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>This value is used as commercial name of company for Expeditor Inet</comment>
                         </company_commercial_name>
+                        <automatic translate="label comment">
+                            <label>Activate automatic export</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </automatic>
+                        <directory translate="label" >
+							<label>Local directory</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><automatic>1</automatic></depends>
+						</directory>	
+                        <cron_schedule translate="label" >
+							<label>Cron Schedule</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>81</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><automatic>1</automatic></depends>
+						</cron_schedule>	
+                        <ftp_enabled translate="label" >
+							<label>Activate FTP upload</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><automatic>1</automatic></depends>
+						</ftp_enabled>	
+                        <ftp_url translate="label" >
+							<label>FTP Host</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>91</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><ftp_enabled>1</ftp_enabled></depends>
+						</ftp_url>	
+                        <ftp_user translate="label" >
+							<label>FTP User</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>92</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><ftp_enabled>1</ftp_enabled></depends>
+						</ftp_user>	
+                        <ftp_password translate="label" >
+							<label>FTP Password</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>93</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><ftp_enabled>1</ftp_enabled></depends>
+						</ftp_password>	
+                        <ftp_path translate="label" >
+							<label>FTP Path</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>94</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><ftp_enabled>1</ftp_enabled></depends>
+						</ftp_path>	
                     </fields>
                 </export>
                 <import translate="label">
@@ -139,7 +212,80 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>By default, the tracking number will be associated to the "custom" code. If you want to associate it with your carrier code, put it here.</comment>
-                        </carrier_code>                        
+                        </carrier_code>
+                        <automatic translate="label comment">
+                            <label>Activate automatic import</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </automatic>
+                        <cron_schedule translate="label" >
+							<label>Cron Schedule</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>71</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><automatic>1</automatic></depends>
+						</cron_schedule>	
+                        <directory translate="label" >
+							<label>Local directory</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><automatic>1</automatic></depends>
+						</directory>	
+                        <ftp_enabled translate="label" >
+							<label>Activate FTP download</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><automatic>1</automatic></depends>
+						</ftp_enabled>	
+                        <ftp_url translate="label" >
+							<label>FTP Host</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>91</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><ftp_enabled>1</ftp_enabled></depends>
+						</ftp_url>	
+                        <ftp_user translate="label" >
+							<label>FTP User</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>92</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><ftp_enabled>1</ftp_enabled></depends>
+						</ftp_user>	
+                        <ftp_password translate="label" >
+							<label>FTP Password</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>93</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><ftp_enabled>1</ftp_enabled></depends>
+						</ftp_password>	
+                        <ftp_path translate="label" >
+							<label>FTP Path</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>94</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><ftp_enabled>1</ftp_enabled></depends>
+						</ftp_path>	                        
                     </fields>
                 </import>
             </groups>

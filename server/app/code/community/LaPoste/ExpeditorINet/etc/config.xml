@@ -38,6 +38,14 @@
                 <class>LaPoste_ExpeditorINet_Helper</class>
             </expeditorinet>
         </helpers>
+    	<resources>
+    		<expeditorinet_setup>
+                <setup>
+                    <module>LaPoste_ExpeditorINet</module>
+                     <class>Mage_Sales_Model_Resource_Setup</class>
+                </setup>
+    		</expeditorinet_setup>
+    	</resources>
     </global>
 
     <admin>
@@ -126,6 +134,19 @@
 
     </adminhtml>
     
+    <crontab>
+        <jobs>
+            <expeditorinet_export>
+                <schedule><config_path>expeditorinet/export/cron_schedule</config_path></schedule>
+                <run><model>expeditorinet/export::run</model></run>
+            </expeditorinet_export>
+            <expeditorinet_import>
+                <schedule><config_path>expeditorinet/import/cron_schedule</config_path></schedule>
+                <run><model>expeditorinet/import::run</model></run>
+            </expeditorinet_import>
+        </jobs>
+    </crontab>
+    
     <default>
         <expeditorinet>
             <export>
@@ -134,13 +155,17 @@
                 <endofline_character>lf</endofline_character>
                 <field_delimiter>double_quotes</field_delimiter>
                 <field_separator>;</field_separator>
+                <automatic>0</automatic>
+                <cron_schedule>0 * * * *</cron_schedule>
             </export>
             <import>
                 <default_tracking_title>So Colissimo</default_tracking_title>
                 <send_email>1</send_email>
                 <shipping_comment></shipping_comment>
                 <include_comment>0</include_comment>
-                <carrier_code>socolissimosimplicite_socolissimosimplicite</carrier_code>
+                <carrier_code>socolissimo</carrier_code>
+                <automatic>0</automatic>
+                <cron_schedule>0 * * * *</cron_schedule>
             </import>
         </expeditorinet>
     </default>
