@@ -16,9 +16,9 @@ PAYMENT_MEANS!CB,2,VISA,2,MASTERCARD,2!
 HEADER_FLAG!yes!
 
 # Bank icon (1)
-LOGO!mercanet.gif!
+#LOGO!.gif!
 # Bank icon (2)
-#LOGO2!bp.gif!
+#LOGO2!.gif!
 
 # Currency code (euro = 978)
 CURRENCY!978!
@@ -31,3 +31,5 @@ LANGUAGE!fr!
 
 # Frame configuration
 TARGET!_top!
+
+TEMPLATE!template_ca_fr!

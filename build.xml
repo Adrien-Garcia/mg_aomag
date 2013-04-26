@@ -120,7 +120,7 @@
 			<zipfileset file="server/skin/frontend/base/default/css/socolissimo.css" prefix="skin/frontend/base/default/css" ></zipfileset>
 			<zipfileset dir="server/skin/frontend/base/default/images/socolissimo" prefix="skin/frontend/base/default/images/socolissimo" ></zipfileset>
 			<zipfileset file="server/skin/frontend/base/default/js/socolissimo.js" prefix="skin/frontend/base/default/js" ></zipfileset>
-			<zipfileset dir="server/var/import/socolissimoliberte" prefix="var/import" ><exclude name=".gitignore" /><exclude name="readme.txt" /></zipfileset>
+			<zipfileset dir="server/var/import/socolissimoliberte" prefix="var/import/socolissimoliberte" ><exclude name=".gitignore" /><exclude name="readme.txt" /></zipfileset>
 		</zip>
 		<echo message="Refresh your project to see the generated ${zip-name}"></echo>
 	</target>

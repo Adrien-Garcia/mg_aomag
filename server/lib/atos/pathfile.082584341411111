@@ -2,13 +2,13 @@
 #
 # Pathfile
 #
-# Liste fichiers parametres utilisés par le module de paiement
+# Liste fichiers parametres utilisï¿½s par le module de paiement
 #
 #########################################################################
 
 # ------------------------------------------------------------------------
-# Chemin vers le répertoire des logos depuis le web alias
-# Exemple pour le répertoire www.merchant.com/cyberplus/payment/logo/
+# Chemin vers le rï¿½pertoire des logos depuis le web alias
+# Exemple pour le rï¿½pertoire www.merchant.com/cyberplus/payment/logo/
 # indiquer:
 # ------------------------------------------------------------------------
 #
@@ -20,15 +20,15 @@ D_LOGO!http://www.prividef.fr/index.php/media/atos/!
 #
 # Certificat du commercant
 #
-F_CERTIFICATE!C:\Users\spras.ADD-ONLINE\workspace_php\prividef\lib\atos\certif!
+F_CERTIFICATE!C:\Users\spras\workspace_php\aomagento\server\lib\atos\certif!
 #
-# Fichier paramètre commercant
+# Fichier paramï¿½tre commercant
 #
-F_PARAM!C:\Users\spras.ADD-ONLINE\workspace_php\prividef\lib\atos\parmcom!
+F_PARAM!C:\Users\spras\workspace_php\aomagento\server\lib\atos\\parmcom!
 #
-# Fichier des paramètres communs
+# Fichier des paramï¿½tres communs
 #
-F_DEFAULT!C:\Users\spras.ADD-ONLINE\workspace_php\prividef\lib\atos\pathfile.082584341411111!
+F_DEFAULT!C:\Users\spras\workspace_php\aomagento\server\lib\atos\pathfile.082584341411111!
 #
 # --------------------------------------------------------------------------
 # End of file

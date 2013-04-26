@@ -16,7 +16,7 @@ PAYMENT_MEANS!CB,2,VISA,2,MASTERCARD,2!
 HEADER_FLAG!yes!
 
 # Bank icon (1)
-LOGO!mercanet.gif!
+LOGO!ccf-elysnet.gif!
 # Bank icon (2)
 #LOGO2!bp.gif!
 
