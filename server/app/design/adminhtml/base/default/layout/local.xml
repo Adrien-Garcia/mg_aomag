@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout>
+  <editor>
+    <reference name="head">
+      <action method="addJs">
+        <script>imagefix_firefox/image-upload-fix.js</script>
+      </action>
+    </reference>
+  </editor>
+</layout>
