@@ -24,15 +24,25 @@ class WebMods_Solrsearch_IndexController extends Mage_Core_Controller_Front_Acti
     	$resultBlock->setData('solrdata', $solrData);
     	$facetsBlock->setData('solrdata', $solrData);
     	
-    	$facetsBlock->setData('querytext', $solrModel->getParams('q'));
+    	$queryText = $solrModel->getParams('q');
+		if( isset($solrData['responseHeader']['params']['q']) && !empty($solrData['responseHeader']['params']['q']) ) {
+        	if ($queryText != $solrData['responseHeader']['params']['q']) {
+        		$queryText = $solrData['responseHeader']['params']['q'];
+        	}
+        }
+    	
+    	$facetsBlock->setData('querytext', $queryText);
     	
     	$params = $this->getRequest()->getParams();
     	$filterQuery = (array)Mage::getSingleton('core/session')->getSolrFilterQuery();
     	if (isset($params['fq'])){
+    	    //correction ADDONLINE : 
     		foreach ($params['fq'] as $key=>$value ) {
     			$filterQuery[$key.'_facet'] = array(0=>$value);
     		}
+    		//$filterQuery[] = $params['fq'];
     	}
+    	//CORRECTION ADDONLINE
     	if (isset($params['clear']) && $params['clear'] == 'yes') $filterQuery = array();
     	Mage::getSingleton('core/session')->setSolrFilterQuery(array_unique($filterQuery));
     	$this->renderLayout();

@@ -9,16 +9,33 @@ $installer->getConnection()->addColumn($installer->getTable('catalog/eav_attribu
 $installer->getConnection()->addColumn($installer->getTable('catalog/eav_attribute'), "solr_search_field_facet", "TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT '0'");
 
 $installer->run("
-    DROP TABLE IF EXISTS {$this->getTable('webmods_solrsearch_logs')};
-
-    CREATE TABLE {$this->getTable('webmods_solrsearch_logs')} (
-      `logs_id` int(11) NOT NULL AUTO_INCREMENT,
-      `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      `logs_type` ENUM('INDEXEDFIELDS', 'DEFAULT', 'CHANGEDFIELDS'),
-      `value` VARCHAR(255) NULL,
-      PRIMARY KEY (`logs_id`)
-    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+    DROP TABLE IF EXISTS {$this->getTable('webmods_solrsearch_logs_indexedproduct')};
+    
+    CREATE TABLE IF NOT EXISTS {$this->getTable('webmods_solrsearch_logs_indexedproduct')} (
+	  `logs_id` int(11) NOT NULL AUTO_INCREMENT,
+	  `store_id` int(11) NOT NULL DEFAULT '0',
+	  `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	  `value` int(11) DEFAULT NULL,
+	  PRIMARY KEY (`logs_id`),
+	  KEY `store_id_idx` (`store_id`) USING BTREE,
+	  KEY `value_idx` (`value`) USING BTREE
+	  ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
      
+	DROP TABLE IF EXISTS {$this->getTable('webmods_solrsearch_logs')};
+	CREATE TABLE IF NOT EXISTS {$this->getTable('webmods_solrsearch_logs')}  (
+	  `logs_id` int(11) NOT NULL AUTO_INCREMENT,
+	  `store_id` int(11) NOT NULL DEFAULT '0',
+	  `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	  `logs_type` enum('INDEXEDFIELDS','DEFAULT','CHANGEDFIELDS') DEFAULT NULL,
+	  `value` int(11) DEFAULT NULL,
+	  PRIMARY KEY (`logs_id`),
+	  KEY `logs_type_idx` (`logs_type`) USING BTREE,
+	  KEY `store_id_idx` (`store_id`) USING BTREE,
+	  KEY `value_idx` (`value`) USING BTREE,
+	  KEY `logs_type_value_idx` (`value`,`logs_type`) USING BTREE
+	) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+	
+	
     REPLACE INTO {$this->getTable('core_config_data')} (`scope`, `scope_id`, `path`, `value`) VALUES
 	('default', 0, 'webmods_solrsearch/settings/solr_server_url', 'http://localhost:8080/solr/'),
 	('default', 0, 'webmods_solrsearch/settings/solr_server_url_auth', '0'),
@@ -35,6 +52,7 @@ $installer->run("
 	('default', 0, 'webmods_solrsearch_indexes/english/label', 'English'),
 	('default', 0, 'webmods_solrsearch_indexes/french/label', 'French'),
 	('default', 0, 'webmods_solrsearch_indexes/polish/label', 'Polish'),
+	('default', 0, 'webmods_solrsearch_indexes/dutch/label', 'Dutch'),
 	('default', 0, 'webmods_solrsearch_indexes/german/label', 'German');
   ");
 

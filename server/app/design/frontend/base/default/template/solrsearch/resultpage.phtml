@@ -142,26 +142,26 @@ $sortFieldsInfo = Mage::getResourceModel('eav/entity_attribute_collection')
 		 * Initiate a main point to contact with Solr
 		 */
 		Manager = new AjaxSolr.Manager({
-		  solrUrl: '<?php echo $this->getUrl('/'); ?>search/ajax/query?r='
+		  solrUrl: '<?php /* ADDONLINE */echo $this->getUrl('/'); ?>search/ajax/query?r='
 		});
 		
 		Manager.addWidget(new AjaxSolr.AutocompleteWidget({
 		  id: 'autocomplete',
 		  target: '#search_mini_form',
 		  field: 'autosuggest',
-		  ajaxBaseUrl: '<?php echo $this->getUrl('/'); ?>',
-		  mediaUrl: '<?php echo  Mage::getStoreConfig('web/unsecure/base_media_url');?>',
+		  ajaxBaseUrl: '<?php /* ADDONLINE */echo $this->getUrl('/'); ?>',
+		  mediaUrl: '<?php /* ADDONLINE */echo  Mage::getStoreConfig('web/unsecure/base_media_url');?>',
 		  queryFields: '<?php echo trim($queryFields," ")?>'
 		}));
 		
 		Manager.init();
 		
 		ResultPageManager = new AjaxSolr.Manager({
-			solrUrl: '<?php echo $this->getUrl('/'); ?>search/ajax/query?r='
+			solrUrl: '<?php /* ADDONLINE */ echo $this->getUrl('/'); ?>search/ajax/query?r='
 	    });
 
 		FacetedManager = new AjaxSolr.Manager({
-			solrUrl: '<?php echo $this->getUrl('/'); ?>search/ajax/query?r='
+			solrUrl: '<?php /* ADDONLINE */ echo $this->getUrl('/'); ?>search/ajax/query?r='
 	    });
 
 			

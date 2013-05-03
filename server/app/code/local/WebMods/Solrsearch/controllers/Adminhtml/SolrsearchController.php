@@ -1,10 +1,10 @@
 <?php
-class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_Controller_action
+class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_Controller_Action
 {
 	public $logFields = array();
 
 	 protected function _initAction() {
-	 	$this->loadLayout()
+	  	$this->loadLayout()
 	   		->_setActiveMenu('solrsearch/indexes')
 	   		->_addBreadcrumb(Mage::helper('adminhtml')->__('Solr Bridge Indexes'), Mage::helper('adminhtml')->__('Solr Bridge Indexes'));
 	  
@@ -12,7 +12,7 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 	 }   
  
 	 public function indexAction() {
-	 	$this->loadLayout();
+		$this->loadLayout();
 		$this->_initLayoutMessages('customer/session');
 		$this->_initLayoutMessages('catalog/session');
 		
@@ -140,8 +140,8 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		if ( isset($_POST['core']) && !empty($_POST['core'])) { $solrcore = $_POST['core']; }
 		
 		//get current website id
-		$websiteid = 1;
-		if ( isset($_POST['website']) && is_numeric($_POST['website'])) { $websiteid = $_POST['website']; }
+		$websiteid = array();
+		if ( isset($_POST['website']) && !empty($_POST['website'])) { $websiteid = explode(',', $_POST['website']); }
 		
 		//get total pages
 		$totalPages = 1;
@@ -149,7 +149,11 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		
 		//get stores ids
 		$stores = '';
-		if ( isset($_POST['stores']) && !empty($_POST['stores'])) { $stores = $_POST['stores']; }
+		$storesArr = array();
+		if ( isset($_POST['stores']) && !empty($_POST['stores'])) { 
+			$stores = $_POST['stores']; 
+			$storesArr = explode(',', $stores);
+		}
 		
 		//get total of products
 		$productCount = 1;
@@ -161,6 +165,10 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		//get action
 		$action = 'NEW';
 		if (isset($_POST['action']) && !empty($_POST['action'])) { $action = $_POST['action']; }
+		
+		$itemsPerCommit = 50;
+		$itemsPerCommitConfig = Mage::getStoreConfig('webmods_solrsearch/settings/items_per_commit', 0);
+		if(intval($itemsPerCommitConfig) > 0) $itemsPerCommit = $itemsPerCommitConfig;
 		
 		$solr_server_url = Mage::getStoreConfig('webmods_solrsearch/settings/solr_server_url', 0);
 		
@@ -175,9 +183,13 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		//Solr data update url
 		$Url = trim($solr_server_url,'/').'/'.$solrcore.'/update/json?commit=true&wt=json';
 		//Solr get one doc url
-		$SolrQueryUrl = trim($solr_server_url,'/').'/'.$solrcore.'/select/?q=*:*&fl=products_id&rows=1&wt=json';
+		$start = intval($page) - 1;
+		//print_r($_POST);
+		
+		$SolrQueryUrl = trim($solr_server_url,'/').'/'.$solrcore.'/select/?q=*:*&fl=products_id,store_id&start=0&rows='.$_POST['productcount'].'&wt=json';
+
 		//Solr get all docs url
-		$getExistingSolrDocsQueryUrl = trim($solr_server_url,'/').'/'.$solrcore.'/select/?q=*:*&fl=products_id&wt=json';
+		$getExistingSolrDocsQueryUrl = trim($solr_server_url,'/').'/'.$solrcore.'/select/?q=*:*&fl=products_id,store_id&start=0&rows='.$_POST['productcount'].'&wt=json';
 		//Solr delete all docs from index
 		$clearnSolrIndexUrl = trim($solr_server_url,'/').'/'.$solrcore.'/update?stream.body=<delete><query>*:*</query></delete>&commit=true';
 		
@@ -186,6 +198,7 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		$resource = Mage::getSingleton('core/resource');
 		$connection = $resource->getConnection('core_read');
 		$logtable = $resource->getTableName('solrsearch/logs');
+		$logIndexedproductTable = $resource->getTableName('solrsearch/logs_indexedproduct');
 		
 		$results = $connection->query("SELECT * FROM {$logtable} WHERE `logs_type` = 'INDEXEDFIELDS' ORDER BY update_at DESC LIMIT 1;");
 			
@@ -195,22 +208,19 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		
 		$oldLogFieldId = $row['logs_id'];
 		
-		//get product collection
-		$itemsPerCommit = 50;
-		$itemsPerCommitConfig = Mage::getStoreConfig('webmods_solrsearch/settings/items_per_commit', 0);
-		if(intval($itemsPerCommitConfig) > 0) $itemsPerCommit = $itemsPerCommitConfig;
-		$collection = Mage::getModel('catalog/product')->getCollection()
-			->addAttributeToSelect('*')
-			->addWebsiteFilter($websiteid)
-			->addStoreFilter($stores)
-			->addFieldToFilter('status',Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
-			->addFieldToFilter('visibility', array(Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH, Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_SEARCH))
-			->addFinalPrice()
-			->setPage($page, $itemsPerCommit);
-		
+
 		if($action == 'UPDATE') {
 			if ($productCount == $numDocs && $page == 1) {
 				//empty solr index
+				
+				$storeMappingString = Mage::getStoreConfig('webmods_solrsearch_indexes/'.$solrcore.'/stores', 0);
+				
+				$storeMappingString = trim($storeMappingString, ',');
+				if (!empty($storeMappingString)) {
+					$connection = $resource->getConnection('core_write');
+					$results = $connection->query("DELETE FROM {$logIndexedproductTable} WHERE `logs_type` = 'INDEXEDPRODUCT' AND store_id IN({$storeMappingString});");
+				}
+				
 				$this->doRequest($clearnSolrIndexUrl);
 				$returnData = array();
 				$returnData['page'] = $page;
@@ -232,34 +242,38 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 				'stores' => explode(',', $stores),
 				'solr_update_url' => $Url,
 				'solr_query_url' => $SolrQueryUrl,
+				'page' => $page
 			);
-			$numberOfDocuments = $this->processUpdateSolrIndex($collection, $updateParams);
+			$numberOfDocuments = $this->processUpdateSolrIndex( $updateParams);
 		}else {
 			$newParams = array(
 				'existing_solr_docs_query_url' => $getExistingSolrDocsQueryUrl.'&rows='.$_POST['numDocs'],
 				'stores' => explode(',', $stores),
 				'solr_update_url' => $Url,
 				'solr_query_url' => $SolrQueryUrl,
+				'page' => $page
 			);
-			$numberOfDocuments = $this->processNewSolrIndex($collection, $newParams);
+			//Mage::log($newParams);
+			$numberOfDocuments = $this->processNewSolrIndex($newParams);
 		}
 		
 		//Log index fields
-		$resource = Mage::getSingleton('core/resource');
 		$writeConnection = $resource->getConnection('core_write');
-		$logtable = $resource->getTableName('solrsearch/logs');
 		$writeConnection->beginTransaction();
-		
-		//Log index fields
-		$insertArray = array();
-		$insertArray['logs_id'] = NULL;
-		$insertArray['logs_type'] = 'INDEXEDFIELDS';
-		$insertArray['value'] = @implode(',', $this->logFields);
-		$writeConnection->insert($logtable, $insertArray);
 		
 		//Delete old log record
 		$condition = array($writeConnection->quoteInto('logs_id=?', $oldLogFieldId));
 		$writeConnection->delete($logtable, $condition);
+		
+		//Log index fields
+		$insertArray = array();
+		$insertArray['logs_id'] = NULL;
+		$insertArray['store_id'] = 0;
+		$insertArray['logs_type'] = 'INDEXEDFIELDS';
+		$insertArray['value'] = @implode(',', $this->logFields);
+		$writeConnection->insert($logtable, $insertArray);
+		
+		
 		$writeConnection->commit();
 		
 		$returnData = array();
@@ -292,32 +306,15 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		exit;
 	 }
 	 
-	public function processUpdateSolrIndex($collection = NULL, $params = array()) {
-		$timezone = Mage::getStoreConfig('general/locale/timezone', 0);
-		$datetime = new DateTime($_POST['lastindextime']);
-		$la_time = new DateTimeZone($timezone);
-		$datetime->setTimezone($la_time);
-		$lastIndexTime = $datetime->format('Y-m-d H:i:s');
-		
-		$whereClause = 'e.updated_at > \''.$lastIndexTime.'\'';
-			
-		$result = $this->doRequest($params['existing_solr_docs_query_url']);
-			
-		$InString = '';
-		foreach ($result['response']['docs'] as $doc) {
-			$InString .= $doc['products_id'].',';
-		}
-
-		$InString = trim($InString, ',');
-
-		$whereClause .= ' OR e.entity_id NOT IN('.$InString.')';
-			
-		$collection->getSelect()->where($whereClause);
+	public function processUpdateSolrIndex($params = array()) {
 		
 		$numberOfIndexedDocuments = 0;
 		
 		foreach ($params['stores'] as $storeid) {
 			$storeObject = Mage::getModel('core/store')->load($storeid);
+			
+			$collection = $this->loadUpdateProductCollection($storeObject->getWebsiteId(), $storeid, $params['page']);
+			
 			$jsonData = $this->getJsonData($collection, $storeObject);
 			$returnNoOfDocuments = $this->solr_index_commit_data($jsonData, $params['solr_update_url'], $params['solr_query_url']);
 			$numberOfIndexedDocuments = $returnNoOfDocuments;
@@ -325,11 +322,13 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		return $numberOfIndexedDocuments;
 	}
 
-	public function processNewSolrIndex($collection = NULL, $params = array()) {
+	public function processNewSolrIndex($params = array()) {
 		$numberOfIndexedDocuments = 0;
 		
 		foreach ($params['stores'] as $storeid) {
 			$storeObject = Mage::getModel('core/store')->load($storeid);
+			
+			$collection = $this->loadProductCollection($storeObject->getWebsiteId(), $storeid, $params['page']);
 			$jsonData = $this->getJsonData($collection, $storeObject);
 			$returnNoOfDocuments = $this->solr_index_commit_data($jsonData, $params['solr_update_url'], $params['solr_query_url']);
 			$numberOfIndexedDocuments = $returnNoOfDocuments;
@@ -348,11 +347,11 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		$textSearch = array();
 		
 		$documents = "{";
-		
+		//Mage::log($collection->getSelect()->__toString());
 		//loop products
 		foreach ($collection as $product) {
 			$textSearch = array();
-			$docData = array();
+			$docData = array(); //ajout ADDONLINE pour réinitialiser 
 			
 			$_product = Mage::getModel('catalog/product')->setStoreId($store->getId())->load($product->getId());
 			$atributes = $_product->getAttributes();
@@ -394,7 +393,10 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 						$attributeVal = date("Y-m-d\TG:i:s\Z", $attributeVal);
 					}
 					
-					$textSearch[] = $attributeVal;
+					if (!in_array($attributeVal, $textSearch) && $attributeVal != 'None' && $attributeCode != 'status' && $attributeCode != 'sku'){
+						$textSearch[] = $attributeVal;
+					}
+					
 					$docData[$attributeKey] = $attributeVal;
 					
 					$docData[$key.'_boost'] = $attributeVal;
@@ -424,8 +426,10 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 			$categoryPaths = array();
 			foreach ($cats as $category_id) {
 				$_cat = Mage::getModel('catalog/category')->load($category_id) ;
-				$catNames[] = $_cat->getName();
-				$categoryPaths[] = $this->getCategoryPath($_cat);
+				if ($_cat->getIsActive()) {
+					$catNames[] = $_cat->getName();
+					$categoryPaths[] = $this->getCategoryPath($_cat);
+				}
 			} 
 			
 			if ($solr_include_category_in_search > 0) {
@@ -442,6 +446,7 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 			
 			$docData['category_path'] = $categoryPaths;
 			$docData['textSearch'] = $textSearch;
+			//ADDONLINE : utiliser $product (chargé par la collection) pour avoir les prix avec les promotions catalogue
 			if ($product->getFinalPrice()) {
 				$docData['price_decimal'] = $product->getFinalPrice();
 			} else {
@@ -450,6 +455,7 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 			if ($product->getSpecialPrice()) {
 				$docData['special_price_decimal'] = $product->getSpecialPrice();
 			}
+			//FIN ADDONLINE
 			$docData['url_path_varchar'] = $_product->getProductUrl();	
 			
 			$docData['name_boost'] = $_product->getName();
@@ -459,6 +465,10 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 			$docData['unique_id'] = $store->getId().'P'.$_product->getId();
 			
 			$docData['store_id'] = $store->getId();
+			
+			$docData['website_id'] = $store->getWebsiteId();
+			
+			$docData['product_status'] = $_product->getStatus();
 			
 			$this->logFields = array_unique(array_merge($this->logFields, array_keys($docData)));
 			$this->generateThumb($_product);
@@ -474,12 +484,12 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 	 
 	public function getCategoryPath($category){
 		$currentCategory = $category;
-		$categoryPath = $category->getName();
+		$categoryPath = str_replace('/', '_._._',$category->getName());
 		while ($category->getParentId() > 0){
 			
 			$category = $category->getParentCategory();
 			if ($category->getParentId() > 0){
-				$categoryPath = $category->getName().'/'.$categoryPath;
+				$categoryPath = str_replace('/', '_._._',$category->getName()).'/'.$categoryPath;
 			}
 		}
 		return $categoryPath.'/'.$currentCategory->getId();
@@ -503,7 +513,17 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 			
 			if (isset($output['responseHeader']['QTime']) && intval($output['responseHeader']['QTime']) > 0){
 				$returnData = $this->doRequest($queryurl);
+				
 				if (isset($returnData['response']['numFound']) && intval($returnData['response']['numFound']) > 0){
+					if (is_array($returnData['response']['docs'])) {
+						$indexedProducts = array();
+						foreach ($returnData['response']['docs'] as $doc) {
+//							$this->logProductId($doc['products_id'], $doc['store_id']);
+							$indexedProducts[$doc['store_id']][$doc['products_id']]=$doc['products_id'];
+						}
+						$this->logProductIds($indexedProducts);
+						
+					}
 					return $returnData['response']['numFound'];
 				}
 			}else {
@@ -557,23 +577,26 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		if (!file_exists($productImagePath) || empty($image)){
 			$productImagePath = Mage::getBaseDir("skin").DS.'frontend'.DS.'base'.DS.'default'.DS.'images'.DS.'catalog'.DS.'product'.DS.'placeholder'.DS.'image.jpg';
 		}
-		if (!file_exists($productImagePath)){						
+		$info = getimagesize($productImagePath);
+		$image_mime = $info['mime'];
+		if (!file_exists($productImagePath) || $image_mime != "image/jpeg"){						
 			return false;
 		}
-								 
+					 
 
 		$productImageThumbPath = Mage::getBaseDir('media').DS."catalog".DS."product".DS."sb_thumb".DS.$productId.'.jpg';
 		if (file_exists($productImageThumbPath)) {
-			$index++;
-			return true;
+			unlink($productImageThumbPath);
 		}
 		$imageResizedUrl = Mage::getBaseUrl("media").DS."catalog".DS."product".DS."sb_thumb".DS.$productId.'.jpg';
 		
 		$imageObj = new Varien_Image($productImagePath);
-		$imageObj->constrainOnly(TRUE);
+		$imageObj->constrainOnly(FALSE);
 		$imageObj->keepAspectRatio(TRUE);
 		$imageObj->keepFrame(FALSE);
-		$imageObj->resize(32, 32);
+		$imageObj->backgroundColor(array(255,255,255));
+		$imageObj->keepTransparency(TRUE);
+		$imageObj->resize(32, 32);    
 		$imageObj->save($productImageThumbPath);
 		if (file_exists($productImageThumbPath)) {
 			return true;
@@ -584,10 +607,12 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 	
 	public function emptyindexAction() {
 		$solr_server_url = Mage::getStoreConfig('webmods_solrsearch/settings/solr_server_url', 0);
-		
+
 		//get solr core
 		$solrcore = 'english';
 		if ( isset($_POST['core']) && !empty($_POST['core'])) { $solrcore = $_POST['core']; }
+		
+		$storeMappingString = Mage::getStoreConfig('webmods_solrsearch_indexes/'.$solrcore.'/stores', 0);
 		
 		//Solr delete all docs from index
 		$clearnSolrIndexUrl = trim($solr_server_url,'/').'/'.$solrcore.'/update?stream.body=<delete><query>*:*</query></delete>&commit=true';
@@ -600,12 +625,103 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 			$SolrQueryUrl = trim($solr_server_url,'/').'/'.$solrcore.'/select/?q=*:*&fl=products_id&rows=1&wt=json';
 			$queryOutput = $this->doRequest($SolrQueryUrl);
 			if(is_array($queryOutput) && isset($queryOutput['response']) && isset($queryOutput['response']['numFound']) && intval($queryOutput['response']['numFound']) < 1) {
+				$storeMappingString = trim($storeMappingString, ',');
+				if (!empty($storeMappingString)) {
+					$resource = Mage::getSingleton('core/resource');
+					$connection = $resource->getConnection('core_write');
+					$logIndexedproductTable = $resource->getTableName('solrsearch/logs_indexedproduct');
+					
+					$results = $connection->query("DELETE FROM {$logIndexedproductTable} WHERE store_id IN({$storeMappingString});");
+				}
 				break;
 			}
 		}
 		
 		echo 'true';
 		exit;
+	}
+
+	public function logProductIds($indexedProducts){
+		//Log index fields
+		$resource = Mage::getSingleton('core/resource');
+		$writeConnection = $resource->getConnection('core_write');
+		$logIndexedproductTable = $resource->getTableName('solrsearch/logs_indexedproduct');
+	
+		$connectionRead = $resource->getConnection('core_read');
+	
+		$results = $connectionRead->query("SELECT `store_id`, `value` FROM {$logIndexedproductTable} ORDER BY `store_id`, `value`;");
+
+		$indexedDBProducts = array();
+		foreach ($results->fetchAll() as $row) {
+			$indexedDBProducts[$row['store_id']][$row['value']]=$row['value'];				
+		}	
+	
+		foreach ($indexedProducts as $store => $products) {
+			foreach ($products as $product) {
+				if (!isset($indexedDBProducts[$store][$product])) {					
+					$writeConnection->beginTransaction();
+					//Log index fields
+					$insertArray = array();
+					$insertArray['logs_id'] = NULL;
+					$insertArray['value'] = $product;
+					$insertArray['store_id'] = $store;
+					$writeConnection->insert($logIndexedproductTable, $insertArray);
+				
+					$writeConnection->commit();
+				}
+			}
+		}
+	}
+	
+	public function loadProductCollection($websiteId, $storeId, $page = 1){
+		$itemsPerCommit = 50;
+		$itemsPerCommitConfig = Mage::getStoreConfig('webmods_solrsearch/settings/items_per_commit', 0);
+		if(intval($itemsPerCommitConfig) > 0) $itemsPerCommit = $itemsPerCommitConfig;
+		
+		$collection = Mage::getModel('catalog/product')->getCollection()
+			->addAttributeToSelect('*')
+			->addStoreFilter($storeId)
+			->addWebsiteFilter($websiteId)
+			->addFieldToFilter('status',Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
+			->addFieldToFilter(
+                array(
+                     array('attribute'=>'visibility','eq'=>Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH),
+                     array('attribute'=>'visibility','eq'=>Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_SEARCH)
+                )
+        	)
+        	->addFinalPrice()
+			->setPage($page, $itemsPerCommit);
+			
+			$collection->getSelect()->joinLeft(
+                  array('stock' => 'cataloginventory_stock_item'),
+                  "e.entity_id = stock.product_id",
+                  array('stock.is_in_stock')
+          	)->where('stock.is_in_stock = 1');
+          	
+        return $collection;
+	}
+	
+	public function loadUpdateProductCollection($websiteId, $storeId, $page = 1) {
+		$collection = $this->loadProductCollection($websiteId, $storeId, $page);
+		
+		$timezone = Mage::getStoreConfig('general/locale/timezone', 0);
+		$datetime = new DateTime($_POST['lastindextime']);
+		$la_time = new DateTimeZone($timezone);
+		$datetime->setTimezone($la_time);
+		$lastIndexTime = $datetime->format('Y-m-d H:i:s');
+				
+		$resource = Mage::getSingleton('core/resource');
+		$logIndexedproductTable = $resource->getTableName('solrsearch/logs_indexedproduct');
+		
+		//On Fait une Jointure LEFT avec une condition Where = NULL pour sélectionner les enregsitrement qui ne sont PAS dans la table des logs
+		// plus une condition OR sur la date de modification dans le WHERE pour sélectionner les produits qui ont été modifiés depuis la dernière indexation 
+		$collection->getSelect()->joinLeft(
+				array('log' => $logIndexedproductTable),
+				"e.entity_id = log.value AND log.store_id=$storeId ",
+				array()
+		)->where('(log.logs_id IS NULL OR e.updated_at > \''.$lastIndexTime.'\')');
+		
+		return $collection;
 	}
 
 }

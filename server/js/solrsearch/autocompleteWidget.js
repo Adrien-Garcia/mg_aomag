@@ -15,6 +15,7 @@ AjaxSolr.AutocompleteWidget = AjaxSolr.AbstractWidget.extend({
 		    allowFilter:self.allowFilter,
 			currencySign:self.currencySign,
 		    displayThumb:self.displayThumb,
+		    searchTextPlaceHolder:self.searchTextPlaceHolder,
 		    width:400,
 		    boxWidth:462,
 		    sideBarWidth:200,

@@ -21,6 +21,8 @@
         <strong><span><?php echo $this->helper('catalog')->__('Shop By') ?></span></strong>
     </div>
     <div class="block-content">
+    	<form name="searchFacets" method="get" action="<?php echo $this->helper('solrsearch')->getResultUrl() ?>">
+			<input type="hidden" name="q" value="<?php echo $q ?>" />
     		<?php if($isFacetActived) : ?>
 			<div class="currently">
 				<p class="block-subtitle block-subtitle-solr"><span class="blue"><?php echo $this->helper('catalog')->__('Filtres') ?></span> <?php echo $this->helper('catalog')->__('ACTIFS') ?></p>
@@ -31,6 +33,9 @@
 								<span class="label"><?php echo $this->getFacetLabel($key); ?>:</span> <span class="value"><?php echo $v ?></span>
 								<?php $face_key = substr($key, 0, strrpos($key, '_'))?>
 								<a title="<?php echo $this->helper('catalog')->__('Remove This Item') ?>" href="<?php echo $this->getRemoveFacesUrl($face_key, $v)?>" class="btn-remove"><?php echo $this->helper('catalog')->__('Remove This Item') ?></a>
+								<?php if ($face_key != 'price'):?>
+								<input type="hidden" name="fq[<?php echo $face_key ?>]" value="<?php echo $v?>" />
+								<?php endif;?>
 							</li>
 						<?php endforeach; ?>
 					<?php endforeach; ?>
@@ -43,21 +48,33 @@
                     <?php if (count($face) > 0):?>
                     <dt id="solr_search_<?php echo $key ?>_expander" onclick="Effect.toggle('content_holder_<?php echo $key ?>', 'slide', { duration: 0.3 }); $('solr_search_<?php echo $key ?>_expander').toggleClassName('collapsed'); return false;"><?php echo $this->getFacetLabel($key); ?></dt>
                     <dd id="content_holder_<?php echo $key ?>">
+                    	<?php if ($key == 'category_path'):?>
+                    		<?php $this->parseCategoryPathFacet($face); ?>
+                    	<?php else:?>
                     	<ol>
                     		<?php foreach ($face as $item=>$count): ?>
                     		<?php if ($count > 0):?>
 			                   	<li>							
 								<?php $face_key = substr($key, 0, strrpos($key, '_'))?>
-								<a href="<?php echo $this->getFacesUrl(array('fq'=>array($face_key=>$item)))?>" class="facet-item"><?php echo $item?></a> (<?php echo $count?>)
+								<?php 
+										$activeClass = '';
+										$facetUrl = $this->getFacesUrl(array('fq'=>array($face_key=>$item)));
+										if (isset($filterQuery[$key]) && in_array($item, $filterQuery[$key])){
+											$activeClass = 'active';
+											$facetUrl = $this->getRemoveFacesUrl($face_key, $v);
+										}?>
+										<a href="<?php echo $facetUrl?>" class="facet-item <?php echo $activeClass;?>"><?php echo $item?></a> (<?php echo $count?>)
 								</li>
 							<?php endif;?>
 		                	<?php endforeach; ?>
                     	</ol>
+                  		<?php endif; ?>
                     </dd>
                     <?php endif;?>
                 <?php endforeach; ?>
                 
-				<dt id="solr_search_prize_expander" onclick="Effect.toggle('content_holder_prize', 'slide', { duration: 0.3 }); $('solr_search_prize_expander').toggleClassName('collapsed'); return false;"><?php echo $this->helper('catalog')->__('Prices') ?></dt>
+                <?php if (floor($stats['stats_fields']['price_decimal']['max']) > 0 && floor($stats['stats_fields']['price_decimal']['max']) != floor($stats['stats_fields']['price_decimal']['min'])) :?>
+                <dt id="solr_search_prize_expander" onclick="Effect.toggle('content_holder_prize', 'slide', { duration: 0.3 }); $('solr_search_prize_expander').toggleClassName('collapsed'); return false;"><?php echo $this->helper('catalog')->__('Prices') ?></dt>
 				<dd id="content_holder_prize">
 					<div id="refine-results-price">
 					    <div class="ui-textured-darkgrey-block">
@@ -73,8 +90,31 @@
 					            <input type="text" id="solr_search_price_slider_start_value" value="<?php echo floor($stats['stats_fields']['price_decimal']['min']) ?>"/><?php echo $currencySign?> - <input type="text" id="solr_search_price_slider_end_value" value="<?php echo ceil($stats['stats_fields']['price_decimal']['max']) ?>" />
 					            <?php echo $currencySign?>
 					            
-					        </div>
-					        <button title="<?php echo $this->helper('catalog')->__('Update Price Range') ?>" onclick="solrsearch_resultpage_ajax_request(this, 'price_decimal|'+'['+$('solr_search_price_slider_start_value').value+' TO '+$('solr_search_price_slider_end_value').value+']')" id="refine-results-price-apply" class="ui-button ui-button-grey" type="button"><?php echo $this->helper('catalog')->__('Update Price Range') ?></button>
+					        	<?php 
+					        	$minPrice = floor($stats['stats_fields']['price_decimal']['min']);
+					        	$maxPrice = ceil($stats['stats_fields']['price_decimal']['max']);
+					        	
+					        	if (isset($filterQuery['price']) && !empty($filterQuery['price'][0])) {
+					        		
+					        		$priceArray = explode(' TO ', $filterQuery['price'][0]);
+					        		if (isset($priceArray[0]) && $priceArray[0] > 0){
+										$minPrice = $priceArray[0];
+					        		}else{
+					        			$minPrice = 0;
+					        		}
+					        		
+					        		if (isset($priceArray[1]) && $priceArray[1] > 0){
+										$maxPrice = $priceArray[1];
+					        		}else{
+					        			$maxPrice = 0;
+					        		}
+					        		
+					        	}
+					        	?>
+					        	
+					        	<input type="hidden" name="fq[price]" id="price_hidden_value" value="<?php echo floor($minPrice) ?> TO <?php echo ceil($maxPrice) ?>" />
+					            </div>
+					        <button title="<?php echo $this->helper('catalog')->__('Update Price Range') ?>" onclick="set_hidden_price_value();" id="refine-results-price-apply" class="ui-button ui-button-grey" type="submit"><?php echo $this->helper('catalog')->__('Update Price Range') ?></button>
 					    </div>
 					</div>
 					<script type="text/javascript">						
@@ -95,10 +135,16 @@
 									$('solr_search_price_slider_end_value').value = Math.round(v[1]);
 								}
 							});
-	
+							function set_hidden_price_value() {
+								var startValue = $('solr_search_price_slider_start_value').value;
+								var endValue = $('solr_search_price_slider_end_value').value;
+								$('price_hidden_value').value = startValue+' TO '+endValue;
+							}	
 						// ]]>
 					</script>
 				</dd>
-            </dl>           
+				<?php endif;?>
+            </dl>
+            </form>           
     </div>
 </div>

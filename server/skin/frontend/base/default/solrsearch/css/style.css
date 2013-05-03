@@ -92,3 +92,7 @@
 #content_holder_prize #refine-results-price-values {
 	margin: 5px 0;
 }
+
+#content_holder_category_path li li{
+	margin-left: 7px;
+}

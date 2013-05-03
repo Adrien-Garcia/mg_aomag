@@ -35,6 +35,9 @@
                     <logs>
                         <table>webmods_solrsearch_logs</table>
                     </logs>
+                    <logs_indexedproduct>
+                        <table>webmods_solrsearch_logs_indexedproduct</table>
+                    </logs_indexedproduct>
                 </entities>
             </solrsearch_mysql4>
             <!--
@@ -95,11 +98,11 @@
         		<solrbridge_index_docs>
         			<model>solrsearch/indexer_solr</model>
         		</solrbridge_index_docs>
-				-->
+				
         		<solrbridge_index_thumb>
         			<model>solrsearch/indexer_thumb</model>
         		</solrbridge_index_thumb>
-				<!--
+				
 				<solrbridge_index_update>
         			<model>solrsearch/indexer_delta</model>
         		</solrbridge_index_update>
@@ -113,7 +116,7 @@
 				<use>admin</use>
 				<args>
 				  <module>WebMods_Solrsearch</module>
-					<frontName>search</frontName>
+				  <frontName>search</frontName>
 				</args>
 			  </solrsearch>
 			</routers>

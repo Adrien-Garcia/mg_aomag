@@ -41,7 +41,7 @@
             <dl id="narrow-by-list">
 				<?php foreach ($facets_fields as $key=>$face): ?>
                     <?php if (count($face) > 0):?>
-                    <dt class="solr_search_title <?php if (count($face) > 10) : ?> solr_scroll_list_not_expendable <?php endif; ?>" id="solr_search_<?php echo $key ?>_expander" onclick="Effect.toggle('content_holder_<?php echo $key ?>', 'slide', { duration: 0.3 }); $('solr_search_<?php echo $key ?>_expander').toggleClassName('collapsed'); return false;"><?php echo $this->getFacetLabel($key); ?></dt>
+                    <dt class="solr_search_title" id="solr_search_<?php echo $key ?>_expander" onclick="Effect.toggle('content_holder_<?php echo $key ?>', 'slide', { duration: 0.3 }); $('solr_search_<?php echo $key ?>_expander').toggleClassName('collapsed'); return false;"><?php echo $this->getFacetLabel($key); ?></dt>
                     <dd id="content_holder_<?php echo $key ?>">
                     	<ol <?php if (count($face) > 10) : ?> class="solr_scroll_list" <?php endif; ?>>
                     		<?php foreach ($face as $item=>$count): ?>
@@ -121,7 +121,7 @@
 		//filter += ',price_decimal|'+priceRange+'|';
 		
 		new Ajax.Request(
-			'<?php echo $this->getUrl('/'); ?>search/ajax/ajaxresult',{
+			'<?php /* ADDONLINE */echo $this->getUrl('/'); ?>search/ajax/ajaxresult',{
 				parameters:{ q:'<?php echo $q ?>',filterQuery:filter},
 				onCreate: function(response) {
 					//do something
@@ -148,7 +148,7 @@
 	
 	function solrsearch_resultpage_ajax_refine(){
 		new Ajax.Request(
-			'<?php echo $this->getUrl('/'); ?>search/ajax/ajaxresult',{
+			'<?php /* ADDONLINE */echo $this->getUrl('/'); ?>search/ajax/ajaxresult',{
 				parameters:{ q:'<?php echo $q ?>',refineSearch:'yes'},
 				onCreate: function(response) {
 					//do something

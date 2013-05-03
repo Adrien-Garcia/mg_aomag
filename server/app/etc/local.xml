@@ -51,7 +51,7 @@
         </resources>
         <session_save><![CDATA[files]]></session_save>
         <cache>
-            <backend>file</backend><!-- apc / memcached / empty=file -->
+            <backend>File</backend><!-- apc / memcached / empty=file -->
         </cache>
     </global>
     <admin>

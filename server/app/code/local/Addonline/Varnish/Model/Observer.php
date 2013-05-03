@@ -53,6 +53,7 @@ class Addonline_Varnish_Model_Observer
         if ($needCaching) {
         	
         	//Flag qui indique aux blocks qu'ils sont en "mode static"
+        	Mage::unregister('varnish_static'); //pour le cas des 404 noRoute qui passent 2 fois ici
         	Mage::register('varnish_static', true);
 
         	$response = $action->getResponse();

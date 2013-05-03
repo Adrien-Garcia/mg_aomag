@@ -180,7 +180,7 @@ if (!empty($params['direction'])){
 		//var priceRange = '['+($('solr_search_price_slider_start_value_input').value)+' TO '+($('solr_search_price_slider_end_value_input').value)+ ']';
 		priceRange = '';
 		new Ajax.Request(
-			'<?php echo $this->getUrl('/'); ?>search/ajax/ajaxresult',{
+			'<?php /* ADDONLINE */echo $this->getUrl('/'); ?>search/ajax/ajaxresult',{
 				parameters:{ q:'<?php echo trim(trim($this->helper('catalogsearch')->getEscapedQueryText(),'"')) ?>',p:page, mode:viewmode,orderby:orderbyfield,direction:orderbydir,'price_decimal':priceRange },
 				onCreate: function(response) {
 					//do something

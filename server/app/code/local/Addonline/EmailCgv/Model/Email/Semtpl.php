@@ -53,6 +53,7 @@ class Addonline_Emailcgv_Model_Email_Semtpl extends Varien_Object
 
             Mage::register('config_system_email_template', $collection);
         }
+    	$tmp = Mage::helper('emailcgv/data')->__('%s (Default Template from Locale)');
         $options = $collection->toOptionArray();
         $templateName = Mage::helper('adminhtml')->__('Default Template from Locale');
         $nodeName = str_replace('/', '_', $this->getPath());

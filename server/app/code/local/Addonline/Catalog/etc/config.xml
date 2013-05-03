@@ -13,6 +13,7 @@
 	            	<product_new>Addonline_Catalog_Block_Product_New</product_new>
 	            	<product_widget_new>Addonline_Catalog_Block_Product_Widget_New</product_widget_new>
 	            	<product_list_new>Addonline_Catalog_Block_Product_List_New</product_list_new>
+	            	<product_view_attributes>Addonline_Catalog_Block_Product_View_Attributes</product_view_attributes>
 	            </rewrite>
             </catalog>
         </blocks>

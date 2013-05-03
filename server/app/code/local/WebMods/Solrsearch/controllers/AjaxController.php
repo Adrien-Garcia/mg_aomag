@@ -137,6 +137,7 @@ class WebMods_Solrsearch_AjaxController extends Mage_Core_Controller_Front_Actio
 			//die(print_r($returnData));
 			//echo $url = $this->getRequest()->getParam('r');
 			//die($returnData['spellcheck']['suggestions']['collation']);
+			//AJOUT ADDONLINE : pour le cas où il n'y a pas de suggestion
 			if  (isset($returnData['spellcheck']['suggestions']['collation'])) {
 				$data = $this->doRequest($returnData['spellcheck']['suggestions']['collation']);
 			}
@@ -200,7 +201,7 @@ class WebMods_Solrsearch_AjaxController extends Mage_Core_Controller_Front_Actio
 		if(!empty($_GET['fq'])){
 		$_GET['fq'] = utf8_decode($_GET['fq']);
 		}
-		
+		$_GET['fq'] = "(store_id:".Mage::app()->getStore()->getStoreId().") AND (website_id:".Mage::app()->getStore()->getWebsiteId().") AND (product_status:1)";
 		//die($url);
 		
 		if ( !$url ) {
@@ -343,12 +344,17 @@ class WebMods_Solrsearch_AjaxController extends Mage_Core_Controller_Front_Actio
     	
     	$resultBlock->setData('solrdata', $solrData);
     	$facetsBlock->setData('solrdata', $solrData);
-    	$facetsBlock->setData('querytext', $solrModel->getParam('q'));
     	
-    	$toolbarBlock->setData('test', 'yessss');
+    	$queryText = $solrModel->getParams('q');
+		if( isset($solrData['responseHeader']['params']['q']) && !empty($solrData['responseHeader']['params']['q']) ) {
+        	if ($queryText != $solrData['responseHeader']['params']['q']) {
+        		$queryText = $solrData['responseHeader']['params']['q'];
+        	}
+        }
+    	
+    	$facetsBlock->setData('querytext', $queryText);
 		
 		$html = $resultBlock->setTemplate("solrsearch/result-ajax.phtml")->toHtml();
-		
 		
 		$faceshtml = $facetsBlock->setTemplate("solrsearch/searchfaces-ajax.phtml")->toHtml();
 		echo $html.$faceshtml;

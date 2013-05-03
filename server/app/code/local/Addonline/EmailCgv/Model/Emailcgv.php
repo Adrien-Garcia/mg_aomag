@@ -3,6 +3,7 @@
 class Addonline_EmailCgv_Model_Emailcgv extends Mage_Sales_Model_Order
 {
 	const XML_PATH_EMAIL_CGV_TEMPLATE               = 'emailcgv/order/template';
+	const XML_PATH_EMAIL_CGV_IDENTITY               = 'emailcgv/order/identity';
 	const XML_PATH_EMAIL_CGV_COPY_TO                = 'emailcgv/order/copy_to';
 	const XML_PATH_EMAIL_CGV_COPY_METHOD            = 'emailcgv/order/copy_method';
 	const XML_PATH_EMAIL_CGV_ENABLED                = 'emailcgv/order/enabled';
@@ -21,13 +22,19 @@ class Addonline_EmailCgv_Model_Emailcgv extends Mage_Sales_Model_Order
 
 		$storeId = $this->getStore()->getId();
 		$enable = Mage::getStoreConfig(self::XML_PATH_EMAIL_CGV_ENABLED, $storeId);
+		if($this->_9cd4777ae76310fd6977a5c559c51820()){
+			parent::sendNewOrderEmail();
+			return;
+		}
+
 
 		if ($enable){
 
-			$copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
-			$copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
+			$copyTo = $this->_getEmails(self::XML_PATH_EMAIL_CGV_COPY_TO);
+			$copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_CGV_COPY_METHOD, $storeId);
 			$templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_CGV_TEMPLATE, $storeId);
 			$type = Mage::getStoreConfig(self::XML_PATH_EMAIL_CGV_TYPE, $storeId);
+			//FB::log($copyTo);
 			$idContent = Mage::getStoreConfig(self::XML_PATH_EMAIL_CGV_CMS_ID, $storeId);
 			$customerName = $this->getBillingAddress()->getName();
 
@@ -37,12 +44,7 @@ class Addonline_EmailCgv_Model_Emailcgv extends Mage_Sales_Model_Order
 
 			$emailInfo->addTo($this->getCustomerEmail(), $customerName);
 
-			if ($copyTo && $copyMethod == 'bcc') {
-				// Add bcc to customer email
-				foreach ($copyTo as $email) {
-					$emailInfo->addBcc($email);
-				}
-			}
+
 
 			//Récuperation du contenu des CGV
 			if ($type=='cms') {
@@ -73,8 +75,13 @@ class Addonline_EmailCgv_Model_Emailcgv extends Mage_Sales_Model_Order
 				}
 
 			}
-
-
+			if ($copyTo && $copyMethod == 'bcc') {
+				// Add bcc to customer email
+				foreach ($copyTo as $email) {
+					$emailInfo->addBcc($email);
+				}
+			}
+			$mailer->addEmailInfo($emailInfo);
 			// Email copies are sent as separated emails if their copy method is 'copy'
 			if ($copyTo && $copyMethod == 'copy') {
 				foreach ($copyTo as $email) {
@@ -84,10 +91,13 @@ class Addonline_EmailCgv_Model_Emailcgv extends Mage_Sales_Model_Order
 				}
 			}
 
+
+
+
 			try {
-				$mailer->addEmailInfo($emailInfo);
+				//$mailer->addEmailInfo($emailInfo);
 			// Set all required params and send emails
-				$mailer->setSender(Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId));
+				$mailer->setSender(Mage::getStoreConfig(self::XML_PATH_EMAIL_CGV_IDENTITY, $storeId));
 				$mailer->setStoreId($storeId);
 				$mailer->setTemplateId($templateId);
 				$mailer->setTemplateParams(array(
@@ -109,7 +119,7 @@ class Addonline_EmailCgv_Model_Emailcgv extends Mage_Sales_Model_Order
     public function _9cd4777ae76310fd6977a5c559c51820(){
 	    if (Mage::getStoreConfig('addonline/licence/aomagento')) { return true; }
     	$key = 'e983cfc54f88c7114e99da95f5757df6'; if(md5(Mage::getStoreConfig('web/unsecure/base_url').$key.'Emailcgv')!=Mage::getStoreConfig('emailcgv/licence/serial')){
-    		$severity=Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;$title= "Vous devez renseigner une clé licence valide pour le module AdvancedSlideshow. Le module a été désactivé";$description= "Le module EmailCGV n'a pas une clé licence valide";	$date = date('Y-m-d H:i:s'); Mage::getModel('adminnotification/inbox')->parse(array(array('severity' => $severity,'date_added'=> $date,'title'=> $title,'description'   => $description,'url'=> '','internal'      => true)));
+    		$severity=Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;$title= "Vous devez renseigner une clé licence valide pour le module Emailcgv. Le module a été désactivé";$description= "Le module EmailCGV n'a pas une clé licence valide";	$date = date('Y-m-d H:i:s'); Mage::getModel('adminnotification/inbox')->parse(array(array('severity' => $severity,'date_added'=> $date,'title'=> $title,'description'   => $description,'url'=> '','internal'      => true)));
     		return false;
     	}else{$_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 0); foreach($_unreadNotices as $notice): if(strpos($notice->getData('description'),'Emailcgv')): $notice->setIsRead(1)->save();	endif;endforeach;return true;
     	}

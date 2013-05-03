@@ -57,16 +57,17 @@
 			 * Initiate a main point to contact with Solr
 			 */
 			Manager = new AjaxSolr.Manager({
-		      solrUrl: '<?php echo $this->getUrl('/') ?>search/ajax/query?r='
+		      solrUrl: '<?php /* ADDONLINE *//* ADDONLINE */echo $this->getUrl('/') ?>search/ajax/query?r='
 		    });
 		    
             Manager.addWidget(new AjaxSolr.AutocompleteWidget({
 			  id: 'autocomplete',
 			  target: '#search_mini_form',
+			  searchTextPlaceHolder: '',
 			  currencySign: '<?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() ?>',
 			  field: 'autosuggest',
-			  ajaxBaseUrl: '<?php echo $this->getUrl('/');?>',
-			  mediaUrl: '<?php echo  Mage::getStoreConfig('web/unsecure/base_media_url');?>',
+			  ajaxBaseUrl: '<?php /* ADDONLINE */echo $this->getUrl('/');?>',
+			  mediaUrl: '<?php /* ADDONLINE */echo  Mage::getStoreConfig('web/unsecure/base_media_url');?>',
 			  queryFields: '<?php echo trim(str_replace("_int","_text",$queryFields)," ")?>',
 			  displayThumb: '<?php echo $display_thumb ;?>',
 			  allowFilter: '<?php echo $allow_filter?>'
