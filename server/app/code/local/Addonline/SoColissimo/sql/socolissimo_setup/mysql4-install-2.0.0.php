@@ -19,10 +19,12 @@ $installer->startSetup();
  */
 $installer->run("
 	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'carriers/socolissimo/rep_fichier_liberte', value FROM {$this->getTable('core_config_data')} WHERE path='carriers/socolissimoliberte/rep_fichier_socolissimo';
-	DELETE FROM {$this->getTable('core_config_data')} WHERE path like 'carriers/socolissimoliberte%';		      
+	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'socolissimo/licence/serial', value FROM {$this->getTable('core_config_data')} WHERE path='socolissimoliberte/licence/serial';
+	DELETE FROM {$this->getTable('core_config_data')} WHERE path like '%socolissimoliberte%';		      
 	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'carriers/socolissimo/id_socolissimo_flexibilite', value FROM {$this->getTable('core_config_data')} WHERE path='carriers/socolissimoflexibilite/id_socolissimo';
 	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'carriers/socolissimo/password_socolissimo_flexibilite', value FROM {$this->getTable('core_config_data')} WHERE path='carriers/socolissimoflexibilite/password_socolissimo';
-	DELETE FROM {$this->getTable('core_config_data')} WHERE path like 'carriers/socolissimoflexibilite%';		      
+	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'socolissimo/licence/serial', value FROM {$this->getTable('core_config_data')} WHERE path='socolissimoflexibilite/licence/serial';
+	DELETE FROM {$this->getTable('core_config_data')} WHERE path like '%socolissimoflexibilite%';		      
 
 	DELETE FROM {$this->getTable('core_resource')} WHERE code = 'socolissimoflexibilite_setup';		      
 	DELETE FROM {$this->getTable('core_resource')} WHERE code = 'socolissimoliberte_setup';		      

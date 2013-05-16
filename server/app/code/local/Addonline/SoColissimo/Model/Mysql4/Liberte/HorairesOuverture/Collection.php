@@ -8,7 +8,9 @@
  * @author 	    Addonline (http://www.addonline.fr)
  */
 class Addonline_SoColissimo_Model_Mysql4_Liberte_HorairesOuverture_Collection
-    extends Addonline_SoColissimo_Model_Resource_Liberte_HorairesOuverture_Collection
+    extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
-
+    public function _construct() {
+        $this->_init('socolissimo/liberte_horairesOuverture');
+    }
 }
