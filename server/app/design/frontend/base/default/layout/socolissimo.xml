@@ -52,7 +52,7 @@
     <remove name="right"/>
     <remove name="left"/>
 
-    <block type="socolissimo/selector" name="root" output="toHtml" template="socolissimo/selector.phtml"/>
+    <block type="socolissimo/selector" name="root" template="socolissimo/selector.phtml"/>
 </socolissimo_ajax_selector>
 
 <socolissimo_ajax_listrelais>
