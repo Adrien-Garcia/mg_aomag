@@ -158,10 +158,11 @@
 						<rep_fichier_liberte translate="label">
 							<label>Répértoire des fichiers SoColissimo</label>
 							<frontend_type>text</frontend_type>
+							<frontend_model>socolissimo/adminhtml_system_config_form_field_liberte</frontend_model>
 							<sort_order>15</sort_order>
 							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
 							<depends><contrat>liberte</contrat></depends>
 							<comment>Répertoire (chemin absolu) où sont uploadés les fichiers SoColissimo Liberté</comment>
 						</rep_fichier_liberte>						

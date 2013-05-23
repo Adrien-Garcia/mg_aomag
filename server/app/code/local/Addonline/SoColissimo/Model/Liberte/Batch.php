@@ -14,18 +14,33 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	
 	private $_tabRelais;
 	private $_tabRelaisBelgique;
+	private $_log;
 	
-	public function run() { 
-		
-		if (Mage::helper('socolissimo')->isFlexibilite()) {
-			return;
+	private function _log($message) {
+		if ($this->_log === false) {
+			Mage::log($message, null, self::LOG_FILE);
+		} else {
+			$this->_log .= $message."<br/>";
 		}
+	}
+	
+	public function run($log = false) { 
+		
+		$this->_log = $log;
 		
 		$_export_dir = Mage::getStoreConfig('carriers/socolissimo/rep_fichier_liberte', Mage::app()->getStore()->getId());
+		if (!$_export_dir) {
+			$this->_log("La paramètre répertoire des fichiers Socolissimo n'est pas configuré");
+			return $this->_log;
+		}
 		
 		$_export_path = BP . DS . $_export_dir;
 		
-	    $repertoire = opendir($_export_path) or die("Erreur le repertoire $_export_path existe pas");
+	    $repertoire = @opendir($_export_path);
+	    if ($repertoire === false) {
+	    	$this->_log("Le repertoire $_export_path n'existe pas");
+			return $this->_log;
+	    }
 
 	    $file = null; 
 	    $timestamp = 0;
@@ -46,10 +61,12 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 
 	    if($file){
 	    	$this->_importRelais($_export_path.DS.$file);
-	    	Mage::log("Import SoColissimo effectué avec succès", null, self::LOG_FILE);
+	    	$this->_log("Import SoColissimo $_export_path/$file effectué avec succès");
 	    }else{
-	    	Mage::log("Aucun fichier SoColissimo à importer", null, self::LOG_FILE);
+	    	$this->_log("Aucun fichier SoColissimo à importer dans $_export_path");
 	    }
+	    
+	    return $this->_log;
 	}
 	
 	
@@ -132,7 +149,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 
 		$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
 		if($id = $this->getIdRelais($donnes_relais[1], 'R01')){
-			$updateQuery = "UPDATE socolissimoliberte_relais SET ";
+			$updateQuery = "UPDATE ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_relais')." SET ";
 			$updateQuery .= "libelle='".str_replace("'","\'",$donnes_relais[2])."', ";
 			$updateQuery .= "adresse='".str_replace("'","\'",$donnes_relais[3])."', ";
 			$updateQuery .= "complement_adr='".str_replace("'","\'",$donnes_relais[4])."', ";
@@ -152,7 +169,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			//echo $updateQuery;
 			$connectionWrite->query($updateQuery);
 		} else {
-			$insertQuery = "INSERT INTO socolissimoliberte_relais (";
+			$insertQuery = "INSERT INTO ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_relais')." (";
 			$insertQuery .= "code_reseau, identifiant, libelle, adresse,complement_adr,lieu_dit,indice_localisation,code_postal,commune,latitude,";
 			$insertQuery .= "longitude,indicateur_acces,type_relais,point_max,lot_acheminement,distribution_sort,version) ";
 			$insertQuery .= "VALUES ('R01',".$donnes_relais[1].",'".str_replace("'","\'",$donnes_relais[2])."','".str_replace("'","\'",$donnes_relais[3]);
@@ -171,7 +188,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	
 	function getIdRelais($identifiant, $reseau) {
 		$connectionRead = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$results = $connectionRead->fetchAll("SELECT id_relais FROM socolissimoliberte_relais WHERE identifiant=".$identifiant." AND code_reseau='".$reseau."'");
+		$results = $connectionRead->fetchAll("SELECT id_relais FROM ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_relais')." WHERE identifiant=".$identifiant." AND code_reseau='".$reseau."'");
 		if($results){
 			return $results[0]["id_relais"];
 		} else {
@@ -186,7 +203,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 		
 		if( isset($this->_tabRelais[$donnes_horaire[1]]) ){
 			$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
-			$insertQuery = "INSERT INTO socolissimoliberte_horaire_ouverture (";
+			$insertQuery = "INSERT INTO ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_horaire_ouverture')." (";
 			$insertQuery .= "id_relais_ho, deb_periode_horaire, fin_periode_horaire,horaire_lundi,horaire_mardi,horaire_mercredi,";
 			$insertQuery .= "horaire_jeudi,horaire_vendredi,horaire_samedi,horaire_dimanche) ";
 			$insertQuery .= "VALUES (".$this->_tabRelais[$donnes_horaire[1]].",'".$donnes_horaire[2]."','".$donnes_horaire[3];
@@ -206,7 +223,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
 			$dd = new Zend_Date( $donnes_fe[2], "dd/MM/yyyy");
 			$df = new Zend_Date( $donnes_fe[3], "dd/MM/yyyy" );	
-			$insertQuery = "INSERT INTO socolissimoliberte_periode_fermeture (";
+			$insertQuery = "INSERT INTO ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_periode_fermeture')." (";
 			$insertQuery .= "id_relais_fe, deb_periode_fermeture, fin_periode_fermeture) ";
 			$insertQuery .= "VALUES (".$this->_tabRelais[$donnes_fe[1]].",'".$dd->toString("yyyy-MM-dd") ."','".$df->toString("yyyy-MM-dd")."')";
 			$connectionWrite->query($insertQuery);
@@ -221,7 +238,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 		
 		$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
 		if($id = $this->getIdRelais($donnes_relais[2], $donnes_relais[1])){
-			$updateQuery = "UPDATE socolissimoliberte_relais SET ";
+			$updateQuery = "UPDATE ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_relais')." SET ";
 			$updateQuery .= "code_reseau='".$donnes_relais[1]."', ";
 			$updateQuery .= "libelle='".str_replace("'","\'",$donnes_relais[3])."', ";
 			$updateQuery .= "libelle_nl='".str_replace("'","\'",$donnes_relais[4])."', ";
@@ -238,7 +255,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			$updateQuery .= " WHERE id_relais=".$id;
 			$connectionWrite->query($updateQuery);
 		} else {
-			$insertQuery = "INSERT INTO socolissimoliberte_relais (";
+			$insertQuery = "INSERT INTO ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_relais')." (";
 			$insertQuery .= "identifiant, code_reseau, libelle, libelle_nl,adresse,adresse_nl,code_postal,commune,commune_nl,";
 			$insertQuery .= "latitude,longitude,indicateur_acces,type_relais,point_max) ";
 			$insertQuery .= "VALUES (".$donnes_relais[2].",'".$donnes_relais[1]."','".str_replace("'","\'",$donnes_relais[3]);
@@ -263,7 +280,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	
 		if( isset($this->_tabRelaisBelgique[$donnes_horaire[2]]) ){
 			$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
-			$insertQuery = "INSERT INTO socolissimoliberte_horaire_ouverture (";
+			$insertQuery = "INSERT INTO ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_horaire_ouverture')." (";
 			$insertQuery .= "id_relais_ho, deb_periode_horaire, fin_periode_horaire,horaire_lundi,horaire_mardi,horaire_mercredi,";
 			$insertQuery .= "horaire_jeudi,horaire_vendredi,horaire_samedi,horaire_dimanche) ";
 			$insertQuery .= "VALUES (".$this->_tabRelaisBelgique[$donnes_horaire[2]].",'".$donnes_horaire[3]."','".$donnes_horaire[4];
@@ -284,7 +301,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			$connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
 			$dd = new Zend_Date( $donnes_fe[3], "dd/MM/yyyy");
 			$df = new Zend_Date( $donnes_fe[4], "dd/MM/yyyy" );	
-			$insertQuery = "INSERT INTO socolissimoliberte_periode_fermeture (";
+			$insertQuery = "INSERT INTO ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_periode_fermeture')." (";
 			$insertQuery .= "id_relais_fe, deb_periode_fermeture, fin_periode_fermeture) ";
 			$insertQuery .= "VALUES (".$this->_tabRelaisBelgique[$donnes_fe[2]].",'".$dd->toString("yyyy-MM-dd") ."','".$df->toString("yyyy-MM-dd")."')";
 			$connectionWrite->query($insertQuery);
@@ -294,7 +311,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	
 	function _viderTables(){
 		$db = Mage::getSingleton('core/resource')->getConnection('core_write');
-		$result = $db->query("TRUNCATE TABLE socolissimoliberte_horaire_ouverture");
-		$result = $db->query("TRUNCATE TABLE socolissimoliberte_periode_fermeture");
+		$result = $db->query("TRUNCATE TABLE ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_horaire_ouverture'));
+		$result = $db->query("TRUNCATE TABLE ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_periode_fermeture'));
 	}
 }
