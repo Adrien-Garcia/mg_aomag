@@ -22,6 +22,11 @@
     <global>
     	<blocks>
             <socolissimo><class>Addonline_SoColissimo_Block</class></socolissimo>
+            <onestepcheckout>
+            	<rewrite>
+            		<checkout>Addonline_Socolissimo_Block_OneStepCheckout_Checkout</checkout>
+	            </rewrite>
+	        </onestepcheckout>
         </blocks>
     	<helpers>
             <socolissimo><class>Addonline_SoColissimo_Helper</class></socolissimo>
