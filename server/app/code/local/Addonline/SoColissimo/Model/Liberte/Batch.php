@@ -72,7 +72,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	
 	function _importRelais($nom_fichier){
 
-		Mage::log("Import SoColissimo $nom_fichier", null, self::LOG_FILE);
+		$this->_log("Import SoColissimo $nom_fichier");
 //		ini_set('memory_limit', '1024M');
 		/*Ouverture du fichier en lecture seule*/
 		$file = fopen($nom_fichier, 'r');
@@ -131,12 +131,12 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			/*On ferme le fichier*/
 			fclose($file);
 			
-			Mage::log("Relais : $countRelais", null, self::LOG_FILE);
-			Mage::log("Ouvertures : $countOuvertures", null, self::LOG_FILE);
-			Mage::log("Fermetures : $countFermetures", null, self::LOG_FILE);
-			Mage::log("Relais Belgique : $countRelaisBE", null, self::LOG_FILE);
-			Mage::log("Ouvertures Belgique : $countOuverturesBE", null, self::LOG_FILE);
-			Mage::log("Fermetures Belgique : $countFermeturesBE", null, self::LOG_FILE);
+			$this->_log("Relais : $countRelais");
+			$this->_log("Ouvertures : $countOuvertures");
+			$this->_log("Fermetures : $countFermetures");
+			$this->_log("Relais Belgique : $countRelaisBE");
+			$this->_log("Ouvertures Belgique : $countOuverturesBE");
+			$this->_log("Fermetures Belgique : $countFermeturesBE");
 				
 		}		
 	}
