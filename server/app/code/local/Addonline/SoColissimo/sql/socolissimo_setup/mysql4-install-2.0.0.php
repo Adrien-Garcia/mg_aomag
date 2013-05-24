@@ -39,7 +39,10 @@ $installer->run("
 
 $installer->run("
 
+DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_periode_fermeture')};
+DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_horaire_ouverture')};
 DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_relais')};
+
 CREATE TABLE {$this->getTable('socolissimoliberte_relais')} (
   id_relais int(11) NOT NULL auto_increment,
   identifiant varchar(6) NOT NULL UNIQUE,
@@ -67,7 +70,6 @@ CREATE TABLE {$this->getTable('socolissimoliberte_relais')} (
 
 $installer->run("
 
-DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_horaire_ouverture')};
 CREATE TABLE {$this->getTable('socolissimoliberte_horaire_ouverture')} (
   id_horaire_ouverture int(11) NOT NULL auto_increment,
   id_relais_ho int(11) NOT NULL,
@@ -90,7 +92,6 @@ CREATE TABLE {$this->getTable('socolissimoliberte_horaire_ouverture')} (
 
 $installer->run("
 
-DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_periode_fermeture')};
 CREATE TABLE {$this->getTable('socolissimoliberte_periode_fermeture')} (
   id_periode_fermeture int(11) NOT NULL auto_increment,
   id_relais_fe int(11) NOT NULL,
