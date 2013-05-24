@@ -88,7 +88,7 @@ class CategoryImporter extends Magmi_ItemProcessor
 		return array(
             "name" => "On the fly category creator/importer",
             "author" => "Dweeves",
-            "version" => "0.2",
+            "version" => "0.2.3",
 			"url" => "http://sourceforge.net/apps/mediawiki/magmi/index.php?title=On_the_fly_category_creator/importer"
             );
 	}
@@ -272,6 +272,10 @@ class CategoryImporter extends Magmi_ItemProcessor
 			//iterate on missing levels.
 			for($i=count($catids);$i<count($catparts);$i++)
 			{
+				if($catparts[$i]=="")
+				{
+					continue;
+				}
 				//retrieve category id (by creating it if needed from categories attributes)
 				$catid=$this->getCategoryId($curpath,$catattributes[$i]);
 				//add newly created level to item category ids
@@ -365,16 +369,16 @@ class CategoryImporter extends Magmi_ItemProcessor
 		return $rootpaths;
 	}
 	
-	public function processEscaping(&$icats)
+	public function processEscaping($icats)
 	{
-		$icats=str_replace("\\".$this->_tsep,$this->_escapedtsep,$icats);
+		return str_replace("\\".$this->_tsep,$this->_escapedtsep,$icats);
 	}
 	public function processItemAfterId(&$item,$params=null)
 	{
 		if(isset($item["categories"]))
 		{
 			//handle escaping
-		   $this->processEscaping($item["categories"]);
+		     $icats = $this->processEscaping($item["categories"]);
 			//first apply category root on each category
 			
 			$root=$this->getParam("CAT:baseroot","");
@@ -385,10 +389,10 @@ class CategoryImporter extends Magmi_ItemProcessor
 				{	
 					if(trim($catlist[$i])!="")
 					{
-						$catlist[$i]=$root.$this->_tsep.$catdef;
+						$catlist[$i]=$root.$this->_tsep.$icats;
 					}
 				}
-				//recompose rooted categories
+			//recompose rooted categories
 				$item["categories"]=implode(";;",$catlist);
 			}
 			//get store root category paths
@@ -412,6 +416,17 @@ class CategoryImporter extends Magmi_ItemProcessor
 						}
 						$catids=array_unique(array_merge($catids,$cdef));
 			}
+			
+			//assign to category roots
+			if($this->getParam("CAT:lastonly",0)==0)
+			{
+				foreach(array_values($rootpaths) as $ra)
+				{
+					$id=array_pop($ra["rootarr"]);
+					$catids[]=$id;
+				}
+			}
+			$catids=array_unique($catids);
 			$item["category_ids"]=implode(",",$catids);
 		}
 		return true;
