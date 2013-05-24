@@ -24,7 +24,7 @@
             <socolissimo><class>Addonline_SoColissimo_Block</class></socolissimo>
             <onestepcheckout>
             	<rewrite>
-            		<checkout>Addonline_Socolissimo_Block_OneStepCheckout_Checkout</checkout>
+            		<checkout>Addonline_SoColissimo_Block_OneStepCheckout_Checkout</checkout>
 	            </rewrite>
 	        </onestepcheckout>
         </blocks>
