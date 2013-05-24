@@ -1,6 +1,6 @@
 <?php
 
-class Addonline_SoColissimo_Adminhtml_BatchController extends Mage_Adminhtml_Controller_action
+class Addonline_SoColissimo_Adminhtml_BatchController extends Mage_Adminhtml_Controller_Action
 {
 
 	public function indexAction()
