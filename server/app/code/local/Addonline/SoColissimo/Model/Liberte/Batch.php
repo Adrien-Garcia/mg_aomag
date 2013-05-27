@@ -172,7 +172,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			$insertQuery = "INSERT INTO ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_relais')." (";
 			$insertQuery .= "code_reseau, identifiant, libelle, adresse,complement_adr,lieu_dit,indice_localisation,code_postal,commune,latitude,";
 			$insertQuery .= "longitude,indicateur_acces,type_relais,point_max,lot_acheminement,distribution_sort,version) ";
-			$insertQuery .= "VALUES ('R01',".$donnes_relais[1].",'".str_replace("'","\'",$donnes_relais[2])."','".str_replace("'","\'",$donnes_relais[3]);
+			$insertQuery .= "VALUES ('R01','".$donnes_relais[1]."','".str_replace("'","\'",$donnes_relais[2])."','".str_replace("'","\'",$donnes_relais[3]);
 			$insertQuery .= "','".str_replace("'","\'",$donnes_relais[4])."','".str_replace("'","\'",$donnes_relais[5]);
 			$insertQuery .= "','".str_replace("'","\'",$donnes_relais[6])."','".$donnes_relais[7]."','".str_replace("'","\'",$donnes_relais[8]);
 			$insertQuery .= "',".str_replace(',','.',$donnes_relais[9]).",".str_replace(',','.',$donnes_relais[10]);
@@ -188,7 +188,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 	
 	function getIdRelais($identifiant, $reseau) {
 		$connectionRead = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$results = $connectionRead->fetchAll("SELECT id_relais FROM ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_relais')." WHERE identifiant=".$identifiant." AND code_reseau='".$reseau."'");
+		$results = $connectionRead->fetchAll("SELECT id_relais FROM ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_relais')." WHERE identifiant='".$identifiant."' AND code_reseau='".$reseau."'");
 		if($results){
 			return $results[0]["id_relais"];
 		} else {
@@ -258,7 +258,7 @@ class Addonline_SoColissimo_Model_Liberte_Batch {
 			$insertQuery = "INSERT INTO ".Mage::getSingleton('core/resource')->getTableName('socolissimoliberte_relais')." (";
 			$insertQuery .= "identifiant, code_reseau, libelle, libelle_nl,adresse,adresse_nl,code_postal,commune,commune_nl,";
 			$insertQuery .= "latitude,longitude,indicateur_acces,type_relais,point_max) ";
-			$insertQuery .= "VALUES (".$donnes_relais[2].",'".$donnes_relais[1]."','".str_replace("'","\'",$donnes_relais[3]);
+			$insertQuery .= "VALUES ('".$donnes_relais[2]."','".$donnes_relais[1]."','".str_replace("'","\'",$donnes_relais[3]);
 			$insertQuery .= "','".str_replace("'","\'",$donnes_relais[4])."','".str_replace("'","\'",$donnes_relais[5]);
 			$insertQuery .= "','".str_replace("'","\'",$donnes_relais[6])."','".$donnes_relais[7];
 			$insertQuery .= "','".str_replace("'","\'",$donnes_relais[8])."','".str_replace("'","\'",$donnes_relais[9]);
