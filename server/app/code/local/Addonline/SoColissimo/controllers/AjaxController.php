@@ -20,8 +20,8 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
         $update->load('socolissimo_ajax_selector');
         $layout->generateXml();
         $layout->generateBlocks();
-        $output = $layout->getOutput();
-        return $output;
+        $this->renderLayout();
+        return $this;
 	}
 	
     /**

@@ -9,7 +9,10 @@
  * @author 	    Addonline (http://www.addonline.fr)
  */
 
-include_once 'SocolissimoShippingHelper.php';
+// Pour gérer les cas où il y a eu compilation
+if (file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Carrier_SocolissimoShippingHelper.php')) include_once 'Addonline_SoColissimo_Model_Carrier_SocolissimoShippingHelper.php';
+else include_once Mage::getBaseDir('code').'/local/Addonline/SoColissimo/Model/Carrier/SocolissimoShippingHelper.php';
+
 
 class Socolissimo_Product implements SOCO_Product {
 	private $parent_cart_item;

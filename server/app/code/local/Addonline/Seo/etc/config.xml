@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Addonline_Seo>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Addonline_Seo>
     </modules>
     <global>
@@ -11,6 +11,17 @@
                 <class>Addonline_Seo_Model</class>
             </seo>
         </models>
+        <resources>
+            <seo_setup>
+                <setup>
+                    <module>Addonline_Seo</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </seo_setup>
+        </resources>
 		<helpers>
             <seo>
                 <class>Addonline_Seo_Helper</class>

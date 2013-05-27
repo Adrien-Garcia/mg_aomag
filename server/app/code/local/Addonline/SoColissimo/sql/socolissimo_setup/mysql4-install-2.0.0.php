@@ -19,10 +19,12 @@ $installer->startSetup();
  */
 $installer->run("
 	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'carriers/socolissimo/rep_fichier_liberte', value FROM {$this->getTable('core_config_data')} WHERE path='carriers/socolissimoliberte/rep_fichier_socolissimo';
-	DELETE FROM {$this->getTable('core_config_data')} WHERE path like 'carriers/socolissimoliberte%';		      
+	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'socolissimo/licence/serial', value FROM {$this->getTable('core_config_data')} WHERE path='socolissimoliberte/licence/serial';
+	DELETE FROM {$this->getTable('core_config_data')} WHERE path like '%socolissimoliberte%';		      
 	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'carriers/socolissimo/id_socolissimo_flexibilite', value FROM {$this->getTable('core_config_data')} WHERE path='carriers/socolissimoflexibilite/id_socolissimo';
 	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'carriers/socolissimo/password_socolissimo_flexibilite', value FROM {$this->getTable('core_config_data')} WHERE path='carriers/socolissimoflexibilite/password_socolissimo';
-	DELETE FROM {$this->getTable('core_config_data')} WHERE path like 'carriers/socolissimoflexibilite%';		      
+	INSERT INTO {$this->getTable('core_config_data')} (scope, scope_id, path, value) SELECT scope, scope_id, 'socolissimo/licence/serial', value FROM {$this->getTable('core_config_data')} WHERE path='socolissimoflexibilite/licence/serial';
+	DELETE FROM {$this->getTable('core_config_data')} WHERE path like '%socolissimoflexibilite%';		      
 
 	DELETE FROM {$this->getTable('core_resource')} WHERE code = 'socolissimoflexibilite_setup';		      
 	DELETE FROM {$this->getTable('core_resource')} WHERE code = 'socolissimoliberte_setup';		      
@@ -35,11 +37,12 @@ $installer->run("
  */
 
 
-if (!$installer->tableExists($installer->getTable('socolissimoliberte_relais'))) {
-
 $installer->run("
 
--- DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_relais')};
+DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_periode_fermeture')};
+DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_horaire_ouverture')};
+DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_relais')};
+
 CREATE TABLE {$this->getTable('socolissimoliberte_relais')} (
   id_relais int(11) NOT NULL auto_increment,
   identifiant varchar(6) NOT NULL UNIQUE,
@@ -63,13 +66,10 @@ CREATE TABLE {$this->getTable('socolissimoliberte_relais')} (
 
 ");
 
-}
 
-if (!$installer->tableExists($installer->getTable('socolissimoliberte_horaire_ouverture'))) {
 
 $installer->run("
 
--- DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_horaire_ouverture')};
 CREATE TABLE {$this->getTable('socolissimoliberte_horaire_ouverture')} (
   id_horaire_ouverture int(11) NOT NULL auto_increment,
   id_relais_ho int(11) NOT NULL,
@@ -89,13 +89,9 @@ CREATE TABLE {$this->getTable('socolissimoliberte_horaire_ouverture')} (
 
 ");
 
-}
-
-if (!$installer->tableExists($installer->getTable('socolissimoliberte_periode_fermeture'))) {
 
 $installer->run("
 
--- DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_periode_fermeture')};
 CREATE TABLE {$this->getTable('socolissimoliberte_periode_fermeture')} (
   id_periode_fermeture int(11) NOT NULL auto_increment,
   id_relais_fe int(11) NOT NULL,
@@ -108,7 +104,6 @@ CREATE TABLE {$this->getTable('socolissimoliberte_periode_fermeture')} (
 
 ");
 
-}
 
 /**
  * Les attributs suivants sont les mêmes que ceux créés par le module SocolissimoSimplicité et utilisés 

@@ -47,30 +47,13 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
 		return $this->_getShippingAddress()->getTelephone();
 	}
 	
-	
-/**
-	public function isSocolissmoAvailable() {
-		if (!$this->socolissimoAvaliable) {
-			if (Mage::helper('socolissimo')->isFlexibilite()) {
-				try {
-				 	$this->socolissimoAvaliable = file_get_contents ("http://ws.colissimo.fr/supervision-wspudo/supervision.jsp");
-				 } catch(Exception $e){
-	          		$this->socolissimoAvaliable = "[KO]";
-	        	 }
-			} else {
-				$this->socolissimoAvaliable = "[OK]";
-			}
-		}
-		return 	trim($this->socolissimoAvaliable) === "[OK]";	
-	}
-**/
-	
-	public function _toHtml(){			
-		$storeId = Mage::app()->getStore()->getStoreId();			
+	protected function _toHtml(){
+		$storeId = Mage::app()->getStore()->getStoreId();				
 		if(Mage::getModel('socolissimo/observer')->_9cd4777ae76310fd6977a5c559c51820($storeId)){
-			echo (parent::_toHtml());
+			return parent::_toHtml();
 		}else{
-			echo ("<H1>La clé de licence du module SoColissimo est invalide</H1>");
+			return "<H1>La clé de licence du module SoColissimo est invalide</H1>";
 		}
 	} 
+	
 }
