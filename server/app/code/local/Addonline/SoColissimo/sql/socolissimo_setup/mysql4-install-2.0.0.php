@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS {$this->getTable('socolissimoliberte_relais')};
 
 CREATE TABLE {$this->getTable('socolissimoliberte_relais')} (
   id_relais int(11) NOT NULL auto_increment,
-  identifiant varchar(6) NOT NULL UNIQUE,
+  identifiant varchar(6) NOT NULL,
   libelle varchar(50) NOT NULL,
   adresse varchar(38) NOT NULL,
   complement_adr varchar(38) default NULL,
