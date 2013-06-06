@@ -156,6 +156,10 @@ class Magmi_DefaultAttributeItemProcessor extends Magmi_ItemProcessor
 				case "tax/class_source_product":
 					$ovalue=$this->getTaxClassId($ivalue);
 					break;
+					//if it's brand, get the value
+				case "brand/product_attribute_source_brand":
+					$ovalue=$this->getBrandId($ivalue);
+					break;
 					//otherwise, standard option behavior
 					//get option id for value, create it if does not already exist
 					//do not insert if empty
@@ -173,6 +177,21 @@ class Magmi_DefaultAttributeItemProcessor extends Magmi_ItemProcessor
 		return $ovalue;
 	}
 
+
+	/**
+	 * returns brand id for a given brand value
+	 * @param $brandvalue : brand value
+	 */
+	public function getBrandId($brandvalue)
+	{
+		$t=$this->tablename('brand');
+		$brandid=$this->selectone("select brand_id from $t where nom = ?",array($brandvalue),"brand_id");
+		if(!isset($brandid))
+		{
+			$brandid=$this->insert("INSERT INTO $t (nom,meta_title,status,created_time,update_time,url_key) VALUES (?,?,?,?,?,?)",array($brandvalue, ucfirst(strtolower($brand)), '1', date('Y-m-d H:i:s'), date('Y-m-d H:i:s'), strtolower($brand)));
+		}
+		return $brandid;
+	}
 
 	/**
 	 * attribute handler for varchar based attributes
