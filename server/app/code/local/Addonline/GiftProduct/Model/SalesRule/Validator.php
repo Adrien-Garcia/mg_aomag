@@ -143,7 +143,7 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
                  case Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION:
                  	//on n'applique pas de réduction dans le cas des produit cadeau, mais  l'article cadeau sera ajouté 
                  	//au panier (voir Addonline_GiftProduct_Model_Sales_Quote_Address_Total_Discount)  
-                 	if ($item->getAdditionalData()==Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION) {
+                 	if ($item->getAdditionalData() == Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION) {
 						$hasGiftProduct=true;
 					}
                     break;

@@ -164,7 +164,7 @@ class Addonline_GiftProduct_Model_Sales_Quote_Address_Total_Discount extends Mag
 					$giftItem->setBaseRowTotalInclTax($giftPrice);
 					$giftItem->setAdditionalData(Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION);
 				} else {
-					if ($giftItem && $giftItem->isProduitCadeau()) {	
+					if ($giftItem && $giftItem->getProduitCadeau()) {	
 						$quote->removeItem($giftItem->getId());
 					}
 				}
