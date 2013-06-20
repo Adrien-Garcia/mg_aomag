@@ -145,12 +145,9 @@ class Addonline_Seo_Model_Observer {
         	
         	$this->_product = $_product;
         	$this->_category = $_category;
-        	
-			$_brand = Mage::getModel('brand/brand')->load( $_product->getBrand() );
+
+        	$_rootCategoryId = Mage::app()->getStore()->getRootCategoryId();
 			
-			$_rootCategoryId = Mage::app()->getStore()->getRootCategoryId();
-			
-			$_brand_name = $_brand->getNom();
         	$_product_name = $_product->getName();
 			$_product_sku = $_product->getSku();
 			
@@ -158,8 +155,16 @@ class Addonline_Seo_Model_Observer {
 	        $_variables['\{\{sku\}\}'] = $_product_sku;
 	        $_variables['\{\{category\.name\}\}'] = $_category_name;
 	        $_variables['\{\{parent\.name\}\}'] = $_parent_category_name;
-	        $_variables['\{\{brand\}\}'] = $_brand_name;
 	        
+	        //On vérifie si le module Addonline_Brand est installé, sinon on ne traite pas les lignes ci-dessous
+	        $modules = Mage::getConfig()->getNode('modules')->children();
+	        $modulesArray = (array)$modules;
+	        if(isset($modulesArray['Addonline_Brand'])) {
+	        	$_brand = Mage::getModel('brand/brand')->load( $_product->getBrand() );
+	        	$_brand_name = $_brand->getNom();
+	        	$_variables['\{\{brand\}\}'] = $_brand_name;
+	        }
+	        	
 	        $this->setVariables($_variables);
 	    }
 	    public function setCategoryVariables()
