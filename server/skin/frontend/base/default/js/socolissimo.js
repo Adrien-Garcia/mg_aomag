@@ -124,7 +124,7 @@ function shippingRadioCheck(element) {
 	jQuery("#shipping-method-please-wait").show();
 
 	//on charge en ajax le layer socolissimo (carte choix relais et/ou saisie numéro de téléphone)
-	url = socolissimoBaseUrl + "socolissimo/ajax/selector/type/";
+	url = socolissimoBaseUrl + "selector/type/";
 	var typeSocolissimo =  getTypeSocolissimoFromRadio(socoRadio, false);
 	if (typeSocolissimo) {
 		url = url + typeSocolissimo;
@@ -285,7 +285,7 @@ function changeMap() {
 
 function loadListeRelais() {
 	jQuery(".loader-wrapper").fadeTo(300, 1);
-	url = socolissimoBaseUrl + "socolissimo/ajax/listrelais?"
+	url = socolissimoBaseUrl + "listrelais?"
 	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
 		url = url + check.val() + "=" + check.is(":checked") + "&";
