@@ -29,17 +29,17 @@ class Addonline_Seo_Model_Observer {
         	    	$_original_description = $headBlock->getDescription();
         	    	$_original_keywords = $headBlock->getKeywords();
         	    	
-        	    	if( !trim($this->_product->getMetaTitle()) )
+        	    	if( !trim($this->_product->getMetaTitle())  && trim($_head_title_template))
         	    	{
         	    		$_title = $this->filter($_head_title_template);
         	    		$headBlock->setTitle($_title);
         	    	}
-        	        if( !trim($this->_product->getMetaDescription()) )
+        	        if( !trim($this->_product->getMetaDescription()) && trim($_head_description_template) )
         	    	{
         	    		$_description = $this->filter($_head_description_template);
         	    		$headBlock->setDescription($_description);
         	    	}
-        	        if( !trim($this->_product->getMetaKeyword()) )
+        	        if( !trim($this->_product->getMetaKeyword()) && trim($_head_keywords_template) )
         	    	{
         	    		$_keywords = $this->filter($_head_keywords_template);
         	    		$headBlock->setKeywords($_keywords);
