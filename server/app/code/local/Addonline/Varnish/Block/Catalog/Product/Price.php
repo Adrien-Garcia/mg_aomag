@@ -1,5 +1,5 @@
 <?php
-if (!(string)Mage::getConfig()->getModuleConfig('OrganicInternet_SimpleConfigurableProducts')->active == 'true')
+if ((string)Mage::getConfig()->getModuleConfig('OrganicInternet_SimpleConfigurableProducts')->active != 'true')
 {
 	class OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Price{}
 }

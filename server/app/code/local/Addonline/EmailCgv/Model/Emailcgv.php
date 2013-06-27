@@ -1,5 +1,5 @@
 <?php
-if (!(string)Mage::getConfig()->getModuleConfig('Quadra_Extensions')->active == 'true')
+if ((string)Mage::getConfig()->getModuleConfig('Quadra_Extensions')->active != 'true')
 {
 	class Quadra_Extensions_Model_Sales_Order extends Mage_Sales_Model_Order{}
 }

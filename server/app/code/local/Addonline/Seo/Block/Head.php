@@ -1,7 +1,10 @@
 <?php
-if (!(string)Mage::getConfig()->getModuleConfig('Fooman_Speedster')->active == 'true')
+if ((string)Mage::getConfig()->getModuleConfig('Fooman_Speedster')->active != 'true')
 {
-  class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head{}
+  	echo 'Fooman_Speedster NON ACTIF';
+	class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head{}
+} else {
+  	echo 'Fooman_Speedster ACTIF';
 }
   class Addonline_Seo_Block_Head extends Fooman_Speedster_Block_Page_Html_Head
 {
