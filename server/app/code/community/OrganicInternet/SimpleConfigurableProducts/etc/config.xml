@@ -66,13 +66,15 @@
                 <rewrite>
                     <product_view_type_configurable>OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_View_Type_Configurable</product_view_type_configurable>
                 </rewrite>
+                <!-- CONFLIT : décommenter si le module Addonline_Varnish n'est pas installé  
                 <rewrite>
                     <product_price>OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_Price</product_price>
-                </rewrite>
+                </rewrite> -->
                 <rewrite>
                     <product_view_media>OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_View_Media</product_view_media>
                 </rewrite>
-<!-- surchargé dans Addonline_Catalog <rewrite>
+				<!-- CONFLIT : décommenter si le module Addonline_Catalog n'est pas installé  
+				<rewrite>
                     <product_view_attributes>OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_View_Attributes</product_view_attributes>
                 </rewrite> -->
             </catalog>

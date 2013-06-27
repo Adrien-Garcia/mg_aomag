@@ -36,7 +36,8 @@
             </checkout>
             <sales>
                 <rewrite>
-                    <order>Quadra_Extensions_Model_Sales_Order</order>
+                    <!-- CONFLIT : décommenter si le module Addonline_EmailCgv n'ets pas installé   
+                    <order>Quadra_Extensions_Model_Sales_Order</order>  -->
                     <order_config>Quadra_Extensions_Model_Sales_Order_Config</order_config>
                 </rewrite>
             </sales>

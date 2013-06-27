@@ -108,7 +108,8 @@
             </checkout>
             <checkout>
                 <rewrite>
-                    <links>Idev_OneStepCheckout_Block_Checkout_Links</links>
+                    <!-- CONFLIT : décommenter si le module Addonline_Varnish n'est pas installé   
+                    <links>Idev_OneStepCheckout_Block_Checkout_Links</links> -->
                 </rewrite>
             </checkout>
             <checkout>

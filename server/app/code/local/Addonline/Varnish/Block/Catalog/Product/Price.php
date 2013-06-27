@@ -1,4 +1,8 @@
 <?php
+if (!(string)Mage::getConfig()->getModuleConfig('OrganicInternet_SimpleConfigurableProducts')->active == 'true')
+{
+	class OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Price{}
+}
 class Addonline_Varnish_Block_Catalog_Product_Price extends OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_Price
 {
 
