@@ -169,12 +169,13 @@ function shippingRadioCheck(element) {
 						var telephoneElt = jQuery("#socolissimo-hook input[name='tel_socolissimo']");
 						if (!telephoneElt || telephoneElt.val() == undefined) {
 							resetShippingMethod();
-						}
-						var shippingMethod = jQuery("input[name='shipping_method']:checked").val();
-						if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
-							var relaisElt = jQuery("#socolissimo-hook input[name='relais_socolissimo']");
-							if (!relaisElt || relaisElt.val() == undefined) {
-								resetShippingMethod();
+						} else {
+							var shippingMethod = jQuery("input[name='shipping_method']:checked").val();
+							if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
+								var relaisElt = jQuery("#socolissimo-hook input[name='relais_socolissimo']");
+								if (!relaisElt || relaisElt.val() == undefined) {
+									resetShippingMethod();
+								}
 							}
 						}
 					},
@@ -235,7 +236,7 @@ function shippingRadioCheck(element) {
 }
 
 function resetShippingMethod() {
-	jQuery("input[name='shipping_method']:checked").attr("checked","");
+	jQuery("input[name='shipping_method']:checked").prop("checked","");
 }
 
 function geocodeAdresse() {
