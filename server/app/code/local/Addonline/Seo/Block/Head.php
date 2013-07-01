@@ -1,7 +1,7 @@
 <?php
 if ((string)Mage::getConfig()->getModuleConfig('Fooman_Speedster')->active != 'true')
 {
-	class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head{}
+  class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head{}
 }
   class Addonline_Seo_Block_Head extends Fooman_Speedster_Block_Page_Html_Head
 {
@@ -71,14 +71,15 @@ if ((string)Mage::getConfig()->getModuleConfig('Fooman_Speedster')->active != 't
 	{
 		$route = $this->getRequest()->getRouteName();
 		$controller = $this->getRequest()->getControllerName();
-		$cms_page_id = Mage::getSingleton('cms/page')->getId();
-		if($route == "catalogsearch" || $route == "checkout" || $route == "contacts" || $route == "customer" || $controller == "product_compare" || $controller = "seo_sitemap") {
-			$this->_data['robots'] = "noindex,nofollow";
-		} elseif($cms_page_id = 3 || $cms_page_id == 11 || $cms_page_id == 18) {
-			$this->_data['robots'] = "noindex,follow";
-		} elseif (empty($this->_data['robots'])) {
-			$this->_data['robots'] = Mage::getStoreConfig('design/head/default_robots');
-		}
-		return $this->_data['robots'];
+		
+		if($route == "catalogsearch" || $route == "checkout" || $route == "contacts" || $route == "customer" || $controller == "product_compare") {
+			$this->_data['robots'] = "NOINDEX,FOLLOW";
+		} elseif($route == "cms") {
+			$pageCms = Mage::getSingleton('cms/page');
+			if ($pageCms->getMetaRobots()) {
+				$this->_data['robots'] = $pageCms->getMetaRobots();
+			}
+		} 
+		return parent::getRobots();
 	}
 }
