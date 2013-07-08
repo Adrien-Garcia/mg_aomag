@@ -81,7 +81,12 @@ class Addonline_Seo_Model_Observer {
         	    		$headBlock->setKeywords($_keywords);
         	    	}
         	    	
-                	
+        	    	$_filters = Mage::getSingleton('catalog/layer')->getState()->getFilters();
+        	    	if(count($_filters)==0 ) {
+        	    		if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
+        	    			$headBlock->removeItem('link_rel', $this->_category->getUrl());
+        	    		}
+        	    	}
                 	
         	    }
                 
@@ -99,22 +104,31 @@ class Addonline_Seo_Model_Observer {
                         $headBlock->setTitle(implode(array_filter(explode($separator,strtr($headBlock->getTitle().$separator.$s,$head))),$separator));
                         $headBlock->setDescription(implode(array_filter(explode($separator,strtr($headBlock->getDescription().$separator.$s,$head))),$separator));
                         
-                        //Si on a au moins un filtre on n'indexe pas sur google, sauf si il est configuré pour
+                        //Si on a au moins un filtre on n'indexe pas sur google, sauf si il n'y en a qu'un seul et qu'il est configuré pour
                         $meta_robots = 'NOINDEX,NOFOLLOW';
-                        foreach ($_filters as $_filter) {
-                        	$attribute = $_filter->getFilter()->getAttributeModel();
-                        	$seoattribute = Mage::getModel('seo/attribute')->load($attribute->getId(), 'attribute_id');
-                        	if ($seoattribute->getData('meta_robots') == 'INDEX,FOLLOW' &&  $meta_robots != 'INDEX,FOLLOW') {
-                        		$meta_robots = $seoattribute->getData('meta_robots');
-                        	}
-                        	if ($seoattribute->getData('meta_robots') == 'INDEX,NOFOLLOW' &&  $meta_robots != 'INDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW') {
-                        		$meta_robots = $seoattribute->getData('meta_robots');
-                        	}
-                            if ($seoattribute->getData('meta_robots') == 'NOINDEX,FOLLOW' &&  $meta_robots != 'INDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW') {
-                        		$meta_robots = $seoattribute->getData('meta_robots');
-                        	}
+                        if(count($_filters)==1) {
+	                        foreach ($_filters as $_filter) {
+	                        	if ($_filter->getFilter()->getRequestVar()!= 'cat') { 
+		                        	$attribute = $_filter->getFilter()->getAttributeModel();
+		                        	$seoattribute = Mage::getModel('seo/attribute')->load($attribute->getId(), 'attribute_id');
+		                        	if ($seoattribute->getData('meta_robots') == 'INDEX,FOLLOW' &&  $meta_robots != 'INDEX,FOLLOW') {
+		                        		$meta_robots = $seoattribute->getData('meta_robots');
+		                        	}
+		                        	if ($seoattribute->getData('meta_robots') == 'INDEX,NOFOLLOW' &&  $meta_robots != 'INDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW') {
+		                        		$meta_robots = $seoattribute->getData('meta_robots');
+		                        	}
+		                            if ($seoattribute->getData('meta_robots') == 'NOINDEX,FOLLOW' &&  $meta_robots != 'INDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW') {
+		                        		$meta_robots = $seoattribute->getData('meta_robots');
+		                        	}
+	                        	}
+	                        }
                         }
                         $headBlock->setRobots($meta_robots);
+                        if ( strpos ($meta_robots,'INDEX') === 0) {
+                        	if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
+                        		$headBlock->removeItem('link_rel', $this->_category->getUrl());
+                        	}
+                        }
                 }
                 
                 //BALISES METAS TITLE DES PAGES COMMENTAIRE
