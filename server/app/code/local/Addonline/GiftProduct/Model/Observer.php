@@ -30,17 +30,11 @@ class Addonline_GiftProduct_Model_Observer extends Varien_Object
 		$form = $observer->getEvent()->getForm();
 		$prefix = $form->getHtmlIdPrefix();
 		$fieldset = $form->getElement('action_fieldset');
-		$fieldset->removeField('simple_action');
-		$fieldset->addField('simple_action', 'select', array(
-				'label'     => Mage::helper('salesrule')->__('Apply'),
-				'name'      => 'simple_action',
-				'options'    => array(
-						'by_percent' => Mage::helper('salesrule')->__('Percent of product price discount'),
-						'by_fixed' => Mage::helper('salesrule')->__('Fixed amount discount'),
-						'cart_fixed' => Mage::helper('salesrule')->__('Fixed amount discount for whole cart'),
-						'buy_x_get_y' => Mage::helper('salesrule')->__('Buy X get Y free (discount amount is Y)'),
-                		Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION => Mage::helper('salesrule')->__('Add gift product (set product ID in the Discount Amount field)')
-				),
-		));
+		$simpleActionElement = $fieldset->getElements()->searchById('simple_action');
+		$options = $simpleActionElement->getValues();
+		$options[] = array('value'=> Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION, 
+						'label'=> Mage::helper('salesrule')->__('Add gift product (set product ID in the Discount Amount field)'));
+		$simpleActionElement->setValues($options);
+		
 	}
 }
