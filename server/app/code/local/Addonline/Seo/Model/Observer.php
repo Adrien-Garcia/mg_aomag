@@ -88,6 +88,10 @@ class Addonline_Seo_Model_Observer {
         	    		}
         	    	}
                 	
+        	    	//on set la balise robots défini au niveau de la catégorie
+        	    	if ($this->_category->getMetaRobots()) {
+	        	    	$headBlock->setRobots($this->_category->getMetaRobots());
+        	    	}
         	    }
                 
 				//BALISES METAS DES PAGES FILTREES
@@ -105,23 +109,26 @@ class Addonline_Seo_Model_Observer {
                         $headBlock->setDescription(implode(array_filter(explode($separator,strtr($headBlock->getDescription().$separator.$s,$head))),$separator));
                         
                         //Si on a au moins un filtre on n'indexe pas sur google, sauf si il n'y en a qu'un seul et qu'il est configuré pour
-                        $meta_robots = 'NOINDEX,NOFOLLOW';
-                        if(count($_filters)==1) {
-	                        foreach ($_filters as $_filter) {
-	                        	if ($_filter->getFilter()->getRequestVar()!= 'cat') { 
-		                        	$attribute = $_filter->getFilter()->getAttributeModel();
-		                        	$seoattribute = Mage::getModel('seo/attribute')->load($attribute->getId(), 'attribute_id');
-		                        	if ($seoattribute->getData('meta_robots') == 'INDEX,FOLLOW' &&  $meta_robots != 'INDEX,FOLLOW') {
-		                        		$meta_robots = $seoattribute->getData('meta_robots');
-		                        	}
-		                        	if ($seoattribute->getData('meta_robots') == 'INDEX,NOFOLLOW' &&  $meta_robots != 'INDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW') {
-		                        		$meta_robots = $seoattribute->getData('meta_robots');
-		                        	}
-		                            if ($seoattribute->getData('meta_robots') == 'NOINDEX,FOLLOW' &&  $meta_robots != 'INDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW') {
-		                        		$meta_robots = $seoattribute->getData('meta_robots');
-		                        	}
+                        $meta_robots = $headBlock->getRobots();
+                        foreach ($_filters as $_filter) {
+                        	if ($_filter->getFilter()->getRequestVar()== 'cat') { 
+                        		$meta_robots =  'NOINDEX,NOFOLLOW'; //si il y a le filtre catéogire : on n'indexe pas la page
+                        	} else {
+	                        	$attribute = $_filter->getFilter()->getAttributeModel();
+	                        	$seoattribute = Mage::getModel('seo/attribute')->load($attribute->getId(), 'attribute_id');
+	                        	if ($seoattribute->getData('meta_robots') == 'NOINDEX,NOFOLLOW' || $seoattribute->getData('meta_robots') == '') {
+	                        		$meta_robots = 'NOINDEX,NOFOLLOW'; //si il y un filtre configuré en NOINDEX,NOFOLLOW : on n'indexe pas la page
 	                        	}
-	                        }
+                        		if ($seoattribute->getData('meta_robots') == 'NOINDEX,FOLLOW' &&  $meta_robots != 'NOINDEX,NOFOLLOW') {
+                        			$meta_robots = $seoattribute->getData('meta_robots');
+	                        	}
+	                        	if ($seoattribute->getData('meta_robots') == 'INDEX,NOFOLLOW' && $meta_robots != 'NOINDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW') {
+	                        		$meta_robots = $seoattribute->getData('meta_robots');
+	                        	}
+                        		if ($seoattribute->getData('meta_robots') == 'INDEX,FOLLOW' && $meta_robots != 'NOINDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW') {
+                        			$meta_robots = $seoattribute->getData('meta_robots');
+	                        	}
+                        	}
                         }
                         $headBlock->setRobots($meta_robots);
                         if ( strpos ($meta_robots,'INDEX') === 0) {
@@ -286,8 +293,8 @@ class Addonline_Seo_Model_Observer {
 	    	$values=array_merge(array(""=>Mage::helper('adminhtml')->__('Use Default Value')),Mage::getSingleton('adminhtml/system_config_source_design_robots')->toOptionArray());
 	    	$fieldset->addField('meta_robots', 'select', array(
 	    			'name' => 'meta_robots',
-	    			'label' => Mage::helper('cms')->__('Robots'),
-	    			'title' => Mage::helper('cms')->__('Robots'),
+	    			'label' => Mage::helper('cms')->__('Meta Robots'),
+	    			'title' => Mage::helper('cms')->__('Meta Robots'),
 	    			'values'   => $values
 	    	));
 	    }

@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Addonline_Seo>
-            <version>0.1.3</version>
+            <version>0.1.4</version>
         </Addonline_Seo>
     </modules>
     <global>
