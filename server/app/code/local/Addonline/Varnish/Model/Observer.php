@@ -74,6 +74,10 @@ class Addonline_Varnish_Model_Observer
      */
     public function onCategorySave($observer)
     {
+    	// If Varnish is not enabled on admin don't do anything
+    	if (!Mage::helper('varnish')->isEnabled()) {
+    		return;
+    	}
     	$category = $observer->getCategory(); /* @var $category Mage_Catalog_Model_Category */
     	if ($category->getData('include_in_menu')) {
     		Mage::getModel('adminnotification/inbox')->parse(array(
