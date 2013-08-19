@@ -204,7 +204,7 @@ function shippingRadioCheck(element) {
 					var postcode = this.value; 
 					var country = jQuery('#socolissimo_country').val();
 					jQuery.ajax({
-						url: 'http'+(document.location.protocol=='https'?'s':'')+'://api.geonames.org/postalCodeSearchJSON?username=addonline&country='+country+'&postalcode='+postcode,
+						url: 'http'+(document.location.protocol=='https:'?'s':'')+'://api.geonames.org/postalCodeSearchJSON?username=addonline&country='+country+'&postalcode='+postcode,
 						dataType:'jsonp',
 						jsonpCallback: 'reloadCities',
 						success: function(json){
