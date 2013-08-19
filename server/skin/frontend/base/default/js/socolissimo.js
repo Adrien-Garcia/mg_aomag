@@ -204,7 +204,7 @@ function shippingRadioCheck(element) {
 					var postcode = this.value; 
 					var country = jQuery('#socolissimo_country').val();
 					jQuery.ajax({
-						url: 'http://api.geonames.org/postalCodeSearchJSON?username=addonline&country='+country+'&postalcode='+postcode,
+						url: 'http'+(document.location.protocol=='https'?'s':'')+'://api.geonames.org/postalCodeSearchJSON?username=addonline&country='+country+'&postalcode='+postcode,
 						dataType:'jsonp',
 						jsonpCallback: 'reloadCities',
 						success: function(json){
@@ -358,16 +358,24 @@ function showMap() {
 function infoBulleGenerator(relaisSocolissimo) {
 	contentString = '<div class="adresse">'+
     '<b>'+relaisSocolissimo.libelle+ '</b><br/>'+
-    '<b>'+relaisSocolissimo.adresse+ ' ' + relaisSocolissimo.code_postal + ' ' + relaisSocolissimo.commune + '</b><br/>'+
-    '<b>Horaires d\'ouverture :</b>'+
-    '<p>';
-    if (relaisSocolissimo.horaire_lundi!='00:00-00:00 00:00-00:00') {contentString += '<b>Lundi:</b> '+ relaisSocolissimo.horaire_lundi + '<br/>'}
-    if (relaisSocolissimo.horaire_mardi!='00:00-00:00 00:00-00:00') {contentString += '<b>Mardi:</b> '+ relaisSocolissimo.horaire_mardi + '<br/>'}
-    if (relaisSocolissimo.horaire_mercredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Mercredi:</b> '+ relaisSocolissimo.horaire_mercredi + '<br/>'}
-    if (relaisSocolissimo.horaire_jeudi!='00:00-00:00 00:00-00:00') {contentString += '<b>Jeudi:</b> '+ relaisSocolissimo.horaire_jeudi + '<br/>'}
-    if (relaisSocolissimo.horaire_vendredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Vendredi:</b> '+ relaisSocolissimo.horaire_vendredi + '<br/>'}
-    if (relaisSocolissimo.horaire_samedi!='00:00-00:00 00:00-00:00') {contentString += '<b>Samedi:</b> '+ relaisSocolissimo.horaire_samedi + '<br/>'}
-    if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche+ '<br/>'}
+    '<b>'+relaisSocolissimo.adresse+ ' ' + relaisSocolissimo.code_postal + ' ' + relaisSocolissimo.commune + '</b><br/>';
+    if (relaisSocolissimo.conges_total) {
+		contentString += '<b>En congés </b>';
+	    contentString += '<p>';
+	} else {
+		contentString += '<b>Horaires d\'ouverture :</b><br/>';
+		if (relaisSocolissimo.deb_periode_horaire) {
+			contentString += '(valables du ' + relaisSocolissimo.deb_periode_horaire + ' au '+ relaisSocolissimo.fin_periode_horaire +')';
+		}
+	    contentString += '<p>';
+	    if (relaisSocolissimo.horaire_lundi!='00:00-00:00 00:00-00:00') {contentString += '<b>Lundi:</b> '+ relaisSocolissimo.horaire_lundi + '<br/>'}
+	    if (relaisSocolissimo.horaire_mardi!='00:00-00:00 00:00-00:00') {contentString += '<b>Mardi:</b> '+ relaisSocolissimo.horaire_mardi + '<br/>'}
+	    if (relaisSocolissimo.horaire_mercredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Mercredi:</b> '+ relaisSocolissimo.horaire_mercredi + '<br/>'}
+	    if (relaisSocolissimo.horaire_jeudi!='00:00-00:00 00:00-00:00') {contentString += '<b>Jeudi:</b> '+ relaisSocolissimo.horaire_jeudi + '<br/>'}
+	    if (relaisSocolissimo.horaire_vendredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Vendredi:</b> '+ relaisSocolissimo.horaire_vendredi + '<br/>'}
+	    if (relaisSocolissimo.horaire_samedi!='00:00-00:00 00:00-00:00') {contentString += '<b>Samedi:</b> '+ relaisSocolissimo.horaire_samedi + '<br/>'}
+	    if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche+ '<br/>'}
+	}
     if (relaisSocolissimo.parking==1) { 
     	contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_parking.jpg" />'; 
     }
