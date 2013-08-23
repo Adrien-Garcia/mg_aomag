@@ -220,7 +220,9 @@ function shippingRadioCheck(element) {
 				});
 
 				//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
-				geocodeAdresse();
+				if (jQuery("#socolissimo_postcode").val() != "") {
+					geocodeAdresse();
+				}
 
 			}					
 
@@ -247,10 +249,6 @@ function geocodeAdresse() {
 	}
 	if (jQuery("#socolissimo_postcode").val() == "") {
 		alert("Veuillez saisir un code postal");
-		return;
-	}
-	if (jQuery("#socolissimo_street").val() == "") {
-		alert("Veuillez saisir une adresse");
 		return;
 	}
 	
