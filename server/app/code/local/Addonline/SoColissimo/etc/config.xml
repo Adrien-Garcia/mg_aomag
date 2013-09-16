@@ -199,7 +199,7 @@
 {
 	label: "mon rendez-vous",
 	code: "rdv_fr",
-	destination: "FR(/^75(0[0-1][0-9])|020|116$/)",
+	destination: "FR(/^75((0[0-1][0-9])|020|116)$/)",
 	conditions: "{cart.weight}<20",
 	fees: "{domicile_sign_fr.fees} + 3",
 }
