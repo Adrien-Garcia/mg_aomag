@@ -1,4 +1,8 @@
 <?php 
+	
+  //Ajout ADDONLINE : check if user is logged in magento admin
+  require_once("magento_admin.php");
+  
   header('Pragma: public');   // required
   header('Expires: 0');    // no cache
   header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

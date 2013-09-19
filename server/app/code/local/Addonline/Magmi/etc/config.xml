@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Addonline_Magmi>
+            <version>0.0.1</version>
+        </Addonline_Magmi>
+    </modules>
+    <global>
+	    <blocks>
+		    <magmi>
+		    	<class>Addonline_Magmi_Block</class>
+	    	</magmi>
+	    </blocks>
+	    <helpers>
+		    <magmi>
+		    	<class>Addonline_Magmi_Helper</class>
+	    	</magmi>
+	    </helpers>
+    </global>
+    <admin>
+        <routers>
+	        <magmi>
+	            <use>admin</use>
+	            <args>
+	                <module>Addonline_Magmi</module>
+	                <frontName>magmi</frontName>
+	            </args>
+	        </magmi>
+	    </routers>
+    </admin>
+</config>
