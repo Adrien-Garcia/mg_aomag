@@ -1,6 +1,6 @@
 <?php
 
-class Addonline_AdvancedSlideshow_Adminhtml_AdvancedslideshowController extends Mage_Adminhtml_Controller_action
+class Addonline_AdvancedSlideshow_Adminhtml_AdvancedslideshowController extends Mage_Adminhtml_Controller_Action
 {
 	protected function _initAction()
 	{

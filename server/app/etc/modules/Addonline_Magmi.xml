@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Addonline_Magmi
+ * 
+ * @category    Addonline
+ * @package     Addonline_magmi
+ * @copyright   Copyright (c) 2013 Addonline
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+-->
+<config>
+    <modules>
+        <Addonline_Magmi>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Addonline_Magmi>
+    </modules>
+</config>

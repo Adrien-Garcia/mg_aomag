@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Centerax_DeveloperTools>
+			<version>1.0.1</version>
+		</Centerax_DeveloperTools>
+	</modules>
+	<global>
+	    <helpers>
+	        <devtools>
+	            <class>Centerax_DeveloperTools_Helper</class>
+	        </devtools>
+	    </helpers>
+	    <models>
+	        <devtools>
+	            <class>Centerax_DeveloperTools_Model</class>
+	        </devtools>
+	    </models>
+	    <blocks>
+	        <devtools>
+	            <class>Centerax_DeveloperTools_Block</class>
+	        </devtools>
+	    </blocks>
+	</global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <devtools translate="title" module="devtools">
+                                    <title>Developer Tools</title>
+                                    <sort_order>90</sort_order>
+                                </devtools>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <menu>
+            <system>
+                <children>
+                    <devtools translate="title" module="devtools">
+                        <title>Developer Tools</title>
+                        <children>
+		                    <devtools_loginspector translate="title" module="devtools">
+		                        <title>Log Inspector</title>
+		                        <action>devtools/adminhtml_dev/log</action>
+		                        <sort_order>1</sort_order>
+		                    </devtools_loginspector>
+		                    <devtools_reportinspector translate="title" module="devtools">
+		                        <title>Report Inspector</title>
+		                        <action>devtools/adminhtml_dev/report</action>
+		                        <sort_order>2</sort_order>
+		                    </devtools_reportinspector>
+		                    <devtools_syschecker translate="title" module="devtools">
+		                        <title>System Checker</title>
+		                        <action>devtools/adminhtml_dev/system</action>
+		                        <sort_order>3</sort_order>
+		                    </devtools_syschecker>
+		                    <!--<devtools_sql translate="title" module="devtools">
+		                        <title>SQL Queries</title>
+		                        <action>devtools/adminhtml_dev/sql</action>
+		                        <sort_order>4</sort_order>
+		                    </devtools_sql>-->
+		                    <devtools_phpinfo translate="title" module="devtools">
+		                        <title>PHP Info</title>
+		                        <action>devtools/adminhtml_dev/info</action>
+		                        <sort_order>5</sort_order>
+		                    </devtools_phpinfo>
+                        </children>
+                        <sort_order>199</sort_order>
+                    </devtools>
+                </children>
+            </system>
+        </menu>
+        <translate>
+            <modules>
+                <Centerax_DeveloperTools>
+                    <files>
+                        <default>Centerax_DeveloperTools.csv</default>
+                    </files>
+                </Centerax_DeveloperTools>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <devtools>
+                    <file>devtools.xml</file>
+                </devtools>
+            </updates>
+        </layout>
+    </adminhtml>
+    <admin>
+        <routers>
+            <devtools>
+                <use>admin</use>
+                <args>
+                    <module>Centerax_DeveloperTools</module>
+                    <frontName>devtools</frontName>
+                </args>
+            </devtools>
+        </routers>
+    </admin>
+</config>
