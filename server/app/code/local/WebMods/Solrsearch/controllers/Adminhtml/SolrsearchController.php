@@ -218,7 +218,7 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 				$storeMappingString = trim($storeMappingString, ',');
 				if (!empty($storeMappingString)) {
 					$connection = $resource->getConnection('core_write');
-					$results = $connection->query("DELETE FROM {$logIndexedproductTable} WHERE `logs_type` = 'INDEXEDPRODUCT' AND store_id IN({$storeMappingString});");
+					$results = $connection->query("DELETE FROM {$logIndexedproductTable} WHERE store_id IN({$storeMappingString});");
 				}
 				
 				$this->doRequest($clearnSolrIndexUrl);
