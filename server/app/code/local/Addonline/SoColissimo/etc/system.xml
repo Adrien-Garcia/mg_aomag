@@ -203,7 +203,79 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</serial>							
+						</serial>	
+						<generator_flexi>
+							<label>Générer la clé SoColissimoFlexibilite</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	var module_name = $$('.content-header h3').first().innerHTML;
+						        	var is_aomagento = $("is_aomagento").getValue();
+						        	if(is_aomagento == 0) {
+						        	console.log(module_name);
+						        		$("row_"+module_name+"_licence_generator_flexi").hide();
+						        	} else {
+						        		$("row_"+module_name+"_licence_generator_flexi").show();
+						        	}
+						        	
+						            Event.observe('generate_key', 'click', function() {
+						        		var hostname = $("hostname").getValue();
+						                new Ajax.Request('/aomagento/generation/getlicence', {
+											method:'get',
+											parameters : {hostname : hostname, module: "SoColissimoFlexibilite"},
+											onSuccess: function(data) {
+												$("key_generated").update(data.responseText);
+											}
+										});
+						            })
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<addonline_licence>
+									<key_generation>1</key_generation>
+								</addonline_licence>
+							</depends>
+						</generator_flexi>
+						<generator_liberte>
+							<label>Générer la clé SoColissimoLiberte</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	var module_name = $$('.content-header h3').first().innerHTML;
+						        	var is_aomagento = $("is_aomagento").getValue();
+						        	if(!is_aomagento == 0) {
+						        		$("row_"+module_name+"_licence_generator_liberte").hide();
+						        	} else {
+						        		$("row_"+module_name+"_licence_generator_liberte").show();
+						        	}
+						        	
+						            Event.observe('generate_key', 'click', function() {
+						        		var hostname = $("hostname").getValue();
+						                new Ajax.Request('/aomagento/generation/getlicence', {
+											method:'get',
+											parameters : {hostname : hostname, module: "SoColissimoLiberte"},
+											onSuccess: function(data) {
+												$("key_generated").update(data.responseText);
+											}
+										});
+						            })
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_liberte>						
 					</fields>						
 				</licence>				                
 			</groups>

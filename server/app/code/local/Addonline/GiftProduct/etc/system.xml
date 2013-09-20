@@ -6,9 +6,9 @@
             <sort_order>202</sort_order>
         </addonline>        
     </tabs>
-    <sections>        
-        <brand translate="label">
-			<label>brand</label>
+    <sections>
+        <giftproduct translate="label">
+			<label>giftproduct</label>
 			<tab>addonline</tab>
 			<frontend_type>text</frontend_type>
 			<sort_order>100</sort_order>
@@ -31,7 +31,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</serial>	
+						</serial>		
 						<generator>
 							<label>Générer la clé</label>
 							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
@@ -51,7 +51,7 @@
 						        		var hostname = $("hostname").getValue();
 						                new Ajax.Request('/aomagento/generation/getlicence', {
 											method:'get',
-											parameters : {hostname : hostname, module: "Brand"},
+											parameters : {hostname : hostname, module: "GiftProduct"},
 											onSuccess: function(data) {
 												$("key_generated").update(data.responseText);
 											}
@@ -64,10 +64,10 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</generator>							
+						</generator>						
 					</fields>						
-				</licence>				                
+				</licence>			                
 			</groups>
-		</brand>
+		</giftproduct>
     </sections>
 </config>
