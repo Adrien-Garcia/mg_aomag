@@ -244,27 +244,12 @@
 							<label>Générer la clé</label>
 							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
 							<comment>
-							Entrer le nom de domaine ci-dessus
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
 						    <![CDATA[
 						        <script type="text/javascript">
-						        	var module_name = $$('.content-header h3').first().innerHTML;
-						        	var is_aomagento = $("is_aomagento").getValue();
-						        	if(is_aomagento == 0) {
-						        		$("row_"+module_name+"_licence_generator").hide();
-						        	} else {
-						        		$("row_"+module_name+"_licence_generator").show();
-						        	}
-						        	
-						            Event.observe('generate_key', 'click', function() {
-						        		var hostname = $("hostname").getValue();
-						                new Ajax.Request('/aomagento/generation/getlicence', {
-											method:'get',
-											parameters : {hostname : hostname, module: "SprintSecure"},
-											onSuccess: function(data) {
-												$("key_generated").update(data.responseText);
-											}
-										});
-						            })
+						        	jQuery("button.generate_key").live("click", function(e) {
+						        		generate_key(e, "SprintSecure");
+						        	});
 						        </script>
 						    ]]>
 						    </comment>
