@@ -211,7 +211,7 @@
 							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
 							 <![CDATA[
 						        <script type="text/javascript">
-						        	jQuery("button.generate_key").live("click", function(e) {
+						        	jQuery("#row_socolissimo_licence_generator_flexi button.generate_key").live("click", function(e) {
 						        		generate_key(e, "SoColissimoFlexibilite");
 						        	});
 						        </script>
@@ -234,7 +234,7 @@
 							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
 						    <![CDATA[
 						        <script type="text/javascript">
-						        	jQuery("button.generate_key").live("click", function(e) {
+						        	jQuery("#row_socolissimo_licence_generator_liberte button.generate_key").live("click", function(e) {
 						        		generate_key(e, "SoColissimoLiberte");
 						        	});
 						        </script>

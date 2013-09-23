@@ -12,16 +12,29 @@ jQuery(document).ready(function($) {
 
 function generate_key(event, name) {
 	
-	var parent = jQuery(event.target).parent().parent();
-	var hostname_object = jQuery("#"+parent[0]['id']+" .hostname");
-	var hostname = hostname_object[0]['value'];
+	var id_parent = "";
+	if(name == "SoColissimoLiberte" || name == "SoColissimoFlexibilite") {
+		if(name == "SoColissimoLiberte") {
+			id_parent = "row_socolissimo_licence_generator_liberte";
+		} else {
+			id_parent = "row_socolissimo_licence_generator_flexi";
+		}
+		var hostname = jQuery("#"+id_parent+" .hostname").val();
+	} else {
+		var hostname = jQuery("input.hostname").val();
+	}
 	
 	jQuery.ajax({
 		url: "/aomagento/generation/getlicence",
 		method:"get",
-		data : {hostname : hostname, module: name, id_parent: parent[0]['id']},
+		data : {hostname : hostname, module: name, id_parent: id_parent},
 		success: function(data) {
-			jQuery("#"+parent[0]['id']+" div.key_generated").html(data);
+			if(id_parent != "") {
+				jQuery("#"+id_parent+" div.key_generated").html(data);
+			} else {
+				jQuery("div.key_generated").html(data);
+			}
+			
 		}
 	});
 }
