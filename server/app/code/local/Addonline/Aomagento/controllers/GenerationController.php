@@ -17,6 +17,7 @@ class Addonline_Aomagento_GenerationController extends Mage_Core_Controller_Fron
 			if(!preg_match("/\/$/", $hostname)) {
 				$hostname = $hostname."/";
 			}
+			echo $hostname."::";
 			$licence = md5($hostname.$key.$module);
 			echo $licence;
 		} else {

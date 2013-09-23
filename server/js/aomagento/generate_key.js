@@ -29,10 +29,13 @@ function generate_key(event, name) {
 		method:"get",
 		data : {hostname : hostname, module: name, id_parent: id_parent},
 		success: function(data) {
+			var datas = data.split("::");
 			if(id_parent != "") {
-				jQuery("#"+id_parent+" div.key_generated").html(data);
+				jQuery("#"+id_parent+" .hostname").val(datas[0]);
+				jQuery("#"+id_parent+" div.key_generated").html(datas[1]);
 			} else {
-				jQuery("div.key_generated").html(data);
+				jQuery(".hostname").val(datas[0]);
+				jQuery("div.key_generated").html(datas[1]);
 			}
 			
 		}
