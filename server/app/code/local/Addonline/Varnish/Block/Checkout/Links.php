@@ -6,7 +6,11 @@
  * @category    Addonline
  * @package     Addonline_Varnish
  */
-class Addonline_Varnish_Block_Checkout_Links extends Mage_Checkout_Block_Links
+if ((string)Mage::getConfig()->getModuleConfig('Idev_OneStepCheckout')->active != 'true')
+{
+	class Idev_OneStepCheckout_Block_Checkout_Links extends Mage_Checkout_Block_Links{}
+}
+class Addonline_Varnish_Block_Checkout_Links extends Idev_OneStepCheckout_Block_Checkout_Links
 {
     /**
      * Add shopping cart link to parent block

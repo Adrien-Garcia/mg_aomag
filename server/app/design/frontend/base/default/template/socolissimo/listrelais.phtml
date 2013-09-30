@@ -20,7 +20,7 @@ foreach ($this->getListRelais() as $relais) : ?>
 		<?php echo $relais->getAdresse() ?><br />
 		<?php echo $relais->getCodePostal().' '.$relais->getCommune() ?>
 	</div>
-	<?php if (!$relais->congesTotal) :?>
+	<?php if (!$relais->getCongesTotal()) :?>
 	<button type="button" class="btn_socolissimoChoisir button <?php echo $relais->getType();?>" onclick="choisirRelais('<?php echo $i; ?>')" ><span>Choisir <?php if ($relais->isBureauPoste()): ?>ce bureau de poste<?php elseif($relais->isCommercant()):?>ce commerçant<?php elseif($relais->isCityssimo()):?> cette consigne cityssimo<?php endif;?></span></button>
 	<?php else :?>
 	<button type="button" class="btn_socolissimoChoisir button" ><span>en congés</span></button> 	

@@ -18,9 +18,9 @@ class Addonline_Seo_Model_Observer {
                 // - récupérer la blise head générique produit : dans Systeme>Configuration> design/head/title_product, design/head/description_product, design/head/keywords_product
   				// - appliquer les données du produit aux balises génériques 
 
-        	    if($layout->getBlock('product.info') && $headBlock = $layout->getBlock('head'))
+        	    if($layout->getBlock('product.info'))
         	    {
-        	    	$this->setProductVariables();
+        	    	$this->_setProductVariables();
         	    	$_head_title_template = Mage::getStoreConfig('catalog/seo/title_product');
         	    	$_head_description_template = Mage::getStoreConfig('catalog/seo/description_product');
         	    	$_head_keywords_template = Mage::getStoreConfig('catalog/seo/keywords_product');
@@ -29,19 +29,19 @@ class Addonline_Seo_Model_Observer {
         	    	$_original_description = $headBlock->getDescription();
         	    	$_original_keywords = $headBlock->getKeywords();
         	    	
-        	    	if( !trim($this->_product->getMetaTitle()) )
+        	    	if( !trim($this->_product->getMetaTitle()) && trim($_head_title_template))
         	    	{
-        	    		$_title = $this->filter($_head_title_template);
+        	    		$_title = $this->_filter($_head_title_template);
         	    		$headBlock->setTitle($_title);
         	    	}
-        	        if( !trim($this->_product->getMetaDescription()) )
+        	        if( !trim($this->_product->getMetaDescription()) && trim($_head_description_template) )
         	    	{
-        	    		$_description = $this->filter($_head_description_template);
+        	    		$_description = $this->_filter($_head_description_template);
         	    		$headBlock->setDescription($_description);
         	    	}
-        	        if( !trim($this->_product->getMetaKeyword()) )
+        	        if( !trim($this->_product->getMetaKeyword()) && trim($_head_keywords_template))
         	    	{
-        	    		$_keywords = $this->filter($_head_keywords_template);
+        	    		$_keywords = $this->_filter($_head_keywords_template);
         	    		$headBlock->setKeywords($_keywords);
         	    	}
         	    	
@@ -51,10 +51,10 @@ class Addonline_Seo_Model_Observer {
                 // - récupérer la blise head générique catégorie : dans Systeme>Configuration> design/head/title_category, design/head/description_category, design/head/keywords_category
   				// - appliquer les données de la category aux balises génériques 
 
-                if($layout->getBlock('category.products') && $headBlock = $layout->getBlock('head'))
+                if($layout->getBlock('category.products'))
         	    {
         	    	
-        	    	$this->setCategoryVariables();
+        	    	$this->_setCategoryVariables();
         	    	$_head_title_template = Mage::getStoreConfig('catalog/seo/title_category');
         	    	$_head_description_template = Mage::getStoreConfig('catalog/seo/description_category');
         	    	$_head_keywords_template = Mage::getStoreConfig('catalog/seo/keywords_category');
@@ -65,24 +65,33 @@ class Addonline_Seo_Model_Observer {
         	    	
         	        if( !trim($this->_category->getMetaTitle()) && trim($_head_title_template) )
         	    	{
-        	    		$_title = $this->filter($_head_title_template);
-        	    		$headBlock->setTitle($_title);
+        	    		$_title = $this->_filter($_head_title_template);
+           	    		$headBlock->setTitle($_title);
         	    	}
         	    	
         	        if( !trim($this->_category->getMetaDescription()) && trim($_head_description_template) )
         	    	{
-        	    		$_description = $this->filter($_head_description_template);
+        	    		$_description = $this->_filter($_head_description_template);
         	    		$headBlock->setDescription($_description);
         	    	}
         	    	
         	        if( !trim($this->_category->getMetaKeyword())  && trim($_head_keywords_template) )
         	    	{
-        	    		$_keywords = $this->filter($_head_keywords_template);
+        	    		$_keywords = $this->_filter($_head_keywords_template);
         	    		$headBlock->setKeywords($_keywords);
         	    	}
         	    	
+        	    	$_filters = Mage::getSingleton('catalog/layer')->getState()->getFilters();
+        	    	if(count($_filters)==0 ) {
+        	    		if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
+        	    			$headBlock->removeItem('link_rel', $this->_category->getUrl());
+        	    		}
+        	    	}
                 	
-                	
+        	    	//on set la balise robots défini au niveau de la catégorie
+        	    	if ($this->_category->getMetaRobots()) {
+	        	    	$headBlock->setRobots($this->_category->getMetaRobots());
+        	    	}
         	    }
                 
 				//BALISES METAS DES PAGES FILTREES
@@ -95,21 +104,50 @@ class Addonline_Seo_Model_Observer {
                         $head = array();
                         if(strlen(Mage::getStoreConfig('design/head/title_prefix'))) $head[Mage::getStoreConfig('design/head/title_prefix')] = '';
                         if(strlen(Mage::getStoreConfig('design/head/title_suffix'))) $head[Mage::getStoreConfig('design/head/title_suffix')] = '';
-                                
+
                         $headBlock->setTitle(implode(array_filter(explode($separator,strtr($headBlock->getTitle().$separator.$s,$head))),$separator));
                         $headBlock->setDescription(implode(array_filter(explode($separator,strtr($headBlock->getDescription().$separator.$s,$head))),$separator));
+                        
+                        //Si on a au moins un filtre on n'indexe pas sur google, sauf si il n'y en a qu'un seul et qu'il est configuré pour
+                        $meta_robots = $headBlock->getRobots();
+                        foreach ($_filters as $_filter) {
+                        	if ($_filter->getFilter()->getRequestVar()== 'cat') { 
+                        		$meta_robots =  'NOINDEX,NOFOLLOW'; //si il y a le filtre catéogire : on n'indexe pas la page
+                        	} else {
+	                        	$attribute = $_filter->getFilter()->getAttributeModel();
+	                        	$seoattribute = Mage::getModel('seo/attribute')->load($attribute->getId(), 'attribute_id');
+	                        	if ($seoattribute->getData('meta_robots') == 'NOINDEX,NOFOLLOW' || $seoattribute->getData('meta_robots') == '') {
+	                        		$meta_robots = 'NOINDEX,NOFOLLOW'; //si il y un filtre configuré en NOINDEX,NOFOLLOW : on n'indexe pas la page
+	                        	}
+                        		if ($seoattribute->getData('meta_robots') == 'NOINDEX,FOLLOW' &&  $meta_robots != 'NOINDEX,NOFOLLOW') {
+                        			$meta_robots = $seoattribute->getData('meta_robots');
+	                        	}
+	                        	if ($seoattribute->getData('meta_robots') == 'INDEX,NOFOLLOW' && $meta_robots != 'NOINDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW') {
+	                        		$meta_robots = $seoattribute->getData('meta_robots');
+	                        	}
+                        		if ($seoattribute->getData('meta_robots') == 'INDEX,FOLLOW' && $meta_robots != 'NOINDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW') {
+                        			$meta_robots = $seoattribute->getData('meta_robots');
+	                        	}
+                        	}
+                        }
+                        $headBlock->setRobots($meta_robots);
+                        if ( strpos ($meta_robots,'INDEX') === 0) {
+                        	if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
+                        		$headBlock->removeItem('link_rel', $this->_category->getUrl());
+                        	}
+                        }
                 }
                 
                 //BALISES METAS TITLE DES PAGES COMMENTAIRE
-                if($layout->getBlock('product.info.product_additional_data') && $headBlock = $layout->getBlock('head')) {
+                if($layout->getBlock('product.info.product_additional_data')) {
                         $headBlock->setTitle($headBlock->getTitle().' - Commentaires des internautes');
                 }
-                
-			}
+
+        	}
 			
         }
         
-		public function filter($value)
+		private function _filter($value)
     	{
     		foreach($this->_templateVars as $var => $replacement)
 			{
@@ -118,7 +156,7 @@ class Addonline_Seo_Model_Observer {
     		return $value;
     	}
         
-	    public function setVariables(array $variables)
+	    private function _setVariables(array $variables)
 	    {
 			foreach($variables as $name=>$value)
 			{
@@ -126,7 +164,7 @@ class Addonline_Seo_Model_Observer {
         	}
 	    }
 	    
-	    public function setProductVariables()
+	    private function _setProductVariables()
 	    {
 	    	$_variables = array();
 	    	
@@ -146,11 +184,8 @@ class Addonline_Seo_Model_Observer {
         	$this->_product = $_product;
         	$this->_category = $_category;
         	
-			$_brand = Mage::getModel('brand/brand')->load( $_product->getBrand() );
-			
 			$_rootCategoryId = Mage::app()->getStore()->getRootCategoryId();
 			
-			$_brand_name = $_brand->getNom();
         	$_product_name = $_product->getName();
 			$_product_sku = $_product->getSku();
 			
@@ -158,11 +193,20 @@ class Addonline_Seo_Model_Observer {
 	        $_variables['\{\{sku\}\}'] = $_product_sku;
 	        $_variables['\{\{category\.name\}\}'] = $_category_name;
 	        $_variables['\{\{parent\.name\}\}'] = $_parent_category_name;
-	        $_variables['\{\{brand\}\}'] = $_brand_name;
 	        
-	        $this->setVariables($_variables);
+	        //On vérifie si le module Addonline_Brand est installé, sinon on ne traite pas les lignes ci-dessous
+	        $modules = Mage::getConfig()->getNode('modules')->children();
+	        $modulesArray = (array)$modules;
+	        if(isset($modulesArray['Addonline_Brand'])) {
+	        	$_brand = Mage::getModel('brand/brand')->load( $_product->getBrand() );
+	        	$_brand_name = $_brand->getNom();
+	        	$_variables['\{\{brand\}\}'] = $_brand_name;
+	        }
+	        
+	        $this->_setVariables($_variables);
 	    }
-	    public function setCategoryVariables()
+	    
+	    private function _setCategoryVariables()
 	    {
 	    	$_variables = array();
         	$_category = Mage::registry('current_category');
@@ -177,8 +221,82 @@ class Addonline_Seo_Model_Observer {
 	        $_variables['\{\{category\.name\}\}'] = $_category_name;
 	        $_variables['\{\{parent\.name\}\}'] = $_parent_category_name;
 	        
-	        $this->setVariables($_variables);
+	        $this->_setVariables($_variables);
 	    }
 	    
-        
+	    /*
+	     *  Ajoute un champ Robots au formulaire d'édition des pages CMS (onglet Données Meta)
+	     */
+	    public function cmsMetaForm($observer) {
+	    	$form = $observer->getEvent()->getForm();
+	    	
+	    	/*
+	    	 * Checking if user have permissions to save information
+	    	*/
+	    	if (Mage::getSingleton('admin/session')->isAllowed('cms/page/save')) {
+	    		$isElementDisabled = false;
+	    	} else {
+	    		$isElementDisabled = true;
+	    	}
+	    	
+	    	$fieldset = $form->getElement('meta_fieldset');
+			$values=array_merge(array(""=>"Utiliser la configuration par defaut"),Mage::getSingleton('adminhtml/system_config_source_design_robots')->toOptionArray());
+	    	$fieldset->addField('meta_robots', 'select', array(
+	    			'name' => 'meta_robots',
+	    			'label' => Mage::helper('cms')->__('Robots'),
+	    			'title' => Mage::helper('cms')->__('Robots'),
+	    			'values'   => $values,
+	    			'disabled'  => $isElementDisabled
+	    	));
+	    }
+	    
+	    public function loadAttribute($event) {
+
+	    	$attribute = $event->getAttribute();
+	    	$attribute_id = ( int ) $attribute->getAttributeId();
+	    	
+ 	    	$seoattribute = Mage::getModel('seo/attribute')->load($attribute_id, 'attribute_id');
+
+ 	    	if ($seoattribute && $seoattribute->getId()) {
+	    			
+ 	    		$attribute->addData($seoattribute->getData());
+
+ 	    	}
+	    }
+
+	    public function saveAttribute($event) {
+
+	    	$attribute_id = ( int ) $event->getAttribute()->getAttributeId();
+	    	$meta_robots = $event->getAttribute()->getData('meta_robots');
+	    	$seoattribute = Mage::getModel('seo/attribute')->load($attribute_id, 'attribute_id');
+
+	    	if (! $seoattribute->getData('attribute_id')) {
+	    		$seoattribute->setData('attribute_id', $attribute_id);
+	    		$seoattribute->isObjectNew(true);
+	    		 
+	    	}
+
+	    	$seoattribute->setData('meta_robots',$meta_robots);
+	    	
+	    	$seoattribute->save();
+
+	    }
+	
+	    /*
+	     *  Ajoute un champ SEO Robots au formulaire d'édition d'un attribut
+	    */
+	    public function attributeForm($observer) {
+	    	$form = $observer->getEvent()->getForm();
+	    
+	    	$fieldset = $form->addFieldset('addonline_seo_fieldset', array('legend'=>Mage::helper('catalog')->__('Search Engine Optimizations')));
+
+	    	$values=array_merge(array(""=>Mage::helper('adminhtml')->__('Use Default Value')),Mage::getSingleton('adminhtml/system_config_source_design_robots')->toOptionArray());
+	    	$fieldset->addField('meta_robots', 'select', array(
+	    			'name' => 'meta_robots',
+	    			'label' => Mage::helper('cms')->__('Meta Robots'),
+	    			'title' => Mage::helper('cms')->__('Meta Robots'),
+	    			'values'   => $values
+	    	));
+	    }
+	     
 }

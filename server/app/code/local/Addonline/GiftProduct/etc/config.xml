@@ -7,11 +7,6 @@
     </modules>
  	<global>
  		<blocks>
-            <adminhtml>
-                <rewrite>
-            		<promo_quote_edit_tab_actions>Addonline_GiftProduct_Block_Adminhtml_Promo_Quote_Edit_Tab_Actions</promo_quote_edit_tab_actions>
-            	</rewrite>
-            </adminhtml>
             <checkout>
                 <rewrite>
                     <cart_giftproduct>Addonline_GiftProduct_Block_Checkout_Cart_GiftProduct</cart_giftproduct>
@@ -110,7 +105,18 @@
                 	</children>
 	            </admin>
     	    </resources>
-    	</acl>    
+    	</acl>   
+    	<events>
+    		<adminhtml_block_salesrule_actions_prepareform>
+                <observers>
+                    <addActions>
+                        <type>singleton</type>
+                        <class>Addonline_GiftProduct_Model_Observer</class>
+                        <method>addActions</method>
+                    </addActions>
+                </observers>
+            </adminhtml_block_salesrule_actions_prepareform>
+    	</events>
     </adminhtml>
 
 </config>

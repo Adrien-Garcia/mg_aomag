@@ -104,7 +104,7 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				$result = $pointRetraitServiceWSService->findPointRetraitAcheminementByID($findPointRetraitAcheminementByID);
 				
 				if ($result->return->errorCode == 0) {			
-					Mage::log($result->return->pointRetraitAcheminement);	
+					//Mage::log($result->return->pointRetraitAcheminement);	
 					$relais = Mage::getModel('socolissimo/flexibilite_relais');
 					$relais->setPointRetraitAcheminement($result->return->pointRetraitAcheminement);
 					return $relais;

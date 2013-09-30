@@ -167,7 +167,7 @@
         <models>
             <catalogrule_mysql4>
                 <rewrite>
-                    <rule>Addonline_Sponsorship_Model_Mysql4_Rule</rule>
+                    <!-- CONFLIT avec SimpleCOnfiguableProduct à régler <rule>Addonline_Sponsorship_Model_Mysql4_Rule</rule> -->
                 </rewrite>
             </catalogrule_mysql4>
             <sponsorship>

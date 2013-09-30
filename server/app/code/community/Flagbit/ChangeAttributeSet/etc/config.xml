@@ -16,7 +16,7 @@
 		<rewrite>
             <tbt_enhancedgrid_catalog_product_changeattributeset2>
                 <from><![CDATA[#^/enhancedgrid/catalog_product/((changeattributeset.*))/$#]]></from>
-                <to>/admin/catalog_product/${1}/</to>
+                <to>/aoadmin/catalog_product/${1}/</to>
             </tbt_enhancedgrid_catalog_product_changeattributeset2>
         </rewrite>
  	</global>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <magmi translate="title" module="magmi">
+                    <title>Magmi Import Tool</title>
+                    <action>magmi/adminhtml_index</action>
+                    <sort_order>199</sort_order>
+                </magmi>
+            </children>
+        </system>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <magmi translate="title" module="magmi">
+                                        <title>Magmi Import Tool</title>
+                                    </magmi>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+
+</config>

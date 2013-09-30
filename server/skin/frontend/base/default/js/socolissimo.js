@@ -124,7 +124,7 @@ function shippingRadioCheck(element) {
 	jQuery("#shipping-method-please-wait").show();
 
 	//on charge en ajax le layer socolissimo (carte choix relais et/ou saisie numéro de téléphone)
-	url = socolissimoBaseUrl + "socolissimo/ajax/selector/type/";
+	url = socolissimoBaseUrl + "selector/type/";
 	var typeSocolissimo =  getTypeSocolissimoFromRadio(socoRadio, false);
 	if (typeSocolissimo) {
 		url = url + typeSocolissimo;
@@ -169,12 +169,13 @@ function shippingRadioCheck(element) {
 						var telephoneElt = jQuery("#socolissimo-hook input[name='tel_socolissimo']");
 						if (!telephoneElt || telephoneElt.val() == undefined) {
 							resetShippingMethod();
-						}
-						var shippingMethod = jQuery("input[name='shipping_method']:checked").val();
-						if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
-							var relaisElt = jQuery("#socolissimo-hook input[name='relais_socolissimo']");
-							if (!relaisElt || relaisElt.val() == undefined) {
-								resetShippingMethod();
+						} else {
+							var shippingMethod = jQuery("input[name='shipping_method']:checked").val();
+							if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
+								var relaisElt = jQuery("#socolissimo-hook input[name='relais_socolissimo']");
+								if (!relaisElt || relaisElt.val() == undefined) {
+									resetShippingMethod();
+								}
 							}
 						}
 					},
@@ -203,7 +204,7 @@ function shippingRadioCheck(element) {
 					var postcode = this.value; 
 					var country = jQuery('#socolissimo_country').val();
 					jQuery.ajax({
-						url: 'http://api.geonames.org/postalCodeSearchJSON?username=addonline&country='+country+'&postalcode='+postcode,
+						url: 'http'+(document.location.protocol=='https:'?'s':'')+'://api.geonames.org/postalCodeSearchJSON?username=addonline&country='+country+'&postalcode='+postcode,
 						dataType:'jsonp',
 						jsonpCallback: 'reloadCities',
 						success: function(json){
@@ -219,7 +220,9 @@ function shippingRadioCheck(element) {
 				});
 
 				//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
-				geocodeAdresse();
+				if (jQuery("#socolissimo_postcode").val() != "") {
+					geocodeAdresse();
+				}
 
 			}					
 
@@ -235,7 +238,7 @@ function shippingRadioCheck(element) {
 }
 
 function resetShippingMethod() {
-	jQuery("input[name='shipping_method']:checked").attr("checked","");
+	jQuery("input[name='shipping_method']:checked").prop("checked","");
 }
 
 function geocodeAdresse() {
@@ -246,10 +249,6 @@ function geocodeAdresse() {
 	}
 	if (jQuery("#socolissimo_postcode").val() == "") {
 		alert("Veuillez saisir un code postal");
-		return;
-	}
-	if (jQuery("#socolissimo_street").val() == "") {
-		alert("Veuillez saisir une adresse");
 		return;
 	}
 	
@@ -285,13 +284,14 @@ function changeMap() {
 
 function loadListeRelais() {
 	jQuery(".loader-wrapper").fadeTo(300, 1);
-	url = socolissimoBaseUrl + "socolissimo/ajax/listrelais?"
+	url = socolissimoBaseUrl + "listrelais?"
 	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
 		url = url + check.val() + "=" + check.is(":checked") + "&";
 	});
-	url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text()+ "&country=" + jQuery("#socolissimo_country").val();
+	url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text().trim() + "&country=" + jQuery("#socolissimo_country").val();
 	url = url + "&latitude=" + socolissimoMyPosition.lat() + "&longitude=" + socolissimoMyPosition.lng();
+	url = encodeURI(url);
 	jQuery.getJSON( url, function(response) {
 		if (!response.error) {
 			socolissimoListRelais = response.items;
@@ -357,16 +357,24 @@ function showMap() {
 function infoBulleGenerator(relaisSocolissimo) {
 	contentString = '<div class="adresse">'+
     '<b>'+relaisSocolissimo.libelle+ '</b><br/>'+
-    '<b>'+relaisSocolissimo.adresse+ ' ' + relaisSocolissimo.code_postal + ' ' + relaisSocolissimo.commune + '</b><br/>'+
-    '<b>Horaires d\'ouverture :</b>'+
-    '<p>';
-    if (relaisSocolissimo.horaire_lundi!='00:00-00:00 00:00-00:00') {contentString += '<b>Lundi:</b> '+ relaisSocolissimo.horaire_lundi + '<br/>'}
-    if (relaisSocolissimo.horaire_mardi!='00:00-00:00 00:00-00:00') {contentString += '<b>Mardi:</b> '+ relaisSocolissimo.horaire_mardi + '<br/>'}
-    if (relaisSocolissimo.horaire_mercredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Mercredi:</b> '+ relaisSocolissimo.horaire_mercredi + '<br/>'}
-    if (relaisSocolissimo.horaire_jeudi!='00:00-00:00 00:00-00:00') {contentString += '<b>Jeudi:</b> '+ relaisSocolissimo.horaire_jeudi + '<br/>'}
-    if (relaisSocolissimo.horaire_vendredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Vendredi:</b> '+ relaisSocolissimo.horaire_vendredi + '<br/>'}
-    if (relaisSocolissimo.horaire_samedi!='00:00-00:00 00:00-00:00') {contentString += '<b>Samedi:</b> '+ relaisSocolissimo.horaire_samedi + '<br/>'}
-    if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche+ '<br/>'}
+    '<b>'+relaisSocolissimo.adresse+ ' ' + relaisSocolissimo.code_postal + ' ' + relaisSocolissimo.commune + '</b><br/>';
+    if (relaisSocolissimo.conges_total) {
+		contentString += '<b>En congés </b>';
+	    contentString += '<p>';
+	} else {
+		contentString += '<b>Horaires d\'ouverture :</b><br/>';
+		if (relaisSocolissimo.deb_periode_horaire) {
+			contentString += '(valables du ' + relaisSocolissimo.deb_periode_horaire + ' au '+ relaisSocolissimo.fin_periode_horaire +')';
+		}
+	    contentString += '<p>';
+	    if (relaisSocolissimo.horaire_lundi!='00:00-00:00 00:00-00:00') {contentString += '<b>Lundi:</b> '+ relaisSocolissimo.horaire_lundi + '<br/>'}
+	    if (relaisSocolissimo.horaire_mardi!='00:00-00:00 00:00-00:00') {contentString += '<b>Mardi:</b> '+ relaisSocolissimo.horaire_mardi + '<br/>'}
+	    if (relaisSocolissimo.horaire_mercredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Mercredi:</b> '+ relaisSocolissimo.horaire_mercredi + '<br/>'}
+	    if (relaisSocolissimo.horaire_jeudi!='00:00-00:00 00:00-00:00') {contentString += '<b>Jeudi:</b> '+ relaisSocolissimo.horaire_jeudi + '<br/>'}
+	    if (relaisSocolissimo.horaire_vendredi!='00:00-00:00 00:00-00:00') {contentString += '<b>Vendredi:</b> '+ relaisSocolissimo.horaire_vendredi + '<br/>'}
+	    if (relaisSocolissimo.horaire_samedi!='00:00-00:00 00:00-00:00') {contentString += '<b>Samedi:</b> '+ relaisSocolissimo.horaire_samedi + '<br/>'}
+	    if (relaisSocolissimo.horaire_dimanche!='00:00-00:00 00:00-00:00') {contentString += '<b>Dimanche:</b> '+ relaisSocolissimo.horaire_dimanche+ '<br/>'}
+	}
     if (relaisSocolissimo.parking==1) { 
     	contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_parking.jpg" />'; 
     }

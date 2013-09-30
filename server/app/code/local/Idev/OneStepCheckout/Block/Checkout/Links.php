@@ -1,10 +1,5 @@
 <?php
-if (!(string)Mage::getConfig()->getModuleConfig('Addonline_Varnish')->active == 'true')
-{
-	class Addonline_Varnish_Block_Checkout_Links extends Mage_Checkout_Block_Links{}
-}
-class Idev_OneStepCheckout_Block_Checkout_Links extends Addonline_Varnish_Block_Checkout_Links
-//class Idev_OneStepCheckout_Block_Checkout_Links extends Mage_Checkout_Block_Links
+class Idev_OneStepCheckout_Block_Checkout_Links extends Mage_Checkout_Block_Links
 {
     /**
      * Add link on checkout page to parent block

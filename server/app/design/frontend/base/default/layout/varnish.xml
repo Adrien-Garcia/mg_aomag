@@ -5,8 +5,8 @@
 			<!-- need Jquery 
 			<action method="addJs"><script>jquery/jquery-1.6.3.min.js</script></action>
 			-->
-			<action method="addJs"><script>jquery/jquery.cookie.js</script></action>
-			<action method="addJs"><script>varnish.js</script></action>
+			<action method="addJs" ifconfig="system/external_page_cache/enabled"><script>jquery/jquery.cookie.js</script></action>
+			<action method="addJs" ifconfig="system/external_page_cache/enabled"><script>varnish.js</script></action>
 		</reference>
 
 		<reference name="before_body_end">

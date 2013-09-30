@@ -2,14 +2,23 @@
 <config>
     <modules>
         <Addonline_Seo>
-            <version>0.1.1</version>
+            <version>0.1.4</version>
         </Addonline_Seo>
     </modules>
     <global>
         <models>
             <seo>
                 <class>Addonline_Seo_Model</class>
+                <resourceModel>seo_mysql4</resourceModel>
             </seo>
+            <seo_mysql4>
+            	<class>Addonline_Seo_Model_Mysql4</class>
+            	<entities>
+            		 <attribute>
+                        <table>seo_attribute</table>
+		             </attribute>
+            	</entities>
+            </seo_mysql4>
         </models>
         <resources>
             <seo_setup>
@@ -35,7 +44,26 @@
 				</rewrite>
 			</page>
 		</blocks>
-		
+		<events>
+			<catalog_entity_attribute_save_after>
+        		<observers>
+                    <addonline_seo_save_attribute>
+                        <type>singleton</type>
+                        <class>seo/observer</class>
+                        <method>saveAttribute</method>
+                    </addonline_seo_save_attribute>
+                </observers>
+        	</catalog_entity_attribute_save_after>
+        	<catalog_entity_attribute_load_after>
+        		<observers>
+                    <addonline_seo_load_attribute>
+                        <type>singleton</type>
+                        <class>seo/observer</class>
+                        <method>loadAttribute</method>
+                    </addonline_seo_load_attribute>
+                </observers>
+        	</catalog_entity_attribute_load_after>
+        </events>
 	</global>
     <frontend>
 		<layout>
@@ -49,11 +77,11 @@
         <events>
             <controller_action_layout_generate_blocks_after>
                 <observers>
-                    <addonline_seo_observer>
+                    <addonline_seo_edit_metas>
                         <type>singleton</type>
                         <class>seo/observer</class>
                         <method>editMetas</method>
-                    </addonline_seo_observer>
+                    </addonline_seo_edit_metas>
                 </observers>
             </controller_action_layout_generate_blocks_after>
         </events>
@@ -67,7 +95,27 @@
                      </files>
                 </seo>
             </modules>
-        </translate>	
+        </translate>
+        <events>
+	        <adminhtml_cms_page_edit_tab_meta_prepare_form>
+	        	<observers>
+                    <addonline_seo_meta_prepare_form>
+                        <type>singleton</type>
+                        <class>seo/observer</class>
+                        <method>cmsMetaForm</method>
+                    </addonline_seo_meta_prepare_form>
+                </observers>
+	        </adminhtml_cms_page_edit_tab_meta_prepare_form>
+	        <adminhtml_catalog_product_attribute_edit_prepare_form>
+                <observers>
+                    <addonline_seo_attribute_edit_prepare_form>
+                        <type>singleton</type>
+                        <class>seo/observer</class>
+                        <method>attributeForm</method>
+                    </addonline_seo_attribute_edit_prepare_form>
+			    </observers>        
+            </adminhtml_catalog_product_attribute_edit_prepare_form>
+        </events>
     </adminhtml>
 	<default>
         <catalog>

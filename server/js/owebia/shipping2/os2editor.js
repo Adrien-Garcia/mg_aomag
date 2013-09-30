@@ -1,22 +1,22 @@
 /**
- * Magento Owebia Shipping2 Module
+ * Copyright (c) 2008-13 Owebia
  *
- * NOTICE OF LICENSE
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
  *
- * @category   Owebia
- * @package    Owebia_Shipping2
- * @copyright  Copyright (c) 2008-10 Owebia (http://www.owebia.com/)
+ * @website    http://www.owebia.com/
+ * @project    Magento Owebia Shipping 2 module
  * @author     Antoine Lemoine
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
+ * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
+**/
+
 
 /**
  * @constructor
@@ -25,186 +25,87 @@ OS2Editor = function (options) {
 	this.options = options;
 
 	this.jwindow = jQuery(window);
-	this.jeditor = null;
-	this.jeditor_content = null;
+	this.jdialog = null;
+	this.jpages = [];
+	this.jcurrentpage = null;
+	this.jhiddencontainer = null;
 	this.jtextarea = null;
 	this.jcontextualmenu = null;
 	this.mouse_event_owner = null;
 	this.dialog_v_padding = 10;
 	this.dialog_h_padding = 15;
 	this.opened = false;
+	this.has_dialog = false;
 	this.shipping_code = null;
+	this.history = [];
+	this.source = '';
 }
 
 OS2Editor.prototype = {
 	/**
 	 * @private
 	 */
-	_init: function () {
-		var jeditor = this._dialog('os2-editor',"<div style=\"width:100%;height:100%;position:relative;\" id=\"os2-editor-content\"></div>");
-		this.jeditor = jeditor;
-		var jdialogbox = jeditor.find('.dialog-box');
-		this.jeditor_content = jeditor.find('#os2-editor-content');
-		this.jeditor_content.css({width: jdialogbox.innerWidth()-this.dialog_h_padding*2, height: jdialogbox.innerHeight()-this.dialog_v_padding*2, border: '0'});
-
-		var self = this;
-		jQuery('#os2-editor .preview-items-list > .preview-item').live('click',function (event) {
-			var caller = jQuery(this);
-			if (caller.hasClass('address-filter')) self._contextualMenu('address-filter',caller);
-			else if (caller.hasClass('customer-group')) self._contextualMenu('customer-group',caller);
-			jQuery('#os2-contextual-menu').css({position: 'absolute', 'z-index': 100, left: event.pageX-7, top: event.pageY}).show();
-			event.preventDefault();
-			event.stopPropagation();
-		});
-		jQuery('#os2-editor .property-container .field').live('blur',function (event) {
-			self._updateProperty(this);
-			event.preventDefault();
-			event.stopPropagation();
-		});
+	_getPropertyInput: function (object) {
+		if (!(object instanceof jQuery)) {
+			object = jQuery(object);
+			if (object[0].nodeName!='textarea') object = object.parents('#os2-field-dialog').find('textarea');
+		}
+		return object;
 	},
 
 	/**
-	 * @private
+	 * @public
 	 */
-	_dialog: function (id, content) {
-		var w = this.jwindow.width();
-		var h = this.jwindow.height();
-		var margin = 50;
-		var v_padding = this.dialog_v_padding;
-		var h_padding = this.dialog_h_padding;
-		var width = w-2*margin;
-		var height = h-2*margin;
-		var dialog_w = Math.max(width+2*h_padding,350);
-		var dialog_h = Math.max(height+2*v_padding,250);
-		var top = (h-dialog_h)/2;
-		var left = (w-dialog_w)/2;
-		var margin_top = (dialog_h-height)/2-v_padding;
-		var margin_left = (dialog_w-width)/2-h_padding;
-		var jdialog = jQuery("<div style=\"position:fixed;top:0;left:0;width:100%;height:100%;z-index:100;\" id=\""+id+"\">"
-			+"<div class=\"dialog-bg\" style=\"position:fixed;top:0;left:0;z-index:100;width:100%;height:100%;background:#000;\"></div>"
-			+"<div class=\"dialog-box\" style=\"position:fixed;background:#fff;-moz-box-shadow: #000 0 0 10px;top:"+top+"px;left:"+left+"px;width:"+dialog_w+"px;"
-				+"height:"+dialog_h+"px;z-index:200;\"><div style=\"padding:"+v_padding+"px "+h_padding+"px;margin:"+margin_top+"px 0 0 "+margin_left+"px;\">"
-			+content+'</div></div></div>');
-		jdialog.find('.dialog-bg').click(function(event){
-				jdialog.fadeOut(function(){jdialog.hide();});
-			})
-			.css({
-				opacity: '0.7'
-			})
-		;
-		jQuery('body').append(jdialog);
-		return jdialog;
-	},
-
-	/**
-	 * @private
-	 */
-	_contextualMenu: function (which, caller) {
-		var self = this;
-		this.mouse_event_owner = caller;
-		
-		if (this.jcontextualmenu==null) {
-			var jcontextualmenu = jQuery('<ul id="os2-contextual-menu" style="display:none;"></ul>');
-			jcontextualmenu.click(function (event) {
-				jcontextualmenu.hide();
-				event.preventDefault();
-				event.stopPropagation();
-			});
-			jQuery('body').append(jcontextualmenu);
-			jQuery(document).mouseup(function (event) {
-				if (self.mouse_event_owner!=null && self.mouse_event_owner.hasClass('files-container')) {
-					self.mouse_event_owner.trigger(event);
+	getReadableSelection: function (object, callback) {
+		var jinput = this._getPropertyInput(object);
+		this._ajax({
+			data: {
+				what: 'readable-selection',
+				property: jinput.attr('name'),
+				input: jinput.val()
+			},
+			success: function (msg) {
+				if (typeof callback=='function') {
+					callback(msg);
+				} else {
+					jQuery('#os2-output').html(msg);
 				}
-				jcontextualmenu.hide();
-			});
-			this.jcontextualmenu = jcontextualmenu;
-		}
-
-		switch (which) {
-			case 'address-filter':
-				this.jcontextualmenu.html(
-					"<li><span>"+caller.attr('full-value')+"</span></li>"
-					+(caller.hasClass('preview-item-group') ?
-							"<li><a id=\"ungroup-link\" href=\"#\">"+this.options.menu_item_dissociate_label+"</a></li>"
-						:
-							''
-					)
-					+"<li><a id=\"edit-link\" href=\"#\">"+this.options.menu_item_edit_label+"</a></li>"
-					+"<li><a id=\"remove-link\" href=\"#\" onclick=\"\">"+this.options.menu_item_remove_label+"</a></li>"
-				);
-				jQuery('#remove-link').click(function (event) {
-					self._remove_click(event,caller);
-				});
-				jQuery('#edit-link').click(function (event) {
-					self._edit_click(event,caller,'get-address-filters');
-				});
-				jQuery('#ungroup-link').click(function (event) {
-					self._dissociateAddressFiltersGroup(caller,100);
-					event.preventDefault();
-				});
-				break;
-			case 'customer-group':
-				this.jcontextualmenu.html(
-					"<li><span>"+caller.attr('full-value')+"</span></li>"
-					+"<li><a id=\"edit-link\" href=\"#\">"+this.options.menu_item_edit_label+"</a></li>"
-					+"<li><a id=\"remove-link\" href=\"#\" onclick=\"\">"+this.options.menu_item_remove_label+"</a></li>"
-				);
-				jQuery('#remove-link').click(function (event) {
-					self._remove_click(event,caller);
-				});
-				jQuery('#edit-link').click(function (event) {
-					self._edit_click(event,caller,'get-customer-groups');
-				});
-				break;
-		}
-	},
-
-	/**
-	 * @private
-	 */
-	_remove_click: function (event, caller) {
-		var self = this;
-		caller.fadeOut(null,function(){
-			var parent = caller.parents('.property-container');
-			caller.remove();
-			self.updatePropertyFromPreview(parent);
+			}
 		});
-		event.preventDefault();
+	},
+
+	/**
+	 * @public
+	 */
+	insertAtCaret: function (object, text_to_insert) {
+		var jinput = this._getPropertyInput(object);
+		var range = jinput.caret();
+		var start = range.start;
+		jinput.val(range.replace(text_to_insert));
+		jinput.caret({start: start, end: start+text_to_insert.length});
 	},
 
 	/**
 	 * @private
 	 */
-	_edit_click: function (event, caller, what) {
-		var self = this;
-		var new_value = prompt(this.options.prompt_new_value_label,caller.attr('original-value'));
-		if (new_value) {
-			this._ajax({
-				data: {
-					what: what,
-					input: new_value
-				},
-				success: function (msg) {
-					var parent = caller.parents('.property-container');
-					caller.replaceWith(msg);
-					self.updatePropertyFromPreview(parent);
-				}
-			});
-		}
-		event.preventDefault();
+	_getAjaxData: function (data) {
+		data.form_key = this.options.form_key;
+		return data;
 	},
 
 	/**
 	 * @private
 	 */
 	_ajax: function (args) {
-		args.data.form_key = this.options.form_key;
-		jQuery.ajax({
+		var options = {
 			type: 'POST',
 			url: this.options.ajax_url,
-			data: args.data,
-			success: args.success
-		});
+			data: this._getAjaxData(args.data),
+			success: args.success,
+			dataType: args.dataType ? args.dataType : 'html'
+		}
+		if (typeof args.failure=='function') options.failure = args.failure;
+		jQuery.ajax(options);
 	},
 	
 	/**
@@ -212,32 +113,13 @@ OS2Editor.prototype = {
 	 */
 	_download: function (data) {
 		data.form_key = this.options.form_key;
-		data = jQuery.param(data);
-		var inputs = '';
-		jQuery.each(data.split('&'),function(){ 
-			var tmp = this.split('=');
-			inputs += '<input type="hidden" name="'+tmp[0]+'" value="'+tmp[1]+'"/>'; 
-		});
-		jQuery('<form action="'+this.options.ajax_url+'" method="post">'+inputs+'</form>').appendTo('body').submit().remove();
-	},
-	
-	/**
-	 * @private
-	 */
-	_checkCountries: function (parent) {
-		var output = '';
-		parent.find('.address-filter').each(function () {
-			var country_code = jQuery(this).attr('country-code');
-			output += country_code+',';
-			if (country_code!='') {
-				var tmp = parent.find('.country-'+country_code);
-				if (tmp.size()>1) {
-					tmp.addClass('warning');
-				} else {
-					tmp.removeClass('warning');
-				}
-			}
-		});
+		var jform = jQuery('<form action="'+this.options.ajax_url+'" method="post"></form>');
+		for (var name in data) {
+			var jinput = jQuery('<input type="hidden"/>');
+			jinput.attr('name', name).attr('value', data[name]);
+			jform.append(jinput);
+		}
+		jform.appendTo('body').submit().remove();
 	},
 
 	/**
@@ -245,311 +127,50 @@ OS2Editor.prototype = {
 	 */
 	_getConfig: function () {
 		var self = this;
-		var config = '';
-		this.jeditor_content.find('.row-container').each(function(){
+		var config_objects = [];
+		this.jdialog.find('#os2-editor-elems-container > li').each(function(){
 			var jrowcontainer = jQuery(this);
 			if (jrowcontainer.hasClass('ignored-lines')) {
-				config += jrowcontainer.find('.field').val()+"\n";
+				config_objects.push(jrowcontainer.find('.field').val()+"\n");
 			} else {
-				var comment = jrowcontainer.find('.property-container[property-name="*comment"] .field').val();
-				if (comment!='') {
-					var lines = comment.replace(/(?:\r\n|\n|\r)/,"\n").split("\n");
-					for (var i=0; i<lines.length; i++) {
-						if (lines[i].substr(0,1)!='#') lines[i] = '# '+lines[i];
-						else lines[i] = '#'+lines[i];
-					}
-					config += lines.join("\n")+"\n";
-				}
-				config += "{\n";
-				jrowcontainer.find('.property-container').each(function(){
-					var jpropertycontainer = jQuery(this);
-					var property = jpropertycontainer.attr('property-name');
-					if (property!='*comment') {
-						var value = null;
-						if (property=='destination' || property=='origin') {
-							value = self._getCompleteValue('compact-value',this,true,true);
-						}
-						else value = jpropertycontainer.find('.field').val();
-						var property = jpropertycontainer.attr('property-name');
-						
-						switch (property) {
-							case 'enabled':
-								if (value!='1') config += "\t"+property+': false,'+"\n";
-								break;
-							default:
-								if (value!='') {
-									config += "\t"+property+': "'+value.replace(/\"/g,"\\\"")+'",'+"\n";
-								}
-								break;
-						}
-						
-					}
-				});
-				config += "}\n";
+				config_objects.push(self._getConfigRow(jrowcontainer));
 			}
 		});
+		var config = "{\n"+config_objects.join(",\n")+"}\n";
 		return config;
 	},
 
 	/**
 	 * @private
 	 */
-	_dissociateAddressFiltersGroup: function (caller, delay) {
+	_getConfigRow: function (jrowcontainer) {
 		var self = this;
-		var childs = caller.children('.address-filter');
-		if (delay>0) {
-			childs.each(function (i) {
-				var child = jQuery(this);
-				child.delay(i*delay).fadeOut(null,function(){
-					child.insertBefore(caller);
-					child.fadeIn();
-					if (i==childs.size()-1) {
-						caller.fadeOut(null,function(){
-							caller.remove();
-							self.updatePropertyFromPreview(parent);
-						});
+		var config_properties = [];
+		var id = null;
+		jrowcontainer.find('.field').each(function(){
+			var jinput = jQuery(this);
+			var property_name = jinput.attr('name');
+			var value = jinput.val();
+			
+			switch (property_name) {
+				case '*id':
+					id = value;
+					break;
+				case 'enabled':
+					if (value!='1') config_properties.push("\""+property_name+"\": false");
+					break;
+				case 'type':
+					if (value!='method') config_properties.push("\""+property_name+"\": \""+value.replace(/\"/g,"\\\"")+"\"");
+					break;
+				default:
+					if (value!='') {
+						config_properties.push("\""+property_name+'\": "'+value.replace(/\"/g,"\\\"")+'"');
 					}
-				});
-			});
-		} else {
-			childs.insertBefore(caller);
-			caller.remove();
-			self.updatePropertyFromPreview(parent);
-		}
-	},
-	
-	/**
-	 * @private
-	 */
-	_updatePropertyPreview: function (object, what) {
-		if (!(object instanceof jQuery)) object = jQuery(object);
-		if (!object.hasClass('property-container')) object = object.parents('.property-container');
-
-		var self = this;
-		this._ajax({
-			data: {
-				what: what,
-				input: object.find('textarea').val()
-			},
-			success: function (msg) {
-				object.find('.preview-items-list').html(msg);
+					break;
 			}
 		});
-	},
-
-	/**
-	 * @private
-	 */
-	_updateProperty: function (object) {
-		if (!(object instanceof jQuery)) object = jQuery(object);
-
-		var property_container = object.parents('.property-container');
-		var property_name = property_container.attr('property-name');
-		switch (property_name) {
-			case 'destination':
-			case 'origin':
-				this._updatePropertyPreview(object,'get-address-filters');
-				break;
-			case 'customer_groups':
-				this._updatePropertyPreview(object,'get-customer-groups');
-				break;
-			case 'label':
-				this._updateRowTitle(object,property_container);
-				break;
-		}
-		this._ajax({
-			data: {
-				what: 'check-config',
-				config: this._getConfig(),
-			},
-			success: function (msg) {
-				jQuery('body').append(msg);
-			}
-		});
-		var id = object.attr('id')+'-item';
-		if (object.val().trim()=='') jQuery('#'+id).addClass('empty');
-		else jQuery('#'+id).removeClass('empty');
-	},
-
-	/**
-	 * @private
-	 */
-	_updateRowTitle: function (jtextarea) {
-		var title = jtextarea.val().trim();
-		if (title=='') title = this.options.default_row_label;
-		jtextarea.parents('.row-container').find('.row-title').html(title);
-	},
-
-	/**
-	 * @private
-	 */
-	_updateRowsUI: function () {
-		var jrows = this.jeditor.find('.row-container');
-		if (jrows.filter('.selected').size()==0) {
-			jrows.eq(0).addClass('selected');
-		}
-		if (jrows.size()<=1) {
-			jrows.find('.row-actions .delete').hide();
-		} else {
-			jrows.find('.row-actions .delete').show();
-		}
-	},
-
-	/**
-	 * @private
-	 */
-	/*_linearizeAddressFilters: function (object) {
-		if (!(object instanceof jQuery)) object = jQuery(object);
-		if (!object.hasClass('property-container')) object = object.parents('.property-container');
-
-		var self = this;
-		object.find('.address-filter-list .address-filter-group').each(function () {
-			self._dissociateAddressFiltersGroup(jQuery(this),0);
-		});
-	},*/
-
-	/**
-	 * @public
-	 */
-	insertAtCaret: function (object, text_to_insert) {
-		if (!(object instanceof jQuery)) {
-			object = jQuery(object);
-			if (object[0].nodeName!='textarea') object = object.parents('.property-container');
-		}
-		if (object.hasClass('property-container')) object = object.find('textarea');
-
-		object.each(function (i) {
-			if (document.selection) {
-				this.focus();
-				var sel = document.selection.createRange();
-				sel.text = text_to_insert;
-				this.focus();
-			} else if (this.selectionStart || this.selectionStart=='0') {
-				var start_index = this.selectionStart;
-				var end_index = this.selectionEnd;
-				var scroll_top = this.scrollTop;
-				this.value = this.value.substring(0,start_index)+text_to_insert+this.value.substring(end_index,this.value.length);
-				this.focus();
-				this.selectionStart = start_index + text_to_insert.length;
-				this.selectionEnd = start_index + text_to_insert.length;
-				this.scrollTop = scroll_top;
-			} else {
-				this.value += text_to_insert;
-				this.focus();
-			}
-		});
-	},
-
-	/**
-	 * @public
-	 */
-	updatePropertyFromPreview: function (object) {
-		if (!(object instanceof jQuery)) object = jQuery(object);
-		if (!object.hasClass('property-container')) object = object.parents('.property-container');
-
-		var list = object.find('.address-filter-list');
-		var displayed_field = list.attr('displayed-field');
-		if (displayed_field==null) displayed_field = 'original-value';
-		var compact = list.attr('compact');
-		if (compact==null) compact = false;
-		else compact = compact=='1';
-		this.updatePropertyValue(displayed_field,object,compact);
-	},
-
-	/**
-	 * @private
-	 */
-	_getCompleteValue: function (field, object, compact, linearize_groups) {
-		if (!(object instanceof jQuery)) object = jQuery(object);
-		if (!object.hasClass('property-container')) object = object.parents('.property-container');
-
-		var values = [];
-		object.find('.preview-items-list').attr('displayed-field',field).attr('compact',compact?'1':'0');
-		
-		if (linearize_groups) {
-			object.find('.preview-items-list .preview-item').each(function () {
-				var jitem = jQuery(this);
-				if (!jitem.hasClass('preview-item-group')) values.push(jitem.attr(field));
-			});
-		} else {
-			object.find('.preview-items-list > .preview-item').each(function () {
-				values.push(jQuery(this).attr(field));
-			});
-		}
-		var excluding = object.find('.excluding:checked').val()=='1';
-		return (excluding ? '* - (' : '')+values.join(','+(compact ? '' : ' '))+(excluding ? ')' : '');
-	},
-
-	/**
-	 * @public
-	 */
-	updatePropertyValue: function (field, object, compact) {
-		if (!(object instanceof jQuery)) object = jQuery(object);
-		if (!object.hasClass('property-container')) object = object.parents('.property-container');
-
-		object.find('.field').val(this._getCompleteValue(field,object,compact,false));
-		var property_name = object.attr('property-name');
-		if (property_name=='destination' || property_name=='origin') {
-			this._checkCountries(object);
-		}
-	},
-
-	/**
-	 * @public
-	 */
-	selectProperty: function (code, property) {
-		jQuery('#r-'+code+'-container .property-item, #r-'+code+'-container .property-container').removeClass('selected');
-		jQuery('#r-'+code+'-p-'+property+'-item, #r-'+code+'-p-'+property+'-container').addClass('selected');
-	},
-
-	/**
-	 * @public
-	 */
-	selectRow: function (code) {
-		jQuery('#os2-editor .row-container').removeClass('selected');
-		jQuery('#r-'+code+'-container').addClass('selected');
-	},
-
-	/**
-	 * @public
-	 */
-	resetErrors: function (code, property, error) {
-		this.jeditor.find('.has-error').not('.ignored-lines').removeClass('has-error');
-		this.jeditor.find('div.error').remove();
-	},
-
-	/**
-	 * @public
-	 */
-	setError: function (code, property, error) {
-		if (property=='') {
-			jQuery('#r-'+code+'-container .row-header').append("<div class=\"error\">"+error+"</div>");
-		} else {
-			jQuery('#r-'+code+'-container').addClass('has-error');
-			jQuery('#r-'+code+'-p-'+property+'-item').addClass('has-error');
-			jQuery('#r-'+code+'-p-'+property+'-container').prepend("<div class=\"error\">"+error+"</div>");
-		}
-	},
-
-	/**
-	 * @public
-	 */
-	correct: function (code, property, value) {
-		var jfield = jQuery('#r-'+code+'-p-'+property);
-		jfield.val(value);
-		this._updateProperty(jfield);
-	},
-
-	/**
-	 * @public
-	 */
-	removeRow: function (object) {
-		var self = this;
-		var jrow = jQuery(object).parents('.row-container');
-		jrow.fadeOut(null,function(){
-			jrow.remove();
-			self._updateRowsUI();
-		});
+		var property_indent = "\t";
+		return "\""+id+"\": {\n"+property_indent+config_properties.join(",\n"+property_indent)+"\n}";
 	},
 
 	/**
@@ -558,14 +179,15 @@ OS2Editor.prototype = {
 	addRow: function () {
 		var self = this;
 		this._ajax({
+			dataType: "json",
 			data: {
-				what: 'add-row'
+				what: 'add-row',
+				source: this.source
 			},
-			success: function (msg) {
-				var jcontainer = self.jeditor.find('.config-container');
-				jcontainer.find('.row-container.selected').removeClass('selected');
-				jcontainer.append(msg);
-				self._updateRowsUI();
+			success: function (response) {
+				var jsource = self.jdialog.find('#os2-source');
+				jsource.val(response.source);
+				self._sourceChanged(false);
 			}
 		});
 	},
@@ -576,7 +198,7 @@ OS2Editor.prototype = {
 	saveToFile: function () {
 		this._download({
 			what: 'save-to-file',
-			config: this._getConfig(),
+			source: this.source
 		});
 	},
 
@@ -588,7 +210,7 @@ OS2Editor.prototype = {
 		this._ajax({
 			data: {
 				what: 'save-config',
-				config: this._getConfig(),
+				source: this.source,
 				shipping_code: this.shipping_code
 			},
 			success: function (msg) {
@@ -605,131 +227,404 @@ OS2Editor.prototype = {
 	/**
 	 * @public
 	 */
-	applyChanges: function () {
-		this.loadConfig(this._getConfig());
-	},
-
-	/**
-	 * @public
-	 */
-	loadConfig: function (config) {
-		if (typeof config=='undefined') {
-			config = jQuery('#os2-editor-config-loader textarea').val()
-		}
-		var self = this;
-		this._ajax({
-			data: {
-				what: 'load-config',
-				config: config
-			},
-			success: function (msg) {
-				jQuery('#os2-editor-config-container').html(msg);
-				self.jeditor.find('.address-filter-list').each(function(){
-					self._checkCountries(jQuery(this));
-				});
-				self._updateRowsUI();
-				jQuery('#os2-editor-config-loader').slideUp().find('textarea').val('');
-			}
-		});
-	},
-
-	/**
-	 * @public
-	 */
-	showConfigLoader: function () {
-		jQuery('#os2-editor-config-loader').slideDown();
-	},
-
-	/**
-	 * @public
-	 */
-	hideConfigLoader: function () {
-		jQuery('#os2-editor-config-loader').slideUp().find('textarea').val('');
-	},
-
-	/**
-	 * @public
-	 */
-	open: function (object, shipping_code, callback) {
-		this.shipping_code = shipping_code;
-		this.opened = true;
-		if (this.jeditor==null) this._init();
-
-		var jcell = jQuery(object).parents('td.value');
-		this.jtextarea = jcell.find('textarea');
-
-		this.jeditor_content.html('<div class=\"loading rule-param-wait\">'+this.options.loading_label+'</div>');
-		this.jeditor.fadeIn();
-
-		var self = this;
-		this._ajax({
-			data: {
-				what: 'open',
-				input: this.jtextarea.val()
-			},
-			success: function (msg) {
-				self.jeditor_content.html(msg);
-				var jconfig_container = self.jeditor.find('#os2-editor-config-container');
-				var height = self.jeditor_content.height() - jconfig_container.position().top - self.jeditor.find('.donate-container').height() - 15;
-				jconfig_container.css({
-					overflow: 'auto',
-					height: height
-				});
-				self._updateRowsUI();
-				if (typeof callback!='undefined') callback();
-			}
-		});
-	},
-	
-	/**
-	 * @public
-	 */
 	close: function () {
 		this.opened = false;
-		this.jeditor.fadeOut();
+		jQuery.colorbox.close();
 	},
 
 	/**
 	 * @public
 	 */
-	openPage: function (page) {
-		jQuery('#os2editor-'+page+'-page').fadeIn();
+	refreshHelp: function () {
+		var current_help_section = this.history.pop();
+		this.help(current_help_section, true);
 	},
 
 	/**
 	 * @public
 	 */
-	closePage: function (object) {
-		jQuery(object).parents('.os2editor-page').fadeOut();
+	previousHelp: function () {
+		var current_help_section = this.history.pop();
+		var prev_help_section = this.history.pop();
+		if (prev_help_section) this.help(prev_help_section);
 	},
 
 	/**
-	 * @public
+	 * @private
 	 */
-	help: function (help_section, object, shipping_code) {
+	_initEditor: function (jdialog) {
 		var self = this;
-		if (!this.opened) {
-			this.open(object,shipping_code,function(){self.help(help_section);});
-			return;			
+		jdialog.find('#os2-source').attr('wrap', 'off').css('white-space', 'pre'); // Patch IE
+		jdialog.on('click', '#os2-editor-elems-container > li > h5', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var jelem = jQuery(this);
+			var jitem = jelem.parent();
+			var jcontainer = jitem.children('.row-ui');
+			if (jcontainer.hasClass('opened')) {
+				jcontainer.slideUp();
+				jcontainer.removeClass('opened');
+				return;
+			}
+			jcontainer.html('<div class="loading rule-param-wait" style="margin:20px;">'+self.options.loading_label+'</div>');
+			jcontainer.slideDown();
+			var id = jitem.attr('data-id');
+			var ajax_data = {
+				what: 'row-ui',
+				source: self.source,
+				id: id
+			};
+			ajax_data = self._getAjaxData(ajax_data);
+			jQuery.ajax({
+				type: 'POST',
+				url: self.options.ajax_url,
+				data: ajax_data
+			}).done(function (msg) {
+				jcontainer.html(msg);
+				jcontainer.animate({'height': 'auto'}, 1000);
+				jcontainer.addClass('opened');
+			});
+		});
+		jdialog.on('click', '#os2-editor .properties-list > li', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var jelem = jQuery(this);
+			var property = jelem.attr('data-property');
+			var jrow = jelem.data('jrow');
+			var jproperty_container = jelem.data('jproperty_container');
+			if (!jrow) {
+				jrow = jelem.parents('#os2-editor-elems-container > li');
+				jproperty_container = jrow.find('div[data-property="'+property+'"]');
+			}
+			jelem.addClass('selected').siblings().removeClass('selected');
+			jproperty_container.addClass('selected').siblings().removeClass('selected');
+			jrow.data('layout').resizeAll();
+		});
+		jdialog.on('focusin', '#os2-editor .properties-container .field', function (e) {
+			var jinput = jQuery(this);
+			jQuery('#os2-field-dialog').remove();
+			jinput.data('previous_value', jinput.val());
+		});
+		jdialog.on('change', '#os2-editor .properties-container select.field', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var jinput = jQuery(this);
+			var value = jinput.data('previous_value');
+			if (value!=jinput.val()) self._updateProperty(jinput);
+		});
+		jdialog.on('click', '.os2-field-help', function (e) {
+			var jbtn = jQuery(this);
+			var property_name = jbtn.attr('data-id');
+			self.help(property_name);
+		});
+		jdialog.on('click', '.os2-remove-row-btn', function (e) {
+			e.stopPropagation();
+			var jbtn = jQuery(this);
+			var jrow = jbtn.parents('li').eq(0);
+			var id = jrow.attr('data-id');
+			var ajax_data = {
+				what: 'remove-row',
+				source: self.source,
+				id: id
+			};
+			ajax_data = self._getAjaxData(ajax_data);
+			jQuery.ajax({
+				dataType: "json",
+				type: 'POST',
+				url: self.options.ajax_url,
+				data: ajax_data
+			}).done(function (response) {
+				var jsource = self.jdialog.find('#os2-source');
+				jsource.val(response.source);
+				self._sourceChanged(false);
+			});
+		});
+		jdialog.on('focusin', '#os2-editor input.field', function (e) {
+			var jfielddialog = jQuery('#os2-field-dialog');
+			if (!jfielddialog.length) {
+				jfielddialog = jQuery('<div id=os2-field-dialog></div>');
+				jdialog.append(jfielddialog);
+			} else {
+				jfielddialog.empty();
+			}
+			var jinput = jQuery(this);
+			var jproperty_container = jinput.parents('#os2-editor .os2-p-container');
+			var range = jinput.caret();
+			var top = jinput.offset().top-jdialog.offset().top-1;
+			var left = jinput.offset().left-jdialog.offset().left+5;
+			jfielddialog.css({position: 'absolute', top: top, left: left});
+			var jtools = jQuery('<div id=os2-field-tools></div>');
+			var japply = jQuery('<button class=save><span>'+self.options.apply_btn_label+'</span></button>');
+			japply.click(function(){
+				var new_value = jtextarea.val();
+				jinput.val(new_value);
+				jfielddialog.remove();
+				var value = jinput.data('previous_value');
+				if (value!=new_value) self._updateProperty(jinput);
+			});
+			var jcancel = jQuery('<button class=cancel><span>'+self.options.cancel_btn_label+'</span></button>');
+			jcancel.click(function(){
+				jfielddialog.remove();
+			});
+			var property_name = jinput.attr('name');
+			var property_value = jinput.val();
+			var jtextarea = jQuery('<textarea></textarea>')
+				.val(property_value)
+				.attr('name', property_name)
+			;
+			jfielddialog.append('<h5>'+jproperty_container.find('th').html()+'</h5>', jtools, jtextarea, '<br/>', japply, ' ', jcancel);
+			jtextarea.caret(range);
+			var ajax_data = {
+				what: 'property-tools',
+				property: property_name,
+				input: property_value
+			};
+			ajax_data = self._getAjaxData(ajax_data);
+			jQuery.ajax({
+				type: 'POST',
+				url: self.options.ajax_url,
+				data: ajax_data
+			}).done(function (msg) {
+				jtools.append(msg);
+			});
+		});
+		jdialog.on('focusout', '#os2-editor .property-container .field', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			self._updateProperty(this);
+		});
+	},
+
+	_button: function (type, callback) {
+		var jbutton = jQuery("<button class=\"os2-btn os2-btn-"+type+"\"></button>");
+		jbutton.click(callback);
+		return jbutton;
+	},
+
+	/**
+	 * @private
+	 */
+	_updateProperty: function (jinput) {
+		var self = this;
+		if (!(jinput instanceof jQuery)) jinput = jQuery(jinput);
+
+		var jrowcontainer = jinput.parents('#os2-editor-elems-container > li');
+		var property_name = jinput.attr('name');
+		switch (property_name) {
+			case 'label':
+				var title = jinput.val().trim();
+				if (title=='') title = this.options.default_row_label;
+				jrowcontainer.find('h5').html(title);
+				break;
 		}
+		var jsource = this.jdialog.find('#os2-source');
+		var row_id = jrowcontainer.attr('data-id');
 		this._ajax({
+			dataType: "json",
 			data: {
-				what: 'help',
-				input: help_section
+				what: 'update-property',
+				source: jsource.val(),
+				row: row_id,
+				property: property_name,
+				value: jinput.val()
 			},
-			success: function (msg) {
-				var jhelp_page = jQuery('#os2editor-help-page');
-				var jpage_content = jhelp_page.find('.page-content');
-				var height = jhelp_page.height() - jpage_content.position().top - 15;
-				jpage_content.css({
-					overflow: 'auto',
-					height: height
-				});
-				jpage_content.html(msg);
+			success: function (response) {
+				jsource.val(response.source);
+				self._sourceChanged(false, [row_id]);
+			},
+			failure: function (response) {
+			alert('failure:'+JSON.stringify(response));
 			}
 		});
-		jQuery('#os2editor-help-page .page-content').html('<div class=\"loading rule-param-wait\">'+this.options.loading_label+'</div>');
-		this.openPage('help');
+	},
+
+	/**
+	 * @private
+	 */
+	_sourceChanged: function (force, row_ids) {
+		var self = this;
+		var jsource = this.jdialog.find('#os2-source');
+		var new_source = jsource.val();
+		if (force || new_source!=self.source) {
+			self.source = new_source;
+			this._ajax({
+				dataType: "json",
+				data: {
+					what: 'correction',
+					source: new_source,
+					row_ids: row_ids
+				},
+				success: function (response) {
+					self.jdialog.find('#os2-correction').html(response.correction);
+					self.jdialog.find('#os2-debug').html(response.debug);
+					var jeditor = self.jdialog.find('#os2-editor');
+					jeditor.html(response.editor);
+				}
+			});
+		}
+	},
+
+	/**
+	 * @public
+	 */
+	init: function (object, shipping_code) {
+		if (!this.opened) {
+			this.shipping_code = shipping_code;
+			this.has_dialog = false;
+			this.opened = true;
+			this.jpages = [];
+			var jdialog = jQuery('<div id=os2-dialog><div id=os2-page-container class=ui-layout-center></div></div>');
+			this._openDialog(jdialog);
+			var jloadingpage = jQuery('<div class=os2-page><div class="loading rule-param-wait" style="margin:20px;">'+this.options.loading_label+'</div></div>');
+			this._openPage('loading', jloadingpage);
+
+			var jcell = jQuery(object).parents('td.value');
+			this.jtextarea = jcell.find('textarea');
+			this.jhiddencontainer = jQuery('<div style="display:none;"></div>');
+			this.jtextarea.after(this.jhiddencontainer);
+			this.source = this.jtextarea.val();
+		}
+		return this;
+	},
+
+	/**
+	 * @private
+	 */
+	_openDialog: function (jdialog) {
+		this.jdialog = jdialog;
+		jQuery.colorbox({
+			width: '95%',
+			height: '95%',
+			inline: true,
+			href: jdialog,
+			fixed: true
+		});
+		this._initEditor(this.jdialog);
+	},
+
+	/**
+	 * @private
+	 */
+	_openPage: function (id, jpage) {
+		var jpagecontainer = this.jdialog.find('#os2-page-container');
+		if (typeof jpage!='undefined') {
+			this.jpages[id] = jpage;
+			jpagecontainer.append(jpage);
+		}
+		jpage = this.jpages[id];
+		jpagecontainer.children().hide();
+		jpage.show();
+		//alert('open '+id+' : '+this.jdialog.html());
+		this.jcurrentpage = jpage;
+	},
+
+	/**
+	 * @private
+	 */
+	_initLayout: function (jdialog, jpage) {
+		var static_layout_options = {
+			applyDefaultStyles: false,
+			resizable: false,
+			closable: false,
+			spacing_open: 0,
+			spacing_closed: 0
+		};
+		jdialog.layout(static_layout_options);
+		jpage.layout({
+			applyDefaultStyles: false,
+			west__size: '30%',
+			east__size: '30%',
+			spacing_closed: 15
+		});
+		//self.jdialog.html(msg);
+		jdialog.find('.inner-layout').each(function() {
+			var layout = jQuery(this);
+			if (!layout.children('.ui-layout-center').length) return;
+			layout.layout(static_layout_options);
+		});
+	},
+
+	/**
+	 * @public
+	 */
+	page: function (page, data, callback, refresh) {
+		var self = this;
+		var id = JSON.stringify({page: page, data: data});
+		if (typeof this.jpages[id]!='undefined' && refresh!==true) {
+			this._openPage(id);
+			if (typeof callback!='undefined') callback();
+			return;
+		}
+		if (typeof data=='undefined') data = {};
+		switch (page) {
+			case 'source':
+				callback = function () {
+					var jsource = self.jdialog.find('#os2-source');
+					jsource.val(self.source);
+					jsource.blur(function (e) {
+						self._sourceChanged();
+					}).keyup(function (e) {
+						clearTimeout(jQuery(this).data('timer'));
+						jQuery(this).data('timer', setTimeout(function() { self._sourceChanged(); }, 500));
+					});
+					self._sourceChanged(true);
+				};
+		}
+		data.what = 'page';
+		data.with_dialog = this.has_dialog ? 0 : 1;
+		data.page = page;
+
+		this._openPage('loading');
+		var ajax_data = this._getAjaxData(data);
+		jQuery.ajax({
+			type: 'POST',
+			url: this.options.ajax_url,
+			data: ajax_data
+		}).done(function (msg) {
+			var jpage = null;
+			if (data.with_dialog) {
+				self._openDialog(jQuery(msg));
+				jpage = self.jdialog.find('#os2-page-container > .os2-page');
+			} else {
+				jpage = jQuery(msg);
+			}
+
+			var jdialog = self.jdialog;
+			self.jpages[id] = jpage;
+			self._openPage(id, jpage);
+			self.has_dialog = true;
+			self._initLayout(jdialog, jpage);
+			if (typeof callback!='undefined') callback();
+		});
+	},
+
+	_highlight: function (elem) {
+		jQuery(elem).html('<span class=\"stabilo\">'+jQuery(elem).html()+'</span>');
+	},
+
+	/**
+	 * @public
+	 */
+	help: function (help_section, refresh) {
+		var self = this;
+		this.page('help', {input: help_section}, function() {
+			if (!self.history.length || help_section!=self.history[self.history.length-1]) self.history.push(help_section);
+
+			self.jdialog.find('.field').not(':eq(0)').hide();
+			self.jdialog.find('.field').each(function(){
+				var name = jQuery(this).find('a[name]').attr('name');
+				jQuery(this).attr('data-anchor', name);
+			});
+			self.jdialog.find('div.new, li.new, a.new, p.new').each(function(){
+				self._highlight(this);
+			});
+			self.jdialog.find('ul.new li, li.new li').each(function(){
+				self._highlight(this);
+			});
+			self.jdialog.find('span.new').each(function(){
+				jQuery(this).addClass('stabilo');
+			});
+		}, refresh);
 	}
 }
 

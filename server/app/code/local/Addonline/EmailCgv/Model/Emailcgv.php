@@ -1,6 +1,9 @@
 <?php
-
-class Addonline_EmailCgv_Model_Emailcgv extends Mage_Sales_Model_Order
+if ((string)Mage::getConfig()->getModuleConfig('Quadra_Extensions')->active != 'true')
+{
+	class Quadra_Extensions_Model_Sales_Order extends Mage_Sales_Model_Order{}
+}
+class Addonline_EmailCgv_Model_Emailcgv extends Quadra_Extensions_Model_Sales_Order
 {
 	const XML_PATH_EMAIL_CGV_TEMPLATE               = 'emailcgv/order/template';
 	const XML_PATH_EMAIL_CGV_IDENTITY               = 'emailcgv/order/identity';

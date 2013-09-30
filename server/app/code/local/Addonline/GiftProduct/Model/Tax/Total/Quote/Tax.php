@@ -9,11 +9,12 @@ class Addonline_GiftProduct_Model_Tax_Total_Quote_Tax extends Mage_Tax_Model_Sal
 		$price      = $item->getTaxableAmount();
 		$basePrice  = $item->getBaseTaxableAmount();
 		$rateKey    = (string)$rate;
-		/*if($item->getAdditionalData() == "gift_product") {
+		
+		if($item->getAdditionalData() == "produit_cadeau") {
 			$item->setTaxPercent(0);
-		} else {*/
+		} else {
 			$item->setTaxPercent($rate);
-		// }
+		}
 		$hiddenTax      = null;
 		$baseHiddenTax  = null;
 		switch ($this->_config->getCalculationSequence($this->_store)) {
@@ -53,7 +54,7 @@ class Addonline_GiftProduct_Model_Tax_Total_Quote_Tax extends Mage_Tax_Model_Sal
 				}
 				break;
 		}
-		if($item->getAdditionalData() == "gift_product") {
+		if($item->getAdditionalData() == "produit_cadeau") {
 			$item->setTaxAmount(0);
 			$item->setBaseTaxAmount(0);
 		} else {

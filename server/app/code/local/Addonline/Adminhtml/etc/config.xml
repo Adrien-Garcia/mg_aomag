@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Addonline_Adminhtml>
+            <version>0.1.0</version>
+        </Addonline_Adminhtml>
+    </modules>
+    <global>
+        <rewrite>
+        	<addonline_adminhtml_cms_wysiwyg>
+                <from><![CDATA[#^/admin/cms_wysiwyg/#]]></from>
+                <to>/adminminitp/cms_wysiwyg/</to>
+            </addonline_adminhtml_cms_wysiwyg>
+        </rewrite>
+    </global>
+	<admin>
+        <routers>
+            <addonline_adminhtml>
+                <use>admin</use>
+                <args>
+                    <module>Addonline_Adminhtml</module>
+                    <frontName>adminminitp</frontName>
+                </args>
+            </addonline_adminhtml>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Addonline_Adminhtml before="Mage_Adminhtml">Addonline_Adminhtml</Addonline_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

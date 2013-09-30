@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Addonline_SoColissimo>
-            <version>2.0.3</version>
+            <version>2.0.6</version>
             <depends>
                 <Mage_Shipping />
             </depends>
@@ -85,7 +85,9 @@
                 </socolissimo>
             </updates>
         </layout>
-        
+        <secure_url>
+            <sales>/socolissimo/</sales>
+        </secure_url>
         <routers>
             <socolissimo>
                 <use>standard</use>
@@ -197,7 +199,7 @@
 {
 	label: "mon rendez-vous",
 	code: "rdv_fr",
-	destination: "FR(/^75(0[0-1][0-9])|020|116$/)",
+	destination: "FR(/^75((0[0-1][0-9])|020|116)$/)",
 	conditions: "{cart.weight}<20",
 	fees: "{domicile_sign_fr.fees} + 3",
 }

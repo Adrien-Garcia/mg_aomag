@@ -26,7 +26,9 @@ class  Addonline_SoColissimo_Model_Flexibilite_Relais extends Addonline_SoColiss
 		$this->setLatitude(str_replace(",",".",$pointRetraitAcheminement->coordGeolocalisationLatitude)); // parfois le ws renvoie une latitude avec des virgules ...
 		$this->setLongitude(str_replace(",",".",$pointRetraitAcheminement->coordGeolocalisationLongitude)); // parfois le ws renvoie une longitude avec des virgules ...
 		$this->setIndicateurAcces($pointRetraitAcheminement->accesPersonneMobiliteReduite);
-		$this->setCongeTotal($pointRetraitAcheminement->congesTotal);
+		$this->setCongesTotal($pointRetraitAcheminement->congesTotal);
+		$this->setDebPeriodeHoraire($pointRetraitAcheminement->periodeActiviteHoraireDeb);
+		$this->setFinPeriodeHoraire($pointRetraitAcheminement->periodeActiviteHoraireFin);
 		$this->getType();//set the value
 		$this->isParking();//set the value
 		$this->isManutention();//set the value

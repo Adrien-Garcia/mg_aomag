@@ -72,7 +72,11 @@ Product.Config.prototype = {
             
         // Put events to check select reloads 
         this.settings.each(function(element){
-            Event.observe(element, 'change', this.configure.bind(this))
+            //Event.observe(element, 'change', this.configure.bind(this))
+            var original_this = this;
+            jQuery(element).change(function(e) {
+            	original_this.configure(e)/*.bind(original_this)*/;
+            });
         }.bind(this));
 
         // fill state

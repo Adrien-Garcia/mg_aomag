@@ -16,14 +16,17 @@ jQuery(function($) {
 		t[t.length] = $(this).attr("href");
 	})
 	
-	$('.bxslider').bxSlider({
-		minSlides: 4,
-		maxSlides: 4,
-		slideWidth: 50,
-		pager: false,
-		slideMargin: 20
-	});
-	
+	if ($(".more-views").size()==1) {
+		/* On initialize bxSlider si on est sur la page produit */
+		$('.bxslider').bxSlider({
+			minSlides: 4,
+			maxSlides: 4,
+			slideWidth: 50,
+			pager: false,
+			slideMargin: 20
+		});
+	}
+		
 	/* Permet de mettre l'état current sur la bonnne miniature au chargement */
 	$(".more-views .bxslider a").each(function(idx,el){
 		var a = $(el).attr("rel");

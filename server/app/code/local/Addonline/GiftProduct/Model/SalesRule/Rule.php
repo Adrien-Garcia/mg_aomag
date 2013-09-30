@@ -27,5 +27,5 @@
 
 class Addonline_GiftProduct_Model_SalesRule_Rule extends Mage_Rule_Model_Rule
 {
-    const GIFT_PRODUCT_ACTION = 'gift_product';
+    const GIFT_PRODUCT_ACTION = 'produit_cadeau';
 }

@@ -11,7 +11,7 @@ En cas d'absence, votre colis sera mis &agrave; votre disposition en bureau de p
 En cas d'impossibilit&eacute;, votre colis sera mis &agrave; votre disposition en bureau de poste.
 </div>
 <div id="socolissimo_description_rdv" style="display:none;">
-Livraison sur rendez-vous sur Paris pour un suppl&eacute;ment de <?php echo $this->helper('core')->currency(3) ?> entre 17h00 et 21h30 dans un créneau d'1h30 du lundi au vendredi.
+Livraison sur rendez-vous sur Paris entre 17h00 et 21h30 dans un créneau d'1h30 du lundi au vendredi (peut engendrer un suppl&eacute;ment).
 </div>
 <div id="socolissimo_description_poste_be" style="display:none;">
 Livraison dans l'un des bureaux de Poste du groupe BPOST en Belgique.
@@ -30,7 +30,7 @@ Livraison dans l'un des commerces de proximité du réseau BPOST en Belgique.
 </div>
 <script type="text/javascript">
 //<![CDATA[       
-var socolissimoBaseUrl = '<?php echo $this->getUrl('/') ?>';
+var socolissimoBaseUrl = '<?php echo $this->getUrl('socolissimo/ajax/') ?>';
 if ((typeof Checkout) != "undefined") {
 	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'affichage des pictos et descriptions Socolissimo
 	Checkout.prototype.setStepResponse = function() {
@@ -65,3 +65,4 @@ if ((typeof Checkout) != "undefined") {
 }
 //]]>
 </script>
+</div>

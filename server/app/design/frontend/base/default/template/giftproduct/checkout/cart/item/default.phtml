@@ -28,7 +28,6 @@
 $_item = $this->getItem();
 $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $is_giftproduct = $_item->getAdditionalData();
-Mage::log($is_giftproduct);
 ?>
 <tr>
     <td><?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" width="75" height="75" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?></td>
@@ -68,7 +67,7 @@ Mage::log($is_giftproduct);
         <?php endif;?>
     </td>
     <td class="a-center">
-        <?php if ($isVisibleProduct AND !strlen($is_giftproduct)): ?>
+        <?php if ($isVisibleProduct && $is_giftproduct != "produit_cadeau"): ?>
         <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item parameters') ?>"><?php echo $this->__('Edit') ?></a>
         <?php endif ?>
     </td>
@@ -256,7 +255,7 @@ Mage::log($is_giftproduct);
         <?php endif; ?>
     </td>
     <?php endif; ?>
-    <?php if(strlen($is_giftproduct)):?>
+    <?php if($is_giftproduct == "produit_cadeau"):?>
     <td class="a-center"><!--a href="<?php //echo $this->getDeleteUrl()?>" title="<?php //echo $this->__('Remove item')?>" class="btn-remove btn-remove2"><?php //echo $this->__('Remove item')?></a--></td>
     <?php else: ?>
     <td class="a-center"><a href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove item')?></a></td>
