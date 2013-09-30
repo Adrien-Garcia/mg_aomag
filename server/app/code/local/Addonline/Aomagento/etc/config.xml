@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Addonline_Aomagento>
+            <version>0.0.1</version>
+        </Addonline_Aomagento>
+    </modules>
+    <global>
+    	<blocks>
+    		<aomagento><class>Addonline_Aomagento_Block</class></aomagento>
+    	</blocks>
+    </global>
+
+    <frontend>   
+        <routers>
+            <aomagento>
+                <use>standard</use>
+                <args>
+                    <module>Addonline_Aomagento</module>
+                    <frontName>aomagento</frontName>
+                </args>
+            </aomagento>
+        </routers>
+    </frontend>
+    <adminhtml>
+	    <acl>
+	        <resources>
+	            <all>
+	                <title>Allow Everything</title>
+	            </all>
+	            <admin>
+	                <children>
+	                    <system>
+	                        <children>
+	                            <config>
+	                                <children>
+	                                    <addonline translate="title">
+	                                        <title>Addonline config</title>
+	                                        <sort_order>100</sort_order>
+	                                    </addonline>
+	                                </children>
+	                            </config>
+	                        </children>
+	                    </system>
+	                </children>
+	            </admin>
+	        </resources>
+	    </acl>	
+        <layout>
+            <updates>
+                <aomagento>
+                    <file>aomagento.xml</file>
+                </aomagento>
+            </updates>
+        </layout>
+    </adminhtml> 
+</config>

@@ -203,7 +203,48 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</serial>							
+						</serial>	
+						<generator_flexi>
+							<label>Générer la clé SoColissimoFlexibilite</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+							 <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_socolissimo_licence_generator_flexi button.generate_key").live("click", function(e) {
+						        		generate_key(e, "SoColissimoFlexibilite");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<addonline_licence>
+									<key_generation>1</key_generation>
+								</addonline_licence>
+							</depends>
+						</generator_flexi>
+						<generator_liberte>
+							<label>Générer la clé SoColissimoLiberte</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_socolissimo_licence_generator_liberte button.generate_key").live("click", function(e) {
+						        		generate_key(e, "SoColissimoLiberte");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_liberte>						
 					</fields>						
 				</licence>				                
 			</groups>
