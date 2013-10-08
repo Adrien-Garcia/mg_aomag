@@ -14,102 +14,9 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
 
     const SESSION_ADDRESS_CHECK_NAME = 'onestepcheckout_address_check_name';
 
-    private function _loadConfig()
+    protected function _loadConfig()
     {
         $this->settings = Mage::helper('onestepcheckout/checkout')->loadConfig();
-    }
-
-    private function _checkAddress()
-    {
-        $quote = $this->getOnepage()->getQuote();
-        $shipping = $quote->getShippingAddress();
-        $billing = $quote->getBillingAddress();
-
-        // Check if user is logged in and has not received test for billign address
-        if($this->isCustomerLoggedIn()) {
-
-            $saved_quote_postcode = $shipping->getPostcode();
-
-            if(!$saved_quote_postcode)  {
-                $shipping_postcode = $this->getShippingPostcode();
-                $billing_postcode = $this->getPostcode();
-
-                $postcode = $shipping_postcode;
-
-                if(!$shipping_postcode || $shipping_postcode == '') {
-                    $postcode = $billing_postcode;
-                }
-
-                $shipping->setPostcode($postcode)->setCollectShippingRates(true)->save();
-            }
-        }
-    }
-
-    private function _checkCountry()
-    {
-        $onepage = $this->getOnepage();
-        $quote = $onepage->getQuote();
-        $shipping = $quote->getShippingAddress();
-        $billing = $quote->getBillingAddress();
-        $default_country = false;
-        $country_id = $shipping->getCountryId();
-
-        if(!$country_id || $country_id == '')   {
-            // No country saved at this point
-
-
-
-            $default_country = false;
-
-            if( $this->settings['enable_geoip'] )   {
-
-                $geoip = Net_GeoIP::getInstance($this->settings['geoip_database']);
-
-                try {
-                    $default_country = $geoip->lookupCountryCode($_SERVER['REMOTE_ADDR']);
-                    $this->log[] = 'Set country based on GeoIP (result: ' . $default_country . ')';
-                } catch(Exception $e)   {
-                    $default_country = false;
-                    $this->log[] = 'GeoIP threw exception: ' . $e->getMessage();
-                }
-            }
-
-            if(!$default_country)   {
-                if( $this->settings['default_country'] )    {
-                    $default_country = $this->settings['default_country'];
-                    $this->log[] = 'Set country based on default country settings (result: ' . $default_country . ')';
-                }
-                else    {
-                    $default_country = 'US'; // Last resort
-                    $this->log[] = 'Set country to US as a last resort';
-                }
-            }
-
-            if($this->_isLoggedIn() && $this->getQuote()->getCustomer()->getPrimaryBillingAddress())    {
-                $country_id = $this->getQuote()->getCustomer()->getPrimaryBillingAddress()->getCountryId();
-                if(!empty($country_id)) {
-                    $default_country = $country_id;
-                }
-            }
-
-
-            if($default_country)    {
-                //$shipping->setCountryId($default_country)->save();
-
-                $shipping->setCountryId($default_country)->setCollectShippingRates(true)->save();
-                $billing->setCountryId($default_country)->save();
-            }
-
-            /* Hack to set same shipping as billing by default */
-
-
-            $shipping->setSameAsBilling(true)->save();
-
-
-        }
-        else    {
-            $this->log[] = 'Country already saved, don\'t touch it';
-        }
     }
 
     public function _getDefaultShippingMethod()
@@ -125,85 +32,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         }
     }
 
-    private function _checkShippingMethod()
-    {
-        $onepage = $this->getOnepage();
-        $quote = $this->getOnepage()->getQuote();
-        $method = $quote->getShippingAddress()->getShippingMethod();
-
-        if(!$method || $method == '')   {
-            // If no pre-set shipping method
-            if( $this->settings['default_shipping_method'] != '' )  {
-
-                Mage::helper('onestepcheckout/checkout')->saveShippingMethod($this->settings['default_shipping_method']);
-                //$onepage->saveShippingMethod( $this->settings['default_shipping_method'] );
-                $this->log[] = 'Set shipping method based on default settings (set to: ' . $this->settings['default_shipping_method'] . ')';
-            }
-            else    {
-                $method = $this->_checkSingleShippingMethod();
-
-                if($method) {
-                    //$onepage->saveShippingMethod($method);
-                    Mage::helper('onestepcheckout/checkout')->saveShippingMethod($method);
-                    $this->log[] ='Set shipping method to ' . $method . ' because it was only option available';
-                }
-                else    {
-                    $this->log[] = 'No shipping method to set as default, leave blank';
-                }
-            }
-        }
-        else    {
-            $this->log[] = 'Shipping method already saved, don\'t touch it';
-        }
-    }
-
-    private function _checkPaymentMethod()
-    {
-
-        $onepage = $this->getOnepage();
-        $method = $onepage->getQuote()->getPayment()->getMethod();
-
-        if(!$method || $method == '')   {
-
-
-            if( $this->settings['default_payment_method'] != '' )   {
-
-
-                $payment = array('method' => $this->settings['default_payment_method'] );
-
-                try {
-                    //$result = $onepage->savePayment($payment);
-                    $result = Mage::helper('onestepcheckout/checkout')->savePayment($payment);
-                }
-                catch (Mage_Payment_Exception $e) {
-                    if ($e->getFields()) {
-                        $result['fields'] = $e->getFields();
-                    }
-                    $result['error'] = $e->getMessage();
-                }
-                catch (Exception $e) {
-                    $result['error'] = $e->getMessage();
-                }
-
-
-
-                if(isset($result['error'])) {
-                    $this->log[] = 'Unable to set default payment method (' . $this->settings['default_payment_method'] . ') with error: ' . $result['error'];
-                }
-                else    {
-                    $this->log[] = 'Set payment method based on default settings (set to: ' . $this->settings['default_payment_method'] . ')';
-                }
-            }
-            else    {
-                $this->log[] = 'No payment method set as default, leave blank';
-            }
-        }
-        else    {
-            $this->log[] = 'Payment method set already, don\'t touch';
-        }
-    }
-
-    private function _checkSingleShippingMethod()
+    protected function _checkSingleShippingMethod()
     {
         $rates = $this->getOnepage()->getQuote()->getShippingAddress()->getShippingRatesCollection();
         $rateCodes = array();
@@ -221,7 +50,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         return false;
     }
 
-    private function _isLoggedInWithAddresses()
+    protected function _isLoggedInWithAddresses()
     {
         $helper = $this->helper('customer');
         if( $helper->isLoggedIn() && $helper->customerHasAddresses() )  {
@@ -231,7 +60,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         return false;
     }
 
-    private function _isLoggedIn()
+    protected function _isLoggedIn()
     {
         $helper = $this->helper('customer');
         if( $helper->isLoggedIn() ) {
@@ -242,80 +71,18 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
 
     }
 
-    private function _checkLoggedInUser()
-    {
-        return;
-
-        $helper = $this->helper('customer');
-
-        if( $helper->isLoggedIn() && $helper->customerHasAddresses() )  {
-
-
-
-            $customer = $helper->getCustomer();
-
-            // Find the customer address id
-            $address = $customer->getDefaultBillingAddress();
-            $address_id = $address->getId();
-
-            $data = array(
-                'address_id' => $address->getId(),
-                'firstname' => $address->getFirstname(),
-                'lastname' => $address->getLastname(),
-                'company' => $address->getCompany(),
-                'street' => array($address->getStreet1(),$address->getStreet2()),
-                'city' => $address->getCity(),
-                'region_id' => $address->getRegionId(),
-                'region' => $address->getRegion(),
-                'country_id' => $address->getCountry(),
-                'telephone' => $address->getTelephone(),
-                'fax' => $address->getFax(),
-                'use_for_shipping' => 1
-            );
-
-            $result = $this->getOnepage()->saveBilling($data, $address_id);
-            $this->log[] = 'Set billing address to default address from account (ID: ' . $address_id . ')';
-
-        }
-
-    }
-
     public function _construct()
     {
         parent::_construct();
 
-        $rates = $this->getEstimateRates();
-        if($this->_isLoggedIn() && empty($rates)){
-            if(Mage::helper('onestepcheckout/checkout')->differentShippingAvailable()){
-                $primaryAddress = Mage::helper('customer')->getCustomer()->getDefaultShippingAddress();
-            } else {
-                $primaryAddress = Mage::helper('customer')->getCustomer()->getPrimaryBillingAddress();
-            }
-
-            if($primaryAddress) {
-                $customerAddressId = $primaryAddress->getId();
-                if(!empty($customerAddressId)){
-                    $addressData= $primaryAddress->getData();
-                    $result = $this->getOnepage()->saveShipping($addressData, $customerAddressId);
-                }
-            }
-        }
+        $this->getQuote()->setIsMultiShipping(false);
 
         $this->email = false;
         $this->customer_after_place_order = false;
 
         $this->_loadConfig();
 
-        if($this->settings['enable_geoip']) {
-            require_once 'Net/GeoIP.php';
-        }
-
         if($this->_isLoggedIn())    {
-            $shippingCountry = $this->getQuote()->getBillingAddress()->getCountry();
-            $primaryAddress = Mage::helper('customer')->getCustomer()->getPrimaryBillingAddress();
-            if(empty($shippingCountry) && !empty($primaryAddress)){
-                $this->getQuote()->getBillingAddress()->addData($primaryAddress->getData());
-            }
             $helper = Mage::helper('customer');
             $customer = $helper->getCustomer();
             $this->email = $customer->getEmail();
@@ -324,30 +91,6 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         //we need to refactor this , not a neat way to make all in constructor
         if($this->getSubTemplate()){
             return true;
-        }
-
-
-        $this->getQuote()->getShippingAddress()->setCollectShippingRates(true)->save();
-
-        $this->_checkAddress();
-        $this->_checkShippingMethod();
-        $this->_checkCountry();
-        $this->_checkPaymentMethod();
-
-        $payment = $this->getQuote()->getPayment();
-        if(is_object($payment)){
-
-            try {
-                $payment->getMethodInstance();
-            } catch (Exception $e) {
-            }
-
-            $paymentMethod = $payment->getMethod();
-            if ($this->getQuote()->isVirtual()) {
-                $this->getQuote()->getBillingAddress()->setPaymentMethod(!empty($paymentMethod) ? $paymentMethod : null);
-            } else {
-                $this->getQuote()->getShippingAddress()->setPaymentMethod(!empty($paymentMethod) ? $paymentMethod : null);
-            }
         }
 
         try {
@@ -473,18 +216,6 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
             $return = true;
         }
 
-        $customer = $this->helper('customer');
-        if ($customer->isLoggedIn()) {
-
-            $shippingId = $customer->getCustomer()->getDefaultShippingAddress();
-            $billingId = $customer->getCustomer()->getPrimaryBillingAddress();
-
-            if(is_object($billingId) && is_object($shippingId) && ($shippingId->getId()) != $billingId->getId()){
-                $return = false;
-            } else {
-                $return = true;
-            }
-        }
         return $return;
     }
 
@@ -529,8 +260,11 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
             return true;
         }
 
-
         if(isset($this->formErrors['terms_error'])) {
+            return true;
+        }
+
+        if(isset($this->formErrors['agreements_error'])) {
             return true;
         }
 
@@ -621,7 +355,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
             $shipping_data = $checkoutHelper->load_exclude_data($shipping_data);
 
             if(!empty($billing_data)){
-                $this->getQuote()->getBillingAddress()->addData($billing_data);
+                $this->getQuote()->getBillingAddress()->addData($billing_data)->implodeStreetAddress();
             }
 
             if($this->differentShippingAvailable()) {
@@ -641,6 +375,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
                     $billing_data['confirm_password'] = $password;
                     $this->getQuote()->getCustomer()->setData('password', $password);
                     $this->getQuote()->setData('password_hash',Mage::getModel('customer/customer')->encryptPassword($password));
+
                 }
 
 
@@ -648,20 +383,50 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
                     if(!empty($billing_data['customer_password']) && !empty($billing_data['confirm_password']) && ($billing_data['customer_password'] == $billing_data['confirm_password'])){
                         $password = $billing_data['customer_password'];
                         $this->getQuote()->setCheckoutMethod('register');
+                        $this->getQuote()->setCustomerId(0);
                         $this->getQuote()->getCustomer()->setData('password', $password);
                         $this->getQuote()->setData('password_hash',Mage::getModel('customer/customer')->encryptPassword($password));
                     }
                 }
+
             }
 
+            if($this->_isLoggedIn() || $registration_mode == 'require_registration' || $registration_mode == 'auto_generate_account' || (!empty($billing_data['customer_password']) && !empty($billing_data['confirm_password']))){
+                //handle this as Magento handles subscriptions for registered users (no confirmation ever)
+                $subscribe_newsletter = $this->getRequest()->getPost('subscribe_newsletter');
+                if(!empty($subscribe_newsletter)){
+                    $this->getQuote()->getCustomer()->setIsSubscribed(1);
+                }
+            }
 
             $billingAddressId = $this->getRequest()->getPost('billing_address_id');
             $customerAddressId = (!empty($billingAddressId)) ? $billingAddressId : false ;
+
+            if($this->_isLoggedIn()){
+                $this->getQuote()->getBillingAddress()->setSaveInAddressBook(empty($billing_data['save_in_address_book']) ? 0 : 1);
+                $this->getQuote()->getShippingAddress()->setSaveInAddressBook(empty($shipping_data['save_in_address_book']) ? 0 : 1);
+            }
+
             $result = $this->getOnepage()->saveBilling($billing_data, $customerAddressId);
 
             if(!empty($billing_data['customer_password']) && !empty($billing_data['confirm_password']))   {
                 // Trick to allow saving of
                 $this->getOnepage()->saveCheckoutMethod('register');
+                $this->getQuote()->setCustomerId(0);
+                $customerData = '';
+                $tmpBilling = $billing_data;
+
+                if(!empty($tmpBilling['street']) && is_array($tmpBilling['street'])){
+                    $tmpBilling ['street'] = '';
+                }
+                $customerData= array_intersect($tmpBilling, $this->getQuote()->getBillingAddress()->implodeStreetAddress()->getData());
+
+                if(!empty($customerData)){
+                    $this->getQuote()->getCustomer()->addData($customerData);
+                    foreach($customerData as $key => $value){
+                        $this->getQuote()->setData('customer_'.$key, $value);
+                    }
+                }
             }
 
             $customerSession = Mage::getSingleton('customer/session');
@@ -675,7 +440,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
 
             if($customerSession->isLoggedIn() && !empty($billing_data['dob'])){
                 $dob = Mage::app()->getLocale()->date($billing_data['dob'], null, null, false)->toString('yyyy-MM-dd');
-                $customer = Mage::getModel('customer/customer')
+                $customerSession->getCustomer()
                 ->setId($customerSession->getId())
                 ->setWebsiteId($customerSession->getCustomer()->getWebsiteId())
                 ->setEmail($customerSession->getCustomer()->getEmail())
@@ -685,18 +450,25 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
             }
 
             // set customer tax/vat number for further usage
-            if (!empty($billing_data['taxvat'])) {
-                $this->getQuote()->setCustomerTaxvat($billing_data['taxvat']);
-                $this->getQuote()->setTaxvat($billing_data['taxvat']);
-                $this->getQuote()->getBillingAddress()->setTaxvat($billing_data['taxvat']);
+            $taxid = '';
+            if(!empty($billing_data['taxvat'])){
+                $taxid = $billing_data['taxvat'];
+            } else if(!empty($billing_data['vat_id'])){
+                $taxid = $billing_data['vat_id'];
+            }
+            if (!empty($taxid)) {
+                $this->getQuote()->setCustomerTaxvat($taxid);
+                $this->getQuote()->setTaxvat($taxid);
+                $this->getQuote()->getBillingAddress()->setTaxvat($taxid);
+                $this->getQuote()->getBillingAddress()->setTaxId($taxid);
+                $this->getQuote()->getBillingAddress()->setVatId($taxid);
             }
 
             if($customerSession->isLoggedIn() && !empty($billing_data['taxvat'])){
-                $customer = Mage::getModel('customer/customer')
-                ->setId($customerSession->getId())
-                ->setWebsiteId($customerSession->getCustomer()->getWebsiteId())
-                ->setEmail($customerSession->getCustomer()->getEmail())
+                $customerSession->getCustomer()
+                ->setTaxId($billing_data['taxvat'])
                 ->setTaxvat($billing_data['taxvat'])
+                ->setVatId($billing_data['taxvat'])
                 ->save()
                 ;
             }
@@ -788,7 +560,6 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
                 }
             }
 
-
             if($this->settings['enable_terms']) {
                 if(!isset($post['accept_terms']) || $post['accept_terms'] != '1')   {
                     $this->formErrors['terms_error'] = true;
@@ -796,6 +567,13 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
             }
 
 
+            if ($this->settings['enable_default_terms'] && $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds()) {
+                $postedAgreements = array_keys($this->getRequest()->getPost('agreement', array()));
+                if ($diff = array_diff($requiredAgreements, $postedAgreements)) {
+                    //$this->formErrors['terms_error'] = $this->__('Please agree to all the terms and conditions before placing the order.');
+                    $this->formErrors['agreements_error'] = true;
+                }
+            }
 
             $shippingAddressId = $this->getRequest()->getPost('shipping_address_id', false);
 
@@ -845,42 +623,24 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         $payment = $this->getRequest()->getPost('payment', array());
         $paymentRedirect = false;
 
-        /**
-         * A fix for common one big form problem
-         * we rename the fields in template and iterate over subarrays
-         * to see if there's any values and set them to main scope
-         */
-        foreach($payment as $value){
-            if(is_array($value) && !empty($value)){
-                foreach($value as $key => $realValue){
-                    if(!empty($realValue)){
-                        $payment[$key]=$realValue;
-                    }
-                }
-            }
-        }
-
-        /**
-         * unset unnecessary fields
-         */
-        foreach ($payment as $key => $value){
-            if(is_array($value)){
-                unset($payment[$key]);
-            }
-        }
+        $payment = $this->filterPaymentData($payment);
 
         //echo '<pre>' . print_r($_POST,1) . '</pre>';
         //echo '<pre>' . print_r($payment,1) . '</pre>';
 
         try {
+            if(!empty($payment['method']) && $payment['method'] == 'free'){
+
+                $instance = Mage::helper('payment')->getMethodInstance('free');
+                if ($instance->isAvailable($this->getOnepage()->getQuote())) {
+                    $instance->setInfoInstance($this->getOnepage()->getQuote()->getPayment());
+                    $this->getOnepage()->getQuote()->getPayment()->setMethodInstance($instance);
+                }
+            }
             //$result = $this->getOnepage()->savePayment($payment);
             $result = Mage::helper('onestepcheckout/checkout')->savePayment($payment);
             $paymentRedirect = $this->getOnepage()->getQuote()->getPayment()->getCheckoutRedirectUrl();
-            if ($this->getOnepage()->getQuote()->isVirtual()) {
-                $this->getOnepage()->getQuote()->getBillingAddress()->setPaymentMethod(!empty($payment['method']) ? $payment['method'] : null);
-            } else {
-                $this->getOnepage()->getQuote()->getShippingAddress()->setPaymentMethod(!empty($payment['method']) ? $payment['method'] : null);
-            }
+
         }
         catch (Mage_Payment_Exception $e) {
             if ($e->getFields()) {
@@ -904,24 +664,23 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
 
 
         if(!$this->hasFormErrors()) {
-            // Handle newsletter
-            $subscribe_newsletter = $this->getRequest()->getPost('subscribe_newsletter');
 
-            if($this->settings['enable_newsletter'])    {
-                if($subscribe_newsletter && $subscribe_newsletter == '1' )  {
+            if($this->settings['enable_newsletter']) {
+                // Handle newsletter
+                $subscribe_newsletter = $this->getRequest()->getPost('subscribe_newsletter');
+                $registration_mode = $this->settings['registration_mode'];
+                if(!empty($subscribe_newsletter) && ($registration_mode != 'require_registration' && $registration_mode != 'auto_generate_account') && !$this->getRequest()->getPost('create_account'))  {
                     $model = Mage::getModel('newsletter/subscriber');
-                    $result = $model->loadByEmail($this->email);
-
-                    if($result->getId() === NULL)   {
-                        // Not subscribed, OK to subscribe
-                        Mage::getModel('newsletter/subscriber')->subscribe($this->email);
+                    $model->loadByEmail($this->email);
+                    if(!$model->isSubscribed()){
+                        $model->subscribe($this->email);
                     }
                 }
             }
 
             if($paymentRedirect && $paymentRedirect != '')  {
-                Header('Location: ' . $paymentRedirect);
-                die();
+                $response = Mage::app()->getResponse();
+                return $response->setRedirect($paymentRedirect);
             }
 
             if( $this->_isLoggedIn() )  {
@@ -930,8 +689,6 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
 
                 $this->_saveOrder();
                 $this->log[] = 'Saving order as a logged in customer';
-
-
 
             }
             else    {
@@ -977,11 +734,13 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
                         // Save as register
                         $this->log[] = 'Save order as REGISTER';
                         $this->getOnepage()->saveCheckoutMethod('register');
+                        $this->getQuote()->setCustomerId(0);
                         $this->_saveOrder();
                     }
                     elseif($this->settings['registration_mode'] == 'allow_guest')   {
                         if(isset($_POST['create_account']) && $_POST['create_account'] == '1')  {
                             $this->getOnepage()->saveCheckoutMethod('register');
+                            $this->getQuote()->setCustomerId(0);
                             $this->_saveOrder();
                         }
                         else    {
@@ -996,6 +755,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
 
                         if($registration_mode == 'auto_generate_account')   {
                             $this->getOnepage()->saveCheckoutMethod('register');
+                            $this->getQuote()->setCustomerId(0);
                             $this->_saveOrder();
                         }
                         else    {
@@ -1040,7 +800,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         return false;
     }
 
-    private function _getCustomer()
+    protected function _getCustomer()
     {
         $model = Mage::getModel('customer/customer');
         $model->setWebsiteId(Mage::app()->getStore()->getWebsiteId())->loadByEmail($this->email);
@@ -1052,7 +812,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         return $model;
     }
 
-    private function _isEmailRegistered()
+    protected function _isEmailRegistered()
     {
         $model = Mage::getModel('customer/customer');
         $model->setWebsiteId(Mage::app()->getStore()->getWebsiteId())->loadByEmail($this->email);
@@ -1078,38 +838,29 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         return true;
     }
 
-    private function _saveOrder()
+    protected function _saveOrder()
     {
         // Hack to fix weird Magento payment behaviour
         $payment = $this->getRequest()->getPost('payment', false);
         if($payment) {
-            /**
-             * A fix for common one big form problem
-             * we rename the fields in template and iterate over subarrays
-             * to see if there's any values and set them to main scope
-             */
-            foreach($payment as $value){
-                if(is_array($value) && !empty($value)){
-                    foreach($value as $key => $realValue){
-                        if(!empty($realValue)){
-                            $payment[$key]=$realValue;
-                        }
-                    }
-                }
+            $payment = $this->filterPaymentData($payment);
+            $this->getOnepage()->getQuote()->getPayment()->importData($payment);
+
+            $ccSaveAllowedMethods = array('ccsave');
+            $method = $this->getOnepage()->getQuote()->getPayment()->getMethodInstance();
+
+            if(in_array($method->getCode(), $ccSaveAllowedMethods)){
+                $info = $method->getInfoInstance();
+                $info->setCcNumberEnc($info->encrypt($info->getCcNumber()));
             }
 
-            /**
-             * unset unnecessary fields
-             */
-            foreach ($payment as $key => $value){
-                if(is_array($value)){
-                    unset($payment[$key]);
-                }
-            }
-            $this->getOnepage()->getQuote()->getPayment()->importData($payment);
         }
 
+
         try {
+            if(!Mage::helper('customer')->isLoggedIn()){
+                $this->getOnepage()->getQuote()->setTotalsCollectedFlag(false)->collectTotals();
+            }
             $order = $this->getOnepage()->saveOrder();
         } catch(Exception $e)   {
             //need to activate
@@ -1136,9 +887,41 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
             $redirect = $this->getUrl('checkout/onepage/success');
             //$this->_redirect('checkout/onepage/success', array('_secure'=>true));
         }
+        $response = Mage::app()->getResponse();
+        return $response->setRedirect($redirect);
+    }
 
-        Header('Location: ' . $redirect);
-        exit();
+    /**
+     * A fix for common one big form problem
+     * we rename the fields in template and iterate over subarrays
+     * to see if there's any values and set them to main scope
+     * while try to preserve _data keys
+     *
+     * @param mixed $payment
+     * @return mixed
+     */
+    protected function filterPaymentData($payment){
+        if($payment){
+
+            foreach($payment as $key => $value){
+
+                if(!strstr($key, '_data') && is_array($value) && !empty($value)){
+                    foreach($value as $subkey => $realValue){
+                        if(!empty($realValue)){
+                            $payment[$subkey]=$realValue;
+                        }
+                    }
+                }
+            }
+
+            foreach ($payment as $key => $value){
+                if(!strstr($key, '_data') && is_array($value)){
+                    unset($payment[$key]);
+                }
+            }
+        }
+
+        return $payment;
     }
 
     public function getOnepage()
@@ -1158,260 +941,6 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
     public function getCountries()
     {
         return Mage::getResourceModel('directory/country_collection')->loadByStore();
-    }
-
-    public function getMethod()
-    {
-        return $this->getQuote()->getCheckoutMethod();
-    }
-
-    function isAddressEmpty($address)
-    {
-
-
-
-    }
-
-    function getAddress() {
-        if (!$this->isCustomerLoggedIn()) {
-            return $this->getQuote()->getBillingAddress();
-        } else {
-            return $this->getQuote()->getBillingAddress();
-
-            //return Mage::getModel('sales/quote_address');
-            /*
-            $address = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-            if($address == null)    {
-            return Mage::getModel('sales/quote_address');
-            }
-            else    {
-            return $address;
-            }*/
-        }
-    }
-
-    public function getFirstname()
-    {
-        $firstname = $this->getAddress()->getFirstname();
-        if (empty($firstname) && $this->getQuote()->getCustomer()) {
-            return $this->getQuote()->getCustomer()->getFirstname();
-        }
-        return $firstname;
-    }
-
-    public function getLastname()
-    {
-        $lastname = $this->getAddress()->getLastname();
-        if (empty($lastname) && $this->getQuote()->getCustomer()) {
-            return $this->getQuote()->getCustomer()->getLastname();
-        }
-        return $lastname;
-    }
-
-    public function getTelephone()
-    {
-        $telephone = $this->getAddress()->getTelephone();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-
-        if(empty($telephone) && $this->_isLoggedIn() && $primary)   {
-            return $this->getQuote()->getCustomer()->getPrimaryBillingAddress()->getTelephone();
-        }
-        return $telephone;
-    }
-
-    public function getCity()
-    {
-        $city = $this->getAddress()->getCity();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-
-        if(empty($city)  && $this->_isLoggedIn() && $primary)   {
-            return $this->getQuote()->getCustomer()->getPrimaryBillingAddress()->getCity();
-        }
-        return $city;
-    }
-
-    public function getStreet($i)
-    {
-        $street = $this->getQuote()->getBillingAddress()->getStreet($i);
-        $primary = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-
-        if(empty($street) &&  $this->_isLoggedIn() && $primary) {
-            return $this->getQuote()->getCustomer()->getPrimaryBillingAddress()->getStreet($i);
-        }
-        return $street;
-    }
-
-    public function postcodeFromCustomer()
-    {
-        $postcode = $this->getAddress()->getPostcode();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-
-        if(empty($postcode) && $this->_isLoggedIn() && $primary)    {
-            return true;
-        }
-
-        return false;
-    }
-
-    public function getPostcode()
-    {
-        $postcode = $this->getAddress()->getPostcode();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-
-        if(empty($postcode) && $this->_isLoggedIn() && $primary)    {
-            return $this->getQuote()->getCustomer()->getPrimaryBillingAddress()->getPostcode();
-        }
-        return $postcode;
-    }
-
-    public function getRegion()
-    {
-        $region = $this->getAddress()->getRegion();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-
-        if(empty($region) && $this->_isLoggedIn() && $primary)  {
-            return $this->getQuote()->getCustomer()->getPrimaryBillingAddress()->getRegion();
-        }
-        return $region;
-    }
-
-    public function getRegionId()
-    {
-        $region = $this->getAddress()->getRegionId();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-
-        if(empty($region) && $this->_isLoggedIn() && $primary)  {
-            return $this->getQuote()->getCustomer()->getPrimaryBillingAddress()->getRegionId();
-        }
-        return $region;
-    }
-
-    public function getCompany()
-    {
-        $company = $this->getAddress()->getCompany();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-
-        if(empty($company) && $this->_isLoggedIn() && $primary) {
-            return $this->getQuote()->getCustomer()->getPrimaryBillingAddress()->getCompany();
-        }
-        return $company;
-    }
-
-    public function getFax()
-    {
-        $fax = $this->getAddress()->getFax();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryBillingAddress();
-
-        if(empty($fax)  && $this->_isLoggedIn() && $primary)    {
-            return $this->getQuote()->getCustomer()->getPrimaryBillingAddress()->getFax();
-        }
-        return $fax;
-    }
-
-    public function getShippingFirstname()
-    {
-        $firstname = $this->getQuote()->getShippingAddress()->getFirstname();
-        if (empty($firstname) && $this->getQuote()->getCustomer()) {
-            return $this->getQuote()->getCustomer()->getFirstname();
-        }
-        return $firstname;
-    }
-
-    public function getShippingLastname()
-    {
-        $lastname = $this->getQuote()->getShippingAddress()->getLastname();
-        if (empty($lastname) && $this->getQuote()->getCustomer()) {
-            return $this->getQuote()->getCustomer()->getLastname();
-        }
-        return $lastname;
-    }
-
-    public function getShippingTelephone()
-    {
-        $telephone = $this->getQuote()->getShippingAddress()->getTelephone();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryShippingAddress();
-
-        if(empty($telephone) && $this->_isLoggedIn() && $primary)   {
-            return $this->getQuote()->getCustomer()->getPrimaryShippingAddress()->getTelephone();
-        }
-        return $telephone;
-    }
-
-    public function getShippingCity()
-    {
-        $primary = $this->getQuote()->getCustomer()->getPrimaryShippingAddress();
-        $city = $this->getQuote()->getShippingAddress()->getCity();
-
-        if(empty($city)  && $this->_isLoggedIn() && $primary)   {
-            return $this->getQuote()->getCustomer()->getPrimaryShippingAddress()->getCity();
-        }
-        return $city;
-    }
-
-    public function getShippingStreet($i)
-    {
-        $street = $this->getQuote()->getShippingAddress()->getStreet($i);
-        $primary = $this->getQuote()->getCustomer()->getPrimaryShippingAddress();
-
-        if(empty($street) && $this->_isLoggedIn() && $primary)  {
-            return $primary->getStreet($i);
-        }
-        return $street;
-    }
-
-    public function getShippingPostcode()
-    {
-        $postcode = $this->getQuote()->getShippingAddress()->getPostcode();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryShippingAddress();
-
-        if(empty($postcode) && $this->_isLoggedIn() && $primary)    {
-            return $this->getQuote()->getCustomer()->getPrimaryShippingAddress()->getPostcode();
-        }
-        return $postcode;
-    }
-
-    public function getShippingRegion()
-    {
-        $region = $this->getQuote()->getShippingAddress()->getRegion();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryShippingAddress();
-
-        if(empty($region) && $this->_isLoggedIn() && $primary)  {
-            return $this->getQuote()->getCustomer()->getPrimaryShippingAddress()->getRegion();
-        }
-        return $region;
-    }
-
-    public function getShippingRegionId()
-    {
-        $region = $this->getQuote()->getShippingAddress()->getRegionId();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryShippingAddress();
-
-        if(empty($region) && $this->_isLoggedIn() && $primary)  {
-            return $this->getQuote()->getCustomer()->getPrimaryShippingAddress()->getRegionId();
-        }
-        return $region;
-    }
-
-    public function getShippingCompany()
-    {
-        $company = $this->getQuote()->getShippingAddress()->getCompany();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryShippingAddress();
-
-        if(empty($company) && $this->_isLoggedIn() && $primary) {
-            return $this->getQuote()->getCustomer()->getPrimaryShippingAddress()->getCompany();
-        }
-        return $company;
-    }
-
-    public function getShippingFax()
-    {
-        $fax = $this->getQuote()->getShippingAddress()->getFax();
-        $primary = $this->getQuote()->getCustomer()->getPrimaryShippingAddress();
-
-        if(empty($fax)  && $this->_isLoggedIn() && $primary)    {
-            return $this->getQuote()->getCustomer()->getPrimaryShippingAddress()->getFax();
-        }
-        return $fax;
     }
 
     public function canShip()
@@ -1554,5 +1083,28 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         $fields = $tmp ;
 
         return $fields;
+    }
+
+    /**
+     * check if e-mail address is subscribed to newsletter
+     *
+     * @param $email string
+     * @return boolean
+     */
+    public function isSubscribed ($email = null)
+    {
+        $isSubscribed = false;
+
+        if (! empty($email)) {
+            try {
+                $result = Mage::getModel('newsletter/subscriber')->loadByEmail(
+                $email);
+                if (is_object($result) && $result->getSubscriberStatus() == 1) {
+                    $isSubscribed = true;
+                }
+            } catch (Exception $e) {}
+        }
+
+        return $isSubscribed;
     }
 }

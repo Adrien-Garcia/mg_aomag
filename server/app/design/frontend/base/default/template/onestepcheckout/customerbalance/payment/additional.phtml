@@ -55,6 +55,7 @@
     }
 
     Payment.prototype.switchCustomerBalanceCheckbox = function() {
+
         if ($('use_customer_balance').checked) {
             $('use_customer_balance').value = 1;
         } else {
@@ -82,12 +83,21 @@
                 if (elements[i].name == 'payment[method]' && elements[i].value == 'free') {
                     elements[i].checked = false;
                     elements[i].disabled = true;
-                    (elements[i].parentNode).hide();
+
+                    if(elements[i].parentNode){
+                    //(elements[i].parentNode).hide();
+                    }
                 }
             }
             if ($('use_customer_balance').checked) {
+                if($('payment_form_' + payment.currentMethod)){
+                    $('payment_form_' + payment.currentMethod).hide()
+                }
                 payment.currentMethod = 'free';
-                $('checkout-payment-method-load').hide();
+                if($('p_method_free')){
+                    $('p_method_free').checked = true;
+                    $('p_method_free').disabled = false;
+                }
             }
         } else {
 
@@ -105,12 +115,19 @@
                 payment.currentMethod = methodname;
             } else {
                 methodElement = $RFF($('onestepcheckout-form'), 'payment[method]');
-                payment.currentMethod = methodElement.value;
-                methodElement.checked = true;
+                if(methodElement){
+                    methodElement.checked = true;
+                    payment.currentMethod = methodElement.value;
+                }
                 if($('payment_form_' + payment.currentMethod)){
                     $('payment_form_' + payment.currentMethod).show()
                 }
             }
+        }
+
+        if(payment.countreload){
+            var url = '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>';
+            get_separate_save_methods_function(url)();
         }
     }
 
@@ -131,9 +148,14 @@
         payment.addBeforeValidateFunction('customerbalance', customerBalanceValidate.bind(payment));
     }
 
-    Event.observe($('use_customer_balance'), 'change', payment.switchCustomerBalanceCheckbox);
-    var url = '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>';
-    Event.observe($('use_customer_balance'), 'change', get_separate_save_methods_function(url));
+    Event.observe($('use_customer_balance'), 'click', function(){
+        payment.reloadcallback = true;
+        payment.countreload = 1;
+        payment.switchCustomerBalanceCheckbox();
+    });
+    //Event.observe($('use_customer_balance'), 'click', payment.switchCustomerBalanceCheckbox);
+
+
     //]]>
     </script>
 <?php endif; ?>

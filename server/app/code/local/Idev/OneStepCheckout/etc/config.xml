@@ -2,27 +2,14 @@
 <config>
     <modules>
         <Idev_OneStepCheckout>
-            <version>3.1.2</version>
+            <version>4.0.9</version>
         </Idev_OneStepCheckout>
     </modules>
     <frontend>
-
         <secure_url>
           <onestepcheckout>/onestepcheckout</onestepcheckout>
         </secure_url>
-
         <events>
-            <!--
-            <controller_action_predispatch>
-                <observers>
-                    <initialize_onestepcheckout>
-                        <type>singleton</type>
-                        <class>Idev_OneStepCheckout_Model_Observer</class>
-                        <method>initialize_checkout</method>
-                    </initialize_onestepcheckout>
-                </observers>
-            </controller_action_predispatch>
-            -->
             <checkout_type_onepage_save_order>
                 <observers>
                     <onestepcheckout_save_customercomment>
@@ -32,6 +19,47 @@
                     </onestepcheckout_save_customercomment>
                 </observers>
               </checkout_type_onepage_save_order>
+              <sales_quote_collect_totals_before>
+                <observers>
+                    <onestepcheckout_set_address_defaults>
+                        <type>model</type>
+                        <class>Idev_OneStepCheckout_Model_Observers_PresetDefaults</class>
+                        <method>setDefaults</method>
+                    </onestepcheckout_set_address_defaults>
+                </observers>
+              </sales_quote_collect_totals_before>
+              <sales_quote_collect_totals_after>
+                <observers>
+                    <onestepcheckout_set_shipping_defaults>
+                        <type>model</type>
+                        <class>Idev_OneStepCheckout_Model_Observers_PresetDefaults</class>
+                        <method>setShippingIfDifferent</method>
+                    </onestepcheckout_set_shipping_defaults>
+                </observers>
+              </sales_quote_collect_totals_after>
+              <customer_login>
+                <observers>
+                    <onestepcheckout_set_shipping_defaults_on_login>
+                        <type>model</type>
+                        <class>Idev_OneStepCheckout_Model_Observers_PresetDefaults</class>
+                        <method>setDefaultsOnLogin</method>
+                    </onestepcheckout_set_shipping_defaults_on_login>
+                </observers>
+              </customer_login>
+              <controller_action_layout_render_before_onestepcheckout_index_index>
+                <observers>
+                    <onestepcheckout_check_valid>
+                        <type>model</type>
+                        <class>Idev_OneStepCheckout_Helper_Data</class>
+                        <method>checkValid</method>
+                    </onestepcheckout_check_valid>
+                    <onestepcheckout_compare_address_defaults>
+                        <type>model</type>
+                        <class>Idev_OneStepCheckout_Model_Observers_PresetDefaults</class>
+                        <method>compareDefaultsFromCart</method>
+                    </onestepcheckout_compare_address_defaults>
+                </observers>
+              </controller_action_layout_render_before_onestepcheckout_index_index>
         </events>
         <routers>
             <onestepcheckout>
@@ -41,6 +69,13 @@
                     <frontName>onestepcheckout</frontName>
                 </args>
             </onestepcheckout>
+            <checkout>
+                <args>
+                    <modules>
+                        <Idev_OneStepCheckout before="Mage_Checkout">Idev_OneStepCheckout</Idev_OneStepCheckout>
+                    </modules>
+                </args>
+            </checkout>
         </routers>
         <layout>
             <updates>
@@ -78,13 +113,18 @@
                     </children>
                 </admin>
             </resources>
-        </acl> 
+        </acl>
     </adminhtml>
     <global>
         <models>
             <onestepcheckout>
                 <class>Idev_OneStepCheckout_Model</class>
             </onestepcheckout>
+            <sales>
+                <rewrite>
+                    <quote>Idev_OneStepCheckout_Model_Sales_Quote</quote>
+                </rewrite>
+            </sales>
         </models>
         <resources>
             <onestepcheckout_setup>
@@ -108,13 +148,17 @@
             </checkout>
             <checkout>
                 <rewrite>
-                    <!-- CONFLIT : décommenter si le module Addonline_Varnish n'est pas installé   
-                    <links>Idev_OneStepCheckout_Block_Checkout_Links</links> -->
+                    <links>Idev_OneStepCheckout_Block_Checkout_Links</links>
                 </rewrite>
             </checkout>
             <checkout>
                 <rewrite>
                     <cart_sidebar>Idev_OneStepCheckout_Block_Checkout_Cart_Sidebar</cart_sidebar>
+                </rewrite>
+            </checkout>
+            <checkout>
+                <rewrite>
+                    <cart>Idev_OneStepCheckout_Block_Checkout_Cart</cart>
                 </rewrite>
             </checkout>
             <adminhtml>
@@ -125,6 +169,11 @@
         </blocks>
         <helpers>
             <onestepcheckout><class>Idev_OneStepCheckout_Helper</class></onestepcheckout>
+            <checkout>
+                <rewrite>
+                    <url>Idev_OneStepCheckout_Helper_Url</url>
+                </rewrite>
+            </checkout>
         </helpers>
     </global>
     <default>
@@ -136,17 +185,19 @@
                 <hide_shipping_method>0</hide_shipping_method>
                 <default_payment_method></default_payment_method>
                 <hide_payment_method>0</hide_payment_method>
-                <enable_different_shipping>0</enable_different_shipping>
                 <enable_gift_messages>0</enable_gift_messages>
                 <hide_nonfree_payment_methods>0</hide_nonfree_payment_methods>
                 <show_custom_options>0</show_custom_options>
                 <enable_geoip>0</enable_geoip>
                 <enable_newsletter>1</enable_newsletter>
                 <enable_terms>0</enable_terms>
+                <enable_different_shipping>1</enable_different_shipping>
+                <enable_different_shipping_hide>1</enable_different_shipping_hide>
                 <checkout_title>Checkout</checkout_title>
                 <checkout_description>Welcome to the checkout. Fill in the fields below to complete your purchase!</checkout_description>
                 <skin>generic</skin>
                 <display_tax_included>1</display_tax_included>
+                <redirect_to_cart>0</redirect_to_cart>
             </general>
             <exclude_fields>
                 <exclude_country_id>0</exclude_country_id>
@@ -189,27 +240,18 @@
                 <feedback_values></feedback_values>
             </feedback>
             <ajax_update>
-                <enable_ajax_save_billing>0</enable_ajax_save_billing>
-                <enable_update_payment_on_shipping>0</enable_update_payment_on_shipping>
+                <enable_ajax_save_billing>1</enable_ajax_save_billing>
+                <ajax_save_billing_fields>country,postcode</ajax_save_billing_fields>
+                <enable_update_payment_on_shipping>1</enable_update_payment_on_shipping>
             </ajax_update>
             <registration>
                 <registration_mode>allow_guest</registration_mode>
                 <registration_order_without_password>0</registration_order_without_password>
             </registration>
-        </onestepcheckout>    
+            <addressreview>
+                <billing_template><![CDATA[#{billing:firstname} #{billing:lastname}<br />#{billing:email}<br />#{billing:company}<br />#{billing:street1}<br />#{billing:street2}<br />#{billing:city},  #{billing:region}, #{billing:postcode}<br />#{billing:country_id}<br />T: #{billing:telephone} ]]></billing_template>
+                <shipping_template><![CDATA[#{shipping:firstname} #{shipping:lastname}<br />#{shipping:email}<br />#{shipping:street1}<br />#{shipping:street2}<br />#{shipping:city},  #{shipping:region}, #{shipping:postcode}<br />#{shipping:country_id}<br />T: #{shipping:telephone} ]]></shipping_template>
+            </addressreview>
+        </onestepcheckout>
     </default>
-    <!--
-    <stores>
-        <admin>
-            <design>
-                <package>
-                    <name>default</name>
-                </package>
-                <theme>
-                    <default>YOUR_THEME</default>
-                </theme>
-            </design>
-        </admin>
-    </stores>
-    -->
 </config>

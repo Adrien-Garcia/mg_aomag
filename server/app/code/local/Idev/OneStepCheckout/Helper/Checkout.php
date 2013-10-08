@@ -94,7 +94,7 @@ class Idev_OneStepCheckout_Helper_Checkout extends Mage_Core_Helper_Abstract
         $this->temp = Mage::getStoreConfig('onestepcheckout/general/' . base64_decode('c2VyaWFs'));
     }
 
-    private function _isLoggedIn()
+    protected function _isLoggedIn()
     {
         $helper = Mage::helper('customer');
         if( $helper->isLoggedIn() )    {
@@ -238,13 +238,14 @@ class Idev_OneStepCheckout_Helper_Checkout extends Mage_Core_Helper_Abstract
         $items = array(
             'general/serial', 'general/default_country', 'general/default_shipping_method', 'general/default_payment_method',
             'general/enable_geoip', 'general/skin', 'exclude_fields/exclude_city', 'exclude_fields/exclude_telephone', 'general/show_custom_options',
-            'exclude_fields/exclude_company', 'exclude_fields/exclude_fax', 'exclude_fields/exclude_region', 'exclude_fields/exclude_zip', 'exclude_fields/enable_comments', 'exclude_fields/enable_discount', 'exclude_fields/exclude_address', 'exclude_fields/exclude_country_id',
+            'exclude_fields/exclude_company', 'exclude_fields/exclude_fax', 'exclude_fields/exclude_region', 'exclude_fields/exclude_zip', 'exclude_fields/enable_comments', 'exclude_fields/enable_discount', 'exclude_fields/exclude_address', 'exclude_fields/exclude_country_id', 'exclude_fields/enable_giftcard',
             'general/geoip_database', 'exclude_fields/enable_newsletter', 'terms/enable_terms',
             'general/checkout_title', 'general/checkout_description','sortordering_fields',
             'terms/terms_title', 'terms/terms_contents', 'general/enable_different_shipping', 'ajax_update/enable_ajax_save_billing',
             'ajax_update/ajax_save_billing_fields', 'ajax_update/enable_update_payment_on_shipping', 'general/enable_gift_messages',
             'registration/registration_mode', 'registration/registration_order_without_password', 'general/hide_nonfree_payment_methods',
-            'general/display_tax_included', 'exclude_fields/newsletter_default_checked', 'feedback',
+            'general/display_tax_included', 'exclude_fields/newsletter_default_checked', 'feedback','addressreview',
+            'general/display_full_tax','exclude_fields/enable_comments_default','terms/enable_default_terms','terms/enable_default_terms', 'terms/enable_textarea'
         );
 
         foreach($items as $config)    {
@@ -253,6 +254,16 @@ class Idev_OneStepCheckout_Helper_Checkout extends Mage_Core_Helper_Abstract
             $name = (!empty($temp[1])) ? $temp[1] : $temp[0];
 
             $settings[$name] = Mage::getStoreConfig('onestepcheckout/' . $config);
+        }
+
+        $isPersistent = false;
+
+        if(is_object(Mage::getConfig()->getNode('global/models/persistent'))){
+            $isPersistent = Mage::helper('persistent/session')->isPersistent();
+        }
+
+        if(!$isPersistent && !$this->getOnePage()->getQuote()->isAllowedGuestCheckout()){
+            $settings['registration_mode'] = 'require_registration';
         }
 
         return $settings;
@@ -277,39 +288,59 @@ class Idev_OneStepCheckout_Helper_Checkout extends Mage_Core_Helper_Abstract
 
     }
 
-    public function load_exclude_data(&$data)
+    public function load_exclude_data($data)
     {
-        if( $this->settings['exclude_city'] )    {
+        if( $this->settings['exclude_city']  || empty($data['city']))    {
             $data['city'] = '-';
         }
 
-        if( $this->settings['exclude_country_id'] )    {
+        if( $this->settings['exclude_country_id']  || empty($data['country_id']))    {
             $data['country_id'] = $this->settings['default_country'];
         }
 
-        if( $this->settings['exclude_telephone'] )    {
+        if( $this->settings['exclude_telephone'] || empty($data['telephone']))    {
             $data['telephone'] = '-';
         }
 
-        if( $this->settings['exclude_region'] )    {
+        if( $this->settings['exclude_region'] || (empty($data['region']) && empty($data['region_id'])))    {
             $data['region'] = '-';
             $data['region_id'] = '1';
         }
 
-        if( $this->settings['exclude_zip'] )    {
+        if( $this->settings['exclude_zip'] || empty($data['postcode']))    {
             $data['postcode'] = '-';
         }
 
-        if( $this->settings['exclude_company'] )    {
+        if( $this->settings['exclude_company'] || empty($data['company']) )    {
             $data['company'] = '';
         }
 
-        if( $this->settings['exclude_fax'] )    {
+        if( $this->settings['exclude_fax'] || empty($data['fax']) )    {
             $data['fax'] = '';
         }
 
-        if( $this->settings['exclude_address'] )    {
+        if( $this->settings['exclude_address'] || empty($data['street']) )    {
             $data['street'][] = '-';
+        }
+
+        $data = $this->cleanValues($data);
+        return $data;
+    }
+
+    /**
+     * Escape form values from html
+     * @param  $data
+     * @return cleaned value
+     */
+    public function cleanValues($data) {
+        $helper = Mage::helper('core');
+
+        if (is_array($data)) {
+            foreach ($data as $value) {
+                $value = $this->cleanValues($value);
+            }
+        } else {
+            $data = $helper->escapeHtml($data);
         }
 
         return $data;
@@ -439,8 +470,10 @@ class Idev_OneStepCheckout_Helper_Checkout extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        if (!$method->canUseForCurrency(Mage::app()->getStore()->getBaseCurrencyCode())) {
-            return false;
+        if(method_exists($method, 'canUseForCurrency')){
+            if (!$method->canUseForCurrency(Mage::app()->getStore()->getBaseCurrencyCode())) {
+                return false;
+            }
         }
 
         /**
@@ -462,38 +495,56 @@ class Idev_OneStepCheckout_Helper_Checkout extends Mage_Core_Helper_Abstract
         $temp = explode('.', $domain);
         $exceptions = array(
             'co.uk',
-            'com.au'
-            );
+            'com.au',
+            'com.br',
+            'com.sg'
+        );
 
-            $count = count($temp);
-            $last = $temp[($count-2)] . '.' . $temp[($count-1)];
+        $count = count($temp);
+        $last = $temp[($count-2)] . '.' . $temp[($count-1)];
 
-            if(in_array($last, $exceptions))    {
-                $new_domain = $temp[($count-3)] . '.' . $temp[($count-2)] . '.' . $temp[($count-1)];
-            }
-            else    {
-                $new_domain = $temp[($count-2)] . '.' . $temp[($count-1)];
-            }
+        if(in_array($last, $exceptions))    {
+            $new_domain = $temp[($count-3)] . '.' . $temp[($count-2)] . '.' . $temp[($count-1)];
+        }
+        else    {
+            $new_domain = $temp[($count-2)] . '.' . $temp[($count-1)];
+        }
 
-            return $new_domain;
+        return $new_domain;
     }
 
     function checkEntry($domain, $serial)
     {
-        //$key = sha1(base64_decode('b25lc3RlcGNoZWNrb3V0'));
-        //if(sha1($key.$domain) == $serial)   {
+        $key = sha1(base64_decode('b25lc3RlcGNoZWNrb3V0'));
+        if(sha1($key.$domain) == $serial)   {
             return true;
-        //}
+        }
 
-        //return false;
+        return false;
     }
 
-    public function canRun()
+    function checkEntryDev($domain, $serial)
     {
-        $temp = $this->temp;
+        $key = sha1(base64_decode('b25lc3RlcGNoZWNrb3V0X2Rldg=='));
+        if(sha1($key.$domain) == $serial)   {
+            return true;
+        }
 
-        $original = $this->checkEntry($_SERVER['SERVER_NAME'], $temp);
-        $wildcard = $this->checkEntry($this->getDomain(), $temp);
+        return false;
+
+    }
+
+    public function canRun($dev=false)
+    {
+        $temp = rtrim(ltrim($this->temp));
+
+        if(!$dev) {
+            $original = $this->checkEntry($_SERVER['SERVER_NAME'], $temp);
+            $wildcard = $this->checkEntry($this->getDomain(), $temp);
+        } else {
+            $original = $this->checkEntryDev($_SERVER['SERVER_NAME'], $temp);
+            $wildcard = $this->checkEntryDev($this->getDomain(), $temp);
+        }
 
         if(!$original && !$wildcard) {
             return false;

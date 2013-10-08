@@ -20,19 +20,19 @@ class Idev_OneStepCheckout_Block_Register extends Mage_Checkout_Block_Onepage_Ab
         return false;
     }
 
-    private function _isEmailRegistered($email)
+    protected function _isEmailRegistered($email)
     {
-        /* $model = Mage::getModel('customer/customer');
+        $model = Mage::getModel('customer/customer');
         $model->setWebsiteId(Mage::app()->getStore()->getWebsiteId())->loadByEmail($email);
 
         if($model->getId() == NULL)    {
             return false;
-        } */
+        }
 
         return true;
     }
 
-    private function _isLoggedIn()
+    protected function _isLoggedIn()
     {
         $helper = $this->helper('customer');
         if( $helper->isLoggedIn() )    {

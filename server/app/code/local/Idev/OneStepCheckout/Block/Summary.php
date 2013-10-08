@@ -6,7 +6,7 @@
  *
  */
 
-class Idev_OneStepCheckout_Block_Summary extends Mage_Checkout_Block_Onepage_Abstract    {
+class Idev_OneStepCheckout_Block_Summary extends Mage_Checkout_Block_Cart_Totals {
 
     public function __construct()
     {
@@ -21,5 +21,9 @@ class Idev_OneStepCheckout_Block_Summary extends Mage_Checkout_Block_Onepage_Abs
     public function getTotals()
     {
         return $this->getQuote()->getTotals();
+    }
+
+    public function getGrandTotal(){
+        return $this->getQuote()->getGrandTotal();
     }
 }

@@ -1,6 +1,17 @@
 <?php
 class Idev_OneStepCheckout_IndexController extends Mage_Core_Controller_Front_Action {
 
+    /**
+     * @return Mage_Checkout_OnepageController
+     */
+    public function preDispatch()
+    {
+        parent::preDispatch();
+        $this->_preDispatchValidateCustomer();
+
+        return $this;
+    }
+
     public function getOnepage() {
         return Mage::getSingleton('checkout/type_onepage');
     }
@@ -11,6 +22,13 @@ class Idev_OneStepCheckout_IndexController extends Mage_Core_Controller_Front_Ac
     }
 
     public function indexAction() {
+
+        $routeName = $this->getRequest()->getRouteName();
+
+        if (!Mage::helper('onestepcheckout')->isRewriteCheckoutLinksEnabled() && $routeName != 'onestepcheckout'){
+            $this->_redirect('checkout/onepage', array('_secure'=>true));
+        }
+
         $quote = $this->getOnepage()->getQuote();
         if (!$quote->hasItems() || $quote->getHasError()) {
             $this->_redirect('checkout/cart');
@@ -40,6 +58,43 @@ class Idev_OneStepCheckout_IndexController extends Mage_Core_Controller_Front_Ac
             ;
         }
 
+        if(is_object(Mage::getConfig()->getNode('global/models/googleoptimizer')) && Mage::getStoreConfigFlag('google/optimizer/active')){
+            $googleOptimizer = $this->getLayout()->createBlock('googleoptimizer/code_conversion', 'googleoptimizer.conversion.script', array('after'=>'-'))
+            ->setScriptType('conversion_script')
+            ->setPageType('checkout_onepage_success');
+            $this->getLayout()->getBlock('before_body_end')
+            ->append($googleOptimizer);
+        }
+
         $this->renderLayout();
+    }
+
+    /**
+     * Make sure customer is valid, if logged in
+     * By default will add error messages and redirect to customer edit form
+     *
+     * @param bool $redirect - stop dispatch and redirect?
+     * @param bool $addErrors - add error messages?
+     * @return bool
+     */
+    protected function _preDispatchValidateCustomer($redirect = true, $addErrors = true)
+    {
+        $customer = Mage::getSingleton('customer/session')->getCustomer();
+        if ($customer && $customer->getId()) {
+            $validationResult = $customer->validate();
+            if ((true !== $validationResult) && is_array($validationResult)) {
+                if ($addErrors) {
+                    foreach ($validationResult as $error) {
+                        Mage::getSingleton('customer/session')->addError($error);
+                    }
+                }
+                if ($redirect) {
+                    $this->_redirect('customer/account/edit');
+                    $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+                }
+                return false;
+            }
+        }
+        return true;
     }
 }

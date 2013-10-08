@@ -49,23 +49,28 @@ if($helper->settings['hide_nonfree_payment_methods'])   {
 ?>
 
 <div class="payment-methods">
-
 <script type="text/javascript">
 //<![CDATA[
   <?php echo $this->getChildHtml('reward.scripts'); ?>
   <?php echo $this->getChildHtml('customerbalance_scripts'); ?>
   var payment = new Payment('checkout-payment-method-load', '<?php echo $this->getUrl('checkout/onepage/savePayment') ?>');
+  payment.currentMethod = "<?php echo $this->getQuote()->getPayment()->getMethod() ?>";
 //]]>
 </script>
-    <?php if(str_replace('.', '', Mage::getVersion()) > 1600):?>
+    <?php if(Mage::helper('onestepcheckout')->isEnterprise()):?>
         <?php echo $this->getChildHtml('customerbalance'); ?>
         <?php echo $this->getChildHtml('reward.points'); ?>
     <?php endif;?>
 
     <?php if (count($this->getMethods())=='1' && Mage::getStoreConfig('onestepcheckout/general/hide_payment_method')):?>
+    <dl id="checkout-payment-method-load" style="display: none">
         <?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
-            <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="hidden" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" class="radio" <?php if($this->getSelectedMethodCode()==$_code || ($hide_nonfree_methods && $_code == 'free')): ?> checked="checked"<?php endif; ?> />
+
+        <dt>
+        <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="hidden" name="payment[method]" title="<?php echo $this->escapeHtml($_method->getTitle()) ?>" class="radio" <?php if($this->getSelectedMethodCode()==$_code || ($hide_nonfree_methods && $_code == 'free')): ?> checked="checked"<?php endif; ?> />
+        <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label></dt>
         <?php endforeach; ?>
+    </dl>
     <?php else:?>
 
         <dl id="checkout-payment-method-load">
@@ -73,7 +78,7 @@ if($helper->settings['hide_nonfree_payment_methods'])   {
         <?php if($hide_nonfree_methods && $_code != 'free') continue; ?>
             <dt>
             <?php if( sizeof($this->getMethods()) > 1 ): ?>
-                <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" class="radio validate-one-required-by-name" <?php if($this->getSelectedMethodCode()==$_code || ($hide_nonfree_methods && $_code == 'free')): ?> checked="checked"<?php endif; ?> />
+                <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->escapeHtml($_method->getTitle()) ?>" class="radio validate-one-required-by-name" <?php if($this->getSelectedMethodCode()==$_code || ($hide_nonfree_methods && $_code == 'free')): ?> checked="checked"<?php endif; ?> />
             <?php else: ?>
                 <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" /></span>
             <?php endif; ?>
@@ -116,6 +121,7 @@ $$('#checkout-payment-method-load dt input').invoke('observe', 'click', function
     $$('dd.payment-method').invoke('hide');
 
     if(element.checked) {
+        payment.switchMethod(payment.currentMethod);
         var form = $(name);
         var container = $('container_payment_method_' + element.getValue());
 
@@ -144,6 +150,7 @@ if(cBalance){
 //if we have a enterprise version we should include this end
 <?php endif;?>
 
-payment.currentMethod = "<?php echo $this->getQuote()->getPayment()->getMethod() ?>";
+payment.switchMethod(payment.currentMethod);
+<?php echo $this->getChildHtml('giftcardaccount_scripts');?>
 //]]>
 </script>

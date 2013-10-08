@@ -1,18 +1,31 @@
 <?php
 class Idev_OneStepCheckout_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    public function checkValid($observer)
+    {
+        $layout = Mage::app()->getLayout();
+        $content = $layout->getBlock('content');
+        $block = $layout->createBlock('onestepcheckout/valid');
+        $content->insert($block);
+    }
+
     public function setCustomerComment($observer)
     {
-        $enable_comments = Mage::getStoreConfig('onestepcheckout/exclude_fields/enable_comments');
+        $enableComments = Mage::getStoreConfig('onestepcheckout/exclude_fields/enable_comments');
+        $enableCommentsDefault = Mage::getStoreConfig('onestepcheckout/exclude_fields/enable_comments_default');
         $enableFeedback = Mage::getStoreConfig('onestepcheckout/feedback/enable_feedback');
+        $orderComment = $this->_getRequest()->getPost('onestepcheckout_comments');
+        $orderComment = trim($orderComment);
 
-        if($enable_comments)	{
-            $orderComment = $this->_getRequest()->getPost('onestepcheckout_comments');
-            $orderComment = trim($orderComment);
+        if($enableComments && !$enableCommentsDefault) {
+            if ($orderComment != ""){
+                $observer->getEvent()->getOrder()->setOnestepcheckoutCustomercomment(Mage::helper('core')->escapeHtml($orderComment));
+            }
+        }
 
-            if ($orderComment != "")
-            {
-                $observer->getEvent()->getOrder()->setOnestepcheckoutCustomercomment($orderComment);
+        if($enableComments && $enableCommentsDefault) {
+            if ($orderComment != ""){
+                $observer->getEvent()->getOrder()->setState($observer->getEvent()->getOrder()->getStatus(), true, Mage::helper('core')->escapeHtml($orderComment), false );
             }
         }
 
@@ -29,7 +42,7 @@ class Idev_OneStepCheckout_Helper_Data extends Mage_Core_Helper_Abstract
                     $feedbackValue = $feedbackValueFreetext;
                 }
 
-                $observer->getEvent()->getOrder()->setOnestepcheckoutCustomerfeedback($feedbackValue);
+                $observer->getEvent()->getOrder()->setOnestepcheckoutCustomerfeedback(Mage::helper('core')->escapeHtml($feedbackValue));
             }
 
         }
@@ -42,9 +55,47 @@ class Idev_OneStepCheckout_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * If we are using enterprise wersion or not
-     * @return boolean
+     * @return int
      */
     public function isEnterPrise(){
-        return (str_replace('.', '', Mage::getVersion()) > 1600) ? true : false;
+        return (int)is_object(Mage::getConfig()->getNode('global/models/enterprise_enterprise'));
+    }
+
+    /**
+     * Encode the mixed $valueToEncode into the JSON format
+     *
+     * @param mixed $valueToEncode
+     * @param  boolean $cycleCheck Optional; whether or not to check for object recursion; off by default
+     * @param  array $options Additional options used during encoding
+     * @return string
+     */
+    public function jsonEncode($valueToEncode, $cycleCheck = false, $options = array())
+    {
+        $json = Zend_Json::encode($valueToEncode, $cycleCheck, $options);
+        /* @var $inline Mage_Core_Model_Translate_Inline */
+        $inline = Mage::getSingleton('core/translate_inline');
+        if ($inline->isAllowed()) {
+            $inline->setIsJson(true);
+            $inline->processResponseBody($json);
+            $inline->setIsJson(false);
+        }
+
+        return $json;
+    }
+
+    /**
+     * Check if value is only -
+     * @param mixed $value
+     */
+    public function clearDash($value = null){
+        if($value == '-'){
+            return '';
+        }
+        if(method_exists(Mage::helper('core'), 'escapeHtml')){
+            return Mage::helper('core')->escapeHtml($value);
+        } else {
+            //backwards compatibility with < 1.4.1.*
+            return Mage::helper('core')->htmlEscape($value);
+        }
     }
 }

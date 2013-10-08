@@ -1,24 +1,6 @@
 <?php
-
 $_coreHelper = $this->helper('core');
 $checkoutHelper = Mage::helper('onestepcheckout/checkout');
-
-if(!$checkoutHelper->canRun()) {
-    $message = base64_decode('PGRpdiBzdHlsZT0iYm9yZGVyOiAzcHggc29saWQgcmVkOyBwYWRkaW5nOiA1cHg7IG1hcmdpbi1ib3R0b206IDE1cHg7IG1hcmdpbi10b3A6IDE1cHg7Ij5QbGVhc2UgZW50ZXIgYSB2YWxpZCBzZXJpYWwgZm9yIHRoZSBkb21haW4gIltET01BSU5dIiBpbiB5b3VyIGFkbWluaXN0cmF0aW9uIHBhbmVsLiBJZiB5b3UgZG9uJ3QgaGF2ZSBvbmUsIHBsZWFzZSBwdXJjaGFzZSBhIHZhbGlkIGxpY2Vuc2UgZnJvbSA8YSBocmVmPSJodHRwOi8vd3d3Lm9uZXN0ZXBjaGVja291dC5jb20iPnd3dy5vbmVzdGVwY2hlY2tvdXQuY29tPC9hPjwvZGl2Pg==');
-
-    $message = str_replace('[DOMAIN]', $_SERVER['SERVER_NAME'], $message);
-
-    echo $message;
-
-}
-else    {
-
-?>
-
-<?php
-
-
-
 ?>
 
 <table class="onestepcheckout-summary">
@@ -75,9 +57,22 @@ else    {
 
 <table class="onestepcheckout-totals">
     <?php foreach($this->getTotals() as $total): ?>
+    <?php if(!$total->getTitle()){continue;}?>
+        <?php
+        $fullInfo = $total->getFullInfo();
+
+        if(!empty($fullInfo) && $checkoutHelper->settings['display_full_tax']):
+            foreach ($fullInfo as $info):
+                $rates = current($info['rates']);
+                $amount = $info['amount'];
+        ?>
+            <tr>
+                <td class="title"><?php echo $rates['title'] ?> (<?php echo $rates['percent'] ?>%)</td><td class="value"><?php echo $this->helper('checkout')->formatPrice($amount); ?></td>
+            </tr>
+        <?php endforeach;
+        endif;?>
     <tr<?php if($total->getCode() == 'grand_total'): ?> class="grand-total"<?php endif; ?>>
         <td class="title">
-
             <?php
 
             $code = $total->getCode();
@@ -109,5 +104,14 @@ else    {
     </tr>
     <?php endforeach; ?>
 </table>
-
-<?php } ?>
+<script type="text/javascript">
+//<![CDATA[
+var total = <?php echo $this->getGrandTotal();?>;
+    if(payment.reloadcallback){
+        var url = '<?php echo $this->getUrl('onestepcheckout/ajax/paymentrefresh', array('_secure'=>true)); ?>';
+        paymentrefresh(url);
+        payment.countreload = 0;
+        payment.reloadcallback = false;
+    }
+//]]>
+</script>
