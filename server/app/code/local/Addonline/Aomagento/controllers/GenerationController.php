@@ -11,7 +11,7 @@ class Addonline_Aomagento_GenerationController extends Mage_Core_Controller_Fron
 			return;
 		}
 		if($hostname != "") {
-			if(!preg_match("/^http:\/\//", $hostname)) {
+			if(!preg_match("/^http:\/\/|^https:\/\//", $hostname)) {
 				$hostname = "http://".$hostname;
 			}
 			if(!preg_match("/\/$/", $hostname)) {
