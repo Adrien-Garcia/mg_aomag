@@ -40,7 +40,7 @@
 						    <![CDATA[
 						        <script type="text/javascript">
 						        	jQuery("button.generate_key").live("click", function(e) {
-						        		generate_key(e, "AdvancedSlideshow");
+						        		generate_key(e, "EmailCgv");
 						        	});
 						        </script>
 						    ]]>
