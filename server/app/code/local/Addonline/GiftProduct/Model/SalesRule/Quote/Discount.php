@@ -1,27 +1,10 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * Discount calculation model
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 
 
@@ -37,7 +20,7 @@ class Addonline_GiftProduct_Model_SalesRule_Quote_Discount extends Mage_SalesRul
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
     	//parent::collect($address);
-        //on remplace parent::collect par ce que fait Mage_Sales_Model_Quote_Address_Total_Abstract::collect
+        //ADDONLINE : on remplace parent::collect par ce que fait Mage_Sales_Model_Quote_Address_Total_Abstract::collect
     	$this->_setAddress($address);
         /**
          * Reset amounts
@@ -52,10 +35,12 @@ class Addonline_GiftProduct_Model_SalesRule_Quote_Discount extends Mage_SalesRul
 
         $items = $this->_getAddressItems($address);
         if (!count($items)) {
+        	//ADDONLINE
         	$address->setDiscountAmount(0);
         	$address->setSubtotalWithDiscount(0);
         	$address->setBaseDiscountAmount(0);
         	$address->setBaseSubtotalWithDiscount(0);
+        	//ADDONLINE
             return $this;
         }
 
@@ -91,6 +76,7 @@ class Addonline_GiftProduct_Model_SalesRule_Quote_Discount extends Mage_SalesRul
                         $this->_calculator->process($child);
                         $eventArgs['item'] = $child;
                         Mage::dispatchEvent('sales_quote_address_discount_item', $eventArgs);
+
                         $this->_aggregateItemDiscount($child);
                     }
                 } else {
@@ -101,7 +87,7 @@ class Addonline_GiftProduct_Model_SalesRule_Quote_Discount extends Mage_SalesRul
         }
         
         /**
-         *  Process gift product : add or remove in the cart  
+         *  ADDONLINE : Process gift product : add or remove in the cart  
          */
         $rules = Mage::getResourceModel('salesrule/rule_collection');
         $rules->setValidationFilter(Mage::app()->getStore($quote->getStoreId())->getWebsiteId(), $quote->getCustomerGroupId(), $quote->getCouponCode());
@@ -147,23 +133,19 @@ class Addonline_GiftProduct_Model_SalesRule_Quote_Discount extends Mage_SalesRul
 			}
         } 
         
+    
+        /**
+         * process weee amount
+         */
+        if (Mage::helper('weee')->isEnabled() && Mage::helper('weee')->isDiscounted($store)) {
+            $this->_calculator->processWeeeAmount($address, $items);
+        }
+
         /**
          * Process shipping amount discount
          */
-        
-        if($item_found) {
-	        $address->setSubtotal(($address->getSubtotal() - $product_price));
-	        $address->setBaseSubtotal($address->getSubtotal());
-	        $address->setSubtotalInclTax($address->getSubtotalInclTax() - $product_price_tax);
-	        $address->setShippingDiscountAmount(0);
-	        $address->setBaseShippingDiscountAmount(0);
-        } else {
-        	//$address->setSubtotal($address->getSubtotal());
-        	//$address->setBaseSubtotal($address->getSubtotal());
-        	//$address->setSubtotalInclTax($address->getSubtotalInclTax());
-        	$address->setShippingDiscountAmount(0);
-        	$address->setBaseShippingDiscountAmount(0);
-        }
+        $address->setShippingDiscountAmount(0);
+        $address->setBaseShippingDiscountAmount(0);
         if ($address->getShippingAmount()) {
             $this->_calculator->processShippingAmount($address);
             $this->_addAmount(-$address->getShippingDiscountAmount());
@@ -173,5 +155,5 @@ class Addonline_GiftProduct_Model_SalesRule_Quote_Discount extends Mage_SalesRul
         $this->_calculator->prepareDescription($address);
         return $this;
     }
-
+        
 }
