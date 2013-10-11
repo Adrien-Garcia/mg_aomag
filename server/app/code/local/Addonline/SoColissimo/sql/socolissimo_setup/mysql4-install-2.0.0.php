@@ -29,6 +29,9 @@ $installer->run("
 	DELETE FROM {$this->getTable('core_resource')} WHERE code = 'socolissimoflexibilite_setup';		      
 	DELETE FROM {$this->getTable('core_resource')} WHERE code = 'socolissimoliberte_setup';		      
 
+	UPDATE {$this->getTable('sales_flat_order')} SET shipping_method = replace(shipping_method, 'socolissimoflexibilite', 'socolissimo') WHERE shipping_method LIKE 'socolissimoflexibilite%';
+	UPDATE {$this->getTable('sales_flat_order')} SET shipping_method = replace(shipping_method, 'socolissimoliberte', 'socolissimo') WHERE shipping_method LIKE 'socolissimoliberte%';
+	
 ");
 
 /**
