@@ -21,11 +21,13 @@ public function getCollectionData($store) {
 		->addStoreFilter($store->getId())
 		->addWebsiteFilter($store->getWebsiteId()) // set the offset (useful for pagination) 
 		->addFinalPrice();
+		 if (!Mage::getStoreConfig('cataloginventory/options/show_out_of_stock', $store->getId())) {
 		 $collection->getSelect()->joinLeft(
                   array('stock' => 'cataloginventory_stock_item'),
                   "e.entity_id = stock.product_id",
                   array('stock.is_in_stock')
           )->where('stock.is_in_stock = 1');
+		 }
 		//->load();	
 		$productCount = $collection->getSize();
 		$totalPages = ceil($productCount/$itemsPerCommit);
