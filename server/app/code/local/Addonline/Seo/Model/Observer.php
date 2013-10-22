@@ -86,7 +86,7 @@ class Addonline_Seo_Model_Observer {
         	    	$_has_sorted_attributes = false;
         	    	foreach($_sorting_attributes as $key => $sorting_attibute) {
         	    		if(!preg_match("/&/", $sorting_attibute)) {
-        	    			if(!preg_match("/limit/", $sorting_attibute)) {
+        	    			if(!preg_match("/^limit=/", $sorting_attibute)) {
         	    				continue;
         	    			} else {
         	    				$_has_sorted_attributes = true;
