@@ -191,7 +191,7 @@ class WebMods_Solrsearch_Model_Observer {
 				foreach ($storeIdArray as $storeid) {
 					$storeObject = Mage::getModel('core/store')->load($storeid);
 					
-					$collection = $this->loadProductCollectionByProductId($_product);
+					$collection = $this->loadProductCollectionByProductId($_product, $storeObject);
 			
 					$collection->addStoreFilter($storeObject);
 					$collection->addWebsiteFilter($storeObject->getWebsiteId());
@@ -290,7 +290,7 @@ class WebMods_Solrsearch_Model_Observer {
 		return $solrIndexesConfigArrayData;
 	}
 	
-	public function loadProductCollectionByProductId($product){
+	public function loadProductCollectionByProductId($product, $storeObject){
 		$collection = Mage::getModel('catalog/product')->getCollection()
 			->addAttributeToSelect('*')
 			->addFieldToFilter(
@@ -301,12 +301,14 @@ class WebMods_Solrsearch_Model_Observer {
         	);
 			
         	$collection->addAttributeToFilter( 'entity_id', array( 'in' => array( $product->getId() ) ) );
-			
+        	
+        	if (!Mage::getStoreConfig('cataloginventory/options/show_out_of_stock', $storeObject->getId())) {
 			$collection->getSelect()->joinLeft(
                   array('stock' => 'cataloginventory_stock_item'),
                   "e.entity_id = stock.product_id",
                   array('stock.is_in_stock')
           	)->where('stock.is_in_stock = 1');
+        	}
           	
         return $collection;
 	}

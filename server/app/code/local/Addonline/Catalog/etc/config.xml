@@ -20,7 +20,9 @@
         <models>
 		  <catalog>
 		    <rewrite>
+			  <!-- Plus utilisé : on passe par magmi
 			  <convert_adapter_product>Addonline_Catalog_Model_Convert_Adapter_Product</convert_adapter_product>
+			   -->
 			</rewrite>
 		  </catalog>
 		</models>
