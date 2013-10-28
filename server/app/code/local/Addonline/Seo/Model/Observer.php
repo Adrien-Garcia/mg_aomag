@@ -81,26 +81,14 @@ class Addonline_Seo_Model_Observer {
         	    	}
         	    	
         	    	$_filters = Mage::getSingleton('catalog/layer')->getState()->getFilters();
-        	    	$_available_orders = $layout->getBlock("product_list_toolbar")->getAvailableOrders();
-        	    	$_sorting_attributes = explode("?", $_SERVER['REQUEST_URI']);
-        	    	$_has_sorted_attributes = false;
-        	    	foreach($_sorting_attributes as $key => $sorting_attibute) {
-        	    		if(!preg_match("/&/", $sorting_attibute)) {
-        	    			if(!preg_match("/^limit=/", $sorting_attibute)) {
-        	    				continue;
-        	    			} else {
-        	    				$_has_sorted_attributes = true;
-        	    			}
-        	    		} else {
-	        	    		foreach(explode("&", $sorting_attibute) as $key_sort => $sorted) {
-	        	    			$attribute = explode("=", $sorted);
-	        	    			if(isset($_available_orders[$attribute[1]]) || $sorted[0] == "limit") {
-	        	    				$_has_sorted_attributes = true;
-	        	    			}
-	        	    		}
-        	    		}
-        	    	}
-        	    	if(count($_filters)==0 && !$_has_sorted_attributes) {
+        	        $order = Mage::app()->getRequest()->getParam($toolbarBlock->getOrderVarName());
+        	    	$pager = Mage::app()->getRequest()->getParam($toolbarBlock->getPageVarName());
+        	    	$mode = Mage::app()->getRequest()->getParam($toolbarBlock->getModeVarName());
+        	    	$limit = Mage::app()->getRequest()->getParam($toolbarBlock->getLimitVarName());
+        	    	
+        	    	//Si aucun filtre n'est sélectionné, et qu'il n'y a pas de pagination, pas de tri, pas de mode d'affichage ni de nombre de page :
+        	    	// on n'affiche pas la canonical
+        	    	if(count($_filters)==0 && !$order && !$pager && !$mode && !$limit) {
         	    		if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
         	    			$headBlock->removeItem('link_rel', $this->_category->getUrl());
         	    		}
