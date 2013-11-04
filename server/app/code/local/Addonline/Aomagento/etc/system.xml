@@ -43,7 +43,254 @@
 							<show_in_store>1</show_in_store>
 						</key_generation>							
 					</fields>						
-				</licence>				                
+				</licence>		
+				<socolissimo_generation>
+					<label>Clé Socolissimo</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>2</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<generator_flexi>
+							<label>Générer la clé SoColissimoFlexibilite</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+							 <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_socolissimo_generation_generator_flexi button.generate_key").live("click", function(e) {
+						        		generate_key(e, "SoColissimoFlexibilite", "row_addonline_socolissimo_generation_generator_flexi");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<addonline_licence>
+									<key_generation>1</key_generation>
+								</addonline_licence>
+							</depends>
+						</generator_flexi>
+						<generator_liberte>
+							<label>Générer la clé SoColissimoLiberte</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_socolissimo_generation_generator_liberte button.generate_key").live("click", function(e) {
+						        		generate_key(e, "SoColissimoLiberte", "row_addonline_socolissimo_generation_generator_liberte");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_liberte>				
+					</fields>
+				</socolissimo_generation>
+				<advanceslideshow_generation>
+					<label>Clé AdvanceSlideshow</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>3</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<generator_advanceslideshow>
+							<label>Générer la clé</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_advanceslideshow_generation_generator_advanceslideshow button.generate_key").live("click", function(e) {
+						        		generate_key(e, "AdvancedSlideshow", "row_addonline_advanceslideshow_generation_generator_advanceslideshow");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_advanceslideshow>
+					</fields>
+				</advanceslideshow_generation>	 
+				<brand_generation>
+					<label>Clé Brand</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>4</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<generator_brand>
+							<label>Générer la clé</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_brand_generation_generator_brand button.generate_key").live("click", function(e) {
+						        		generate_key(e, "Brand", "row_addonline_brand_generation_generator_brand");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_brand>
+					</fields>
+				</brand_generation>      
+				<sprintsecure_generation>
+					<label>Clé SprintSecure</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>5</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<generator_sprintsecure>
+							<label>Générer la clé</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_sprintsecure_generation_generator_sprintsecure button.generate_key").live("click", function(e) {
+						        		generate_key(e, "SprintSecure", "row_addonline_sprintsecure_generation_generator_sprintsecure");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_sprintsecure>
+					</fields>
+				</sprintsecure_generation>
+				<newsletterdolist_generation>
+					<label>Clé NewsletterDoList</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>6</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<generator_newsletterdolist>
+							<label>Générer la clé</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_newsletterdolist_generation_generator_newsletterdolist button.generate_key").live("click", function(e) {
+						        		generate_key(e, "NewsletterDolist", "row_addonline_newsletterdolist_generation_generator_newsletterdolist");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_newsletterdolist>
+					</fields>
+				</newsletterdolist_generation>
+				<ogonedirectlink_generation>
+					<label>Clé OgoneDirectLink</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>7</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<generator_ogonedirectlink>
+							<label>Générer la clé</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_ogonedirectlink_generation_generator_ogonedirectlink button.generate_key").live("click", function(e) {
+						        		generate_key(e, "OgoneDirectLink", "row_addonline_ogonedirectlink_generation_generator_ogonedirectlink");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_ogonedirectlink>
+					</fields>
+				</ogonedirectlink_generation> 
+				<reviewboost_generation>
+					<label>Clé ReviewBoost</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>8</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<generator_reviewboost>
+							<label>Générer la clé</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_reviewboost_generation_generator_reviewboost button.generate_key").live("click", function(e) {
+						        		generate_key(e, "ReviewBoost", "row_addonline_reviewboost_generation_generator_reviewboost");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_reviewboost>
+					</fields>
+				</reviewboost_generation>
+				<giftproduct_generation>
+					<label>Clé GiftProduct</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>9</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<generator_giftproduct>
+							<label>Générer la clé</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_giftproduct_generation_generator_giftproduct button.generate_key").live("click", function(e) {
+						        		generate_key(e, "ReviewBoost", "row_addonline_giftproduct_generation_generator_giftproduct");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_giftproduct>
+					</fields>
+				</giftproduct_generation>      
 			</groups>
 		</addonline>
     </sections>
