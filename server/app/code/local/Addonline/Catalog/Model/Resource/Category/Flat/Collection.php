@@ -30,7 +30,6 @@ class Addonline_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Cat
         	$this->getSelect()->where(join(' OR ', $cond));
         }
         //ADDONLINE : correction bug magento
-        Mage::log($this->getSelect()->__toString());
         return $this;
     }
 

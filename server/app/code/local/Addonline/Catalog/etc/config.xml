@@ -26,7 +26,9 @@
 			</rewrite>
 		  </catalog>
 		  <catalog_resource>
-          	<category_flat_collection></category_flat_collection>
+		    <rewrite>
+	          	<category_flat_collection>Addonline_Catalog_Model_Resource_Category_Flat_Collection</category_flat_collection>
+	        </rewrite>
           </catalog_resource>
 		</models>
 		<helpers>
