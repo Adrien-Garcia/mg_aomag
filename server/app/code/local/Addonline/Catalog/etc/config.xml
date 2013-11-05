@@ -25,6 +25,9 @@
 			   -->
 			</rewrite>
 		  </catalog>
+		  <catalog_resource>
+          	<category_flat_collection></category_flat_collection>
+          </catalog_resource>
 		</models>
 		<helpers>
             <aocatalog><class>Addonline_Catalog_Helper</class></aocatalog>
