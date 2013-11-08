@@ -300,7 +300,12 @@ class WebMods_Solrsearch_Model_Observer {
                 )
         	);
 			
-        	$collection->addAttributeToFilter( 'entity_id', array( 'in' => array( $product->getId() ) ) );
+			if(is_array($product)) {
+				$product_ids = $product;
+			} else {
+				$product_ids = array($product->getId());
+			}
+			$collection->addAttributeToFilter( 'entity_id', array( 'in' => $product_ids ) );
         	
         	if (!Mage::getStoreConfig('cataloginventory/options/show_out_of_stock', $storeObject->getId())) {
 			$collection->getSelect()->joinLeft(
