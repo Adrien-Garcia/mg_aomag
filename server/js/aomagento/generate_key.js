@@ -10,7 +10,11 @@ jQuery(document).ready(function($) {
 	
 });
 
-function generate_key(event, name, module_id = "") {
+function generate_key(event, name, module_id) {
+	
+	if (!module_id) {
+		module_id = "";
+	} 
 	
 	var hostname_val = jQuery("#"+module_id+" .hostname").val();
 	

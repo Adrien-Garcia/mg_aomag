@@ -2,13 +2,12 @@
 
 <layout version="0.1.0">
 
-	 <default>
+	<adminhtml_system_config_edit>
 		<reference name="head">
 			<action method="addJs"><script>jquery/jquery-1.7.1.min.js</script></action>
 			<action method="addJs"><script>jquery/jquery.noconflict.js</script></action>
-			<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
 			<action method="addJs"><script>aomagento/generate_key.js</script></action>
 		</reference>
-    </default>
+    </adminhtml_system_config_edit>
    
 </layout>
