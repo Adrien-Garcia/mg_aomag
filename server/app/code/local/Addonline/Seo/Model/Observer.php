@@ -81,7 +81,9 @@ class Addonline_Seo_Model_Observer {
         	    	}
         	    	
         	    	$_filters = Mage::getSingleton('catalog/layer')->getState()->getFilters();
-        	        $order = Mage::app()->getRequest()->getParam($toolbarBlock->getOrderVarName());
+        	    	
+        	    	$toolbarBlock = $layout->getBlock("product_list_toolbar");
+        	    	$order = Mage::app()->getRequest()->getParam($toolbarBlock->getOrderVarName());
         	    	$pager = Mage::app()->getRequest()->getParam($toolbarBlock->getPageVarName());
         	    	$mode = Mage::app()->getRequest()->getParam($toolbarBlock->getModeVarName());
         	    	$limit = Mage::app()->getRequest()->getParam($toolbarBlock->getLimitVarName());
