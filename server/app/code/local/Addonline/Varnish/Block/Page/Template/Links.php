@@ -10,6 +10,15 @@
 class Addonline_Varnish_Block_Page_Template_Links extends Mage_Page_Block_Template_Links
 {
 
+	/**
+	 * Set the original module name to avoid breaking translations
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setModuleName('Mage_Page');
+	}
+	
 	protected $_placeholder = false;
 
 	/**
