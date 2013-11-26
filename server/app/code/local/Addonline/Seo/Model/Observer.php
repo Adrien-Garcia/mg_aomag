@@ -53,7 +53,7 @@ class Addonline_Seo_Model_Observer {
         	    	$_product = Mage::registry('current_product');
         	    	$params = array('_ignore_category' => true);
         	    	$_productUrlSid = $_product->getUrlModel()->getUrl($_product, $params);
-        	    	$_productUrl = substr($_productUrlSid, 0, strpos($_productUrlSid, '?'));
+        	    	$_productUrl = preg_replace('/\?.*$/', '', $_productUrlSid); //on supprime l'éventuel SID pour comparer
         	    	$currentUrl = Mage::helper('core/url')->getCurrentUrl();
         	    	if ($_productUrl == $currentUrl) {
         	    		if (Mage::helper('catalog/product')->canUseCanonicalTag()) {
@@ -384,7 +384,8 @@ class Addonline_Seo_Model_Observer {
 				if ($idCategory) {
 					$_product = $observer->getEvent()->getProduct();
 					$params = array('_ignore_category' => true, '_nosid'=> true);
-					$_productUrl = $_product->getUrlModel()->getUrl($_product, $params);
+					$_productUrl = $_product->getUrlModel()->getUrl($_product, $params);        	    	
+					$_productUrl = preg_replace('/\?.*$/', '', $_productUrl); //on supprime l'éventuel SID 
 					Mage::app()->getFrontController()->getResponse()->setRedirect($_productUrl, 301);
 					Mage::app()->getResponse()->sendResponse();
 					exit;
