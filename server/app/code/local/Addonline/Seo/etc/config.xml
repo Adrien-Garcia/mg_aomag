@@ -84,6 +84,15 @@
                     </addonline_seo_edit_metas>
                 </observers>
             </controller_action_layout_generate_blocks_after>
+            <catalog_controller_product_init>
+                <observers>
+                    <addonline_seo_edit_metas>
+                        <type>singleton</type>
+                        <class>seo/observer</class>
+                        <method>redirectCategoryProductUrl</method>
+                    </addonline_seo_edit_metas>
+                </observers>
+            </catalog_controller_product_init>
         </events>
 	</frontend>
 	<adminhtml>
