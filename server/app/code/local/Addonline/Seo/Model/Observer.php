@@ -145,27 +145,52 @@ class Addonline_Seo_Model_Observer {
         	    	}
         	    	$headBlock->setRobots($meta_robots);
         	    	
-        	    	if ( strpos ($meta_robots,'INDEX') !== 0) { //Si la page est n'est pas indexée, on enlève la canonical car elle ne sert à rien
-        	    		if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
-        	    			$headBlock->removeItem('link_rel', $this->_category->getUrl());
-        	    		}
-        	    	}
-        	    	
         	    	$toolbarBlock = $layout->getBlock("product_list_toolbar");
         	    	$order = Mage::app()->getRequest()->getParam($toolbarBlock->getOrderVarName());
         	    	$pager = Mage::app()->getRequest()->getParam($toolbarBlock->getPageVarName());
         	    	$mode = Mage::app()->getRequest()->getParam($toolbarBlock->getModeVarName());
         	    	$limit = Mage::app()->getRequest()->getParam($toolbarBlock->getLimitVarName());
         	    	
-        	    	//Si il n'y a pas de pagination, pas de tri, pas de mode d'affichage ni de nombre de page :
-        	    	// on n'affiche pas la canonical : on n'affiche pas de canonical vers soit-même
-        	    	// par contre on affiche les balises alternates pour le multi-site
-        	    	if(!$order && !$pager && !$mode && !$limit) {
+        	    	if ( strpos ($meta_robots,'INDEX') !== 0 ) { //Si la page est n'est pas indexée, on enlève la canonical car elle ne sert à rien
         	    		if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
         	    			$headBlock->removeItem('link_rel', $this->_category->getUrl());
         	    		}
-        	    		$addAlternate = true;
+        	    	} else {
+	        	    	
+        	    		if (count($_filters)) {	//Si la page est est indexé avec 1 filtre, on enlève la canonical pour indexer sur cette page filtrée uniquement
+							
+        	    		    if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
+        	    				$headBlock->removeItem('link_rel', $this->_category->getUrl());
+        	    			}
+        	    			//Mais si la page est aussi paginée ou triée ... on ajoute une cannonical vers la page Filtrée et indexée
+        	    			if($order || $pager || $mode || $limit) {
+        	    				foreach ($_filters as $_filter) {
+        	    					if ($s) {
+        	    						$s='?';
+        	    					} else {
+        	    						$s.='&';
+        	    					}
+        	    					$s.= $_filter->getFilter()->getAttributeModel()->getAttributeCode().'='.$_filter->getValue();
+        	    				}
+        	    				$headBlock->addLinkRel('canonical', $this->_category->getUrl().$s);
+        	    			}
+        	    			
+        	    			
+        	    		} else {
+
+        	    			//Si il n'y a pas de pagination, pas de tri, pas de mode d'affichage ni de nombre de page :
+        	    			// on n'affiche pas la canonical : on n'affiche pas de canonical vers soit-même
+        	    			// par contre on affiche les balises alternates pour le multi-site
+        	    			if(!$order && !$pager && !$mode && !$limit) {
+        	    				if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
+        	    					$headBlock->removeItem('link_rel', $this->_category->getUrl());
+        	    				}
+        	    				$addAlternate = true;
+        	    			}
+        	    			
+        	    		}
         	    	}
+        	    	
         	    	        	    	
         	    }
                 
