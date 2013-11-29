@@ -207,14 +207,16 @@ class Addonline_Seo_Model_Observer {
                 }
                 
                 if ($addAlternate) {
-//TODO : récupérer la liste des sites multilingues correspondants au site en cours
-//       attention il faut récupérer les store view qui ont le même nom de domaine, avec une code pour différencier seulement, 
-//      ou bien tous les store view même si ils ont des noms de domaine différents ? 
-// 					foreach ($stores as $autreStore) {  		
-//                 		$sHrefLang   = 'en-GB'; //récupérer le code langue du store
-//                 		$href = Mage::app()->getStore($autreStore->getId())->getCurrentUrl(false);
-//                 		$headBlock->addItem('link_rel', $href, 'rel="alternate" hreflang="' . $sHrefLang . '"');
-//                  }
+					// on récupére la liste des sites multilingues correspondants au site en cours
+					// Attention cette partie est à adapter selon les typologies de projet, selon la configuration des magasins magento
+                	$websiteStores = Mage::app()->getWebsite()->getStores();
+					foreach ($websiteStores as $autreStore) {  		
+						if ($autreStore->getId()!= Mage::app()->getStore()->getId()) {
+	                		$sHrefLang   = Mage::getStoreConfig('general/locale/code', $autreStore->getId());; //récupérer le code langue du store
+	                		$href = Mage::app()->getStore($autreStore->getId())->getCurrentUrl(false);
+	                		$headBlock->addItem('link_rel', $href, 'rel="alternate" hreflang="' . $sHrefLang . '"');
+						}
+	                 }
                 }
                 	
         	}
