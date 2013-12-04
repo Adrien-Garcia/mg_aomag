@@ -289,7 +289,7 @@ function loadListeRelais() {
 		check = jQuery(element);
 		url = url + check.val() + "=" + check.is(":checked") + "&";
 	});
-	url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery("#socolissimo_city").text().trim() + "&country=" + jQuery("#socolissimo_country").val();
+	url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery.trim(jQuery("#socolissimo_city").text()) + "&country=" + jQuery("#socolissimo_country").val();
 	url = url + "&latitude=" + socolissimoMyPosition.lat() + "&longitude=" + socolissimoMyPosition.lng();
 	url = encodeURI(url);
 	jQuery.getJSON( url, function(response) {

@@ -43,19 +43,21 @@ class Addonline_Varnish_DynController extends Mage_Core_Controller_Front_Action 
 		if (Mage::getSingleton('customer/session')->isLoggedIn() == true) {
 			//on renvoie les blocs prix qui ont été demandés
 			$requestedBlockNames = $this->getRequest()->getParam('getPriceBlocks');
-			foreach ($requestedBlockNames as $id => $requestedBlockName) {
-				array_push($product_ids, $requestedBlockName);
-			}
-			
-			$products = Mage::getResourceModel("catalog/product_collection");
-			$products->addAttributeToFilter('entity_id', array('in' => $product_ids));
-			$products->addMinimalPrice();
-			$products->addFinalPrice();
-			$products->addTaxPercents();
-			if(count($products) > 0) {
-				$productBlock = $layout->getBlock("product_price_varnish");
-				foreach($products as $key => $product) {
-					$response['blocks']["catalog_product_".$key] = $productBlock->getPriceHtml($product);
+			if(count($requestedBlockNames) > 0) {
+				foreach ($requestedBlockNames as $id => $requestedBlockName) {
+					array_push($product_ids, $requestedBlockName);
+				}
+					
+				$products = Mage::getResourceModel("catalog/product_collection");
+				$products->addAttributeToFilter('entity_id', array('in' => $product_ids));
+				$products->addMinimalPrice();
+				$products->addFinalPrice();
+				$products->addTaxPercents();
+				if(count($products) > 0) {
+					$productBlock = $layout->getBlock("product_price_varnish");
+					foreach($products as $key => $product) {
+						$response['blocks']["catalog_product_".$key] = $productBlock->getPriceHtml($product);
+					}
 				}
 			}
 		}

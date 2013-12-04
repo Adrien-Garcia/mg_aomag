@@ -18,9 +18,11 @@ $autorized_ips [] = '195.28.202.129'; // IP Addonline
 for ($i=48; $i<=79; $i++) {
 	$autorized_ips [] = '50.31.156.'.$i; // IPs Beanstalk
 }
-
+for ($i=108; $i<=122; $i++) {
+	$autorized_ips [] = '50.31.189.'.$i; // IPs Beanstalk
+}
 $remoteIp = @$_SERVER['REMOTE_ADDR'];
-if (strpos ($remoteIp, '192.168.') ===0 ) { //si on est derrière un proxy
+if (strpos ($remoteIp, '192.168.') ===0 || $remoteIp=='127.0.0.1') { //si on est derrière un proxy
 	$remoteIp = @$_SERVER['HTTP_X_FORWARDED_FOR'];
 }
 

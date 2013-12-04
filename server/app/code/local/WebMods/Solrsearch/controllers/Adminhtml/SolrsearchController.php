@@ -692,11 +692,13 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
         	->addFinalPrice()
 			->setPage($page, $itemsPerCommit);
 			
+		if (!Mage::getStoreConfig('cataloginventory/options/show_out_of_stock', $storeId)) {
 			$collection->getSelect()->joinLeft(
                   array('stock' => 'cataloginventory_stock_item'),
                   "e.entity_id = stock.product_id",
                   array('stock.is_in_stock')
           	)->where('stock.is_in_stock = 1');
+		}
           	
         return $collection;
 	}

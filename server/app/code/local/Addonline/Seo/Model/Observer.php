@@ -13,6 +13,9 @@ class Addonline_Seo_Model_Observer {
 			//si le block head existe 
         	if ($headBlock = $layout->getBlock('head')) {
 				
+        		//Flag qui détermine si on affiche les balises des URLs alternatives pour les sites multilingues
+        		$addAlternate = false;
+
                 //BALISES METAS DES PAGES PRODUITS
                 // - récupérer la balise head du produit
                 // - récupérer la blise head générique produit : dans Systeme>Configuration> design/head/title_product, design/head/description_product, design/head/keywords_product
@@ -45,6 +48,22 @@ class Addonline_Seo_Model_Observer {
         	    		$headBlock->setKeywords($_keywords);
         	    	}
         	    	
+        	    	// Si l'URL canonique est la même que l'url courante, on n'affiche pas la balise canonical
+        	    	// Par contre on affiche la balise alternate
+        	    	$_product = Mage::registry('current_product');
+        	    	$params = array('_ignore_category' => true);
+        	    	$_productUrlSid = $_product->getUrlModel()->getUrl($_product, $params);
+        	    	$_productUrl = preg_replace('/\?.*$/', '', $_productUrlSid); //on supprime l'éventuel SID pour comparer
+        	    	$currentUrl = Mage::helper('core/url')->getCurrentUrl();
+        	    	if ($_productUrl == $currentUrl) {
+        	    		if (Mage::helper('catalog/product')->canUseCanonicalTag()) {
+        	    			$headBlock->removeItem('link_rel', $_productUrl);
+        	    			$headBlock->removeItem('link_rel',$_productUrlSid); // parfois la canonical est enregistrée avec le SID...
+        	    		}
+    	    	    	$addAlternate = true;
+        	    	}
+        	    	
+
                 }
                 //BALISES METAS DES PAGES CATEGORIES
                 // - récupérer la balise head de la catégorie
@@ -53,7 +72,6 @@ class Addonline_Seo_Model_Observer {
 
                 if($layout->getBlock('category.products'))
         	    {
-        	    	
         	    	$this->_setCategoryVariables();
         	    	$_head_title_template = Mage::getStoreConfig('catalog/seo/title_category');
         	    	$_head_description_template = Mage::getStoreConfig('catalog/seo/description_category');
@@ -81,68 +99,126 @@ class Addonline_Seo_Model_Observer {
         	    		$headBlock->setKeywords($_keywords);
         	    	}
         	    	
+        	    	//on set la balise robots défini au niveau de la catégorie
+        	    	$meta_robots = $headBlock->getRobots();
+        	    	if ($this->_category->getMetaRobots()) {
+        	    		$meta_robots = $this->_category->getMetaRobots();
+        	    	}
+        	    	
+        	    	//BALISES METAS DES PAGES FILTREES
         	    	$_filters = Mage::getSingleton('catalog/layer')->getState()->getFilters();
-        	    	if(count($_filters)==0 ) {
+        	    	if(count($_filters)) {
+        	    		$separator = ' '.Mage::getStoreConfig('catalog/seo/title_separator').' ';
+        	    		$s = '';
+        	    		foreach ($_filters as $_filter) $s .= $separator.strip_tags(Mage::helper('cms')->__($_filter->getName()).' '.$_filter->getLabel());
+        	    	
+        	    		$head = array();
+        	    		if(strlen(Mage::getStoreConfig('design/head/title_prefix'))) $head[Mage::getStoreConfig('design/head/title_prefix')] = '';
+        	    		if(strlen(Mage::getStoreConfig('design/head/title_suffix'))) $head[Mage::getStoreConfig('design/head/title_suffix')] = '';
+        	    	
+        	    		$headBlock->setTitle(implode(array_filter(explode($separator,strtr($headBlock->getTitle().$separator.$s,$head))),$separator));
+        	    		$headBlock->setDescription(implode(array_filter(explode($separator,strtr($headBlock->getDescription().$separator.$s,$head))),$separator));
+        	    	
+        	    		//Si on a au moins un filtre on n'indexe pas sur google, sauf si il n'y en a qu'un seul et qu'il est configuré pour
+        	    		$meta_robots = $headBlock->getRobots();
+        	    		foreach ($_filters as $_filter) {
+        	    			if ($_filter->getFilter()->getRequestVar()== 'cat') {
+        	    				$meta_robots =  'NOINDEX,NOFOLLOW'; //si il y a le filtre catéogire : on n'indexe pas la page
+        	    			} else {
+        	    				$attribute = $_filter->getFilter()->getAttributeModel();
+        	    				$seoattribute = Mage::getModel('seo/attribute')->load($attribute->getId(), 'attribute_id');
+        	    				if ($seoattribute->getData('meta_robots') == 'NOINDEX,NOFOLLOW' || $seoattribute->getData('meta_robots') == '') {
+        	    					$meta_robots = 'NOINDEX,NOFOLLOW'; //si il y un filtre configuré en NOINDEX,NOFOLLOW : on n'indexe pas la page
+        	    				}
+        	    				if ($seoattribute->getData('meta_robots') == 'NOINDEX,FOLLOW' &&  $meta_robots != 'NOINDEX,NOFOLLOW') {
+        	    					$meta_robots = $seoattribute->getData('meta_robots');
+        	    				}
+        	    				if ($seoattribute->getData('meta_robots') == 'INDEX,NOFOLLOW' && $meta_robots != 'NOINDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW') {
+        	    					$meta_robots = $seoattribute->getData('meta_robots');
+        	    				}
+        	    				if ($seoattribute->getData('meta_robots') == 'INDEX,FOLLOW' && $meta_robots != 'NOINDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW') {
+        	    					$meta_robots = $seoattribute->getData('meta_robots');
+        	    				}
+        	    			}
+        	    		}
+        	    		
+        	    	}
+        	    	$headBlock->setRobots($meta_robots);
+        	    	
+        	    	$toolbarBlock = $layout->getBlock("product_list_toolbar");
+        	    	$order = Mage::app()->getRequest()->getParam($toolbarBlock->getOrderVarName());
+        	    	$pager = Mage::app()->getRequest()->getParam($toolbarBlock->getPageVarName());
+        	    	$mode = Mage::app()->getRequest()->getParam($toolbarBlock->getModeVarName());
+        	    	$limit = Mage::app()->getRequest()->getParam($toolbarBlock->getLimitVarName());
+        	    	
+        	    	if ( strpos ($meta_robots,'INDEX') !== 0 ) { //Si la page est n'est pas indexée, on enlève la canonical car elle ne sert à rien
         	    		if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
         	    			$headBlock->removeItem('link_rel', $this->_category->getUrl());
         	    		}
-        	    	}
-                	
-        	    	//on set la balise robots défini au niveau de la catégorie
-        	    	if ($this->_category->getMetaRobots()) {
-	        	    	$headBlock->setRobots($this->_category->getMetaRobots());
-        	    	}
-        	    }
-                
-				//BALISES METAS DES PAGES FILTREES
-                $_filters = Mage::getSingleton('catalog/layer')->getState()->getFilters();
-                if(count($_filters)) {
-                        $separator = ' '.Mage::getStoreConfig('catalog/seo/title_separator').' ';
-                        $s = '';
-                        foreach ($_filters as $_filter) $s .= $separator.strip_tags(Mage::helper('cms')->__($_filter->getName()).' '.$_filter->getLabel());
-                        
-                        $head = array();
-                        if(strlen(Mage::getStoreConfig('design/head/title_prefix'))) $head[Mage::getStoreConfig('design/head/title_prefix')] = '';
-                        if(strlen(Mage::getStoreConfig('design/head/title_suffix'))) $head[Mage::getStoreConfig('design/head/title_suffix')] = '';
+        	    	} else {
+	        	    	
+        	    		if (count($_filters)) {	//Si la page est est indexé avec 1 filtre, on enlève la canonical pour indexer sur cette page filtrée uniquement
+							
+        	    		    if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
+        	    				$headBlock->removeItem('link_rel', $this->_category->getUrl());
+        	    			}
+        	    			//Mais si la page est aussi paginée ou triée ... on ajoute une cannonical vers la page Filtrée et indexée
+        	    			if($order || $pager || $mode || $limit) {
+        	    				foreach ($_filters as $_filter) {
+        	    					if ($s) {
+        	    						$s='?';
+        	    					} else {
+        	    						$s.='&';
+        	    					}
+        	    					$s.= $_filter->getFilter()->getAttributeModel()->getAttributeCode().'='.$_filter->getValue();
+        	    				}
+        	    				$headBlock->addLinkRel('canonical', $this->_category->getUrl().$s);
+        	    			}
+        	    			
+        	    			
+        	    		} else {
 
-                        $headBlock->setTitle(implode(array_filter(explode($separator,strtr($headBlock->getTitle().$separator.$s,$head))),$separator));
-                        $headBlock->setDescription(implode(array_filter(explode($separator,strtr($headBlock->getDescription().$separator.$s,$head))),$separator));
-                        
-                        //Si on a au moins un filtre on n'indexe pas sur google, sauf si il n'y en a qu'un seul et qu'il est configuré pour
-                        $meta_robots = $headBlock->getRobots();
-                        foreach ($_filters as $_filter) {
-                        	if ($_filter->getFilter()->getRequestVar()== 'cat') { 
-                        		$meta_robots =  'NOINDEX,NOFOLLOW'; //si il y a le filtre catéogire : on n'indexe pas la page
-                        	} else {
-	                        	$attribute = $_filter->getFilter()->getAttributeModel();
-	                        	$seoattribute = Mage::getModel('seo/attribute')->load($attribute->getId(), 'attribute_id');
-	                        	if ($seoattribute->getData('meta_robots') == 'NOINDEX,NOFOLLOW' || $seoattribute->getData('meta_robots') == '') {
-	                        		$meta_robots = 'NOINDEX,NOFOLLOW'; //si il y un filtre configuré en NOINDEX,NOFOLLOW : on n'indexe pas la page
-	                        	}
-                        		if ($seoattribute->getData('meta_robots') == 'NOINDEX,FOLLOW' &&  $meta_robots != 'NOINDEX,NOFOLLOW') {
-                        			$meta_robots = $seoattribute->getData('meta_robots');
-	                        	}
-	                        	if ($seoattribute->getData('meta_robots') == 'INDEX,NOFOLLOW' && $meta_robots != 'NOINDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW') {
-	                        		$meta_robots = $seoattribute->getData('meta_robots');
-	                        	}
-                        		if ($seoattribute->getData('meta_robots') == 'INDEX,FOLLOW' && $meta_robots != 'NOINDEX,NOFOLLOW' &&  $meta_robots != 'NOINDEX,FOLLOW' &&  $meta_robots != 'INDEX,NOFOLLOW') {
-                        			$meta_robots = $seoattribute->getData('meta_robots');
-	                        	}
-                        	}
-                        }
-                        $headBlock->setRobots($meta_robots);
-                        if ( strpos ($meta_robots,'INDEX') === 0) {
-                        	if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
-                        		$headBlock->removeItem('link_rel', $this->_category->getUrl());
-                        	}
-                        }
-                }
+        	    			//Si il n'y a pas de pagination, pas de tri, pas de mode d'affichage ni de nombre de page :
+        	    			// on n'affiche pas la canonical : on n'affiche pas de canonical vers soit-même
+        	    			// par contre on affiche les balises alternates pour le multi-site
+        	    			if(!$order && !$pager && !$mode && !$limit) {
+        	    				if (Mage::helper('catalog/category')->canUseCanonicalTag()) {
+        	    					$headBlock->removeItem('link_rel', $this->_category->getUrl());
+        	    				}
+        	    				$addAlternate = true;
+        	    			}
+        	    			
+        	    		}
+        	    	}
+        	    	
+        	    	        	    	
+        	    }
                 
                 //BALISES METAS TITLE DES PAGES COMMENTAIRE
                 if($layout->getBlock('product.info.product_additional_data')) {
                         $headBlock->setTitle($headBlock->getTitle().' - Commentaires des internautes');
                 }
 
+                //si on est sur la home :  afficher les URL alternatives 
+                $controller = $observer->getEvent()->getAction()->getRequest()->getControllerName();
+                $route      = $observer->getEvent()->getAction()->getRequest()->getRouteName();                
+                if ( $controller == 'index' && $route == 'cms') {
+                	$addAlternate = true;
+                }
+                
+                if ($addAlternate) {
+					// on récupére la liste des sites multilingues correspondants au site en cours
+					// Attention cette partie est à adapter selon les typologies de projet, selon la configuration des magasins magento
+                	$websiteStores = Mage::app()->getWebsite()->getStores();
+					foreach ($websiteStores as $autreStore) {  		
+						if ($autreStore->getId()!= Mage::app()->getStore()->getId()) {
+	                		$sHrefLang   = Mage::getStoreConfig('general/locale/code', $autreStore->getId());; //récupérer le code langue du store
+	                		$href = Mage::app()->getStore($autreStore->getId())->getCurrentUrl(false);
+	                		$headBlock->addItem('link_rel', $href, 'rel="alternate" hreflang="' . $sHrefLang . '"');
+						}
+	                 }
+                }
+                	
         	}
 			
         }
@@ -299,4 +375,25 @@ class Addonline_Seo_Model_Observer {
 	    	));
 	    }
 	     
+	    public function redirectCategoryProductUrl($observer)
+	    {
+	    	//Si l'utilisation des chemins des catégorie n'est PAS utilisé, mais qu'une URL avec le chemin
+	    	//d'une catégorie est demandée, alors on fait une redirection 301 vers l'URL sans le chemin de la catégorie   
+			if (!Mage::getStoreConfig(Mage_Catalog_Helper_Product::XML_PATH_PRODUCT_URL_USE_CATEGORY)) {
+				
+				$idCategory = Mage::app()->getRequest()->getParam('category', false);
+
+				if ($idCategory) {
+					$_product = $observer->getEvent()->getProduct();
+					$params = array('_ignore_category' => true, '_nosid'=> true);
+					$_productUrl = $_product->getUrlModel()->getUrl($_product, $params);        	    	
+					$_productUrl = preg_replace('/\?.*$/', '', $_productUrl); //on supprime l'éventuel SID 
+					Mage::app()->getFrontController()->getResponse()->setRedirect($_productUrl, 301);
+					Mage::app()->getResponse()->sendResponse();
+					exit;
+				}			
+				
+			}
+	    }
 }
+  

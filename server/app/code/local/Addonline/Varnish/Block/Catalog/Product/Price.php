@@ -9,6 +9,15 @@ class Addonline_Varnish_Block_Catalog_Product_Price extends OrganicInternet_Simp
 	protected $_placeholder = false;
 
 	/**
+	 * Set the original module name to avoid breaking translations
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setModuleName('Mage_Catalog');
+	}
+	
+	/**
 	 * Render block HTML
 	 *
 	 * On wrappe le bloc price avec un container qui sera utilisé pour l'appel ajax qui va recharger les prix en fonction de la session utilisateur
