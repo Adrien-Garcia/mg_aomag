@@ -38,7 +38,7 @@ class Addonline_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      */
      public function getReductionPercent($_product)
     {
-    	$_regularPrice = Mage::helper('tax')->getPrice($_product, $_product->getPrice(), Mage::helper('tax')->displayPriceIncludingTax() || helper::getHelper('tax')->displayBothPrices());
+    	$_regularPrice = Mage::helper('tax')->getPrice($_product, $_product->getPrice(), Mage::helper('tax')->displayPriceIncludingTax() || Mage::helper('tax')->displayBothPrices());
     	$_finalPrice = Mage::helper('tax')->getPrice($_product, $_product->getFinalPrice()); 
 		if ($_finalPrice<$_regularPrice) {	
     		return round(($_regularPrice - $_finalPrice)*100/$_regularPrice);
