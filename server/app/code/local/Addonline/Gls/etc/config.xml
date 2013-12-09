@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Addonline_GLS
+ * 
+ * @category    Addonline
+ * @package     Addonline_GLS
+ * @copyright   Copyright (c) 2013 GLS
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+-->
+<config>
+    <modules>
+        <Addonline_Gls>
+            <version>0.1.0</version>
+            <depends>
+                <Mage_Shipping />
+            </depends>
+        </Addonline_Gls>
+    </modules>
+    
+    <global>
+        <blocks>
+            <gls><class>Addonline_Gls_Block</class></gls>
+            <onestepcheckout>
+                <rewrite>
+                    <checkout>Addonline_Gls_Block_OneStepCheckout_Checkout</checkout>
+                </rewrite>
+            </onestepcheckout>
+        </blocks>
+        <helpers>
+            <gls><class>Addonline_Gls_Helper</class></gls>
+        </helpers>
+    	<!-- <resources>
+    		<gls_setup>
+                <setup>
+                    <module>Addonline_Gls</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+    		</gls_setup>
+    	</resources> -->        
+    </global>
+    <default>
+        <carriers>
+            <gls>
+                <active>0</active>
+                <maxrelayweight>20</maxrelayweight>
+                <maxxlrelayweight>30</maxxlrelayweight>                                        
+                <config></config>
+                <tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match=</tracking_view_url>
+                <export_folder>var/export/gls</export_folder>
+                <import_folder>var/import/gls</import_folder>            
+                <sort_order>1</sort_order>
+            </gls>
+        </carriers>
+    </default>
+</config>
