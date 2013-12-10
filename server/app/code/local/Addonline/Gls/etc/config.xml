@@ -22,11 +22,6 @@
     <global>
         <blocks>
             <gls><class>Addonline_Gls_Block</class></gls>
-            <onestepcheckout>
-                <rewrite>
-                    <checkout>Addonline_Gls_Block_OneStepCheckout_Checkout</checkout>
-                </rewrite>
-            </onestepcheckout>
         </blocks>
         <helpers>
             <gls><class>Addonline_Gls_Helper</class></gls>
@@ -38,7 +33,23 @@
                     <class>Mage_Sales_Model_Mysql4_Setup</class>
                 </setup>
     		</gls_setup>
-    	</resources> -->        
+    	</resources> -->   
+    	<models>
+            <gls>
+                <class>Addonline_Gls_Model</class>                
+            </gls>
+        </models> 
+    	<events> 
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <Addonline_Gls_Model_Observer>
+                        <type>singleton</type>
+                        <class>gls/observer</class>
+                        <method>checkoutEventGlsdata</method>
+                    </Addonline_Gls_Model_Observer>
+                </observers>
+            </sales_quote_collect_totals_before>
+        </events>  
     </global>
     <frontend>
         <translate>
@@ -50,7 +61,7 @@
                     </files>
                 </Addonline_Gls>
             </modules>
-        </translate>
+        </translate>                  
     </frontend>
     <adminhtml>
         <translate>
@@ -71,6 +82,7 @@
                 <maxrelayweight>20</maxrelayweight>
                 <maxxlrelayweight>30</maxxlrelayweight>                                        
                 <config></config>
+                <model>Addonline_Gls_Model_Carrier_ShippingMethod</model>
                 <tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match=</tracking_view_url>
                 <export_folder>var/export/gls</export_folder>
                 <import_folder>var/import/gls</import_folder>            
