@@ -40,6 +40,30 @@
     		</gls_setup>
     	</resources> -->        
     </global>
+    <frontend>
+        <translate>
+            <modules>
+                <Addonline_Gls>
+                    <files>
+                        <shipping>Mage_Shipping.csv</shipping>
+                        <default>Addonline_Gls.csv</default>
+                    </files>
+                </Addonline_Gls>
+            </modules>
+        </translate>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Addonline_Gls>
+                    <files>
+                        <shipping>Mage_Shipping.csv</shipping>
+                        <default>Addonline_Gls.csv</default>
+                    </files>
+                </Addonline_Gls>
+            </modules>
+        </translate>
+    </adminhtml>
     <default>
         <carriers>
             <gls>
