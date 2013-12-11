@@ -202,6 +202,7 @@ class GlsShippingHelper
 	public function processRow($process, &$row, $is_checking=false) {
 		if (!isset($row['*code'])) return;
 
+		self::debug($process);
 		self::debug('process row <span class="osh-key">'.$row['*code'].'</span>');
 		if (!isset($row['label']['value'])) $row['label']['value'] = '***';
 
@@ -216,17 +217,15 @@ class GlsShippingHelper
 		//ADDONLINE : on exclu la livraison en relay si un article dépasse le point max XL
 		$code = $row['code']['value'];
 		if(strpos($code, 'relay_') !== 0 ) {
-			/* if (Mage::helper('socolissimo')->isDomicileAvecSignature()) {
-				if(strpos($code, 'domicile_sign_') !== 0 ) {
-					$this->addMessage('info',$row,'socolissimo','Configuration disabled (domicile)');
-					return new SOCO_Result(false);
+			$okrelay = true;
+			foreach ($process['cart.products'] as $product) {
+				// Si un produit fait plus que le poids maximum des relayXL
+				if($product->getAttribute('weight') > Mage::getStoreConfig('carriers/gls/maxxlrelayweight')){
+					Mage::log(Mage::getStoreConfig('carriers/gls/maxxlrelayweight'));
+					Mage::log($product->getAttribute('weight'));
+					//return new GLS_Result(false);
 				}
-			} else {
-				if(strpos($code, 'domicile_sign_') === 0 ) {
-					$this->addMessage('info',$row,'socolissimo',"Configuration disabled (domicile_sign)");
-					return new SOCO_Result(false);
-				}
-			} */
+			}
 		}
 
 		$conditions = $this->getRowProperty($row,'conditions');
