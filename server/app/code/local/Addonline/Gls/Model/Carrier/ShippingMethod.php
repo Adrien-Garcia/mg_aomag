@@ -8,11 +8,36 @@
  * @copyright   Copyright (c) 2013 GLS
  * @author 	    Addonline (http://www.addonline.fr)
  */
+/**
+ * Copyright (c) 2008-13 Owebia
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ *
+ * @website    http://www.owebia.com/
+ * @project    Magento Owebia Shipping 2 module
+ * @author     Antoine Lemoine
+ * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
+ **/
+
 
 // Pour gérer les cas où il y a eu compilation
-if (file_exists(dirname(__FILE__).'/Addonline_Gls_Model_Carrier_GlsShippingHelper.php')) include_once 'Addonline_Gls_Model_Carrier_GlsShippingHelper.php';
-else include_once Mage::getBaseDir('code').'/local/Addonline/Gls/Model/Carrier/GlsShippingHelper.php';
-
+if (file_exists(dirname(__FILE__).'/Addonline_Gls_Model_Carrier_GlsShippingHelper.php')) {
+	include_once 'Addonline_Gls_Model_Carrier_GlsShippingHelper.php';
+	include_once 'Owebia_Shipping2_includes_OS2_AddressFilterParser.php';
+	include_once 'Owebia_Shipping2_includes_OwebiaShippingHelper.php';
+} else {
+	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/Model/Carrier/GlsShippingHelper.php';
+	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/owebia_includes/OS2_AddressFilterParser.php';
+	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/owebia_includes/OwebiaShippingHelper.php';
+}
 
 /*
  * Déclaration de la classe de récupération d'information produit du panier
@@ -254,6 +279,7 @@ class Addonline_Gls_Model_Carrier_ShippingMethod extends Mage_Shipping_Model_Car
 	}
 
   /************ Protected methods **********************/
+
 	protected function _process(&$process) {
 		$process['data'] = array_merge($process['data'],array(
 				'destination.country.name' => $this->__getCountryName($process['data']['destination.country.code']),
@@ -373,7 +399,7 @@ class Addonline_Gls_Model_Carrier_ShippingMethod extends Mage_Shipping_Model_Car
   	$method = Mage::getModel('shipping/rate_result_method')
   	->setCarrier($this->_code)
   	->setCarrierTitle($this->__getConfigData('title'))
-  	->setMethod($row['*code'])
+  	->setMethod($row['*id'])
   	->setMethodTitle($this->_getMethodText($process,$row,'label'))
   	->setMethodDescription($this->_getMethodText($process,$row,'description'))
   	->setPrice($fees)

@@ -1,103 +1,48 @@
 <?php
 
+/**
+ * Copyright (c) 2008-13 Owebia
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ *
+ * @website    http://www.owebia.com/
+ * @project    Magento Owebia Shipping 2 module
+ * @author     Antoine Lemoine
+ * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
+ **/
 
 class GlsShippingHelper
 {
+	const FLOAT_REGEX = '[-]?\d+(?:[.]\d+)?';
+	const COUPLE_REGEX = '(?:[0-9.]+|\*) *(?:\[|\])? *\: *[0-9.]+';
+
 	public static $DEBUG_INDEX_COUNTER = 0;
-	public static $FLOAT_REGEX = '[-]?\d+(?:[.]\d+)?';
-	public static $POSITIVE_FLOAT_REGEX = '\d+(?:[.]\d+)?';
-	//public static $COUPLE_REGEX = '(?:[0-9.]+|\*)(?:\[|\])?\:[0-9.]+(?:\:[0-9.]+%?)*';
-	public static $COUPLE_REGEX = '(?:[0-9.]+|\*) *(?:\[|\])? *\: *[0-9.]+';
 	public static $UNCOMPRESSED_STRINGS = array(
 		' product.attribute.',
-		' product.option.',
-		' product.stock.',
+		' item.option.',
 		'{product.attribute.',
-		'{product.option.',
-		'{product.stock.',
-		'{product.weight}',
-		'{product.quantity}',
-		'{cart.weight}',
-		'{cart.quantity}',
-		'{cart.price_including_tax}',
-		'{cart.price_excluding_tax}',
+		'{item.option.',
+		'{product.',
 		'{cart.',
-		'{customvar.',
-		'{selection.weight}',
-		'{selection.quantity}',
 		'{selection.',
-		'{destination.country.',
-		'{foreach ',
-		'{/foreach}',
 	);
 	public static $COMPRESSED_STRINGS = array(
 		' p.a.',
-		' p.o.',
-		' p.s.',
+		' item.o.',
 		'{p.a.',
-		'{p.o.',
-		'{p.s.',
-		'{p.w}',
-		'{p.qty}',
-		'{c.w}',
-		'{c.qty}',
-		'{c.pit}',
-		'{c.pet}',
+		'{item.o.',
+		'{p.',
 		'{c.',
-		'{v.',
-		'{s.w}',
-		'{s.qty}',
 		'{s.',
-		'{dest.ctry.',
-		'{each ',
-		'{/each}',
 	);
-
-	public static function getDefaultProcessData() {
-		$timestamp = time();
-		$properties = array(
-			'info.server.os' => PHP_OS,
-			'info.server.software' => $_SERVER['SERVER_SOFTWARE'],
-			'info.php.version' => PHP_VERSION,
-			'info.magento.version' => '',
-			'info.module.version' => '',
-			'info.carrier.code' => '',
-			'cart.price_excluding_tax' => 0,
-			'cart.price_including_tax' => 0,
-			'cart.price-tax+discount' => 0,
-			'cart.price-tax-discount' => 0,
-			'cart.price+tax+discount' => 0,
-			'cart.price+tax-discount' => 0,
-			'cart.weight' => 0,
-			'cart.weight.for-charge' => 0,
-			'cart.weight.unit' => 'kg',
-			'cart.quantity' => 0,
-			'destination.country.code' => '',
-			'destination.country.name' => '',
-			'destination.region.code' => '',
-			'destination.postcode' => '',
-			'origin.country.code' => '',
-			'origin.country.name' => '',
-			'origin.region.code' => '',
-			'origin.postcode' => '',
-			'customer.group.id' => '',
-			'customer.group.code' => '',
-			'free_shipping' => false,
-			'store.id' => '',
-			'store.code' => '',
-			'store.name' => '',
-			'store.address' => '',
-			'store.phone' => '',
-			'date.timestamp' => $timestamp,
-			'date.year' => (int)date('Y',$timestamp),
-			'date.month' => (int)date('m',$timestamp),
-			'date.day' => (int)date('d',$timestamp),
-			'date.hour' => (int)date('H',$timestamp),
-			'date.minute' => (int)date('i',$timestamp),
-			'date.second' => (int)date('s',$timestamp),
-		);
-		return $properties;
-	}
 
 	protected $_input;
 	protected $_config;
@@ -108,12 +53,144 @@ class GlsShippingHelper
 	public $debug_output = '';
 	public $debug_header = null;
 
-	public function GlsShippingHelper($input) {
+	public static function esc($input)
+	{
+		$input = htmlspecialchars($input, ENT_NOQUOTES, 'UTF-8');
+		return preg_replace('/&lt;(\/?)span([^&]*)&gt;/', '<\1span\2>', $input);
+	}
+
+	public static function toString($value)
+	{
+		if (!isset($value)) return 'null';
+		else if (is_bool($value)) return $value ? 'true' : 'false';
+		else if (is_float($value)) return str_replace(',', '.', (string)$value); // To avoid locale problems
+		else if (is_array($value)) return 'array(size:'.count($value).')';
+		else if (is_object($value)) return get_class($value).'';
+		else return $value;
+	}
+
+	public static function parseSize($size)
+	{
+		$size = trim($size);
+		$last = strtolower($size[strlen($size)-1]);
+		switch ($last) {
+			case 'g': $size *= 1024;
+			case 'm': $size *= 1024;
+			case 'k': $size *= 1024;
+		}
+		return (float)$size;
+	}
+
+	public static function formatSize($size)
+	{
+		$unit = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+		return self::toString(@round($size/pow(1024, ($i=floor(log($size, 1024)))), 2)).' '.$unit[$i];
+	}
+
+	public static function getInfos()
+	{
+		$properties = array(
+				'server_os' => PHP_OS,
+				'server_software' => $_SERVER['SERVER_SOFTWARE'],
+				'php_version' => PHP_VERSION,
+				'memory_limit' => self::formatSize(self::parseSize(ini_get('memory_limit'))),
+				'memory_usage' => self::formatSize(memory_get_usage(true)),
+		);
+		return $properties;
+	}
+
+	public static function getDefaultProcessData()
+	{
+		return array(
+			'info'				=> new OS2_Data(self::getInfos()),
+			'cart'				=> new OS2_Data(),
+			'quote'				=> new OS2_Data(),
+			'selection'			=> new OS2_Data(),
+			'customer'			=> new OS2_Data(),
+			'customer_group'	=> new OS2_Data(),
+			'customvar'			=> new OS2_Data(),
+			'date'				=> new OS2_Data(),
+			'origin'			=> new OS2_Data(),
+			'shipto'			=> new OS2_Data(),
+			'billto'			=> new OS2_Data(),
+			'store'				=> new OS2_Data(),
+			'request'			=> new OS2_Data(),
+			'address_filter'	=> new OS2_Data(),
+		);
+	}
+
+	public static function jsonEncode($data, $beautify = false, $html = false, $level = 0, $current_indent = '')
+	{
+		//$html = true;
+		$indent = "\t";//$html ? '&nbsp;&nbsp;&nbsp;&nbsp;' : "\t";//
+		$line_break = $html ? '<br/>' : "\n";
+		$new_indent = $current_indent.$indent;
+		switch ($type = gettype($data)) {
+			case 'NULL':
+				return ($html ? '<span class=json-reserved>' : '').'null'.($html ? '</span>' : '');
+			case 'boolean':
+				return ($html ? '<span class=json-reserved>' : '').($data ? 'true' : 'false').($html ? '</span>' : '');
+			case 'integer':
+			case 'double':
+			case 'float':
+				return ($html ? '<span class=json-numeric>' : '').$data.($html ? '</span>' : '');
+			case 'string':
+				return ($html ? '<span class=json-string>' : '').'"'.str_replace(array("\\", '"', "\n", "\r"), array("\\\\", '\"', "\\n", "\\r"), $html ? htmlspecialchars($data, ENT_COMPAT, 'UTF-8') : $data).'"'.($html ? '</span>' : '');
+			case 'object':
+				$data = (array)$data;
+			case 'array':
+				$output_index_count = 0;
+				$output = array();
+				foreach ($data as $key => $value) {
+					if ($output_index_count!==null && $output_index_count++!==$key) {
+						$output_index_count = null;
+					}
+				}
+				$is_associative = $output_index_count===null;
+				foreach ($data as $key => $value) {
+					if ($is_associative) {
+						$classes = array();
+						if ($key=='about') $classes[] = 'json-about';
+						if ($key=='conditions' || $key=='fees') $classes[] = 'json-formula';
+						$property_classes = array('json-property');
+						if ($level==0) $property_classes[] = 'json-id';
+						$output[] = ($html && $classes ? '<span class="'.implode(' ', $classes).'">' : '')
+						.($html ? '<span class="'.implode(' ', $property_classes).'">' : '')
+						.self::jsonEncode((string)$key)
+						.($html ? '</span>' : '').':'
+								.($beautify ? ' ' : '')
+								.self::jsonEncode($value, $beautify, $html, $level+1, $new_indent)
+								.($html && $classes ? '</span>' : '');
+					} else {
+						$output[] = self::jsonEncode($value, $beautify, $html, $level+1, $current_indent);
+					}
+				}
+				if ($is_associative) {
+					$classes = array();
+					if (isset($data['type']) && $data['type']=='meta') $classes[] = 'json-meta';
+					$output = ($html && $classes ? '<span class="'.implode(' ', $classes).'">' : '')
+					.'{'
+							.($beautify ? "{$line_break}{$new_indent}" : '')
+							.implode(','.($beautify ? "{$line_break}{$new_indent}" : ''), $output)
+							.($beautify ? "{$line_break}{$current_indent}" : '')
+							.'}'
+									.($html && $classes ? '</span>' : '');
+					//echo $output;
+					return $output;
+				} else {
+					return '['.implode(','.($beautify ? ' ' : ''), $output).']';
+				}
+			default:
+				return ''; // Not supported
+		}
+	}
+
+	public function GlsShippingHelper($input,$autocorrection = true) {
 		$this->_formula_cache = array();
 		$this->_messages = array();
 		$this->_input = $input;
 		$this->_config = array();
-		$this->_parseInput();
+		$this->_parseInput($autocorrection);
 	}
 
 	public function debug($text) {
@@ -135,10 +212,35 @@ class GlsShippingHelper
 		return $output;
 	}
 
-	public function initDebug($code, $data) {
-		$header = 'DEBUG GlsShippingHelper.php<br/>';
-		foreach ($data as $key => $data) {
-			$header .= '   <span class="osh-key">'.str_replace('.','</span>.<span class="osh-key">',$key).'</span> = <span class="osh-formula">'.$this->_toString($data).'</span><br/>';
+	public function initDebug($code, $process)
+	{
+		$header = 'DEBUG OwebiaShippingHelper.php<br/>';
+		foreach ($process as $index => $process_option) {
+			if (in_array($index, array('data', 'options'))) {
+				$header .= '   <span class=osh-key>'.self::esc(str_replace('.', '</span>.<span class=osh-key>', $index)).'</span> &gt;&gt;<br/>';
+				foreach ($process_option as $object_name => $data) {
+					if (is_object($data) || is_array($data)) {
+						$header .= '      <span class=osh-key>'.self::esc(str_replace('.', '</span>.<span class=osh-key>', $object_name)).'</span> &gt;&gt;<br/>';
+						$children = array();
+						if (is_object($data)) $children = $data->__sleep();
+						else if (is_array($data)) $children = array_keys($data);
+						foreach ($children as $name) {
+							$key = $name;
+							if ($key=='*') {
+								$header .= '         .<span class=osh-key>'.self::esc(str_replace('.', '</span>.<span class=osh-key>', $key)).'</span> = …<br/>';
+							} else {
+								if (is_object($data)) $value = $data->{$name};
+								else if (is_array($data)) $children = $data[$name];
+								$header .= '         .<span class=osh-key>'.self::esc(str_replace('.', '</span>.<span class=osh-key>', $key)).'</span> = <span class=osh-formula>'.self::esc(self::toString($value)).'</span> ('.gettype($value).')<br/>';
+							}
+						}
+					} else {
+						$header .= '      .<span class=osh-key>'.self::esc(str_replace('.', '</span>.<span class=osh-key>', $object_name)).'</span> = <span class=osh-formula>'.self::esc(self::toString($data)).'</span> ('.gettype($data).')<br/>';
+					}
+				}
+			} else {
+				$header .= '   <span class=osh-key>'.self::esc(str_replace('.', '</span>.<span class=osh-key>', $index)).'</span> = <span class=osh-formula>'.self::esc(self::toString($process_option)).'</span> ('.gettype($process_option).')<br/>';
+			}
 		}
 		$this->debug_code = $code;
 		$this->debug_header = $header;
@@ -183,27 +285,30 @@ class GlsShippingHelper
 		return $compress ? $this->compress($output) : $this->uncompress($output);
 	}
 
-	public function checkConfig() {
+	public function checkConfig()
+	{
 		$timestamp = time();
 		$process = array(
-			'cart.products' => array(),
 			'config' => $this->_config,
 			'data' => self::getDefaultProcessData(),
 			'result' => null,
 		);
 		foreach ($this->_config as $code => &$row) {
-			$this->processRow($process,$row,$check_all_conditions=true);
-			foreach ($row as $property_key => $property_value) {
-				if (substr($property_key,0,1)!='*') $this->getRowProperty($row,$property_key);
+			$this->processRow($process, $row, $check_all_conditions=true);
+			foreach ($row as $property_name => $property_value) {
+				if (substr($property_name, 0, 1)!='*') {
+					$this->debug('   check '.$property_name);
+					$this->getRowProperty($row, $property_name);
+				}
 			}
 		}
 	}
 
 	public function processRow($process, &$row, $is_checking=false) {
-		if (!isset($row['*code'])) return;
+		if (!isset($row['*id'])) return;
 
 		self::debug($process);
-		self::debug('process row <span class="osh-key">'.$row['*code'].'</span>');
+		self::debug('process row <span class="osh-key">'.$row['*id'].'</span>');
 		if (!isset($row['label']['value'])) $row['label']['value'] = '***';
 
 		$enabled = $this->getRowProperty($row,'enabled');
@@ -215,7 +320,7 @@ class GlsShippingHelper
 		}
 
 		//ADDONLINE : on exclu la livraison en relay si un article dépasse le point max XL
-		$code = $row['code']['value'];
+		$code = $row['*id']['value'];
 		if(strpos($code, 'relay_') !== 0 ) {
 			$okrelay = true;
 			foreach ($process['cart.products'] as $product) {
@@ -301,14 +406,14 @@ class GlsShippingHelper
 	public function getRowProperty(&$row, $key, $original_row=null, $original_key=null) {
 		$property = null;
 		$output = null;
-		if (isset($original_row) && isset($original_key) && $original_row['*code']==$row['*code'] && $original_key==$key) {
-			$this->addMessage('error',$row,$key,'Infinite loop %s',"<span class=\"code\">{".$row['*code'].'.'.$key."}</span>");
+		if (isset($original_row) && isset($original_key) && $original_row['*id']==$row['*id'] && $original_key==$key) {
+			$this->addMessage('error',$row,$key,'Infinite loop %s',"<span class=\"code\">{".$row['*id'].'.'.$key."}</span>");
 			return array('error' => 'Infinite loop');
 		}
 		if (isset($row[$key]['value'])) {
 			$property = $row[$key]['value'];
 			$output = $property;
-			self::debug('   get <span class="osh-key">'.$row['*code'].'</span>.<span class="osh-key">'.$key.'</span> = <span class="osh-formula">'.$this->_toString($property).'</span>');
+			self::debug('   get <span class="osh-key">'.$row['*id'].'</span>.<span class="osh-key">'.$key.'</span> = <span class="osh-formula">'.$this->_toString($property).'</span>');
 			preg_match_all('/{([a-z0-9_]+)\.([a-z0-9_]+)}/i',$output,$result_set,PREG_SET_ORDER);
 			foreach ($result_set as $result) {
 				list($original,$ref_code,$ref_key) = $result;
@@ -331,7 +436,7 @@ class GlsShippingHelper
 				}
 			}
 		} else {
-			self::debug('   get <span class="osh-key">'.$row['*code'].'</span>.<span class="osh-key">'.$key.'</span> = <span class="osh-formula">null</span>');
+			self::debug('   get <span class="osh-key">'.$row['*id'].'</span>.<span class="osh-key">'.$key.'</span> = <span class="osh-formula">null</span>');
 		}
 		return $output;
 	}
@@ -505,7 +610,7 @@ class GlsShippingHelper
 				if (isset($reference_value)) {
 					$fees_table_string = $result[2];
 
-					if (!preg_match('#^'.self::$COUPLE_REGEX.'(?:, *'.self::$COUPLE_REGEX.')*$#',$fees_table_string)) {
+					if (!preg_match('#^'.self::COUPLE_REGEX.'(?:, *'.self::COUPLE_REGEX.')*$#',$fees_table_string)) {
 						$this->addMessage('error',$row,$property_key,'Error in table %s','<span class="osh-formula">'.htmlentities($result[0]).'</span>');
 						$result = new GLS_Result(false);
 						if ($use_cache) $this->setCache($formula_string,$result);
@@ -585,7 +690,7 @@ class GlsShippingHelper
 	}
 
 	public function compress($input) {
-		/*if (preg_match_all("/{table (.*) in (".self::$COUPLE_REGEX."(?:, *".self::$COUPLE_REGEX.")*)}/imsU",$input,$result,PREG_SET_ORDER)) {
+		/*if (preg_match_all("/{table (.*) in (".self::COUPLE_REGEX."(?:, *".self::COUPLE_REGEX.")*)}/imsU",$input,$result,PREG_SET_ORDER)) {
 			foreach ($result as $result_i) {
 				$fees_table = explode(',',$result_i[2]);
 				$value = null;
@@ -626,7 +731,7 @@ class GlsShippingHelper
 			$input = gzuncompress(base64_decode(substr($input,4,strlen($input))));
 		}
 
-		/*if (preg_match_all("/{table (.*) in (".self::$COUPLE_REGEX."(?:, *".self::$COUPLE_REGEX.")*)}/iU",$input,$result,PREG_SET_ORDER)) {
+		/*if (preg_match_all("/{table (.*) in (".self::COUPLE_REGEX."(?:, *".self::COUPLE_REGEX.")*)}/iU",$input,$result,PREG_SET_ORDER)) {
 			foreach ($result as $result_i) {
 				$fees_table = explode(',',$result_i[2]);
 				$value = null;
@@ -700,7 +805,7 @@ class GlsShippingHelper
 				while (preg_match('/'.$regex1.'/',$input,$resi)) $input = str_replace($resi[0],'{'.$resi[1].'.'.$resi[2].'}',$input);
 			}
 
-			$regex1 = "{(count|all|any) (attribute|option) '([^'\)]+)' ?((?:==|<=|>=|<|>|!=) ?(?:".self::$FLOAT_REGEX."|true|false|'[^'\)]*'))}";
+			$regex1 = "{(count|all|any) (attribute|option) '([^'\)]+)' ?((?:==|<=|>=|<|>|!=) ?(?:".self::FLOAT_REGEX."|true|false|'[^'\)]*'))}";
 			$regex2 = "{(sum) (attribute|option) '([^'\)]+)'}";
 			if (preg_match('/'.$regex1.'/',$input,$resi) || preg_match('/'.$regex2.'/',$input,$resi)) {
 				$this->addMessage('warning',$row,$key,'Usage of deprecated syntax %s','<span class="osh-formula">'.$resi[0].'</span>');
@@ -722,7 +827,7 @@ class GlsShippingHelper
 				}
 			}
 
-			$regex = "{table '([^']+)' (".self::$COUPLE_REGEX."(?:, *".self::$COUPLE_REGEX.")*)}";
+			$regex = "{table '([^']+)' (".self::COUPLE_REGEX."(?:, *".self::COUPLE_REGEX.")*)}";
 			if (preg_match('/'.$regex.'/',$input,$resi)) {
 				$this->addMessage('warning',$row,$key,'Usage of deprecated syntax %s','<span class="osh-formula">'.$resi[0].'</span>');
 				while (preg_match('/'.$regex.'/',$input,$resi)) {
@@ -740,284 +845,226 @@ class GlsShippingHelper
 		$row[$key]['value'] = $input;
 	}
 
-	protected function _parseInput() {
+	protected function _parseInput($auto_correction)
+	{
 		$config_string = str_replace(
-			array('&gt;','&lt;','“','”',utf8_encode(chr(147)),utf8_encode(chr(148)),'&laquo;','&raquo;',"\r\n","\t"),
-			array('>','<','"','"','"','"','"','"',"\n",' '),
+			array('&gt;', '&lt;', '“', '”', utf8_encode(chr(147)), utf8_encode(chr(148)), '&laquo;', '&raquo;', "\r\n", "\t"),
+			array('>', '<', '"', '"', '"', '"', '"', '"', "\n", ' '),
 			$this->_input
 		);
 
-		if (substr($config_string,0,2)=='$$') $config_string = $this->uncompress(substr($config_string,2,strlen($config_string)));
+		if (substr($config_string, 0, 2)=='$$') $config_string = $this->uncompress(substr($config_string, 2, strlen($config_string)));
 
 		//echo ini_get('pcre.backtrack_limit');
 		//exit;
 
-		$row_regex = ' *([a-z0-9_]+)\\s*:\\s*("(?:(?:[^"]|\\\\")*[^\\\\])?"|'.self::$FLOAT_REGEX.'|false|true)\\s*(,)? *(?:\\n)?';
-		if (!preg_match_all('/((?:#+[^{\\n]*\\s+)*)\\s*(#)?{\\s*('.$row_regex.')+\\s*}/i',$config_string,$result,PREG_SET_ORDER)) {
-			$errors = array(
-				PREG_NO_ERROR => 'PREG_NO_ERROR',
-				PREG_INTERNAL_ERROR => 'PREG_INTERNAL_ERROR',
-				PREG_BACKTRACK_LIMIT_ERROR => 'PREG_BACKTRACK_LIMIT_ERROR',
-				PREG_RECURSION_LIMIT_ERROR => 'PREG_RECURSION_LIMIT_ERROR',
-				PREG_BAD_UTF8_ERROR => 'PREG_BAD_UTF8_ERROR',
-				defined('PREG_BAD_UTF8_OFFSET_ERROR') ? PREG_BAD_UTF8_OFFSET_ERROR : 'PREG_BAD_UTF8_OFFSET_ERROR' => 'PREG_BAD_UTF8_OFFSET_ERROR',
-			);
-			$error = preg_last_error();
-			if (isset($errors[$error])) $error = $errors[$error];
-			self::debug('      preg_match_all error ('.$error.')');
+		$this->debug('parse config (auto correction = '.self::esc(self::toString($auto_correction)).')');
+		$config = null;
+		$last_json_error = null;
+		try {
+			$config = self::json_decode($config_string);
+		} catch (Exception $e) {
+			$last_json_error = $e;
+		}
+		$auto_correction_warnings = array();
+		$missing_enquote_of_property_name = array();
+		if ($config) {
+			foreach ($config as $code => $object) {
+				if (!is_object($object)) {
+					$config = null;
+					break;
+				}
+			}
+		}
+		if ($auto_correction && !$config && $config_string!='[]') {
+			if (preg_match_all('/((?:#+[^{\\n]*\\s+)+)\\s*{/s', $config_string, $result, PREG_SET_ORDER)) {
+				$auto_correction_warnings[] = 'JSON: usage of incompatible comments';
+				foreach ($result as $set) {
+					$comment_lines = explode("\n", $set[1]);
+					foreach ($comment_lines as $i => $line) {
+						$comment_lines[$i] = preg_replace('/^#+\\s/', '', $line);
+					}
+					$comment = trim(implode("\n", $comment_lines));
+					$config_string = str_replace($set[0], '{"about": "'.str_replace('"', '\\"', $comment).'",', $config_string);
+				}
+			}
+			$property_regex = '\\s*(?<property_name>"?[a-z0-9_]+"?)\\s*:\\s*(?<property_value>"(?:(?:[^"]|\\\\")*[^\\\\])?"|'.self::FLOAT_REGEX.'|false|true|null)\\s*(?<property_separator>,)?\\s*(?:\\n)?';
+			$object_regex = '(?:(?<object_name>"?[a-z0-9_]+"?)\\s*:\\s*)?{\\s*('.$property_regex.')+\\s*}\\s*(?<object_separator>,)?\\s*';
+			preg_match_all('/('.$object_regex.')/is', $config_string, $object_set, PREG_SET_ORDER);
+			//print_r($object_set);
+			$json = array();
+			$objects_count = count($object_set);
+			$to_ignore_counter = -1;
+			foreach ($object_set as $i => $object) {
+				$pos = strpos($config_string, $object[0]);
+				$to_ignore = trim(substr($config_string, 0, $pos));
+				if ($to_ignore) {
+					$to_ignore_counter++;
+					if ($to_ignore_counter==0) {
+						$bracket_pos = strpos($to_ignore, '{');
+						if ($bracket_pos!==false) {
+							$to_ignore = explode('{', $to_ignore, 2);
+						}
+					}
+					$to_ignore = (array)$to_ignore;
+					foreach ($to_ignore as $to_ignore_i) {
+						$to_ignore_i = trim($to_ignore_i);
+						if (!$to_ignore_i) continue;
+						$auto_correction_warnings[] = 'JSON: ignored lines (<span class=osh-formula>'.self::toString($to_ignore_i).'</span>)';
+						$n = 0;
+						do {
+							$key = 'meta'.$n;
+							$n++;
+						} while(isset($json[$key]));
+						$json[$key] = array(
+							'type' => 'meta',
+							'ignored' => $to_ignore_i,
+						);
+					}
+					$config_string = substr($config_string, $pos, strlen($config_string));
+				}
+				$config_string = str_replace($object[0], '', $config_string);
+				$object_name = isset($object['object_name']) ? $object['object_name'] : null;
+				$object_separator = isset($object['object_separator']) ? $object['object_separator'] : null;
+				$is_last_object = ($i==$objects_count-1);
+				if (!$is_last_object && $object_separator!=',') {
+					$auto_correction_warnings[] = 'JSON: missing object separator (comma)';
+				} else if ($is_last_object && $object_separator==',') {
+					$auto_correction_warnings[] = 'JSON: no trailing object separator (comma) allowed';
+				}
+				$json_object = array();
+				preg_match_all('/'.$property_regex.'/i', $object[0], $property_set, PREG_SET_ORDER);
+				$properties_count = count($property_set);
+				foreach ($property_set as $j => $property) {
+					$name = $property['property_name'];
+					if ($name{0}!='"' || $name{strlen($name)-1}!='"') {
+						$auto_correction_warnings['missing_enquote_of_property_name'] = 'JSON: missing enquote of property name: %s';
+						$missing_enquote_of_property_name[] = self::toString(trim($name, '"'));
+					}
+					$property_separator = isset($property['property_separator']) ? $property['property_separator'] : null;
+					$is_last_property = ($j==$properties_count-1);
+					if (!$is_last_property && $property_separator!=',') {
+						$auto_correction_warnings[] = 'JSON: missing property separator (comma)';
+					} else if ($is_last_property && $property_separator==',') {
+						$auto_correction_warnings[] = 'JSON: no trailing property separator (comma) allowed';
+					}
+					$json_object[trim($name, '"')] = $this->parseProperty($property['property_value']);
+				}
+				if ($object_name) $json[trim($object_name, '"')] = $json_object;
+				else if (isset($json_object['code'])) {
+					$code = $json_object['code'];
+					unset($json_object['code']);
+					$json[$code] = $json_object;
+				} else $json[] = $json_object;
+			}
+			$to_ignore = trim($config_string);
+			if ($to_ignore) {
+				$bracket_pos = strpos($to_ignore, '}');
+				if ($bracket_pos!==false) {
+					$to_ignore = explode('}', $to_ignore, 2);
+				}
+				$to_ignore = (array)$to_ignore;
+				foreach ($to_ignore as $to_ignore_i) {
+					$to_ignore_i = trim($to_ignore_i);
+					if (!$to_ignore_i) continue;
+					$auto_correction_warnings[] = 'JSON: ignored lines (<span class=osh-formula>'.self::toString($to_ignore_i).'</span>)';
+					$n = 0;
+					do {
+						$key = 'meta'.$n;
+						$n++;
+					} while(isset($json[$key]));
+					$json[$key] = array(
+						'type' => 'meta',
+						'ignored' => $to_ignore_i,
+					);
+				}
+			}
+			$config_string = $this->jsonEncode($json);//'['.$config_string2.']';
+			$config_string = str_replace(array("\n"), array("\\n"), $config_string);
+			//echo $config_string;
+
+			$last_json_error = null;
+			try {
+				$config = self::json_decode($config_string);
+			} catch (Exception $e) {
+				$last_json_error = $e;
+			}
+		}
+		if ($last_json_error) {
+			$auto_correction_warnings[] = 'JSON: unable to parse config ('.$last_json_error->getMessage().')';
 		}
 
-		$this->_config = array();
-		$available_keys = array(
-			'code','label','enabled','description','fees','conditions','destination','origin','customer_groups','tracking_url',
-			'fees_table','fees_formula','fixed_fees','reference_value',
-			'prices_range','weights_range','product_properties',
-			'free_shipping__fees_table','free_shipping__fees_formula','free_shipping__fixed_fees','free_shipping__label',
-		);
-
-		foreach ($result as $block) {
-			$deprecated_properties = array();
-			$unknown_properties = array();
-			$missing_semicolon = array();
-			$obsolete_disabling_method = array();
-
-			//$before = strstr($config_string,$block[0],true); // Seulement compatible avec PHP 5.3.0
-			list($before) = explode($block[0],$config_string,2);
-			if ($before!==false && trim($before)!='') {
-				$config_string = substr($config_string,strlen($before));
-				$this->_addIgnoredLines(trim($before));
-				$row = null;
-				$this->addMessage('info',$row,null,'Ignored lines %s','<div class="code">'.trim($before).'</div>');
+		$row = null;
+		$auto_correction_warnings = array_unique($auto_correction_warnings);
+		foreach ($auto_correction_warnings as $key => $warning) {
+			if ($key=='missing_enquote_of_property_name') {
+				$missing_enquote_of_property_name = array_unique($missing_enquote_of_property_name);
+				$warning = str_replace('%s', '<span class=osh-key>'.self::esc(implode('</span>, <span class=osh-key>', $missing_enquote_of_property_name)).'</span>', $warning);
 			}
+			$this->addMessage('warning', $row, null, $warning);
+		}
+		$config = (array)$config;
 
-			$config_string = str_replace($block[0], '', $config_string);
-			preg_match_all('/'.$row_regex.'/i',$block[0],$result2,PREG_SET_ORDER);
-			$block_string = $block[0];
+		$this->_config = array();
+		$available_keys = array('type', 'about', 'label', 'enabled', 'description', 'fees', 'conditions', 'shipto', 'billto', 'origin', 'customer_groups', 'tracking_url');
+		$reserved_keys = array('*id');
+		if ($auto_correction) {
+			$available_keys = array_merge($available_keys, array(
+				'destination', 'code',
+			));
+		}
+
+		$deprecated_properties = array();
+		$unknown_properties = array();
+
+		foreach ($config as $code => $object) {
+			$object = (array)$object;
+			if ($auto_correction) {
+				if (isset($object['destination'])) {
+					if (!in_array('destination', $deprecated_properties)) $deprecated_properties[] = 'destination';
+					$object['shipto'] = $object['destination'];
+					unset($object['destination']);
+				}
+				if (isset($object['code'])) {
+					if (!in_array('code', $deprecated_properties)) $deprecated_properties[] = 'code';
+					$code = $object['code'];
+					unset($object['code']);
+				}
+			}
 
 			$row = array();
 			$i = 1;
-			foreach ($result2 as $data) {
-				$key = $data[1];
-				if (in_array($key,$available_keys) || substr($key,0,1)=='_') {
-					$property = $this->parseProperty($data[2]);
-					if (isset($property)) {
-						$row[$key] = array('value' => $property, 'original_value' => $property);
-						$this->cleanProperty($row,$key);
-					}
-					if ($i>2) {
-						$block_string = str_replace($data[0],$i==3 ? "...\n" : '',$block_string);
-					}
-					if ($i!=count($result2) && !isset($data[3]) || isset($data[3]) && $data[3]!=',') {
-						if (preg_match('/^("|\')(.{40})(.*)("|\')$/s',$data[2],$resultx))
-							$missing_semicolon[] = trim(str_replace($data[2],$resultx[1].$resultx[2].' ...'.$resultx[4],$data[0]));
-						else $missing_semicolon[] = trim($data[0]);
+			foreach ($object as $property_name => $property_value) {
+				if (in_array($property_name, $reserved_keys)) {
+					continue;
+				}
+				if (in_array($property_name, $available_keys)
+					|| substr($property_name, 0, 1)=='_'
+					|| in_array($object['type'], array('data', 'meta'))) {
+					if (isset($property_value)) {
+						$row[$property_name] = array('value' => $property_value, 'original_value' => $property_value);
+						if ($auto_correction) $this->cleanProperty($row, $property_name);
 					}
 				} else {
-					if (!in_array($key,$unknown_properties)) $unknown_properties[] = $key;
+					if (!in_array($property_name, $unknown_properties)) $unknown_properties[] = $property_name;
 				}
 				$i++;
 			}
-			if ($block[1]!='') $row['*comment']['value'] = $block[1];
-			if ($block[2]=='#' && !isset($row['enabled'])) {
-				$row['enabled'] = array('value' => false);
-				$obsolete_disabling_method[] = $block_string;
-			}
-
-			$formula_fields_to_check = array();
-			if (isset($row['conditions'])) $formula_fields_to_check[] = 'conditions';
-			if (isset($row['fees'])) $formula_fields_to_check[] = 'fees';
-
-			if (count($formula_fields_to_check)>0) {
-				foreach ($formula_fields_to_check as $property) {
-					$property_value = $row[$property]['value'];
-					if (preg_match('/{ +/',$property_value)) {
-						$this->addMessage('warning',$row,$property,'There are unwanted spaces after char `%s`','{');
-						$property_value = preg_replace('/{ +/','{',$property_value);
-					}
-					if (preg_match('/ +}/',$property_value)) {
-						$this->addMessage('warning',$row,$property,'There are unwanted spaces before char `%s`','}');
-						$property_value = preg_replace('/ +}/','}',$property_value);
-					}
-					if (preg_match('/  +/',$property_value)) {
-						$this->addMessage('warning',$row,$property,'There are unwanted multiples spaces `%s`',preg_replace('/(  +)/','<span class="osh-formula">*$1*</span>',$property_value));
-						$property_value = preg_replace('/  +/',' ',$property_value);
-					}
-					$row[$property]['value'] = trim($property_value);
-				}
-			}
-
-			$float_value_regex = '\\s*('.self::$POSITIVE_FLOAT_REGEX.'|\*)\\s*';
-			$conditions = array();
-			if (isset($row['prices_range'])) {
-				if (!in_array('prices_range',$deprecated_properties)) $deprecated_properties[] = 'prices_range';
-
-				$result = $this->_getOptionsAndData($row['prices_range']['value']);
-				$options = $result['options'];
-				$prices_range = $result['data'];
-
-				if (($options=='' || in_array($options,array('incl.tax','ttc')))
-					&& preg_match('/^\\s*(\[|\])?'.$float_value_regex.'=>'.$float_value_regex.'(\[|\])?\\s*$/',$prices_range,$result)) {
-					$min_price_included = $result[1]=='[';
-					$min_price = $result[2]=='*' ? -1 : (float)$result[2];
-					$max_price = $result[3]=='*' ? -1 : (float)$result[3];
-					$max_price_included = !isset($result[4]) || $result[4]==']' || $result[4]=='';
-
-					$tax_included = $options!='' && in_array($options,array('incl.tax','ttc')) || isset($row['reference_value']) && $row['reference_value']['value']=='price_including_tax';
-					$price = $tax_included ? '{cart.price_including_tax}' : '{cart.price_excluding_tax}';
-
-					if ($min_price!=-1) $conditions[] = $price.'>'.($min_price_included ? '=' : '').$min_price;
-					if ($max_price!=-1) $conditions[] = $price.'<'.($max_price_included ? '=' : '').$max_price;
-				}
-				else $this->addMessage('error',$row,null,'Unrecognized value of deprecated property %s %s','<span class="osh-key">prices_range</span>','<span class="osh-formula">'.$row['prices_range']['value'].'</span>');
-				unset($row['prices_range']);
-			}
-			if (isset($row['weights_range'])) {
-				if (!in_array('weights_range',$deprecated_properties)) $deprecated_properties[] = 'weights_range';
-				if (preg_match('/^\\s*(\[|\])?'.$float_value_regex.'=>'.$float_value_regex.'(\[|\])?\\s*$/',$row['weights_range']['value'],$result)) {
-					$min_weight_included = $result[1]=='[';
-					$min_weight = $result[2]=='*' ? -1 : (float)$result[2];
-					$max_weight = $result[3]=='*' ? -1 : (float)$result[3];
-					$max_weight_included = !isset($result[4]) || $result[4]==']' || $result[4]=='';
-
-					if ($min_weight!=-1) $conditions[] = '{cart.weight}>'.($min_weight_included ? '=' : '').$min_weight;
-					if ($max_weight!=-1) $conditions[] = '{cart.weight}<'.($max_weight_included ? '=' : '').$max_weight;
-				}
-				else $this->addMessage('error',$row,null,'Unrecognized value of deprecated property %s %s','<span class="osh-key">weights_range</span>','<span class="osh-formula">'.$row['weights_range']['value'].'</span>');
-				unset($row['weights_range']);
-			}
-			if (isset($row['product_properties'])) {
-				if (!in_array('product_properties',$deprecated_properties)) $deprecated_properties[] = 'product_properties';
-				$product_property_regex = "\\s*(and|or)? *\((?:(all|any|sum) )?(attribute|option) '([^'\)]+)' ?(==|=|<=|>=|<|>|!=) ?(".self::$FLOAT_REGEX."|true|false|'[^'\)]*')\)\\s*";
-				if (preg_match('/^('.$product_property_regex.')+$/',$row['product_properties']['value'],$result)) {
-					preg_match_all('/'.$product_property_regex.'/',$row['product_properties']['value'],$results,PREG_SET_ORDER);
-					$product_properties_condition = '';
-					foreach ($results as $result) {
-						$and_or = $result[1];
-						if ($and_or=='') $and_or = 'and';
-						$any_all_sum = $result[2];
-						if ($any_all_sum=='') $any_all_sum = 'any';
-						$property_type = $result[3];
-						$property_name = $result[4];
-						$cmp_symbol = $result[5];
-						if ($cmp_symbol=='=') $cmp_symbol = '==';
-						$cmp_value = $result[6];
-
-						$product_properties_condition .= $product_properties_condition=='' ? '' : ' '.$and_or.' ';
-						switch ($any_all_sum) {
-							case 'sum':
-								$product_properties_condition .= "{sum product.".$property_type.".".$property_name."}".$cmp_symbol.$cmp_value;
-								break;
-							case 'all':
-								$product_properties_condition .= "{count products where product.".$property_type.".".$property_name.$cmp_symbol.$cmp_value."}=={products_quantity}";
-								break;
-							case 'any':
-								$product_properties_condition .= "{count products where product.".$property_type.".".$property_name.$cmp_symbol.$cmp_value."}>0";
-								break;
-						}
-					}
-					if ($product_properties_condition!='') $conditions[] = $product_properties_condition;
-				}
-				else $this->addMessage('error',$row,null,'Unrecognized value of deprecated property %s %s','<span class="osh-key">product_properties</span>','<span class="osh-formula">'.$row['product_properties']['value'].'</span>');
-				unset($row['product_properties']);
-			}
-			if (count($conditions)>0) $row['conditions'] = array('value' => count($conditions)==1 ? $conditions[0] : '('.implode(') && (',$conditions).')');
-
-			$fees = array();
-			if (isset($row['fees_table'])) {
-				if (!in_array('fees_table',$deprecated_properties)) $deprecated_properties[] = 'fees_table';
-				$options_and_data = $this->_getOptionsAndData($row['fees_table']['value']);
-				$options = $options_and_data['options'];
-				$fees_table_string = $options_and_data['data'];
-
-				$var = null;
-				if ($options=='') $var = (isset($row['reference_value']) ? $row['reference_value']['value'] : 'weight');
-				else if (in_array($options,array('incl.tax','ttc'))) $var = 'price_including_tax';
-				else if (in_array($options,array('excl.tax','ht'))) $var = 'price_excluding_tax';
-
-				if (isset($var)) {
-					if ($var=='price') $var = 'price_excluding_tax';
-					if ($var=='products_quantity') $var = 'quantity';
-					if (preg_match('/^[[:space:]]*\*[[:space:]]*:[[:space:]]*('.$float_value_regex.')[[:space:]]*$/s',$fees_table_string,$result)) $fees[] = $result[1];
-					else $fees[] = "{table {cart.".$var."} in ".str_replace(' ','',$fees_table_string)."}".($var=='quantity' ? '*{cart.quantity}' : '');
-				}
-				else $this->addMessage('error',$row,null,'Unrecognized value of deprecated property %s %s','<span class="osh-key">fees_table</span>','<span class="osh-formula">'.$row['fees_table']['value'].'</span>');
-				unset($row['fees_table']);
-			}
-			if (isset($row['fees_formula'])) {
-				if (!in_array('fees_formula',$deprecated_properties)) $deprecated_properties[] = 'fees_formula';
-				$fees[] = str_replace(' ','',$row['fees_formula']['value']);
-				unset($row['fees_formula']);
-			}
-			if (isset($row['fixed_fees'])) {
-				if (!in_array('fixed_fees',$deprecated_properties)) $deprecated_properties[] = 'fixed_fees';
-				if ($row['fixed_fees']['value']!=0 || count($fees)==0) $fees[] = str_replace(' ','',$row['fixed_fees']['value']);
-				unset($row['fixed_fees']);
-			}
-			if (!isset($row['fees']) && count($fees)>0) $row['fees'] = array('value' => implode('+',$fees));
-
-			$fs_fees = array();
-			if (isset($row['free_shipping__fees_table'])) {
-				if (!in_array('free_shipping__fees_table',$deprecated_properties)) $deprecated_properties[] = 'free_shipping__fees_table';
-				$options_and_data = $this->_getOptionsAndData($row['free_shipping__fees_table']['value']);
-				$options = $options_and_data['options'];
-				$fees_table_string = $options_and_data['data'];
-
-				$var = null;
-				if ($options=='') $var = isset($row['reference_value']) ? $row['reference_value']['value'] : 'weight';
-				else if (in_array($options,array('incl.tax','ttc'))) $var = 'price_including_tax';
-				else if (in_array($options,array('excl.tax','ht'))) $var = 'price_excluding_tax';
-				if ($var=='price') $var = 'price_excluding_tax';
-
-				if (isset($var)) {
-					if ($var=='price') $var = 'price_excluding_tax';
-					if ($var=='products_quantity') $var = 'quantity';
-					if (preg_match('/^[[:space:]]*\*[[:space:]]*:[[:space:]]*('.$float_value_regex.')[[:space:]]*$/s',$fees_table_string,$result)) $fs_fees[] = $result[1];
-					else $fs_fees[] = "{table {cart.".$var."} in ".str_replace(' ','',$fees_table_string)."}".($var=='quantity' ? '*{cart.quantity}' : '');
-				}
-				else $this->addMessage('error',$row,null,'Unrecognized value of deprecated property %s %s','<span class="osh-key">free_shipping__fees_table</span>','<span class="osh-formula">'.$row['free_shipping__fees_table']['value'].'</span>');
-				unset($row['free_shipping__fees_table']);
-			}
-			if (isset($row['free_shipping__fees_formula'])) {
-				if (!in_array('free_shipping__fees_formula',$deprecated_properties)) $deprecated_properties[] = 'free_shipping__fees_formula';
-				$fs_fees[] = str_replace(' ','',$row['free_shipping__fees_formula']['value']);
-				unset($row['free_shipping__fees_formula']);
-			}
-			if (isset($row['free_shipping__fixed_fees'])) {
-				if (!in_array('free_shipping__fixed_fees',$deprecated_properties)) $deprecated_properties[] = 'free_shipping__fixed_fees';
-				if ($row['free_shipping__fixed_fees']['value']!=0 || count($fees)==0) $fs_fees[] = str_replace(' ','',$row['free_shipping__fixed_fees']['value']);
-				unset($row['free_shipping__fixed_fees']);
-			}
-
-			if (isset($row['reference_value'])) {
-				if (!in_array('reference_value',$deprecated_properties)) $deprecated_properties[] = 'reference_value';
-				unset($row['reference_value']);
-			}
-
-			if (count($fs_fees)>0) {
-				$row2 = $row;
-				if (isset($row['code'])) $row2['code']['value'] = $row['code']['value'].'__free_shipping';
-				$row2['fees']['value'] = implode('+',$fs_fees);
-				$row2['conditions']['value'] = isset($row2['conditions']) ? '('.$row2['conditions']+') and {free_shipping}' : '{free_shipping}';
-				$row['conditions']['value'] = isset($row['conditions']) ? '('.$row['conditions']+') and !{free_shipping}' : '!{free_shipping}';
-				if (isset($row['free_shipping__label'])) {
-					if (!in_array('free_shipping__label',$deprecated_properties)) $deprecated_properties[] = 'free_shipping__label';
-					$row2['label']['value'] = $row['free_shipping__label']['value'];
-					unset($row['free_shipping__label']);
-					unset($row2['free_shipping__label']);
-				}
-				$this->_addRow($row2);
-			}
-			if (count($unknown_properties)>0) $this->addMessage('error',$row,null,'Usage of unknown properties %s',': <span class="osh-key">'.implode('</span>, <span class="osh-key">',$unknown_properties).'</span>');
-			if (count($deprecated_properties)>0) $this->addMessage('warning',$row,null,'Usage of deprecated properties %s',': <span class="osh-key">'.implode('</span>, <span class="osh-key">',$deprecated_properties).'</span>');
-			if (count($obsolete_disabling_method)>0) $this->addMessage('warning',$row,null,'Usage of obsolete method to disabling a shipping method (`#` before `{`)%s','<div class="code">'.implode('<br />',$obsolete_disabling_method).'</div>');
-			if (count($missing_semicolon)>0) $this->addMessage('warning',$row,null,'A semicolon is missing at the end of following lines %s','<div class="code">'.implode('<br />',$missing_semicolon).'</div>');
-			$this->_addRow($row);
+			$this->addRow($code, $row);
 		}
-		if (trim($config_string)!='') {
-			$this->_addIgnoredLines(trim($config_string));
-			$row = null;
-			$this->addMessage('info',$row,null,'Ignored lines %s','<div class="code">'.trim($config_string).'</div>');
+		$row = null;
+		if (count($unknown_properties)>0) $this->addMessage('error', $row, null, 'Usage of unknown properties %s', ': <span class=osh-key>'.implode('</span>, <span class=osh-key>', $unknown_properties).'</span>');
+		if (count($deprecated_properties)>0) $this->addMessage('warning', $row, null, 'Usage of deprecated properties %s', ': <span class=osh-key>'.implode('</span>, <span class=osh-key>', $deprecated_properties).'</span>');
+	}
+
+	public function addRow($code, &$row)
+	{
+		if ($code) {
+			if (isset($this->_config[$code])) $this->addMessage('error', $row, 'code', 'The id must be unique, `%s` has been found twice', $code);
+			while (isset($this->_config[$code])) $code .= rand(0, 9);
 		}
+		$row['*id'] = $code;
+		$this->_config[$code] = $row;
 	}
 
 	public function addMessage($type, &$row, $property) {
@@ -1050,7 +1097,7 @@ class GlsShippingHelper
 				$i++;
 			} while (isset($this->_config[$key]));
 		}
-		$row['*code'] = $key;
+		$row['*id'] = $key;
 		$this->_config[$key] = $row;
 	}
 
@@ -1261,6 +1308,29 @@ class GlsShippingHelper
 		self::debug('      :: end <span class="osh-replacement">'.$regex_result[0].'</span>');
 
 		return $return_value;
+	}
+
+	protected static function json_decode($input)
+	{
+		if (function_exists('json_decode')) { // PHP >= 5.2.0
+			$output = json_decode($input);
+			if (function_exists('json_last_error')) { // PHP >= 5.3.0
+				$error = json_last_error();
+				if ($error!=JSON_ERROR_NONE) throw new Exception($error);
+			}
+			return $output;
+		} else {
+			return Zend_Json::decode($input);
+		}
+	}
+
+	protected static function json_encode($input)
+	{
+		if (function_exists('json_encode')) {
+			return json_encode($input);
+		} else {
+			return Zend_Json::encode($input);
+		}
 	}
 
 }
