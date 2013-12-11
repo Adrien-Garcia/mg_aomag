@@ -1,3 +1,14 @@
+[2.5.13 - 5 novembre 2013]
+Correction d'un bug avec l'auto-escaping des chaînes de caractères dans les tableaux (merci à Sylvain P.)
+Correction d'un bug dans le calcul des variables {car.price+tax+discount} et {cart.price+tax-discount} lorsque le panier contenait des produits packagés (merci à Nematis)
+Suppression des caractères &gt; et &lt; restés dans les exemples de configuration JSON dans la documentation
+Correction d'un bug avec {cart.free_shipping}
+Correction d'un bug dans Owebia_Shipping2_Model_Os2_Data_Cart qui posait problème lorsque les classes Mage_Sales_Model_Quote_Address_Item et Mage_Sales_Model_Quote_Item étaient redéfinies (merci à Franck T.)
+Suppression de la configuration Colissimo dans le 1er mode de livraison : la configuration est téléchargeable sur le site owebia.com
+Modification de l'origine des montants du panier (merci à carouze et Mathieu, voir http://www.magentocommerce.com/boards/viewthread/274340/P15/#t382192)
+Ajout de nouvelles variables {quote.*}
+Ajout d'une option pour réaliser l'auto-échappement systématique des variables
+
 [2.5.12 - 21 février 2013]
 Suppression des tarifs Chronopost et Export 3J périmés (modification 2.5.10 beta non effective)
 Passage en mode Stable

@@ -19,7 +19,7 @@
  * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
 **/
 
-class Owebia_Shipping2_Model_Carrier_OwebiaShipping2 extends Owebia_Shipping2_Model_Carrier_AbstractOwebiaShipping
+class Owebia_Shipping2_Model_Carrier_OwebiaShipping2 extends Owebia_Shipping2_Model_Carrier_Abstract
 {
 	protected $_code = 'owebiashipping2';
 }

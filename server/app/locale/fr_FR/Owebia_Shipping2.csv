@@ -79,11 +79,15 @@
 
 # app/code/community/Owebia/Shipping2/etc/system.xml
 	"Configuration","Configuration"
-	"{debug_help}","Affichage du debug sur le panier lors d'une estimation de livraison"
-	"{compression_help}","Compression gz + base64 pour que la configuration prenne moins de place (utile avec certaines configurations). C'est l'éditeur qui effectue la compression/décompression."
 	"Tracking URL","URL de suivi"
 	"Debug","Debug"
+	"{debug_help}","Affichage du debug sur le panier lors d'une estimation de livraison"
 	"Compression","Compression"
+	"{compression_help}","Compression gz + base64 pour que la configuration prenne moins de place (utile avec certaines configurations). C'est l'éditeur qui effectue la compression/décompression."
+	"Auto-escaping","Auto-échappement"
+	"{auto_escaping_help}","Active l'auto-échappement systématique des variables"
+	"Auto-correction","Auto-correction"
+	"{auto_correction_help}","Cette option permet la compatibilité rétroactive mais elle consommme des ressources"
 	"Stop to first match","Arrêt à la première correspondance trouvée"
 	"General Configuration","Configuration générale"
 	"Weight unit","Unité de poids"
@@ -104,7 +108,7 @@
 	"Usage of unknown properties %s","Utilisation de propriétés non reconnues %s"
 	"Usage of deprecated properties %s","Utilisation de propriétés obsolètes %s"
 
-# app/code/community/Owebia/Shipping2/Model/Carrier/AbstractOwebiaShipping.php
+# app/code/community/Owebia/Shipping2/Model/Carrier/Abstract.php
 	"track the package","suivre le colis"
 
 # app/code/community/Owebia/Shipping2/Model/Os2/Data/AddressFilter.php
@@ -341,7 +345,7 @@ Pour ce faire, utiliser les variables suivantes :</p>
 ""ex6"":{""label"":""Seulement si port offert"",""conditions"":""{cart.free_shipping}"",""fees"":10},
 ""ex7"":{""label"":""Seulement si port non offert"",""conditions"":""!{cart.free_shipping}"",""fees"":10},
 ""ex8"":{""label"":""Si au moins un produit possède l'attribut 'color' égal à 'Bleu'"",""conditions"":""{count items where product.attribute.color=='Bleu'}>1"",""fees"":10},
-""ex9"":{""label"":""Si tous les produits possèdent l'option 'size' supérieure ou égal à '1'"",""conditions"":""{count items where product.option.size&gt;='1'}=={cart.qty}"",""fees"":10}
+""ex9"":{""label"":""Si tous les produits possèdent l'option 'size' supérieure ou égal à '1'"",""conditions"":""{count items where product.option.size>='1'}=={cart.qty}"",""fees"":10}
 }{/code}
 "
 	"{os2editor.help.property_shipto}","
@@ -770,15 +774,14 @@ Liste des fonctions spéciales :
 </ul>
 
 {code=json}{
-""ex0"":{""label"":""Si au moins un produit possède l'attribut 'color' égal à 'Bleu'"",""conditions"":""{count items where product.color=='Bleu'}&gt;0"",""fees"":10},
-""ex1"":{""label"":""Si tous les produits possèdent l'option 'size' supérieure ou égal à '1'"",""conditions"":""{count items where item.option.size&gt;='1'}=={cart.qty}"",""fees"":10},
+""ex0"":{""label"":""Si au moins un produit possède l'attribut 'color' égal à 'Bleu'"",""conditions"":""{count items where product.color=='Bleu'}>0"",""fees"":10},
+""ex1"":{""label"":""Si tous les produits possèdent l'option 'size' supérieure ou égal à '1'"",""conditions"":""{count items where item.option.size>='1'}=={cart.qty}"",""fees"":10},
 ""ex2"":{""label"":""Nombre de SKU différents"",""conditions"":""{count distinct product.sku}"",""fees"":10},
-""ex3"":{""label"":""Somme de toutes les options 'size' est supérieure à 30"",""conditions"":""{sum item.option.size}&gt;30"",""fees"":10},
+""ex3"":{""label"":""Somme de toutes les options 'size' est supérieure à 30"",""conditions"":""{sum item.option.size}>30"",""fees"":10},
 ""ex4"":{""label"":""Prix HT sans remise minimum des produits dans le panier est supérieur à 10"",""conditions"":""{min item.price-tax-discount}>10"",""fees"":10},
 ""ex5"":{""label"":""Valeur maximum de l'option 'size' des produits dans le panier est inférieure à 50"",""conditions"":""{max item.option.size}<50"",""fees"":10},
 ""ex6"":{""label"":""Nombre de produits en stock"",""conditions"":""{count items where product.stock.is_in_stock==true}"",""fees"":10}
 }{/code}
-</div>
 
 <p>
 Liste des préfixes possibles :
