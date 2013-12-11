@@ -320,15 +320,13 @@ class GlsShippingHelper
 		}
 
 		//ADDONLINE : on exclu la livraison en relay si un article dépasse le point max XL
-		$code = $row['*id']['value'];
-		if(strpos($code, 'relay_') !== 0 ) {
+		$code = $row['*id'];
+		if(strpos($code, 'relay_') === 0 ) {
 			$okrelay = true;
 			foreach ($process['cart.products'] as $product) {
 				// Si un produit fait plus que le poids maximum des relayXL
 				if($product->getAttribute('weight') > Mage::getStoreConfig('carriers/gls/maxxlrelayweight')){
-					Mage::log(Mage::getStoreConfig('carriers/gls/maxxlrelayweight'));
-					Mage::log($product->getAttribute('weight'));
-					//return new GLS_Result(false);
+					return new GLS_Result(false);
 				}
 			}
 		}
