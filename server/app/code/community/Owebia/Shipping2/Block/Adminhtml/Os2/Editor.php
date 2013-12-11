@@ -35,7 +35,7 @@ class Owebia_Shipping2_Block_Adminhtml_Os2_Editor extends Mage_Adminhtml_Block_A
 
 	public function __() {
 		$args = func_get_args();
-		return Mage::helper('owebia-shipping2')->__($args);
+		return Mage::helper('owebia_shipping2')->__($args);
 	}
 
 	private function _getPropertyInput($property_name, $property) {
@@ -108,7 +108,7 @@ class Owebia_Shipping2_Block_Adminhtml_Os2_Editor extends Mage_Adminhtml_Block_A
 					."</fieldset>";
 				break;
 			case 'customer_groups':
-				$model = Mage::getModel('owebia-shipping2/Os2_Data_CustomerGroup');
+				$model = Mage::getModel('owebia_shipping2/Os2_Data_CustomerGroup');
 				$groups = (array)$model->getCollection();
 				$output = '';
 				foreach ($groups as $id => $name) {

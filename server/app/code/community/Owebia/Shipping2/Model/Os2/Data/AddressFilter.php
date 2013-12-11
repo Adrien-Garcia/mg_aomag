@@ -93,7 +93,7 @@ class Owebia_Shipping2_Model_Os2_Data_AddressFilter extends Owebia_Shipping2_Mod
 		while (preg_match('/{address_filter\.([^}]+)}/', $output, $result)) {
 			$name = $result[1];
 			$replacement = isset(self::$_shortcuts[$name]) ? self::$_shortcuts[$name]['label'] : 'unknown';
-			$replacement = Mage::helper('owebia-shipping2')->__($replacement);
+			$replacement = Mage::helper('owebia_shipping2')->__($replacement);
 			$output = str_replace($result[0], $replacement, $output);
 		}
 		return $output;
