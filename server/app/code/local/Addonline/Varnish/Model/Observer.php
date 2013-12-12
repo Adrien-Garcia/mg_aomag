@@ -49,7 +49,12 @@ class Addonline_Varnish_Model_Observer
         if (isset($configuration[$module]['action']) && $configuration[$module]['action'] != $actionName) {
             $needCaching = false;
         }
-
+        
+        //Cas particulier des pages 404 : il ne faut pas les cacher sous peine de poser des problème sur des traitements qui ne doiivent pas être cachés et qui peuvent être sur certains cas traité par l'action noRoute...
+        if ($actionName == 'noRoute') {
+	        $needCaching = false;
+        }
+        
         if ($needCaching) {
         	
         	//Flag qui indique aux blocks qu'ils sont en "mode static"
