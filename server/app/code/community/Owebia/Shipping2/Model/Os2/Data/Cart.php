@@ -26,62 +26,71 @@ class Owebia_Shipping2_Model_Os2_Data_Cart extends Owebia_Shipping2_Model_Os2_Da
 	protected $_items;
 	protected $_options;
 
-	public function __construct($arguments) {
+	public function __construct($arguments)
+	{
 		parent::__construct();
 		$request = $arguments['request'];
 		$this->_options = $arguments['options'];
 
+		$quote = Mage::getModel('checkout/session')->getQuote();
 		$this->_data = array(
-			'price-tax+discount' => $request->getData('package_value_with_discount'),
-			'price-tax-discount' => $request->getData('package_value'),
+			'price-tax+discount' => (double)$quote->getData('subtotal_with_discount'), //$request->getData('package_value_with_discount'),
+			'price-tax-discount' => (double)$quote->getData('subtotal'), //$request->getData('package_value'),
+			'price+tax+discount' => (double)$quote->getData('grand_total'),
+			'price+tax-discount' => null,
 			'weight' => $request->getData('package_weight'),
 			'qty' => $request->getData('package_qty'),
+			'free_shipping' => $request->getData('free_shipping'),
 		);
 
-		$tax_amount = 0;
-		$full_price = 0;
 		$cart_items = array();
 		$items = $request->getAllItems();
 		$quote_total_collected = false;
+		$bundle_process_children = isset($this->_options['bundle']['process_children']) && $this->_options['bundle']['process_children'];
 		foreach ($items as $item) {
-			if ($item->getProduct() instanceof Mage_Catalog_Model_Product) {
-				switch (get_class($item)) {
-					case 'Mage_Sales_Model_Quote_Address_Item':		$key = $item->getQuoteItemId(); break;	// Multishipping
-					case 'Mage_Sales_Model_Quote_Item':				$key = $item->getId(); break;			// Onepage checkout
-					default: $key = null;
+			$product = $item->getProduct();
+			if ($product instanceof Mage_Catalog_Model_Product) {
+				$key = null;
+				if ($item instanceof Mage_Sales_Model_Quote_Address_Item) { // Multishipping
+					$key = $item->getQuoteItemId();
+				} else if ($item instanceof Mage_Sales_Model_Quote_Item) { // Onepage checkout
+					$key = $item->getId();
 				}
 				$cart_items[$key] = $item;
-				$tax_amount += $item->getData('tax_amount');
-				$full_price += Mage::helper('checkout')->getSubtotalInclTax($item); // ok
 			}
 		}
 
-		$this->_data['price+tax+discount'] = $tax_amount+$this->_data['price-tax+discount'];
-		$this->_data['price+tax-discount'] = $full_price;
+		$tax_amount = 0;
+		$full_price = 0;
 		$this->_items = array();
-		$bundle_process_children = isset($this->_options['bundle']['process_children']) && $this->_options['bundle']['process_children'];
 		foreach ($cart_items as $item) {
 			$type = $item->getProduct()->getTypeId();
 			//echo $item->getProduct()->getTypeId().', '.$item->getQty().'<br/>';
+			$parent_item_id = $item->getData('parent_item_id');
+			$parent_item = isset($cart_items[$parent_item_id]) ? $cart_items[$parent_item_id] : null;
+			$parent_type = isset($parent_item) ? $parent_item->getProduct()->getTypeId() : null;
 			if ($type!='configurable') {
-				if ($type=='bundle') {
-					if ($bundle_process_children) {
-						$this->_data['qty'] -= $item->getQty();
-						continue;
-					}
+				if ($type=='bundle' && $bundle_process_children) {
+					$this->_data['qty'] -= $item->getQty();
+					continue;
 				}
-				$parent_item_id = $item->getData('parent_item_id');
-				$parent_item = isset($cart_items[$parent_item_id]) ? $cart_items[$parent_item_id] : null;
-				if ($parent_item && $parent_item->getProduct()->getTypeId()=='bundle') {
+				if ($parent_type=='bundle') {
 					if (!$bundle_process_children) continue;
 					else $this->_data['qty'] += $item->getQty();
 				}
-				$this->_items[] = Mage::getModel('owebia-shipping2/Os2_Data_CartItem', array('item' => $item, 'parent_item' => $parent_item, 'options' => $this->_options));
+				$this->_items[] = Mage::getModel('owebia_shipping2/Os2_Data_CartItem', array('item' => $item, 'parent_item' => $parent_item, 'options' => $this->_options));
 			}
+			//$tax_amount += $item->getData('tax_amount');
+			$full_price += Mage::helper('checkout')->getSubtotalInclTax($item); // ok
 		}
+		//$this->_data['price+tax+discount'] = $tax_amount+$this->_data['price-tax+discount'];
+		$this->_data['price+tax-discount'] = $full_price;
+		
+		//echo '<pre>Owebia_Shipping2_Model_Os2_Data_Abstract::__construct<br/>';foreach ($this->_data as $n => $v){echo "\t$n => ".(is_object($v) ? get_class($v) : (is_array($v) ? 'array' : $v))."<br/>";}echo '</pre>';
 	}
 
-	protected function _load($name) {
+	protected function _load($name)
+	{
 		switch ($name) {
 			case 'weight_for_charge':
 				$weight_for_charge = $this->weight;
@@ -102,12 +111,13 @@ class Owebia_Shipping2_Model_Os2_Data_Cart extends Owebia_Shipping2_Model_Os2_Da
 				}
 				return $coupon_code;
 			case 'weight_unit':
-				return Mage::getStoreConfig('owebia-shipping2/general/weight_unit');
+				return Mage::getStoreConfig('owebia_shipping2/general/weight_unit');
 		}
 		return parent::_load($name);
 	}
 
-	public function __set($name, $value) {
+	public function __set($name, $value)
+	{
 		switch ($name) {
 			case 'items':
 				return $this->_items = $value;
@@ -115,7 +125,8 @@ class Owebia_Shipping2_Model_Os2_Data_Cart extends Owebia_Shipping2_Model_Os2_Da
 		return parent::__set($name, $value);
 	}
 
-	public function __get($name) {
+	public function __get($name)
+	{
 		switch ($name) {
 			case 'items':
 				return $this->_items;
@@ -133,5 +144,3 @@ class Owebia_Shipping2_Model_Os2_Data_Cart extends Owebia_Shipping2_Model_Os2_Da
 		return parent::__get($name);
 	}
 }
-
-?>

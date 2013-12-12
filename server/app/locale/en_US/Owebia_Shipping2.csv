@@ -79,11 +79,15 @@
 
 # app/code/community/Owebia/Shipping2/etc/system.xml
 	"Configuration","Configuration"
-	"{debug_help}","Debug displayed on cart while making a shipping estimation"
-	"{compression_help}","Gz + base64 compression. This is the editor that compress/uncompress."
 	"Tracking URL","Tracking URL"
 	"Debug","Debug"
+	"{debug_help}","Debug displayed on cart while making a shipping estimation"
 	"Compression","Compression"
+	"{compression_help}","Gz + base64 compression. This is the editor that compress/uncompress."
+	"Auto-escaping","Auto-escaping"
+	"{auto_escaping_help}","Enable systematic auto-escaping of variables"
+	"Auto-correction","Auto-correction"
+	"{auto_correction_help}","This option enables backward compatibility but consommme resources"
 	"Stop to first match","Stop to first match"
 	"General Configuration","General Configuration"
 	"Weight unit","Weight unit"
@@ -104,7 +108,7 @@
 	"Usage of unknown properties %s","Usage of unknown properties %s"
 	"Usage of deprecated properties %s","Usage of deprecated properties %s"
 
-# app/code/community/Owebia/Shipping2/Model/Carrier/AbstractOwebiaShipping.php
+# app/code/community/Owebia/Shipping2/Model/Carrier/Abstract.php
 	"track the package","track the package"
 
 # app/code/community/Owebia/Shipping2/Model/Os2/Data/AddressFilter.php
@@ -316,7 +320,7 @@ To do that, use the following variables:</p>
 ""ex6"":{""label"":""Only if free shipping"",""conditions"":""{cart.free_shipping}"",""fees"":10},
 ""ex7"":{""label"":""Only if not free shipping"",""conditions"":""!{cart.free_shipping}"",""fees"":10},
 ""ex8"":{""label"":""If any product has a 'color' attribute equal to 'Blue'"",""conditions"":""{count items where product.attribute.color=='Blue'}>1"",""fees"":10},
-""ex9"":{""label"":""If all products have 'size' option greater or equal to '1'"",""conditions"":""{count items where product.option.size&gt;='1'}=={cart.qty}"",""fees"":10}
+""ex9"":{""label"":""If all products have 'size' option greater or equal to '1'"",""conditions"":""{count items where product.option.size>='1'}=={cart.qty}"",""fees"":10}
 }{/code}
 "
 	"{os2editor.help.property_shipto}","
@@ -745,10 +749,10 @@ To do that, use the following variables:</p>
 </ul>
 
 {code=json}{
-""ex0"":{""label"":""If at least one product has an attribute 'color' equals to 'Blue'"",""conditions"":""{count items where product.color=='Blue'}&gt;0"",""fees"":10},
-""ex1"":{""label"":""If all products have the option 'size' greater or equal to '1'"",""conditions"":""{count items where item.option.size&gt;='1'}=={cart.qty}"",""fees"":10},
+""ex0"":{""label"":""If at least one product has an attribute 'color' equals to 'Blue'"",""conditions"":""{count items where product.color=='Blue'}>0"",""fees"":10},
+""ex1"":{""label"":""If all products have the option 'size' greater or equal to '1'"",""conditions"":""{count items where item.option.size>='1'}=={cart.qty}"",""fees"":10},
 ""ex2"":{""label"":""Different SKU count"",""conditions"":""{count distinct product.sku}"",""fees"":10},
-""ex3"":{""label"":""Sum of all options 'size' is greater than 30"",""conditions"":""{sum item.option.size}&gt;30"",""fees"":10},
+""ex3"":{""label"":""Sum of all options 'size' is greater than 30"",""conditions"":""{sum item.option.size}>30"",""fees"":10},
 ""ex4"":{""label"":""Minimum price excl. tax without discount of products in cart is greater than 10"",""conditions"":""{min item.price-tax-discount}>10"",""fees"":10},
 ""ex5"":{""label"":""Maximum value of option 'size' is lower than 50"",""conditions"":""{max item.option.size}<50"",""fees"":10},
 ""ex6"":{""label"":""Count products in stock"",""conditions"":""{count items where product.stock.is_in_stock==true}"",""fees"":10}
