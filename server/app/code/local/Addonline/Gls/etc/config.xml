@@ -52,6 +52,13 @@
         </events>  
     </global>
     <frontend>
+        <layout>
+            <updates>
+                <gls module="Addonline_Gls">
+                    <file>gls.xml</file>
+                </gls>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Addonline_Gls>
@@ -63,6 +70,17 @@
             </modules>
         </translate>                  
     </frontend>
+    <admin>
+        <routers>
+            <gls>
+                <use>admin</use>
+                <args>
+                    <module>Addonline_Gls</module>
+                    <frontName>gls</frontName>
+                </args>
+            </gls>
+        </routers>
+    </admin>
     <adminhtml>
         <translate>
             <modules>
@@ -74,6 +92,27 @@
                 </Addonline_Gls>
             </modules>
         </translate>
+        <menu>             
+            <gls module="gls">
+                <title>GLS export/import</title>
+                <sort_order>99</sort_order>
+                <children>
+                    <export translate="title" module="gls">
+                        <title>Export orders</title>
+                        <sort_order>0</sort_order>
+                        <action>gls/export</action> 
+                    </export>
+                    <import translate="title" module="gls">
+                        <title>Import orders</title>
+                        <sort_order>0</sort_order>
+                        <action>gls/import</action> 
+                    </import>                    
+                </children>
+                <depends>
+                    <config>carriers/gls/importexport</config>
+                </depends>  
+            </gls>                  
+        </menu>
     </adminhtml>
     <default>
         <carriers>
@@ -84,8 +123,8 @@
                 <config></config>
                 <model>Addonline_Gls_Model_Carrier_ShippingMethod</model>
                 <tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match=</tracking_view_url>
-                <export_folder>var/export/gls</export_folder>
-                <import_folder>var/import/gls</import_folder>            
+                <export_folder>var/export/gls/</export_folder>
+                <import_folder>var/import/gls/</import_folder>            
                 <sort_order>1</sort_order>
             </gls>
         </carriers>

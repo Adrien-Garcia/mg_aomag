@@ -13,4 +13,8 @@ class Addonline_Gls_Helper_Data extends Mage_Core_Helper_Abstract
 		return Mage::getStoreConfig('carriers/gls/relay_xl_only');
 	}
 
+	public function getExportFolder(){
+		return Mage::getStoreConfig('carriers/gls/export_folder');
+	}
+
 }
