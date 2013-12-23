@@ -18,15 +18,28 @@ class Addonline_Gls_Model_Service {
 
 		require_once dirname(__FILE__).DS.'Webservice'.DS.'PointsRelaisWSService.php';
 
+		var_dump($login); var_dump($mdp);
+
 		$pointsRelaisWSService = new PointsRelaisWSService(array('trace' => TRUE), $this->getUrlWsdl());
-		$aParameters = array('UserName' =>$login,'Password' =>$mdp,'ZipCode' => $zipcode,'Country' => $country);
+// 		$aParameters = array('UserName' =>$login,'Password' =>$mdp,'ZipCode' => $zipcode,'Country' => $country);
+
+		$aParameters = array('Credentials' => array('UserName' =>$login,'Password' =>$mdp),'Address' => array(
+				'Name1' => '',
+				'Name2' => '',
+				'Name3' => '',
+				'Street1' => '',
+				'BlockNo1' => '',
+				'Street2' => '',
+				'BlockNo2' => '',
+				'ZipCode' => $zipcode,
+				'City' => '',
+				'Province' => '',
+				'Country' => $country)
+		);
 
 		try {
 			$result = $pointsRelaisWSService->findRelayPoints($aParameters);
-			if ($result->return->errorCode != 0) {
-				Mage::log($result->return);
-			}
-			return $result->return;
+			return $result;
 		}catch (SoapFault $fault) {
 			echo '<pre>';
 			var_dump($fault);
