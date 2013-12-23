@@ -29,10 +29,10 @@
 						<children>
 							<config>
 								<children>
-									<owebia-shipping2>
+									<owebia_shipping2>
 										<title>Owebia Shipping 2 Section</title>
 										<sort_order>100</sort_order>
-									</owebia-shipping2>
+									</owebia_shipping2>
 								</children>
 							</config>
 						</children>
@@ -45,7 +45,7 @@
 		<modules>
 			<Mage_Shipping>
 				<files>
-					<owebia-shipping2>Owebia_Shipping2.csv</owebia-shipping2>
+					<owebia_shipping2>Owebia_Shipping2.csv</owebia_shipping2>
 				</files>
 			</Mage_Shipping>
 		</modules>

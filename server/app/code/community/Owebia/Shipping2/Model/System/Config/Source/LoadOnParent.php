@@ -24,11 +24,11 @@ class Owebia_Shipping2_Model_System_Config_Source_LoadOnParent extends Mage_Admi
 	public function toOptionArray($addEmpty = true) {
 		$options = array(
 			array(
-				'label' => Mage::helper('owebia-shipping2')->__('Self'),
+				'label' => Mage::helper('owebia_shipping2')->__('Self'),
 				'value' => '0'
 			),
 			array(
-				'label' => Mage::helper('owebia-shipping2')->__('Parent'),
+				'label' => Mage::helper('owebia_shipping2')->__('Parent'),
 				'value' => '1'
 			),
 		);

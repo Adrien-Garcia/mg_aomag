@@ -23,19 +23,20 @@ class Owebia_Shipping2_Model_Os2_Data_Customer extends Owebia_Shipping2_Model_Os
 {
 	protected $additional_attributes = array('*');
 
-	public function __construct($arguments=null) {
+	public function __construct($arguments=null)
+	{
 		parent::__construct(array(
 			'id' => Mage::getSingleton('customer/session')->getCustomerId(),
 		));
 	}
 
-	protected function _loadObject() {
+	protected function _loadObject()
+	{
 		return Mage::getModel('customer/customer')->load($this->id);
 	}
 
-	public function __toString() {
+	public function __toString()
+	{
 		return $this->firstname.' '.$this->lastname.' (id:'.$this->id.')';
 	}
 }
-
-?>

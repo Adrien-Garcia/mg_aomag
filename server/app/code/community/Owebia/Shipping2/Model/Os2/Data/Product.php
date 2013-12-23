@@ -69,13 +69,13 @@ class Owebia_Shipping2_Model_Os2_Data_Product extends Owebia_Shipping2_Model_Os2
 
 	public function getAttributeSet() {
 		if (isset($this->_attribute_set)) return $this->_attribute_set;
-		return $this->_attribute_set = Mage::getModel('owebia-shipping2/Os2_Data_AttributeSet', array('id' => (int)$this->attribute_set_id));
+		return $this->_attribute_set = Mage::getModel('owebia_shipping2/Os2_Data_AttributeSet', array('id' => (int)$this->attribute_set_id));
 	}
 
 	protected function _getStockItem() {
 		//foreach ($this->_loaded_object->getData() as $index => $value) echo "$index = $value<br/>";
 		if (isset($this->_stock_item)) return $this->_stock_item;
-		return $this->_stock_item = Mage::getModel('owebia-shipping2/Os2_Data_StockItem', array('product_id' => (int)$this->id));
+		return $this->_stock_item = Mage::getModel('owebia_shipping2/Os2_Data_StockItem', array('product_id' => (int)$this->id));
 	}
 
 	protected function _getCategory() {
@@ -89,7 +89,7 @@ class Owebia_Shipping2_Model_Os2_Data_Product extends Owebia_Shipping2_Model_Os2
 		$ids = $product->getCategoryIds();
 		$this->_categories = array();
 		foreach ($ids as $id) {
-			$this->_categories[] = Mage::getModel('owebia-shipping2/Os2_Data_Category', array('id' => (int)$id));
+			$this->_categories[] = Mage::getModel('owebia_shipping2/Os2_Data_Category', array('id' => (int)$id));
 		}
 		return $this->_categories;
 	}
