@@ -1,0 +1,227 @@
+/***************/
+/* SOCOLISSIMO */
+
+dd.s_method_gls {
+	
+}
+
+dd.s_method_gls li {
+	position: relative;
+	margin-bottom: 20px;
+}
+
+dd.s_method_gls li img {
+	position: absolute;
+	top: -8px;
+	left: 25px;
+}
+
+dd.s_method_gls li input {
+	margin-right: 65px;
+}
+
+dd.s_method_gls li span.price {
+	color: #f18200;
+}
+
+
+
+
+
+
+
+
+
+#layer_gls {
+	position: relative;
+	display: none;
+	width: 950px;
+	background: #fff;
+	z-index: 1000;
+	text-align: left;
+	border-radius: 10px;
+	
+	.close {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		cursor: pointer;
+		width: 22px;
+		height: 22px;
+		background: url(../images/gls/btn_fermer.png);
+	}
+	
+	h3 {
+		background: url(../images/gls/title-repeat.png);
+		line-height: 58px;
+		margin: -15px -15px 0 -15px;
+		border-radius: 10px 10px 0 0;
+		font-size: 24px;
+		font-weight: normal;
+		color: #fff;
+		padding-left: 70px;
+		position: relative;
+		
+		&:before {
+			content: "";
+			width: 43px;
+			height: 32px;
+			position: absolute;
+			top: 12px;
+			left: 15px;
+			background: url(../images/gls/picto_relay.png);
+		}
+	}
+	
+	#gls_headers {
+		background: url(../images/gls/search-repeat.png) repeat-x;
+		margin: 0 -15px 15px;
+		padding: 0 15px 0 15px;
+		height: 57px;
+		
+		.left {
+			margin-top: 15px;
+			
+			span {
+				font-size: 14px;
+				font-weight: bold;
+				color: #06187c;
+				margin-right: 10px;
+				vertical-align: middle;
+			}
+			input {
+				padding: 0 10px;
+				width: 78px;
+				height: 23px;
+				-webkit-border-radius: 8px;
+				-moz-border-radius: 8px;
+				border-radius: 8px 0 0 8px;
+				background-color: #fff;
+				-webkit-box-shadow: inset 0 3px 3px rgba(214,214,214,.75);
+				-moz-box-shadow: inset 0 3px 3px rgba(214,214,214,.75);
+				box-shadow: inset 0 3px 3px rgba(214,214,214,.75);
+				border: solid 1px #d2d2d2;
+				vertical-align: middle;
+			}
+			button {
+				background: none;
+				border: none;
+				margin: 0 0 0 -10px;
+				padding: 0;
+				cursor: pointer;
+				font-size: 12px;
+				text-shadow: 0 -1px #112282;
+				color: #fff;
+				width: 92px;
+				height: 25px;
+				-webkit-border-radius: 0 8px 8px 0;
+				-moz-border-radius: 0 8px 8px 0;
+				border-radius: 0 8px 8px 0;
+				background-color: #06187c;
+				background-image: -webkit-linear-gradient(bottom, #06187c, #8b94c2);
+				background-image: -moz-linear-gradient(bottom, #06187c, #8b94c2);
+				background-image: -o-linear-gradient(bottom, #06187c, #8b94c2);
+				background-image: linear-gradient(to top, #06187c, #8b94c2);
+				vertical-align: middle;
+			}
+		}
+		
+		.right {
+			margin-top: 15px;
+			
+			label {
+				font-size: 14px;
+				color: #06187c;
+				margin-right: 10px;
+				vertical-align: middle;
+				input {
+					vertical-align: middle;
+				}
+			}
+			#num_telephone {
+				vertical-align: middle;
+				padding: 0 10px;
+				width: 130px;
+				height: 23px;
+				-webkit-border-radius: 8px;
+				-moz-border-radius: 8px;
+				border-radius: 8px;
+				background-color: #fff;
+				-webkit-box-shadow: inset 0 3px 3px rgba(214,214,214,.75);
+				-moz-box-shadow: inset 0 3px 3px rgba(214,214,214,.75);
+				box-shadow: inset 0 3px 3px rgba(214,214,214,.75);
+				border: solid 1px #d2d2d2;
+			}
+		}
+		
+	}
+	
+	#col_gauche_gls{
+	    width: 649px;
+	    height: 353px;
+	    float: left;
+	    border: 1px solid #d6d8e9;
+	    
+	    #map_gls {
+	    	height: 100%;
+	    }
+	}
+	
+	#col_droite_gls{
+	    width: 268px;
+	    height: 353px;
+	    float:right;
+	    border: 1px solid #d6d8e9;
+	    border-left: none;
+	}
+	
+}
+
+
+.layer > div > div {
+  overflow: auto;
+}
+
+#layer_gls > div > div {
+	padding: 15px;	
+}
+
+#layer_gls .loader-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+}
+
+#layer_gls .loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background: #000;
+	opacity: 0.2;
+}
+
+#layer_gls .loader-wheel {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -50px 0 0 -16px;
+	width: 100px;
+	background: #fff;
+	border: 1px solid 000;
+	border-radius: 3px;
+	text-align: center;
+	z-index: 1001;
+	color: #878787;
+	font-style: italic;
+}
+
+#layer_gls .loader-wheel img {
+	display: block;
+	margin: auto;
+}
