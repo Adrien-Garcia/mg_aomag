@@ -19,7 +19,7 @@ if (!class_exists("PointsRelaisWSService", false))
 
 	  /**
 	   *
-	   * @param findInternalPointRetraitAcheminementByID $parameters
+	   * @param findRelayPoints $parameters
 	   * @access public
 	   */
 	  public function findRelayPoints($parameters)
