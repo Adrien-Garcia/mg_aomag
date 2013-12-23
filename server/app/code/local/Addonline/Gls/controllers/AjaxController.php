@@ -16,6 +16,7 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
      */
     public function listPointsRelaisAction()
     {
+    	$aPointsRelais = array();
 		$response = new Varien_Object();
 
    		$zipcode   = $this->getRequest()->getParam('zipcode', false);
@@ -23,27 +24,40 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
 
    		$listrelais = Mage::getSingleton('gls/service')->getRelayPointsForZipCode($zipcode, $country);
 
-   		var_dump($listrelais);
+   		foreach($listrelais->SearchResults as $key => $pointRelais){
 
-   		/* $resource = Mage::getSingleton('core/resource');
-   		$read = $resource->getConnection('core_read');
-   		$qry = "SELECT *,(((acos(sin((".$latitude."*pi()/180)) * sin((pickupstore_latitude*pi()/180))+cos((".$latitude."*pi()/180)) * cos((pickupstore_latitude*pi()/180)) * cos(((".$longitude."- pickupstore_longitude) *pi()/180))))*180/pi())*60*1.1515*1.609344) as distance FROM storepickup_pickupstore WHERE (((acos(sin((".$latitude."*pi()/180)) * sin((pickupstore_latitude*pi()/180))+cos((".$latitude."*pi()/180)) * cos((pickupstore_latitude*pi()/180)) * cos(((".$longitude."- pickupstore_longitude) *pi()/180))))*180/pi())*60*1.1515*1.609344) <= ".$distance." order by distance limit ".$limit.";";
-   		$rs = $read->query($qry);
-   		$aReturn = array();
-   		while($row = $rs->fetch() ) {
-   			$aReturn[$row['pickupstore_id']] = $row;
+   			$aRelay = array();
+   			$aRelay['relayId'] = $pointRelais->Parcelshop->ParcelShopId;
+   			$aRelay['relayName'] = $pointRelais->Parcelshop->Address->Name1.' '.$pointRelais->Parcelshop->Address->Name2.' '.$pointRelais->Parcelshop->Address->Name3;
+			$aRelay['relayAddress'] = $pointRelais->Parcelshop->Address->Street1.' '.$pointRelais->Parcelshop->Address->BlockNo1.' '.$pointRelais->Parcelshop->Address->Street2.' '.$pointRelais->Parcelshop->Address->BlockNo2;
+			$aRelay['relayZipCode'] = $pointRelais->Parcelshop->Address->ZipCode;
+			$aRelay['relayCity'] = $pointRelais->Parcelshop->Address->City;
+			$aRelay['relayCountry'] = $pointRelais->Parcelshop->Address->Country;
+			$aRelay['relayLatitude'] = $pointRelais->Parcelshop->GLSCoordinates->Latitude;
+			$aRelay['relayLongitude'] = $pointRelais->Parcelshop->GLSCoordinates->Longitude;
+
+			$relayWorkingDays = array();
+			for($i = 0; $i < 6; $i++) {
+				if(isset($pointRelais->Parcelshop->GLSWorkingDay[$i])){
+					$relayWorkingDays[$i]['hours']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
+					$relayWorkingDays[$i]['hours']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
+					$relayWorkingDays[$i]['breaks']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->From;
+					$relayWorkingDays[$i]['breaks']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->To;
+				}
+ 			}
+ 			$aRelay['relayWorkingDays'] = $relayWorkingDays;
+ 			$aPointsRelais[$pointRelais->Parcelshop->ParcelShopId] = $aRelay;
    		}
 
    		// Creation du block
    		$this->loadLayout();
    		$block = $this->getLayout()->createBlock(
-   				'Addonline_StorePickup_Block_Liststore',
+   				'Addonline_Gls_Block_Listrelay',
    				'root',
-   				array('template' => 'storepickup/liststore.phtml')
+   				array('template' => 'storepickup/listrelais.phtml')
    		);
-   		$block->setListStore($aReturn);
+   		$block->setListRelay($aPointsRelais);
    		$this->getLayout()->getBlock('content')->append($block);
    		$this->renderLayout();
-		*/
     }
 }

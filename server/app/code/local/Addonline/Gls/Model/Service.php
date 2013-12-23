@@ -18,8 +18,6 @@ class Addonline_Gls_Model_Service {
 
 		require_once dirname(__FILE__).DS.'Webservice'.DS.'PointsRelaisWSService.php';
 
-		var_dump($login); var_dump($mdp);
-
 		$pointsRelaisWSService = new PointsRelaisWSService(array('trace' => TRUE), $this->getUrlWsdl());
 // 		$aParameters = array('UserName' =>$login,'Password' =>$mdp,'ZipCode' => $zipcode,'Country' => $country);
 
@@ -41,9 +39,7 @@ class Addonline_Gls_Model_Service {
 			$result = $pointsRelaisWSService->findRelayPoints($aParameters);
 			return $result;
 		}catch (SoapFault $fault) {
-			echo '<pre>';
 			var_dump($fault);
-			echo '</pre>';
 			return false;
 		}
 	}
