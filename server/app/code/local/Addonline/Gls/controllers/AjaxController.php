@@ -11,6 +11,19 @@
 class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
 {
 
+	public function selectorAction()
+	{
+		// Creation du block
+   		$this->loadLayout();
+   		$block = $this->getLayout()->createBlock(
+   				'Addonline_Gls_Block_Selector',
+   				'root',
+   				array('template' => 'gls/selector.phtml')
+   		);
+   		$this->getLayout()->getBlock('content')->append($block);
+   		$this->renderLayout();
+	}
+
     /**
      * Load liste Point relais
      */
@@ -54,7 +67,7 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
    		$block = $this->getLayout()->createBlock(
    				'Addonline_Gls_Block_Listrelay',
    				'root',
-   				array('template' => 'storepickup/listrelais.phtml')
+   				array('template' => 'gls/listrelais.phtml')
    		);
    		$block->setListRelay($aPointsRelais);
    		$this->getLayout()->getBlock('content')->append($block);

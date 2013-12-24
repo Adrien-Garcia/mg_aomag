@@ -2,36 +2,15 @@
 
 ?>
 <div id="layer_gls" class="layer">
-	<div id="layer_gls_wrapper" >
-		<div>
-			<h3>Selectionnez votre point Relais Mondial Relay</h3><a class="close"></a>
-			<div class="contenu">
-				<div id="gls_headers">
-					<div class="left">
-						<span>Votre code postal</span>
-						<input type="text" id="cp_recherche" maxlength="4" />
-						<button id="cp_recherche_bouton">Rechercher</button>
-					</div>
-					<div class="right">
-						<label><input type="checkbox" id="sms_checkbox" /> Etre averti de ma livraison par SMS</label>
-						<input type="text" id="num_telephone" />
-					</div>
-				</div>
-				<div id="col_gauche_gls">
-					<div id="map_gls"></div>
-				</div>
-				<div id="col_droite_gls"></div>
-			</div>
-		</div>
-	</div>
+
 </div>
 <script type="text/javascript">
-//<![CDATA[       
+//<![CDATA[
 
 if ((typeof Checkout) != "undefined") {
 	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'affichage des pictos et descriptions Socolissimo
 	Checkout.prototype.setStepResponse = function() {
-		
+
 		if (response.update_section) {
 	    	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
 			//AJOUT pour GLS
@@ -44,12 +23,12 @@ if ((typeof Checkout) != "undefined") {
 	            $('opc-'+e).addClassName('allow');
 	        });
 	    }
-	
+
 	    if(response.duplicateBillingInfo)
 	    {
 	        shipping.setSameAsBilling(true);
 	    }
-	
+
 	    if (response.goto_section) {
 	        this.gotoSection(response.goto_section);
 	        return true;
