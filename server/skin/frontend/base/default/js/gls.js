@@ -44,6 +44,15 @@ jQuery(function($) {
 	$("input[id^=\"s_method_gls\"]").live("click", function() {		
 		shippingGLSRadioCheck(this);
 	});		
+	
+	/* Seules les saisies numériques sont autorisées dans les champs textes */
+	$("#layer_gls_wrapper #cp_recherche").keypress(function(e) {
+		var charCode = (e.which) ? e.which : e.keyCode;
+		if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+			return false;
+		}
+		return true;
+	});
 
 	initGlsLogos();
 	
