@@ -451,8 +451,8 @@ function choisirRelaisGLS(index) {
 	jQuery("input[name='shipping[telephone]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_phone\']').val());	 */
 	
 	// On cache le layer
-	//jQuery("#gls-map").hide();	
-	
+	jQuery("#layer_gls").data("overlay").close();
+	jQuery("input[id^=\"s_method_gls_relay_").prop("checked","checked");
 	return;
 }
 
