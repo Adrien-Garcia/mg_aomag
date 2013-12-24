@@ -45,7 +45,7 @@ jQuery(function($) {
 		shippingGLSRadioCheck(this);
 	});		
 
-	//initGlsLogos();
+	initGlsLogos();
 	
 });
 
@@ -55,6 +55,7 @@ jQuery(function($) {
  * (appelé au chargement du DOM mais aussi au rechargement ajax (voir Checkout.prototype.setStepResponse dans  gls\additional.phtml)
  */
 function initGlsLogos() {
+	
 	jQuery("input[id^=\"s_method_gls\"]").each(function(index, element){
 		
 		if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
@@ -76,11 +77,11 @@ function initGlsLogos() {
 			}
 		}
 	});
-	if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
+	/*/if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
 		jQuery(".s_method_gls").prev().addClass("s_method_gls-title").append('<img src="/skin/frontend/base/default/images/gls/gls.png" >');
 	} else {
 		jQuery(".s_method_gls-title").append('<img src="/skin/frontend/base/default/images/gls/gls.png" >');
-	}
+	}*/
 }
 
 function getTypeGlsFromRadio(radio, forDescription) {
@@ -270,9 +271,9 @@ function loadMap(){
 		];
 	
 	storePickupMap = new google.maps.Map(document.getElementById('map_gls'), mapOptions);
-	storePickupMap.setOptions({styles: stylez});	
+	//storePickupMap.setOptions({styles: stylez});	
 
-	function buildZoomControl(map, div) {
+	/*function buildZoomControl(map, div) {
 
 		// Get the control DIV. We'll attach our control UI to this DIV.
 		var controlDiv = jQuery(div);
@@ -294,7 +295,7 @@ function loadMap(){
 	var zoomControlDiv = document.createElement('div');
 	buildZoomControl(storePickupMap, zoomControlDiv);
 	zoomControlDiv.index = 1;
-	storePickupMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(zoomControlDiv);
+	storePickupMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(zoomControlDiv);*/
 	
 	
 	if (jQuery("#layer_gls").data("overlay") == undefined) {
