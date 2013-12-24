@@ -104,11 +104,17 @@ function shippingGLSRadioCheck(element) {
 	var typeGls =  getTypeGlsFromRadio(glsRadio, false);				
 	if(typeGls == "relay"){
 		//on affiche le picto de chargement étape suivante du opc
-		jQuery("#shipping-method-please-wait").show();
-		//url = glsBaseUrl + "selector/type/";		
-		resetGLSShippingMethod();
-		geocoder = new google.maps.Geocoder();
-		geocodeGLSAdresse();
+		jQuery("#shipping-method-please-wait").show();		
+		url = "/gls/ajax/selector/"			
+			jQuery.ajax({
+				url: url,
+				success: function(data){					
+					jQuery("#layer_gls").html(data);
+					resetGLSShippingMethod();
+					geocoder = new google.maps.Geocoder();
+					geocodeGLSAdresse();					
+				}
+			});					
 	}
 }
 
@@ -123,9 +129,10 @@ function geocodeGLSAdresse() {
 		var geocoder = new google.maps.Geocoder();		
 		geocoder.geocode({'address': searchAdress}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				glsMyPosition = results[0].geometry.location;
+				glsMyPosition = results[0].geometry.location;				
 	 			//on met à jour la carte avec cette position
-				loadMap();
+				loadMap();				
+				loadListePointRelais();
 			} else {
 				alert('Adresse invalide '+searchAdress);
 			}
@@ -136,35 +143,21 @@ function geocodeGLSAdresse() {
 }
 
 function changeMap() {
-	if (glsMyPosition!=undefined) {
-		loadListeRelais();
+	if (glsMyPosition!=undefined) {		
+		loadListePointRelais();
 	}
 }
 
-function loadListeRelais() {
-	jQuery(".loader-wrapper").fadeTo(300, 1);
-	url = glsBaseUrl + "listrelais?"
-	jQuery("#layer_gls input:checkbox").each(function(index, element){
-		check = jQuery(element);
-		url = url + check.val() + "=" + check.is(":checked") + "&";
-	});
-	url = url + "adresse=" + jQuery("#gls_street").val() + "&zipcode=" + jQuery("#gls_postcode").val()+ "&ville=" + jQuery.trim(jQuery("#gls_city").text()) + "&country=" + jQuery("#gls_country").val();
-	url = url + "&latitude=" + glsMyPosition.lat() + "&longitude=" + glsMyPosition.lng();
-	url = encodeURI(url);
-	jQuery.getJSON( url, function(response) {
-		if (!response.error) {
-			glsListRelais = response.items;
-			jQuery("#adresses_gls").html(response.html);
-		} else {
-			glsListRelais = new Array();
-			jQuery("#adresses_gls").html('');
-			alert(response.error);
-		}
-		showMap();
-		jQuery(".loader-wrapper").fadeTo(300, 0).hide();
-	});
-	
-	
+function loadListePointRelais() {	
+	url = "/gls/ajax/listPointsRelais"
+		url = url + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
+		jQuery.ajax({
+			url: url,
+			success: function(data){
+				var tempArray = new Array();
+				jQuery("#col_droite_gls").html(data);								
+			}
+		});		
 }
 
 function loadMap(){
