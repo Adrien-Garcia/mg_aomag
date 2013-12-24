@@ -150,7 +150,6 @@ dd.s_method_gls li span.price {
 }
 #layer_gls #col_droite_gls .gls_point_relay {
   padding: 15px;
-  height: 68px;
   border-bottom: 1px solid #d6d8e9;
   line-height: normal;
 }
@@ -170,19 +169,20 @@ dd.s_method_gls li span.price {
 }
 #layer_gls #col_droite_gls .gls_point_relay div {
   margin-top: 5px;
+  overflow: hidden;
 }
 #layer_gls #col_droite_gls .gls_point_relay .GLS_relay_horaires {
   float: left;
   color: #06187c;
   text-decoration: underline;
   cursor: pointer;
+  margin-top: 5px;
 }
 #layer_gls #col_droite_gls .gls_point_relay button {
   border: none;
   background: none;
   cursor: pointer;
   float: right;
-  margin-top: -5px;
   padding: 0 15px 0 25px;
   height: 26px;
   -webkit-border-radius: 8px;
@@ -210,7 +210,8 @@ dd.s_method_gls li span.price {
 }
 #layer_gls #col_droite_gls .gls_point_relay .GLS_relay_latitude,
 #layer_gls #col_droite_gls .gls_point_relay .GLS_relay_longitude,
-#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_hours {
+#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_hours,
+#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_id {
   display: none;
 }
 .layer > div > div {

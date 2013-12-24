@@ -356,7 +356,7 @@ function showGLSMap() {
 					    map: glsRelayMap,
 					    position: relayPosition,
 					    title : jQuery(this).find('.GLS_relay_name').text(),
-					    icon : '/skin/frontend/base/default/images/socolissimo/picto_cityssimo.png'
+					    icon : '/skin/frontend/base/default/images/gls/marker.png'
 					});					
 					infowindowGLS=infoGLSBulleGenerator(jQuery(this));
 					attachGLSClick(markerGLS,infowindowGLS, jQuery('.gls_point_relay').size());
