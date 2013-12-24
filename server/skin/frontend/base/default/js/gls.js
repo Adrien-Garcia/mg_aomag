@@ -315,7 +315,7 @@ function choisirRelaisGLS(index) {
 	// On cache le layer
 	jQuery("#layer_gls").data("overlay").close();
 	jQuery("input[id^=\"s_method_gls_relay_").prop("checked","checked");
-	var contenu_html = "<div id='gls_relais_choisi'>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text()+" <span class='modifier_relay'>Modifier mon Point Relais</span></div>";
+	var contenu_html = "<div id='gls_relais_choisi'><span>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+"</span><br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+"<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text()+" <span class='modifier_relay'>Modifier mon Point Relais</span></div>";
 	jQuery('#gls_relais_choisi').remove();
 	jQuery("input[id^=\"s_method_gls_relay_").parent().append(contenu_html);
 	return;

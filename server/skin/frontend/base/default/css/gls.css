@@ -15,6 +15,27 @@ dd.s_method_gls li input {
 dd.s_method_gls li span.price {
   color: #f18200;
 }
+dd.s_method_gls #gls_relais_choisi {
+  margin: 0 0 0 82px;
+  border-left: 1px solid #d4d4d4;
+  padding: 0 0 0 10px;
+  width: 320px;
+  position: relative;
+  line-height: normal;
+  color: #666666;
+}
+dd.s_method_gls #gls_relais_choisi span {
+  font-weight: bold;
+}
+dd.s_method_gls #gls_relais_choisi .modifier_relay {
+  color: #1e7ec8;
+  font-weight: normal;
+  text-decoration: underline;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 #layer_gls {
   position: relative;
   display: none;
@@ -150,7 +171,7 @@ dd.s_method_gls li span.price {
   display: block;
 }
 #layer_gls #col_gauche_gls #map_gls .info-window table {
-  width: 250px;
+  width: 255px;
   margin-top: 10px;
 }
 #layer_gls #col_gauche_gls #map_gls .info-window table .day {
