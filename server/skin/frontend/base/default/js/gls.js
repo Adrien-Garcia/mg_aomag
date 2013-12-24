@@ -369,14 +369,6 @@ function showGLSMap() {
 
 //générateur d'infobulle
 function infoGLSBulleGenerator(relay) {	
-	var openhoursfinalarray = new Array();
-	openhoursfinalarray['dimanche'] = '0';
-	openhoursfinalarray['lundi'] = '0';
-	openhoursfinalarray['mardi'] = '0';
-	openhoursfinalarray['mercredi'] = '0';
-	openhoursfinalarray['jeudi'] = '0';
-	openhoursfinalarray['vendredi'] = '0';
-	openhoursfinalarray['samedi'] = '0';
 
 	contentString = '<div class="info-window">'
 
@@ -389,78 +381,8 @@ function infoGLSBulleGenerator(relay) {
 	
 	contentString += "<br/><br/><a href='#' class='choose-relay-point' data-relayid="+relay.find('.GLS_relay_id').text()+">Choisir ce lieu</a>";
 	contentString += "</div>"
-//
-//	var openhours = relay.pickupstore_hours.split(",");
-//	var length = openhours.length,
-//    element = null;
-//	for (var i = 0; i < length; i++) {
-//		element = openhours[i];
-//		// Do something with element i.
-//		if(element.substr(0,1) == '0'){
-//			openhoursfinalarray['dimanche'] = element;
-//		}
-//		if(element.substr(0,1) == '1'){
-//			openhoursfinalarray['lundi'] = element;
-//		}
-//		if(element.substr(0,1) == '2'){
-//			openhoursfinalarray['mardi'] = element;
-//		}
-//		if(element.substr(0,1) == '3'){
-//			openhoursfinalarray['mercredi'] = element;
-//		}
-//		if(element.substr(0,1) == '4'){
-//			openhoursfinalarray['jeudi'] = element;
-//		}
-//		if(element.substr(0,1) == '5'){
-//			openhoursfinalarray['vendredi'] = element;
-//		}
-//		if(element.substr(0,1) == '6'){
-//			openhoursfinalarray['samedi'] = element;
-//		}
-//	}
-//	contentString += "<div class='col-right'>";
-//	if(openhoursfinalarray['lundi'] != '0'){
-//		var tempArray = openhoursfinalarray['lundi'].substr(2,openhoursfinalarray['lundi'].length).split(":");
-//		contentString += 'Lundi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-//	}else{
-//		contentString += 'Lundi: fermé<br>';
-//	}
-//	if(openhoursfinalarray['mardi'] != '0'){
-//		var tempArray = openhoursfinalarray['mardi'].substr(2,openhoursfinalarray['mardi'].length).split(":");
-//		contentString += 'Mardi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-//	}else{
-//		contentString += 'Mardi: fermé<br>';
-//	}
-//	if(openhoursfinalarray['mercredi'] != '0'){
-//		var tempArray = openhoursfinalarray['mercredi'].substr(2,openhoursfinalarray['mercredi'].length).split(":");
-//		contentString += 'Mercredi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-//	}else{
-//		contentString += 'Mercredi: fermé<br>';
-//	}
-//	if(openhoursfinalarray['jeudi'] != '0'){
-//		var tempArray = openhoursfinalarray['jeudi'].substr(2,openhoursfinalarray['jeudi'].length).split(":");
-//		contentString += 'Jeudi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-//	}else{
-//		contentString += 'Jeudi: fermé<br>';
-//	}
-//	if(openhoursfinalarray['vendredi'] != '0'){
-//		var tempArray = openhoursfinalarray['vendredi'].substr(2,openhoursfinalarray['vendredi'].length).split(":");
-//		contentString += 'Vendredi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-//	}else{
-//		contentString += 'Vendredi: fermé<br>';
-//	}
-//	if(openhoursfinalarray['samedi'] != '0'){
-//		var tempArray = openhoursfinalarray['samedi'].substr(2,openhoursfinalarray['samedi'].length).split(":");
-//		contentString += 'Samedi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-//	}else{
-//		contentString += 'Samedi: fermé<br>';
-//	}
-//	if(openhoursfinalarray['dimanche'] != '0'){
-//		var tempArray = openhoursfinalarray['dimanche'].substr(2,openhoursfinalarray['dimanche'].length).split(":");
-//		contentString += 'Dimanche: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-//	}else{
-//		contentString += 'Dimanche: fermé<br>';
-//	}
+	contentString += "<div class='col-right'>"+relay.find('.GLS_relay_hours').text();	
+	contentString += 'Dimanche: fermé<br>';
 
 
 	contentString += "</div>";
