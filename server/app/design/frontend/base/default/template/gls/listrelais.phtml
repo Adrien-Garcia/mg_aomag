@@ -9,6 +9,10 @@ foreach ($this->getListRelay() as $relais) : ?>
 	<span class="GLS_relay_city"><?php echo $relais['relayCity']; ?></span>
 	<span class="GLS_relay_latitude"><?php echo $relais['relayLatitude']; ?></span>
 	<span class="GLS_relay_longitude"><?php echo $relais['relayLongitude']; ?></span>
+	<div>
+		<span class="GLS_relay_horaires">Voir les horaires</span>
+		<button>Choisir ce lieu</button>
+	</div>
 	<span class="GLS_relay_hours">
 		<?php
 		$aDays = array('0' => 'Lundi','1' => 'Mardi','2' => 'Mercredi','3' => 'Jeudi','4' => 'Vendredi','5' => 'samedi','6' => 'Dimanche');

@@ -173,6 +173,82 @@ dd.s_method_gls li span.price {
 	    float:right;
 	    border: 1px solid #d6d8e9;
 	    border-left: none;
+	    overflow: hidden;
+	    overflow-y: scroll;
+	    
+	    .gls_point_relay {
+	    	padding: 15px;
+	    	border-bottom: 1px solid #d6d8e9;
+	    	line-height: normal;
+	    	
+	    	.GLS_relay_name {
+	    		font-weight: bold;
+	    		font-size: 14px;
+	    		color: #06187c;
+	    		display: block;
+	    	}
+	    	
+	    	.GLS_relay_address, .GLS_relay_zipcode,.GLS_relay_city {
+	    		color: #6a6a6a;
+	    	}
+	    	
+	    	.GLS_relay_address {
+	    		display: block;
+	    	}
+	    	
+	    	div {
+	    		margin-top: 5px;
+	    		overflow: hidden;
+	    	}
+	    	
+	    	.GLS_relay_horaires {
+				float: left;
+				color: #06187c;
+				text-decoration: underline;
+				cursor: pointer;
+				margin-top: 5px;
+	    	}
+	    	
+	    	button {
+	    		border: none;
+	    		background: none;
+	    		cursor: pointer;
+				float: right;
+				
+				
+				padding: 0 15px 0 25px;
+				height: 26px;
+				-webkit-border-radius: 8px;
+				-moz-border-radius: 8px;
+				border-radius: 8px;
+				background-color: #06187c;
+				background-image: -webkit-linear-gradient(bottom, #e8b402, #fcd83b);
+				background-image: -moz-linear-gradient(bottom, #e8b402, #fcd83b);
+				background-image: -o-linear-gradient(bottom, #e8b402, #fcd83b);
+				background-image: linear-gradient(to top, #e8b402, #fcd83b);
+				
+				font-family: Arial; font-size: 12px; color: #000; text-shadow: 0 1px #f7e38b;
+				
+				position: relative;
+				
+				&:before {
+					content: "";
+					width: 7px;
+					height: 10px;
+					position: absolute;
+					top: 9px;
+					left: 12px;
+					background: url(../images/gls/picto-arrow.png);
+				}
+				 
+	    	}
+	    	
+	    	.GLS_relay_latitude, .GLS_relay_longitude, .GLS_relay_hours, .GLS_relay_id {
+	    		display: none;
+	    	}
+	    	
+	    }
+	    
 	}
 	
 }
