@@ -4,3 +4,41 @@
 <div id="layer_gls" class="layer">
 
 </div>
+<script type="text/javascript">
+//<![CDATA[
+
+if ((typeof Checkout) != "undefined") {
+	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'affichage des pictos et descriptions Socolissimo
+	Checkout.prototype.setStepResponse = function() {
+
+		if (response.update_section) {
+	    	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
+			//AJOUT pour GLS
+	    	if (response.update_section.name == 'shipping-method') {
+	    		initGlsLogos();
+	    	}
+	    }
+	    if (response.allow_sections) {
+	        response.allow_sections.each(function(e){
+	            $('opc-'+e).addClassName('allow');
+	        });
+	    }
+
+	    if(response.duplicateBillingInfo)
+	    {
+	        shipping.setSameAsBilling(true);
+	    }
+
+	    if (response.goto_section) {
+	        this.gotoSection(response.goto_section);
+	        return true;
+	    }
+	    if (response.redirect) {
+	        location.href = response.redirect;
+	        return true;
+	    }
+	    return false;
+	}
+}
+//]]>
+</script>
