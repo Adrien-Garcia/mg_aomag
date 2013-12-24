@@ -221,7 +221,7 @@ function showGLSMap() {
 		var init = false;		
 		//google.maps.event.addListener(glsRelayMap, 'tilesloaded', function () {			
 			if (!init){				
-				jQuery('.gls_point_relay').each(function(){	
+				jQuery('.gls_point_relay').each(function(index,element){	
 					
 					var relayPosition =  new google.maps.LatLng(jQuery(this).find('.GLS_relay_latitude').text(), jQuery(this).find('.GLS_relay_longitude').text());
 					markerGLS = new google.maps.Marker({
@@ -231,7 +231,7 @@ function showGLSMap() {
 					    icon : '/skin/frontend/base/default/images/gls/marker.png'
 					});					
 					infowindowGLS=infoGLSBulleGenerator(jQuery(this));
-					attachGLSClick(markerGLS,infowindowGLS, jQuery('.gls_point_relay').size());
+					attachGLSClick(markerGLS,infowindowGLS, index);
 				});
 			}
 			init=true;
@@ -268,29 +268,26 @@ function infoGLSBulleGenerator(relay) {
 }
 
 
-function attachGLSClick(markerGLS,infowindowGLS, index){
+function attachGLSClick(markerGLS,infowindowGLS, index){	
 	//Clic sur le relais dans la colonne de gauche
-	jQuery("#gls_point_relay_"+index).click(function() {
-			//fermer la derniere infobulle ouverte
-			if(glsOpenedInfowindow) {
-				glsOpenedInfowindow.close();
-		    }
-			//ouvrir l'infobulle
-		   infowindow.open(glsMap,marker);
-		   glsOpenedInfowindow=infowindowGLS;
-		   
+	jQuery("#gls_point_relay_"+index).live("click",function() {		
+			clickHandler(markerGLS,infowindowGLS);		   
 		});
 		
 	//Clic sur le marqueur du relais dans la carte
-	google.maps.event.addListener(markerGLS, 'click', function() {			
-			//fermer la derniere infobulle ouverte
-			if(glsOpenedInfowindow) {
-				glsOpenedInfowindow.close();
-		    }			
-			//ouvrir l'infobulle
-			infowindowGLS.open(glsRelayMap,markerGLS);
-		    glsOpenedInfowindow=infowindowGLS;		   
+	google.maps.event.addListener(markerGLS, 'click', function() {		
+			clickHandler(markerGLS,infowindowGLS);
 		});
+}
+
+function clickHandler(markerGLS,infowindowGLS){
+	//fermer la derniere infobulle ouverte
+	if(glsOpenedInfowindow) {
+		glsOpenedInfowindow.close();
+    }			
+	//ouvrir l'infobulle
+	infowindowGLS.open(glsRelayMap,markerGLS);
+    glsOpenedInfowindow=infowindowGLS;
 }
 
 function choisirRelaisGLS(index) {
