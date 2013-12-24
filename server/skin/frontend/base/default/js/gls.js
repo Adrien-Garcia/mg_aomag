@@ -423,31 +423,29 @@ function attachGLSClick(markerGLS,infowindowGLS, index){
 
 function choisirRelais(index) {
 	
-	glsRelaisChoisi = glsListRelais[index];
-	jQuery("#gls-hook").html('<input type="hidden" name="relais_gls" value="'+glsRelaisChoisi.identifiant+'" />'+
-									'<input type="hidden" name="reseau_gls" value="'+glsRelaisChoisi.code_reseau+'" />');
+	//resetShippingMethod();
+
+	jQuery("select[name='shipping_address_id']").prop('selectedIndex',0);
+	jQuery("select[name='shipping_address_id'] option[value='']").prop('selectedIndex',0);	
 	
-	jQuery("input[id^=\"s_method_gls\"]").each(function(index, element){
-		//on sélectionne le bon radio, si on a changé de type de relais sur la carte, et on change le texte du numéro de téléphone
-		var radio = jQuery(element);
-		var types = new Array('poste','commercant','cityssimo');
-		var len=types.length;
-		for (var index=0; index<len; index++) {
-			var glsType = types[index];
-			if (radio.val().startWith("gls_"+glsType)) {
-				if (glsRelaisChoisi.type==glsType) {
-					radio.prop("checked", "checked");	//on utilise prop au lieu de attr pour que le radio soit bien mis à jour
-					jQuery("#gls-telephone span."+glsType).attr("style","display:block;");
-				} else {
-					radio.prop("checked", "");	//on utilise prop au lieu de attr pour que le radio soit bien mis à jour
-					jQuery("#gls-telephone span."+glsType).attr("style","display:none;");
-				}
-			}
-		}
-	});
+	/* on remplit le formulaire */
+	jQuery('#billing_use_for_shipping').val('0');
+	/* jQuery("input[name='shipping[firstname]']").val(jQuery('#billing\\:firstname').val());
+	jQuery("input[name='shipping[lastname]']").val(jQuery('#billing\\:lastname').val());
+	//jQuery("input[name='shipping[lastname]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_name\']').val());
+
+	jQuery("input[name='shipping[lastname]']").after("<input type='text' id='shipping:company' name='shipping[company]' value='Louis pion "+jQuery('input[name=\'store_'+index+'_pickupstore_name\']').val()+" ("+jQuery('input[name=\'store_'+index+'_pickupstore_store_code\']').val()+")' />");
+
+	jQuery("input[name='shipping[street][]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_address\']').val());
+	jQuery("input[name='shipping[postcode]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_postal_code\']').val());
+	jQuery("input[name='shipping[city]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_city\']').val());
+	jQuery("select[name='shipping[country_id]']").children().removeAttr('selected');
+	jQuery('option[value=FR]').attr('selected','selected');
+	jQuery('#s2id_shipping\\:country_id span.select2-chosen').text('France');
+	jQuery("input[name='shipping[telephone]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_phone\']').val());	 */
 	
-	jQuery("#gls-map").hide();
-	jQuery("#gls-telephone").show();
+	// On cache le layer
+	jQuery("#gls-map").hide();	
 	
 	return;
 }
