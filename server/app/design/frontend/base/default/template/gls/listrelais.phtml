@@ -2,6 +2,7 @@
 $i=0;
 foreach ($this->getListRelay() as $relais) : ?>
 <div class="gls_point_relay" id="gls_point_relay_<?php echo $i; ?>">
+	<span class="GLS_relay_index"><?php echo $i; ?></span>
 	<span class="GLS_relay_id"><?php echo $relais['relayId']; ?></span>
 	<span class="GLS_relay_name"><?php echo $relais['relayName']; ?></span>
 	<span class="GLS_relay_address"><?php echo $relais['relayAddress']; ?></span>

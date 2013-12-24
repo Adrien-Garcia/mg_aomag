@@ -45,6 +45,13 @@ jQuery(function($) {
 		shippingGLSRadioCheck(this);
 	});		
 	
+	/*
+	 * Sur l'évènement de choix de relay
+	 */
+	$('.choose-relay-point').live("click",function(){
+		choisirRelaisGLS($(this).data('relayindex'));
+	});
+	
 	/* Seules les saisies numériques sont autorisées dans les champs textes */
 	$("#layer_gls_wrapper #cp_recherche").keypress(function(e) {
 		var charCode = (e.which) ? e.which : e.keyCode;
@@ -379,7 +386,7 @@ function infoGLSBulleGenerator(relay) {
     				relay.find('.GLS_relay_zipcode').text() + ' ' + relay.find('.GLS_relay_city').text() + '<br/>';
 
 	
-	contentString += "<br/><br/><a href='#' class='choose-relay-point' data-relayid="+relay.find('.GLS_relay_id').text()+">Choisir ce lieu</a>";
+	contentString += "<br/><br/><a href='#' class='choose-relay-point' data-relayindex="+relay.find('.GLS_relay_index').text()+" data-relayid="+relay.find('.GLS_relay_id').text()+">Choisir ce lieu</a>";
 	contentString += "</div>"
 	contentString += "<div class='col-right'>"+relay.find('.GLS_relay_hours').text();	
 	contentString += 'Dimanche: fermé<br>';
@@ -421,10 +428,9 @@ function attachGLSClick(markerGLS,infowindowGLS, index){
 		});
 }
 
-function choisirRelais(index) {
+function choisirRelaisGLS(index) {
 	
-	//resetShippingMethod();
-
+	//resetShippingMethod();	
 	jQuery("select[name='shipping_address_id']").prop('selectedIndex',0);
 	jQuery("select[name='shipping_address_id'] option[value='']").prop('selectedIndex',0);	
 	
@@ -445,7 +451,7 @@ function choisirRelais(index) {
 	jQuery("input[name='shipping[telephone]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_phone\']').val());	 */
 	
 	// On cache le layer
-	jQuery("#gls-map").hide();	
+	//jQuery("#gls-map").hide();	
 	
 	return;
 }
