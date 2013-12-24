@@ -124,8 +124,8 @@ function resetGLSShippingMethod() {
 }
 
 function geocodeGLSAdresse() {
-	
-	var searchAdress = jQuery('#billing-address-select option:selected').text();		
+		
+	var searchAdress = jQuery('#cp_recherche').val();		
 	if ((typeof google) != "undefined") {
 		var geocoder = new google.maps.Geocoder();		
 		geocoder.geocode({'address': searchAdress}, function(results, status) {
@@ -150,15 +150,18 @@ function changeMap() {
 }
 
 function loadListePointRelais() {	
-	url = "/gls/ajax/listPointsRelais"
+	if(jQuery("#cp_recherche").val()){
+		url = "/gls/ajax/listPointsRelais"
 		url = url + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
 		jQuery.ajax({
 			url: url,
 			success: function(data){
 				var tempArray = new Array();
-				jQuery("#col_droite_gls").html(data);								
+				jQuery("#col_droite_gls").html(data);	
+				showMap();
 			}
 		});		
+	}
 }
 
 function loadMap(){
@@ -270,7 +273,7 @@ function loadMap(){
 		  }
 		];
 	
-	storePickupMap = new google.maps.Map(document.getElementById('map_gls'), mapOptions);
+	glsRelayMap = new google.maps.Map(document.getElementById('map_gls'), mapOptions);
 	//storePickupMap.setOptions({styles: stylez});	
 
 	/*function buildZoomControl(map, div) {
@@ -336,30 +339,30 @@ function loadMap(){
 function showMap() {
 	if ((typeof google)!="undefined") {
 		var init = false;
-		//google.maps.event.addListener(storePickupMap, 'tilesloaded', function () {
+		google.maps.event.addListener(glsRelayMap, 'tilesloaded', function () {
+			var relays = jQuery('.gls_point_relay');
 			if (!init){
-				for (icounter=0; icounter<storePickupList.length; icounter++) {
-					storepickup = storePickupList[icounter];
-					var storePosition =  new google.maps.LatLng(storepickup.pickupstore_latitude, storepickup.pickupstore_longitude);
+				jQuery('.gls_point_relay').each(function(){														
+					var relayPosition =  new google.maps.LatLng(jQuery(this).find('.GLS_relay_latitude').text(), jQuery(this).find('.GLS_relay_longitude').text());
 
 					marker = new google.maps.Marker({
-					    map: storePickupMap,
-					    position: storePosition,
-					    title : storepickup.pickupstore_name,
-					    icon : '/skin/frontend/louispion/default/images/storepickup/MarkerCartLP.gif'
+					    map: glsRelayMap,
+					    position: relayPosition,
+					    title : jQuery(this).find('.GLS_relay_name').text(),
+					    icon : '/skin/frontend/base/default/images/socolissimo/picto_cityssimo.png'
 					});
 
-					infowindow=infoBulleGenerator(storepickup);
-					attachClick(marker,infowindow, icounter);
-				}
+					//infowindow=infoBulleGenerator(jQuery(this));
+					//attachClick(marker,infowindow, icounter);
+				});
 			}
 			init=true;
-		//});
+		});
 	}
 }
 
 //générateur d'infobulle
-function infoBulleGenerator(storepickup) {
+function infoBulleGenerator(relay) {
 	var openhoursfinalarray = new Array();
 	openhoursfinalarray['dimanche'] = '0';
 	openhoursfinalarray['lundi'] = '0';
@@ -371,27 +374,27 @@ function infoBulleGenerator(storepickup) {
 
 	contentString = '<div class="info-window">'
 
-	contentString += '<span class="store-name">' + storepickup.pickupstore_name + '</span>';
+	contentString += '<span class="store-name">' + relay.pickupstore_name + '</span>';
 
 	contentString += '<div class="col-left">' +
-    				storepickup.pickupstore_address + '<br/>' +
-    				storepickup.pickupstore_postal_code + ' ' + storepickup.pickupstore_city + '<br/>';
+    				relay.pickupstore_address + '<br/>' +
+    				relay.pickupstore_postal_code + ' ' + relay.pickupstore_city + '<br/>';
 
-	if(storepickup.pickupstore_phone) {
-		contentString += '<br/>Tél : ' + storepickup.pickupstore_phone;
+	if(relay.pickupstore_phone) {
+		contentString += '<br/>Tél : ' + relay.pickupstore_phone;
 	} else {
 		'<br/>';
 	}
 
-	if(storepickup.pickupstore_email) {
-		contentString += '<br/>E-mail : ' + storepickup.pickupstore_email;
+	if(relay.pickupstore_email) {
+		contentString += '<br/>E-mail : ' + relay.pickupstore_email;
 	} else {
 		'<br/>';
 	}
-	contentString += "<br/><br/><a href='#' class='choose-this-store-link link-picto-transition' data-storecode="+storepickup.pickupstore_store_code+">Choisir ce magasin</a>";
+	contentString += "<br/><br/><a href='#' class='choose-this-store-link link-picto-transition' data-storecode="+relay.pickupstore_store_code+">Choisir ce magasin</a>";
 	contentString += "</div>"
 
-	var openhours = storepickup.pickupstore_hours.split(",");
+	var openhours = relay.pickupstore_hours.split(",");
 	var length = openhours.length,
     element = null;
 	for (var i = 0; i < length; i++) {
