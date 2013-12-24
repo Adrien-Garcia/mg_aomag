@@ -53,7 +53,7 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
 			for($i = 0; $i < 6; $i++) {
 				if(isset($pointRelais->Parcelshop->GLSWorkingDay[$i])){
 					$relayWorkingDays[$i]['hours']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
-					$relayWorkingDays[$i]['hours']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
+					$relayWorkingDays[$i]['hours']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->To;
 					$relayWorkingDays[$i]['breaks']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->From;
 					$relayWorkingDays[$i]['breaks']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->To;
 				}

@@ -164,10 +164,9 @@ function loadListePointRelais() {
 		url = url + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
 		jQuery.ajax({
 			url: url,
-			success: function(data){
-				var tempArray = new Array();
+			success: function(data){				
 				jQuery("#col_droite_gls").html(data);	
-				showMap();
+				showGLSMap();
 			}
 		});		
 	}
@@ -345,135 +344,45 @@ function loadMap(){
 
 }
 
-function showMap() {
+function showGLSMap() {	
 	if ((typeof google)!="undefined") {
-		var init = false;
-		google.maps.event.addListener(glsRelayMap, 'tilesloaded', function () {
-			var relays = jQuery('.gls_point_relay');
-			if (!init){
-				jQuery('.gls_point_relay').each(function(){														
+		var init = false;		
+		//google.maps.event.addListener(glsRelayMap, 'tilesloaded', function () {			
+			if (!init){				
+				jQuery('.gls_point_relay').each(function(){	
+					
 					var relayPosition =  new google.maps.LatLng(jQuery(this).find('.GLS_relay_latitude').text(), jQuery(this).find('.GLS_relay_longitude').text());
-
-					marker = new google.maps.Marker({
+					markerGLS = new google.maps.Marker({
 					    map: glsRelayMap,
 					    position: relayPosition,
 					    title : jQuery(this).find('.GLS_relay_name').text(),
 					    icon : '/skin/frontend/base/default/images/socolissimo/picto_cityssimo.png'
-					});
-
-					//infowindow=infoBulleGenerator(jQuery(this));
-					//attachClick(marker,infowindow, icounter);
+					});					
+					infowindowGLS=infoGLSBulleGenerator(jQuery(this));
+					attachGLSClick(markerGLS,infowindowGLS, jQuery('.gls_point_relay').size());
 				});
 			}
 			init=true;
-		});
+		//});
 	}
 }
 
 //générateur d'infobulle
-function infoBulleGenerator(relay) {
-	var openhoursfinalarray = new Array();
-	openhoursfinalarray['dimanche'] = '0';
-	openhoursfinalarray['lundi'] = '0';
-	openhoursfinalarray['mardi'] = '0';
-	openhoursfinalarray['mercredi'] = '0';
-	openhoursfinalarray['jeudi'] = '0';
-	openhoursfinalarray['vendredi'] = '0';
-	openhoursfinalarray['samedi'] = '0';
+function infoGLSBulleGenerator(relay) {	
 
 	contentString = '<div class="info-window">'
 
-	contentString += '<span class="store-name">' + relay.pickupstore_name + '</span>';
+	contentString += '<span class="store-name">' + relay.find('.GLS_relay_name').text() + '</span>';
 
 	contentString += '<div class="col-left">' +
-    				relay.pickupstore_address + '<br/>' +
-    				relay.pickupstore_postal_code + ' ' + relay.pickupstore_city + '<br/>';
+					relay.find('.GLS_relay_address').text() + '<br/>' +
+    				relay.find('.GLS_relay_zipcode').text() + ' ' + relay.find('.GLS_relay_city').text() + '<br/>';
 
-	if(relay.pickupstore_phone) {
-		contentString += '<br/>Tél : ' + relay.pickupstore_phone;
-	} else {
-		'<br/>';
-	}
-
-	if(relay.pickupstore_email) {
-		contentString += '<br/>E-mail : ' + relay.pickupstore_email;
-	} else {
-		'<br/>';
-	}
-	contentString += "<br/><br/><a href='#' class='choose-this-store-link link-picto-transition' data-storecode="+relay.pickupstore_store_code+">Choisir ce magasin</a>";
+	
+	contentString += "<br/><br/><a href='#' class='choose-relay-point' data-relayid="+relay.find('.GLS_relay_id').text()+">Choisir ce lieu</a>";
 	contentString += "</div>"
-
-	var openhours = relay.pickupstore_hours.split(",");
-	var length = openhours.length,
-    element = null;
-	for (var i = 0; i < length; i++) {
-		element = openhours[i];
-		// Do something with element i.
-		if(element.substr(0,1) == '0'){
-			openhoursfinalarray['dimanche'] = element;
-		}
-		if(element.substr(0,1) == '1'){
-			openhoursfinalarray['lundi'] = element;
-		}
-		if(element.substr(0,1) == '2'){
-			openhoursfinalarray['mardi'] = element;
-		}
-		if(element.substr(0,1) == '3'){
-			openhoursfinalarray['mercredi'] = element;
-		}
-		if(element.substr(0,1) == '4'){
-			openhoursfinalarray['jeudi'] = element;
-		}
-		if(element.substr(0,1) == '5'){
-			openhoursfinalarray['vendredi'] = element;
-		}
-		if(element.substr(0,1) == '6'){
-			openhoursfinalarray['samedi'] = element;
-		}
-	}
-	contentString += "<div class='col-right'>";
-	if(openhoursfinalarray['lundi'] != '0'){
-		var tempArray = openhoursfinalarray['lundi'].substr(2,openhoursfinalarray['lundi'].length).split(":");
-		contentString += 'Lundi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-	}else{
-		contentString += 'Lundi: fermé<br>';
-	}
-	if(openhoursfinalarray['mardi'] != '0'){
-		var tempArray = openhoursfinalarray['mardi'].substr(2,openhoursfinalarray['mardi'].length).split(":");
-		contentString += 'Mardi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-	}else{
-		contentString += 'Mardi: fermé<br>';
-	}
-	if(openhoursfinalarray['mercredi'] != '0'){
-		var tempArray = openhoursfinalarray['mercredi'].substr(2,openhoursfinalarray['mercredi'].length).split(":");
-		contentString += 'Mercredi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-	}else{
-		contentString += 'Mercredi: fermé<br>';
-	}
-	if(openhoursfinalarray['jeudi'] != '0'){
-		var tempArray = openhoursfinalarray['jeudi'].substr(2,openhoursfinalarray['jeudi'].length).split(":");
-		contentString += 'Jeudi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-	}else{
-		contentString += 'Jeudi: fermé<br>';
-	}
-	if(openhoursfinalarray['vendredi'] != '0'){
-		var tempArray = openhoursfinalarray['vendredi'].substr(2,openhoursfinalarray['vendredi'].length).split(":");
-		contentString += 'Vendredi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-	}else{
-		contentString += 'Vendredi: fermé<br>';
-	}
-	if(openhoursfinalarray['samedi'] != '0'){
-		var tempArray = openhoursfinalarray['samedi'].substr(2,openhoursfinalarray['samedi'].length).split(":");
-		contentString += 'Samedi: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-	}else{
-		contentString += 'Samedi: fermé<br>';
-	}
-	if(openhoursfinalarray['dimanche'] != '0'){
-		var tempArray = openhoursfinalarray['dimanche'].substr(2,openhoursfinalarray['dimanche'].length).split(":");
-		contentString += 'Dimanche: de '+tempArray[0]+'h'+tempArray[1]+' à '+tempArray[2]+'h'+tempArray[3]+'<br>';
-	}else{
-		contentString += 'Dimanche: fermé<br>';
-	}
+	contentString += "<div class='col-right'>"+relay.find('.GLS_relay_hours').text();	
+	contentString += 'Dimanche: fermé<br>';
 
 
 	contentString += "</div>";
@@ -487,29 +396,28 @@ function infoBulleGenerator(relay) {
 }
 
 
-function attachClick(marker,infowindow, index){
+function attachGLSClick(markerGLS,infowindowGLS, index){
 	//Clic sur le relais dans la colonne de gauche
-	jQuery("#point_retrait_"+index).click(function() {
+	jQuery("#gls_point_relay_"+index).click(function() {
 			//fermer la derniere infobulle ouverte
 			if(glsOpenedInfowindow) {
 				glsOpenedInfowindow.close();
 		    }
 			//ouvrir l'infobulle
 		   infowindow.open(glsMap,marker);
-		   glsOpenedInfowindow=infowindow;
+		   glsOpenedInfowindow=infowindowGLS;
 		   
 		});
 		
 	//Clic sur le marqueur du relais dans la carte
-	google.maps.event.addListener(marker, 'click', function() {
+	google.maps.event.addListener(markerGLS, 'click', function() {			
 			//fermer la derniere infobulle ouverte
 			if(glsOpenedInfowindow) {
 				glsOpenedInfowindow.close();
-		    }
+		    }			
 			//ouvrir l'infobulle
-		   infowindow.open(glsMap,marker);
-		   glsOpenedInfowindow=infowindow;
-		   
+			infowindowGLS.open(glsRelayMap,markerGLS);
+		    glsOpenedInfowindow=infowindowGLS;		   
 		});
 }
 

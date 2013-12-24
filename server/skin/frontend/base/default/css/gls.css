@@ -160,12 +160,12 @@ dd.s_method_gls li span.price {
   color: #06187c;
   display: block;
 }
-#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_street,
+#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_address,
 #layer_gls #col_droite_gls .gls_point_relay .GLS_relay_zipcode,
 #layer_gls #col_droite_gls .gls_point_relay .GLS_relay_city {
   color: #6a6a6a;
 }
-#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_street {
+#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_address {
   display: block;
 }
 #layer_gls #col_droite_gls .gls_point_relay div {
