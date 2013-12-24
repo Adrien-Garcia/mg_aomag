@@ -20,7 +20,7 @@ String.prototype.startWith = function(t, i) { if (i==false) { return
 
 var glsMyPosition;
 var glsListRelais=new Array();
-var glsMap;
+var glsRelayMap;
 var glsOpenedInfowindow;
 var glsRelaisChoisi;
 
@@ -43,7 +43,14 @@ jQuery(function($) {
 	 */
 	$("input[id^=\"s_method_gls\"]").live("click", function() {		
 		shippingGLSRadioCheck(this);
-	});		
+	});			
+	
+	/*
+	 * Evenement sur la modification du point relais
+	 */
+	$(".modifier_relay").live("click", function() {		
+		$("input[id^=\"s_method_gls\"]").click();
+	});	
 	
 	/*
 	 * Sur l'évènement de choix de relay
@@ -147,7 +154,7 @@ function geocodeGLSAdresse() {
 		geocoder.geocode({'address': searchAdress}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				glsMyPosition = results[0].geometry.location;				
-	 			//on met à jour la carte avec cette position
+	 			//on met à jour la carte avec cette position				
 				loadMap();				
 				loadListePointRelais();
 			} else {
@@ -182,7 +189,7 @@ function loadListePointRelais() {
 function loadMap(){
 	var latlng = new google.maps.LatLng(glsMyPosition.lat(),glsMyPosition.lng());
 	mapOptions = {
-	    zoom: 11,
+	    zoom: 10,
 	    center: latlng,
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
 	    disableDefaultUI: true,
@@ -190,162 +197,20 @@ function loadMap(){
 			position: google.maps.ControlPosition.RIGHT_TOP
 	    }
 	}
-	stylez =
-		[
-		  {
-		    "stylers": [
-		      { "saturation": -100 }
-		    ]
-		  },{
-		    "featureType": "water",
-		    "elementType": "geometry",
-		    "stylers": [
-		      { "color": "#808091" }
-		    ]
-		  },{
-		    "featureType": "landscape",
-		    "elementType": "geometry",
-		    "stylers": [
-		      { "color": "#ffffff" }
-		    ]
-		  },{
-		    "featureType": "poi",
-		    "stylers": [
-		      { "visibility": "off" }
-		    ]
-		  },{
-		    "featureType": "administrative.locality",
-		    "elementType": "labels.text.fill",
-		    "stylers": [
-		      { "color": "#000000" },
-		      { "visibility": "on" }
-		    ]
-		  },{
-		    "featureType": "administrative.locality",
-		    "elementType": "labels.text.stroke",
-		    "stylers": [
-		      { "color": "#ffffff" },
-		      { "visibility": "off" }
-		    ]
-		  },{
-		    "featureType": "road.highway",
-		    "elementType": "geometry",
-		    "stylers": [
-		      { "visibility": "on" },
-		      { "color": "#565656" }
-		    ]
-		  },{
-		    "featureType": "road.highway.controlled_access",
-		    "elementType": "geometry",
-		    "stylers": [
-		      { "color": "#000000" }
-		    ]
-		  },{
-		    "featureType": "road.arterial",
-		    "elementType": "geometry",
-		    "stylers": [
-		      { "visibility": "on" },
-		      { "color": "#b3b3b3" }
-		    ]
-		  },{
-		    "featureType": "road.local",
-		    "elementType": "geometry",
-		    "stylers": [
-		      { "color": "#dddddd" }
-		    ]
-		  },{
-		    "featureType": "transit.station.rail",
-		    "elementType": "labels.icon",
-		    "stylers": [
-		      { "visibility": "on" },
-		      { "gamma": 0.01 }
-		    ]
-		  },{
-		    "featureType": "road.arterial",
-		    "elementType": "labels.text.fill",
-		    "stylers": [
-		      { "visibility": "on" },
-		      { "color": "#000000" }
-		    ]
-		  },{
-		    "featureType": "landscape",
-		    "stylers": [
-		      { "visibility": "on" }
-		    ]
-		  },{
-		    "featureType": "water",
-		    "elementType": "labels.text.fill",
-		    "stylers": [
-		      { "visibility": "on" },
-		      { "color": "#ffffff" }
-		    ]
-		  },{
-		    "featureType": "water",
-		    "elementType": "labels.text.stroke",
-		    "stylers": [
-		      { "color": "#919191" }
-		    ]
-		  }
-		];
-	
-	glsRelayMap = new google.maps.Map(document.getElementById('map_gls'), mapOptions);
-	//storePickupMap.setOptions({styles: stylez});	
-
-	/*function buildZoomControl(map, div) {
-
-		// Get the control DIV. We'll attach our control UI to this DIV.
-		var controlDiv = jQuery(div);
-		var zoomIn = jQuery("<div class='zoom-in' />");
-		var zoomOut = jQuery("<div class='zoom-out' />");
-		controlDiv.append(zoomIn);
-		controlDiv.append(zoomOut);
-
-		// Setup the click event listener for Set Home:
-		// Set the control's home to the current Map center.
-		google.maps.event.addDomListener(zoomIn[0], 'click', function() {
-			map.setZoom(map.getZoom() + 1);
-		});
-		google.maps.event.addDomListener(zoomOut[0], 'click', function() {
-			map.setZoom(map.getZoom() - 1);
-		});
-	}
-
-	var zoomControlDiv = document.createElement('div');
-	buildZoomControl(storePickupMap, zoomControlDiv);
-	zoomControlDiv.index = 1;
-	storePickupMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(zoomControlDiv);*/
-	
-	
-	if (jQuery("#layer_gls").data("overlay") == undefined) {
-		jQuery("#layer_gls").overlay({
-			mask: {
-				color: '#000', 
-				loadSpeed: 200, 
-				opacity: 0.5 
-			}, 
-			load: true,
-			closeOnClick: false,
-			top: "center",	
-//			onBeforeClose : function(event){
-//				//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo 
-//				var telephoneElt = jQuery("#socolissimo-hook input[name='tel_socolissimo']");
-//				if (!telephoneElt || telephoneElt.val() == undefined) {
-//					resetShippingMethod();
-//				} else {
-//					var shippingMethod = jQuery("input[name='shipping_method']:checked").val();
-//					if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
-//						var relaisElt = jQuery("#socolissimo-hook input[name='relais_socolissimo']");
-//						if (!relaisElt || relaisElt.val() == undefined) {
-//							resetShippingMethod();
-//						}
-//					}
-//				}
-//			}
-			fixed: false
-		});
-	} else {
-		jQuery("#layer_gls").data("overlay").load();
-	}	
+				
+	jQuery("#layer_gls").overlay({
+		mask: {
+			color: '#000', 
+			loadSpeed: 200, 
+			opacity: 0.5 
+		}, 
+		load: true,
+		onLoad: function(){ glsRelayMap = new google.maps.Map(document.getElementById('map_gls'), mapOptions); },
+		closeOnClick: false,
+		top: "center",	
+		fixed: false,
+		onClose: function(){ jQuery("#layer_gls").html(''); jQuery("#layer_gls").data("overlay",null);}
+	});	
 	
 	jQuery("#shipping-method-please-wait").hide();
 
@@ -453,6 +318,9 @@ function choisirRelaisGLS(index) {
 	// On cache le layer
 	jQuery("#layer_gls").data("overlay").close();
 	jQuery("input[id^=\"s_method_gls_relay_").prop("checked","checked");
+	var contenu_html = "<div id='gls_relais_choisi'>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text()+" <span class='modifier_relay'>Modifier mon Point Relais</span></div>";
+	jQuery('#gls_relais_choisi').remove();
+	jQuery("input[id^=\"s_method_gls_relay_").parent().append(contenu_html);
 	return;
 }
 
