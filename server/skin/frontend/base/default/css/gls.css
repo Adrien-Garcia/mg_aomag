@@ -139,6 +139,52 @@ dd.s_method_gls li span.price {
 #layer_gls #col_gauche_gls #map_gls {
   height: 100%;
 }
+#layer_gls #col_gauche_gls #map_gls .info-window {
+  width: 415px;
+  line-height: normal;
+}
+#layer_gls #col_gauche_gls #map_gls .info-window .store-name {
+  font-weight: bold;
+  font-size: 14px;
+  color: #06187c;
+  display: block;
+}
+#layer_gls #col_gauche_gls #map_gls .info-window table {
+  width: 250px;
+  margin-top: 10px;
+}
+#layer_gls #col_gauche_gls #map_gls .info-window table .day {
+  width: 80px;
+}
+#layer_gls #col_gauche_gls #map_gls .info-window .choose-relay-point {
+  padding: 0 15px 0 25px;
+  height: 26px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background-color: #06187c;
+  background-image: -webkit-linear-gradient(bottom, #e8b402, #fcd83b);
+  background-image: -moz-linear-gradient(bottom, #e8b402, #fcd83b);
+  background-image: -o-linear-gradient(bottom, #e8b402, #fcd83b);
+  background-image: linear-gradient(to top, #e8b402, #fcd83b);
+  font-size: 12px;
+  color: #000;
+  text-shadow: 0 1px #f7e38b;
+  text-decoration: none;
+  line-height: 26px;
+  position: absolute;
+  top: 68px;
+  left: 260px;
+}
+#layer_gls #col_gauche_gls #map_gls .info-window .choose-relay-point:before {
+  content: "";
+  width: 7px;
+  height: 10px;
+  position: absolute;
+  top: 9px;
+  left: 12px;
+  background: url(../images/gls/picto-arrow.png);
+}
 #layer_gls #col_droite_gls {
   width: 268px;
   height: 353px;
@@ -211,7 +257,8 @@ dd.s_method_gls li span.price {
 #layer_gls #col_droite_gls .gls_point_relay .GLS_relay_latitude,
 #layer_gls #col_droite_gls .gls_point_relay .GLS_relay_longitude,
 #layer_gls #col_droite_gls .gls_point_relay .GLS_relay_hours,
-#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_id {
+#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_id,
+#layer_gls #col_droite_gls .gls_point_relay .GLS_relay_index {
   display: none;
 }
 .layer > div > div {

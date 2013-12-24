@@ -381,18 +381,18 @@ function infoGLSBulleGenerator(relay) {
 
 	contentString += '<span class="store-name">' + relay.find('.GLS_relay_name').text() + '</span>';
 
-	contentString += '<div class="col-left">' +
+	contentString += '' +
 					relay.find('.GLS_relay_address').text() + '<br/>' +
-    				relay.find('.GLS_relay_zipcode').text() + ' ' + relay.find('.GLS_relay_city').text() + '<br/>';
+    				relay.find('.GLS_relay_zipcode').text() + ' ' + relay.find('.GLS_relay_city').text();
 
 	
-	contentString += "<br/><br/><a href='#' class='choose-relay-point' data-relayindex="+relay.find('.GLS_relay_index').text()+" data-relayid="+relay.find('.GLS_relay_id').text()+">Choisir ce lieu</a>";
-	contentString += "</div>"
-	contentString += "<div class='col-right'>"+relay.find('.GLS_relay_hours').text();	
-	contentString += 'Dimanche: fermé<br>';
+	contentString += "<a href='#' class='choose-relay-point' data-relayindex="+relay.find('.GLS_relay_index').text()+" data-relayid="+relay.find('.GLS_relay_id').text()+">Choisir ce lieu</a>";
+	
+	contentString += relay.find('.GLS_relay_hours').html();	
+	
 
 
-	contentString += "</div>";
+	
 	contentString += "</div>";
 
 	infowindow = new google.maps.InfoWindow({
