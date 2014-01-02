@@ -337,23 +337,7 @@ function choisirRelaisGLS(index) {
 	//resetShippingMethod();	
 	jQuery("select[name='shipping_address_id']").prop('selectedIndex',0);
 	jQuery("select[name='shipping_address_id'] option[value='']").prop('selectedIndex',0);	
-	
-	/* on remplit le formulaire */
-	jQuery('#billing_use_for_shipping').val('0');
-	/* jQuery("input[name='shipping[firstname]']").val(jQuery('#billing\\:firstname').val());
-	jQuery("input[name='shipping[lastname]']").val(jQuery('#billing\\:lastname').val());
-	//jQuery("input[name='shipping[lastname]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_name\']').val());
-
-	jQuery("input[name='shipping[lastname]']").after("<input type='text' id='shipping:company' name='shipping[company]' value='Louis pion "+jQuery('input[name=\'store_'+index+'_pickupstore_name\']').val()+" ("+jQuery('input[name=\'store_'+index+'_pickupstore_store_code\']').val()+")' />");
-
-	jQuery("input[name='shipping[street][]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_address\']').val());
-	jQuery("input[name='shipping[postcode]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_postal_code\']').val());
-	jQuery("input[name='shipping[city]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_city\']').val());
-	jQuery("select[name='shipping[country_id]']").children().removeAttr('selected');
-	jQuery('option[value=FR]').attr('selected','selected');
-	jQuery('#s2id_shipping\\:country_id span.select2-chosen').text('France');
-	jQuery("input[name='shipping[telephone]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_phone\']').val());	 */
-	
+			
 	// On cache le layer
 	if(jQuery("#sms_checkbox").is(":checked") && jQuery("#num_telephone").val() == "") {
 		alert( Translator.translate("Please provide a valide phone number.") );
@@ -364,9 +348,23 @@ function choisirRelaisGLS(index) {
 	var contenu_html = "<div id='gls_relais_choisi'><span>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+"</span>"      +" <span class='modifier_relay'>" + Translator.translate("Update my relay point") + "</span>"   +  "<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+"<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text() + "</div>";
 	jQuery('#gls_relais_choisi').remove();
 	jQuery("input[id^=\"s_method_gls_relay_").parent().append(contenu_html);
-	shippingMethod.save();
-	 
-	
+	/* On stock en session les informations du relais */
+	url = "/gls/ajax/saveInSessionRelayInformations/"		
+	jQuery.ajax({
+		url: url,
+		data: {                             // <-- just pass an object
+	          name: jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text(),
+	          address: jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text(),
+	          city : jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text(),
+	          zipcode : jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text(),	
+	          relayId : jQuery('#gls_point_relay_'+index).find('.GLS_relay_id').text(),
+	    },
+	    dataType: 'json', 
+		success: function(){
+			// On fait la sauvegarde de la méthode de livraison
+			shippingMethod.save();	
+		}
+	});		
 }
 
 function validerTelephone() {

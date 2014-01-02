@@ -8,12 +8,11 @@
  * @author 	    Addonline (http://www.addonline.fr)
  */
 
-class Addonline_Gls_Model_Observer
+class Addonline_Gls_Model_Observer extends Varien_Object
 {
-
-	const CONTRAT_BOTH = 0;
-	const CONTRAT_FLEXIBILITE = 1;
-	const CONTRAT_LIBERTE = 2;
+   	public function __construct()
+   	{
+   	}
 
 	public function checkoutEventGlsdata($observer)
 	{
@@ -33,81 +32,36 @@ class Addonline_Gls_Model_Observer
 		return $this;
 	}
 
-	/**
-	 *
-	 * Sauvegarde les donnees de la commande propre a So Colissimo
-	 * @param $observer
-	 */
-
-	/* public function addSocoAttributesToOrder($observer)
-	{
-		try {
-			$checkoutSession = Mage::getSingleton('checkout/session');
-			$shippingData = $checkoutSession->getData('socolissimo_shipping_data');
-
-			//on ne fait le traitement que si le mode d'expedition est socolissimo (et donc qu'on a recupere les donnees de socolissimo)
-			if (isset($shippingData) && count($shippingData) > 0) {
-				if (isset($shippingData['DELIVERYMODE'])) {
-					$observer->getEvent()->getOrder()->setSocoProductCode($shippingData['DELIVERYMODE']);
-				}
-
-				if (isset($shippingData['CEDELIVERYINFORMATION'])) {
-					$observer->getEvent()->getOrder()->setSocoShippingInstruction($shippingData['CEDELIVERYINFORMATION']);
-				}
-
-				if (isset($shippingData['CEDOORCODE1'])) {
-					$observer->getEvent()->getOrder()->setSocoDoorCode1($shippingData['CEDOORCODE1']);
-				}
-
-				if (isset($shippingData['CEDOORCODE2'])) {
-					$observer->getEvent()->getOrder()->setSocoDoorCode2($shippingData['CEDOORCODE2']);
-				}
-
-				if (isset($shippingData['CEENTRYPHONE'])) {
-					$observer->getEvent()->getOrder()->setSocoInterphone($shippingData['CEENTRYPHONE']);
-				}
-
-				if (isset($shippingData['PRID'])) {
-					$observer->getEvent()->getOrder()->setSocoRelayPointCode($shippingData['PRID']);
-				}
-
-				if (isset($shippingData['CECIVILITY'])) {
-					$observer->getEvent()->getOrder()->setSocoCivility($shippingData['CECIVILITY']);
-				}
-
-				if (isset($shippingData['CEPHONENUMBER'])) {
-					$observer->getEvent()->getOrder()->setSocoPhoneNumber($shippingData['CEPHONENUMBER']);
-				}
-
-				if (isset($shippingData['CEEMAIL'])) {
-					$observer->getEvent()->getOrder()->setSocoEmail($shippingData['CEEMAIL']);
-				}
-
+	public function setShippingRelayAddress($observer){
+		$shipping_data = Mage::getSingleton('checkout/session')->getData('gls_shipping_relay_data');
+		if($shipping_data){
+			Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
+			$quote = $observer->getEvent()->getQuote();
+			$shippingAddress = $quote->getShippingAddress();
+			$shippingMethod = $shippingAddress->getShippingMethod();
+			if(strpos($shippingMethod,'gls_relay') !== false){
+				$shippingAddress->setData('prefix', '');
+				$shippingAddress->setData('firstname', $shipping_data['name']);
+				$shippingAddress->setData('lastname', $shipping_data['relayId']);
+				$shippingAddress->setData('street', $shipping_data['address']);
+				$shippingAddress->setData('city', $shipping_data['city']);
+				$shippingAddress->setData('postcode', $shipping_data['zipcode']);
+				$shippingAddress->setData('save_in_address_book', 0);
 			}
-		} catch (Exception $e) {
-			Mage::Log('Failed to save so-colissimo data : '.print_r($shippingData, true));
+		}else{
+			$quote = $observer->getEvent()->getQuote();
+			$shippingAddress = $quote->getShippingAddress();
+			$billingAddress = $quote->getBillingAddress();
+			$shippingMethod = $shippingAddress->getShippingMethod();
+			if(strpos($shippingMethod,'gls_relay') !== false){
+				$shippingAddress->setData('prefix', $billingAddress->getData('prefix'));
+				$shippingAddress->setData('firstname', $billingAddress->getData('firstname'));
+				$shippingAddress->setData('lastname', $billingAddress->getData('lastname'));
+				$shippingAddress->setData('street', $billingAddress->getData('street'));
+				$shippingAddress->setData('city', $billingAddress->getData('city'));
+				$shippingAddress->setData('postcode', $billingAddress->getData('postcode'));
+				$shippingAddress->setData('save_in_address_book', 0);
+			}
 		}
 	}
-
-	public function resetSession($observer)
-	{
-		$checkoutSession = Mage::getSingleton('checkout/session');
-		$checkoutSession->setData('socolissimoliberte_shipping_data', array());
-	}
-
-	protected function _getSocoProductCode($type) {
-		if ($type=='poste') {
-			return 'BPR';
-		} elseif ($type=='cityssimo') {
-			return 'CIT';
-		} elseif ($type=='commercant') {
-			return 'A2P';
-		} elseif ($type=='rdv') {
-			return 'RDV';
-		} elseif ($type=='domicile') {
-			return Mage::getStoreConfig('carriers/socolissimo/domicile_signature')?'DOS':'DOM';
-		} else {
-			return false;
-		}
-	}*/
 }

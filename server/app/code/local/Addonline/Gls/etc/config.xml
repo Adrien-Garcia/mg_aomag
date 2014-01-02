@@ -40,15 +40,24 @@
             </gls>
         </models> 
     	<events> 
-            <sales_quote_collect_totals_before>
+<!--            <sales_quote_collect_totals_before>
                 <observers>
                     <Addonline_Gls_Model_Observer>
                         <type>singleton</type>
                         <class>gls/observer</class>
                         <method>checkoutEventGlsdata</method>
                     </Addonline_Gls_Model_Observer>
+                </observers> 
+            </sales_quote_collect_totals_before> -->
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <Addonline_Gls_Model_Observer>
+                        <type>singleton</type>
+                        <class>gls/observer</class>
+                        <method>setShippingRelayAddress</method>
+                    </Addonline_Gls_Model_Observer>
                 </observers>
-            </sales_quote_collect_totals_before>
+            </sales_quote_collect_totals_before>       
         </events>  
     </global>
     <frontend>
