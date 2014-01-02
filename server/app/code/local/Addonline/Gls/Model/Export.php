@@ -108,7 +108,7 @@ class Addonline_Gls_Model_Export {
 					$aRow[] = $shippingAddress->getEmail();
 
 					// CONTACTMOBILE
-					$aRow[] = $shippingAddress->getTelephone();
+					$aRow[] = $order->getGlsWarnByPhone()?$shippingAddress->getTelephone():'';
 
 					// CONTACTPHONE
 					$aRow[] = '';
@@ -132,7 +132,7 @@ class Addonline_Gls_Model_Export {
 					$aRow[] = $shippingAddress->getPostcode();
 
 					// REFPR (identifiant du point relais)
-					$aRow[] = '';
+					$aRow[] = $order->getGlsRelayPointId();
 
 					// Adding the order to the export array
 					$aOrdersToExport[] = $aRow;

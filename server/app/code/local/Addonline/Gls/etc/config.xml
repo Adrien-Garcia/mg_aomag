@@ -39,6 +39,14 @@
                 <class>Addonline_Gls_Model</class>                
             </gls>
         </models> 
+        <resources>
+            <gls_setup>
+                <setup>
+                    <module>Addonline_Gls</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+            </gls_setup>
+        </resources>
     	<events> 
 <!--            <sales_quote_collect_totals_before>
                 <observers>
@@ -57,7 +65,16 @@
                         <method>setShippingRelayAddress</method>
                     </Addonline_Gls_Model_Observer>
                 </observers>
-            </sales_quote_collect_totals_before>       
+            </sales_quote_collect_totals_before>    
+            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <Addonline_Gls_Model_Observer>
+                        <type>singleton</type>
+                        <class>gls/observer</class>
+                        <method>addGlsInformationsToOrder</method>
+                    </Addonline_Gls_Model_Observer>
+                </observers>
+            </checkout_type_onepage_save_order_after>   
         </events>  
     </global>
     <frontend>

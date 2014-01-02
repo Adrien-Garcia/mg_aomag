@@ -349,6 +349,13 @@ function choisirRelaisGLS(index) {
 	jQuery('#gls_relais_choisi').remove();
 	jQuery("input[id^=\"s_method_gls_relay_").parent().append(contenu_html);
 	/* On stock en session les informations du relais */
+	
+	if(jQuery("#sms_checkbox").is(":checked") && jQuery("#num_telephone").val() != ""){
+		var warnbyphone = 1;		
+	}else{
+		var warnbyphone = 0;
+	}
+	
 	url = "/gls/ajax/saveInSessionRelayInformations/"		
 	jQuery.ajax({
 		url: url,
@@ -358,6 +365,8 @@ function choisirRelaisGLS(index) {
 	          city : jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text(),
 	          zipcode : jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text(),	
 	          relayId : jQuery('#gls_point_relay_'+index).find('.GLS_relay_id').text(),
+	          phone : jQuery("#num_telephone").val(),
+	          warnbyphone : warnbyphone,
 	    },
 	    dataType: 'json', 
 		success: function(){

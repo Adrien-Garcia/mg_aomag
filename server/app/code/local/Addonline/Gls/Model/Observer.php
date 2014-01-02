@@ -34,34 +34,55 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 
 	public function setShippingRelayAddress($observer){
 		$shipping_data = Mage::getSingleton('checkout/session')->getData('gls_shipping_relay_data');
-		if($shipping_data){
-			Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
-			$quote = $observer->getEvent()->getQuote();
-			$shippingAddress = $quote->getShippingAddress();
-			$shippingMethod = $shippingAddress->getShippingMethod();
-			if(strpos($shippingMethod,'gls_relay') !== false){
-				$shippingAddress->setData('prefix', '');
-				$shippingAddress->setData('firstname', $shipping_data['name']);
-				$shippingAddress->setData('lastname', $shipping_data['relayId']);
+		$quote = $observer->getEvent()->getQuote();
+		$shippingAddress = $quote->getShippingAddress();
+		$shippingMethod = $shippingAddress->getShippingMethod();
+		if(strpos($shippingMethod,'gls_relay') !== false){
+			if($shipping_data){
+				Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
+				Mage::getSingleton('checkout/session')->setData('gls_shipping_warnbyphone',$shipping_data['warnbyphone']);
+				Mage::getSingleton('checkout/session')->setData('gls_relay_id',$shipping_data['relayId']);
+				$shippingAddress->setData('company', $shipping_data['name'].' '.$shipping_data['relayId']);
 				$shippingAddress->setData('street', $shipping_data['address']);
 				$shippingAddress->setData('city', $shipping_data['city']);
 				$shippingAddress->setData('postcode', $shipping_data['zipcode']);
 				$shippingAddress->setData('save_in_address_book', 0);
+				if($shipping_data['phone']){
+					$shippingAddress->setData('telephone', $shipping_data['phone']);
+				}else{
+					$shippingAddress->setData('telephone', $billingAddress->getData('telephone'));
+				}
 			}
 		}else{
-			$quote = $observer->getEvent()->getQuote();
-			$shippingAddress = $quote->getShippingAddress();
+			Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
 			$billingAddress = $quote->getBillingAddress();
 			$shippingMethod = $shippingAddress->getShippingMethod();
 			if(strpos($shippingMethod,'gls_relay') !== false){
 				$shippingAddress->setData('prefix', $billingAddress->getData('prefix'));
 				$shippingAddress->setData('firstname', $billingAddress->getData('firstname'));
+				$shippingAddress->setData('company', $billingAddress->getData('company'));
 				$shippingAddress->setData('lastname', $billingAddress->getData('lastname'));
 				$shippingAddress->setData('street', $billingAddress->getData('street'));
 				$shippingAddress->setData('city', $billingAddress->getData('city'));
 				$shippingAddress->setData('postcode', $billingAddress->getData('postcode'));
+				$shippingAddress->setData('telephone', $billingAddress->getData('telephone'));
 				$shippingAddress->setData('save_in_address_book', 0);
 			}
+		}
+	}
+
+	public function addGlsInformationsToOrder($observer){
+		try {
+			$quote = $observer->getEvent()->getQuote();
+			$shippingAddress = $quote->getShippingAddress();
+			$shippingMethod = $shippingAddress->getShippingMethod();
+			if(strpos($shippingMethod,'gls_relay') !== false){
+				$observer->getEvent()->getOrder()->setGlsRelayPointId(Mage::getSingleton('checkout/session')->getData('gls_relay_id'));
+				$observer->getEvent()->getOrder()->setGlsWarnByPhone(Mage::getSingleton('checkout/session')->getData('gls_shipping_warnbyphone'));
+				$observer->getEvent()->getOrder()->save();
+			}
+		} catch (Exception $e) {
+			Mage::Log('Failed to save GLS data : '.print_r($shippingData, true));
 		}
 	}
 }
