@@ -28,7 +28,6 @@ dd.s_method_gls #gls_relais_choisi {
 	margin: 0 0 0 82px;
 	border-left: 1px solid #d4d4d4;
 	padding: 0 0 0 10px;
-	width: 320px;
 	position: relative;
 	line-height: normal;
 	color: #666666;
@@ -42,9 +41,6 @@ dd.s_method_gls #gls_relais_choisi {
 		font-weight: normal;
 		text-decoration: underline;
 		cursor: pointer;
-		position: absolute;
-		top: 0;
-		right: 0;
 	}
 }
 
@@ -259,6 +255,10 @@ dd.s_method_gls #gls_relais_choisi {
 	    	padding: 15px;
 	    	border-bottom: 1px solid #d6d8e9;
 	    	line-height: normal;
+	    	
+	    	&.current {
+	    		background: #eeeff7;
+	    	}
 	    	
 	    	.GLS_relay_name {
 	    		font-weight: bold;

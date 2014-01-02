@@ -11,13 +11,13 @@ foreach ($this->getListRelay() as $relais) : ?>
 	<span class="GLS_relay_latitude"><?php echo $relais['relayLatitude']; ?></span>
 	<span class="GLS_relay_longitude"><?php echo $relais['relayLongitude']; ?></span>
 	<div>
-		<span class="GLS_relay_horaires">Voir les horaires</span>
-		<button class='choose-relay-point' data-relayindex="<?php echo $i; ?>">Choisir ce lieu</button>
+		<span class="GLS_relay_horaires"><?php echo __("See the schedules")?></span>
+		<button class='choose-relay-point' data-relayindex="<?php echo $i; ?>"><?php echo __("Choose this place")?></button>
 	</div>
 	<span class="GLS_relay_hours">
 		<table cellpadding="0" cellspacing="0">
 		<?php
-		$aDays = array('0' => 'Lundi','1' => 'Mardi','2' => 'Mercredi','3' => 'Jeudi','4' => 'Vendredi','5' => 'samedi','6' => 'Dimanche');
+		$aDays = array('0' => __("Monday"),'1' => __("Tuesday"),'2' => __("Wednesday"),'3' => __("Thursday"),'4' => __("Friday"),'5' => __("Saturday"),'6' => __("Sunday"));
 		foreach($relais['relayWorkingDays'] as $day => $openHours){
 			echo '<tr>';
 			echo '<td class="day">'.$aDays[$day].'</td>';
@@ -32,8 +32,8 @@ foreach ($this->getListRelay() as $relais) : ?>
 		}
 		?>
 			<tr>
-				<td>Dimanche</td>
-				<td>fermé</td>
+				<td><?php echo __("Sunday") ?></td>
+				<td><?php echo __("closed") ?></td>
 			</tr>
 		</table>
 	</span>

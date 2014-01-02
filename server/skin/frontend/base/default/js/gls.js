@@ -24,6 +24,19 @@ var glsRelayMap;
 var glsOpenedInfowindow;
 var glsRelaisChoisi;
 
+/* Liste des markers */
+var glsMarkersArray = [];
+
+/*
+ * Suppression des markers
+ */
+function clearMarkers() {
+  for (var i = 0; i < glsMarkersArray.length; i++ ) {
+	  glsMarkersArray[i].setMap(null);
+  }
+  glsMarkersArray.length = 0;
+}
+
 /**
  * Initialisation au chargement de la page
  */
@@ -153,7 +166,7 @@ function geocodeGLSAdresse() {
 		var geocoder = new google.maps.Geocoder();		
 		geocoder.geocode({'address': searchAdress}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				glsMyPosition = results[0].geometry.location;				
+				glsMyPosition = results[0].geometry.location;
 	 			//on met à jour la carte avec cette position				
 				loadMap();				
 				loadListePointRelais();
@@ -187,30 +200,34 @@ function loadListePointRelais() {
 }
 
 function loadMap(){
-	var latlng = new google.maps.LatLng(glsMyPosition.lat(),glsMyPosition.lng());
+	
 	mapOptions = {
-	    zoom: 10,
-	    center: latlng,
+	    /*zoom: 10,*/
+	    /*center: glsMyPosition,*/
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
 	    disableDefaultUI: true,
 		zoomControlOptions: {
 			position: google.maps.ControlPosition.RIGHT_TOP
 	    }
 	}
-				
-	jQuery("#layer_gls").overlay({
-		mask: {
-			color: '#000', 
-			loadSpeed: 200, 
-			opacity: 0.5 
-		}, 
-		load: true,
-		onLoad: function(){ glsRelayMap = new google.maps.Map(document.getElementById('map_gls'), mapOptions); },
-		closeOnClick: false,
-		top: "center",	
-		fixed: false,
-		onClose: function(){ jQuery("#layer_gls").html(''); jQuery("#layer_gls").data("overlay",null);}
-	});	
+	
+	if( jQuery("#layer_gls").data("overlay") == null ) {
+		jQuery("#layer_gls").overlay({
+			mask: {
+				color: '#000', 
+				loadSpeed: 200, 
+				opacity: 0.5 
+			}, 
+			load: true,
+			onLoad: function(){ glsRelayMap = new google.maps.Map(document.getElementById('map_gls'), mapOptions); },
+			closeOnClick: false,
+			top: "center",	
+			fixed: false,
+			onClose: function(){ jQuery("#layer_gls").html(''); jQuery("#layer_gls").data("overlay",null);}
+		});	
+	} else {
+		//glsRelayMap.setCenter(glsMyPosition);
+	}
 	
 	jQuery("#shipping-method-please-wait").hide();
 
@@ -219,8 +236,15 @@ function loadMap(){
 function showGLSMap() {	
 	if ((typeof google)!="undefined") {
 		var init = false;		
-		//google.maps.event.addListener(glsRelayMap, 'tilesloaded', function () {			
-			if (!init){				
+		//google.maps.event.addListener(glsRelayMap, 'tilesloaded', function () {
+
+			// création de bornes vides...
+			var bounds = new google.maps.LatLngBounds();
+
+			if (!init){
+				
+				clearMarkers();
+				
 				jQuery('.gls_point_relay').each(function(index,element){	
 					
 					var relayPosition =  new google.maps.LatLng(jQuery(this).find('.GLS_relay_latitude').text(), jQuery(this).find('.GLS_relay_longitude').text());
@@ -231,8 +255,20 @@ function showGLSMap() {
 					    icon : '/skin/frontend/base/default/images/gls/marker.png'
 					});					
 					infowindowGLS=infoGLSBulleGenerator(jQuery(this));
+					
+					// Ajout à la liste des markers
+					glsMarkersArray.push(markerGLS);
+					
 					attachGLSClick(markerGLS,infowindowGLS, index);
+
+					// ...étendues à chaque point...
+					bounds.extend(relayPosition);
+
 				});
+				
+				// ...pour voir tous les points
+				glsRelayMap.fitBounds(bounds);
+				
 			}
 			init=true;
 		//});
@@ -271,23 +307,29 @@ function infoGLSBulleGenerator(relay) {
 function attachGLSClick(markerGLS,infowindowGLS, index){	
 	//Clic sur le relais dans la colonne de gauche
 	jQuery("#gls_point_relay_"+index).live("click",function() {		
-			clickHandler(markerGLS,infowindowGLS);		   
+			clickHandler(markerGLS,infowindowGLS, index);		   
 		});
 		
 	//Clic sur le marqueur du relais dans la carte
 	google.maps.event.addListener(markerGLS, 'click', function() {		
-			clickHandler(markerGLS,infowindowGLS);
+			clickHandler(markerGLS,infowindowGLS, index);
 		});
+
 }
 
-function clickHandler(markerGLS,infowindowGLS){
+function clickHandler(markerGLS,infowindowGLS, index){
 	//fermer la derniere infobulle ouverte
 	if(glsOpenedInfowindow) {
 		glsOpenedInfowindow.close();
+		jQuery("#layer_gls .gls_point_relay").removeClass("current");
     }			
 	//ouvrir l'infobulle
 	infowindowGLS.open(glsRelayMap,markerGLS);
     glsOpenedInfowindow=infowindowGLS;
+    
+    // Mise en évidence du relais dans la liste
+	jQuery("#layer_gls .gls_point_relay").removeClass("current").eq(index).addClass("current");
+    
 }
 
 function choisirRelaisGLS(index) {
@@ -313,12 +355,18 @@ function choisirRelaisGLS(index) {
 	jQuery("input[name='shipping[telephone]']").val(jQuery('input[name=\'store_'+index+'_pickupstore_phone\']').val());	 */
 	
 	// On cache le layer
+	if(jQuery("#sms_checkbox").is(":checked") && jQuery("#num_telephone").val() == "") {
+		alert( Translator.translate("Please provide a valide phone number.") );
+		return;
+	}	
 	jQuery("#layer_gls").data("overlay").close();
 	jQuery("input[id^=\"s_method_gls_relay_").prop("checked","checked");
-	var contenu_html = "<div id='gls_relais_choisi'><span>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+"</span><br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+"<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text()+" <span class='modifier_relay'>Modifier mon Point Relais</span></div>";
+	var contenu_html = "<div id='gls_relais_choisi'><span>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+"</span>"      +" <span class='modifier_relay'>" + Translator.translate("Update my relay point") + "</span>"   +  "<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+"<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text() + "</div>";
 	jQuery('#gls_relais_choisi').remove();
 	jQuery("input[id^=\"s_method_gls_relay_").parent().append(contenu_html);
-	return;
+	shippingMethod.save();
+	 
+	
 }
 
 function validerTelephone() {
