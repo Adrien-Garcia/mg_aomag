@@ -276,10 +276,31 @@ class Addonline_Gls_Model_Carrier_ShippingMethod extends Mage_Shipping_Model_Car
 	public function isTrackingAvailable() {
 		return true;
 	}
-	
+
 	public function getRates($process) {
 		$this->_process($process);
 		return $process['result'];
+	}
+
+	public function getTrackingInfo($tracking_number) {
+		$tracking_url = $this->__getConfigData('tracking_view_url').$tracking_number;
+
+		$tracking_status = Mage::getModel('shipping/tracking_result_status')
+		->setCarrier($this->_code)
+		->setCarrierTitle($this->__getConfigData('title'))
+		->setTracking($tracking_number)
+		->addData(
+				array(
+						'status'=>'<a target="_blank" href="'.str_replace('{tracking_number}',$tracking_number,$tracking_url).'">'.__('track the package').'</a>'
+				)
+		)
+		;
+		$tracking_result = Mage::getModel('shipping/tracking_result')
+		->append($tracking_status)
+		;
+
+		if ($trackings = $tracking_result->getAllTrackings()) return $trackings[0];
+		return false;
 	}
 
   /************ Protected methods **********************/
