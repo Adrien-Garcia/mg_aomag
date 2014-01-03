@@ -102,20 +102,20 @@ class GlsShippingHelper
 	public static function getDefaultProcessData()
 	{
 		return array(
-			'info'				=> new OS2_Data(self::getInfos()),
-			'cart'				=> new OS2_Data(),
-			'quote'				=> new OS2_Data(),
-			'selection'			=> new OS2_Data(),
-			'customer'			=> new OS2_Data(),
-			'customer_group'	=> new OS2_Data(),
-			'customvar'			=> new OS2_Data(),
-			'date'				=> new OS2_Data(),
-			'origin'			=> new OS2_Data(),
-			'shipto'			=> new OS2_Data(),
-			'billto'			=> new OS2_Data(),
-			'store'				=> new OS2_Data(),
-			'request'			=> new OS2_Data(),
-			'address_filter'	=> new OS2_Data(),
+			'info'				=> new OS2_Data_GLS(self::getInfos()),
+			'cart'				=> new OS2_Data_GLS(),
+			'quote'				=> new OS2_Data_GLS(),
+			'selection'			=> new OS2_Data_GLS(),
+			'customer'			=> new OS2_Data_GLS(),
+			'customer_group'	=> new OS2_Data_GLS(),
+			'customvar'			=> new OS2_Data_GLS(),
+			'date'				=> new OS2_Data_GLS(),
+			'origin'			=> new OS2_Data_GLS(),
+			'shipto'			=> new OS2_Data_GLS(),
+			'billto'			=> new OS2_Data_GLS(),
+			'store'				=> new OS2_Data_GLS(),
+			'request'			=> new OS2_Data_GLS(),
+			'address_filter'	=> new OS2_Data_GLS(),
 		);
 	}
 
@@ -214,7 +214,7 @@ class GlsShippingHelper
 
 	public function initDebug($code, $process)
 	{
-		$header = 'DEBUG OwebiaShippingHelper.php<br/>';
+		$header = 'DEBUG OwebiaShippingHelper_GLS.php<br/>';
 		foreach ($process as $index => $process_option) {
 			if (in_array($index, array('data', 'options'))) {
 				$header .= '   <span class=osh-key>'.self::esc(str_replace('.', '</span>.<span class=osh-key>', $index)).'</span> &gt;&gt;<br/>';

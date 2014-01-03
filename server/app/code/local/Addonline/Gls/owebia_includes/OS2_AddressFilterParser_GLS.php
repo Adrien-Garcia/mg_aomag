@@ -19,7 +19,7 @@
  * @license	http://www.opensource.org/licenses/MIT  The MIT License (MIT)
 **/
 
-class OS2_AddressFilterParser
+class OS2_AddressFilterParser_GLS
 {
 	protected $input = null;
 	protected $position = null;
@@ -86,7 +86,7 @@ class OS2_AddressFilterParser
 			// clean buffer
 			$this->buffer_start = null;
 			// throw token into current scope
-			
+
 			if ($buffer=='*') {
 				$buffer = 1;
 			} else if ($this->parent_level=='country') {

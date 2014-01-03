@@ -58,6 +58,20 @@ class Addonline_Gls_Model_Import {
 						}
 					}
 					fclose($handle);
+
+
+					// Creation des expedition
+					foreach ($aOrdersUpdated as $key => $orderToShip){
+ 						try{
+							$orderShipped = Mage::getModel('sales/order')->loadByIncrementId($key);
+							if($this->_createShipment($orderShipped, $orderShipped->getGlsTrackid()) == 0){
+								$count--;
+							}
+						}catch(Exception $e){
+							Mage::log( Mage::helper('gls')->__('Shipment creation error for Order %s : %s', $key, $e->getMessage()), null, self::LOG_FILE);
+						}
+					}
+
 					try{
 						unlink($importFolder.$file);
 					}catch (Exception $e){
@@ -71,33 +85,89 @@ class Addonline_Gls_Model_Import {
 		return $count;
 	}
 
-	private function udate($format = 'u', $utimestamp = null) {
-		if (is_null($utimestamp))
-			$utimestamp = microtime(true);
+	private function _createShipment($order,$trackcode)
+	{
+		if($order->canShip())
+		{
+			/**
+		 	* Initialize the Mage_Sales_Model_Order_Shipment object
+		 	*/
+			$convertor = Mage::getModel('sales/convert_order');
+			$shipment = $convertor->toShipment($order);
 
-		$timestamp = floor($utimestamp);
-		$milliseconds = round(($utimestamp - $timestamp) * 1000000);
-		$milliseconds = substr($milliseconds,0,2);
-		return date(preg_replace('`(?<!\\\\)u`', $milliseconds, $format), $timestamp);
+			/**
+			 * Add the items to send
+			*/
+			foreach ($order->getAllItems() as $orderItem) {
+				if (!$orderItem->getQtyToShip()) {
+					continue;
+				}
+				if ($orderItem->getIsVirtual()) {
+					continue;
+				}
+
+				$item = $convertor->itemToShipmentItem($orderItem);
+				$qty = $orderItem->getQtyToShip();
+				$item->setQty($qty);
+
+				$shipment->addItem($item);
+			}//foreach
+
+			$shipment->register();
+
+			$arrTracking = array(
+					'carrier_code' => $order->getShippingCarrier()->getCarrierCode(),
+					'title' => $order->getShippingCarrier()->getConfigData('title'),
+					'number' => $trackcode,
+			);
+
+			Mage::log($arrTracking, null, self::LOG_FILE);
+
+			$track = Mage::getModel('sales/order_shipment_track')->addData($arrTracking);
+			$shipment->addTrack($track);
+
+			//Sauvegarde de l'expedition
+			$this->_saveShipment($shipment, $order);
+
+			// Finally, Save the Order
+			$this->_saveOrder($order);
+			return 1;
+		}else{
+			$this->addError( Mage::helper('gls')->__('Order %s can not be shipped or has already been shipped', $order->getRealOrderId()));
+			return 0;
+		}
 	}
 
-	private function array2csv(array &$array,$filename,$delimiter = ';',$encloser = '"',$folder ='var/export/gls/')
+	protected function _saveShipment(Mage_Sales_Model_Order_Shipment $shipment, Mage_Sales_Model_Order $order, $customerEmailComments = '')
 	{
-		if (count($array) == 0) {
-			return null;
-		}
+		$shipment->getOrder()->setIsInProcess(true);
+		$transactionSave = Mage::getModel('core/resource_transaction')
+		->addObject($shipment)
+		->addObject($order)
+		->save();
 
-		if (!file_exists($folder) and !is_dir($folder)) {
-			mkdir($folder);
-		}
+// 		$emailSentStatus = $shipment->getData('email_sent');
+// 		if (!is_null($customerEmail) && !$emailSentStatus) {
+// 			$shipment->sendEmail(true, $customerEmailComments);
+// 			$shipment->setEmailSent(true);
+// 		}
 
-		ob_start();
-		$df = fopen($folder.$filename, 'w+');
-		foreach ($array as $row) {
-			fputcsv($df, $row,$delimiter,$encloser);
-		}
-		fclose($df);
-		return ob_get_clean();
+		return $this;
+	}
+
+	protected function _saveOrder(Mage_Sales_Model_Order $order)
+	{
+// 		$order->setData('state', Mage_Sales_Model_Order::STATE_COMPLETE);
+// 		$order->setData('status', Mage_Sales_Model_Order::STATE_COMPLETE);
+
+		$order->save();
+
+		return $this;
+	}
+
+	protected function addError($message)
+	{
+		Mage::getSingleton('adminhtml/session')->addError($message);
 	}
 
 }

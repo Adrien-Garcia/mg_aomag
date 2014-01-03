@@ -22,7 +22,7 @@
 // moved in app/code/community/Owebia/Shipping2/Model/Carrier/Abstract.php
 //require_once dirname(__FILE__).'/OS2_AddressFilterParser.php';
 
-class OwebiaShippingHelper
+class OwebiaShippingHelper_GLS
 {
 	const FLOAT_REGEX = '[-]?\d+(?:[.]\d+)?';
 	const COUPLE_REGEX = '(?:[0-9.]+|\*) *(?:\[|\])? *\: *[0-9.]+';
@@ -92,24 +92,24 @@ class OwebiaShippingHelper
 		);
 		return $properties;
 	}
-	
+
 	public static function getDefaultProcessData()
 	{
 		return array(
-			'info'				=> new OS2_Data(self::getInfos()),
-			'cart'				=> new OS2_Data(),
-			'quote'				=> new OS2_Data(),
-			'selection'			=> new OS2_Data(),
-			'customer'			=> new OS2_Data(),
-			'customer_group'	=> new OS2_Data(),
-			'customvar'			=> new OS2_Data(),
-			'date'				=> new OS2_Data(),
-			'origin'			=> new OS2_Data(),
-			'shipto'			=> new OS2_Data(),
-			'billto'			=> new OS2_Data(),
-			'store'				=> new OS2_Data(),
-			'request'			=> new OS2_Data(),
-			'address_filter'	=> new OS2_Data(),
+			'info'				=> new OS2_Data_GLS(self::getInfos()),
+			'cart'				=> new OS2_Data_GLS(),
+			'quote'				=> new OS2_Data_GLS(),
+			'selection'			=> new OS2_Data_GLS(),
+			'customer'			=> new OS2_Data_GLS(),
+			'customer_group'	=> new OS2_Data_GLS(),
+			'customvar'			=> new OS2_Data_GLS(),
+			'date'				=> new OS2_Data_GLS(),
+			'origin'			=> new OS2_Data_GLS(),
+			'shipto'			=> new OS2_Data_GLS(),
+			'billto'			=> new OS2_Data_GLS(),
+			'store'				=> new OS2_Data_GLS(),
+			'request'			=> new OS2_Data_GLS(),
+			'address_filter'	=> new OS2_Data_GLS(),
 		);
 	}
 
@@ -251,7 +251,7 @@ class OwebiaShippingHelper
 
 	public function initDebug($code, $process)
 	{
-		$header = 'DEBUG OwebiaShippingHelper.php<br/>';
+		$header = 'DEBUG OwebiaShippingHelper_GLS.php<br/>';
 		foreach ($process as $index => $process_option) {
 			if (in_array($index, array('data', 'options'))) {
 				$header .= '   <span class=osh-key>'.self::esc(str_replace('.', '</span>.<span class=osh-key>', $index)).'</span> &gt;&gt;<br/>';
@@ -287,17 +287,17 @@ class OwebiaShippingHelper
 	{
 		return $this->_config;
 	}
-	
+
 	public function getConfigRow($id)
 	{
 		return isset($this->_config[$id]) ? $this->_config[$id] : null;
 	}
-	
+
 	public function setConfig($config)
 	{
 		return $this->_config = $config;
 	}
-	
+
 	public function getMessages()
 	{
 		$messages = $this->_messages;
@@ -365,14 +365,14 @@ class OwebiaShippingHelper
 	{
 		if (!isset($row['*id'])) {
 			$this->debug('skip row with unknown id');
-			return new OS_Result(false);
+			return new OS_Result_GLS(false);
 		}
 		$this->debug('process row <span class=osh-key>'.self::esc($row['*id']).'</span>');
 
 		if (isset($row['about'])) { // Display on debug
 			$about = $this->getRowProperty($row, 'about');
 		}
-		
+
 		$type = $this->getRowProperty($row, 'type');
 		if ($type=='data') {
 			foreach ($row as $key => $data) {
@@ -380,17 +380,17 @@ class OwebiaShippingHelper
 				$value = isset($data['value']) ? $data['value'] : $data;
 				$this->debug('         .<span class=osh-key>'.self::esc($key).'</span> = <span class=osh-formula>'.self::esc(self::toString($value)).'</span> ('.gettype($value).')');
 			}
-			return new OS_Result(false);
+			return new OS_Result_GLS(false);
 		}
-		if (isset($type) && $type!='method') return new OS_Result(false);
+		if (isset($type) && $type!='method') return new OS_Result_GLS(false);
 
 		if (!isset($row['label']['value'])) $row['label']['value'] = '***';
-		
+
 		$enabled = $this->getRowProperty($row, 'enabled');
 		if (isset($enabled)) {
 			if (!$is_checking && !$enabled) {
 				$this->addMessage('info', $row, 'enabled', 'Configuration disabled');
-				return new OS_Result(false);
+				return new OS_Result_GLS(false);
 			}
 		}
 
@@ -401,7 +401,7 @@ class OwebiaShippingHelper
 				if (!$result->success) return $result;
 				if (!$result->result) {
 					$this->addMessage('info', $row, 'conditions', "The cart doesn't match conditions");
-					return new OS_Result(false);
+					return new OS_Result_GLS(false);
 				}
 			}
 		}
@@ -417,7 +417,7 @@ class OwebiaShippingHelper
 				$match = $this->_addressMatch($process, $row, $property_name, $property_value, $process['data'][$property_name]);
 				if (!$is_checking && !$match) {
 					$this->addMessage('info', $row, $property_name, $failure_message);
-					return new OS_Result(false);
+					return new OS_Result_GLS(false);
 				}
 			}
 		}
@@ -437,7 +437,7 @@ class OwebiaShippingHelper
 			}
 			if (!$is_checking && !$group_match) {
 				$this->addMessage('info', $row, 'customer_groups', "Customer group not allowed (%s)", $customer_group->code);
-				return new OS_Result(false);
+				return new OS_Result_GLS(false);
 			}
 		}
 
@@ -446,9 +446,9 @@ class OwebiaShippingHelper
 			$result = $this->processFormula($process, $row, 'fees', $fees, $is_checking);
 			if (!$result->success) return $result;
 			$this->debug('    &raquo; <span class=osh-info>result</span> = <span class=osh-formula>'.self::esc(self::toString($result->result)).'</span>');
-			return new OS_Result(true, (float)$result->result);
+			return new OS_Result_GLS(true, (float)$result->result);
 		}
-		return new OS_Result(false);
+		return new OS_Result_GLS(false);
 	}
 
 	public function getRowProperty(&$row, $key, $original_row=null, $original_key=null)
@@ -488,7 +488,7 @@ class OwebiaShippingHelper
 		}
 		return $output;
 	}
-	
+
 	public function evalInput($process, $row, $property_name, $input)
 	{
 		$result = $this->_prepareFormula($process, $row, $property_name, $input, $is_checking=false, $use_cache=true);
@@ -507,7 +507,7 @@ class OwebiaShippingHelper
 		}
 		return '$$'.$input;
 	}
-	
+
 	public function uncompress($input)
 	{
 		if (substr($input, 0, 4)=='gz64' && function_exists('gzuncompress') && function_exists('base64_decode')) {
@@ -592,18 +592,18 @@ class OwebiaShippingHelper
 		$eval_result = $this->_evalFormula($result->result, $row, $property_name, $is_checking);
 		if (!$is_checking && !isset($eval_result)) {
 			$this->addMessage('error', $row, $property_name, 'Empty result');
-			$result = new OS_Result(false);
+			$result = new OS_Result_GLS(false);
 			if ($use_cache) $this->_setCache($formula_string, $result);
 			return $result;
 		}
-		$result = new OS_Result(true, $eval_result);
+		$result = new OS_Result_GLS(true, $eval_result);
 		if ($use_cache) $this->_setCache($formula_string, $result);
 		return $result;
 	}
 
 	protected function _setCache($expression, $value)
 	{
-		if ($value instanceof OS_Result) {
+		if ($value instanceof OS_Result_GLS) {
 			$this->_formula_cache[$expression] = $value;
 			$this->debug('      cache <span class=osh-replacement>'.self::esc($expression).'</span> = <span class=osh-formula>'.self::esc(self::toString($value->result)).'</span> ('.gettype($value->result).')');
 		} else {
@@ -644,7 +644,7 @@ class OwebiaShippingHelper
 		if ($debug) $this->debug('      preg_match_all <span class=osh-replacement>'.self::esc($regexp).'</span>');
 		$return = preg_match_all($regexp, $input, $result, PREG_SET_ORDER);
 	}
-	
+
 	protected function _loadValue($process, $object_name, $attribute)
 	{
 		switch ($object_name) {
@@ -661,7 +661,7 @@ class OwebiaShippingHelper
 			$this->debug('      get cached formula <span class=osh-replacement>'.self::esc($formula_string).'</span> = <span class=osh-formula>'.self::esc(self::toString($result->result)).'</span>');
 			return $result;
 		}
-	
+
 		$formula = $formula_string;
 		//$this->debug('      formula = <span class=osh-formula>'.self::esc($formula).'</span>');
 
@@ -750,7 +750,7 @@ class OwebiaShippingHelper
 			}
 			$formula = $this->replace($original, $replacement, $formula);
 		}
-		
+
 		// switch
 		while (preg_match("/{switch ([^}]+) in ([^}]+)}/i", $formula, $result)) {
 			$original = $result[0];
@@ -759,16 +759,16 @@ class OwebiaShippingHelper
 			} else {
 				$reference_value = $this->_evalFormula($result[1], $row, $property_name, $is_checking);
 				$fees_table_string = $result[2];
-				
+
 				$couple_regex = '[^}:]+ *\: *[0-9.]+ *';
 				if (!preg_match('#^ *'.$couple_regex.'(?:, *'.$couple_regex.')*$#', $fees_table_string)) {
 					$this->addMessage('error', $row, $property_name, 'Error in switch %s', '<span class=osh-formula>'.self::esc($result[0]).'</span>');
-					$result = new OS_Result(false);
+					$result = new OS_Result_GLS(false);
 					if ($use_cache) $this->_setCache($formula_string, $result);
 					return $result;
 				}
 				$fees_table = explode(',', $fees_table_string);
-				
+
 				$replacement = null;
 				foreach ($fees_table as $item) {
 					$fee_data = explode(':', $item);
@@ -800,10 +800,10 @@ class OwebiaShippingHelper
 				$replacement = null;
 				if (isset($reference_value)) {
 					$fees_table_string = $result[2];
-					
+
 					if (!preg_match('#^'.self::COUPLE_REGEX.'(?:, *'.self::COUPLE_REGEX.')*$#', $fees_table_string)) {
 						$this->addMessage('error', $row, $property_name, 'Error in table %s', '<span class=osh-formula>'.self::esc($result[0]).'</span>');
-						$result = new OS_Result(false);
+						$result = new OS_Result_GLS(false);
 						if ($use_cache) $this->_setCache($formula_string, $result);
 						return $result;
 					}
@@ -832,7 +832,7 @@ class OwebiaShippingHelper
 			}
 			$formula = $this->replace($original, $replacement, $formula);
 		}
-		$result = new OS_Result(true, $formula);
+		$result = new OS_Result_GLS(true, $formula);
 		return $result;
 	}
 
@@ -880,9 +880,9 @@ class OwebiaShippingHelper
 			array('>', '<', '"', '"', '"', '"', '"', '"', "\n", ' '),
 			$this->_input
 		);
-		
+
 		if (substr($config_string, 0, 2)=='$$') $config_string = $this->uncompress(substr($config_string, 2, strlen($config_string)));
-		
+
 		//echo ini_get('pcre.backtrack_limit');
 		//exit;
 
@@ -1032,13 +1032,13 @@ class OwebiaShippingHelper
 			$this->addMessage('warning', $row, null, $warning);
 		}
 		$config = (array)$config;
-		
+
 		$this->_config = array();
 		$available_keys = array('type', 'about', 'label', 'enabled', 'description', 'fees', 'conditions', 'shipto', 'billto', 'origin', 'customer_groups', 'tracking_url');
 		$reserved_keys = array('*id');
 		if ($auto_correction) {
 			$available_keys = array_merge($available_keys, array(
-				'destination', 'code', 
+				'destination', 'code',
 			));
 		}
 
@@ -1084,7 +1084,7 @@ class OwebiaShippingHelper
 		if (count($unknown_properties)>0) $this->addMessage('error', $row, null, 'Usage of unknown properties %s', ': <span class=osh-key>'.implode('</span>, <span class=osh-key>', $unknown_properties).'</span>');
 		if (count($deprecated_properties)>0) $this->addMessage('warning', $row, null, 'Usage of deprecated properties %s', ': <span class=osh-key>'.implode('</span>, <span class=osh-key>', $deprecated_properties).'</span>');
 	}
-	
+
 	public function addRow($code, &$row)
 	{
 		if ($code) {
@@ -1094,14 +1094,14 @@ class OwebiaShippingHelper
 		$row['*id'] = $code;
 		$this->_config[$code] = $row;
 	}
-	
+
 	public function addMessage($type, &$row, $property)
 	{
 		$args = func_get_args();
 		array_shift($args);
 		array_shift($args);
 		array_shift($args);
-		$message = new OS_Message($type, $args);
+		$message = new OS_Message_GLS($type, $args);
 		if (isset($row)) {
 			if (isset($property)) {
 				$row[$property]['messages'][] = $message;
@@ -1147,9 +1147,9 @@ class OwebiaShippingHelper
 		//$address_filter = '(* - ( europe (FR-(25,26),DE(40,42) ))';
 		//echo '<pre>';
 		$address_filter = $this->_replaceData($process, $address_filter);
-		$parser = new OS2_AddressFilterParser();
+		$parser = new OS2_AddressFilterParser_GLS();
 		$address_filter = $parser->parse($address_filter);
-		
+
 		$this->debug('      address filter = <span class=osh-formula>'.self::esc($address_filter).'</span>');
 		$data = array(
 			'{c}' => $address->country_id,
@@ -1211,7 +1211,7 @@ class OwebiaShippingHelper
 				$return_value = 0;
 				break;
 		}
-		
+
 		$this->debug('      <span class=osh-loop>start <span class=osh-replacement>'.self::esc($operation).'</span> '
 			.'<span class=osh-key>'.self::esc($reference).'</span>'
 			.(isset($conditions) ? ' where <span class=osh-replacement>'.self::esc($conditions).'</span></span>' : '')
@@ -1278,7 +1278,7 @@ class OwebiaShippingHelper
 
 		return $return_value;
 	}
-	
+
 	/* For auto correction */
 	public function cleanProperty(&$row, $key)
 	{
@@ -1397,7 +1397,7 @@ class OwebiaShippingHelper
 
 }
 
-class OS2_Data
+class OS2_Data_GLS
 {
 	protected $_data;
 
@@ -1422,7 +1422,7 @@ class OS2_Data
 	}
 }
 
-class OS_Message
+class OS_Message_GLS
 {
 	public $type;
 	public $message;
@@ -1434,14 +1434,14 @@ class OS_Message
 		$this->message = array_shift($args);
 		$this->args = $args;
 	}
-	
+
 	public function __toString()
 	{
 		return vsprintf($this->message, $this->args);
 	}
 }
 
-class OS_Result
+class OS_Result_GLS
 {
 	public $success;
 	public $result;
@@ -1454,7 +1454,7 @@ class OS_Result
 
 	public function __toString()
 	{
-		return OwebiaShippingHelper::toString($this->result);
+		return OwebiaShippingHelper_GLS::toString($this->result);
 	}
 }
 

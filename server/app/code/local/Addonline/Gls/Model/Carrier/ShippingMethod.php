@@ -31,12 +31,12 @@
 // Pour gérer les cas où il y a eu compilation
 if (file_exists(dirname(__FILE__).'/Addonline_Gls_Model_Carrier_GlsShippingHelper.php')) {
 	include_once 'Addonline_Gls_Model_Carrier_GlsShippingHelper.php';
-	include_once 'Owebia_Shipping2_includes_OS2_AddressFilterParser.php';
-	include_once 'Owebia_Shipping2_includes_OwebiaShippingHelper.php';
+	include_once 'Owebia_Shipping2_includes_OS2_AddressFilterParser_GLS.php';
+	include_once 'Owebia_Shipping2_includes_OwebiaShippingHelper_GLS.php';
 } else {
 	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/Model/Carrier/GlsShippingHelper.php';
-	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/owebia_includes/OS2_AddressFilterParser.php';
-	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/owebia_includes/OwebiaShippingHelper.php';
+	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/owebia_includes/OS2_AddressFilterParser_GLS.php';
+	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/owebia_includes/OwebiaShippingHelper_GLS.php';
 }
 
 /*
