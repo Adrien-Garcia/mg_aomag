@@ -27,7 +27,7 @@ class Addonline_Gls_Model_Import {
 		while($file = readdir($dir)) {
 			if($file != '.' && $file != '..' && !is_dir($importFolder.$file) && strpos($file,'GlsWinExpe6_') !== FALSE)
 			{
-
+				$aOrdersUpdated = array();
 				// Parcour du fichier
 				if (($handle = fopen($importFolder.DS.$file, "r")) !== FALSE) {
 					$row = 0;
@@ -42,10 +42,17 @@ class Addonline_Gls_Model_Import {
   										->getFirstItem();
 
 							// On met à jour le trackid avec le champ 18
-							if($order){
+							if($order && !isset($aOrdersUpdated[$data[4]])){
 								$order->setGlsTrackid($data[17]);
 								$order->save();
+								$aOrdersUpdated[$data[4]] = 1;
 								$count++;
+								continue;
+							}
+
+							if($order && $aOrdersUpdated[$data[4]]){
+								$order->setGlsTrackid($order->getGlsTrackid().','.$data[17]);
+								$order->save();
 							}
 
 						}
