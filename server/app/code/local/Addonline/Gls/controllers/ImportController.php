@@ -1,12 +1,11 @@
 <?php
 /**
- * LaPoste_ExpeditorINet
+ * Addonline_GLS
  *
- * @category    LaPoste
- * @package     LaPoste_ExpeditorINet
- * @copyright   Copyright (c) 2010 La Poste
- * @author 	    Smile (http://www.smile.fr) & Jibé
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Addonline
+ * @package     Addonline_GLS
+ * @copyright   Copyright (c) 2013 GLS
+ * @author 	    Addonline (http://www.addonline.fr)
  */
 class Addonline_Gls_ImportController extends Mage_Adminhtml_Controller_Action
 {
