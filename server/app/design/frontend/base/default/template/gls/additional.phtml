@@ -10,38 +10,56 @@
 Translator.add('Update my relay point','<?php echo __("Update my relay point"); ?>');
 Translator.add('Please provide a valide phone number.','<?php echo __("Please provide a valide phone number."); ?>');
            
+if (aoGoToShippingMethodHooks == undefined) {
+	var aoGoToShippingMethodHooks = new Array();
+}
+// initGlsLogos : fonction définie dans gls.js, appellée dans le hokk ci-dessous, pour charger les logos GLS 
+aoGoToShippingMethodHooks[aoGoToShippingMethodHooks.length] = initGlsLogos;
 if ((typeof Checkout) != "undefined") {
-	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'affichage des pictos et descriptions Socolissimo
-	Checkout.prototype.setStepResponse = function() {
-
-		if (response.update_section) {
-	    	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
-			//AJOUT pour GLS
-	    	if (response.update_section.name == 'shipping-method') {
-	    		initGlsLogos();
+<?php if (version_compare(Mage::getVersion(), '1.8', '>=')) : ?>
+	//On surchage la methode gotoSection de Checkout (voir opcheckout.js) : surcharge identique dans les modules addonline : socolissimo, GLS pour être compatible si on utilise les deux modules 
+	Checkout.prototype.gotoSection = function (section, reloadProgressBlock) 
+	{
+	 		if (reloadProgressBlock) {
+	            this.reloadProgressBlock(this.currentStep);
+	        }
+			//HOOK pour modules de livraison
+	    	if (section == 'shipping_method') {
+	    		for (i=0;i<aoGoToShippingMethodHooks.length;i++){
+	    			aoGoToShippingMethodHooks[i]();
+	    		} 
 	    	}
-	    }
-	    if (response.allow_sections) {
-	        response.allow_sections.each(function(e){
-	            $('opc-'+e).addClassName('allow');
-	        });
-	    }
-
-	    if(response.duplicateBillingInfo)
-	    {
-	        shipping.setSameAsBilling(true);
-	    }
-
-	    if (response.goto_section) {
-	        this.gotoSection(response.goto_section);
-	        return true;
-	    }
-	    if (response.redirect) {
-	        location.href = response.redirect;
-	        return true;
-	    }
-	    return false;
-	}
+	    	//Après le choix du mode de livraison il faut aussi recharger l'adresse de livraison car on a pu choisir un relais
+			if (section == 'payment') {
+	    		this.reloadProgressBlock('shipping');
+	    	}
+	    	this.currentStep = section;
+	        var sectionElement = $('opc-' + section);
+	        sectionElement.addClassName('allow');
+	        this.accordion.openSection('opc-' + section);
+	        if(!reloadProgressBlock) {
+	            this.resetPreviousSteps();
+	     }
+    }
+<?php else : ?>
+	Checkout.prototype.gotoSection = function (section)
+    {
+		//HOOK pour modules de livraison
+    	if (section == 'shipping_method') {
+    		for (i=0;i<aoGoToShippingMethodHooks.length;i++){
+    			aoGoToShippingMethodHooks[i]();
+    		} 
+    	}
+    	//Après le choix du mode de livraison il faut aussi recharger l'adresse de livraison car on a pu choisir un relais
+		if (section == 'payment') {
+    		this.reloadProgressBlock('shipping');
+    	}
+    	var sectionElement = $('opc-'+section);
+        sectionElement.addClassName('allow');
+        this.accordion.openSection('opc-'+section);
+        this.reloadProgressBlock(section);
+    }
+<?php endif; ?>    
 }
 //]]>
 </script>

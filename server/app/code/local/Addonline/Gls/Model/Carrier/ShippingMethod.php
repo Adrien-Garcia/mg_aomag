@@ -273,6 +273,10 @@ class Addonline_Gls_Model_Carrier_ShippingMethod extends Mage_Shipping_Model_Car
 		return $this->getRates($process);
 	}
 
+	public function isTrackingAvailable() {
+		return true;
+	}
+	
 	public function getRates($process) {
 		$this->_process($process);
 		return $process['result'];
