@@ -31,14 +31,20 @@ Livraison dans l'un des commerces de proximité du réseau BPOST en Belgique.
 <script type="text/javascript">
 //<![CDATA[       
 var socolissimoBaseUrl = '<?php echo $this->getUrl('socolissimo/ajax/') ?>';
+if (aoCheckoutsetStepResponseHooks == undefined) {
+	var aoCheckoutsetStepResponseHooks = new Array();
+}
+aoCheckoutsetStepResponseHooks[aoCheckoutsetStepResponseHooks.length] = initSocolissimoLogos;
 if ((typeof Checkout) != "undefined") {
-	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'affichage des pictos et descriptions Socolissimo
+	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'appel au fonctions définies dans aoCheckoutsetStepResponseHooks
 	Checkout.prototype.setStepResponse = function() {
 		if (response.update_section) {
 	    	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
-			//AJOUT pour Socolissimo
+			//HOOK pour modules de livraison
 	    	if (response.update_section.name == 'shipping-method') {
-	    		initSocolissimoLogos();
+	    		for (i=0;i<aoCheckoutsetStepResponseHooks.length;i++){
+	    			aoCheckoutsetStepResponseHooks[i]();
+	    		} 
 	    	}
 	    }
 	    if (response.allow_sections) {
@@ -49,11 +55,12 @@ if ((typeof Checkout) != "undefined") {
 	
 	    if(response.duplicateBillingInfo)
 	    {
-	        shipping.setSameAsBilling(true);
+	    	this.syncBillingShipping = true;
+	    	shipping.setSameAsBilling(true);
 	    }
 	
 	    if (response.goto_section) {
-	        this.gotoSection(response.goto_section);
+	        this.gotoSection(response.goto_section, true);
 	        return true;
 	    }
 	    if (response.redirect) {
