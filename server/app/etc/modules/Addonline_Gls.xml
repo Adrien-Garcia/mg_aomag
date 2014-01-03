@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Addonline_Gls
+ * 
+ * @category    Addonline
+ * @package     Addonline_Gls
+ * @copyright   Copyright (c) 2013 GLS
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+-->
+<config>
+    <modules>
+        <Addonline_Gls>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Shipping />
+            </depends>
+        </Addonline_Gls>
+    </modules>
+</config>

@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Addonline_GLS
+ * 
+ * @category    Addonline
+ * @package     Addonline_GLS
+ * @copyright   Copyright (c) 2013 GLS
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+-->
+<config>
+    <modules>
+        <Addonline_Gls>
+            <version>0.1.0</version>
+            <depends>
+                <Mage_Shipping />
+            </depends>
+        </Addonline_Gls>
+    </modules>
+    
+    <global>
+        <blocks>
+            <gls><class>Addonline_Gls_Block</class></gls>
+        </blocks>
+        <helpers>
+            <gls><class>Addonline_Gls_Helper</class></gls>
+        </helpers>
+    	<!-- <resources>
+    		<gls_setup>
+                <setup>
+                    <module>Addonline_Gls</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+    		</gls_setup>
+    	</resources> -->   
+    	<models>
+            <gls>
+                <class>Addonline_Gls_Model</class>                
+            </gls>
+        </models> 
+        <resources>
+            <gls_setup>
+                <setup>
+                    <module>Addonline_Gls</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+            </gls_setup>
+        </resources>
+    	<events> 
+<!--            <sales_quote_collect_totals_before>
+                <observers>
+                    <Addonline_Gls_Model_Observer>
+                        <type>singleton</type>
+                        <class>gls/observer</class>
+                        <method>checkoutEventGlsdata</method>
+                    </Addonline_Gls_Model_Observer>
+                </observers> 
+            </sales_quote_collect_totals_before> -->
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <Addonline_Gls_Model_Observer>
+                        <type>singleton</type>
+                        <class>gls/observer</class>
+                        <method>setShippingRelayAddress</method>
+                    </Addonline_Gls_Model_Observer>
+                </observers>
+            </sales_quote_collect_totals_before>    
+            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <Addonline_Gls_Model_Observer>
+                        <type>singleton</type>
+                        <class>gls/observer</class>
+                        <method>addGlsInformationsToOrder</method>
+                    </Addonline_Gls_Model_Observer>
+                </observers>
+            </checkout_type_onepage_save_order_after>   
+        </events>  
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <gls module="Addonline_Gls">
+                    <file>gls.xml</file>
+                </gls>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Addonline_Gls>
+                    <files>
+                        <shipping>Mage_Shipping.csv</shipping>
+                        <default>Addonline_Gls.csv</default>
+                    </files>
+                </Addonline_Gls>
+            </modules>
+        </translate>                  
+    </frontend>
+    <admin>
+        <routers>
+            <gls>
+                <use>admin</use>
+                <args>
+                    <module>Addonline_Gls</module>
+                    <frontName>gls</frontName>
+                </args>
+            </gls>
+        </routers>
+    </admin>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Addonline_Gls>
+                    <files>
+                        <shipping>Mage_Shipping.csv</shipping>
+                        <default>Addonline_Gls.csv</default>
+                    </files>
+                </Addonline_Gls>
+            </modules>
+        </translate>
+        <menu>             
+            <gls module="gls">
+                <title>GLS export/import</title>
+                <sort_order>99</sort_order>
+                <children>
+                    <export translate="title" module="gls">
+                        <title>Export orders</title>
+                        <sort_order>0</sort_order>
+                        <action>gls/export</action> 
+                    </export>
+                    <import translate="title" module="gls">
+                        <title>Import orders</title>
+                        <sort_order>0</sort_order>
+                        <action>gls/import</action> 
+                    </import>                    
+                </children>
+                <depends>
+                    <config>carriers/gls/importexport</config>
+                </depends>  
+            </gls>                  
+        </menu>
+    </adminhtml>
+    <default>
+        <carriers>
+            <gls>
+                <active>0</active>
+                <maxrelayweight>20</maxrelayweight>
+                <maxxlrelayweight>30</maxxlrelayweight>                                        
+                <config></config>
+                <model>Addonline_Gls_Model_Carrier_ShippingMethod</model>
+                <tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match=</tracking_view_url>
+                <export_folder>var/export/gls/</export_folder>
+                <import_folder>var/import/gls/</import_folder>            
+                <sort_order>1</sort_order>
+            </gls>
+        </carriers>
+    </default>
+</config>

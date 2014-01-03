@@ -27,6 +27,14 @@
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
 					<fields>
+					    <informations translate="label">
+                            <label>Informations</label>
+                            <frontend_model>socolissimo/adminhtml_system_config_form_field_informations</frontend_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </informations> 
 						<active translate="label">
 							<label>Enabled</label>
 							<frontend_type>select</frontend_type>
