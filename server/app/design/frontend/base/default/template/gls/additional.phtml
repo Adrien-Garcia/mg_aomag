@@ -10,15 +10,20 @@
 Translator.add('Update my relay point','<?php echo __("Update my relay point"); ?>');
 Translator.add('Please provide a valide phone number.','<?php echo __("Please provide a valide phone number."); ?>');
            
+if (aoCheckoutsetStepResponseHooks == undefined) {
+	var aoCheckoutsetStepResponseHooks = new Array();
+}
+aoCheckoutsetStepResponseHooks[aoCheckoutsetStepResponseHooks.length] = initGlsLogos;
 if ((typeof Checkout) != "undefined") {
-	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'affichage des pictos et descriptions Socolissimo
+	//On surchage la methode setStepResponse de Checkout (voir opcheckout.js) pour forcer l'appel au fonctions définies dans aoCheckoutsetStepResponseHooks
 	Checkout.prototype.setStepResponse = function() {
-
 		if (response.update_section) {
 	    	$('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
-			//AJOUT pour GLS
+			//HOOK pour modules de livraison
 	    	if (response.update_section.name == 'shipping-method') {
-	    		initGlsLogos();
+	    		for (i=0;i<aoCheckoutsetStepResponseHooks.length;i++){
+	    			aoCheckoutsetStepResponseHooks[i]();
+	    		} 
 	    	}
 	    }
 	    if (response.allow_sections) {
@@ -26,14 +31,15 @@ if ((typeof Checkout) != "undefined") {
 	            $('opc-'+e).addClassName('allow');
 	        });
 	    }
-
+	
 	    if(response.duplicateBillingInfo)
 	    {
-	        shipping.setSameAsBilling(true);
+	    	this.syncBillingShipping = true;
+	    	shipping.setSameAsBilling(true);
 	    }
-
+	
 	    if (response.goto_section) {
-	        this.gotoSection(response.goto_section);
+	        this.gotoSection(response.goto_section, true);
 	        return true;
 	    }
 	    if (response.redirect) {
