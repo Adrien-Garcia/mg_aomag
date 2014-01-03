@@ -28,4 +28,12 @@ $this->addAttribute('order', 'gls_warn_by_phone', array(
 		'input'    => 'text',
 ));
 
+$this->addAttribute('order', 'gls_trackid', array(
+		'type'     => 'varchar',
+		'label'    => 'Trackid',
+		'visible'  => true,
+		'required' => false,
+		'input'    => 'text',
+));
+
 $installer->endSetup();
