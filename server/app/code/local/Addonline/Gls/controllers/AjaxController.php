@@ -73,4 +73,10 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
    		$this->getLayout()->getBlock('content')->append($block);
    		$this->renderLayout();
     }
+
+    public function saveInSessionRelayInformationsAction(){
+    	if(count($_GET)){
+    		Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',$_GET);
+    	}
+    }
 }
