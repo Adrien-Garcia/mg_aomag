@@ -1,22 +1,21 @@
 <?php
 /**
- * LaPoste_ExpeditorINet
- * 
- * @category    LaPoste
- * @package     LaPoste_ExpeditorINet
- * @copyright   Copyright (c) 2010 La Poste
- * @author 	    Smile (http://www.smile.fr) & Jibé
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * Addonline_GLS
+ *
+ * @category    Addonline
+ * @package     Addonline_GLS
+ * @copyright   Copyright (c) 2013 GLS
+ * @author 	    Addonline (http://www.addonline.fr)
  */
-class LaPoste_ExpeditorINet_ImportController extends Mage_Adminhtml_Controller_Action
+class Addonline_Gls_ImportController extends Mage_Adminhtml_Controller_Action
 {
 
     /**
      * Constructor
      */
     protected function _construct()
-    {        
-        $this->setUsedModuleName('LaPoste_ExpeditorINet');
+    {
+        $this->setUsedModuleName('Addonline_Gls');
     }
 
     /**
@@ -25,8 +24,8 @@ class LaPoste_ExpeditorINet_ImportController extends Mage_Adminhtml_Controller_A
     public function indexAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('sales/expeditorinet/import')
-            ->_addContent($this->getLayout()->createBlock('expeditorinet/import_form'))
+            ->_setActiveMenu('gls/import')
+            ->_addContent($this->getLayout()->createBlock('gls/import_form'))
             ->renderLayout();
     }
 
@@ -35,23 +34,15 @@ class LaPoste_ExpeditorINet_ImportController extends Mage_Adminhtml_Controller_A
      */
     public function importAction()
     {
-        if ($this->getRequest()->isPost() && !empty($_FILES['import_expeditor_inet_file']['tmp_name'])) {
-            try {
-                $trackingTitle = $_POST['import_expeditor_inet_tracking_title'];
-                Mage::getModel('expeditorinet/import')->importExpeditorInetFile($_FILES['import_expeditor_inet_file']['tmp_name'], $trackingTitle);
-            }
-            catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            }
-            catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-                $this->_getSession()->addError($this->__('Invalid file upload attempt'));
-            }
+        $import = Mage::getModel('gls/import');
+        $nbr_imported = $import->import();
+
+        if($nbr_imported){
+        	Mage::getSingleton('adminhtml/session')->addSuccess($nbr_imported.' '.$this->__('Orders have been imported'));
+        }else{
+        	Mage::getSingleton('adminhtml/session')->addError($this->__('No orders to import in the folder ').Mage::helper('gls')->getImportFolder());
         }
-        else {
-            $this->_getSession()->addError($this->__('Invalid file upload attempt'));
-        }
-        $this->_redirect('*/*/index');
+        $this->_redirect('*/*/');
     }
 
 

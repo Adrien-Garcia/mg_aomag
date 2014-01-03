@@ -17,4 +17,8 @@ class Addonline_Gls_Helper_Data extends Mage_Core_Helper_Abstract
 		return Mage::getStoreConfig('carriers/gls/export_folder');
 	}
 
+	public function getImportFolder(){
+		return Mage::getStoreConfig('carriers/gls/import_folder');
+	}
+
 }

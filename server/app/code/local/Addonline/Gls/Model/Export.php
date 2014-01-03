@@ -10,34 +10,10 @@ class Addonline_Gls_Model_Export {
 	public $fileCharset;
 
 	public function run() {
-
 		Mage::log('run GLS export', null, self::LOG_FILE);
-
 		if ( !Mage::getStoreConfig('carrier/gls/export')) {
 			return;
 		}
-
-		/* $collection = Mage::getResourceModel('sales/order_collection');
-		//on exclue les commandes expédiées, annulées et bloquées
-		$collection->addAttributeToFilter('state', array('nin'=>array('complete', 'canceled', 'holded')) );
-		//on exclue les commandes déjà exportées vers expeditor
-		$collection->addAttributeToFilter('expeditorinet', 0);
-		//Mage::log($collection->getSelect()->__toString(), null, self::LOG_FILE);
-
-		if ($collection->getSize()>0) {
-
-			$this->export($collection);
-
-			$this->_write();
-
-			foreach ($collection as $order) {
-				$order->setExpeditorinet(true);
-				$order->save();
-			}
-
-		} else {
-			//Mage::log("Export : ".Mage::helper('expeditorinet')->__('No Order has been selected'), null, self::LOG_FILE);
-		} */
 	}
 
 	public function export($collection){
@@ -144,7 +120,7 @@ class Addonline_Gls_Model_Export {
 			$this->array2csv($aOrdersToExport, $this->filename,$delimiter,$encloser,$exportFolder);
 
 		} else {
-			Mage::log("Export : ".Mage::helper('expeditorinet')->__('No Order has been selected'), null, self::LOG_FILE);
+			Mage::log("Export : ".Mage::helper('gls')->__('No Order has been selected'), null, self::LOG_FILE);
 		}
 
 
