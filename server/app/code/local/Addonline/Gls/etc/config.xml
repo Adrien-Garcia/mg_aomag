@@ -143,7 +143,32 @@
     <default>
         <carriers>
             <gls>
+                <title>GLS</title>
                 <active>0</active>
+                <livraisontohome>1</livraisontohome>
+                <configtohome><![CDATA[
+{
+ label: "GLS to home",
+ code: "tohome_fr",
+ destination: "FR,MC,AD",
+ fees: "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
+}]]></configtohome>
+                <livraisontoyou>1</livraisontoyou>
+                <configtoyou><![CDATA[
+{
+ label: "GLS to you",
+ code: "toyou_fr",
+ destination: "FR,MC,AD",
+ fees: "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
+}]]></configtoyou>
+                <livraisonrelay>1</livraisonrelay>
+                <configrelay><![CDATA[
+{
+ label: "GLS Relay",
+ code: "relay_fr",
+ destination: "FR,MC,AD",
+ fees: "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
+}]]></configrelay>
                 <maxrelayweight>20</maxrelayweight>
                 <maxxlrelayweight>30</maxxlrelayweight>                                        
                 <config></config>
