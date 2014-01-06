@@ -121,8 +121,6 @@ class Addonline_Gls_Model_Import {
 					'number' => $trackcode,
 			);
 
-			Mage::log($arrTracking, null, self::LOG_FILE);
-
 			$track = Mage::getModel('sales/order_shipment_track')->addData($arrTracking);
 			$shipment->addTrack($track);
 

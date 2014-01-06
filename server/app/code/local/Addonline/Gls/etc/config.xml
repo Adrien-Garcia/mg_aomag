@@ -38,6 +38,11 @@
             <gls>
                 <class>Addonline_Gls_Model</class>                
             </gls>
+            <sales>
+                <rewrite>
+                    <quote_address>Addonline_Gls_Model_Sales_Quote_Address</quote_address>
+                </rewrite>
+            </sales>
         </models> 
         <resources>
             <gls_setup>
@@ -153,6 +158,7 @@
  destination: "FR,MC,AD",
  fees: "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
 }]]></configtohome>
+                <ordertohome>1</ordertohome>
                 <livraisontoyou>1</livraisontoyou>
                 <configtoyou><![CDATA[
 {
@@ -161,6 +167,7 @@
  destination: "FR,MC,AD",
  fees: "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
 }]]></configtoyou>
+                <ordertoyou>2</ordertoyou>
                 <livraisonrelay>1</livraisonrelay>
                 <configrelay><![CDATA[
 {
@@ -169,6 +176,7 @@
  destination: "FR,MC,AD",
  fees: "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
 }]]></configrelay>
+                <orderrelay>3</orderrelay>
                 <maxrelayweight>20</maxrelayweight>
                 <maxxlrelayweight>30</maxxlrelayweight>                                        
                 <model>Addonline_Gls_Model_Carrier_ShippingMethod</model>

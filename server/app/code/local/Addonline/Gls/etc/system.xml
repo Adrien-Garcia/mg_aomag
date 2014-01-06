@@ -87,11 +87,20 @@
 							<show_in_store>1</show_in_store>
 							<depends><livraisontohome>1</livraisontohome></depends>
 						</configtohome>
+						<ordertohome translate="label">
+                            <label>To home order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><livraisontohome>1</livraisontohome></depends>
+                        </ordertohome>                        
 						<livraisontoyou translate="label">
                             <label>GLS delivery to you</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>6</sort_order>
+                            <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -100,17 +109,26 @@
                             <label>To you configuration</label>
                             <frontend_model>gls/adminhtml_system_config_form_field_config</frontend_model>
                             <frontend_type>textarea</frontend_type>
-                            <sort_order>7</sort_order>
+                            <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><livraisontoyou>1</livraisontoyou></depends>
                         </configtoyou>
+                        <ordertoyou translate="label">
+                            <label>To you order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><livraisontoyou>1</livraisontoyou></depends>
+                        </ordertoyou>   
                         <livraisonrelay translate="label">
                             <label>GLS delivery relay</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>8</sort_order>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -119,16 +137,25 @@
                             <label>Relay configuration</label>
                             <frontend_model>gls/adminhtml_system_config_form_field_config</frontend_model>
                             <frontend_type>textarea</frontend_type>
-                            <sort_order>9</sort_order>
+                            <sort_order>11</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><livraisonrelay>1</livraisonrelay></depends>
                         </configrelay>
+                        <orderrelay translate="label">
+                            <label>Relay order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><livraisonrelay>1</livraisonrelay></depends>
+                        </orderrelay>   
                         <maxrelayweight translate="label">
                             <label>Maximum weight for articles in standard relays</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>10</sort_order>
+                            <sort_order>13</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -136,7 +163,7 @@
                         <maxxlrelayweight translate="label">
                             <label>Maximum weight for articles in XL relays</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>11</sort_order>
+                            <sort_order>14</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -144,7 +171,7 @@
 						<tracking_view_url translate="label">
 							<label>Tracking URL</label>
 							<frontend_type>text</frontend_type>
-							<sort_order>12</sort_order>
+							<sort_order>15</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -153,7 +180,7 @@
                             <label>Export and import functions</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>13</sort_order>
+                            <sort_order>16</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -161,7 +188,7 @@
                         <export_folder translate="label">
                             <label>Export folder</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>14</sort_order>
+                            <sort_order>17</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -170,7 +197,7 @@
                         <import_folder translate="label">
                             <label>Import folder</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>15</sort_order>
+                            <sort_order>18</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -181,7 +208,7 @@
                             <comment>{debug_help}</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>16</sort_order>
+                            <sort_order>19</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -190,7 +217,7 @@
                             <label>Display when unavailable</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>17</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -199,7 +226,7 @@
                             <label>Stop to first match</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>18</sort_order>
+                            <sort_order>21</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
