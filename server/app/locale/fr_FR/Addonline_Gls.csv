@@ -33,3 +33,4 @@
 "Import tracking","Importer les numéros de suivi"
 "{debug_help}","Affichage du debug sur le panier lors d'une estimation de livraison"
 "{importexport_help}","Après enregistrement du changement de valeur, il faut se déconnecter et se reconnecter afin de faire apparaitre le nouveau menu"
+"Your parameters for GSL Webservice might be wrong, or the webservice is down","Vos paramètres pour le webservice GSL sont éronnés, ou alors le webservice ne répond pas"

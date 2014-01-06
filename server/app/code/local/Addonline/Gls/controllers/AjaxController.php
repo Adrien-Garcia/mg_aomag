@@ -37,29 +37,35 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
 
    		$listrelais = Mage::getSingleton('gls/service')->getRelayPointsForZipCode($zipcode, $country);
 
-   		foreach($listrelais->SearchResults as $key => $pointRelais){
+   		if(!isset($listrelais->SearchResults)){
+   			echo $this->__('Your parameters for GSL Webservice might be wrong, or the webservice is down');
+   			Mage::log($listrelais,null,'gls.log');
+   		}else{
 
-   			$aRelay = array();
-   			$aRelay['relayId'] = $pointRelais->Parcelshop->ParcelShopId;
-   			$aRelay['relayName'] = $pointRelais->Parcelshop->Address->Name1.' '.$pointRelais->Parcelshop->Address->Name2.' '.$pointRelais->Parcelshop->Address->Name3;
-			$aRelay['relayAddress'] = $pointRelais->Parcelshop->Address->Street1.' '.$pointRelais->Parcelshop->Address->BlockNo1.' '.$pointRelais->Parcelshop->Address->Street2.' '.$pointRelais->Parcelshop->Address->BlockNo2;
-			$aRelay['relayZipCode'] = $pointRelais->Parcelshop->Address->ZipCode;
-			$aRelay['relayCity'] = $pointRelais->Parcelshop->Address->City;
-			$aRelay['relayCountry'] = $pointRelais->Parcelshop->Address->Country;
-			$aRelay['relayLatitude'] = $pointRelais->Parcelshop->GLSCoordinates->Latitude;
-			$aRelay['relayLongitude'] = $pointRelais->Parcelshop->GLSCoordinates->Longitude;
+	   		foreach($listrelais->SearchResults as $key => $pointRelais){
 
-			$relayWorkingDays = array();
-			for($i = 0; $i < 6; $i++) {
-				if(isset($pointRelais->Parcelshop->GLSWorkingDay[$i])){
-					$relayWorkingDays[$i]['hours']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
-					$relayWorkingDays[$i]['hours']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->To;
-					$relayWorkingDays[$i]['breaks']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->From;
-					$relayWorkingDays[$i]['breaks']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->To;
-				}
- 			}
- 			$aRelay['relayWorkingDays'] = $relayWorkingDays;
- 			$aPointsRelais[$pointRelais->Parcelshop->ParcelShopId] = $aRelay;
+	   			$aRelay = array();
+	   			$aRelay['relayId'] = $pointRelais->Parcelshop->ParcelShopId;
+	   			$aRelay['relayName'] = $pointRelais->Parcelshop->Address->Name1.' '.$pointRelais->Parcelshop->Address->Name2.' '.$pointRelais->Parcelshop->Address->Name3;
+				$aRelay['relayAddress'] = $pointRelais->Parcelshop->Address->Street1.' '.$pointRelais->Parcelshop->Address->BlockNo1.' '.$pointRelais->Parcelshop->Address->Street2.' '.$pointRelais->Parcelshop->Address->BlockNo2;
+				$aRelay['relayZipCode'] = $pointRelais->Parcelshop->Address->ZipCode;
+				$aRelay['relayCity'] = $pointRelais->Parcelshop->Address->City;
+				$aRelay['relayCountry'] = $pointRelais->Parcelshop->Address->Country;
+				$aRelay['relayLatitude'] = $pointRelais->Parcelshop->GLSCoordinates->Latitude;
+				$aRelay['relayLongitude'] = $pointRelais->Parcelshop->GLSCoordinates->Longitude;
+
+				$relayWorkingDays = array();
+				for($i = 0; $i < 6; $i++) {
+					if(isset($pointRelais->Parcelshop->GLSWorkingDay[$i])){
+						$relayWorkingDays[$i]['hours']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
+						$relayWorkingDays[$i]['hours']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->To;
+						$relayWorkingDays[$i]['breaks']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->From;
+						$relayWorkingDays[$i]['breaks']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->To;
+					}
+	 			}
+	 			$aRelay['relayWorkingDays'] = $relayWorkingDays;
+	 			$aPointsRelais[$pointRelais->Parcelshop->ParcelShopId] = $aRelay;
+	   		}
    		}
 
    		// Creation du block
