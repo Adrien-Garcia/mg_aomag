@@ -57,7 +57,7 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 			Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
 			$billingAddress = $quote->getBillingAddress();
 			$shippingMethod = $shippingAddress->getShippingMethod();
-			if(strpos($shippingMethod,'gls_relay') !== false){
+			if(strpos($shippingMethod,'gls_relay') === false){
 				$shippingAddress->setData('prefix', $billingAddress->getData('prefix'));
 				$shippingAddress->setData('firstname', $billingAddress->getData('firstname'));
 				$shippingAddress->setData('company', $billingAddress->getData('company'));
