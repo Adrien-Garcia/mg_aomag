@@ -37,7 +37,8 @@ class Addonline_Gls_Model_Import {
 					while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 						$num = count($data);
 						$row++;
-						if($row > 1){
+						if($row > 1 && isset($data[4]) && $data[4]){
+
 							// On récupère le champ 5 qui contient le numéro de la commande
 							$order = Mage::getModel('sales/order')
   										->getCollection()
