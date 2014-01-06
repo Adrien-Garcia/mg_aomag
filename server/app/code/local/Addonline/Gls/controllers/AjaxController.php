@@ -36,14 +36,17 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
    		$country   = $this->getRequest()->getParam('country', false);
 
    		$listrelais = Mage::getSingleton('gls/service')->getRelayPointsForZipCode($zipcode, $country);
-
    		if(!isset($listrelais->SearchResults)){
    			echo $this->__('Your parameters for GSL Webservice might be wrong, or the webservice is down');
    			Mage::log($listrelais,null,'gls.log');
    		}else{
 
+   			$onlyxlrelay = Mage::getStoreConfig('carriers/gls/onlyxlrelay');
 	   		foreach($listrelais->SearchResults as $key => $pointRelais){
 
+ 	   			if($onlyxlrelay && substr($pointRelais->Parcelshop->Address->Name1,strlen($pointRelais->Parcelshop->Address->Name1)-2,strlen($pointRelais->Parcelshop->Address->Name1)) != 'XL'){
+ 	   				continue;
+ 	   			}
 	   			$aRelay = array();
 	   			$aRelay['relayId'] = $pointRelais->Parcelshop->ParcelShopId;
 	   			$aRelay['relayName'] = $pointRelais->Parcelshop->Address->Name1.' '.$pointRelais->Parcelshop->Address->Name2.' '.$pointRelais->Parcelshop->Address->Name3;
