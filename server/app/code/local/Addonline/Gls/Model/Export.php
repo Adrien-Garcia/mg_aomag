@@ -50,7 +50,7 @@ class Addonline_Gls_Model_Export {
 					$shippingAddress = $order->getShippingAddress();
 
 					// ORDERID
-					$aRow[] = $order->getId();
+					$aRow[] = $order->getIncrementId();
 
 					// ORDERNAME
 					$aRow[] = $shippingAddress->getFirstname().' '.$shippingAddress->getLastname();
