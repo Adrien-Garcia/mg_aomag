@@ -142,7 +142,7 @@ function shippingGLSRadioCheck(element) {
 	if(typeGls == "relay"){
 		//on affiche le picto de chargement étape suivante du opc
 		jQuery("#shipping-method-please-wait").show();		
-		url = "/gls/ajax/selector/"			
+		url = glsBaseUrl + "selector/"			
 			jQuery.ajax({
 				url: url,
 				success: function(data){					
@@ -187,7 +187,7 @@ function changeMap() {
 
 function loadListePointRelais() {	
 	if(jQuery("#cp_recherche").val()){
-		url = "/gls/ajax/listPointsRelais"
+		url = glsBaseUrl + "listPointsRelais"
 		url = url + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
 		jQuery.ajax({
 			url: url,
@@ -356,7 +356,7 @@ function choisirRelaisGLS(index) {
 		var warnbyphone = 0;
 	}
 	
-	url = "/gls/ajax/saveInSessionRelayInformations/"		
+	url = glsBaseUrl + "saveInSessionRelayInformations/"		
 	jQuery.ajax({
 		url: url,
 		data: {                             // <-- just pass an object

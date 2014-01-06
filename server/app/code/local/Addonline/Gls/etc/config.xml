@@ -171,7 +171,6 @@
 }]]></configrelay>
                 <maxrelayweight>20</maxrelayweight>
                 <maxxlrelayweight>30</maxxlrelayweight>                                        
-                <config></config>
                 <model>Addonline_Gls_Model_Carrier_ShippingMethod</model>
                 <tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match=</tracking_view_url>
                 <export_folder>var/export/gls/</export_folder>

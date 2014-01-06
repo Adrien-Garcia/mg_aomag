@@ -9,7 +9,9 @@
 
 Translator.add('Update my relay point','<?php echo __("Update my relay point"); ?>');
 Translator.add('Please provide a valide phone number.','<?php echo __("Please provide a valide phone number."); ?>');
-           
+
+var glsBaseUrl = '<?php echo $this->getUrl('gls/ajax/') ?>';
+
 if (aoGoToShippingMethodHooks == undefined) {
 	var aoGoToShippingMethodHooks = new Array();
 }
