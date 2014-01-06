@@ -125,7 +125,7 @@
         </translate>
         <menu>             
             <gls module="gls">
-                <title>GLS export/import</title>
+                <title>GLS Import/Export</title>
                 <sort_order>99</sort_order>
                 <children>
                     <export translate="title" module="gls">
@@ -134,8 +134,8 @@
                         <action>gls/export</action> 
                     </export>
                     <import translate="title" module="gls">
-                        <title>Import orders</title>
-                        <sort_order>0</sort_order>
+                        <title>Import tracking</title>
+                        <sort_order>1</sort_order>
                         <action>gls/import</action> 
                     </import>                    
                 </children>
@@ -144,6 +144,29 @@
                 </depends>  
             </gls>                  
         </menu>
+        <acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+	                    <gls translate="title" module="gls">
+	                        <title>GLS Import/Export</title>
+	                        <sort_order>200</sort_order>
+	                        <children>
+	                            <export translate="title">
+	                                <title>Export orders</title>
+	                            </export>
+	                            <import translate="title">
+	                                <title>Import tracking</title>
+	                            </import>
+	                        </children>	                        
+	                   </gls>
+					</children>
+				</admin>
+			</resources>
+		</acl>
     </adminhtml>
     <default>
         <carriers>
@@ -153,28 +176,28 @@
                 <livraisontohome>1</livraisontohome>
                 <configtohome><![CDATA[
 {
- label: "GLS to home",
- code: "tohome_fr",
- destination: "FR,MC,AD",
- fees: "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
+ "label": "GLS to home",
+ "code": "tohome_fr",
+ "shipto": "FR,MC,AD",
+ "fees": "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
 }]]></configtohome>
                 <ordertohome>1</ordertohome>
-                <livraisontoyou>1</livraisontoyou>
+                <livraisontoyou>0</livraisontoyou>
                 <configtoyou><![CDATA[
 {
- label: "GLS to you",
- code: "toyou_fr",
- destination: "FR,MC,AD",
- fees: "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
+ "label": "GLS to you",
+ "code": "toyou_fr",
+ "shipto": "FR,MC,AD",
+ "fees": "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
 }]]></configtoyou>
                 <ordertoyou>2</ordertoyou>
                 <livraisonrelay>1</livraisonrelay>
                 <configrelay><![CDATA[
 {
- label: "GLS Relay",
- code: "relay_fr",
- destination: "FR,MC,AD",
- fees: "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
+ "label": "GLS Relay",
+ "code": "relay_fr",
+ "destination": "FR,MC,AD",
+ "fees": "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
 }]]></configrelay>
                 <orderrelay>3</orderrelay>
                 <maxrelayweight>20</maxrelayweight>
