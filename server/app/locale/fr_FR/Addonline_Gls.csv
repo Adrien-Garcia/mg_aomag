@@ -31,3 +31,5 @@
 "Please provide a valide phone number.","Veuillez saisir un numéro de téléphone valide."
 "Export orders","Exporter les commandes"
 "Import tracking","Importer les numéros de suivi"
+"{debug_help}","Affichage du debug sur le panier lors d'une estimation de livraison"
+"{importexport_help}","Après enregistrement du changement de valeur, il faut se déconnecter et se reconnecter afin de faire apparaitre le nouveau menu"

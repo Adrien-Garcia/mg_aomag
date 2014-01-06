@@ -20,6 +20,9 @@ class Addonline_Gls_Model_Import {
 
 	public function import(){
 		$importFolder = Mage::helper('gls')->getImportFolder();
+		if(!is_dir($importFolder)){
+			mkdir($importFolder);
+		}
 		$dir = opendir($importFolder);
 		$count = 0;
 
