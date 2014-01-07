@@ -176,7 +176,7 @@
                 <livraisontohome>1</livraisontohome>
                 <configtohome><![CDATA[
 {
- "label": "GLS to home",
+ "label": "Livraison à domicile",
  "code": "tohome_fr",
  "shipto": "FR,MC,AD",
  "fees": "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
@@ -185,7 +185,7 @@
                 <livraisontoyou>0</livraisontoyou>
                 <configtoyou><![CDATA[
 {
- "label": "GLS to you",
+ "label": "Livraison à domicile garantie",
  "code": "toyou_fr",
  "shipto": "FR,MC,AD",
  "fees": "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
@@ -194,7 +194,7 @@
                 <livraisonrelay>1</livraisonrelay>
                 <configrelay><![CDATA[
 {
- "label": "GLS Relay",
+ "label": "Livraison en Point Relais",
  "code": "relay_fr",
  "destination": "FR,MC,AD",
  "fees": "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
