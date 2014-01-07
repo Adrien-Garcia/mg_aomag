@@ -101,23 +101,15 @@ function initGlsLogos() {
 			var dd = jQuery("input[id^=\"s_method_gls\"]").eq(0).parents("dt").prev().addClass("s_method_gls-title");
 		}
 		
-		jQuery(element).prop("checked", "");
-		var typeSocolissimo =  getTypeGlsFromRadio(jQuery(element), false);
-		if (typeSocolissimo) {
+		var typeGls =  getTypeGlsFromRadio(jQuery(element), false);
+		if (typeGls) {
 			var radioParent = jQuery(element).parent();
-			radioParent.prepend('<img src="/skin/frontend/base/default/images/gls/picto_'+typeSocolissimo+'.png" >');
-			var typeSocolissimoDesc =  getTypeGlsFromRadio(jQuery(element), true);
-			jQuery("#gls_description_"+typeSocolissimoDesc).clone().appendTo(radioParent).attr("style","display:block;");
-			if (typeSocolissimo=='rdv' || (typeSocolissimo=='domicile' && jQuery("input[id^=\"s_method_gls_rdv\"]").length==0)) {
-				radioParent.addClass("first");
+			if (radioParent.children('img').size() == 0) {
+				radioParent.prepend('<img src="/skin/frontend/base/default/images/gls/picto_'+typeGls+'.png" >');
 			}
 		}
 	});
-	/*/if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
-		jQuery(".s_method_gls").prev().addClass("s_method_gls-title").append('<img src="/skin/frontend/base/default/images/gls/gls.png" >');
-	} else {
-		jQuery(".s_method_gls-title").append('<img src="/skin/frontend/base/default/images/gls/gls.png" >');
-	}*/
+
 }
 
 function getTypeGlsFromRadio(radio, forDescription) {
