@@ -45,8 +45,10 @@ if (in_array($remoteIp, $autorized_ips))
 			_log("Post-Deployment depuis ".$remoteIp);
 	
 			//on vide le cache APC
-			apc_clear_cache('user');
-			apc_clear_cache('opcode');
+			if(function_exists("apc_clear_cache")) {
+				apc_clear_cache('user');
+				apc_clear_cache('opcode');
+			}
 			//on vide le cache File
 			$cacheDir = dirname(__FILE__).DS.'var'.DS.'cache';
 			emptyDir($cacheDir, false);
