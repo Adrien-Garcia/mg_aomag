@@ -50,21 +50,21 @@ class Addonline_Gls_Model_Export {
 					$shippingAddress = $order->getShippingAddress();
 
 					// ORDERID
-					$aRow[] = $order->getId();
+					$aRow[] = $order->getIncrementId();
 
 					// ORDERNAME
 					$aRow[] = $shippingAddress->getFirstname().' '.$shippingAddress->getLastname();
 
 					// PRODUCTNO
 					$shipping_method = $order->getShippingMethod();
-					$shipping_code = '';
-					if (strpos($shipping_code, 'gls_to_home') === TRUE) {
+					$shipping_code = $shipping_method;
+					if (strpos($shipping_method, 'ls_tohome') > 0) {
 						$shipping_code = 'BP';
 					}
-					if (strpos($shipping_code, 'gls_tohome') === TRUE) {
+					if (strpos($shipping_method, 'ls_toyou') > 0) {
 						$shipping_code = 'ADO';
 					}
-					if (strpos($shipping_code, 'gls_relay') === TRUE) {
+					if (strpos($shipping_method, 'ls_relay') > 0) {
 						$shipping_code = 'SHD';
 					}
 					$aRow[] = $shipping_code;

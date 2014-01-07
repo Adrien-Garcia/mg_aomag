@@ -42,7 +42,7 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 				Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
 				Mage::getSingleton('checkout/session')->setData('gls_shipping_warnbyphone',$shipping_data['warnbyphone']);
 				Mage::getSingleton('checkout/session')->setData('gls_relay_id',$shipping_data['relayId']);
-				$shippingAddress->setData('company', $shipping_data['name'].' '.$shipping_data['relayId']);
+				$shippingAddress->setData('company', $shipping_data['name']);
 				$shippingAddress->setData('street', $shipping_data['address']);
 				$shippingAddress->setData('city', $shipping_data['city']);
 				$shippingAddress->setData('postcode', $shipping_data['zipcode']);
@@ -57,7 +57,7 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 			Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
 			$billingAddress = $quote->getBillingAddress();
 			$shippingMethod = $shippingAddress->getShippingMethod();
-			if(strpos($shippingMethod,'gls_relay') !== false){
+			if(strpos($shippingMethod,'gls_relay') === false){
 				$shippingAddress->setData('prefix', $billingAddress->getData('prefix'));
 				$shippingAddress->setData('firstname', $billingAddress->getData('firstname'));
 				$shippingAddress->setData('company', $billingAddress->getData('company'));
