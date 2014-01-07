@@ -393,8 +393,19 @@ class OwebiaShippingHelper_GLS
 				return new OS_Result_GLS(false);
 			}
 		}
-
+		
 		$conditions = $this->getRowProperty($row, 'conditions');
+		//ADDONLINE : on exclu la livraison en relay si un article dépasse le point max XL
+		$code = $row['*id'];
+		if(strpos($code, 'relay_') === 0 ) {
+			$conditionGLS = '({count items where product.attribute.weight > '.Mage::getStoreConfig('carriers/gls/maxxlrelayweight').'} == 0)';
+			if (isset($conditions)) {
+				$conditions .= '('.$conditions.') && '.$conditionGLS;
+			} else {
+				$conditions .= $conditionGLS;
+			}
+		}
+		//FIN ADDONLINE		
 		if (isset($conditions)) {
 			$result = $this->processFormula($process, $row, 'conditions', $conditions, $is_checking);
 			if (!$is_checking) {

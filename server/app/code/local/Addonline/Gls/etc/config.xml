@@ -179,7 +179,7 @@
  "label": "Livraison à domicile",
  "code": "tohome_fr",
  "shipto": "FR,MC,AD",
- "fees": "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
+ "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configtohome>
                 <ordertohome>1</ordertohome>
                 <livraisontoyou>0</livraisontoyou>
@@ -188,7 +188,7 @@
  "label": "Livraison à domicile garantie",
  "code": "toyou_fr",
  "shipto": "FR,MC,AD",
- "fees": "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
+ "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configtoyou>
                 <ordertoyou>2</ordertoyou>
                 <livraisonrelay>1</livraisonrelay>
@@ -196,15 +196,15 @@
 {
  "label": "Livraison en Point Relais",
  "code": "relay_fr",
- "destination": "FR,MC,AD",
- "fees": "{table {cart.price_including_tax} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}",
+ "shipto": "FR,MC,AD",
+ "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configrelay>
                 <orderrelay>3</orderrelay>
                 <maxrelayweight>20</maxrelayweight>
                 <maxxlrelayweight>30</maxxlrelayweight>
                 <onlyxlrelay>0</onlyxlrelay>                                           
                 <model>Addonline_Gls_Model_Carrier_ShippingMethod</model>
-                <tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match=</tracking_view_url>
+                <tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match={tracking_number}</tracking_view_url>
                 <export_folder>var/export/gls/</export_folder>
                 <import_folder>var/import/gls/</import_folder>            
                 <sort_order>1</sort_order>

@@ -37,7 +37,6 @@ class Addonline_Gls_Model_Sales_Quote_Address extends Mage_Sales_Model_Quote_Add
         	foreach($rates['gls'] as $key => $orderedRate){
         		$sCode = $orderedRate->getData('code');
 				if(strpos($sCode,'ls_relay') > 0){
-					Mage::log($sCode, null, 'gls_import.log');
 					$rates['gls'][$aOrderRatesGLS['orderrelay']] = $orderedRate;
 				}
 				if(strpos($sCode,'ls_toyou') > 0){
