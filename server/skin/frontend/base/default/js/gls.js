@@ -107,6 +107,19 @@ function initGlsLogos() {
 			if (radioParent.children('img').size() == 0) {
 				radioParent.prepend('<img src="/skin/frontend/base/default/images/gls/picto_'+typeGls+'.png" >');
 			}
+			
+			if (typeGls=='relay') {
+				// si le relais choisi est en session (voir additionnal.phtml), on l'affiche sous le radio
+				if (jQuery('#gls_relais_choisi_init').size()>0) {
+					jQuery('#gls_relais_choisi_init').appendTo(radioParent).attr('id', 'gls_relais_choisi');
+				} else {
+					//sinon,et si aucun relais n'a été choisi, on décoche le mode de livraison relais pour forcer à choisir un relais
+					if (jQuery('#gls_relais_choisi').size()==0) {
+						jQuery(element).prop("checked", "");
+					}
+				}
+			}
+			
 		}
 	});
 
@@ -139,7 +152,6 @@ function shippingGLSRadioCheck(element) {
 				url: url,
 				success: function(data){					
 					jQuery("#layer_gls").html(data);
-					resetGLSShippingMethod();
 					geocoder = new google.maps.Geocoder();
 					geocodeGLSAdresse();					
 				}
@@ -149,6 +161,7 @@ function shippingGLSRadioCheck(element) {
 
 function resetGLSShippingMethod() {
 	jQuery("input[name='shipping_method']:checked").prop("checked","");
+	jQuery('#gls_relais_choisi').remove();
 }
 
 function geocodeGLSAdresse() {

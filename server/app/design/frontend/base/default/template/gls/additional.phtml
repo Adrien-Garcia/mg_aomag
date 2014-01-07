@@ -4,6 +4,13 @@
 <div id="layer_gls" class="layer">
 
 </div>
+<?php if ($shipping_data = Mage::getSingleton('checkout/session')->getData('gls_shipping_relay_data')) : ?>
+<div id='gls_relais_choisi_init'>
+<span><?php echo $shipping_data['name'] ?></span>
+<span class='modifier_relay'><?php echo __("Update my relay point"); ?></span><br/>
+<?php echo $shipping_data['address'] ?><br/>
+<?php echo $shipping_data['zipcode'] ?> <?php echo $shipping_data['city'] ?></div>
+<?php endif; ?>
 <script type="text/javascript">
 //<![CDATA[
 

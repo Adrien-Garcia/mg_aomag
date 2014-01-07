@@ -38,8 +38,10 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 		$shippingAddress = $quote->getShippingAddress();
 		$shippingMethod = $shippingAddress->getShippingMethod();
 		if(strpos($shippingMethod,'gls_relay') !== false){
-			if($shipping_data){
-				Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
+			$request = Mage::app()->getRequest();
+			//si on a le paramètre shipping_method c'est qu'on n'est pas sur la requête de mise à jour du mode de livraison : 
+			// il faut mettre à jour l'addresse de livraison si on a le mode de livraison relais
+			if($shipping_data && $request->getParam('shipping_method')){
 				Mage::getSingleton('checkout/session')->setData('gls_shipping_warnbyphone',$shipping_data['warnbyphone']);
 				Mage::getSingleton('checkout/session')->setData('gls_relay_id',$shipping_data['relayId']);
 				$shippingAddress->setData('company', $shipping_data['name']);
@@ -54,10 +56,11 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 				}
 			}
 		}else{
-			Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
 			$billingAddress = $quote->getBillingAddress();
 			$shippingMethod = $shippingAddress->getShippingMethod();
-			if(strpos($shippingMethod,'gls_relay') === false){
+			if ($shipping_data) {
+				//Si l'adresse était une adresse de relais colis (on a les données en session) : 
+				//on réinitialise l'adresse de livraison avec l'adresse de facturation
 				$shippingAddress->setData('prefix', $billingAddress->getData('prefix'));
 				$shippingAddress->setData('firstname', $billingAddress->getData('firstname'));
 				$shippingAddress->setData('company', $billingAddress->getData('company'));
@@ -68,6 +71,8 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 				$shippingAddress->setData('telephone', $billingAddress->getData('telephone'));
 				$shippingAddress->setData('save_in_address_book', 0);
 			}
+			//puis on vide les données en session
+			Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
 		}
 	}
 
