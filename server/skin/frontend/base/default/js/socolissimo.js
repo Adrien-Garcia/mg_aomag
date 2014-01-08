@@ -67,18 +67,24 @@ function initSocolissimoLogos() {
 		var typeSocolissimo =  getTypeSocolissimoFromRadio(jQuery(element), false);
 		if (typeSocolissimo) {
 			var radioParent = jQuery(element).parent();
-			radioParent.prepend('<img src="/skin/frontend/base/default/images/socolissimo/picto_'+typeSocolissimo+'.png" >');
-			var typeSocolissimoDesc =  getTypeSocolissimoFromRadio(jQuery(element), true);
-			jQuery("#socolissimo_description_"+typeSocolissimoDesc).clone().appendTo(radioParent).attr("style","display:block;");
-			if (typeSocolissimo=='rdv' || (typeSocolissimo=='domicile' && jQuery("input[id^=\"s_method_socolissimo_rdv\"]").length==0)) {
-				radioParent.addClass("first");
+			if (radioParent.children('img').size() == 0) {
+				radioParent.prepend('<img src="/skin/frontend/base/default/images/socolissimo/picto_'+typeSocolissimo+'.png" >');
+				var typeSocolissimoDesc =  getTypeSocolissimoFromRadio(jQuery(element), true);
+				jQuery("#socolissimo_description_"+typeSocolissimoDesc).clone().appendTo(radioParent).attr("style","display:block;");
+				if (typeSocolissimo=='rdv' || (typeSocolissimo=='domicile' && jQuery("input[id^=\"s_method_socolissimo_rdv\"]").length==0)) {
+					radioParent.addClass("first");
+				}
 			}
 		}
 	});
 	if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
-		jQuery(".s_method_socolissimo").prev().addClass("s_method_socolissimo-title").append('<img src="/skin/frontend/base/default/images/socolissimo/socolissimo.png" >');
+		if (jQuery(".s_method_socolissimo").prev().children('img').size() == 0) {
+			jQuery(".s_method_socolissimo").prev().addClass("s_method_socolissimo-title").append('<img src="/skin/frontend/base/default/images/socolissimo/socolissimo.png" >');
+		}
 	} else {
-		jQuery(".s_method_socolissimo-title").append('<img src="/skin/frontend/base/default/images/socolissimo/socolissimo.png" >');
+		if (jQuery(".s_method_socolissimo-title").children('img').size() == 0) {
+			jQuery(".s_method_socolissimo-title").append('<img src="/skin/frontend/base/default/images/socolissimo/socolissimo.png" >');
+		}
 	}
 }
 

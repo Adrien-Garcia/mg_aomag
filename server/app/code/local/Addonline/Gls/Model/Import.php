@@ -20,6 +20,9 @@ class Addonline_Gls_Model_Import {
 
 	public function import(){
 		$importFolder = Mage::helper('gls')->getImportFolder();
+		if(!is_dir($importFolder)){
+			mkdir($importFolder);
+		}
 		$dir = opendir($importFolder);
 		$count = 0;
 
@@ -34,7 +37,8 @@ class Addonline_Gls_Model_Import {
 					while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 						$num = count($data);
 						$row++;
-						if($row > 1){
+						if($row > 1 && isset($data[4]) && $data[4]){
+
 							// On récupère le champ 5 qui contient le numéro de la commande
 							$order = Mage::getModel('sales/order')
   										->getCollection()
@@ -120,8 +124,6 @@ class Addonline_Gls_Model_Import {
 					'title' => $order->getShippingCarrier()->getConfigData('title'),
 					'number' => $trackcode,
 			);
-
-			Mage::log($arrTracking, null, self::LOG_FILE);
 
 			$track = Mage::getModel('sales/order_shipment_track')->addData($arrTracking);
 			$shipment->addTrack($track);

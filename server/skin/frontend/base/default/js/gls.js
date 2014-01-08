@@ -101,23 +101,28 @@ function initGlsLogos() {
 			var dd = jQuery("input[id^=\"s_method_gls\"]").eq(0).parents("dt").prev().addClass("s_method_gls-title");
 		}
 		
-		jQuery(element).prop("checked", "");
-		var typeSocolissimo =  getTypeGlsFromRadio(jQuery(element), false);
-		if (typeSocolissimo) {
+		var typeGls =  getTypeGlsFromRadio(jQuery(element), false);
+		if (typeGls) {
 			var radioParent = jQuery(element).parent();
-			radioParent.prepend('<img src="/skin/frontend/base/default/images/gls/picto_'+typeSocolissimo+'.png" >');
-			var typeSocolissimoDesc =  getTypeGlsFromRadio(jQuery(element), true);
-			jQuery("#gls_description_"+typeSocolissimoDesc).clone().appendTo(radioParent).attr("style","display:block;");
-			if (typeSocolissimo=='rdv' || (typeSocolissimo=='domicile' && jQuery("input[id^=\"s_method_gls_rdv\"]").length==0)) {
-				radioParent.addClass("first");
+			if (radioParent.children('img').size() == 0) {
+				radioParent.prepend('<img src="/skin/frontend/base/default/images/gls/picto_'+typeGls+'.png" >');
 			}
+			
+			if (typeGls=='relay') {
+				// si le relais choisi est en session (voir additionnal.phtml), on l'affiche sous le radio
+				if (jQuery('#gls_relais_choisi_init').size()>0) {
+					jQuery('#gls_relais_choisi_init').appendTo(radioParent).attr('id', 'gls_relais_choisi');
+				} else {
+					//sinon,et si aucun relais n'a été choisi, on décoche le mode de livraison relais pour forcer à choisir un relais
+					if (jQuery('#gls_relais_choisi').size()==0) {
+						jQuery(element).prop("checked", "");
+					}
+				}
+			}
+			
 		}
 	});
-	/*/if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
-		jQuery(".s_method_gls").prev().addClass("s_method_gls-title").append('<img src="/skin/frontend/base/default/images/gls/gls.png" >');
-	} else {
-		jQuery(".s_method_gls-title").append('<img src="/skin/frontend/base/default/images/gls/gls.png" >');
-	}*/
+
 }
 
 function getTypeGlsFromRadio(radio, forDescription) {
@@ -142,12 +147,12 @@ function shippingGLSRadioCheck(element) {
 	if(typeGls == "relay"){
 		//on affiche le picto de chargement étape suivante du opc
 		jQuery("#shipping-method-please-wait").show();		
-		url = "/gls/ajax/selector/"			
+		url = glsBaseUrl + "selector/"			
 			jQuery.ajax({
 				url: url,
 				success: function(data){					
 					jQuery("#layer_gls").html(data);
-					resetGLSShippingMethod();
+					jQuery('#gls_relais_choisi').remove();
 					geocoder = new google.maps.Geocoder();
 					geocodeGLSAdresse();					
 				}
@@ -156,7 +161,9 @@ function shippingGLSRadioCheck(element) {
 }
 
 function resetGLSShippingMethod() {
-	jQuery("input[name='shipping_method']:checked").prop("checked","");
+	if (jQuery('#gls_relais_choisi').size()==0) {
+		jQuery("input[name='shipping_method']:checked").prop("checked","");
+	}
 }
 
 function geocodeGLSAdresse() {
@@ -187,7 +194,7 @@ function changeMap() {
 
 function loadListePointRelais() {	
 	if(jQuery("#cp_recherche").val()){
-		url = "/gls/ajax/listPointsRelais"
+		url = glsBaseUrl + "listPointsRelais"
 		url = url + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
 		jQuery.ajax({
 			url: url,
@@ -223,7 +230,7 @@ function loadMap(){
 			closeOnClick: false,
 			top: "center",	
 			fixed: false,
-			onClose: function(){ jQuery("#layer_gls").html(''); jQuery("#layer_gls").data("overlay",null);}
+			onClose: function(){ jQuery("#layer_gls").html(''); jQuery("#layer_gls").data("overlay",null); resetGLSShippingMethod()}
 		});	
 	} else {
 		//glsRelayMap.setCenter(glsMyPosition);
@@ -338,16 +345,14 @@ function choisirRelaisGLS(index) {
 	jQuery("select[name='shipping_address_id']").prop('selectedIndex',0);
 	jQuery("select[name='shipping_address_id'] option[value='']").prop('selectedIndex',0);	
 			
-	// On cache le layer
 	if(jQuery("#sms_checkbox").is(":checked") && jQuery("#num_telephone").val() == "") {
 		alert( Translator.translate("Please provide a valide phone number.") );
 		return;
 	}	
-	jQuery("#layer_gls").data("overlay").close();
-	jQuery("input[id^=\"s_method_gls_relay_").prop("checked","checked");
 	var contenu_html = "<div id='gls_relais_choisi'><span>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+"</span>"      +" <span class='modifier_relay'>" + Translator.translate("Update my relay point") + "</span>"   +  "<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+"<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text() + "</div>";
-	jQuery('#gls_relais_choisi').remove();
-	jQuery("input[id^=\"s_method_gls_relay_").parent().append(contenu_html);
+	jQuery("input[id^=\"s_method_gls_relay_\"]").each(function(index, element){
+		jQuery(element).parent().append(contenu_html);
+	});
 	/* On stock en session les informations du relais */
 	
 	if(jQuery("#sms_checkbox").is(":checked") && jQuery("#num_telephone").val() != ""){
@@ -355,8 +360,11 @@ function choisirRelaisGLS(index) {
 	}else{
 		var warnbyphone = 0;
 	}
+
+	// On cache le layer
+	jQuery("#layer_gls").data("overlay").close();
 	
-	url = "/gls/ajax/saveInSessionRelayInformations/"		
+	url = glsBaseUrl + "saveInSessionRelayInformations/"		
 	jQuery.ajax({
 		url: url,
 		data: {                             // <-- just pass an object
@@ -376,23 +384,8 @@ function choisirRelaisGLS(index) {
 	});		
 }
 
-function validerTelephone() {
-	
-	 if(glsTelephoneForm.validator && glsTelephoneForm.validator.validate()){
-    	var telephone = jQuery("#gls-telephone input[name='tel_gls']").val();
-    	jQuery("#gls-hook").append('<input type="hidden" name="tel_gls" value="'+telephone+'" />');
-    	jQuery("#layer_gls").data("overlay").close();
-    }
-	return false;
-}
-
 /** ajout de la fonction de validation numéro de téléphone portable */
 Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
     return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
-});
-
-Validation.add('valid-telephone-portable-belgique', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
-	//Pour les destinataires belges, le numéro de téléphone portable doit commencer par le caractère + suivi de 324, suivi de 8 chiffres
-	return (/^\+324\d{8}$/.test(v) && !(/^\+324(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
 });
 
