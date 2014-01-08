@@ -4,20 +4,100 @@
 
 	<!-- TOUTES LES PAGES -->
 	<default>
+		<reference name="root">
+			<block type="core/text_list" name="main-header"></block>
+			<block type="core/text_list" name="main-footer"></block>
+		</reference>
 		<reference name="head">
-			<action method="addCss"><stylesheet>css/couleur.css</stylesheet></action>
-			<action method="addCss"><stylesheet>css/theme.css</stylesheet></action>
 			<action method="addCss"><stylesheet>css/cloud-zoom.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/jquery.fancybox-thumbs.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/jquery.fancybox.css</stylesheet></action>
 			<action method="addItem"><type>skin_js</type><name>js/libs/cloud-zoom.1.0.2.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.bxslider.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.fancybox.pack.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.fancybox-thumbs.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.mousewheel-3.0.6.pack.js</name><params/></action>
 			<action method="addItem"><type>skin_js</type><name>js/charte.js</name><params/></action>
+			<action method="removeItem">
+				<type>skin_css</type>
+				<name>css/j2t/ajax_cart.css</name>
+			</action>
 		</reference>
-		<reference name="left">
-			<remove name="tags_popular"/>
+		<reference name="footer">
+			<remove name="footer_links" />
+			<block type="cms/block" name="cms_footer_bloc_1">
+                <action method="setBlockId"><block_id>cms_footer_bloc_1</block_id></action>
+            </block>
+            <block type="cms/block" name="cms_footer_bloc_2">
+                <action method="setBlockId"><block_id>cms_footer_bloc_2</block_id></action>
+            </block>
+            <block type="cms/block" name="cms_footer_bloc_3">
+                <action method="setBlockId"><block_id>cms_footer_bloc_3</block_id></action>
+            </block>
+            <block type="cms/block" name="cms_footer_bloc_4">
+                <action method="setBlockId"><block_id>cms_footer_bloc_4</block_id></action>
+            </block>
+            <block type="newsletter/subscribe" name="footer.newsletter" template="newsletter/subscribe.phtml"/>
 		</reference>
+		<reference name="header">
+			<block type="page/template_links" name="cart-link" as="cart-link">
+				<block type="checkout/links" name="cart-link-">
+                	<action method="addCartLink"></action>
+            	</block>
+            </block>
+		</reference>
+		<reference name="top.links">
+			<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>
+			<remove name="checkout_cart_link" />
+		</reference>
+		
+		<remove name="tags_popular"/>		
 		<remove name="tags_all"/>
 		<remove name="right.poll"/>
+		<remove name="left.permanent.callout"/>
+		<remove name="left.newsletter" />
 		
 	</default>
+	
+	<catalog_product_view>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="product.info.upsell">
+			<action method="setItemLimit"><type>upsell</type><limit>50</limit></action>
+			<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
+		</reference>
+	</catalog_product_view>
+	
+	<!-- CATEGORY -->
+	<catalog_category_layered>
+
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+			<reference name="product_list">
+				<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
+			</reference>
+			<reference name="main-header">
+				<block type="catalog/category_view" name="category.products-" template="catalog/category/view-top.phtml">
+					<block type="catalog/product_list" name="product_list" template="catalog/product/list_without_products.phtml">
+						<block type="catalog/product_list_toolbar" name="product_list_toolbar_2" template="catalog/product/list/toolbar.phtml">
+							<block type="page/html_pager" name="product_list_toolbar_pager"/>
+						</block>
+						<action method="setToolbarBlockName"><name>product_list_toolbar_2</name></action>
+					</block>
+				</block>
+			</reference>
+			<reference name="main-footer">
+				<block type="catalog/product_list" name="product_list" template="catalog/product/list_without_products.phtml">
+					<block type="catalog/product_list_toolbar" name="product_list_toolbar_2" template="catalog/product/list/toolbar.phtml">
+						<block type="page/html_pager" name="product_list_toolbar_pager"/>
+					</block>
+					<action method="setToolbarBlockName"><name>product_list_toolbar_2</name></action>
+				</block>
+			</reference>
+		</reference>
+
+	</catalog_category_layered>
 	
 	<!-- COMPTE CLIENT -->
 	<customer_account translate="label">
@@ -30,8 +110,7 @@
 		<!-- Résumé du panier -->
 		<remove name="cart_sidebar"/>
 		
-		<!-- Le chien -->
-		<remove name="left.permanent.callout"/>
+		
 		
 		<!-- Suppression des liens inutiles de la navigation -->
 		<reference name="customer_account_navigation" >

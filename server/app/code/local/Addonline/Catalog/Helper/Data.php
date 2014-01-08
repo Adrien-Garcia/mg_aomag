@@ -46,4 +46,29 @@ class Addonline_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 			return 0;
 		}
     }
+    
+    /**
+     * Check if tje product is new
+     * @param string $date
+     * @return boolean
+     */
+    public function isNew($date=null, $_product=null)
+    {
+    	if($date==null) {
+    		$date = $_product->getResource()->formatDate(time());
+    	}
+    
+    	if(!$_product->getData('news_from_date')) {
+    		return false;
+    	}
+    
+    	$current_date = new DateTime($date); // compare date
+    	$from_date = new DateTime($_product->getData('news_from_date')); // begin date
+    	$to_date = new DateTime($_product->getData('news_to_date')); // end date
+    
+    	$return = ($current_date >= $from_date && $current_date <= $to_date);
+    
+    	return $return;
+    }
+    
 }

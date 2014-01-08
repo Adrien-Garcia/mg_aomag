@@ -25,8 +25,46 @@
  */
 ?>
 <div class="footer-container">
-    <div class="footer">
-        <?php echo $this->getChildHtml() ?>
-        <address><?php echo $this->getCopyright() ?></address>
+	<div class="footer-1">
+		<div class="wrap">
+			
+			<div class="bloc paiement">
+				<span class="title">Paiement sécurisé</span>
+				<p>Paiement électronique par carte bancaire ou compte Paypal totalement sécurisé.</p>
+			</div>
+			
+			<div class="bloc livraison">
+				<span class="title">Livraison express</span>
+				<p>Livraison express chez vous en France, en bureau de poste. ou point relais.</p>
+			</div>
+			
+			<div class="bloc newsletter">
+				<span class="title">Restez informé !</span>
+				<?php echo $this->getChildHtml("footer.newsletter") ?>
+				<p>Recevez les offres et actualités en vous inscrivant gratuitement à la newsletter.</p>
+			</div>
+			
+		</div>
+	</div>
+    <div class="footer-2">
+    	<div class="wrap">
+    	<div class="col">
+        <?php echo $this->getChildHtml("cms_footer_bloc_1") ?>
+        </div>
+        <div class="col">
+        <?php echo $this->getChildHtml("cms_footer_bloc_2") ?>
+        </div>
+        <div class="col">
+        <?php echo $this->getChildHtml("cms_footer_bloc_3") ?>
+        </div>
+        <div class="col">
+        <?php echo $this->getChildHtml("cms_footer_bloc_4") ?>
+        </div>
+        </div>
+    </div>
+    <div class="footer-3">
+    	<div class="wrap">
+        <?php echo $this->getChildHtml("cms_footer_links") ?>
+        </div>
     </div>
 </div>

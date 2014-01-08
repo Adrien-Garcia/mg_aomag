@@ -19,11 +19,11 @@ jQuery(function($) {
 	if ($(".more-views").size()==1) {
 		/* On initialize bxSlider si on est sur la page produit */
 		$('.bxslider').bxSlider({
-			minSlides: 4,
-			maxSlides: 4,
-			slideWidth: 50,
+			minSlides: 6,
+			maxSlides: 6,
+			slideWidth: 68,
 			pager: false,
-			slideMargin: 20
+			slideMargin: 10 
 		});
 	}
 		
@@ -72,6 +72,19 @@ jQuery(function($) {
 		    index: idx
 		});
 	});
+	
+	// Produit : carrousel sur les ventes incitatives
+	if ($("#upsell-product-table li").size() > 4) {
+		$('#upsell-product-table').bxSlider({
+			minSlides: 4,
+			maxSlides: 4,
+			slideWidth: 205,
+			pager: true,
+			controls: false,
+			slideMargin: 20,
+			responsive: false
+		});
+	}
 	
 })
 
