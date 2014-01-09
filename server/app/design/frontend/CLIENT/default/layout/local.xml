@@ -133,6 +133,18 @@
 	    </reference>
 	</checkout_cart_index>
 	
+	<customer_account_login>
+		<reference name="customer_form_login">
+			<block type="customer/form_register" name="customer_form_register" template="persistent/customer/form/register.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    <label>Form Fields Before</label>
+                </block>
+<!--                 <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" /> -->
+<!--             	<block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" /> -->
+            </block>
+		</reference>
+	</customer_account_login>
+	
 	<!-- COMPTE CLIENT -->
 	<customer_account translate="label">
 		<!-- Dernières commandes -->
