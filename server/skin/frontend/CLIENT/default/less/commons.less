@@ -7,6 +7,10 @@
 @width: 960px;
 @padding: 0 10px;
 
+.hover{
+	opacity: .8;
+}
+
 .primary-button {
 	text-align: center;
 	display: block;
@@ -20,9 +24,10 @@
 	padding: 7px 10px;
 	border: none;
 	&:hover {
-		opacity: .8;
+		.hover();
 	}
 }
+
 
 /* Reset ================================================================================= */
 * { margin:0; padding:0; }
@@ -398,12 +403,37 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .data-table { width:100%; border:1px solid @c4; color: @c4; }
 .data-table .odd  {  }
 .data-table .even { background:@c5; }
-/*.data-table tr.odd:hover,
-.data-table tr.even:hover { background:#ebf1f6; }*/
-.data-table td.last,
-.data-table th.last { border-right:0; }
-.data-table tr.last th,
-.data-table tr.last td { border-bottom:0 !important; }
+.data-table{
+	
+	thead{
+		th{
+			border-bottom:1px solid @c4;
+			font-family:open_sansbold;
+			font-size:14px;
+			
+			&[colspan="2"]{
+				border-bottom:0;
+			}
+			
+		}
+		
+		tr.first{
+			th:last-child{
+				border-right:0;
+			}
+		}
+		
+		tr.last{
+			th{
+				&.a-right{
+					border-right:0;
+				}
+			}
+		}
+	}
+	
+}
+.data-table td.last { border-right:0; }
 .data-table th { padding:3px 8px; font-weight:normal; }
 .data-table td { padding:3px 8px; }
 
