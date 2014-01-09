@@ -105,6 +105,34 @@
 
 	</catalog_category_layered>
 	
+	<!-- PANIER -->
+	<checkout_cart_index translate="label">
+	
+		<!-- Change le titre de la page -->
+		<reference name="head">
+		    <action method="setForcedTitle"><title>Mon panier</title></action>
+		</reference>
+		
+		<!-- Ajout du fil d'arianne -->
+	    <reference name="breadcrumbs">
+	    	<action method="addCrumb">
+	            <name>Accueil</name>
+	            <params>
+	                <label>Accueil</label>
+	                <title>Accueil</title>
+	                <link>/</link>
+	            </params>
+            </action>
+	        <action method="addCrumb">
+		        <crumbName>Mon panier</crumbName>
+		        <crumbInfo>
+		        	<label>Mon panier</label>
+		        	<title>Mon panier</title>
+		        </crumbInfo>
+	       	</action>
+	    </reference>
+	</checkout_cart_index>
+	
 	<!-- COMPTE CLIENT -->
 	<customer_account translate="label">
 		<!-- Dernières commandes -->
@@ -115,8 +143,6 @@
 		
 		<!-- Résumé du panier -->
 		<remove name="cart_sidebar"/>
-		
-		
 		
 		<!-- Suppression des liens inutiles de la navigation -->
 		<reference name="customer_account_navigation" >
@@ -130,7 +156,7 @@
 		
 	</customer_account>
 	
-	  <catalog_product_compare_index translate="label">
+	<catalog_product_compare_index translate="label">
         <reference name="content">
             <block type="monbloc" name="monbloc" template="catalog/product/compare/monbloc.phtml"/>
         </reference>

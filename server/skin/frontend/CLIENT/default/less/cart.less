@@ -1,0 +1,30 @@
+.cart{
+	
+	h1{
+		margin:20px 0 25px 0;
+	}
+	
+	.btn-update{
+		margin:34px 0 0 0;
+		background:none;
+		border:none;
+		color:@c4;
+		font-family:open_sanslight;
+		font-size:14px;
+		position:relative;
+		padding:0 0 0 10px;
+		
+		&:before{
+			content:"";
+			display:block;
+			position:absolute;
+			top:3px;
+			left:0;
+			.arrow-right-primary();
+		}
+		
+		&:hover{
+			.hover();
+		}
+	}
+}
