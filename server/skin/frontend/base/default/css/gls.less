@@ -187,7 +187,9 @@ dd.s_method_gls #gls_relais_choisi {
 	    	
 			.info-window {
 				width: 415px;
-				line-height: normal;
+				line-height:1.35;
+				overflow:hidden;
+				white-space:nowrap;
 				
 				.store-name {
 					font-weight: bold;
@@ -225,7 +227,7 @@ dd.s_method_gls #gls_relais_choisi {
 					
 					position: absolute;
 					top: 68px;
-					left: 260px;
+					right: 0;
 					
 					&:before {
 						content: "";
@@ -250,6 +252,7 @@ dd.s_method_gls #gls_relais_choisi {
 	    border-left: none;
 	    overflow: hidden;
 	    overflow-y: scroll;
+	    position: relative;
 	    
 	    .gls_point_relay {
 	    	padding: 15px;

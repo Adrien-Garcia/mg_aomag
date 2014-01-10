@@ -25,12 +25,13 @@ dd.s_method_gls li span.price {
 }
 
 dd.s_method_gls #gls_relais_choisi {
-	margin: 0 0 0 82px;
+	margin: 10px 0 50px 27px;
 	border-left: 1px solid #d4d4d4;
 	padding: 0 0 0 10px;
 	position: relative;
 	line-height: normal;
 	color: #666666;
+	font-size: 12px;
 	
 	span {
 		font-weight: bold;
@@ -41,6 +42,9 @@ dd.s_method_gls #gls_relais_choisi {
 		font-weight: normal;
 		text-decoration: underline;
 		cursor: pointer;
+		position: absolute;
+		bottom: -30px;
+		left: 0;
 	}
 }
 
@@ -55,6 +59,7 @@ dd.s_method_gls #gls_relais_choisi {
 #layer_gls {
 	position: fixed !important;
 	display: none;
+	top: 0 !important;
 	width: 100% !important;
 	height: 100% !important;
 	background: #fff;
@@ -208,7 +213,10 @@ dd.s_method_gls #gls_relais_choisi {
 	    	height: 100%;
 	    	
 			.info-window {
-				line-height: normal;
+				line-height:1.35;
+				overflow:hidden;
+				white-space:nowrap;
+				width: 260px;
 				
 				.store-name {
 					font-weight: bold;
@@ -224,6 +232,12 @@ dd.s_method_gls #gls_relais_choisi {
 					.day {
 						width: 80px;
 					}
+				}
+				
+				.button-wrapper {
+					text-align: center;
+					padding: 10px 0;
+					margin-right: -20px;
 				}
 				
 				.choose-relay-point {

@@ -259,9 +259,14 @@ function showGLSMap() {
 					    map: glsRelayMap,
 					    position: relayPosition,
 					    title : jQuery(this).find('.GLS_relay_name').text(),
-					    icon : '/skin/frontend/base/default/images/gls/marker.png'
+					    icon : (glsRelaisChoisi == jQuery(this).find('.GLS_relay_id').text())? '/skin/frontend/base/default/images/gls/marker_current.png' : '/skin/frontend/base/default/images/gls/marker.png'
 					});					
 					infowindowGLS=infoGLSBulleGenerator(jQuery(this));
+					
+					if(glsRelaisChoisi == jQuery(this).find('.GLS_relay_id').text()) {
+						jQuery("#layer_gls .gls_point_relay").removeClass("current").eq(index).addClass("current");
+						jQuery("#col_droite_gls").scrollTop(0).scrollTop(jQuery(".gls_point_relay").eq(index).position().top);
+					}
 					
 					// Ajout à la liste des markers
 					glsMarkersArray.push(markerGLS);
@@ -292,14 +297,10 @@ function infoGLSBulleGenerator(relay) {
 	contentString += '' +
 					relay.find('.GLS_relay_address').text() + '<br/>' +
     				relay.find('.GLS_relay_zipcode').text() + ' ' + relay.find('.GLS_relay_city').text();
-
 	
-	contentString += "<a href='#' class='choose-relay-point' data-relayindex="+relay.find('.GLS_relay_index').text()+" data-relayid="+relay.find('.GLS_relay_id').text()+">Choisir ce lieu</a>";
+	contentString += relay.find('.GLS_relay_hours').html();
 	
-	contentString += relay.find('.GLS_relay_hours').html();	
-	
-
-
+	contentString += "<div class='button-wrapper'><a href='#' class='choose-relay-point' data-relayindex="+relay.find('.GLS_relay_index').text()+" data-relayid="+relay.find('.GLS_relay_id').text()+">Choisir ce lieu</a></div>";
 	
 	contentString += "</div>";
 
@@ -336,6 +337,8 @@ function clickHandler(markerGLS,infowindowGLS, index){
     
     // Mise en évidence du relais dans la liste
 	jQuery("#layer_gls .gls_point_relay").removeClass("current").eq(index).addClass("current");
+	console.log(jQuery(".gls_point_relay").eq(index).position().top);
+	jQuery("#col_droite_gls").scrollTop(0).scrollTop(jQuery(".gls_point_relay").eq(index).position().top);
     
 }
 
@@ -360,6 +363,8 @@ function choisirRelaisGLS(index) {
 	}else{
 		var warnbyphone = 0;
 	}
+	
+	glsRelaisChoisi =  jQuery('#gls_point_relay_'+index).find('.GLS_relay_id').text();
 
 	// On cache le layer
 	jQuery("#layer_gls").data("overlay").close();
