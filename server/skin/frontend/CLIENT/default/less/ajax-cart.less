@@ -35,7 +35,17 @@ div.j2t-overlay{
 	padding: 20px;
 	
 	ul { /* reset .messages */
+		border: none;
+		padding: 0;
+		margin-bottom: 8px;
+		overflow: hidden;
+		
+		&:before {
+			display: none;
+		}
+		
 		li {
+			width: auto;
 			border: none !important;
 			background: none;
 			margin: 0 !important;
@@ -51,6 +61,7 @@ div.j2t-overlay{
 	
 	.j2tajax-checkout-txt {
 		float: left;
+		width: 330px;
 	}
 	
 	.j2t-cart-bts {

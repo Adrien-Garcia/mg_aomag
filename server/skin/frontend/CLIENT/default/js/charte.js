@@ -16,7 +16,7 @@ jQuery(function($) {
 		t[t.length] = $(this).attr("href");
 	})
 	
-	if ($(".more-views").size()==1) {
+	if ($(".more-views li").length > 6) {
 		/* On initialize bxSlider si on est sur la page produit */
 		$('.bxslider').bxSlider({
 			minSlides: 6,
@@ -74,7 +74,7 @@ jQuery(function($) {
 	});
 	
 	// Produit : carrousel sur les ventes incitatives
-	if ($("#upsell-product-table li").size() > 4) {
+	if ($("#upsell-product-table > li").size() > 4) {
 		$('#upsell-product-table').bxSlider({
 			minSlides: 4,
 			maxSlides: 4,

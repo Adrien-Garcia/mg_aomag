@@ -1,12 +1,28 @@
+/*
+ __     __         _       _     _           
+ \ \   / /_ _ _ __(_) __ _| |__ | | ___  ___ 
+  \ \ / / _` | '__| |/ _` | '_ \| |/ _ \/ __|
+   \ V / (_| | |  | | (_| | |_) | |  __/\__ \
+    \_/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
+*/
+/* variables */
 @c1: #ffffff;
 @c2: #f18200;
 @c3: #0d0d0d;
 @c4: #939393;
 @c5: #eeeeee;
 
-@width: 960px;
+@width: 980px;
 @padding: 0 10px;
 
+/*
+  _____                _   _                 
+ |  ___|__  _ __   ___| |_(_) ___  _ __  ___ 
+ | |_ / _ \| '_ \ / __| __| |/ _ \| '_ \/ __|
+ |  _| (_) | | | | (__| |_| | (_) | | | \__ \
+ |_|  \___/|_| |_|\___|\__|_|\___/|_| |_|___/
+*/
+/* fonctions */
 .hover{
 	opacity: .8;
 }
@@ -52,7 +68,7 @@ body {
 	font-family: open_sanslight, Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	line-height: 1.40;
-	color: @c3;
+	color: @c4;
 }
 
 img           { border:0; vertical-align:top; }
@@ -170,6 +186,12 @@ ul,ol         { list-style:none; }
 
 
 /* Global Styles ========================================================================= */
+
+label.required em {
+	float: right;
+	margin-right: 5px;
+	color: #dc3c16;
+}
 
 /*
   _____                          _       _               
@@ -548,6 +570,11 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 .data-table td { 
 	padding:3px 8px;
 	vertical-align:middle;
+}
+
+.data-table tr.last th,
+.data-table tr.last td {
+	border-bottom: none;
 }
 
 .data-table thead th.wrap { white-space:normal; }
