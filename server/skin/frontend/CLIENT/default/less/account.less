@@ -1,11 +1,92 @@
 /* Account Login/Create Pages ============================================================ */
-.account-login .content { min-height:345px; padding:14px 21px; background:#faf7ee url(../images/bkg_login-box.gif) 0 0 repeat-x; border:1px solid #bbb6a5; border-bottom:0; }
-.account-login .content h2 { font-weight:bold; font-size:13px; margin:0 0 14px; padding:0 0 5px 23px; border-bottom:1px solid #ddd; background-position:0 1px; background-repeat:no-repeat; text-transform:uppercase; color:#e76200; }
-.account-login .new-users h2 { background-image:url(../images/i_page1.gif)}
-.account-login .registered-users h2 { background-image:url(../images/i_page2.gif); }
-.account-login .buttons-set { border:1px solid #bbb6a5; border-top:0; margin:0; padding:8px 13px; background:#dee5e8 url(../images/bkg_buttons-set1.gif) 0 0 repeat-x; }
+.customer-account-login {
+	
+	.breadcrumbs-container { display: none; }
+	
+	.main-container {
+		position: relative;
+		
+		&:after {
+			content: "";
+			height: 1px;
+			border-bottom: 1px solid @c4;
+			position: absolute;
+			top: 95px;
+			left: 0;
+			right: 0;
+		}
+	}
+	
+	.page-title {
+		line-height: 95px;
+		
+		h1 {
+			line-height: 95px;
+		}
+	}
+	
+	.col2-set {
+		margin-top: 30px;
+	}
+	
+	.content > h2 {
+		font-family: open_sansbold;
+		font-size: 24px;
+		margin-bottom: 10px;
+	}
+}
 
-.account-create {}
+.registered-users {
+	
+	.input-box {
+		width: 100%;
+		
+		.input-text {
+			width: 100%;
+		}
+	}
+}
+
+.new-users {
+	
+	h2.legend {
+		font-size: 20px;
+		text-transform: uppercase;
+	}
+	
+	.avantages {
+		color: #000;
+		display: block;
+		margin-bottom: 5px;
+	}
+	
+	.lst-avantages {
+		line-height: 26px;
+		margin-bottom: 20px;
+		
+		span {
+			color: @c2;
+		}
+	}
+
+	.name-prefix {
+		float: left;
+		width: 100px;
+		
+		select {
+			width: 100%;
+		}
+	}
+	
+	.name-firstname {
+		float: right;
+		width: 340px;
+	}
+	
+	.name-lastname {
+		clear: both;
+	}
+}
 
 /* Captcha ================================================================================ */
 .captcha-note      { clear:left; padding-top:5px; }
@@ -40,65 +121,320 @@
 .remember-me-popup .remember-me-popup-body a { display:inline-block; height:19px; border:1px solid #de5400; background:#f18200; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; text-decoration:none; white-space:nowrap; color:#fff; }
 /* Remember Me Popup ===================================================================== */
 
-
 /* My Account ============================================================================= */
+
+.customer-account-index .breadcrumbs-container {
+	display: none;
+}
+
+.main {
+	margin-top: 35px;
+}
+
+/* Navigation */
+.block-account {
+	
+	.block-title {
+		font-size: 24px;
+		font-family: open_sansbold;
+		color: #000;
+		margin-bottom: 10px;
+	}
+	
+	ul {
+		border-top: 1px solid @c5;
+		
+		li {
+			line-height: 50px;
+			border-bottom: 1px solid @c5;
+			
+			a {
+				text-decoration: none;
+			}
+			
+			strong {
+				font-weight: normal;
+				color: @c2;
+			}
+		}
+	}
+}
+
+
 .my-account .title-buttons .link-rss { float:none; margin:0; }
 
 /********** < Dashboard */
-.dashboard .welcome-msg { margin:0 8em 1.5em 0; }
-.dashboard .welcome-msg p { margin:0; }
-.dashboard .col2-set { margin:0 0 15px; }
-
-/* General Box */
-.box-account { background:#fff url(../images/bkg_account_box.gif) 0 0 repeat-x; border:1px solid #ccc; border-color:#ccc #999 #999 #ccc; padding:15px; margin: 0 0 20px; }
-.box-account .box-head { border-bottom:1px solid #d9dde3; margin:0 0 10px; text-align:right; }
-.box-account .box-head h2 { float:left; margin:0; font-size:13px; font-weight:bold; text-transform:uppercase; background-position:0 0; background-repeat:no-repeat; padding-left:21px; color:#e65505; }
-
-.dashboard .box .box-title { background:url(../images/bkg_divider1.gif) 0 100% repeat-x; padding:0 0 2px; margin:0 0 8px; text-align:right; }
-.dashboard .box .box-title h3,
-.dashboard .box .box-title h4 { float:left; font-size:13px; font-weight:bold; margin:0; }
-
-/* Block: Recent Orders */
-.dashboard .box-recent .box-head h2 { background-image:url(../images/i_folder-table.gif); }
-
-/* Block: Account Information */
-.dashboard .box-info .box-head h2 { background-image:url(../images/i_ma-info.gif); }
-.dashboard .box-info h4 { font-size:11px; font-weight:bold; text-transform:uppercase; }
-
-/* Block: Reviews */
-.dashboard .box-reviews .box-head h2 { background-image:url(../images/i_ma-reviews.gif); }
-.dashboard .box-reviews .number { float:left; font-size:10px; font-weight:bold; line-height:1; color:#fff; margin:3px -20px 0 0; padding:2px 3px; background:#0a263c; }
-.dashboard .box-reviews .details { margin-left:20px; }
-.dashboard .box-reviews li.item { margin:0 0 7px; }
-.dashboard .box-reviews li.item.last { margin:0; }
-.dashboard .box-reviews .ratings { margin:7px 0 0; }
-
-/* Block: Tags */
-.dashboard .box-tags .box-head h2 { background-image:url(../images/i_ma-tags.gif); }
-.dashboard .box-tags .number { float:left; font-size:10px; font-weight:bold; line-height:1; color:#fff; margin:3px -20px 0 0; padding:2px 3px; background:#0a263c; }
-.dashboard .box-tags .details { margin-left:20px; }
-.dashboard .box-tags li.item { margin:0 0 7px; }
-.dashboard .box-tags li.item.last { margin:0; }
-.dashboard .box-tags .tags strong,
-.dashboard .box-tags .tags ul,
-.dashboard .box-tags .tags ul li { display:inline; }
+.dashboard {
+	
+	.page-title {
+		border-bottom: 1px solid @c5;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+	}
+	
+	.welcome-msg {
+		margin-bottom: 30px;
+		
+		.hello strong {
+			font-weight: normal;
+			font-size: 20px;
+			color: #000;
+		}
+	}
+	
+	.col2-set { margin:0 0 15px; }
+	
+	/* General Box */
+	.box-account { }
+	.box-account .box-head { text-align:right; }
+	.box-account .box-head h2 {
+		float:left;
+		font-family: open_sansbold;
+		font-size: 24px;
+	}
+	
+	.box .box-title {
+		text-align: right;
+		border-bottom: 1px solid @c5;
+		margin-bottom: 10px;
+	}
+	.box .box-title h3,
+	.box .box-title h4 {
+		float:left;
+		font-size: 14px;
+		text-transform: uppercase;
+		font-family: open_sansbold;
+	}
+	.box a {
+		color: @c2;
+	}
+	.box .box-content h4 {
+		font-weight: normal;
+	}
+	
+	/* Block: Recent Orders */
+	.box-recent {
+		margin-bottom: 20px;
+		
+		.box-head a {
+			color: @c2;
+		}
+	}
+	
+	/* Block: Account Information */
+	.box-info .box-head h2 {  }
+	.box-info h4 {  }
+	
+	/* Block: Reviews */
+	.box-reviews .box-head h2 { background-image:url(../images/i_ma-reviews.gif); }
+	.box-reviews .number { float:left; font-size:10px; font-weight:bold; line-height:1; color:#fff; margin:3px -20px 0 0; padding:2px 3px; background:#0a263c; }
+	.box-reviews .details { margin-left:20px; }
+	.box-reviews li.item { margin:0 0 7px; }
+	.box-reviews li.item.last { margin:0; }
+	.box-reviews .ratings { margin:7px 0 0; }
+	
+	/* Block: Tags */
+	.box-tags .box-head h2 { background-image:url(../images/i_ma-tags.gif); }
+	.box-tags .number { float:left; font-size:10px; font-weight:bold; line-height:1; color:#fff; margin:3px -20px 0 0; padding:2px 3px; background:#0a263c; }
+	.box-tags .details { margin-left:20px; }
+	.box-tags li.item { margin:0 0 7px; }
+	.box-tags li.item.last { margin:0; }
+	.box-tags .tags strong,
+	.box-tags .tags ul,
+	.box-tags .tags ul li { display:inline; }
+}
 /********** Dashboard > */
 
+/* Account information */
+.customer-account-edit .breadcrumbs-container { display: none; }
+.my-account {
+	
+	.page-title {
+		border-bottom: 1px solid @c5;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+	}
+	
+	.name-prefix {
+		float: left;
+		margin-right: 20px;
+	}
+	
+	.name-firstname {
+		float: left;
+		width: 300px;
+	}
+	
+	.name-lastname {
+		float: right;
+		width: 300px;
+	}
+	
+	.customer-dob {
+		> div {
+			width: 103px;
+			margin-right: 19px;
+			float: left;
+		}
+		.dob-year {
+			margin-right: 0;
+		}
+		
+	}
+	
+	.customer-email {
+		width: 347px;
+		margin-right: 21px;
+	}
+	
+	.fieldset.password {
+		li {
+			width: 225px;
+			margin-right: 20px;
+			float: left;
+			
+			&.last {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
 /* Address Book */
-.addresses-list h2 { font-weight:bold; font-size:13px; color:#e26703; text-transform:uppercase; }
-.addresses-list h3 { font-weight:bold; font-size:13px; }
-.addresses-list address { margin:0 0 3px; }
-.addresses-list p { margin:0; }
-.addresses-list a { font-weight:bold; }
-.addresses-list .link-remove { color:#646464; }
-.addresses-list .separator { margin:0 3px; }
-.addresses-list li.item { background:#fff url(../images/bkg_account_box.gif) 0 0 repeat-x; border:1px solid #ccc; padding:10px 13px; margin:0 0 10px; }
-.addresses-list li.empty { background:none; border:0; padding:0; }
-.addresses-list li.empty p { font-weight:bold; }
-.addresses-list .addresses-additional li.item { background:none; border:0; padding:0; }
+.customer-address-index {
+	
+	.page-title button {
+		.primary-button;
+		float: right;
+	}
+	
+	.buttons-set {
+		display: none;
+	}
+}
+.addresses-list {
+	h2 {
+		font-family: open_sansbold;
+		font-size: 24px;
+		color: #000;
+	}
+	
+	h3 {
+		font-family: open_sansbold;
+		color: #000;
+		text-transform: uppercase;
+		font-size: 14px;
+	}
+	
+	li.item {
+		margin-bottom: 20px;
+	}
+	
+	address { margin:0 0 3px; }
+	p { margin:0; }
+	a { color: @c2; }
+	.separator { margin:0 3px; }
+	
+}
+
+/* Order List */
+.sales-order-history {
+	
+	.breadcrumbs-container {
+		display: none;
+	}
+	
+	.pager {
+		overflow: hidden;
+		margin-bottom: 20px;
+		
+		.amount {
+			float: left;
+				
+			strong {
+				font-weight: normal;
+			}
+		}
+		
+		.limiter {
+			float: right;
+		}
+	}
+	
+	#my-orders-table {
+		margin-bottom: 20px;
+		
+		th {
+			border-bottom: 1px solid @c4;
+			padding: 5px 10px;
+			font-size: 14px;
+		}
+		
+		td {
+			padding: 26px 10px;
+		}
+		
+		em { /* status */
+			white-space: nowrap;
+			font-style: normal;
+		}
+		
+		a {
+			color: @c2;
+			margin: 0 5px;
+		}
+		
+		.separator { display: none; }
+	}
+	
+	.buttons-set {
+		display: none;
+	}
+}
 
 /* Order View */
-.order-info { background:#dee5e8; border:1px solid #d0cbc1; padding:4px 8px; margin:0 0 8px; }
+.sales-order-view {
+	
+	.breadcrumbs-container {
+		display: none;
+	}
+	
+	.page-title {
+		.order-id {
+			font-size: 16px;
+		}
+		
+		.order-status {
+			font-size: 16px;
+			font-family: open_sanslight;
+		}
+		
+		a {
+			.lnk-primary;
+			color: @c4;
+			margin-top: 15px;
+			display: inline-block;
+		}
+		
+		.separator {
+			font-size: 20px;
+			margin: 0 10px;
+		}
+	}
+	
+	.subtotal {
+		font-family: open_sansbold;
+	}
+	
+	.grand_total {
+		font-family: open_sansbold;
+		font-size: 22px;
+		color: #000;
+	}
+}
+
+.order-info {}
+
 .order-info dt,
 .order-info dd,
 .order-info ul,
@@ -106,19 +442,78 @@
 .order-info .current { font-weight:bold; }
 .order-info li { margin:0 3px; }
 
-.order-date { margin:10px 0; }
+.order-date {
+	padding-bottom: 40px;
+	margin: 10px 0 40px 0;
+	border-bottom: 1px solid @c5;
+}
 
-.order-info-box { background:#fff url(../images/bkg_block-title.gif) 0 0 repeat-x; border:1px solid #d0cbc1; padding:12px 15px; margin:0 0 15px; }
-.order-info-box h2 { font-weight:bold; font-size:13px; }
-.order-info-box .box-payment p { margin:0 0 3px; }
-.order-info-box .box-payment th { font-weight:bold; padding-right:7px; }
+.order-info-box { 
+	
+	h2 {
+		font-family: open_sansbold;
+		text-transform: uppercase;
+		font-size: 14px;
+		margin: 0;
+	}
+	
+	.box {
+		margin-bottom: 15px;
+	}
+	
+	.box-payment p { margin:0 0 3px; }
+	.box-payment th { font-weight:bold; padding-right:7px; }
+}
 
-.order-items { width:100%; overflow-x:auto; }
-.order-items h2,
-.order-items h3 { clear:none; font-weight:bold; font-size:13px; padding:0; margin:0 0 5px; color:#0a263c; }
-.order-items .product-name { font-size:1em !important; font-weight:bold !important; }
-.order-items .link-print { color:#1e7ec8; font-weight:normal; }
-.order-items .order-links { text-align:right; }
+.order-items {
+	width:100%; overflow-x:auto;
+	
+	.table-caption {
+		display: none;
+	}
+	
+	#my-orders-table {
+		margin-bottom: 20px;
+		
+		th {
+			border-bottom: 1px solid @c4;
+			padding: 5px 10px;
+			font-size: 14px;
+		}
+		
+		td {
+			padding: 26px 10px;
+		}
+		
+		em { /* status */
+			white-space: nowrap;
+			font-style: normal;
+		}
+		
+		a {
+			color: @c2;
+			margin: 0 5px;
+		}
+		
+		.separator { display: none; }
+	}
+	
+	.product-name {
+		font-weight: normal;
+		color: @c4;
+		font-size: 14px;
+	}
+
+	strong { /* quté commandée/livrée */
+		font-weight: normal;
+	}
+	
+	tfoot {
+		td {
+			padding: 10px !important;
+		}
+	}
+}
 
 .order-additional { margin:15px 0; }
 /* Order Gift Message */
@@ -157,14 +552,69 @@
 .page-print .price-incl-tax .price { display:inline; }
 
 /* My Wishlist */
-.my-wishlist .data-table td { padding:10px; }
-.my-wishlist .product-image { display:block; width:113px; height:113px; margin:0 0 5px; }
-.my-wishlist textarea { display:block; width:97%; height:109px; }
-.my-wishlist .buttons-set { margin-top:2em; }
-.my-wishlist .buttons-set button.button { float:none; }
-.my-wishlist .buttons-set .btn-add span,
-.my-wishlist .buttons-set .btn-share span { border-color:#406a83; background:#618499; }
-#wishlist-table .add-to-links { white-space:nowrap; }
+.my-wishlist {
+	
+	#wishlist-table {
+		
+		th {
+			border-bottom: 1px solid @c4;
+			padding: 5px 10px;
+			font-size: 14px;
+		}
+		
+		td {
+			vertical-align: top;
+			padding: 20px;
+		}
+	
+		.product-name {
+			font-weight: normal;
+			font-size: 14px;
+			
+			a {
+				color: @c2;
+			}
+		}
+		
+		textarea {
+			width: 100%;
+			margin-top: 10px;
+		}
+		
+		.btn-cart {
+			.lnk-primary;
+			float: left;
+			white-space: nowrap;
+		}
+		
+		.link-edit {
+			color: @c2;
+		}
+	}
+	
+	.buttons-set {
+		margin-top: 20px;
+		
+		.btn-add {
+			.lnk-primary;
+			margin: 10px 20px 0 0;
+			display: inline-block;
+		}
+		.btn-share {
+			.lnk-primary;
+			margin: 10px 35px 0 0;
+			display: inline-block;
+			
+			&:after {
+				content: "|";
+				position: absolute;
+				top: -6px;
+				right: -25px;
+				font-size: 20px;
+			}
+		}
+	}
+}
 
 /* My Tags */
 .my-tag-edit { float:left; margin:0 0 10px; }

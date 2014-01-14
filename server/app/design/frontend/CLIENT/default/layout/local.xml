@@ -22,6 +22,10 @@
 				<type>skin_css</type>
 				<name>css/j2t/ajax_cart.css</name>
 			</action>
+			<action method="removeItem">
+				<type>skin_css</type>
+				<name>css/styles-ie.css</name>
+			</action>
 		</reference>
 		<reference name="footer">
 			<remove name="footer_links" />
@@ -45,10 +49,12 @@
                 	<action method="addCartLink"></action>
             	</block>
             </block>
-		</reference>
-		<reference name="top.links">
-			<action method="removeLinkByUrl"><url helper="customer/getAccountUrl"/></action>
-			<remove name="checkout_cart_link" />
+            <remove name="top.links" />
+            <block type="page/template_links" name="top">
+				<block type="wishlist/links" name="wishlist_link" />
+            	<action method="addLinkBlock"><blockName>wishlist_link</blockName></action>
+            	<action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>50</position><liParams /><aParams>class="my-account"</aParams></action>
+            </block>
 		</reference>
 		
 		<remove name="tags_popular"/>		
@@ -58,6 +64,12 @@
 		<remove name="left.newsletter" />
 		
 	</default>
+	
+	<customer_logged_in>
+        <reference name="top">
+            <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position><liParams /><aParams>class="logout"</aParams></action>
+        </reference>
+    </customer_logged_in>
 	
 	<catalog_product_view>
 		<reference name="root">
@@ -132,6 +144,18 @@
 	       	</action>
 	    </reference>
 	</checkout_cart_index>
+	
+	<customer_account_login>
+		<reference name="customer_form_login">
+			<block type="customer/form_register" name="customer_form_register" template="persistent/customer/form/register.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    <label>Form Fields Before</label>
+                </block>
+<!--                 <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" /> -->
+<!--             	<block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" /> -->
+            </block>
+		</reference>
+	</customer_account_login>
 	
 	<!-- COMPTE CLIENT -->
 	<customer_account translate="label">
