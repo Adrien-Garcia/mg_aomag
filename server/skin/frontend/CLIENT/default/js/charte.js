@@ -11,6 +11,12 @@
  */
 jQuery(function($) {
 	
+	$("input.qty").click(function(){
+        var input = this;
+        input.focus();
+        input.setSelectionRange(0,999); 
+    });
+	
 	var t = new Array();
 	$(".more-views li a").each(function() {
 		t[t.length] = $(this).attr("href");

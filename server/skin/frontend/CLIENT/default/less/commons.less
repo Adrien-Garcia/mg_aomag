@@ -172,8 +172,12 @@ ul,ol         { list-style:none; }
 /* Global Styles ========================================================================= */
 /* Form Elements */
 input,select,textarea,button { font:12px/15px Arial, Helvetica, sans-serif; vertical-align:middle; color:#2f2f2f; }
-input.input-text,select,textarea { background:#fff; border:1px solid #b6b6b6; }
-input.input-text,textarea { padding:2px; }
+input.input-text,select,textarea { 
+	background:#fff;
+	border:1px solid @c4;
+	padding:5px 10px;
+}
+/* input.input-text,textarea { padding:2px; } */
 select { padding:1px; }
 select option { padding-right:10px; }
 select.multiselect option { border-bottom:1px solid #b6b6b6; padding:2px 5px; }
@@ -181,7 +185,7 @@ select.multiselect option:last-child { border-bottom:0; }
 textarea { overflow:auto; }
 input.radio { margin-right:3px; }
 input.checkbox { margin-right:3px; }
-input.qty { width:2.5em !important; }
+/* input.qty { width:2.5em !important; } */
 
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
 button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
@@ -196,7 +200,7 @@ button.btn-checkout.no-checkout span span { background-position:100% 100%; }
 p.control input.checkbox,
 p.control input.radio { margin-right:6px; }
 /* Form Highlight */
-input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
+input.input-text:focus,select:focus,textarea:focus { border-color:@c3; }
 /*.highlight { background:#efefef; }*/
 
 /* Form lists */
