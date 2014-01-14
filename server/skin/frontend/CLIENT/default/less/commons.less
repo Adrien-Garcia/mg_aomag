@@ -60,6 +60,20 @@
 	}
 }
 
+.lnk-primary-back {
+	position: relative;
+	padding-left: 10px;
+	text-decoration: none;
+	
+	&:before {
+		content: "";
+		position: absolute;
+		top: 5px;
+		left: 0;
+		.arrow-left-primary;
+	}
+}
+
 
 /* Reset ================================================================================= */
 * { margin:0; padding:0; }
@@ -228,9 +242,7 @@ button.btn-checkout.no-checkout span span { background-position:100% 100%; }
 
 p.control input.checkbox,
 p.control input.radio { margin-right:6px; }
-/* Form Highlight */
-input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
-/*.highlight { background:#efefef; }*/
+
 
 /* Form lists */
 .form-list {
@@ -265,6 +277,16 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 	}
 	
 	.back-link {
+		a {
+			.lnk-primary-back;
+			
+			small {
+				display: none;
+			}
+		}
+	}
+	
+	.back-link {
 		float: left;
 		margin: 0;
 	}
@@ -290,7 +312,9 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#edf7fd; }
 .validation-advice { clear:both; min-height:13px; margin:3px 0 0; padding-left:17px; font-size:11px; font-weight:bold; line-height:13px; background:url(../images/validation_advice_bg.gif) 2px 0 no-repeat; color:#eb340a; }
 .validation-failed { border:1px dashed #eb340a !important; background:#faebe7 !important; }
 .validation-passed {}
-p.required { font-size:11px; text-align:right; color:#EB340A; }
+p.required {
+	
+}
 /* Expiration date and CVV number validation fix */
 .v-fix { float:left; }
 .v-fix .validation-advice { display:block; width:12em; margin-right:-12em; position:relative; }
@@ -304,6 +328,7 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
                              |___/           
 */
 /* messages */
+.main .messages { display: none; } /* les messages sont affciher au niveau template de page (1colmun.phtml...) */
 .success { color:#84cb1d; }
 .error { color:#dc3c16; }
 .notice { color:#dbb000; }
@@ -404,15 +429,27 @@ p.required { font-size:11px; text-align:right; color:#EB340A; }
 }
 
 /* Page Heading */
-.page-title {  }
-.page-title h1,
-.page-title h2 {
-	font-family: open_sansbold;
-	color: @c3;
-	font-size: 30px;
+.page-title {
+	position: relative;
+	
+	h1,
+	h2 {
+		font-family: open_sansbold;
+		color: @c3;
+		font-size: 30px;
+	}
+	
+	.required {
+		position: absolute;
+		top: 14px;
+		right: 0;
+	}
+	
+	.separator { margin:0 3px; }
+	.link-rss { float:right; margin:7px 0 0; }
+	
 }
-.page-title .separator { margin:0 3px; }
-.page-title .link-rss { float:right; margin:7px 0 0; }
+
 .title-buttons { text-align:right; }
 .title-buttons h1,
 .title-buttons h2,
@@ -567,7 +604,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 .link-cart { color:#dc6809 !important; font-weight:bold; }
 
-.link-reorder { font-weight:bold; color:#dc6809 !important; }
+.link-reorder { color: @c2; }
 
 .link-print {  }
 .link-rss { background:url(../images/i_rss.gif) 0 2px no-repeat; padding-left:18px; line-height:14px; white-space:nowrap; }
@@ -581,7 +618,12 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 }
 .btn-previous  { display:block; width:11px; height:11px; font-size:0; line-height:0; background:url(../images/btn_previous.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
-.btn-remove2 { display:block; width:16px; height:16px; font-size:0; line-height:0; background:url(../images/btn_trash.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
+.btn-remove2 { 
+	display: block; 
+	text-indent: -999em;
+	overflow: hidden;
+	.remove-filter;
+}
 .btn-edit    { display:block; width:11px; height:11px; font-size:0; line-height:0; background:url(../images/btn_edit.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
 
 .cards-list dt { margin:5px 0 0; }
@@ -664,12 +706,20 @@ tr.summary-details-excluded { font-style:italic; }
 					.picto-wishlist;
 				}
 				
-				li.last a:before {
+				li a.my-account:before {
 					content: "";
 					position: absolute;
 					top: 5px;
 					left: 0;
 					.picto-account;
+				}
+				
+				li a.logout:before {
+					content: "";
+					position: absolute;
+					top: 5px;
+					left: 0;
+					.picto-logout;
 				}
 			}
 			
@@ -853,22 +903,20 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 /* Sidebar =============================================================================== */
-.block { border:1px solid #c4c1bc; margin:0 0 15px; }
-.block .block-title { background:url(../images/bkg_block-title.gif) 0 0 repeat-x; border-bottom:1px solid #ddd; padding:2px 9px; }
-.block .block-title strong { display:block; font:bold 12px/16px Arial, Helvetica, sans-serif; min-height:16px; padding:1px 0 1px; text-transform:uppercase; color:#e26703; }
-.block .block-title strong span {}
-.block .block-title a { text-decoration:none !important; }
-.block .block-subtitle { margin:0; }
-.block .block-content { background:#f8f7f5; }
-.block .block-content li.item { padding:7px 9px; }
-.block .block-content .product-name { color:#1e7ec8; }
-.block .btn-remove,
-.block .btn-edit { float:right; margin:1px 0 2px 5px; }
-
-.block .empty { margin:0; padding:5px 9px; }
-
-.block li.odd { background-color:#f4f3f3; }
-.block li.even { background-color:#fafafa; }
+.block {
+	margin: 0 0 15px;
+	
+	.block-title {}
+	.block-subtitle {}
+	.block-content {}
+	.block .btn-remove,
+	.block .btn-edit { float:right; margin:1px 0 2px 5px; }
+	
+	.block .empty { margin:0; padding:5px 9px; }
+	
+	.block li.odd { background-color:#f4f3f3; }
+	.block li.even { background-color:#fafafa; }
+}
 
 /* Mini Blocks */
 .block-cart,
@@ -901,17 +949,6 @@ tr.summary-details-excluded { font-style:italic; }
 .block-cart .mini-products-list .product-details .product-name,
 .block-cart .mini-products-list .product-details .nobr small { word-wrap:break-word; }
 .block-cart .mini-products-list .product-details .nobr { white-space:normal !important; }
-
-/* Block: Account */
-.block-account { border-color:#bbb; }
-.block-account .block-title { background:#fc9d36 url(../images/bkg_block-title-account.gif) 0 100% repeat-x; border:0; padding:3px 10px; }
-.block-account .block-title strong { font-size:13px; color:#fff; }
-.block-account .block-content { background:#fbfaf6; padding:7px 10px 7px; }
-.block-account .block-content li a { display:block; border-bottom:1px solid #ddd; padding:3px 0; color:#5f5d5c; text-decoration:none !important; }
-.block-account .block-content li a:hover { color:#ea7900; }
-.block-account .block-content li.last a { border-bottom:0; }
-.block-account .block-content li.current { border-bottom:1px solid #ddd; padding:3px 0; color:#ea7900; }
-.block-account .block-content li.current.last { border-bottom:0; }
 
 /* Block: Currency Switcher */
 .block-currency { border:0; background:url(../images/bkg_block-currency.gif) 0 0 no-repeat; padding:7px 12px 10px; height:51px; }
@@ -1476,7 +1513,7 @@ tr.summary-details-excluded { font-style:italic; }
 			
 			input {
 				float: left;
-				padding: 4px 50px 5px 10px;
+				padding: 2px 50px 3px 10px;
 				border-right: none;
 				width: 100%;
 				box-sizing: border-box;
