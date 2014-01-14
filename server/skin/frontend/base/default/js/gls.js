@@ -68,7 +68,8 @@ jQuery(function($) {
 	/*
 	 * Sur l'évènement de choix de relay
 	 */
-	$('.choose-relay-point').live("click",function(){
+	$('.choose-relay-point').live("click",function(e){
+		e.preventDefault();
 		choisirRelaisGLS($(this).data('relayindex'));
 	});
 	
