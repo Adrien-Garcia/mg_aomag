@@ -2,11 +2,11 @@
 ?>
 <div id="layer_gls_wrapper" >
 	<div>
-		<h3><?php echo __("Select your relay point")?></h3><a class="close"></a>
+		<h3><?php echo __("Choose Mondial Relay ParcelShop")?></h3><a class="close"></a>
 		<div class="contenu">
 			<div id="gls_headers">
 				<div class="left">
-					<span><?php echo __("Your postal code")?></span>
+					<span><?php echo __("Your zipcode")?></span>
 					<input type="text" id="cp_recherche" value="<?php echo $this->getShippingPostcode() ?>"/>
 					<button id="cp_recherche_bouton" onclick="geocodeGLSAdresse()"><?php echo __("Search")?></button>
 				</div>
@@ -14,8 +14,8 @@
 					<?php
 					$smsNotification = strpos($this->getTelephone(), "06") === 0 || strpos($this->getTelephone(), "07") === 0;
 					?>
-					<label><input type="checkbox" id="sms_checkbox" <?php if($smsNotification) {?>checked="checked"<?php }?> /> <?php echo __("Be notified of my delivery by SMS")?></label>
-					<input type="text" id="num_telephone" <?php if($smsNotification) {?>value="<?php echo $this->getTelephone(); ?><?php }?>" />
+					<label><input type="checkbox" id="sms_checkbox" <?php if($smsNotification) {?>checked="checked"<?php }?> /> <?php echo __("To receive an sms when delivery is done")?></label>
+					<input type="text" id="num_telephone" class="valid-telephone-portable" <?php if($smsNotification) {?>value="<?php echo $this->getTelephone(); ?><?php }?>" />
 				</div>
 			</div>
 			<div id="col_gauche_gls">

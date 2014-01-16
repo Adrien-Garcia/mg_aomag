@@ -124,6 +124,7 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 	protected function _process(&$process)
 	{
 		$debug = (bool)(isset($_GET['debug']) ? $_GET['debug'] : $this->__getConfigData('debug'));
+		
 		if ($debug) $this->_helper->initDebug($this->_code, $process);
 
 		$value_found = false;
@@ -211,7 +212,7 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 	{
 		$mage_config = Mage::getConfig();
 		$os2_config = $this->_getConfig();
-		$data = Mage::helper('owebia_shipping2')->getDataModelMap($this->_helper, $this->_code, $request);
+		$data = Mage::helper('gls')->getDataModelMap($this->_helper, $this->_code, $request);
 		$process = array(
 			'data' => $data,
 			'cart.items' => array(),
@@ -238,7 +239,7 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 
 	protected function __appendMethod(&$process, $row, $fees)
 	{
-		$helper = Mage::helper('owebia_shipping2');
+		$helper = Mage::helper('gls');
 		$method = Mage::getModel('shipping/rate_result_method')
 			->setCarrier($this->_code)
 			->setCarrierTitle($this->__getConfigData('title'))
@@ -255,7 +256,7 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 	protected function __()
 	{
 		$args = func_get_args();
-		return Mage::helper('owebia_shipping2')->__($args);
+		return Mage::helper('gls')->__($args);
 	}
 }
 

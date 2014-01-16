@@ -472,6 +472,10 @@ class OwebiaShippingHelper_GLS
 		}
 		if (isset($row[$key]['value'])) {
 			$property = $row[$key]['value'];
+			if ($key == 'label' || $key == 'description' ) {
+			Mage::log('getRowProperty '.$property);
+				$property = Mage::helper('gls')->__($property);
+			}
 			$output = $property;
 			$this->debug('   get <span class=osh-key>'.self::esc($row['*id']).'</span>.<span class=osh-key>'.self::esc($key).'</span> = <span class=osh-formula>'.self::esc(self::toString($property)).'</span>');
 			preg_match_all('/{([a-z0-9_]+)\.([a-z0-9_]+)}/i', $output, $result_set, PREG_SET_ORDER);
@@ -1160,7 +1164,7 @@ class OwebiaShippingHelper_GLS
 		$address_filter = $this->_replaceData($process, $address_filter);
 		$parser = new OS2_AddressFilterParser_GLS();
 		$address_filter = $parser->parse($address_filter);
-
+		
 		$this->debug('      address filter = <span class=osh-formula>'.self::esc($address_filter).'</span>');
 		$data = array(
 			'{c}' => $address->country_id,

@@ -53,13 +53,14 @@ class Addonline_Gls_Model_Export {
 					$aRow[] = $order->getIncrementId();
 
 					// ORDERNAME
-					$aRow[] = $shippingAddress->getFirstname().' '.$shippingAddress->getLastname();
+					$aRow[] = strtoupper($shippingAddress->getFirstname().' '.$shippingAddress->getLastname());
 
 					// PRODUCTNO
 					$shipping_method = $order->getShippingMethod();
 					$shipping_code = $shipping_method;
 					if (strpos($shipping_method, 'ls_tohome') > 0) {
-						$shipping_code = 'BP';
+						//$shipping_code = 'BP';
+						$shipping_code = ''; // le bon code sera déterminé par winExpé, selon le pays de destination
 					}
 					if (strpos($shipping_method, 'ls_toyou') > 0) {
 						$shipping_code = 'ADO';
@@ -87,25 +88,25 @@ class Addonline_Gls_Model_Export {
 					$aRow[] = $order->getGlsWarnByPhone()?$shippingAddress->getTelephone():'';
 
 					// CONTACTPHONE
-					$aRow[] = '';
+					$aRow[] = $shippingAddress->getTelephone();
 
 					// STREET1
-					$aRow[] = $shippingAddress->getStreet(1);
+					$aRow[] = strtoupper($shippingAddress->getStreet(1));
 
 					// STREET2
-					$aRow[] = $shippingAddress->getStreet(2);
+					$aRow[] = strtoupper($shippingAddress->getStreet(2));
 
 					// STREET3
-					$aRow[] = $shippingAddress->getStreet(3);
+					$aRow[] = strtoupper($shippingAddress->getStreet(3));
 
 					// COUNTRYCODE
-					$aRow[] = $shippingAddress->getCountry();
+					$aRow[] = strtoupper($shippingAddress->getCountry());
 
 					// CITY
-					$aRow[] = $shippingAddress->getCity();
+					$aRow[] = strtoupper($shippingAddress->getCity());
 
 					// ZIPCODE
-					$aRow[] = $shippingAddress->getPostcode();
+					$aRow[] = strtoupper($shippingAddress->getPostcode());
 
 					// REFPR (identifiant du point relais)
 					$aRow[] = $order->getGlsRelayPointId();

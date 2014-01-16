@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Addonline_Gls>
-            <version>0.1.1</version>
+            <version>0.1.2</version>
             <depends>
                 <Mage_Shipping />
             </depends>
@@ -113,12 +113,13 @@
         </routers>
     </admin>
     <adminhtml>
+		<!-- Magento lower than 1.4.0 -->
         <translate>
             <modules>
                 <Addonline_Gls>
                     <files>
                         <shipping>Mage_Shipping.csv</shipping>
-                        <default>Addonline_Gls.csv</default>
+                        <gls>Addonline_Gls.csv</gls>
                     </files>
                 </Addonline_Gls>
             </modules>
@@ -144,13 +145,22 @@
                 </depends>  
             </gls>                  
         </menu>
-        <acl>
+		<acl>
 			<resources>
-				<all>
-					<title>Allow Everything</title>
-				</all>
 				<admin>
 					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<gls>
+											<title>GLS Section</title>
+											<sort_order>100</sort_order>
+										</gls>
+									</children>
+								</config>
+							</children>
+						</system>
 	                    <gls translate="title" module="gls">
 	                        <title>GLS Import/Export</title>
 	                        <sort_order>200</sort_order>
@@ -169,6 +179,22 @@
 		</acl>
     </adminhtml>
     <default>
+	    <gls>
+			<general>
+				<weight_unit>kg</weight_unit>
+			</general>
+			<bundle_product>
+				<process_children>0</process_children>
+				<load_item_options_on_parent>1</load_item_options_on_parent>
+				<load_item_data_on_parent>1</load_item_data_on_parent>
+				<load_product_data_on_parent>1</load_product_data_on_parent>
+			</bundle_product>
+			<configurable_product>
+				<load_item_options_on_parent>1</load_item_options_on_parent>
+				<load_item_data_on_parent>1</load_item_data_on_parent>
+				<load_product_data_on_parent>0</load_product_data_on_parent>
+			</configurable_product>
+		</gls>
         <carriers>
             <gls>
                 <title>GLS</title>
@@ -178,7 +204,19 @@
 {
  "label": "Livraison à domicile",
  "code": "tohome_fr",
- "shipto": "FR,MC,AD",
+ "shipto": "FR",
+ "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
+},
+{
+ "label": "Livraison à domicile",
+ "code": "tohome_eu",
+ "shipto": "{address_filter.EU}",
+ "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
+},
+{
+ "label": "Livraison à domicile",
+ "code": "tohome_ue",
+ "shipto": "{address_filter.AF},{address_filter.AS},{address_filter.NA},{address_filter.SA},{address_filter.OC},{address_filter.AN},{address_filter.DOM},{address_filter.COM}",
  "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configtohome>
                 <ordertohome>1</ordertohome>
@@ -187,7 +225,7 @@
 {
  "label": "Livraison à domicile garantie",
  "code": "toyou_fr",
- "shipto": "FR,MC,AD",
+ "shipto": "FR",
  "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configtoyou>
                 <ordertoyou>2</ordertoyou>
@@ -196,7 +234,7 @@
 {
  "label": "Livraison en Point Relais",
  "code": "relay_fr",
- "shipto": "FR,MC,AD",
+ "shipto": "FR",
  "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configrelay>
                 <orderrelay>3</orderrelay>
@@ -206,7 +244,11 @@
                 <model>Addonline_Gls_Model_Carrier_ShippingMethod</model>
                 <tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match={tracking_number}</tracking_view_url>
                 <export_folder>var/export/gls/</export_folder>
-                <import_folder>var/import/gls/</import_folder>            
+                <import_folder>var/import/gls/</import_folder>        
+                <debug>0</debug>
+				<auto_escaping>0</auto_escaping>
+				<auto_correction>1</auto_correction>
+				<stop_to_first_match>0</stop_to_first_match>
                 <sort_order>1</sort_order>
             </gls>
         </carriers>

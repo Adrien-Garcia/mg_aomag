@@ -301,7 +301,7 @@ function infoGLSBulleGenerator(relay) {
 	
 	contentString += relay.find('.GLS_relay_hours').html();
 	
-	contentString += "<div class='button-wrapper'><a href='#' class='choose-relay-point' data-relayindex="+relay.find('.GLS_relay_index').text()+" data-relayid="+relay.find('.GLS_relay_id').text()+">Choisir ce lieu</a></div>";
+	contentString += "<div class='button-wrapper'><a href='#' class='choose-relay-point' data-relayindex="+relay.find('.GLS_relay_index').text()+" data-relayid="+relay.find('.GLS_relay_id').text()+">"+ Translator.translate("Choose this ParcelShop") +"</a></div>";
 	
 	contentString += "</div>";
 
@@ -349,11 +349,14 @@ function choisirRelaisGLS(index) {
 	jQuery("select[name='shipping_address_id']").prop('selectedIndex',0);
 	jQuery("select[name='shipping_address_id'] option[value='']").prop('selectedIndex',0);	
 			
-	if(jQuery("#sms_checkbox").is(":checked") && jQuery("#num_telephone").val() == "") {
-		alert( Translator.translate("Please provide a valide phone number.") );
-		return;
+	if(jQuery("#sms_checkbox").is(":checked")) {
+		v= jQuery("#num_telephone").val();
+		if (!(/^0(6|7)\d{8}$/.test(v)) || (/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)) ) {
+			alert( Translator.translate("Please provide a valide mobile phone number.") );
+			return;			
+		}
 	}	
-	var contenu_html = "<div id='gls_relais_choisi'><span>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+"</span>"      +" <span class='modifier_relay'>" + Translator.translate("Update my relay point") + "</span>"   +  "<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+"<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text() + "</div>";
+	var contenu_html = "<div id='gls_relais_choisi'><span>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+"</span>"      +" <span class='modifier_relay'>" + Translator.translate("Change ParcelShop") + "</span>"   +  "<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+"<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text() + "</div>";
 	jQuery("input[id^=\"s_method_gls_relay_\"]").each(function(index, element){
 		jQuery(element).parent().append(contenu_html);
 	});
@@ -390,8 +393,4 @@ function choisirRelaisGLS(index) {
 	});		
 }
 
-/** ajout de la fonction de validation numéro de téléphone portable */
-Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
-    return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
-});
 
