@@ -204,8 +204,11 @@ ul,ol         { list-style:none; }
 
 label.required em {
 	float: right;
-	margin-right: 5px;
-	color: #dc3c16;
+	margin-left: 5px;
+	color:@c2;
+	font-style:normal;
+	font-family:open_sanslight;
+	font-size:14px;
 }
 
 /*
@@ -222,12 +225,18 @@ input,select,textarea,button {
 }
 
 input.input-text,select,textarea {
-	border: 1px solid @c4;
+	border: 1px solid @c6;
 	padding: 2px 10px 3px 10px;
+	color:@c4;
+	
+	&:focus{
+		border-color:@c3;
+		color:@c3;
+	}
 }
 
 textarea { overflow:auto; }
-input.radio { margin-right:3px; }
+input.radio { margin-right:3px; position:relative;top:2px;}
 input.checkbox { margin-right:3px; }
 /* input.qty { width:2.5em !important; } */
 
@@ -310,8 +319,18 @@ p.control input.radio { margin-right:6px; }
 }
 
 /* Form Validation */
-.validation-advice { clear:both; min-height:13px; margin:3px 0 0; padding-left:17px; font-size:11px; font-weight:bold; line-height:13px; background:url(../images/validation_advice_bg.gif) 2px 0 no-repeat; color:#eb340a; }
-.validation-failed { border:1px dashed #eb340a !important; background:#faebe7 !important; }
+.validation-advice { 
+	clear:both;
+	min-height:13px;
+	margin:3px 0 0;
+	padding-left:17px;
+	font-size:11px;
+	font-weight:bold;
+	line-height:13px;
+	background:url(../images/validation_advice_bg.gif) 2px 0 no-repeat;
+	color:#dc3c16;
+}
+.validation-failed { border:1px solid #dc3c16 !important; background:#fff !important; }
 .validation-passed {}
 p.required {
 	
@@ -465,9 +484,9 @@ p.required {
 
 
 /* Data Table */
-.data-table { width:100%; border:1px solid @c4; color: @c4; }
+.data-table { width:100%; border:1px solid @c6; color: @c4; }
 .data-table .odd  {  }
-.data-table .even { background:@c5; }
+.data-table .even { background:#f8f8f8; }
 .data-table{
 	
 	thead{
@@ -476,8 +495,8 @@ p.required {
 			padding:15px 8px 0 8px;
 			white-space:nowrap;
 			vertical-align:top;
-			border-bottom:1px solid @c4;
-			border-right:1px solid @c4;
+			border-bottom:1px solid @c6;
+			border-right:1px solid @c6;
 			font-family:open_sansbold;
 			font-size:16px;
 			
@@ -524,14 +543,14 @@ p.required {
 .data-table thead th {  }
 .data-table thead th .tax-flag {white-space:nowrap; }
 
-.data-table tfoot { border-bottom:1px solid @c4; }
+.data-table tfoot { border-bottom:1px solid @c6; }
 .data-table tfoot tr.first td {  }
 .data-table tfoot tr {  }
-.data-table tfoot td { padding-top:1px; padding-bottom:1px; border-bottom:0; border-right:1px solid @c4; }
+.data-table tfoot td { padding-top:1px; padding-bottom:1px; border-bottom:0; border-right:1px solid @c6; }
 .data-table tfoot strong { font-size:16px; }
 
 .data-table tbody th,
-.data-table tbody td { border-bottom:1px solid @c4; border-right:1px solid @c4; }
+.data-table tbody td { border-bottom:1px solid @c6; border-right:1px solid @c6; }
 
 /* Bundle products tables */
 .data-table tbody.odd tr { background:#f8f7f5 !important; }
@@ -1105,49 +1124,9 @@ tr.summary-details-excluded { font-style:italic; }
 .cart-table .btn-empty { float:right; }
 .cart-table .btn-update { margin-left:10px; }
 
-/* Shopping Cart Collateral boxes */
-.cart .cart-collaterals { padding:25px 0 0; }
-.cart .cart-collaterals .col2-set { float:left; width:605px; }
-.cart .cart-collaterals .col2-set .col-2 { width:294px; }
 
-.cart .crosssell { border:1px solid #cec3b6; background:#fafaec; padding:12px 15px; }
-.cart .crosssell h2 { font-size:13px; font-weight:bold; }
-.cart .crosssell .product-image { float:left; width:75px; height:75px; border:1px solid #d0cdc9; }
-.cart .crosssell .product-details { margin-left:90px; }
-.cart .crosssell .product-name { font-weight:bold; }
-.cart .crosssell li.item { margin:12px 0; }
-.cart .crosssell .link-compare { font-weight:normal; }
 
-/* Discount Codes & Estimate Shipping and Tax Boxes */
-.cart .discount,
-.cart .shipping { border:1px solid #d0cbc1; background:#fff url(../images/bkg_block-title.gif) 0 0 repeat-x; padding:12px 15px; margin:0 0 18px; }
-.cart .discount h2,
-.cart .shipping h2 { background-position:0 0; background-repeat:no-repeat; font:bold 13px/16px Arial, Helvetica, sans-serif; padding:0 0 0 21px; color:#e26703; text-transform:uppercase; }
-.cart .discount button span,
-.cart .shipping button span { border-color:#406a83; background:#618499; }
-.cart .discount .buttons-set,
-.cart .shipping .buttons-set { margin:10px 0 0; border:0; padding:0; text-align:left; }
-.cart .discount .buttons-set button.button,
-.cart .shipping .buttons-set button.button { float:none; margin-left:0; }
 
-.cart .discount h2 { background-image:url(../images/i_discount.gif); }
-.cart .discount .input-box { margin:8px 0 0; width:260px; }
-.cart .discount input.input-text { width:254px; }
-
-.cart .shipping h2 { background-image:url(../images/i_shipping.gif); }
-.cart .shipping .sp-methods { margin:10px 0 0; padding:5px 0 0; background:url(../images/bkg_divider1.gif) 0 0 repeat-x; }
-
-/* Shopping Cart Totals */
-.cart .totals { float:right; width:268px; background:#dee5e8; border:1px solid #bebcb7; }
-.cart .totals table { width:100%; margin:7px 0; }
-.cart .totals td { padding:1px 15px 1px 7px; }
-.cart .totals tr.last td {}
-.cart .totals tfoot th { padding:5px 15px 5px 7px; }
-.cart .totals tfoot td { padding-top:5px; padding-bottom:5px; }
-.cart .totals tfoot th strong,
-.cart .totals tfoot td strong { font-size:15px; }
-.cart .totals .checkout-types { font-size:13px; padding:8px 15px 15px; text-align:right; }
-.cart .totals .checkout-types li { clear:both; margin:10px 0; }
 
 /* Options Tool Tip */
 .item-options dt { font-weight:bold; font-style:italic; }
@@ -1165,33 +1144,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 /* Checkout ============================================================================== */
-/********** < Common Checkout Styles */
-/* Shipping and Payment methods */
-.sp-methods { margin:0 0 8px; }
-.sp-methods dt { margin:13px 0 5px; font-weight:bold; }
-.sp-methods dd {}
-.sp-methods dd li { margin:5px 0; }
-.sp-methods label { font-weight:bold; color:#666; }
-.sp-methods .price { font-weight:bold; }
-.sp-methods .form-list { padding-left:20px; }
-.sp-methods .form-list li { margin:0 0 8px; }
-.sp-methods select.month { width:154px; margin-right:10px; }
-.sp-methods select.year { width:96px; }
-.sp-methods input.cvv { width:3em !important; }
 
-.sp-methods .checkmo-list li { margin:0 0 5px; }
-.sp-methods .checkmo-list label { width:135px; padding-right:10px; text-align:right; }
-.sp-methods .checkmo-list address { float:left; }
-
-.sp-methods .centinel-logos a { margin-right:3px; }
-.sp-methods .centinel-logos img { vertical-align:middle; }
-
-.sp-methods .release-amounts { margin:0.5em 0; }
-.sp-methods .release-amounts button { float:left; margin:5px 10px 0 0; }
-
-.please-wait { float:right; }
-.please-wait img { vertical-align:middle; }
-.cvv-what-is-this { font-size:11px; cursor:help; margin-left:10px; }
 
 /* Tooltip */
 .tool-tip { border:1px solid #7BA7C9; background:#EAF6FF; padding:15px 20px; position:absolute; z-index:9999; }
