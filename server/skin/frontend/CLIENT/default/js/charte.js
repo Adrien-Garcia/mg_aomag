@@ -84,7 +84,7 @@ jQuery(function($) {
 		$('#upsell-product-table').bxSlider({
 			minSlides: 4,
 			maxSlides: 4,
-			slideWidth: 205,
+			slideWidth: 225,
 			pager: true,
 			controls: false,
 			slideMargin: 20,

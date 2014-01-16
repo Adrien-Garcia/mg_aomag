@@ -7,15 +7,16 @@
 <?php if ($shipping_data = Mage::getSingleton('checkout/session')->getData('gls_shipping_relay_data')) : ?>
 <div id='gls_relais_choisi_init'>
 <span><?php echo $shipping_data['name'] ?></span>
-<span class='modifier_relay'><?php echo __("Update my relay point"); ?></span><br/>
+<span class='modifier_relay'><?php echo __("Change ParcelShop"); ?></span><br/>
 <?php echo $shipping_data['address'] ?><br/>
 <?php echo $shipping_data['zipcode'] ?> <?php echo $shipping_data['city'] ?></div>
 <?php endif; ?>
 <script type="text/javascript">
 //<![CDATA[
 
-Translator.add('Update my relay point','<?php echo __("Update my relay point"); ?>');
-Translator.add('Please provide a valide phone number.','<?php echo __("Please provide a valide phone number."); ?>');
+Translator.add('Choose this ParcelShop','<?php echo __("Choose this ParcelShop"); ?>');
+Translator.add('Change ParcelShop','<?php echo __("Change ParcelShop"); ?>');
+Translator.add('Please provide a valide mobile phone number.','<?php echo __("Please provide a valide mobile phone number."); ?>');
 
 var glsBaseUrl = '<?php echo $this->getUrl('gls/ajax/') ?>';
 

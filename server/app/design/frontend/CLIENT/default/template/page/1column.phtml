@@ -43,6 +43,7 @@
         <div class="main-container col1-layout">
         	<div class="breadcrumbs-container"><?php echo $this->getChildHtml('breadcrumbs') ?></div>
         	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+        	<?php echo $this->getChildHtml('global_messages') ?>
             <div class="main">
             
             	<?php // Compare link

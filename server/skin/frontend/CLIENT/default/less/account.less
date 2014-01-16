@@ -552,6 +552,10 @@
 .page-print .price-incl-tax .price { display:inline; }
 
 /* My Wishlist */
+.wishlist-index-index {
+	.breadcrumbs-container { display: none; }
+}
+
 .my-wishlist {
 	
 	#wishlist-table {
@@ -565,6 +569,10 @@
 		td {
 			vertical-align: top;
 			padding: 20px;
+			
+			&:first-child {
+				padding: 5px;
+			}
 		}
 	
 		.product-name {
@@ -579,6 +587,16 @@
 		textarea {
 			width: 100%;
 			margin-top: 10px;
+		}
+		
+		.qty {
+			width: 64px;
+			text-align: center;
+			margin-bottom: 10px;
+		}
+		
+		.old-price {
+			display: block;
 		}
 		
 		.btn-cart {
