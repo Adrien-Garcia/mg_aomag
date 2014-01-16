@@ -11,6 +11,12 @@
  */
 jQuery(function($) {
 	
+	$("input.qty").click(function(){
+        var input = this;
+        input.focus();
+        input.setSelectionRange(0,999); 
+    });
+	
 	var t = new Array();
 	$(".more-views li a").each(function() {
 		t[t.length] = $(this).attr("href");
@@ -78,7 +84,7 @@ jQuery(function($) {
 		$('#upsell-product-table').bxSlider({
 			minSlides: 4,
 			maxSlides: 4,
-			slideWidth: 205,
+			slideWidth: 225,
 			pager: true,
 			controls: false,
 			slideMargin: 20,
