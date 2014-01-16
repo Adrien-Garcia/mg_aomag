@@ -39,9 +39,10 @@
         
 		<blocks>
 			<page>
+			<!-- Surchargé dans Fooman SpeedSter
 				<rewrite>
 					<html_head>Addonline_Seo_Block_Head</html_head>
-				</rewrite>
+				</rewrite> -->
 			</page>
 		</blocks>
 		<events>
