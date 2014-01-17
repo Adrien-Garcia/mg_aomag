@@ -71,8 +71,7 @@
 "Compare Products","Mon comparateur"
 "My shopping Cart","Mon panier"
 "Quantity","Quantité"
-"Are you sure you want to remove this product from your wishlist?","Êtes-vous sûr(e) de vouloir enlever ce produit de votre liste d\'envies ?"
-"Are you sure you would like to remove this item from the wishlist?","Êtes-vous sûr(e) de vouloir enlever cet article de votre liste d\'envies ?"
+<<<<<<< HEAD
 "Associated products","Produits associés"
 "Advantages Codes","Code avantage"
 "Shipping fees","Frais de livraison"
@@ -80,3 +79,7 @@
 "Choose your destination","Choisissez votre destination"
 "Region","Région"
 "Estimate shipping cost","Calculez mes frais de port"
+=======
+"Are you sure you want to remove this product from your wishlist?","Êtes-vous sûr(e) de vouloir enlever ce produit de votre liste d\'envies ?"
+"Are you sure you would like to remove this item from the wishlist?","Êtes-vous sûr(e) de vouloir enlever cet article de votre liste d\'envies ?"
+>>>>>>> branch 'master' of ssh://git@git.add-online.loc/aomagento.git
