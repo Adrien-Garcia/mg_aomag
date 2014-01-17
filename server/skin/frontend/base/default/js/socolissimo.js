@@ -130,16 +130,16 @@ function shippingRadioCheck(element) {
 	jQuery("#shipping-method-please-wait").show();
 
 	//on charge en ajax le layer socolissimo (carte choix relais et/ou saisie numéro de téléphone)
-	url = socolissimoBaseUrl + "selector/type/";
+	socoUrl = socolissimoBaseUrl + "selector/type/";
 	var typeSocolissimo =  getTypeSocolissimoFromRadio(socoRadio, false);
 	if (typeSocolissimo) {
-		url = url + typeSocolissimo;
+		socoUrl = socoUrl + typeSocolissimo;
 	} else {
 		return;
 	}
 
 	jQuery.ajax({
-		url: url,
+		url: socoUrl,
 		success: function(data){
 
 			//une fois chargé, on cache le picto de chargement, on ouvre un layer et on met de résultat dedans:
@@ -290,15 +290,15 @@ function changeMap() {
 
 function loadListeRelais() {
 	jQuery(".loader-wrapper").fadeTo(300, 1);
-	url = socolissimoBaseUrl + "listrelais?"
+	socoUrl = socolissimoBaseUrl + "listrelais?"
 	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
-		url = url + check.val() + "=" + check.is(":checked") + "&";
+		socoUrl = socoUrl + check.val() + "=" + check.is(":checked") + "&";
 	});
-	url = url + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery.trim(jQuery("#socolissimo_city").text()) + "&country=" + jQuery("#socolissimo_country").val();
-	url = url + "&latitude=" + socolissimoMyPosition.lat() + "&longitude=" + socolissimoMyPosition.lng();
-	url = encodeURI(url);
-	jQuery.getJSON( url, function(response) {
+	socoUrl = socoUrl + "adresse=" + jQuery("#socolissimo_street").val() + "&zipcode=" + jQuery("#socolissimo_postcode").val()+ "&ville=" + jQuery.trim(jQuery("#socolissimo_city").text()) + "&country=" + jQuery("#socolissimo_country").val();
+	socoUrl = socoUrl + "&latitude=" + socolissimoMyPosition.lat() + "&longitude=" + socolissimoMyPosition.lng();
+	socoUrl = encodeURI(socoUrl);
+	jQuery.getJSON( socoUrl, function(response) {
 		if (!response.error) {
 			socolissimoListRelais = response.items;
 			jQuery("#adresses_socolissimo").html(response.html);
