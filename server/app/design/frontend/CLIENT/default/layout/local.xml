@@ -183,6 +183,12 @@
 	    </reference>
 	</checkout_cart_index>
 	
+	<checkout_onepage_index translate="label">
+		<reference name="root" before="-">
+			<block type="core/template" name="onepage-title" as="onepage.title" template="checkout/onepage-title.phtml" />
+		</reference>
+	</checkout_onepage_index>
+	
 	<customer_account_login>
 		<reference name="customer_form_login">
 			<block type="customer/form_register" name="customer_form_register" template="persistent/customer/form/register.phtml">
