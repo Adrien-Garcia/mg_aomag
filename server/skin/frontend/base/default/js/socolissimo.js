@@ -54,6 +54,9 @@ jQuery(function($) {
  * (appelé au chargement du DOM mais aussi au rechargement ajax (voir Checkout.prototype.setStepResponse dans  socolissimo\additional.phtml)
  */
 function initSocolissimoLogos() {
+	
+	
+	
 	jQuery("input[id^=\"s_method_socolissimo\"]").each(function(index, element){
 		
 		if(!jQuery("body").hasClass("onestepcheckout-index-index")) {

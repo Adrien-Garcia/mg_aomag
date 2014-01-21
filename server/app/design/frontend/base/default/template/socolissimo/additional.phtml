@@ -36,17 +36,24 @@ if (aoGoToShippingMethodHooks == undefined) {
 }
 // initSocolissimoLogos : fonction définie dans socolissimo.js, appellée dans le hokk ci-dessous, pour charger les logos SoColissimo 
 aoGoToShippingMethodHooks[aoGoToShippingMethodHooks.length] = initSocolissimoLogos;
+console.log("wesh1");
 if ((typeof Checkout) != "undefined") {
+console.log("wesh2");
 <?php if (version_compare(Mage::getVersion(), '1.8', '>=')) : ?>
 	//On surchage la methode gotoSection de Checkout (voir opcheckout.js) : surcharge identique dans les modules addonline : socolissimo, GLS pour être compatible si on utilise les deux modules 
 	Checkout.prototype.gotoSection = function (section, reloadProgressBlock) 
 	{
+
+		console.log("wesh3");
+		
 	 		if (reloadProgressBlock) {
 	            this.reloadProgressBlock(this.currentStep);
 	        }
 			//HOOK pour modules de livraison
 	    	if (section == 'shipping_method') {
+	    		console.log("wesh4");
 	    		for (i=0;i<aoGoToShippingMethodHooks.length;i++){
+	    			console.log("wesh5");
 	    			aoGoToShippingMethodHooks[i]();
 	    		} 
 	    	}
