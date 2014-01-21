@@ -53,7 +53,7 @@ class Addonline_Gls_Model_Export {
 					$aRow[] = $order->getIncrementId();
 
 					// ORDERNAME
-					$aRow[] = strtoupper($shippingAddress->getFirstname().' '.$shippingAddress->getLastname());
+					$aRow[] = mb_strtoupper ($shippingAddress->getFirstname().' '.$shippingAddress->getLastname(), 'UTF-8');
 
 					// PRODUCTNO
 					$shipping_method = $order->getShippingMethod();
@@ -91,22 +91,22 @@ class Addonline_Gls_Model_Export {
 					$aRow[] = $shippingAddress->getTelephone();
 
 					// STREET1
-					$aRow[] = strtoupper($shippingAddress->getStreet(1));
+					$aRow[] = mb_strtoupper ($shippingAddress->getStreet(1), 'UTF-8');
 
 					// STREET2
-					$aRow[] = strtoupper($shippingAddress->getStreet(2));
+					$aRow[] = mb_strtoupper ($shippingAddress->getStreet(2), 'UTF-8');
 
 					// STREET3
-					$aRow[] = strtoupper($shippingAddress->getStreet(3));
+					$aRow[] = mb_strtoupper ($shippingAddress->getStreet(3), 'UTF-8');
 
 					// COUNTRYCODE
-					$aRow[] = strtoupper($shippingAddress->getCountry());
+					$aRow[] = mb_strtoupper ($shippingAddress->getCountry(), 'UTF-8');
 
 					// CITY
-					$aRow[] = strtoupper($shippingAddress->getCity());
+					$aRow[] = mb_strtoupper ($shippingAddress->getCity(), 'UTF-8');
 
 					// ZIPCODE
-					$aRow[] = strtoupper($shippingAddress->getPostcode());
+					$aRow[] = mb_strtoupper ($shippingAddress->getPostcode(), 'UTF-8');
 
 					// REFPR (identifiant du point relais)
 					$aRow[] = $order->getGlsRelayPointId();
@@ -150,6 +150,11 @@ class Addonline_Gls_Model_Export {
 		ob_start();
 		$df = fopen($folder.$filename, 'w+');
 		foreach ($array as $row) {
+			//WINEXPE attends de l'ISO-8859-1
+			foreach(array_keys($row) as $key){
+				$row[$key] = iconv('UTF-8','ISO-8859-9', $row[$key]);
+			}
+			
 			fputcsv($df, $row,$delimiter,$encloser);
 		}
 		fclose($df);
