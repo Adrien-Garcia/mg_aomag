@@ -74,7 +74,7 @@ class Addonline_Gls_Model_Export {
 					$total_weight = 0;
 					$items = $order->getAllItems();
 					foreach ($items as $item) {
-						$total_weight += $item['row_weight'];
+						$total_weight += $item->getRowWeight();
 					}
 					$aRow[] = $total_weight;
 
