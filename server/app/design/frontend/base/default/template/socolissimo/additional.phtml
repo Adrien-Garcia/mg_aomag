@@ -41,12 +41,15 @@ if ((typeof Checkout) != "undefined") {
 	//On surchage la methode gotoSection de Checkout (voir opcheckout.js) : surcharge identique dans les modules addonline : socolissimo, GLS pour être compatible si on utilise les deux modules 
 	Checkout.prototype.gotoSection = function (section, reloadProgressBlock) 
 	{
+		
 	 		if (reloadProgressBlock) {
 	            this.reloadProgressBlock(this.currentStep);
 	        }
 			//HOOK pour modules de livraison
 	    	if (section == 'shipping_method') {
+	    		
 	    		for (i=0;i<aoGoToShippingMethodHooks.length;i++){
+	    			
 	    			aoGoToShippingMethodHooks[i]();
 	    		} 
 	    	}

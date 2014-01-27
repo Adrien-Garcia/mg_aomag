@@ -26,6 +26,10 @@
 				<type>skin_css</type>
 				<name>css/styles-ie.css</name>
 			</action>
+			<action method="removeItem">
+		    	<type>skin_js</type>
+		    	<name>js/advancedslideshow.js</name>
+		   	</action>
 		</reference>
 		<reference name="footer">
 			<remove name="footer_links" />
@@ -182,6 +186,41 @@
 	       	</action>
 	    </reference>
 	</checkout_cart_index>
+	
+	<checkout_onepage_index translate="label">
+		<reference name="root" before="-">
+			<block type="core/template" name="onepage-title" as="onepage.title" template="checkout/onepage-title.phtml" />
+		</reference>
+		
+		<reference name="head">
+		   <action method="addCss"><stylesheet>css/socolissimo.css</stylesheet></action>
+		
+			<action method="addJs"><script>jquery/jquery-1.7.1.min.js</script></action>
+			<action method="addJs"><script>jquery/jquery.noconflict.js</script></action>
+			<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
+		    <action method="addItem"><type>skin_js</type><script>js/socolissimo.js</script></action>
+		
+		    <block type="core/text" name="map.js"><action method="setText"><text><![CDATA[<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&region=FR"></script>]]></text></action></block>
+		   
+		</reference>
+
+	 	<reference name="before_body_end">
+	    	<block type="core/template" name="socolissimo_additional" after="-" template="socolissimo/additional.phtml" />
+	    </reference>
+    
+	</checkout_onepage_index>
+	
+	<checkout_onepage_success>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+	</checkout_onepage_success>
+	
+	<checkout_onepage_failure>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+	</checkout_onepage_failure>
 	
 	<customer_account_login>
 		<reference name="customer_form_login">

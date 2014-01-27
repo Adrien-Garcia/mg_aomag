@@ -186,8 +186,8 @@
 			<bundle_product>
 				<process_children>0</process_children>
 				<load_item_options_on_parent>1</load_item_options_on_parent>
-				<load_item_data_on_parent>1</load_item_data_on_parent>
-				<load_product_data_on_parent>1</load_product_data_on_parent>
+				<load_item_data_on_parent>0</load_item_data_on_parent>
+				<load_product_data_on_parent>0</load_product_data_on_parent>
 			</bundle_product>
 			<configurable_product>
 				<load_item_options_on_parent>1</load_item_options_on_parent>
