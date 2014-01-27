@@ -70,9 +70,9 @@
 #opc-login .col-1 { float:right; }
 #opc-login .col-1 { }
 #opc-login .col-1 h4,#opc-login .col-1 .ul { display:none; }
-#checkout-step-review.step { width:645px; }
+#checkout-step-review.step {  }
 
-#opc-review .step { padding:30px 20px; border-top:1px solid #BBAFA0; }
+#opc-review .step { padding:30px 0; }
 #opc-review .product-name { font-weight:bold; color:#0a263c; }
 #opc-review .item-options { margin:5px 0 0; }
 #opc-review .buttons-set { padding:20px 0; border:0; }
@@ -222,8 +222,8 @@
 }
 #opc-login .col-1 h4,#opc-login .col-1 .ul { display:none; }
 
-#checkout-step-review.step { width:645px; }
-#opc-review .step { padding:30px 20px; border-top:1px solid #BBAFA0; }
+#checkout-step-review.step { }
+#opc-review .step { padding:30px 0; }
 #opc-review .product-name { font-weight:bold; color:#0a263c; }
 #opc-review .item-options { margin:5px 0 0; }
 #opc-review .buttons-set { padding:20px 0; border:0; }
@@ -251,6 +251,15 @@
 		top:0px;
 		left:0;
 		margin:0;
+	}
+}
+
+.opc .buttons-set{
+	.required{
+		em{
+			color:@c2;
+			font-style: normal;
+		}
 	}
 }
 
@@ -359,7 +368,211 @@ dd.s_method_gls li span.price{
 
 #shipping-method-buttons-container{
 	border-top:0 !important;
-	margin-top:60px !important;
+	margin-top:120px !important;
 }
 
+#checkout-payment-method-load{
+	
+	> dt:first-child{
+		margin-top:0;
+	}
+	
+	label.required em{
+		float:right;
+		right:0;
+	}
+	
+	ul.form-list{
+	
+		padding:0;
+	
+		&#payment_form_ccsave{
+		
+			li:first-child{
+				width:340px;
+				float:left;
+			}
+			li:first-child + li{
+				width:340px;
+				float:right;
+				
+				select{
+					width:100%;
+				}
+			}
+			li:first-child + li + li{
+				width:340px;
+				float:left;
+			}
+			li:first-child + li + li + li{
+				width:340px;
+				float:right;
+				
+				.v-fix{
+					width:155px;
+				}
+				
+				.v-fix:first-child{
+					float:left;
+					margin-right:30px;
+				}
+				
+				select{
+					width:100%;
+					margin:0;
+				}
+			}
+			li:first-child + li + li + li + li{
+				width:340px;
+				
+				.input-text{
+					width:310px !important;
+				}
+			}
+			
+			.cvv-what-is-this{
+				display:inline-block;
+				.picto-helper();
+				font-size:0px;
+				text-indent:-999em;
+				vertical-align: middle;
+				margin-top:4px;
+			}
+		
+		}
+	
+	}
+	
+}
+
+#payment-buttons-container{
+	
+	margin-top:40px;
+	
+	.required{
+		float:left;
+		
+		em{
+			color:@c2;
+			font-style: normal;
+		}
+	}
+}
+
+
+.opc-block-progress{
+	
+	strong{
+		font-weight:normal;
+	}
+	
+	.block-title{
+	
+		line-height:16px;
+		padding-right:20px;
+		margin-bottom:10px;
+		padding-bottom:10px;
+		border-bottom:1px solid @c5;
+	
+		strong{
+			font-family:open_sansbold;
+			font-size:14px;
+			text-transform:uppercase;
+			color:@c3;
+		}
+		
+	}
+	
+	dt{
+		color:@c3;
+		
+		.separator{
+			display:none;
+		}
+		
+		.changelink{
+			display:block;
+			margin:3px 0 4px 0;
+			
+			a{
+				color:@c2;
+			}
+		}
+	}
+	
+	dd{
+		padding-bottom:18px;
+		margin-bottom:15px;
+		border-bottom:1px solid @c5;
+	}
+	
+	#payment-progress-opcheckout{
+		dd{
+			border-bottom:0;
+		}
+	}
+}
+
+#checkout-review-table{
+	
+	border:none;
+	
+	thead tr.first th{
+		border-top:1px solid @c6;
+	}
+	thead tr.first th:first-child{
+		border-left:1px solid @c6;
+	}
+	thead tr.first th:last-child{
+		border-right:1px solid @c6;
+	}
+	
+	thead tr.last th.a-right:first-child{
+		border-right: 0;
+		text-align:center !important;
+	}
+	
+	thead tr.last th.a-right:first-child + th{
+		text-align:center;
+	}
+	
+	thead tr.last th{
+		text-transform: uppercase;
+		border-bottom: 1px solid rgb(212, 212, 212);
+		padding-top:0px;
+	}
+	
+	th{
+		font-size:14px;
+		padding:5px 8px;
+		vertical-align:middle;
+	}
+	
+	tbody{
+		td{
+			padding:30px 8px;
+		}
+		
+		tr td:first-child{
+			border-left:1px solid @c6;
+		}
+		tr td:last-child{
+			border-right:1px solid @c6;
+		}
+		
+		tr:last-child td{
+			border-bottom:1px solid @c6;
+		}
+	}
+	
+	tfoot{
+		
+		border:none;
+		
+		td{
+			border:none;
+		}
+		
+	}
+}
 /* ================================= Solution by www.h-o.nl =============================== */
