@@ -147,6 +147,8 @@ ul,ol         { list-style:none; }
 .no-bg        { background:none !important; }
 
 *{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 .clearfix {
@@ -154,6 +156,16 @@ ul,ol         { list-style:none; }
 	&:before, &:after { content: ""; display: table; }
 	&:after { clear: both; }
 }
+
+.fancybox-close {
+	.picto-close;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	z-index: 8040;
+}
+
 /* ======================================================================================= */
 
 

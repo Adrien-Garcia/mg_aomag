@@ -143,7 +143,7 @@
 
 /* Add to Links */
 .add-to-links {
-	margin: 5px 0 0;
+	margin: 15px 0 0;
 	a { color: @c4; }
 	.separator { display:none; }
 }
@@ -491,20 +491,114 @@
 .product-view .box-tags .note { margin:3px 0 0; padding:0 0 0 23px; font-size:11px; }
 
 /* Block: Reviews */
-.product-view .box-reviews dl { margin:15px 0; }
-.product-view .box-reviews dt a,
-.product-view .box-reviews dt span { font-weight:bold; }
-.product-view .box-reviews dd { margin:0 0 15px; }
-.product-view .box-reviews dd small { font-style:italic; }
-.product-view .box-reviews .form-add { margin:15px 0 0; }
-.product-view .box-reviews .form-add h3 { font-size:13px; font-weight:normal; }
-.product-view .box-reviews .form-add h3 span { font-weight:bold; }
-.product-view .box-reviews .form-add h4 { font-size:12px; }
-.product-view .box-reviews .form-add .data-table td { text-align:center; }
-.product-view .box-reviews .form-add .form-list { margin:15px 0 0; }
-.product-view .box-reviews .form-add .form-list .input-box { width:360px; }
-.product-view .box-reviews .form-add .form-list input.input-text,
-.product-view .box-reviews .form-add .form-list textarea { width:354px; }
+.product-view .box-reviews {
+	
+	.toolbar {
+		margin-bottom: 20px;
+		
+		.pager {
+			float: none;
+		}
+		
+		.limiter {
+			border-right: none;
+		}
+	}
+	
+	dl {
+	
+		dt {
+			
+			.ratings-table {
+				float: left;
+				margin-right: 15px;
+				margin-top: 2px;
+			}
+			
+			.title {
+				color: @c3;
+				font-family: open_sansbold;
+			}
+			
+			.author, .date {
+				font-style: italic;
+				font-size: 12px;
+			}			
+		}
+		
+		dd {
+			margin-bottom: 20px;
+			margin-top: 10px;
+			border-bottom: 1px solid @c5;
+			padding-bottom: 20px;
+			
+			&:last-child {
+				border-bottom: none;
+				padding-bottom: 0;
+			}
+		}
+	}
+	
+	.form-add { display: none; }
+}
+
+.fancybox-overlay {
+	.form-add {
+		width: 500px;
+			
+		h2 {
+			font-family: open_sansbold;
+			font-size: 24px;
+			margin-bottom: 10px;
+		}
+		
+		label {
+			position: relative;
+			display: inline-block;
+		}
+	
+		textarea {
+			width: 100%;
+		}
+		
+		#product-review-table {
+			margin-bottom: 10px;
+			
+			td {
+				padding: 2px;
+			}
+		
+			span {
+				position: relative;
+				cursor: pointer;
+				display: inline-block;
+				.etoile-off;
+				
+				&.on {
+					.etoile-on;
+				}
+				
+				input {
+					opacity: 0;
+					filter: opacity(0);
+					cursor: pointer;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
+}
+
+.add-my-review {
+	.lnk-primary;
+	font-family: open_sansregular;
+	font-size: 14px;
+	margin-left: 20px;
+}
 
 /* Send a Friend */
 .send-friend .form-list { width:615px; overflow:hidden; }

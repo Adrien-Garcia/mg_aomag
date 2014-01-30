@@ -92,6 +92,40 @@ jQuery(function($) {
 		});
 	}
 	
+	// Produit : formulaire de commentaire en layer
+	$(".add-my-review").click(function(e) {
+		e.preventDefault();
+		$.fancybox($(".product-view .box-reviews .form-add"));
+	});
+	
+	//
+	$("#product-review-table .radio").each(function() {
+		$(this).wrap("<span />");
+	}).change(function(e) {
+		$("#product-review-table span").removeClass("on");
+		if(this.checked) {
+			var o = this;
+			var test = true;
+			$("#product-review-table .radio").each(function(index, element) {
+				if(test) {
+					$(this).parent().addClass("on");
+					if(o == element) {					
+						test = false;
+					}
+				}
+			});
+		}
+	});
+	
+	/* Produit : ouvrir automatiquement l'onglet avis dans le cas de la pagination des commentaires */
+	if($("body").hasClass("catalog-product-view") && location.search.length > 0) {
+		var search = location.search.substring(1);
+		var urlParameters = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+		if(urlParameters.p !== undefined || urlParameters.limit !== undefined) {
+			window.location = "#customer-reviews";
+		}
+	}
+	
 })
 
 /*
