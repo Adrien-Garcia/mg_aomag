@@ -91,6 +91,14 @@ jQuery(function($) {
 			responsive: false
 		});
 	}
+
+	/* Modification de la hauteur des étape de commande */
+//	$(".opc .step:visible").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
+//		var childHeight = $(this).find("> form").outerHeight();
+//		var stepsHeight = $(".section").outerHeight();
+//		console.log(childHeight);
+//		$("#checkoutSteps").css("min-height", childHeight + stepsHeight + 60);
+//	});
 	
 	// Produit : formulaire de commentaire en layer
 	$(".add-my-review").click(function(e) {

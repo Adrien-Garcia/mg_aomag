@@ -148,9 +148,9 @@ function shippingGLSRadioCheck(element) {
 	if(typeGls == "relay"){
 		//on affiche le picto de chargement étape suivante du opc
 		jQuery("#shipping-method-please-wait").show();		
-		url = glsBaseUrl + "selector/"			
+		glsurl = glsBaseUrl + "selector/"			
 			jQuery.ajax({
-				url: url,
+				url: glsurl,
 				success: function(data){					
 					jQuery("#layer_gls").html(data);
 					jQuery('#gls_relais_choisi').remove();
@@ -195,10 +195,10 @@ function changeMap() {
 
 function loadListePointRelais() {	
 	if(jQuery("#cp_recherche").val()){
-		url = glsBaseUrl + "listPointsRelais"
-		url = url + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
+		glsurl = glsBaseUrl + "listPointsRelais"
+		glsurl = glsurl + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
 		jQuery.ajax({
-			url: url,
+			url: glsurl,
 			success: function(data){				
 				jQuery("#col_droite_gls").html(data);	
 				showGLSMap();
@@ -373,9 +373,9 @@ function choisirRelaisGLS(index) {
 	// On cache le layer
 	jQuery("#layer_gls").data("overlay").close();
 	
-	url = glsBaseUrl + "saveInSessionRelayInformations/"		
+	glsurl = glsBaseUrl + "saveInSessionRelayInformations/"		
 	jQuery.ajax({
-		url: url,
+		url: glsurl,
 		data: {                             // <-- just pass an object
 	          name: jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text(),
 	          address: jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text(),
