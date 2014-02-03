@@ -193,7 +193,7 @@ class WebMods_Solrsearch_Model_Observer {
 					
 					$collection = $this->loadProductCollectionByProductId($_product, $storeObject);
 			
-					$collection->addStoreFilter($storeObject);
+					$collection->setStoreId($storeObject);
 					$collection->addWebsiteFilter($storeObject->getWebsiteId());
 					
 					$jsonData = $this->getJsonData($collection, $storeObject);

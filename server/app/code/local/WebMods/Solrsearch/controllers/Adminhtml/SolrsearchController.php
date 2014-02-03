@@ -684,7 +684,7 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		
 		$collection = Mage::getModel('catalog/product')->getCollection()
 			->addAttributeToSelect('*')
-			->addStoreFilter($storeId)
+			->setStoreId($storeId)
 			->addWebsiteFilter($websiteId)
 			->addFieldToFilter('status',Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
 			->addFieldToFilter(
@@ -703,7 +703,6 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
                   array('stock.is_in_stock')
           	)->where('stock.is_in_stock = 1');
 		}
-          	
         return $collection;
 	}
 	

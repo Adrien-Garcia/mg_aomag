@@ -18,7 +18,7 @@ public function getCollectionData($store) {
                      array('attribute'=>'visibility','eq'=>Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH),
                      array('attribute'=>'visibility','eq'=>Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_SEARCH)
                 ))
-		->addStoreFilter($store->getId())
+        ->setStoreId($store->getId())        
 		->addWebsiteFilter($store->getWebsiteId()) // set the offset (useful for pagination) 
 		->addFinalPrice();
 		 if (!Mage::getStoreConfig('cataloginventory/options/show_out_of_stock', $store->getId())) {
