@@ -38,7 +38,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     protected $_collection = null;
     protected $_pageVarName    = 'p';
     protected $_limitVarName   = 'limit';
-    protected $_availableLimit = array(10=>10,20=>20,50=>50);
+    protected $_availableLimit = array(1=>1,10=>10,20=>20,50=>50);
     protected $_dispersion     = 3;
     protected $_displayPages   = 5;
     protected $_showPerPage    = true;

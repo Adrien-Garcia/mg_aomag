@@ -91,6 +91,48 @@ jQuery(function($) {
 			responsive: false
 		});
 	}
+
+	/* Modification de la hauteur des étape de commande */
+//	$(".opc .step:visible").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
+//		var childHeight = $(this).find("> form").outerHeight();
+//		var stepsHeight = $(".section").outerHeight();
+//		console.log(childHeight);
+//		$("#checkoutSteps").css("min-height", childHeight + stepsHeight + 60);
+//	});
+	
+	// Produit : formulaire de commentaire en layer
+	$(".add-my-review").click(function(e) {
+		e.preventDefault();
+		$.fancybox($(".product-view .box-reviews .form-add"));
+	});
+	
+	//
+	$("#product-review-table .radio").each(function() {
+		$(this).wrap("<span />");
+	}).change(function(e) {
+		$("#product-review-table span").removeClass("on");
+		if(this.checked) {
+			var o = this;
+			var test = true;
+			$("#product-review-table .radio").each(function(index, element) {
+				if(test) {
+					$(this).parent().addClass("on");
+					if(o == element) {					
+						test = false;
+					}
+				}
+			});
+		}
+	});
+	
+	/* Produit : ouvrir automatiquement l'onglet avis dans le cas de la pagination des commentaires */
+	if($("body").hasClass("catalog-product-view") && location.search.length > 0) {
+		var search = location.search.substring(1);
+		var urlParameters = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+		if(urlParameters.p !== undefined || urlParameters.limit !== undefined) {
+			window.location = "#customer-reviews";
+		}
+	}
 	
 })
 

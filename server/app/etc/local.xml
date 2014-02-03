@@ -42,7 +42,7 @@
                 <connection>
                     <host><![CDATA[localhost]]></host>
                     <username><![CDATA[root]]></username>
-                    <password><![CDATA[LF0510FL]]></password>
+                    <password><![CDATA[]]></password>
                     <dbname><![CDATA[aomagento]]></dbname>
                     <active>1</active>
                     <profiler>1</profiler>
