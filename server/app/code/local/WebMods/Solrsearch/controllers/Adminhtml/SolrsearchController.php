@@ -282,7 +282,11 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		$returnData['continueprocess'] = (is_numeric($numberOfDocuments) && $numberOfDocuments < $productCount)?'yes':'no';
 		$returnData['nextpage'] = $page + 1;
 		$returnData['action'] = (is_numeric($numberOfDocuments) && $numberOfDocuments > 0)?'UPDATE':'NEW';
-		$returnData['percent'] = round(($numberOfDocuments*100)/$productCount);
+		if ($productCount>0) {
+			$returnData['percent'] = round(($numberOfDocuments*100)/$productCount);
+		} else {
+			$returnData['percent'] = 0;
+		}
 		$returnData['numdocs'] = $numberOfDocuments;
 		$this->getResponse()->setHeader("Content-Type", "application/json", true);
 		
