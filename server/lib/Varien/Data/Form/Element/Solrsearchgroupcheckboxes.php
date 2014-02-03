@@ -118,7 +118,7 @@ class Varien_Data_Form_Element_SolrSearchGroupCheckboxes extends Varien_Data_For
         	foreach ($value1['value'] as $value2) {
             	$html.= '<li><h3>'.$value2['label'].'</h3>';
 				$html.= '<ul style="padding-left:20px">';
-					if(count($value2['value'])){
+					if(isset($value2['value']) && count($value2['value'])){
 						foreach ($value2['value'] as $item) {
 							$html.= $this->_optionToHtml($item);
 						}
