@@ -151,10 +151,16 @@ document.observe("dom:loaded", function() {
     
     $$('.my-account .dashboard .box-title').each(function (elem) {
         elem.observe('click', function (e) {
-            if ( e.target.hasClassName('box-title') ) {
+            //if ( e.target.hasClassName('box-title') ) {
+            	
+        	var e = e.element();
+        	if(!e.match('a')){
                 this.toggleClassName('collapsed').next().toggle();
-            }
+        	}
+        	
+            //}
         }).next().hide();
+        
     });
 
     var transformPref = Modernizr.prefixed('transform');
