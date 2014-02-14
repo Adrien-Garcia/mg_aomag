@@ -41,28 +41,28 @@
         <ol>
         <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): ?>
             <li class="info-box">
-                <h3 class="box-title"><?php echo $this->__('Default Billing Address') ?> <span class="separator">|</span> <a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Edit') ?></a></h3>
+                <h3 class="box-title"><span class="container_title"><?php echo $this->__('Default Billing Address') ?></span> <span class="separator">|</span> <a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Edit') ?></a></h3>
                 <address class="box-content">
                 <?php echo $this->getAddressHtml(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>
                 </address>
            </li>
         <?php else: ?>
             <li class="info-box">
-                <h3 class="box-title"><?php echo $this->__('Default Billing Address') ?></h3>
+                <h3 class="box-title"><span class="container_title"><?php echo $this->__('Default Billing Address') ?></span></h3>
                 <p class="box-content"><?php echo $this->__('You have no default billing address in your address book.') ?></p>
             </li>
         <?php endif ?>
 
         <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
             <li class="info-box">
-                <h3 class="box-title"><?php echo $this->__('Default Shipping Address') ?> <span class="separator">|</span> <a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Edit') ?></a></h3>
+                <h3 class="box-title"><span class="container_title"><?php echo $this->__('Default Shipping Address') ?></span> <span class="separator">|</span> <a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Edit') ?></a></h3>
                 <address class="box-content">
                     <?php echo $this->getAddressHtml(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>
                 </address>
             </li>
         <?php else: ?>
             <li class="info-box">
-                <h3 class="box-title"><?php echo $this->__('Default Shipping Address') ?></h3>
+                <h3 class="box-title"><span class="container_title"><?php echo $this->__('Default Shipping Address') ?></span></h3>
                 <p class="box-content"><?php echo $this->__('You have no default shipping address in your address book.') ?></p>
             </li>
         <?php endif ?>

@@ -48,7 +48,7 @@ $shippingAddress = $this->getShippingAddress();
             <ul class="form-list form-list-narrow">
                 <li id="customer-info-form" class="address-form">
                     <div class="field">
-                        <label for="customer:email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                        <label for="customer:email" class="required"><?php echo $this->__('Email Address') ?><em>*</em></label>
                         <div class="input-box">
                             <input type="text" name="customer-email" id="customer:email" value="<?php echo $this->escapeHtml($billingBlock->getAddress()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
                         </div>

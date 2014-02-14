@@ -48,12 +48,12 @@
                         <block type="page/html_pager" name="product_list_toolbar_pager"/>
                     </block>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+		            <block type="catalogsearch/layer" name="catalog.leftnav" after="-" template="catalog/layer/view.phtml"/>
                 </block>
                 <action method="setListOrders"/>
                 <action method="setListModes"/>
                 <action method="setListCollection"/>
             </block>
-            <block type="catalogsearch/layer" name="catalogsearch" after="-" template="catalog/layer/view.phtml"/>
         </reference>
     </catalogsearch_result_index>
 
