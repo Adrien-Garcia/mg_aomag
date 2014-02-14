@@ -1,9 +1,7 @@
 /* Account Login/Create Pages ============================================================ */
 .customer-account-login {
 	
-	.breadcrumbs-container { display: none; }
-	
-	.main-container {
+	/*.main-container {
 		position: relative;
 		
 		&:after {
@@ -23,14 +21,14 @@
 		h1 {
 			line-height: 95px;
 		}
-	}
+	}*/
 	
-	.col2-set {
+	/*.col2-set {
 		margin-top: 30px;
-	}
+	}*/
 	
 	.content > h2 {
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		font-size: 24px;
 		margin-bottom: 10px;
 	}
@@ -123,12 +121,19 @@
 
 /* My Account ============================================================================= */
 
-.customer-account-index .breadcrumbs-container {
-	display: none;
-}
+body[class^=" customer-"],
+body[class^=" sales-"],
+body[class^=" wishlist-"],
+body[class^=" newsletter-"] {
 
-.main {
-	margin-top: 35px;
+	/*.main {
+		margin-top: 35px;
+	}*/
+	
+	.breadcrumbs-container {
+		display: none;
+	}
+	
 }
 
 /* Navigation */
@@ -136,7 +141,7 @@
 	
 	.block-title {
 		font-size: 24px;
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		color: #000;
 		margin-bottom: 10px;
 	}
@@ -189,7 +194,7 @@
 	.box-account .box-head { text-align:right; }
 	.box-account .box-head h2 {
 		float:left;
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		font-size: 24px;
 	}
 	
@@ -203,7 +208,7 @@
 		float:left;
 		font-size: 14px;
 		text-transform: uppercase;
-		font-family: open_sansbold;
+		font-family: @font-bold;
 	}
 	.box a {
 		color: @c2;
@@ -246,7 +251,7 @@
 /********** Dashboard > */
 
 /* Account information */
-.customer-account-edit .breadcrumbs-container { display: none; }
+
 .my-account {
 	
 	.page-title {
@@ -314,13 +319,13 @@
 }
 .addresses-list {
 	h2 {
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		font-size: 24px;
 		color: #000;
 	}
 	
 	h3 {
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		color: #000;
 		text-transform: uppercase;
 		font-size: 14px;
@@ -340,10 +345,6 @@
 /* Order List */
 .sales-order-history {
 	
-	.breadcrumbs-container {
-		display: none;
-	}
-	
 	.pager {
 		overflow: hidden;
 		margin-bottom: 20px;
@@ -359,13 +360,26 @@
 		.limiter {
 			float: right;
 		}
+		
+		.pages {
+			clear: both;
+			
+			ol {
+				display: inline;
+				
+				li {
+					display: inline;
+				}
+			}
+		}
+		
 	}
 	
 	#my-orders-table {
 		margin-bottom: 20px;
 		
 		th {
-			border-bottom: 1px solid @c4;
+			border-bottom: 1px solid @c6;
 			padding: 5px 10px;
 			font-size: 14px;
 		}
@@ -395,10 +409,6 @@
 /* Order View */
 .sales-order-view {
 	
-	.breadcrumbs-container {
-		display: none;
-	}
-	
 	.page-title {
 		.order-id {
 			font-size: 16px;
@@ -406,7 +416,7 @@
 		
 		.order-status {
 			font-size: 16px;
-			font-family: open_sanslight;
+			font-family: @font-light;
 		}
 		
 		a {
@@ -423,11 +433,11 @@
 	}
 	
 	.subtotal {
-		font-family: open_sansbold;
+		font-family: @font-bold;
 	}
 	
 	.grand_total {
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		font-size: 22px;
 		color: #000;
 	}
@@ -451,7 +461,7 @@
 .order-info-box { 
 	
 	h2 {
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		text-transform: uppercase;
 		font-size: 14px;
 		margin: 0;
@@ -476,7 +486,7 @@
 		margin-bottom: 20px;
 		
 		th {
-			border-bottom: 1px solid @c4;
+			border-bottom: 1px solid @c6;
 			padding: 5px 10px;
 			font-size: 14px;
 		}
@@ -496,6 +506,18 @@
 		}
 		
 		.separator { display: none; }
+		
+		tfoot {
+			td {
+				border: none;
+			}
+			
+			.grand_total strong {
+				font-size: 22px !important;
+				color: #000 !important;
+			}
+		}		
+		
 	}
 	
 	.product-name {
@@ -552,9 +574,6 @@
 .page-print .price-incl-tax .price { display:inline; }
 
 /* My Wishlist */
-.wishlist-index-index {
-	.breadcrumbs-container { display: none; }
-}
 
 .my-wishlist {
 	

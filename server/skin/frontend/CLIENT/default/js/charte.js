@@ -11,6 +11,9 @@
  */
 jQuery(function($) {
 	
+	/* Page title */
+	//$(".col-main .page-title").prependTo(".main");
+	
 	$("input.qty").click(function(){
         var input = this;
         input.focus();

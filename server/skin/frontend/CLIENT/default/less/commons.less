@@ -6,15 +6,20 @@
     \_/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
 */
 /* variables */
-@c1: #ffffff;
-@c2: #f18200;
-@c3: #0d0d0d;
+@c1: #0067ac; /* prix */
+@c2: #f18200; /* dominante */
+/* nuances de gris */
+@c3: #0d0d0d; 
 @c4: #939393;
 @c5: #eeeeee;
 @c6: #d4d4d4;
 
-@width: 980px;
-@padding: 0 10px;
+@width: 980px; /* ATTENTION : changer la largeur ici implique de passer en revue toutes les pages du site pour équilibrer les colonnes */
+@padding: 0 10px; /* assure une marge entre le contenu et l'éventuel fond ATTENTION on est en border-box */
+
+@font-bold : open_sansbold;
+@font-light : open_sanslight;
+@font-regular : open_sansregular;
 
 /*
   _____                _   _                 
@@ -31,11 +36,11 @@
 .primary-button {
 	text-align: center;
 	display: block;
-	font-family: open_sansbold;
+	font-family: @font-bold;
 	font-size: 16px;
 	text-transform: uppercase;
 	text-decoration: none;
-	color: @c1;
+	color: #fff;
 	background: @c2;
 	border-radius: 4px;
 	padding: 7px 15px;
@@ -80,7 +85,7 @@
 * { margin:0; padding:0; }
 
 body {
-	font-family: open_sanslight, Arial, Helvetica, sans-serif;
+	font-family: @font-light, Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	line-height: 1.40;
 	color: @c4;
@@ -176,7 +181,7 @@ ul,ol         { list-style:none; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
 .page-popup { background:#fff; padding:25px 30px; text-align:left; }
 .main-container {  }
-.main { width:@width; padding: @padding; margin:0 auto; min-height:400px; background: #fff }
+.main { width:@width; padding: @padding; margin:35px auto 0 auto; min-height:400px; background: #fff }
 
 /* Base Columns */
 .col-left { float:left; width:225px; margin-bottom: 20px; }
@@ -219,7 +224,7 @@ label.required em {
 	margin-left: 5px;
 	color:@c2;
 	font-style:normal;
-	font-family:open_sanslight;
+	font-family:@font-light;
 	font-size:14px;
 }
 
@@ -232,7 +237,7 @@ label.required em {
 */
 /* formulaires */
 input,select,textarea,button {
-	font-family: open_sanslight;
+	font-family: @font-light;
 	font-size: 14px;
 }
 
@@ -344,7 +349,7 @@ p.control input.radio { margin-right:6px; }
 	line-height:13px;
 	position:relative;
 	color:#dc3c16;
-	font-family:open_sanslight;
+	font-family:@font-light;
 	
 	
 	&:before{
@@ -480,7 +485,7 @@ p.required {
 	
 	h1,
 	h2 {
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		color: @c3;
 		font-size: 30px;
 	}
@@ -538,7 +543,7 @@ p.required {
 			vertical-align:top;
 			border-bottom:1px solid @c6;
 			border-right:1px solid @c6;
-			font-family:open_sansbold;
+			font-family:@font-bold;
 			font-size:16px;
 			
 			&[colspan="2"]{
@@ -570,7 +575,7 @@ p.required {
 }
 .data-table td.last { border-right:0; }
 /* .data-table th { padding:3px 8px; font-weight:normal; } */
-.data-table td { 
+.data-table td, .data-table th { 
 	padding:3px 8px;
 	vertical-align:middle;
 }
@@ -784,7 +789,7 @@ tr.summary-details-excluded { font-style:italic; }
 		top: 37px;
 		right: 0;
 		padding-left: 50px;
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		font-size: 16px;
 		color: @c3;
 		
@@ -809,7 +814,7 @@ tr.summary-details-excluded { font-style:italic; }
 			height: 38px;
 			background: @c5;
 			font-size: 16px;
-			font-family: open_sanslight;
+			font-family: @font-light;
 			box-sizing: border-box;
 			padding: 0 50px 0 10px;
 		}
@@ -857,9 +862,9 @@ tr.summary-details-excluded { font-style:italic; }
 			float: left;
 			
 			> a {
-				font-family: open_sansbold;
+				font-family: @font-bold;
 				font-size: 17px;
-				color: @c1;
+				color: #fff;
 				text-transform: uppercase;
 				line-height: 32px;
 				padding: 0 10px;
@@ -1092,10 +1097,6 @@ tr.summary-details-excluded { font-style:italic; }
 .advanced-search-summary ul { float:left; width:49%; }
 .advanced-search-summary strong { color:#E17C24; padding-left:15px; background:url(../images/i_search_criteria.gif) 0 3px no-repeat; }
 .advanced-search-summary p { clear:both; font-weight:bold; margin:0; }
-
-/* CMS Home Page */
-.cms-home .subtitle {}
-.cms-index-index .subtitle {}
 
 /* Sitemap */
 .page-sitemap .links { text-align:right; margin:0 8px -22px 0; }
@@ -1391,7 +1392,7 @@ tr.summary-details-excluded { font-style:italic; }
 		overflow: hidden;
 	
 		.bloc {
-			background: @c1;
+			background: #fff;
 			float: left;
 			width: 308px;
 			height: 168px;
@@ -1517,8 +1518,8 @@ tr.summary-details-excluded { font-style:italic; }
 			}
 			
 			p {
-				color: @c1;
-				font-family: open_sansbold;
+				color: #fff;
+				font-family: @font-bold;
 				text-transform: uppercase;
 				font-size: 16px;
 				margin-bottom: 20px;

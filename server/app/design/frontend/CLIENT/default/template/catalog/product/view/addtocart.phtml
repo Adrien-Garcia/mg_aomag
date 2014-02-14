@@ -24,24 +24,15 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if(count($this->getItemCollection()->getItems())): ?>
-<div class="box-collateral box-up-sell">
-    <h2><?php echo $this->__('Ces produits peuvent vous intéresser') ?></h2>
-    <ul class="products-grid" id="upsell-product-table">
-    <?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>
-    <?php $this->resetItemsIterator() ?>
-    <?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
-        <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
-            <?php if($_link=$this->getIterableItem()): ?>
-            <li class="item">
-				<?php
-					$this->getChild("mini-fiche")->setData("product", $_link);
-					echo $this->getChildHtml("mini-fiche", false);
-				?>
-            </li>
-            <?php endif; ?>
-        <?php endfor; ?>
-    <?php endfor; ?>
-    </ul>
-</div>
-<?php endif ?>
+<?php $_product = $this->getProduct(); ?>
+<?php $buttonTitle = $this->__('Add to Cart'); ?>
+<?php if($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+        <?php if(!$_product->isGrouped()): ?>
+        <label for="qty"><?php echo $this->__('Quantity') ?> :</label>
+        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+        <?php endif; ?>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+<?php endif; ?>

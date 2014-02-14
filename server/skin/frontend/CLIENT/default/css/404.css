@@ -1,0 +1,11 @@
+.cms-no-route .breadcrumbs-container {
+  /*display: none;*/
+}
+.cms-no-route .std {
+  display: none;
+}
+.cms-no-route .std::before {
+  content: "404";
+  font-size: 343px;
+  font-family: open_sansbold;
+}

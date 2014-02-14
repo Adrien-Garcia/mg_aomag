@@ -2,7 +2,7 @@
 .category-title {  }
 .category-image { width:100%; overflow:hidden; margin:0 0 10px; text-align:center; }
 .category-image img {}
-.category-description { margin:0 0 10px; }
+.category-description { margin:0 0 20px; }
 .category-products {}
 
 .new {
@@ -36,7 +36,7 @@
 			height: 43px;
 			overflow: hidden;
 			a {
-				font-family: open_sansbold;
+				font-family: @font-bold;
 				font-size: 16px;
 				text-decoration: none;
 				color: @c3;
@@ -106,7 +106,7 @@
 				height: 43px;
 				overflow: hidden;
 				a {
-					font-family: open_sansbold;
+					font-family: @font-bold;
 					font-size: 16px;
 					text-decoration: none;
 					color: @c3;
@@ -150,16 +150,18 @@
 .block-layered-nav .block-title { display: none; }
 
 .block-layered-nav .block-subtitle {
-	font-family: open_sansbold;
+	font-family: @font-bold;
 	font-size: 18px;
 	padding: 0 10px;
 	margin-bottom: 10px;
+	color: #000;
 }
 .block-layered-nav .block-content { background: none;  }
 .block-layered-nav dt {
 	text-transform: uppercase;
 	margin-bottom: 10px;
 	padding: 0 10px;
+	color: #000;
 }
 .block-layered-nav dd {
 	padding: 0 10px 20px 10px;
@@ -174,9 +176,12 @@
 		padding: 6px 10px;
 		color: @c4;
 		margin-bottom: 1px;
+		position: relative;
 		
 		.btn-remove {
-			margin: 5px 0 0 0;
+			position: absolute;
+			top: 12px;
+			right: 10px;
 		}
 	}
 	
@@ -203,7 +208,9 @@
 
 
 
-
+.catalog-category-view .compare-link {
+	display: inline;
+}
 
 /* Toolbar */
 .catalog-category-view .toolbar {
@@ -279,7 +286,7 @@
 				overflow: hidden;
 				display: inline-block;
 				vertical-align: middle;
-				opacity: .6;
+				opacity: .4;
 				margin-left: 10px;
 			}
 			
@@ -291,7 +298,11 @@
 				.liste;
 			}
 			
-			strong, a:hover {
+			a:hover {
+				opacity: .7 !important;
+			}
+			
+			strong {
 				opacity: 1 !important;
 			}
 		}

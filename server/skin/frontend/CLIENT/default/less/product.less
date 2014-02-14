@@ -48,7 +48,7 @@
 .price-box .price {  }
 
 /* Regular price */
-.regular-price { color: @c2; }
+.regular-price { color: @c1; }
 .regular-price .price { font-size: 21px; }
 
 /* Old price */
@@ -57,13 +57,13 @@
 .old-price .price { font-size: 16px; text-decoration: line-through; }
 
 /* Special price */
-.special-price { color: @c2; display: inline; }
+.special-price { color: @c1; display: inline; }
 .special-price .price-label { display: none; }
 .special-price .price { font-size: 21px; }
 
 /* Minimal price (as low as) */
 .minimal-price { }
-.minimal-price .price { color: @c2; font-size: 21px; }
+.minimal-price .price { color: @c1; font-size: 21px; }
 .minimal-price .price-label { display: block; font-size: 16px; color: @c4; }
 
 .minimal-price-link { display:block; }
@@ -128,7 +128,7 @@
 	font-family: Arial;
 	line-height: 55px;
 	text-align: center;
-	color: @c1;
+	color: #fff;
 }
 
 /* Tier Prices */
@@ -156,7 +156,7 @@
 	label {
 		float:left;
 		margin-right:5px;
-		font-family: open_sanslight;
+		font-family: @font-light;
 		font-size: 16px;
 		color: @c4;
 		margin-top: 8px;
@@ -169,9 +169,10 @@
 		padding: 0 5px;
 		border-radius: 4px;
 		color: @c4;
-		font-family: open_sanslight;
+		font-family: @font-light;
 		font-size: 16px;
 		text-align: center;
+		width: 55px;
 	}
 	.button { float:left; }
 }
@@ -233,6 +234,10 @@
 	
 }
 
+.catalog-product-view .compare-link {
+	display: inline;
+}
+
 
 
 /* Product Shop */
@@ -243,7 +248,7 @@
 		margin-bottom: 20px;
 		text-align: right;
 		font-size: 30px;
-		font-family: open_sansbold;
+		font-family: @font-bold;
 	}
 	
 	.wrapper-sku-ratings {
@@ -369,7 +374,7 @@
 .product-collateral {
 	
 	h2 {
-		font-family: open_sansbold;
+		font-family: @font-bold;
 		font-size: 24px;
 		margin-bottom: 10px;
 	}
@@ -471,10 +476,6 @@
 		}
 	}
 	
-	ul {
-		margin: 0;
-	}
-	
 }
 
 /* Block: Tags */
@@ -517,7 +518,7 @@
 			
 			.title {
 				color: @c3;
-				font-family: open_sansbold;
+				font-family: @font-bold;
 			}
 			
 			.author, .date {
@@ -547,7 +548,7 @@
 		width: 500px;
 			
 		h2 {
-			font-family: open_sansbold;
+			font-family: @font-bold;
 			font-size: 24px;
 			margin-bottom: 10px;
 		}
@@ -595,7 +596,7 @@
 
 .add-my-review {
 	.lnk-primary;
-	font-family: open_sansregular;
+	font-family: @font-regular;
 	font-size: 14px;
 	margin-left: 20px;
 }

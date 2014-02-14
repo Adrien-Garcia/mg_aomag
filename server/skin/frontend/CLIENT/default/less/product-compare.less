@@ -1,5 +1,9 @@
 .catalog-product-compare-index  {
 	
+	.main {
+		margin-top: 0;
+	}
+	
 	.main-container {
 		position: relative;
 		
@@ -45,9 +49,10 @@
 .compare-link {
 	text-decoration: none;
 	float: right;
-	margin-top: -35px;
+	margin-top: -70px;
 	position: relative;
 	z-index: 1;
+	display: none; /* affiché seulement sur certaines pages (famille, produit) */
 	
 	.link {
 		text-decoration: underline;
@@ -57,10 +62,6 @@
 		color: @c2;
 	}
 }
-	/* ce lien est caché sur la page comparateur */
-	.catalog-product-compare-index .compare-link {
-		display: none;
-	}
 	/* ainsi que le fil d'Arianne */
 	.catalog-product-compare-index .breadcrumbs-container {
 		display: none;
@@ -111,7 +112,7 @@
 		height: 43px;
 		overflow: hidden;
 		a {
-			font-family: open_sansbold;
+			font-family: @font-bold;
 			font-size: 16px;
 			text-decoration: none;
 			color: @c3;
