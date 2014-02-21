@@ -17,10 +17,11 @@ function generate_key(event, name, module_id) {
 	} 
 	
 	var hostname_val = jQuery("#"+module_id+" .hostname").val();
+	var url = jQuery("#"+module_id+" .url_getlicence").val();
 	
 	jQuery.ajax({
-		url: "/aomagento/generation/getlicence",
-		method:"get",
+		url: url,
+		method:"post",
 		data : {hostname : hostname_val, module: name},
 		success: function(data) {
 			var datas = data.split("::");

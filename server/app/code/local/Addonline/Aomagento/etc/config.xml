@@ -10,18 +10,18 @@
     		<aomagento><class>Addonline_Aomagento_Block</class></aomagento>
     	</blocks>
     </global>
-
-    <frontend>   
+    <admin>
         <routers>
-            <aomagento>
-                <use>standard</use>
-                <args>
-                    <module>Addonline_Aomagento</module>
-                    <frontName>aomagento</frontName>
-                </args>
-            </aomagento>
-        </routers>
-    </frontend>
+			<aomagento>
+				<use>admin</use>
+				<args>
+					<module>Addonline_Aomagento</module>
+					<frontName>aomagento</frontName>
+				</args>
+			</aomagento>
+		</routers>
+    </admin>
+
     <adminhtml>
 	    <acl>
 	        <resources>
