@@ -88,7 +88,7 @@ if (isset ($_GET['hook'])) {
 		 *   - des css par Less  
   		 */	
 		$output = array();
-		$cmdeGlue = "glue skin/frontend/CLIENT/default/images/client/origin -l -f --img=skin/frontend/CLIENT/default/images/client/sprites --css=skin/frontend/CLIENT/default/less --sprite-namespace= --namespace= --cachebuster --optipng";
+		$cmdeGlue = "glue skin/frontend/CLIENT/default/images/client/origin -l -f --img=skin/frontend/CLIENT/default/images/client/sprites --css=skin/frontend/CLIENT/default/less --sprite-namespace= --namespace= --cachebuster --optipng 2>&1";
 		$output[] = "exec >> ".$cmdeGlue;
 		$resultGlue;
 		exec($cmdeGlue, $output, $resultGlue);
@@ -98,13 +98,14 @@ if (isset ($_GET['hook'])) {
 			die();
 		} 
 		
-		$cmdeLess = "lessc -x skin/frontend/CLIENT/default/less/styles.less > skin/frontend/CLIENT/default/css/styles.css";
+		$cmdeLess = "lessc -x skin/frontend/CLIENT/default/less/styles.less > skin/frontend/CLIENT/default/css/styles.css 2>&1";
 		$output[] = "exec >> ".$cmdeLess;
 		$resultLess;
 		exec($cmdeLess, $output, $resultLess);
 		if ($resultLess!=0) {
 			$output[]="<h2>ERREUR lors de la compilation LESS  !! : $resultLess</h2>";
 			_log($output, true);
+			echo str_replace("\n", "<br>", file_get_contents ('skin/frontend/CLIENT/default/css/styles.css'));
 			die();
 		}
 			
