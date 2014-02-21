@@ -20,10 +20,12 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
         $quote      = $item->getQuote();
         $address    = $this->_getAddress($item);
 
-        $itemPrice  = $this->_getItemPrice($item);
-        $baseItemPrice = $this->_getItemBasePrice($item);
+        $itemPrice              = $this->_getItemPrice($item);
+        $baseItemPrice          = $this->_getItemBasePrice($item);
+        $itemOriginalPrice      = $this->_getItemOriginalPrice($item);
+        $baseItemOriginalPrice  = $this->_getItemBaseOriginalPrice($item);
 
-        if ($itemPrice <= 0) {
+        if ($itemPrice < 0) {
             return $this;
         }
 
@@ -43,18 +45,26 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
 
             $discountAmount = 0;
             $baseDiscountAmount = 0;
+            //discount for original price
+            $originalDiscountAmount = 0;
+            $baseOriginalDiscountAmount = 0;
             $hasGiftProduct = false;
             switch ($rule->getSimpleAction()) {
                 case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
                     $rulePercent = max(0, 100-$rule->getDiscountAmount());
-                    //no break;
+                //no break;
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     $step = $rule->getDiscountStep();
                     if ($step) {
                         $qty = floor($qty/$step)*$step;
                     }
-                    $discountAmount    = ($qty*$itemPrice - $item->getDiscountAmount()) * $rulePercent/100;
-                    $baseDiscountAmount= ($qty*$baseItemPrice - $item->getBaseDiscountAmount()) * $rulePercent/100;
+                    $_rulePct = $rulePercent/100;
+                    $discountAmount    = ($qty * $itemPrice - $item->getDiscountAmount()) * $_rulePct;
+                    $baseDiscountAmount = ($qty * $baseItemPrice - $item->getBaseDiscountAmount()) * $_rulePct;
+                    //get discount for original price
+                    $originalDiscountAmount    = ($qty * $itemOriginalPrice - $item->getDiscountAmount()) * $_rulePct;
+                    $baseOriginalDiscountAmount =
+                        ($qty * $baseItemOriginalPrice - $item->getDiscountAmount()) * $_rulePct;
 
                     if (!$rule->getDiscountQty() || $rule->getDiscountQty()>$qty) {
                         $discountPercent = min(100, $item->getDiscountPercent()+$rulePercent);
@@ -63,8 +73,11 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
                     break;
                 case Mage_SalesRule_Model_Rule::TO_FIXED_ACTION:
                     $quoteAmount = $quote->getStore()->convertPrice($rule->getDiscountAmount());
-                    $discountAmount    = $qty*($itemPrice-$quoteAmount);
-                    $baseDiscountAmount= $qty*($baseItemPrice-$rule->getDiscountAmount());
+                    $discountAmount    = $qty * ($itemPrice-$quoteAmount);
+                    $baseDiscountAmount = $qty * ($baseItemPrice-$rule->getDiscountAmount());
+                    //get discount for original price
+                    $originalDiscountAmount    = $qty * ($itemOriginalPrice-$quoteAmount);
+                    $baseOriginalDiscountAmount = $qty * ($baseItemOriginalPrice-$rule->getDiscountAmount());
                     break;
 
                 case Mage_SalesRule_Model_Rule::BY_FIXED_ACTION:
@@ -73,8 +86,8 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
                         $qty = floor($qty/$step)*$step;
                     }
                     $quoteAmount        = $quote->getStore()->convertPrice($rule->getDiscountAmount());
-                    $discountAmount     = $qty*$quoteAmount;
-                    $baseDiscountAmount = $qty*$rule->getDiscountAmount();
+                    $discountAmount     = $qty * $quoteAmount;
+                    $baseDiscountAmount = $qty * $rule->getDiscountAmount();
                     break;
 
                 case Mage_SalesRule_Model_Rule::CART_FIXED_ACTION:
@@ -103,7 +116,8 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
                             $quoteAmount = $quote->getStore()->convertPrice($cartRules[$rule->getId()]);
                             $baseDiscountAmount = min($baseItemPrice * $qty, $cartRules[$rule->getId()]);
                         } else {
-                            $discountRate = $baseItemPrice * $qty / $this->_rulesItemTotals[$rule->getId()]['base_items_price'];
+                            $discountRate = $baseItemPrice * $qty /
+                                            $this->_rulesItemTotals[$rule->getId()]['base_items_price'];
                             $maximumItemDiscount = $rule->getDiscountAmount() * $discountRate;
                             $quoteAmount = $quote->getStore()->convertPrice($maximumItemDiscount);
 
@@ -114,6 +128,11 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
                         $discountAmount = min($itemPrice * $qty, $quoteAmount);
                         $discountAmount = $quote->getStore()->roundPrice($discountAmount);
                         $baseDiscountAmount = $quote->getStore()->roundPrice($baseDiscountAmount);
+
+                        //get discount for original price
+                        $originalDiscountAmount = min($itemOriginalPrice * $qty, $quoteAmount);
+                        $baseOriginalDiscountAmount = $quote->getStore()->roundPrice($baseItemOriginalPrice);
+
                         $cartRules[$rule->getId()] -= $baseDiscountAmount;
                     }
                     $address->setCartFixedRules($cartRules);
@@ -123,7 +142,7 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
                 case Mage_SalesRule_Model_Rule::BUY_X_GET_Y_ACTION:
                     $x = $rule->getDiscountStep();
                     $y = $rule->getDiscountAmount();
-                    if (!$x || $y>=$x) {
+                    if (!$x || $y > $x) {
                         break;
                     }
                     $buyAndDiscountQty = $x + $y;
@@ -133,11 +152,14 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
 
                     $discountQty = $fullRuleQtyPeriod * $y;
                     if ($freeQty > $x) {
-                         $discountQty += $freeQty - $x;
+                        $discountQty += $freeQty - $x;
                     }
 
                     $discountAmount    = $discountQty * $itemPrice;
-                    $baseDiscountAmount= $discountQty * $baseItemPrice;
+                    $baseDiscountAmount = $discountQty * $baseItemPrice;
+                    //get discount for original price
+                    $originalDiscountAmount    = $discountQty * $itemOriginalPrice;
+                    $baseOriginalDiscountAmount = $discountQty * $baseItemOriginalPrice;
                     break;
                     
                  case Addonline_GiftProduct_Model_SalesRule_Rule::GIFT_PRODUCT_ACTION:
@@ -175,12 +197,16 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
              */
             if ($percentKey) {
                 $delta      = isset($this->_roundingDeltas[$percentKey]) ? $this->_roundingDeltas[$percentKey] : 0;
-                $baseDelta  = isset($this->_baseRoundingDeltas[$percentKey]) ? $this->_baseRoundingDeltas[$percentKey] : 0;
-                $discountAmount+= $delta;
-                $baseDiscountAmount+=$baseDelta;
+                $baseDelta  = isset($this->_baseRoundingDeltas[$percentKey])
+                        ? $this->_baseRoundingDeltas[$percentKey]
+                        : 0;
+                $discountAmount += $delta;
+                $baseDiscountAmount += $baseDelta;
 
-                $this->_roundingDeltas[$percentKey]     = $discountAmount - $quote->getStore()->roundPrice($discountAmount);
-                $this->_baseRoundingDeltas[$percentKey] = $baseDiscountAmount - $quote->getStore()->roundPrice($baseDiscountAmount);
+                $this->_roundingDeltas[$percentKey]     = $discountAmount -
+                                                          $quote->getStore()->roundPrice($discountAmount);
+                $this->_baseRoundingDeltas[$percentKey] = $baseDiscountAmount -
+                                                          $quote->getStore()->roundPrice($baseDiscountAmount);
                 $discountAmount = $quote->getStore()->roundPrice($discountAmount);
                 $baseDiscountAmount = $quote->getStore()->roundPrice($baseDiscountAmount);
             } else {
@@ -192,11 +218,18 @@ class Addonline_GiftProduct_Model_SalesRule_Validator extends Mage_SalesRule_Mod
              * We can't use row total here because row total not include tax
              * Discount can be applied on price included tax
              */
-            $discountAmount     = min($item->getDiscountAmount()+$discountAmount, $itemPrice*$qty);
-            $baseDiscountAmount = min($item->getBaseDiscountAmount()+$baseDiscountAmount, $baseItemPrice*$qty);
+
+            $itemDiscountAmount = $item->getDiscountAmount();
+            $itemBaseDiscountAmount = $item->getBaseDiscountAmount();
+
+            $discountAmount     = min($itemDiscountAmount + $discountAmount, $itemPrice * $qty);
+            $baseDiscountAmount = min($itemBaseDiscountAmount + $baseDiscountAmount, $baseItemPrice * $qty);
 
             $item->setDiscountAmount($discountAmount);
             $item->setBaseDiscountAmount($baseDiscountAmount);
+
+            $item->setOriginalDiscountAmount($originalDiscountAmount);
+            $item->setBaseOriginalDiscountAmount($baseOriginalDiscountAmount);
 
             $appliedRuleIds[$rule->getRuleId()] = $rule->getRuleId();
 

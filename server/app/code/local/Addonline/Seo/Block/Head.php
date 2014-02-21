@@ -1,9 +1,5 @@
 <?php
-if ((string)Mage::getConfig()->getModuleConfig('Fooman_Speedster')->active != 'true')
-{
-  class Fooman_Speedster_Block_Page_Html_Head extends Mage_Page_Block_Html_Head{}
-}
-  class Addonline_Seo_Block_Head extends Fooman_Speedster_Block_Page_Html_Head
+class Addonline_Seo_Block_Head extends Mage_Page_Block_Html_Head
 {
 	public function getHeadUrl()
 	{

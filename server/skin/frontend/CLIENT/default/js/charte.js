@@ -11,19 +11,28 @@
  */
 jQuery(function($) {
 	
+	/* Page title */
+	//$(".col-main .page-title").prependTo(".main");
+	
+	$("input.qty").click(function(){
+        var input = this;
+        input.focus();
+        input.setSelectionRange(0,999); 
+    });
+	
 	var t = new Array();
 	$(".more-views li a").each(function() {
 		t[t.length] = $(this).attr("href");
 	})
 	
-	if ($(".more-views").size()==1) {
+	if ($(".more-views li").length > 6) {
 		/* On initialize bxSlider si on est sur la page produit */
 		$('.bxslider').bxSlider({
-			minSlides: 4,
-			maxSlides: 4,
-			slideWidth: 50,
+			minSlides: 6,
+			maxSlides: 6,
+			slideWidth: 68,
 			pager: false,
-			slideMargin: 20
+			slideMargin: 10 
 		});
 	}
 		
@@ -72,6 +81,61 @@ jQuery(function($) {
 		    index: idx
 		});
 	});
+	
+	// Produit : carrousel sur les ventes incitatives
+	if ($("#upsell-product-table > li").size() > 4) {
+		$('#upsell-product-table').bxSlider({
+			minSlides: 4,
+			maxSlides: 4,
+			slideWidth: 225,
+			pager: true,
+			controls: false,
+			slideMargin: 20,
+			responsive: false
+		});
+	}
+
+	/* Modification de la hauteur des étape de commande */
+//	$(".opc .step:visible").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
+//		var childHeight = $(this).find("> form").outerHeight();
+//		var stepsHeight = $(".section").outerHeight();
+//		console.log(childHeight);
+//		$("#checkoutSteps").css("min-height", childHeight + stepsHeight + 60);
+//	});
+	
+	// Produit : formulaire de commentaire en layer
+	$(".add-my-review").click(function(e) {
+		e.preventDefault();
+		$.fancybox($(".product-view .box-reviews .form-add"));
+	});
+	
+	//
+	$("#product-review-table .radio").each(function() {
+		$(this).wrap("<span />");
+	}).change(function(e) {
+		$("#product-review-table span").removeClass("on");
+		if(this.checked) {
+			var o = this;
+			var test = true;
+			$("#product-review-table .radio").each(function(index, element) {
+				if(test) {
+					$(this).parent().addClass("on");
+					if(o == element) {					
+						test = false;
+					}
+				}
+			});
+		}
+	});
+	
+	/* Produit : ouvrir automatiquement l'onglet avis dans le cas de la pagination des commentaires */
+	if($("body").hasClass("catalog-product-view") && location.search.length > 0) {
+		var search = location.search.substring(1);
+		var urlParameters = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+		if(urlParameters.p !== undefined || urlParameters.limit !== undefined) {
+			window.location = "#customer-reviews";
+		}
+	}
 	
 })
 

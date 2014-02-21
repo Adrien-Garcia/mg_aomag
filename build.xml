@@ -139,6 +139,23 @@
 		<delete file="${oxid-filename}" />
 	</target>
 
+	<target name="create_zip_gls" depends="">
+		<property name="zip-name" value="gls_${DSTAMP}${TSTAMP}.zip" />
+		<zip destfile="${zip-name}" >
+			<zipfileset dir="server/app/code/local/Addonline/Gls" prefix="app/code/local/Addonline/Gls" ></zipfileset>
+			<zipfileset file="server/app/design/frontend/base/default/layout/gls.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
+			<zipfileset dir="server/app/design/frontend/base/default/template/gls" prefix="app/design/frontend/base/default/template/gls" ></zipfileset>
+			<zipfileset file="server/app/etc/modules/Addonline_Gls.xml" prefix="app/etc/modules" ></zipfileset>
+			<zipfileset file="server/app/locale/fr_FR/Addonline_Gls.csv" prefix="app/locale/fr_FR" ></zipfileset>
+			<zipfileset file="server/app/locale/en_US/Addonline_Gls.csv" prefix="app/locale/en_US" ></zipfileset>
+			<zipfileset dir="server/js/jquery" prefix="js/jquery" ><exclude name="jquery.cookie.js" /></zipfileset>
+			<zipfileset file="server/skin/frontend/base/default/css/gls.css" prefix="skin/frontend/base/default/css" ></zipfileset>
+			<zipfileset dir="server/skin/frontend/base/default/images/gls" prefix="skin/frontend/base/default/images/gls" ></zipfileset>
+			<zipfileset file="server/skin/frontend/base/default/js/gls.js" prefix="skin/frontend/base/default/js" ></zipfileset>
+		</zip>
+		<echo message="Refresh your project to see the generated ${zip-name}"></echo>
+
+	</target>
 	<target name="create_zip_sprintsecure" depends="">
 			<property name="zip-name" value="sprintsecure_${DSTAMP}${TSTAMP}.zip" />
 			<zip destfile="${zip-name}" >

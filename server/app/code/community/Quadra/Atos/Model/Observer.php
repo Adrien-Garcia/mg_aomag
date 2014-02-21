@@ -84,7 +84,8 @@ class Quadra_Atos_Model_Observer {
                 $res[] = $result['order_id'];
             }
             $resOrderIds = "'" . implode("','", $res) . "'";
-            $queryR = "SELECT `order_id` FROM `{$_resource->getTableName('atos/log_request')}` WHERE `order_id` NOT IN ({$resOrderIds});";
+            //ADDONLINE ajoute AND send_date < DATE_SUB(NOW(), INTERVAL 15 MINUTE) pour éviter d'annuler des commandes que le client est en train de payer 
+            $queryR = "SELECT `order_id` FROM `{$_resource->getTableName('atos/log_request')}` WHERE `order_id` NOT IN ({$resOrderIds}) AND send_date < DATE_SUB(NOW(), INTERVAL 15 MINUTE);";
             $requestOrderIds = $_readConnection->fetchAll($queryR);
 
             if (count($requestOrderIds)) {

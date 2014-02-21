@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -746,7 +746,6 @@ input[type="checkbox"]:checked {
 .page-title {
     background-color:#fff !important;
     color:#424242;
-    height:25px;
     margin:0;
     padding:10px 15px;
 }

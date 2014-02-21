@@ -62,7 +62,7 @@ class Owebia_Shipping2_Model_Os2_Data_CartItem extends Owebia_Shipping2_Model_Os
 		if (!isset($this->_product)) {
 			//echo $this->_loaded_object->getData('product_id').', '.$this->_getItem('load_product_data_on_parent')->getData('product_id').'<br/>';
 			$product_id = $this->_getItem('load_product_data_on_parent')->getData('product_id');
-			$this->_product = Mage::getModel('owebia-shipping2/Os2_Data_Product', array('id' => $product_id));
+			$this->_product = Mage::getModel('owebia_shipping2/Os2_Data_Product', array('id' => $product_id));
 		}
 		return $this->_product;
 	}

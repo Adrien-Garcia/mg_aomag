@@ -13,6 +13,15 @@ if ((string)Mage::getConfig()->getModuleConfig('Idev_OneStepCheckout')->active !
 class Addonline_Varnish_Block_Checkout_Links extends Idev_OneStepCheckout_Block_Checkout_Links
 {
     /**
+	 * Set the original module name to avoid breaking translations
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setModuleName('Mage_Checkout');
+	}
+
+	/**
      * Add shopping cart link to parent block
      * 
      * On génère le text différement si on affiche le bloc de manière dynamique ou non

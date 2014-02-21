@@ -21,28 +21,32 @@
 
 class Owebia_Shipping2_Adminhtml_Os2_AjaxController extends Owebia_Shipping2_Controller_Abstract
 {
-	protected function _getOs2Helper($config, $autocorrection = true) {
+	protected function _getOs2Helper($config, $autocorrection = true)
+	{
 		include_once $this->getModulePath('includes/OS2_AddressFilterParser.php');
 		include_once $this->getModulePath('includes/OwebiaShippingHelper.php');
 		$helper = new OwebiaShippingHelper($config, $autocorrection);
 		return $helper;
 	}
 	
-	protected function _getEditor($data) {
+	protected function _getEditor($data)
+	{
 		$helper = $this->_getOs2Helper($data['source'], $autocorrection = true);
 		$helper->checkConfig();
 		$config = $helper->getConfig();
-		$block = $this->getLayout()->createBlock('owebia-shipping2/adminhtml_os2_editor', 'os2_editor', array('config' => $config, 'opened_row_ids' => isset($data['row_ids']) ? $data['row_ids'] : array()));
+		$block = $this->getLayout()->createBlock('owebia_shipping2/adminhtml_os2_editor', 'os2_editor', array('config' => $config, 'opened_row_ids' => isset($data['row_ids']) ? $data['row_ids'] : array()));
 		return /*"<pre>".print_r($config, true)."</pre>".*/$block->getHtml();
 	}
 
-	protected function _getCorrection($config, $compress = false, $html = false) {
+	protected function _getCorrection($config, $compress = false, $html = false)
+	{
 		$helper = $this->_getOs2Helper($config);
 		return $helper->formatConfig($compress, $keys_to_remove = array('*id'), $html);
 	}
 	
-	protected function _processHelp($help_id, $content) {
-		$block = $this->getLayout()->createBlock('owebia-shipping2/adminhtml_os2_help', 'os2_help', array(
+	protected function _processHelp($help_id, $content)
+	{
+		$block = $this->getLayout()->createBlock('owebia_shipping2/adminhtml_os2_help', 'os2_help', array(
 			'controller' => $this,
 			'help_id' => $help_id,
 			'content' => $content,
@@ -51,7 +55,8 @@ class Owebia_Shipping2_Adminhtml_Os2_AjaxController extends Owebia_Shipping2_Con
 		return $block->getHtml();
 	}
 	
-	public function indexAction() {
+	public function indexAction()
+	{
 		header('Content-Type: text/html; charset=UTF-8');
 
 		switch ($_POST['what']) {
@@ -94,7 +99,7 @@ class Owebia_Shipping2_Adminhtml_Os2_AjaxController extends Owebia_Shipping2_Con
 				));
 				exit;
 			case 'property-tools':
-				$block = $this->getLayout()->createBlock('owebia-shipping2/adminhtml_os2_editor');
+				$block = $this->getLayout()->createBlock('owebia_shipping2/adminhtml_os2_editor');
 				echo $block->getPropertyTools($this, $_POST['property']);
 				exit;
 			case 'update-property':
@@ -139,7 +144,7 @@ class Owebia_Shipping2_Adminhtml_Os2_AjaxController extends Owebia_Shipping2_Con
 			case 'row-ui':
 				$helper = $this->_getOs2Helper($_POST['source']);
 				$row = $helper->getConfigRow($_POST['id']);
-				$block = $this->getLayout()->createBlock('owebia-shipping2/adminhtml_os2_editor');
+				$block = $this->getLayout()->createBlock('owebia_shipping2/adminhtml_os2_editor');
 				echo $block->getRowUI($row, true);
 				exit;
 			case 'readable-selection':
@@ -147,10 +152,10 @@ class Owebia_Shipping2_Adminhtml_Os2_AjaxController extends Owebia_Shipping2_Con
 					case 'shipto':
 					case 'billto':
 					case 'origin':
-						echo Mage::getModel('owebia-shipping2/Os2_Data_AddressFilter')->readable($_POST['input']);
+						echo Mage::getModel('owebia_shipping2/Os2_Data_AddressFilter')->readable($_POST['input']);
 						break;
 					case 'customer_groups':
-						echo Mage::getModel('owebia-shipping2/Os2_Data_CustomerGroup')->readable($_POST['input']);
+						echo Mage::getModel('owebia_shipping2/Os2_Data_CustomerGroup')->readable($_POST['input']);
 						break;
 				}
 				exit;
@@ -170,7 +175,8 @@ class Owebia_Shipping2_Adminhtml_Os2_AjaxController extends Owebia_Shipping2_Con
 		exit;
 	}
 
-	public function docAction() {
+	public function docAction()
+	{
 		header('Content-Type: text/html; charset=UTF-8');
 
 		$file_handler = fopen(Mage::getBaseDir('locale').'/fr_FR/Owebia_Shipping2.csv', 'r');

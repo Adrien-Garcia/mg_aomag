@@ -12,7 +12,7 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 			if (Mage::getStoreConfig('carriers/socolissimo/testws_socolissimo_flexibilite')) {
 				$this->_urlWsdl = "https://pfi.telintrans.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0?wsdl";
 			} else {
-				$this->_urlWsdl = "http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0?wsdl";
+				$this->_urlWsdl = "https://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0?wsdl";
 			}
 		}
 		return $this->_urlWsdl;
@@ -22,9 +22,9 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 
 		if (!$this->_available) {
 			try {
-				$supervisionUrl = "http://ws.colissimo.fr/supervision-wspudo/supervision.jsp";
+				$supervisionUrl = "https://ws.colissimo.fr/supervision-wspudo/supervision.jsp";
 				if (Mage::getStoreConfig('carriers/socolissimo/testws_socolissimo_flexibilite')) {
-					$supervisionUrl = "http://pfi.telintrans.fr/supervision-wspudo/supervision.jsp";
+					$supervisionUrl = "https://pfi.telintrans.fr/supervision-wspudo/supervision.jsp";
 				}
 				$ctx=stream_context_create(array('http'=> array( 'timeout' => 0.6 )));//Si on n'a pas de réponse en moins d'une demi seconde
 				$this->_available = file_get_contents ($supervisionUrl,false,$ctx);

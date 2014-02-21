@@ -25,7 +25,7 @@ class Owebia_Shipping2_Block_Adminhtml_System_Config_Form_Field_Config extends M
 	
 	public function __() {
 		$args = func_get_args();
-		return Mage::helper('owebia-shipping2')->__($args);
+		return Mage::helper('owebia_shipping2')->__($args);
 	}
 
 	protected function _prepareLayout() {

@@ -282,7 +282,11 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		$returnData['continueprocess'] = (is_numeric($numberOfDocuments) && $numberOfDocuments < $productCount)?'yes':'no';
 		$returnData['nextpage'] = $page + 1;
 		$returnData['action'] = (is_numeric($numberOfDocuments) && $numberOfDocuments > 0)?'UPDATE':'NEW';
-		$returnData['percent'] = round(($numberOfDocuments*100)/$productCount);
+		if ($productCount>0) {
+			$returnData['percent'] = round(($numberOfDocuments*100)/$productCount);
+		} else {
+			$returnData['percent'] = 0;
+		}
 		$returnData['numdocs'] = $numberOfDocuments;
 		$this->getResponse()->setHeader("Content-Type", "application/json", true);
 		
@@ -680,7 +684,7 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
 		
 		$collection = Mage::getModel('catalog/product')->getCollection()
 			->addAttributeToSelect('*')
-			->addStoreFilter($storeId)
+			->setStoreId($storeId)
 			->addWebsiteFilter($websiteId)
 			->addFieldToFilter('status',Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
 			->addFieldToFilter(
@@ -692,12 +696,13 @@ class WebMods_Solrsearch_Adminhtml_SolrsearchController extends Mage_Adminhtml_C
         	->addFinalPrice()
 			->setPage($page, $itemsPerCommit);
 			
+		if (!Mage::getStoreConfig('cataloginventory/options/show_out_of_stock', $storeId)) {
 			$collection->getSelect()->joinLeft(
                   array('stock' => 'cataloginventory_stock_item'),
                   "e.entity_id = stock.product_id",
                   array('stock.is_in_stock')
           	)->where('stock.is_in_stock = 1');
-          	
+		}
         return $collection;
 	}
 	

@@ -23,17 +23,20 @@ class Owebia_Shipping2_Model_Os2_Data_Store extends Owebia_Shipping2_Model_Os2_D
 {
 	private $_store;
 
-	public function __construct($arguments=null) {
+	public function __construct($arguments=null)
+	{
 		parent::__construct();
 		if ($arguments && isset($argument['id'])) $this->_store = Mage::app()->getStore((int)$argument['id']);
 		else $this->_store = Mage::app()->getStore();
 	}
 
-	public function __sleep() {
+	public function __sleep()
+	{
 		return array('id', 'code', 'name', 'address', 'phone');
 	}
 
-	protected function _load($name) {
+	protected function _load($name)
+	{
 		switch ($name) {
 			case 'id':
 				return $this->_store->getId();
@@ -47,5 +50,3 @@ class Owebia_Shipping2_Model_Os2_Data_Store extends Owebia_Shipping2_Model_Os2_D
 		return null;
 	}
 }
-
-?>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,12 +83,12 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         }
         // parse this date in current locale, do not apply GMT offset
         else {
-        	$date = Mage::app()->getLocale()->date($date,
+            $date = Mage::app()->getLocale()->date($date,
             //Correctif addonline
             //Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
             Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
             //FIN Correctif addonline
-            	null, false
+               null, false
             );
         }
         return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
