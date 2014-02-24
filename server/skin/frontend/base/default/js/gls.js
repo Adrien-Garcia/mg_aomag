@@ -44,12 +44,12 @@ jQuery(function($) {
 	
 	
 	//Cas du onestep checkout, si on change l'adresse de livraison après avoir choisi gls
-	/* jQuery('.onestepcheckout-index-index .address-select').live("change", function() {
+	jQuery('.onestepcheckout-index-index .address-select').on("change", function() {
 		if(jQuery('#gls-location').size() <= 0 ){	
 			$("#attentionSoColissimo").remove();
 			$("label[for=\"billing-address-select\"]").parent().before('<p id="attentionSoColissimo" style="font-weight:bold;color:red;text-align:justify; padding-right:5px;">Suite à la modification de votre adresse et si votre mode de livraison est So Colissimo, veuillez séléctionner votre point de retrait en cliquant sur le mode de livraison.</p>');
 		}
-	}); */	
+	}); 	
 	
 	/** 
 	 * Sur l'événement change des radios boutons de choix de mode de livraison
