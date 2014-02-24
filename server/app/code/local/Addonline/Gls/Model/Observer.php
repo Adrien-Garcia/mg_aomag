@@ -36,10 +36,11 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 		$shipping_data = Mage::getSingleton('checkout/session')->getData('gls_shipping_relay_data');
 		$quote = $observer->getEvent()->getQuote();
 		$shippingAddress = $quote->getShippingAddress();
+		$billingAddress = $quote->getBillingAddress();
 		$shippingMethod = $shippingAddress->getShippingMethod();
 		if(strpos($shippingMethod,'gls_relay') !== false){
 			$request = Mage::app()->getRequest();
-			//si on a le paramètre shipping_method c'est qu'on n'est pas sur la requête de mise à jour du mode de livraison : 
+			//si on a le paramètre shipping_method c'est qu'on n'est pas sur la requête de mise à jour du mode de livraison :
 			// il faut mettre à jour l'addresse de livraison si on a le mode de livraison relais
 			if($shipping_data && $request->getParam('shipping_method')){
 				Mage::getSingleton('checkout/session')->setData('gls_shipping_warnbyphone',$shipping_data['warnbyphone']);
@@ -56,10 +57,8 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 				}
 			}
 		}else{
-			$billingAddress = $quote->getBillingAddress();
-			$shippingMethod = $shippingAddress->getShippingMethod();
 			if ($shipping_data) {
-				//Si l'adresse était une adresse de relais colis (on a les données en session) : 
+				//Si l'adresse était une adresse de relais colis (on a les données en session) :
 				//on réinitialise l'adresse de livraison avec l'adresse de facturation
 				$shippingAddress->setData('prefix', $billingAddress->getData('prefix'));
 				$shippingAddress->setData('firstname', $billingAddress->getData('firstname'));
