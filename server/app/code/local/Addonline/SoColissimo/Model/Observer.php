@@ -204,6 +204,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 				$customerNotesArray['0']='Livraison relais colis socolissimo : '.$relais->getIdentifiant();
 
 				$arrayAddressData['save_in_address_book'] = 0;
+				Mage::getSingleton('checkout/session')->setData('socolissimo_livraison_relais',$relais->getIdentifiant());
 
 			} else {
 				$socoShippingData['PRID'] = '';
@@ -262,6 +263,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 	public function addSocoAttributesToOrder($observer)
 	{
 		try {
+			Mage::getSingleton('checkout/session')->setData('socolissimo_livraison_relais',null);
 			$checkoutSession = Mage::getSingleton('checkout/session');
 			$shippingData = $checkoutSession->getData('socolissimo_shipping_data');
 

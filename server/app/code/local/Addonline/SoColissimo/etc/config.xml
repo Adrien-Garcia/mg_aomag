@@ -30,6 +30,11 @@
         </blocks>
     	<helpers>
             <socolissimo><class>Addonline_SoColissimo_Helper</class></socolissimo>
+            <onestepcheckout>
+                <rewrite>
+                    <checkout>Addonline_SoColissimo_Helper_OneStepCheckout_Checkout</checkout>
+                </rewrite>
+            </onestepcheckout>
         </helpers>
     	<models>
     		<socolissimo>
