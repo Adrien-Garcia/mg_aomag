@@ -70,13 +70,13 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 				$shippingAddress->setData('telephone', $billingAddress->getData('telephone'));
 				$shippingAddress->setData('save_in_address_book', 0);
 			}
-			//puis on vide les données en session
-			Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
 		}
 	}
 
 	public function addGlsInformationsToOrder($observer){
 		try {
+			//puis on vide les données en session
+			Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data',null);
 			$quote = $observer->getEvent()->getQuote();
 			$shippingAddress = $quote->getShippingAddress();
 			$shippingMethod = $shippingAddress->getShippingMethod();

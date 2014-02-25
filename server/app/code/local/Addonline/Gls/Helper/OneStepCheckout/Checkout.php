@@ -8,6 +8,8 @@ class Addonline_Gls_Helper_OneStepCheckout_Checkout extends Idev_OneStepCheckout
 
     public function saveShipping($data, $customerAddressId)
     {
-        return array();
+    	$shipping_data = Mage::getSingleton('checkout/session')->getData('gls_shipping_relay_data');
+    	if($shipping_data)return array();
+    	else return parent::saveShipping($data, $customerAddressId);
     }
 }
