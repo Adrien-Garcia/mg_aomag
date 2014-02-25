@@ -27,7 +27,7 @@
             <gls><class>Addonline_Gls_Helper</class></gls>            
             <onestepcheckout>
                 <rewrite>
-                    <checkout>Addonline_GLS_Helper_OneStepCheckout_Checkout</checkout>
+                    <checkout>Addonline_Gls_Helper_OneStepCheckout_Checkout</checkout>
                 </rewrite>
             </onestepcheckout>
         </helpers>
