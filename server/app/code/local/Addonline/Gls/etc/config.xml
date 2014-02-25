@@ -24,7 +24,12 @@
             <gls><class>Addonline_Gls_Block</class></gls>
         </blocks>
         <helpers>
-            <gls><class>Addonline_Gls_Helper</class></gls>
+            <gls><class>Addonline_Gls_Helper</class></gls>            
+            <onestepcheckout>
+                <rewrite>
+                    <checkout>Addonline_GLS_Helper_OneStepCheckout_Checkout</checkout>
+                </rewrite>
+            </onestepcheckout>
         </helpers>
     	<!-- <resources>
     		<gls_setup>
