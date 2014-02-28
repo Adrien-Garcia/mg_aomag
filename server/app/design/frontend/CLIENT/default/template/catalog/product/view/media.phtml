@@ -49,7 +49,7 @@
     <ul class="bxslider">
     <?php foreach ($this->getGalleryImages() as $_image): ?>
        	<li>
-            <a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" class="cloud-zoom-gallery" rel="useZoom: 'zoom-1', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(470); ?>' " title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
+            <a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" class="cloud-zoom-gallery" rel="useZoom: 'zoom-1', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(470); ?>'">
             	<img width="68" height="68" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(68); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
             </a>
        </li>
