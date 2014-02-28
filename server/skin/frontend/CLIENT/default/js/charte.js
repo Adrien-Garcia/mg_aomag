@@ -104,7 +104,7 @@ jQuery(function($) {
 //	});
 	
 	// Produit : formulaire de commentaire en layer
-	$(".add-my-review").click(function(e) {
+	$(".add-my-review, .no-rating a").click(function(e) {
 		e.preventDefault();
 		$.fancybox($(".product-view .box-reviews .form-add"));
 	});

@@ -102,6 +102,12 @@
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
     </catalog_product_compare_index>
+    
+	<catalogsearch_result_index translate="label">
+		<reference name="search_result_list">
+			<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
+		</reference>
+	</catalogsearch_result_index>
 	
 	<!-- CATEGORY -->
 	<catalog_category_layered>
