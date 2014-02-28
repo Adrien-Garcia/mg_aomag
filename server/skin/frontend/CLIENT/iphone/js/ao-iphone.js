@@ -4,7 +4,7 @@ jQuery(function($) {
 		if(!$(this).next().data("open")) {
 			$(this).next().data("open", true)
 			$(this).next().toggle();
-			$("html, body").animate({scrollTop: $("body").height() + "px"});
+			$("html, body").animate({scrollTop: $(document).height() - $(window).height() + "px"});
 		} else {
 			$(this).next().data("open", false)
 			$(this).next().slideToggle();
@@ -38,7 +38,7 @@ jQuery(function($) {
 	
 	$(".product-collateral .box-collateral > h2").click(function(e) {
 		e.preventDefault();
-		$(this).next().slideToggle();
+		$(this).toggleClass("opened").next().slideToggle();
 	});
 	
 	

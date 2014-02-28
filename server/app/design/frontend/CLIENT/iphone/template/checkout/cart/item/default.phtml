@@ -48,10 +48,6 @@ $_options = $this->getOptionList();
             <a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(114); ?>" width="57" height="57" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a>
         <?php endif;?>
 
-        <?php if ($isVisibleProduct && $this->getOptionList()): ?>
-            <p><a class="link-edit" href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item parameters') ?>"><?php echo $this->__('Edit') ?></a></p>
-        <?php endif ?>
-
     </td>
 
     <td>
@@ -279,14 +275,9 @@ $_options = $this->getOptionList();
             </div>
 
         </div>
-
-    </td>
-</tr>
-<?php if ($_options):?>
-<tr class="product-options">
-    <td colspan="2">
-        <span class="toggle" onclick="$(this).next('.product-options').toggle(); return false;">Show Options</span>
-        <div class="product-options" style="display:none;">
+        
+        <?php if ($_options):?>
+        <div class="product-options">
             <dl class="item-options">
                 <?php foreach ($_options as $_option) : ?>
                     <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
@@ -299,6 +290,7 @@ $_options = $this->getOptionList();
                 <?php endforeach; ?>
             </dl>
         </div>
+		<?php endif;?>
+
     </td>
 </tr>
-<?php endif;?>

@@ -221,7 +221,16 @@ select:disabled { background:#f5f5f5; }
 .pager select { width:auto; }
 
 a.btn-remove,
- .btn-remove2 { background:url(../images/btn_remove.png) no-repeat center; display:inline-block; overflow:hidden; text-indent:-100%; height:25px; width:25px; }
+.btn-remove2 {
+	background: url(../images/sprite_retina.png) -61px -262px;
+	background-size: 250px 300px;
+	display: inline-block;
+	overflow: hidden;
+	text-indent: -100%;
+	height: 25px;
+	width: 25px;
+}
+
 a.link-edit { background:url(../images/btn_edit.png) no-repeat left; display:inline-block; font-size:11px; font-weight:normal; line-height:18px; padding:0 0 0 23px; }
 
 .reward-message,
@@ -336,6 +345,10 @@ header .wrapper-row {
 		margin: 0;
 		position: relative;
 	}
+	#menu .cart-icon a {
+		display: block;
+		height: 50px;
+	}
 	.cart-empty {
 		padding: 0 0 15px 0;
 }
@@ -347,7 +360,7 @@ header .wrapper-row {
 		top: 0px;
 		right: 0px;
 		background: url(../images/sprite_retina.png) -0px -0px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 	#menu .menu:before {
 		content: "";
@@ -357,7 +370,7 @@ header .wrapper-row {
 		top: 0px;
 		right: 0px;
 		background: url(../images/sprite_retina.png) -50px -0px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 	#menu .cart-icon:before {
 		content: "";
@@ -367,7 +380,8 @@ header .wrapper-row {
 		top: 0px;
 		right: 0px;
 		background: url(../images/sprite_retina.png) -100px -0px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
+		pointer-events: none;
 	}
 	#menu .recherche:after {
 		content: "";
@@ -410,15 +424,15 @@ only screen and (min-device-pixel-ratio: 1.5) {
 	
 	#menu .recherche:before {
 		background-image: url(../images/sprite_retina.png);
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 	#menu .menu:before {
 		background-image: url(../images/sprite_retina.png);
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 	#menu .cart-icon:before {
 		background-image: url(../images/sprite_retina.png);
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 	
 }*/
@@ -440,7 +454,7 @@ body > header .search {
 
 #search_mini_form button {
 	background: #f18200 url(../images/sprite_retina.png) 0 0;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
 	border: none;
 	text-indent: -200em;
 	width: 50px;
@@ -659,7 +673,7 @@ address.copyright {
 		top: 0px;
 		right: 0px;
 		background: #bdbdbd url(../images/sprite_retina.png) -150px -50px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 
 footer ul {
@@ -735,7 +749,7 @@ footer ul a {
 	width: 50px;
 	height: 50px;
 	background: #f18200 url(../images/sprite_retina.png) -200px 0;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
 }
 
 .liens {
@@ -754,7 +768,7 @@ footer ul a {
 	color: #474747;
 	display: block;
 	margin: 0 0 1px 0;
-	padding: 0 0 0 50px;
+	padding: 0 0 0 70px;
 	position: relative;
 }
 	.livraison:before, .paiement:before, .sav:before {
@@ -763,9 +777,9 @@ footer ul a {
 		height: 50px;
 		position: absolute;
 		top: 0px;
-		left: 0px;
+		left: 10px;
 		background: url(../images/sprite_retina.png) -0px -50px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 	.paiement:before {
 		background-position: -50px -50px;
@@ -850,7 +864,7 @@ body > section > form > .fieldset h2 { color:#424242; font-size:18px; line-heigh
 #nav-container li.subcategory-header .button-wrap { float:left; position:absolute; }
 #nav-container li.subcategory-header .button-wrap button {
     background: #f18200 url(../images/sprite_retina.png) -150px -100px;
-    background-size: 250px 250px;
+    background-size: 250px 300px;
     border:none;
     height: 50px;
     width: 50px;
@@ -887,7 +901,7 @@ body > section > form > .fieldset h2 { color:#424242; font-size:18px; line-heigh
 		top: 0;
 		right: 20px;
 		background: url(../images/sprite_retina.png) -150px -0px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 
 
@@ -1120,7 +1134,7 @@ input[type="checkbox"]:checked {
 		top: 0px;
 		right: 8px;
 		background: url(../images/sprite_retina.png) -200px -50px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 
 .filters-block .block-content {
@@ -1161,7 +1175,7 @@ input[type="checkbox"]:checked {
 		width: 16px;
 		height: 16px;
 		background: #f18200 url(../images/sprite_retina.png) -66px -118px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 		position: absolute;
 		top: 3px;
 		left: 0;
@@ -1242,7 +1256,7 @@ input[type="checkbox"]:checked {
 
 
 .toolbar .sorter {
-	max-width: 193px;
+	max-width: 220px;
 	position: relative;
 }
 
@@ -1268,7 +1282,7 @@ input[type="checkbox"]:checked {
 		top: 0px;
 		right: -5px;
 		background: url(../images/sprite_retina.png) -0px -100px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 
 .toolbar .sort-by-wrap {
@@ -1278,7 +1292,7 @@ input[type="checkbox"]:checked {
 }
 .toolbar .sort-by select {
     opacity: 0;
-    width: 193px;
+    width: 220px;
     height: 50px;
 }
 
@@ -1357,7 +1371,7 @@ input[type="checkbox"]:checked {
 	top: 50%;
 	right: 12px;
 	background: url(../images/sprite_retina.png) -121px -117px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
 	margin: -10px 0 0 0;
 }
 
@@ -1458,7 +1472,7 @@ input[type="checkbox"]:checked {
 		top: 0px;
 		left: 0px;
 		background: url(../images/sprite_retina.png) -13px -165px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 	.product-view .product-shop .availability.out-of-stock:before {
 		background-position: -67px -164px;
@@ -1480,7 +1494,7 @@ input[type="checkbox"]:checked {
 		top: 0px;
 		left: 0px;
 		background: url(../images/sprite_retina.png) -112px -164px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 
 .product-view .product-shop .tier-prices { margin:10px 0; }
@@ -1539,8 +1553,14 @@ input[type="checkbox"]:checked {
 	top: 0px;
 	right: 0px;
 	background: url(../images/sprite_retina.png) -0px -100px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
+	/*transition: transform 0.2s;
+	-webkit-transition: -webkit-transform 0.2s;*/
 }
+	.product-collateral .box-collateral > h2.opened:before {
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+	}
 
 .product-collateral .box-additional .data-table {
 	border-collapse: collapse;
@@ -1592,7 +1612,7 @@ input[type="checkbox"]:checked {
 		top: 3px;
 		left: 0px;
 		background: url(../images/sprite_retina.png) -216px -170px;
-		background-size: 250px 250px;
+		background-size: 250px 300px;
 	}
 
 .product-view .rating-links .separator { display:none; }
@@ -1712,7 +1732,7 @@ input[type="checkbox"]:checked {
 
 .link-wishlist span, .share-with span {
 	position: relative;
-	padding: 0 0 0 30px;
+	padding: 0 0 0 25px;
 }
 
 .link-wishlist span:before, .share-with span:before {
@@ -1723,10 +1743,10 @@ input[type="checkbox"]:checked {
 	top: -4px;
 	left: 0px;
 	background: url(../images/sprite_retina.png) -165px -161px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
 }
 	.share-with span:before {
-		background-position: -208px -111px;
+		background-position: -216px -111px;
 	}
 
 .add-to-links > li .split-button strong + a { display:block; height:30px; margin:0 0 -30px; position:relative; top:-30px; overflow:hidden; text-indent:-200%; }
@@ -2062,7 +2082,7 @@ input[type="checkbox"]:checked {
 }
 .my-account .info-box.recent-orders .box-title a:before {
     background: url(../images/sprite_retina.png) -100px -451px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
     content:"";
     
     display: block;
@@ -2077,7 +2097,7 @@ input[type="checkbox"]:checked {
 .my-account .box .box-title a:before,
 .my-account .info-box .box-title a:before {
     background: url(../images/sprite_retina.png) -50px -451px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
     content:"";
     
     display: block;
@@ -2247,7 +2267,7 @@ input[type="checkbox"]:checked {
 
 .my-account .dashboard .info-box .box-title:before {
     background: url(../images/sprite_retina.png) -15px -472px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
     content:"";
     
     display: block;
@@ -2259,7 +2279,7 @@ input[type="checkbox"]:checked {
 }
 .my-account .dashboard .box .box-title:before {
     background: url(../images/sprite_retina.png) -15px -472px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
     content:"";
     
     display: block;
@@ -2271,11 +2291,11 @@ input[type="checkbox"]:checked {
 }
 .my-account .dashboard .info-box .box-title.collapsed:before { 
 	background: url(../images/sprite_retina.png) -165px -472px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
 }
 .my-account .dashboard .box .box-title.collapsed:before{ 
 	background: url(../images/sprite_retina.png) -165px -472px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
 }
 .my-account .dashboard .box-reviews ol { list-style:none; padding:0; }
 .my-account .dashboard .box-reviews li + li { margin:10px 0 0; }
@@ -2288,7 +2308,7 @@ input[type="checkbox"]:checked {
 
 /* .my-account .addresses-list .info-box .box-title:before { */
 /*     background: url(../images/sprite_retina.png) -216px -472px; */
-/* 	background-size: 250px 250px; */
+/* 	background-size: 250px 300px; */
 /*     content:""; */
     
 /*     display: block; */
@@ -2591,7 +2611,7 @@ input[type="checkbox"]:checked {
 .cart-table .cart-price-box + .cart-price-box { margin-left:10px; text-align:right; }
 .cart-table .cart-price-box + .cart-price-box .cart-price { color:#424242; font-size:15px; font-weight:bold; }
 .cart-table .qty-wrap { display:table-cell; vertical-align:top; width:55px; }
-.cart-table .qty { font-size:13px; text-align:center; vertical-align:middle; width:35px; }
+.cart-table .qty { font-size:13px; text-align:center; vertical-align:middle; width:35px; height: 35px; }
 .cart-table .qty + span { font-size:12px; margin:0 2px; vertical-align:middle; }
 .cart-table .gift-registry-name { font-size:12px; margin:-12px 0 10px; }
 .cart-table .btn-remove { float:right; position:relative; top:0; right:-5px; }
@@ -2601,18 +2621,48 @@ input[type="checkbox"]:checked {
 .cart-table .product-name { color:#424242; font-size:18px; line-height:22px; margin:0 0 15px; }
 .cart-table .product-name a { color:#424242; }
 
+.cart-table .btn-update {
+	background: #dddddd;
+	color: #474747;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	font: 16px/18px open_sanslight;
+	text-transform: none;
+}
+
+.cart-table .btn-update span {
+	position: relative;
+	padding-left: 35px;
+}
+
+.cart-table .btn-update span:before {
+	content: "";
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: -3px;
+	left: 0;
+	background: url(../images/sprite_retina.png) -8px -260px;
+	background-size: 250px 300px;
+}
+
+.cart-table tbody td {
+	border-bottom: 1px solid #ccc;
+}
+
 .cart-table tfoot button + button { margin:10px 0 0; }
 
 .cart-table .downloadable { margin:10px 0 0; }
 .cart-table .product-options td { background:none; padding:0; }
 .cart-table .product-options .toggle { color:#1394ca; cursor:pointer; display:inline-block; margin:10px; }
-.cart-table .product-options .item-options { padding:10px; }
+.cart-table .product-options .item-options { padding-top:10px; }
 
 .cart-table .toggle { font-size:13px; display:inline-block; }
 
 .cart-collaterals h2 { color:#424242; font-size:15px; font-weight:normal; line-height:18px; margin:0 0 5px; }
 .cart-collaterals label { display:none; }
-.cart-collaterals button { background:none; color:#1394ca; display:inline-block; border:0; font-size:15px; margin:0; padding:5px; text-decoration:underline; vertical-align:middle; }
+.cart-collaterals button { background:none; color:#f18200; display:inline-block; border:0; font-size:15px; margin:0; padding:5px; text-decoration:underline; vertical-align:middle; }
 .cart-collaterals button + button { padding:5px 0; }
 .cart-collaterals .v-fix { display:inline-block; margin-right:5px; vertical-align:middle; width:60%; }
 .cart-collaterals .v-fix + button { vertical-align:top; }
@@ -2637,6 +2687,10 @@ input[type="checkbox"]:checked {
 .cart .totals table .summary-total .summary-collapse { display:inline-block; border-bottom:1px dashed; }
 .cart .totals table .summary-total .summary-collapse:before { content:'+'; display:inline-block; margin-right:5px; }
 .cart .totals table .summary-total.show-details .summary-collapse:before { content:'-'; }
+
+.cart .totals table tfoot {
+	font-size: 20px;
+}
 
 .failed-products { border-bottom:1px solid #eae8ea; margin:10px 0 0; padding:0 0 10px; }
 .failed-products h2 { font-weight:bold; }
@@ -2745,7 +2799,7 @@ input[type="checkbox"]:checked {
 
 .opc .section.allow .step-title h2:before {
     background: url(../images/sprite_retina.png) -15px -472px;
-	background-size: 250px 250px;
+	background-size: 250px 300px;
     content:"";
     
     display: block;
@@ -2759,7 +2813,7 @@ input[type="checkbox"]:checked {
 /* .opc .section.allow.active .step-title h2:before { */
 /* 	background: url(../images/sprite_retina.png) -6px -464px; */
 /*     background-opacity: 0.5; */
-/* 	background-size: 250px 250px; */
+/* 	background-size: 250px 300px; */
 /*     content:""; */
     
 /*     display:inline-block; */
@@ -3129,7 +3183,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
     .controls .prev { background-image:url(../images/arrow_left_retina.png); background-size:7px 12px; }
     .controls .next { background-image:url(../images/arrow_right_retina.png); background-size:7px 12px; }
     
-    a.btn-remove, .btn-remove2 { background-image:url(../images/btn_remove_retina.png); background-size:11px 11px; }
+    /*a.btn-remove, .btn-remove2 { background-image:url(../images/btn_remove_retina.png); background-size:11px 11px; }*/
     a.link-edit { background-image:url(../images/btn_edit_retina.png); background-size:18px 18px; }
     
     
