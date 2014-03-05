@@ -80,6 +80,7 @@ input[type="email"] {
     -webkit-appearance:none;
     -webkit-box-sizing:border-box;
             box-sizing:border-box;
+      -moz-box-sizing: border-box;
 }
 
 textarea {
@@ -94,6 +95,7 @@ textarea {
     -webkit-appearance:none;
     -webkit-box-sizing:border-box;
             box-sizing:border-box;
+       -moz-box-sizing: border-box;
     -webkit-box-shadow:inset 1px 1px 3px rgba(0, 0, 0, .05);
        -moz-box-shadow:inset 1px 1px 3px rgba(0, 0, 0, .05);
             box-shadow:inset 1px 1px 3px rgba(0, 0, 0, .05);
@@ -295,6 +297,8 @@ a.link-edit { background:url(../images/btn_edit.png) no-repeat left; display:inl
 body > header {
     margin: 10px 10px 20px;
     box-sizing:border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     position:relative;
     z-index:102;
     -webkit-user-select:none;
@@ -608,6 +612,8 @@ body > nav li {
     vertical-align:top;
     width:25%;
     -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body > nav span {

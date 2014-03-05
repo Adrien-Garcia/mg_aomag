@@ -69,6 +69,8 @@ class Addonline_AdvancedSlideshow_Block_Adminhtml_Gestion_Items_List_Grid extend
             	'header'=> Mage::helper('advancedslideshow')->__('Image'),
                 'type'  => 'image',
                 'index' => 'image',
+        		'align' => 'center',
+        		'renderer'  => 'Addonline_AdvancedSlideshow_Block_Adminhtml_Item_Image',
         ));
         
         $this->addColumn('sku',
