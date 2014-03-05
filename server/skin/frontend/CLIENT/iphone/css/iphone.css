@@ -239,7 +239,7 @@ a.link-edit { background:url(../images/btn_edit.png) no-repeat left; display:inl
 .messages .note-msg,
 .messages .error-msg,
 .messages .notice-msg,
-.messages .success-msg { background:#444; color:#fff; padding:10px; text-shadow:0 1px 0 #111; }
+.messages .success-msg { background:#444; color:#fff; padding:10px; }
 
 .no-display { display:none; }
 .nobr { white-space:nowrap; }
@@ -740,7 +740,7 @@ footer ul a {
 }
 .block-subscribe .actions {
 	position: absolute;
-	bottom: 0;
+	top: 33px;
 	right: 0;
 }
 .block-subscribe button {
@@ -776,6 +776,7 @@ footer ul a {
 	margin: 0 0 1px 0;
 	padding: 0 0 0 70px;
 	position: relative;
+	text-transform: uppercase;
 }
 	.livraison:before, .paiement:before, .sav:before {
 		content: "";
