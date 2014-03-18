@@ -69,13 +69,13 @@ if (isset($_GET['deleteAttributeSetId']) && ($attributeSetId = $_GET['deleteAttr
 	}
 	
 	
-	//$attributeSet->delete();
+	$attributeSet->delete();
 	echo "Attribute Set ".$attributeSet->getAttributeSetName()." supprim&eacute;<br/>";
 
 	if (isset($_GET['deleteUnusedAttributes'])) {
 		foreach ($results as $row) {
 			$attribute = Mage::getModel('catalog/resource_eav_attribute')->load($row['attribute_id']);
-			//$attribute->delete();
+			$attribute->delete();
 			echo "Attribut ".$attribute->getAttributeCode()." supprim&eacute;<br/>";
 		}
 	}
