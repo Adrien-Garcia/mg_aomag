@@ -187,15 +187,15 @@
 	display:inline-block;
 	padding: 18px 0 10px 0px;
 	width:24px;
-	background: url(../images/socolissimo/picto_cityssimo.png)  0px 2px no-repeat;
+	background: url(../images/socolissimo/picto_cityssimo_small.png)  0px 2px no-repeat;
 	text-align: left;
 	margin-top:0px;
 }
 #socolissimo-map .choix2 .txt2 {
-	background-image: url(../images/socolissimo/picto_poste.png);
+	background-image: url(../images/socolissimo/picto_poste_small.png);
 }
 #socolissimo-map .choix3 .txt2 {
-	background-image: url(../images/socolissimo/picto_commercant.png);
+	background-image: url(../images/socolissimo/picto_commercant_small.png);
 }
 #socolissimo-map .choix .txt2 b {
 	color: #645258;
@@ -205,7 +205,6 @@
 }
 #socolissimo-map input {
 	float: left;
-	background: #fff;
 }
 #socolissimo-map a.valide {
 	margin-top: 12px;
@@ -295,7 +294,7 @@
 	font-size: 11px;
 }
 #btn_modifierAdresse {
-	background:#616161 url('../images/socolissimo/search.png') 22px 4px no-repeat;
+	background:#616161 url('../images/socolissimo/search.png') 19px 5px no-repeat;
 	height:26px;
 	color:#FFF;
 	border-radius:13px;
@@ -303,6 +302,8 @@
 	padding:0px 26px;
 	border:0;
 	font-weight:bold;
+	position: relative;
+	top: 1px;
 }
 #socolissimo-map .colgauche, #socolissimo-map .coldroite {
 	float: left;
@@ -535,35 +536,66 @@
 	margin-left:10px;
 }
 
-#socolissimo-telephone h3 {
-	color: #CC3333;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0 0 11px;
-    text-align: center;
-    text-transform: uppercase;
+#socolissimo-telephone {
+	padding: 10px 10px !important
 }
 
-#socolissimo-telephone-form .rdv {
-	display: block;
-    margin: 0 0 10px;
+#socolissimo-telephone .title-tel {
+	font-family: Arial,sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 3px 0 5px 0px;
+	color: #f18200;
+	margin-bottom: 8px;
 }
-#map_canvas .adresse{
+
+#socolissimo-telephone .domicile {
+	display: block;
+	margin-bottom: 10px;
+}
+
+#socolissimo-telephone input {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 5px 10px;
+	height: 30px;
+	border-radius: 15px;
+	margin-bottom: 15px;
+	float: none;
+}
+
+#socolissimo-telephone button {
+	display: block;
+	background: #616161;
+	width: 100%;
+	line-height: 23px;
+	height: 24px;
+	border-radius: 12px;
+	text-align: center;
+	color: #FFF;
+	font-size: 12pt;
+	border: none;
+	float: none;
+	}
+	
+	#map_canvas .adresse{
 	font-family: Arial,sans-serif;
 	color:#474747;
+	padding-bottom:5px;
 	max-width:250px;
 	min-width:250px;
-	padding-bottom:5px;
 }
 #map_canvas div.adresse div.entete,#map_canvas div.adresse div.title-tel {
 	font-family: Arial,sans-serif;
+	font-size: 16px;
+	font-weight: bold;
 	padding:3px 0 5px 30px;
 	color:#f18200;
-	font-size:14pt;
 	margin-bottom:8px;
 }
-#map_canvas div.adresse div.title-tel {	
-	font-size:14pt;
+#map_canvas div.adresse div.title-tel {
 	padding-left:0px;
 }
 #map_canvas div.adresse div.commercant{
@@ -582,8 +614,8 @@
 	margin-bottom:8px;
 }
 #map_canvas div.adresse div.libelle{
-	font-size:15pt;
-	color:#474747;
+	font-size:18px;
+	color:#font-size:14pt;;
 	font-weight:bold;
 	margin-bottom:8px;
 }
@@ -603,7 +635,6 @@
 	font-size:14px;
 }
 #map_canvas div.adresse div.horaires .validite{
-	font-size:8pt;
 	display:block;
 }
 #map_canvas div.adresse .bouton{
@@ -612,9 +643,8 @@
 }
 #map_canvas div.adresse .bouton span,#map_canvas div.adresse .btn_socolissimoChoisir{
 	display:block;
-	background:#474747;
+	background:#616161;
 	width:100%;
-	line-height:18pt;
 	height:24px;
 	border-radius:12px;
 	text-align:center;
@@ -622,6 +652,7 @@
 	font-size:12pt;
 	border:none;
 	float:none;
+	line-height: 23px;
 }
 #map_canvas div.adresse input[type="text"]{
 	-webkit-box-sizing: border-box;

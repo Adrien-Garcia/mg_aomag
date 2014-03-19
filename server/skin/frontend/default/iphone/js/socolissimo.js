@@ -407,7 +407,7 @@ function infoBulleGenerator(relaisSocolissimo) {
 	} else {
 		contentString += '<div class="title">Horaires d\'ouverture : ';
 		if (relaisSocolissimo.deb_periode_horaire) {
-			contentString += '<span class="validite">valables du ' + relaisSocolissimo.deb_periode_horaire + ' au '+ relaisSocolissimo.fin_periode_horaire +'</span>';
+			contentString += '<br/>valables du ' + relaisSocolissimo.deb_periode_horaire + ' au '+ relaisSocolissimo.fin_periode_horaire;
 		}
 		contentString += '</div>';
 	    if (relaisSocolissimo.horaire_lundi!='00:00-00:00 00:00-00:00') {contentString += '<b>Lundi:</b> '+ relaisSocolissimo.horaire_lundi + '<br/>'}
