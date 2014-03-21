@@ -91,7 +91,7 @@
             </updates>
         </layout>
         <secure_url>
-            <sales>/socolissimo/</sales>
+            <socolissimo>/socolissimo/ajax/</socolissimo>
         </secure_url>
         <routers>
             <socolissimo>
