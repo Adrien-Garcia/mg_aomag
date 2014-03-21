@@ -49,7 +49,7 @@
         <div class="product-shop">
             <div class="product-name">
                 <h1 itemprop="name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-                <span itemprop="brand" itemscope itemtype="http://schema.org/Brand"><meta itemprop="name" content="<?php echo $_product->getAttributeText('brand') ?>"></span>
+                <?php if ( $_product->getData('brand')) :?><span itemprop="brand" itemscope itemtype="http://schema.org/Brand"><meta itemprop="name" content="<?php echo $_product->getAttributeText('brand') ?>"></span><?php endif; ?>
             </div>
 			
 			<div class="wrapper-sku-ratings">
