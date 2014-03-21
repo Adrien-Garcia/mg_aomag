@@ -32,10 +32,10 @@
         <div class="toolbar"><?php echo $this->getChildHtml('toolbar') ?></div>
         <dl>
         <?php foreach ($_items as $_review):?>
-            <dt>
+            <dt itemprop="review" itemscope itemtype="http://schema.org/Review" itemref="schema_org_review_<? echo $_review->getId(); ?>">
             	<?php $_votes = $_review->getRatingVotes(); ?>
                 <?php if (count($_votes)): ?>
-                <table class="ratings-table">
+                <table class="ratings-table" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
                     <col width="1" />
                     <col />
                     <tbody>
@@ -44,19 +44,23 @@
                             <td>
                                 <div class="rating-box">
                                     <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+                 					<meta itemprop="ratingValue" content="<?php echo $_vote->getPercent() ?>" />
+									<meta itemprop="bestRating" content="100" />
+									<meta itemprop="worstRating" content="0" />
                                 </div>
                             </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
+
                 </table>
                 <?php endif; ?>
                 <span class="title"><?php echo $this->escapeHtml($_review->getTitle()) ?></span><br/>
-                <span class="author"><?php echo $this->__('par <span>%s</span>', $this->escapeHtml($_review->getNickname())) ?></span>
-                <small class="date"><?php echo $this->__('le %s', $this->formatDate($_review->getCreatedAt()), 'long') ?></small>
+                <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><?php echo $this->__('par <span>%s</span>', $this->escapeHtml($_review->getNickname())) ?><meta itemprop="name" content="<?php echo $this->escapeHtml($_review->getNickname()); ?>" /></span>
+                <small class="date"><?php echo $this->__('le %s', $this->formatDate($_review->getCreatedAt()), 'long') ?></small><meta itemprop="datePublished" content="<?php echo $this->formatDate($_review->getCreatedAt()) ?>" /> 
             </dt>
-            <dd>
-                <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?>
+            <dd id="schema_org_review_<? echo $_review->getId(); ?>" ><span itemprop="reviewBody" >
+                <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?></span>
             </dd>
         <?php endforeach; ?>
         </dl>
