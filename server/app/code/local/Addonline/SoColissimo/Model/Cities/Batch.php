@@ -62,7 +62,7 @@ class Addonline_SoColissimo_Model_Cities_Batch{
 
 					// Insertion dans la table
 					if(!isset($data[2]))continue;
-					$this->_connectionWrite->query("INSERT INTO `aomagento`.`socolissimo_cities` (`country`,`city_name`,`city_zipcode`,`date_fichier`) VALUES ('".$country."','".mysql_real_escape_string($data[2])."','".mysql_real_escape_string($data[1])."','".$date_fichier_distant."');");
+					$this->_connectionWrite->query("INSERT INTO `socolissimo_cities` (`country`,`city_name`,`city_zipcode`,`date_fichier`) VALUES ('".$country."','".mysql_real_escape_string($data[2])."','".mysql_real_escape_string($data[1])."','".$date_fichier_distant."');");
 
 				}
 
