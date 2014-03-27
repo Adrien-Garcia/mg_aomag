@@ -72,13 +72,7 @@ Product.Config.prototype = {
 
         // Put events to check select reloads
         this.settings.each(function(element){
-            //Event.observe(element, 'change', this.configure.bind(this))
-            //ADDONLINE (pour pouvoir charter les options des produits configurables)
-            var original_this = this;
-            jQuery(element).change(function(e) {
-            	original_this.configure(e)/*.bind(original_this)*/;
-            });
-            //FIN ADDONLINE
+            Event.observe(element, 'change', this.configure.bind(this))
         }.bind(this));
 
         // fill state
