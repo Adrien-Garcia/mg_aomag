@@ -210,19 +210,19 @@
  "label": "Livraison à domicile",
  "code": "tohome_fr",
  "shipto": "FR",
- "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
+ "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 },
 {
  "label": "Livraison à domicile",
  "code": "tohome_eu",
  "shipto": "{address_filter.EU}",
- "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
+ "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 },
 {
  "label": "Livraison à domicile",
  "code": "tohome_ue",
  "shipto": "{address_filter.AF},{address_filter.AS},{address_filter.NA},{address_filter.SA},{address_filter.OC},{address_filter.AN},{address_filter.DOM},{address_filter.COM}",
- "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
+ "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configtohome>
                 <ordertohome>1</ordertohome>
                 <livraisontoyou>0</livraisontoyou>
@@ -231,7 +231,7 @@
  "label": "Livraison à domicile garantie",
  "code": "toyou_fr",
  "shipto": "FR",
- "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
+ "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configtoyou>
                 <ordertoyou>2</ordertoyou>
                 <livraisonrelay>1</livraisonrelay>
@@ -240,7 +240,7 @@
  "label": "Livraison en Point Relais",
  "code": "relay_fr",
  "shipto": "FR",
- "fees": "{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
+ "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configrelay>
                 <orderrelay>3</orderrelay>
                 <maxrelayweight>20</maxrelayweight>
