@@ -171,6 +171,10 @@
                 <schedule><cron_expr>0 1 * * *</cron_expr></schedule>
                 <run><model>socolissimo/liberte_batch::run</model></run>
             </socolissimo_liberte_import>
+            <socolissimo_cities_import>
+                <schedule><cron_expr>0 4 * * 0</cron_expr></schedule>
+                <run><model>socolissimo/cities_batch::updatecities</model></run>
+            </socolissimo_cities_import>
         </jobs>
     </crontab>
     <default>
