@@ -1,0 +1,4 @@
+	$("#slideshow").bxSlider({
+		controls: false
+	});
+	
