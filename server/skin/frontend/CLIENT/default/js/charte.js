@@ -7,9 +7,18 @@
  * DOM loaded event
  * Tous les scripts nécéssitants le chargement complet du DOM
  * doivent être centralisés dans cette fonction
- * Note : à l'intérieur il est possible d'utilisé la fonction $ native de jQuery
+ * Note : à l'intérieur il est possible d'utiliser la fonction $ native de jQuery
  */
 jQuery(function($) {
+	
+	// Accueil : carrousel
+	$('.cms-home .slideshow').bxSlider({
+		minSlides: 1,
+		maxSlides: 1,
+		slideWidth: 960,
+		auto: true,
+		slideMargin: 0 
+	});
 	
 	/* Page title */
 	//$(".col-main .page-title").prependTo(".main");

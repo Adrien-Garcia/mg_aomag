@@ -44,6 +44,7 @@ Default layout, loads most of the pages
     <cms_index_index translate="label">
         <label>CMS Home Page</label>
         <remove name="advancedslideshow.slideshow"/>
+        <remove name="home-cat-1"/>
         <reference name="content">
 	        <block type="advancedslideshow/slideshow" name="mobile.advancedslideshow.slideshow" template="advancedslideshow/slideshow.phtml" before="-">
 				<action method="setSlideshow"><id>2</id></action>
