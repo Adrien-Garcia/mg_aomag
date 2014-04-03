@@ -68,6 +68,12 @@
     <?php $_finalPrice = $_taxHelper->getPrice($_product, $_product->getFinalPrice()) ?>
     <?php $_finalPriceInclTax = $_taxHelper->getPrice($_product, $_product->getFinalPrice(), true) ?>
     <?php $_weeeDisplayType = $_weeeHelper->getPriceDisplayType(); ?>
+    <?php /* ADDONLINE : on affiche les microdonnées seulement sur la page produit pour le prix du produit */
+    	  $_currentProduct = Mage::registry('current_product');
+          if ($_currentProduct && ($_currentProduct->getId() == $_product->getId())) :?>
+    <meta itemprop="price" content="<?php echo $_finalPrice; ?>" />
+	<meta itemprop="priceCurrency" content="<?php echo Mage::app()->getStore()->getCurrentCurrency()->getCode(); ?>" />    
+	<?php endif; /* END ADDONLINE */ ?>
     <?php if ($_finalPrice >= $_price): ?>
         <?php if ($_taxHelper->displayBothPrices()): ?>
             <?php if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, 0)): // including ?>

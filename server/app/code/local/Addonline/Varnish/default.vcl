@@ -1,5 +1,8 @@
 # This is a basic VCL configuration file for Addonline_Varnish magento module
 #
+#   Config Varnish 2.1
+#
+#
 # Default backend definition.  Set this to point to your magento server.
 #
 #Attention il faut que le backend déclarré soient accessible sinon  varnish ne fonctionne pas, meême si le backend n'est pas utilise
@@ -116,6 +119,11 @@ sub vcl_recv {
 sub vcl_hash {
 	set req.hash += req.http.Host;
 	set req.hash += req.url;
+  
+          if (req.http.cookie ~ "customer_group=") {
+                set req.hash += regsub(req.http.cookie, "^.*?customer_group=([^;]*);*.*$", "\1" );
+         }
+         
 	return (hash);
 }
 

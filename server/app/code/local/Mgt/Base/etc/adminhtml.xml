@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <config>
+	<!-- 
     <menu>
         <mgtcommerce translate="title" module="mgt_base">
             <title>Mgt-Commerce.com</title>
@@ -7,6 +8,7 @@
             <action>adminhtml/mgt</action>
        </mgtcommerce>
     </menu>
+     -->
     <acl>
         <resources>
             <all>

@@ -37,7 +37,7 @@
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
 
-<div class="product-view">
+<div class="product-view" itemscope itemtype="http://schema.org/Product">
     <div class="product-essential">
     <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
         <?php echo $this->getBlockHtml('formkey') ?>
@@ -48,7 +48,8 @@
 
         <div class="product-shop">
             <div class="product-name">
-                <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                <h1 itemprop="name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                <?php if ( $_product->getData('brand')) :?><span itemprop="brand" itemscope itemtype="http://schema.org/Brand"><meta itemprop="name" content="<?php echo $_product->getAttributeText('brand') ?>"></span><?php endif; ?>
             </div>
 			
 			<div class="wrapper-sku-ratings">
@@ -57,7 +58,7 @@
             </div>
             <?php echo $this->getChildHtml('alert_urls') ?>
             
-            <div class="wrapper-stock-price">
+            <div class="wrapper-stock-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             <?php echo $this->getChildHtml('product_type_data') ?>
             <?php echo $this->getTierPriceHtml() ?>
             </div>

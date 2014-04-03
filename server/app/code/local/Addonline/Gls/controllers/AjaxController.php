@@ -41,7 +41,14 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
    			Mage::log($listrelais,null,'gls.log');
    		}else{
 
-   			$onlyxlrelay = Mage::getStoreConfig('carriers/gls/onlyxlrelay');
+   			$productMaxWeight = 0;
+   			$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+   			foreach($items as $item) {
+   				$productMaxWeight = (($productMaxWeight>$item->getWeight())?$productMaxWeight:$item->getWeight());
+   			}
+   			
+   			
+   			$onlyxlrelay = Mage::getStoreConfig('carriers/gls/onlyxlrelay') || ($productMaxWeight > Mage::getStoreConfig('carriers/gls/maxrelayweight'));
 	   		foreach($listrelais->SearchResults as $key => $pointRelais){
 
  	   			if($onlyxlrelay && substr($pointRelais->Parcelshop->Address->Name1,strlen($pointRelais->Parcelshop->Address->Name1)-2,strlen($pointRelais->Parcelshop->Address->Name1)) != 'XL'){

@@ -29,10 +29,11 @@
 
 <?php if ($this->displayProductStockStatus()): ?>
     <?php if ($_product->isAvailable()): ?>
-        <p class="availability in-stock"><?php echo $this->__('In stock') ?></p>
+        <p class="availability in-stock" ><?php echo $this->__('In stock') ?></p>
     <?php else: ?>
-        <p class="availability out-of-stock"><?php echo $this->__('Out of stock') ?></p>
+        <p class="availability out-of-stock"><?php echo $this->__('Out of stock') ?></p>        
     <?php endif; ?>
+    <meta itemprop="availability" content="<?php echo $_product->isAvailable()?$this->__('In stock'):$this->__('Out of stock')?>" />
 <?php endif; ?>
 <?php echo $this->getChildHtml('product_type_data_extra') ?>
 <?php echo $this->getPriceHtml($_product) ?>

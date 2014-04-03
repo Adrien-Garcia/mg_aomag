@@ -1,7 +1,7 @@
 <?php
 /**
  * Addonline_SoColissimo
- * 
+ *
  * @category    Addonline
  * @package     Addonline_SoColissimo
  * @copyright   Copyright (c) 2011 Addonline
@@ -9,7 +9,7 @@
  */
 class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Action
 {
- 
+
 	/**
 	 * Load liste relais
 	 */
@@ -23,18 +23,18 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
         $this->renderLayout();
         return $this;
 	}
-	
+
     /**
      * Load liste relais
      */
     public function listRelaisAction()
     {
-    	
-   		$poste  	= $this->getRequest()->getParam('poste', false);	
+
+   		$poste  	= $this->getRequest()->getParam('poste', false);
    		$cityssimo  = $this->getRequest()->getParam('cityssimo', false);
    		$commercant = $this->getRequest()->getParam('commercant', false);
 	   	$country      = $this->getRequest()->getParam('country', false);
-   		   		 
+
    		$typesRelais = array();
    		$optInternational = Mage::getStoreConfig('carriers/socolissimo/international');
    		if ($poste == 'true') {
@@ -60,9 +60,9 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 				$typesRelais[] = 'CMT';
 			}
    		}
-   		 
+
    		if (Mage::helper('socolissimo')->isFlexibilite()) {
-   		
+
 	   		$adresse    = $this->getRequest()->getParam('adresse', false);
 	   		$zipcode    = $this->getRequest()->getParam('zipcode', false);
 	   		$ville      = $this->getRequest()->getParam('ville', false);
@@ -72,9 +72,9 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    			if ($commercant == 'true' || $commercant === 'checked') {
    				$filterRelay = 1;
    			}
-   			
+
 	     	$listrelais = Mage::getSingleton('socolissimo/flexibilite_service')->findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay);
-	     	
+
 	     	if ($listrelais->errorCode == 0) {
 		     	if (isset($listrelais->listePointRetraitAcheminement) && is_array($listrelais->listePointRetraitAcheminement)) {
 		     		$itemsObject = array();
@@ -82,7 +82,7 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 		     		foreach ($listrelais->listePointRetraitAcheminement as $pointRetraitAcheminement) {
 		     			if (in_array($pointRetraitAcheminement->typeDePoint, $typesRelais)) {
 			     			$relais = Mage::getModel('socolissimo/flexibilite_relais');
-			     			$relais->setPointRetraitAcheminement($pointRetraitAcheminement); 
+			     			$relais->setPointRetraitAcheminement($pointRetraitAcheminement);
 							$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
 			     			$itemsObject[] = $relais;
 			     			$itemsArray[] = $relais->getData();
@@ -98,7 +98,7 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 			 } else {
 		        $result['error'] = $listrelais->errorMessage;
 		    }
-	        
+
    		} else {
 
 	   		$latitude   = $this->getRequest()->getParam('latitude', false);
@@ -107,7 +107,7 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 
    			$listrelais = Mage::getModel('socolissimo/liberte_relais')->getCollection();
    			$listrelais->prepareNearestByType($latitude, $longitude, $typesRelais, $weight);
-   			 
+
    			foreach ($listrelais as $relais) {
    				$relais->setData('urlPicto', Mage::getDesign()->getSkinUrl("images/socolissimo/picto_".$relais->getType().".png"));
    				$relais->getType(); //set the value
@@ -120,13 +120,32 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
    			$result = $listrelais->toArray(); //Pas besoin de spécifier le clé 'items', l'objet array porte déjà ses élélments sur 'items'
    			$result['html'] = $this->_getListRelaisHtml($listrelais);
    			$result['skinUrl'] = Mage::getDesign()->getSkinUrl("images/socolissimo/");
-   			
+
    		}
-	    
+
         $this->getResponse()->setBody(Zend_Json::encode($result));
 
     }
-    
+
+    public function getcitynamebyzipcodeAction(){
+
+    	$zipcode = $this->getRequest()->getParam('zipcode', false);
+    	$country = $this->getRequest()->getParam('country', false);
+
+    	$this->_connectionRead = Mage::getSingleton('core/resource')->getConnection('core_read');
+    	$this->_connectionWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
+
+    	$sqlResults = $this->_connectionRead->fetchAll("SELECT city_name as placeName FROM ".Mage::getSingleton('core/resource')->getTableName('socolissimo_cities')." WHERE country = '".$country."' and city_zipcode = '".$zipcode."';");
+    	if($sqlResults){
+    		$results = array();
+    		$results['postalCodes'] = $sqlResults;
+    		echo 'reloadCities('.json_encode($results).');';
+    	} else {
+    		echo false;
+    	}
+
+    }
+
     protected function _getListRelaisHtml($list)
     {
         $layout = $this->getLayout();
