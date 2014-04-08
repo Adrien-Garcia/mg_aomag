@@ -1,35 +1,50 @@
 <?php
-
-if (!class_exists("PointRetraitServiceWSService", false)) 
+if (!class_exists("PointRetraitServiceWSService", false))
 {
-include_once('PointRetrait.php');
-include_once('Conges.php');
-include_once('pointRetraitAcheminementResult.php');
-include_once('pointRetraitAcheminement.php');
-include_once('rdvPointRetraitAcheminementResult.php');
-include_once('pointRetraitAcheminementByIDResult.php');
-include_once('rdvPointRetraitAcheminementByIDResult.php');
-include_once('findRDVPointRetraitAcheminement.php');
-include_once('findRDVPointRetraitAcheminementResponse.php');
-include_once('findInternalPointRetraitAcheminementByID.php');
-include_once('findInternalPointRetraitAcheminementByIDResponse.php');
-include_once('findPointRetraitAcheminementByID.php');
-include_once('findPointRetraitAcheminementByIDResponse.php');
-include_once('findInternalRDVPointRetraitAcheminement.php');
-include_once('findInternalRDVPointRetraitAcheminementResponse.php');
-include_once('findInternalRDVPointRetraitAcheminementByID.php');
-include_once('findInternalRDVPointRetraitAcheminementByIDResponse.php');
-
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_PointRetrait.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_PointRetrait.php';
+else require_once('PointRetrait.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_Conges.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_Conges.php';
+else require_once('Conges.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_pointRetraitAcheminementResult.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_pointRetraitAcheminementResult.php';
+else require_once('pointRetraitAcheminementResult.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_pointRetraitAcheminement.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_pointRetraitAcheminement.php';
+else require_once('pointRetraitAcheminement.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_rdvPointRetraitAcheminementResult.php'))require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_rdvPointRetraitAcheminementResult.php';
+else require_once('rdvPointRetraitAcheminementResult.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_pointRetraitAcheminementByIDResult.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_pointRetraitAcheminementByIDResult.php';
+else require_once('pointRetraitAcheminementByIDResult.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_rdvPointRetraitAcheminementByIDResult.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_rdvPointRetraitAcheminementByIDResult.php';
+else require_once('rdvPointRetraitAcheminementByIDResult.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findRDVPointRetraitAcheminement.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findRDVPointRetraitAcheminement.php';
+else require_once('findRDVPointRetraitAcheminement.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findRDVPointRetraitAcheminementResponse.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findRDVPointRetraitAcheminementResponse.php';
+else require_once('findRDVPointRetraitAcheminementResponse.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalPointRetraitAcheminementByID.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalPointRetraitAcheminementByID.php';
+else require_once('findInternalPointRetraitAcheminementByID.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalPointRetraitAcheminementByIDResponse.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalPointRetraitAcheminementByIDResponse.php';
+else require_once('findInternalPointRetraitAcheminementByIDResponse.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findPointRetraitAcheminementByID.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findPointRetraitAcheminementByID.php';
+else require_once('findPointRetraitAcheminementByID.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findPointRetraitAcheminementByIDResponse.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findPointRetraitAcheminementByIDResponse.php';
+else require_once('findPointRetraitAcheminementByIDResponse.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalRDVPointRetraitAcheminement.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalRDVPointRetraitAcheminement.php';
+else require_once('findInternalRDVPointRetraitAcheminement.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalRDVPointRetraitAcheminementResponse.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalRDVPointRetraitAcheminementResponse.php';
+else require_once('findInternalRDVPointRetraitAcheminementResponse.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalRDVPointRetraitAcheminementByID.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalRDVPointRetraitAcheminementByID.php';
+else require_once('findInternalRDVPointRetraitAcheminementByID.php');
+if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalRDVPointRetraitAcheminementByIDResponse.php')) require_once dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findInternalRDVPointRetraitAcheminementByIDResponse.php';
+else require_once('findInternalRDVPointRetraitAcheminementByIDResponse.php');
 
 /**
  * SO Colissimo (mon Service mes Options) WEB Service Point Retrait [Version 2]
- * 
+ *
  */
 class PointRetraitServiceWSService extends SoapClient
 {
 
   /**
-   * 
+   *
    * @var array $classmap The defined classes
    * @access private
    */
@@ -54,7 +69,7 @@ class PointRetraitServiceWSService extends SoapClient
     'findInternalRDVPointRetraitAcheminementByIDResponse' => 'findInternalRDVPointRetraitAcheminementByIDResponse');
 
   /**
-   * 
+   *
    * @param array $config A array of config values
    * @param string $wsdl The wsdl file to use
    * @access public
@@ -68,12 +83,12 @@ class PointRetraitServiceWSService extends SoapClient
         $options['classmap'][$key] = $value;
       }
     }
-    
+
     parent::__construct($wsdl, $options);
   }
 
   /**
-   * 
+   *
    * @param findInternalPointRetraitAcheminementByID $parameters
    * @access public
    */
@@ -83,7 +98,7 @@ class PointRetraitServiceWSService extends SoapClient
   }
 
   /**
-   * 
+   *
    * @param findRDVPointRetraitAcheminement $parameters
    * @access public
    */
@@ -93,7 +108,7 @@ class PointRetraitServiceWSService extends SoapClient
   }
 
   /**
-   * 
+   *
    * @param findInternalRDVPointRetraitAcheminement $parameters
    * @access public
    */
@@ -103,7 +118,7 @@ class PointRetraitServiceWSService extends SoapClient
   }
 
   /**
-   * 
+   *
    * @param findPointRetraitAcheminementByID $parameters
    * @access public
    */
@@ -113,7 +128,7 @@ class PointRetraitServiceWSService extends SoapClient
   }
 
   /**
-   * 
+   *
    * @param findInternalRDVPointRetraitAcheminementByID $parameters
    * @access public
    */

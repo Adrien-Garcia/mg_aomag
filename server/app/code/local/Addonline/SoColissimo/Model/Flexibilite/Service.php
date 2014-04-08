@@ -1,11 +1,11 @@
 <?php
 
 class Addonline_SoColissimo_Model_Flexibilite_Service {
-	
+
 	protected $_urlWsdl;
 
 	protected $_available;
-	
+
 	public function getUrlWsdl()
 	{
 		if (!$this->_urlWsdl) {
@@ -17,7 +17,7 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 		}
 		return $this->_urlWsdl;
 	}
-	
+
 	public function isAvailable() {
 
 		if (!$this->_available) {
@@ -34,14 +34,17 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 		}
 		return 	trim($this->_available) === "[OK]";
 	}
-	
+
 	function findRDVPointRetraitAcheminement($adresse, $zipcode, $ville, $country, $filterRelay) {
-		
-		/* 
-		 * On inclu la class Stub générée avec wsdl2phpgenrator : https://github.com/walle/wsdl2phpgenerator/wiki/ExampleUsage 
+
+		/*
+		 * On inclu la class Stub générée avec wsdl2phpgenrator : https://github.com/walle/wsdl2phpgenerator/wiki/ExampleUsage
 		 * ./wsdl2php -et -i http://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0?wsdl
 		 */
-		require_once dirname(__FILE__).'/Service/PointRetraitServiceWSService.php';
+		// Pour gérer les cas où il y a eu compilation
+		if (file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_PointRetraitServiceWSService.php')) include_once 'Addonline_SoColissimo_Model_Flexibilite_Service_PointRetraitServiceWSService.php';
+		else require_once dirname(__FILE__).'/Service/PointRetraitServiceWSService.php';
+		if(file_exists(dirname(__FILE__).'/Addonline_SoColissimo_Model_Flexibilite_Service_findRDVPointRetraitAcheminement.php')) include_once 'Addonline_SoColissimo_Model_Flexibilite_Service_findRDVPointRetraitAcheminement.php';
 
 		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->getUrlWsdl());
 
@@ -61,18 +64,18 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				$findRDVPointRetraitAcheminement->requestId = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite').$quote->getCustomerId().$date->toString('yyyyMMddHHmmss');
 				$findRDVPointRetraitAcheminement->lang = (Mage::app()->getStore()->getLanguageCode() == 'NL')?'NL':'FR';
 				$findRDVPointRetraitAcheminement->optionInter = Mage::getStoreConfig('carriers/socolissimo/international');
-				
+
 				$result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
 
 				//Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
 				//Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
 				//Mage::log($result);
-				
-				if ($result->return->errorCode != 0) {			
+
+				if ($result->return->errorCode != 0) {
 					Mage::log($result->return);
-				}				
+				}
 				return $result->return;
-				
+
 		} catch (SoapFault $fault) {
 			Mage::log('RequestHeaders '.$pointRetraitServiceWSService->__getLastRequestHeaders());
 			Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
@@ -81,13 +84,13 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 			Mage::log($fault);
 			return false;
 		}
-			
+
 	}
-	
+
 	function findPointRetraitAcheminementByID($id, $reseau) {
-		
+
 		require_once dirname(__FILE__).'/Service/PointRetraitServiceWSService.php';
-		
+
 		$pointRetraitServiceWSService = new PointRetraitServiceWSService(array('trace' => TRUE), $this->getUrlWsdl());
 
 		try {
@@ -100,11 +103,11 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 				$findPointRetraitAcheminementByID->filterRelay = 1; //pout tous les avoir, même les commerçants
 				$findPointRetraitAcheminementByID->reseau = $reseau;
 				$findPointRetraitAcheminementByID->langue = (Mage::app()->getStore()->getLanguageCode() == 'NL')?'NL':'FR';
-				
+
 				$result = $pointRetraitServiceWSService->findPointRetraitAcheminementByID($findPointRetraitAcheminementByID);
-				
-				if ($result->return->errorCode == 0) {			
-					//Mage::log($result->return->pointRetraitAcheminement);	
+
+				if ($result->return->errorCode == 0) {
+					//Mage::log($result->return->pointRetraitAcheminement);
 					$relais = Mage::getModel('socolissimo/flexibilite_relais');
 					$relais->setPointRetraitAcheminement($result->return->pointRetraitAcheminement);
 					return $relais;
@@ -119,12 +122,12 @@ class Addonline_SoColissimo_Model_Flexibilite_Service {
 			Mage::log($fault);
 			return false;
 		}
-			
+
 	}
-	
+
 /**
  * Codes erreurs WS
- * 
+ *
  * 0 	Code retour OK
  * 101 Numéro de compte absent
  * 102 Mot de passe absent
