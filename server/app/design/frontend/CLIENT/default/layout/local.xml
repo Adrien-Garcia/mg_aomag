@@ -9,6 +9,7 @@
 			<block type="core/text_list" name="main-footer"></block>
 		</reference>
 		<reference name="head">
+			<action method="addCss"><stylesheet>css/jquery.bxslider.css</stylesheet></action>
 			<action method="addCss"><stylesheet>css/cloud-zoom.css</stylesheet></action>
 			<action method="addCss"><stylesheet>css/jquery.fancybox-thumbs.css</stylesheet></action>
 			<action method="addCss"><stylesheet>css/jquery.fancybox.css</stylesheet></action>
