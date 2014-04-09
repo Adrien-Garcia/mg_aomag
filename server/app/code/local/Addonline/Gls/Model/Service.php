@@ -16,7 +16,8 @@ class Addonline_Gls_Model_Service {
 		$login = Mage::getStoreConfig('carriers/gls/usernamews');
 		$mdp   = Mage::getStoreConfig('carriers/gls/passws');
 
-		require_once dirname(__FILE__).DS.'Webservice'.DS.'PointsRelaisWSService.php';
+		if(file_exists(dirname(__FILE__).DS.'Webservice'.DS.'PointsRelaisWSService.php')) require_once dirname(__FILE__).DS.'Webservice'.DS.'PointsRelaisWSService.php';
+		else require_once dirname(__FILE__).DS.'Addonline_Gls_Model_Webservice_PointsRelaisWSService.php';
 
 		$pointsRelaisWSService = new PointsRelaisWSService(array('trace' => TRUE), $this->getUrlWsdl());
 // 		$aParameters = array('UserName' =>$login,'Password' =>$mdp,'ZipCode' => $zipcode,'Country' => $country);
