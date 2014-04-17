@@ -95,6 +95,9 @@
                 </gls>
             </updates>
         </layout>
+        <secure_url>
+            <gls>/gls/ajax/</gls>
+        </secure_url>
         <translate>
             <modules>
                 <Addonline_Gls>
