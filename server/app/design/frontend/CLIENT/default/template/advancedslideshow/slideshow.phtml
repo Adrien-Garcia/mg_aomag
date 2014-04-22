@@ -19,15 +19,15 @@ $_url = $block['url'];
 							$_image_produit = $block['product']['image'];
 							$_url_produit = $block['product']['url'];
 						?>
-							<div class="product item" <?php if($block['image'] == null): ?>style="background-image:url(<?php echo $block['image']; ?>);"<?php endif; ?>>
+							<div class="product item" <?php if($block['image'] != null): ?>style="background-image:url(<?php echo $block['image']; ?>);"<?php endif; ?>>
 								<div>
-									<a class="product-image" href="<?php echo $_url_produit; ?>"><img src="<?php echo $_image_produit; ?>" /></a>
-									<h1 class="product-name"><a href="<?php echo $_url_produit; ?>"><?php echo $block['product']['name']; ?></a></h1>
-									<div class="desc std">
+									<?php /*a class="product-image" href="<?php echo $_url_produit; ?>"><img src="<?php echo $_image_produit; ?>" /></a*/?>
+									<a class="product-name" href="<?php echo $_url_produit; ?>"><?php echo $block['product']['name']; ?></a>
+									<?php /*div class="desc std">
                         				<?php echo Mage::helper('core/string')->truncate($block['product']->getShortDescription(), 80) ?>
-                        			</div>
+                        			</div*/?>
                         			<?php echo $this->getPriceHtml($block['product'], true) ?>
-                        			<button>Détails</button>
+                        			<a class="lnk" href="<?php echo $_url_produit; ?>">Détails</a>
 								</div>
 							</div>
 						<?php } else {?>

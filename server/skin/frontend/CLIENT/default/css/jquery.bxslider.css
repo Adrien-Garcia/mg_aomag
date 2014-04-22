@@ -96,7 +96,7 @@
 
 /* DIRECTION CONTROLS (NEXT / PREV) */
 
-.bx-wrapper .bx-prev {
+/*.bx-wrapper .bx-prev {
 	left: 10px;
 	background: url(../images/controls.png) no-repeat 0 -32px;
 }
@@ -112,7 +112,7 @@
 
 .bx-wrapper .bx-next:hover {
 	background-position: -43px 0;
-}
+}*/
 
 .bx-wrapper .bx-controls-direction a {
 	position: absolute;
