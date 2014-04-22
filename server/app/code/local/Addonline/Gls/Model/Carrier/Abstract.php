@@ -48,7 +48,7 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 		$process = $this->__getProcess($request);
 		return $this->getRates($process);
 	}
-	
+
 	public function display($var)
 	{
 		$i = 0;
@@ -93,7 +93,7 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 
 			$process = array();
 			$config = $this->_getConfig();
-			
+
 			if (isset($config[$parts[0]]['tracking_url'])) {
 				$row = $config[$parts[0]];
 				$tmp_tracking_url = $this->_helper->getRowProperty($row, 'tracking_url');
@@ -118,13 +118,13 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 		if ($trackings = $tracking_result->getAllTrackings()) return $trackings[0];
 		return false;
 	}
-	
+
 	/***************************************************************************************************************************/
 
 	protected function _process(&$process)
 	{
 		$debug = (bool)(isset($_GET['debug']) ? $_GET['debug'] : $this->__getConfigData('debug'));
-		
+
 		if ($debug) $this->_helper->initDebug($this->_code, $process);
 
 		$value_found = false;
@@ -136,7 +136,7 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 				if ($process['options']->stop_to_first_match) break;
 			}
 		}
-		
+
 		$http_request = Mage::app()->getFrontController()->getRequest();
 		if ($debug && $this->__checkRequest($http_request, 'checkout/cart/index')) {
 			Mage::getSingleton('core/session')
@@ -152,9 +152,9 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 			if($this->__getConfigData('livraisontohome')){
 				$allConfigurations .= $this->__getConfigData('configtohome');
 			}
-			if($this->__getConfigData('livraisontoyou')){
-				$allConfigurations .= ($allConfigurations?',':'').$this->__getConfigData('configtoyou');
-			}
+// 			if($this->__getConfigData('livraisontoyou')){
+// 				$allConfigurations .= ($allConfigurations?',':'').$this->__getConfigData('configtoyou');
+// 			}
 			if($this->__getConfigData('livraisonrelay')){
 				$allConfigurations .= ($allConfigurations?',':'').$this->__getConfigData('configrelay');
 			}
@@ -172,7 +172,7 @@ abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_
 		}
 		return $this->_config;
 	}
-	
+
 	protected function _getMethodText($process, $row, $property)
 	{
 		if (!isset($row[$property])) return '';
