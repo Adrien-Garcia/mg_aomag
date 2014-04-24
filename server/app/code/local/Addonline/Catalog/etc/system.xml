@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <config>
+    <tabs>
+        <aocompare translate="label">
+             <label>Addonline Compare</label>
+            <sort_order>210</sort_order>
+        </aocompare>
+    </tabs>
     <sections>
         <catalog>
             <groups>
@@ -24,5 +30,34 @@
                 </backend>
             </groups>
         </catalog>
+        <aocompare translate="label">
+            <label>Option Compare</label>
+            <tab>aocompare</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <compare translate="label">
+                    <label>Comparateur</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>        
+                    <fields>  
+                        <limit translate="label">
+                            <label>Limite de produits comparables</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </limit>  
+                    </fields>           
+                </compare>    
+            </groups>
+        </aocompare>
     </sections>
 </config>
