@@ -398,6 +398,8 @@ p.required {
 		ul {
 			padding-left: 25px;
 			position: relative;
+			
+			li { padding-right: 200px; }
 		}
 		
 		&.success-msg {
@@ -861,7 +863,7 @@ tr.summary-details-excluded { font-style:italic; }
 	position: relative;
 
 	#nav {
-		width:@width; margin:0 auto;
+		width:960px; margin:0 auto;
 		position: relative;
 		
 		li.level0 {
@@ -905,10 +907,6 @@ tr.summary-details-excluded { font-style:italic; }
 				
 			}
 			
-			&.first {
-				margin-left: -10px;
-			}
-			
 			&.last {
 			
 				> a {
@@ -919,11 +917,22 @@ tr.summary-details-excluded { font-style:italic; }
 			ul.level0 {
 				display: none;
 				position: absolute;
-				padding: 20px 0;
+				padding: 20px;
 				top: 32px;
 				left: 0;
 				background: #fff;
-				width:@width;
+				border-left: 1px solid #eeeeee;
+				border-right: 1px solid #eeeeee;
+				width: 960px;
+				
+				
+				&:after {
+					content: "";
+					position: absolute;
+					bottom: -20px;
+					left: 0;
+					.ombre-menu;
+				}
 				
 				li.level1 {
 				
