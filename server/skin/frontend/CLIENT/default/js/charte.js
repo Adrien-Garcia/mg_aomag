@@ -11,14 +11,46 @@
  */
 jQuery(function($) {
 	
+	/* Menu : donner la hauteur à toute les colonnes de second niveau */
+	var id;
+	$("li.level0").mouseover(function() {
+		var o = $(this);
+		
+		var max = 0;
+		$("li.level1", o).each(function(index, element) {
+			if($(element).height() > max) {
+				max = $(element).height();
+			}
+		}).height(max);
+		
+		id = setInterval(function() {
+			var max = 0;
+			$("li.level1", o).each(function(index, element) {
+				if($(element).height() > max) {
+					max = $(element).height();
+				}
+			}).height(max);
+		}, 200);
+	}).mouseout(function() {
+		clearInterval(id);
+	});
+	
 	// Accueil : carrousel
 	$('.cms-home .slideshow').bxSlider({
 		minSlides: 1,
 		maxSlides: 1,
-		slideWidth: 960,
+		slideWidth: 734,
 		auto: true,
 		slideMargin: 0 
 	});
+	
+	// Accueil : onglets
+	$(".cms-home .tabs .titles a").click(function(e) {
+		e.preventDefault();
+		$(".cms-home .tabs .titles a").removeClass("current");
+		var i = $(this).addClass("current").index();
+		$(this).parent().parent().find("> *").slice(1).hide().eq(i).show();
+	}).eq(0).click();
 	
 	/* Page title */
 	//$(".col-main .page-title").prependTo(".main");

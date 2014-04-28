@@ -1,3 +1,12 @@
 <?php echo $this->getChildHtml("slideshow-desktop"); ?>
 
-<?php echo $this->getChildHtml("home-cat-1"); ?>
+<div class="home-mea"><?php echo $this->getChildHtml("home-mea"); ?></div>
+
+<div class="tabs">
+	<div class="titles">
+		<a href="#">Meilleures ventes</a>
+		<a href="#">Promotions</a>
+	</div>
+	<?php echo $this->getChildHtml("home-cat-1"); ?>
+	<?php echo $this->getChildHtml("home-cat-2"); ?>
+</div>

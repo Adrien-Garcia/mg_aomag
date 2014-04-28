@@ -62,9 +62,9 @@ class Addonline_Gls_Model_Export {
 						//$shipping_code = 'BP';
 						$shipping_code = ''; // le bon code sera déterminé par winExpé, selon le pays de destination
 					}
-					if (strpos($shipping_method, 'ls_toyou') > 0) {
-						$shipping_code = 'ADO';
-					}
+// 					if (strpos($shipping_method, 'ls_toyou') > 0) {
+// 						$shipping_code = 'ADO';
+// 					}
 					if (strpos($shipping_method, 'ls_relay') > 0) {
 						$shipping_code = 'SHD';
 					}
@@ -154,7 +154,7 @@ class Addonline_Gls_Model_Export {
 			foreach(array_keys($row) as $key){
 				$row[$key] = iconv('UTF-8','ISO-8859-9', $row[$key]);
 			}
-			
+
 			fputcsv($df, $row,$delimiter,$encloser);
 		}
 		fclose($df);
