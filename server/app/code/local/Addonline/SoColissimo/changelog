@@ -1,8 +1,8 @@
 [2.1.0 - 28 avril 2014]
 Version theme mobile
-Correction erreur en mode compilation
 
 [2.0.8 - 8 avril 2014]
+Correction erreur en mode compilation
 Suppression WS geaoname au profit d'un stockage des nom de ville en dbb locale
 Frais de port offert via une règle promo panier
 correction https
