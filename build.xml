@@ -114,6 +114,7 @@
 			<zipfileset dir="server/app/code/local/Addonline/SoColissimo" prefix="app/code/local/Addonline/SoColissimo" ></zipfileset>
 			<zipfileset file="server/app/design/frontend/base/default/layout/socolissimo.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
 			<zipfileset dir="server/app/design/frontend/base/default/template/socolissimo" prefix="app/design/frontend/base/default/template/socolissimo" ></zipfileset>
+			<zipfileset dir="server/app/design/frontend/default/iphone/template/socolissimo" prefix="app/design/frontend/base/default/template/socolissimo" ></zipfileset>
 			<zipfileset file="server/app/etc/modules/Addonline_SoColissimo.xml" prefix="app/etc/modules" ></zipfileset>
 			<zipfileset file="server/app/locale/fr_FR/Addonline_SoColissimo.csv" prefix="app/locale/fr_FR" ></zipfileset>
 			<zipfileset file="server/app/locale/en_US/Addonline_SoColissimo.csv" prefix="app/locale/en_US" ></zipfileset>
@@ -121,6 +122,9 @@
 			<zipfileset file="server/skin/frontend/base/default/css/socolissimo.css" prefix="skin/frontend/base/default/css" ></zipfileset>
 			<zipfileset dir="server/skin/frontend/base/default/images/socolissimo" prefix="skin/frontend/base/default/images/socolissimo" ></zipfileset>
 			<zipfileset file="server/skin/frontend/base/default/js/socolissimo.js" prefix="skin/frontend/base/default/js" ></zipfileset>
+			<zipfileset file="server/skin/frontend/default/iphone/css/socolissimo.css" prefix="skin/frontend/default/iphone/css" ></zipfileset>
+			<zipfileset dir="server/skin/frontend/default/iphone/images/socolissimo" prefix="skin/frontend/default/iphone/images/socolissimo" ></zipfileset>
+			<zipfileset file="server/skin/frontend/default/iphone/js/socolissimo.js" prefix="skin/frontend/default/iphone/js" ></zipfileset>
 			<zipfileset dir="server/var/import/socolissimoliberte" prefix="var/import/socolissimoliberte" ><exclude name=".gitignore" /><exclude name="readme.txt" /></zipfileset>
 			<zipfileset file="server/doc-socolissimo-config.htm"  ></zipfileset>
 		</zip>

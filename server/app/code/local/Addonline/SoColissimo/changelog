@@ -1,3 +1,13 @@
+[2.1.0 - 28 avril 2014]
+Version theme mobile
+
+[2.0.8 - 8 avril 2014]
+Correction erreur en mode compilation
+Suppression WS geaoname au profit d'un stockage des nom de ville en dbb locale
+Frais de port offert via une règle promo panier
+correction https
+correction compatibilité onestepcheckout
+
 [2.0.7 - 3 janiver 2014]
 Compatibilité magento 1.8
 Compatibilité autre module livraison addonline (GLS)
