@@ -45,6 +45,7 @@ jQuery(function($) {
 	});
 	
 	// Accueil : onglets
+	$(".product-grid-mea .category_name").appendTo(".tabs .titles");
 	$(".cms-home .tabs .titles a").click(function(e) {
 		e.preventDefault();
 		$(".cms-home .tabs .titles a").removeClass("current");
