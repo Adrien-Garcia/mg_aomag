@@ -118,6 +118,33 @@ class Addonline_Catalog_Block_Product_Category extends Mage_Catalog_Block_Produc
         	}
             $this->setData('current_category', $category);
         }
+        
         return $this->getData('current_category');
     }
+    
+    public function getCategoryFromId() {
+    	$iCategoryId = $this->getData('category_id');
+    	
+    	$oCategory = Mage::getModel('catalog/category')
+    		->load($iCategoryId)
+    		;
+    	
+    	return $oCategory;
+    }
+    
+    public function getCategoryName() {
+    	return $this->getCategoryFromId()->getName();
+    }
+    
+    public function getCategoryProductCollection() {
+    	$oCategory = $this->getCategoryFromId();
+    	$aProductCollection = Mage::getResourceModel('catalog/product_collection')
+	    	->addAttributeToSelect(array('*'))
+	    	->addCategoryFilter($oCategory)
+	    	->setPageSize($this->getProductsCount())
+    		;
+    	
+    	return $aProductCollection;
+    }
+    
 }

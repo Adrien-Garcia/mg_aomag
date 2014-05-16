@@ -1,5 +1,6 @@
-<?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
+<?php if (($_products = $this->getCategoryProductCollection()) && $_products->getSize()): ?>
 	<div class="product-grid-mea">
+	<span class="category_name"><?php echo $this->getCategoryName() ?></span>
 	<ul class="products-grid">
 		<?php $_columnCount = $this->getColumnCount(); ?>
     	<?php foreach ($_products->getItems() as $_product) : ?>
