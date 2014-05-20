@@ -153,5 +153,5 @@
 "Wrong type definition for %s,""Mauvaise dǸfinition de type pour %s"""
 "First Name,""PrǸnom"""
 "Last Name,""Nom"""
-"Available Product Listing Sort By, ""Mode de tri des produits"""
+"Available Product Listing Sort By,""Mode de tri des produits"""
 "For internal use. Must be unique with no spaces. Maximum length of attribute code must be less then %s symbols,""�? usage interne. Doit Ǧtre unique sans espaces. La longueur maximale du code de l'attribut est de %s symboles."""
