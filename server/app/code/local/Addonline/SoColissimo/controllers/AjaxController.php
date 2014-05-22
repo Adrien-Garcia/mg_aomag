@@ -63,9 +63,9 @@ class Addonline_SoColissimo_AjaxController extends Mage_Core_Controller_Front_Ac
 
    		if (Mage::helper('socolissimo')->isFlexibilite()) {
 
-	   		$adresse    = $this->getRequest()->getParam('adresse', false);
-	   		$zipcode    = $this->getRequest()->getParam('zipcode', false);
-	   		$ville      = $this->getRequest()->getParam('ville', false);
+	   		$adresse    = urlencode($this->getRequest()->getParam('adresse', false));
+	   		$zipcode    = urlencode($this->getRequest()->getParam('zipcode', false));
+	   		$ville      = urlencode($this->getRequest()->getParam('ville', false));
 
    			//le filtre du WS permet seulement d'exclure les commerçants : on filtre les résultats après l'appel au WS */
    			$filterRelay = 0;
