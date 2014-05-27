@@ -42,7 +42,7 @@ jQuery(function($) {
 	/**
 	 * Sur l'événement change des radios boutons de choix de mode de livraison
 	 */
-	$(document).on( 'click',"input[id^=s_method_socolissimo]",function() {
+	$(document).on( 'click',"input[id^=s_method_socolissimo_]",function() {
 		shippingRadioCheck(this);
 	});
 
@@ -60,7 +60,7 @@ function initSocolissimoLogos() {
 
 
 
-	jQuery('input[id^=s_method_socolissimo]').each(function(index, element){
+	jQuery('input[id^=s_method_socolissimo_]').each(function(index, element){
 
 		if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
 			jQuery(element).parents("dd").addClass("s_method_socolissimo");
@@ -222,16 +222,23 @@ function shippingRadioCheck(element) {
 				jQuery("#socolissimo_city_select").change(function() {
 					jQuery(this).prevAll("span").eq(0).text(jQuery(this).find("option:selected").text());
 				});
-				//initilisation du rechargement de la liste déroulante des villes
+				//initilisation du rechargement de la liste déroulante des villes 
 				jQuery("#socolissimo_postcode").change(function(){
-					var postcode = this.value;
+					var postcode = this.value; 
 					var country = jQuery('#socolissimo_country').val();
-					jQuery.ajax({
-						url: 'http'+(document.location.protocol=='https:'?'s':'')+'://api.geonames.org/postalCodeSearchJSON?username=addonline&country='+country+'&postalcode='+postcode,
+					socoUrlCities = socolissimoBaseUrl + "getcitynamebyzipcode/country/"+country+"/zipcode/"+postcode;					
+					jQuery.ajax({						
+						url: socoUrlCities,
 						dataType:'jsonp',
 						jsonpCallback: 'reloadCities',
 						success: function(json){
-							jQuery("#socolissimo_city_select").val(json.postalCodes[0].placeName);
+							var options = '<option selected >Choisissez une commune</option>';
+							for (i=0; i<json.postalCodes.length; i++){ 
+								commune = json.postalCodes[i].placeName;
+								options += '<option value="' + commune + '">' + commune + '</option>';
+							}
+							jQuery("#socolissimo_city_select").html(options);
+							jQuery("#socolissimo_city").text("Choisissez une commune");
 						}
 					});
 				});

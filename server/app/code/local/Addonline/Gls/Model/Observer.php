@@ -53,7 +53,7 @@ class Addonline_Gls_Model_Observer extends Varien_Object
 				if($shipping_data['phone']){
 					$shippingAddress->setData('telephone', $shipping_data['phone']);
 				}else{
-					$shippingAddress->setData('telephone', $billingAddress->getData('telephone'));
+					$shippingAddress->setData('telephone', $shippingAddress->getData('telephone'));
 				}
 			}
 		}else{

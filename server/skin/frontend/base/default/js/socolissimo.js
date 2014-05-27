@@ -40,7 +40,7 @@ jQuery(function($) {
 	/** 
 	 * Sur l'événement change des radios boutons de choix de mode de livraison
 	 */
-	$("input[id^=\"s_method_socolissimo\"]").live("click", function() {
+	$("input[id^=\"s_method_socolissimo_\"]").live("click", function() {
 		shippingRadioCheck(this);
 	});		
 
@@ -57,13 +57,13 @@ function initSocolissimoLogos() {
 	
 	
 	
-	jQuery("input[id^=\"s_method_socolissimo\"]").each(function(index, element){
+	jQuery("input[id^=\"s_method_socolissimo_\"]").each(function(index, element){
 		
 		if(!jQuery("body").hasClass("onestepcheckout-index-index")) {
 			jQuery(element).parents("dd").addClass("s_method_socolissimo");
 		} else {
-			jQuery("input[id^=\"s_method_socolissimo\"]").parents("dt").addClass("s_method_socolissimo");
-			var dd = jQuery("input[id^=\"s_method_socolissimo\"]").eq(0).parents("dt").prev().addClass("s_method_socolissimo-title");
+			jQuery("input[id^=\"s_method_socolissimo_\"]").parents("dt").addClass("s_method_socolissimo");
+			var dd = jQuery("input[id^=\"s_method_socolissimo_\"]").eq(0).parents("dt").prev().addClass("s_method_socolissimo-title");
 		}
 		
 		jQuery(element).prop("checked", "");
@@ -445,7 +445,7 @@ function choisirRelais(index) {
 	jQuery("#socolissimo-hook").html('<input type="hidden" name="relais_socolissimo" value="'+socolissimoRelaisChoisi.identifiant+'" />'+
 									'<input type="hidden" name="reseau_socolissimo" value="'+socolissimoRelaisChoisi.code_reseau+'" />');
 	
-	jQuery("input[id^=\"s_method_socolissimo\"]").each(function(index, element){
+	jQuery("input[id^=\"s_method_socolissimo_\"]").each(function(index, element){
 		//on sélectionne le bon radio, si on a changé de type de relais sur la carte, et on change le texte du numéro de téléphone
 		var radio = jQuery(element);
 		var types = new Array('poste','commercant','cityssimo');
