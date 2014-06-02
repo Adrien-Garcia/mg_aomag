@@ -90,14 +90,28 @@ class Addonline_Gls_Model_Export {
 					// CONTACTPHONE
 					$aRow[] = $shippingAddress->getTelephone();
 
-					// STREET1
-					$aRow[] = mb_strtoupper ($shippingAddress->getStreet(1), 'UTF-8');
+					// Repartition de l'adresse en fonction des tailles.
+					if(strlen($shippingAddress->getStreet(1)) > 35 || strlen($shippingAddress->getStreet(2)) > 35 || strlen($shippingAddress->getStreet(3)) > 35){
+						$street = $shippingAddress->getStreet(1).' '.$shippingAddress->getStreet(2).' '.$shippingAddress->getStreet(3);
+						$street = wordwrap($street,35,';',true);
+						$aStreet = explode(';',$street);
 
-					// STREET2
-					$aRow[] = mb_strtoupper ($shippingAddress->getStreet(2), 'UTF-8');
+						// STREET1
+						$aRow[] = mb_strtoupper ($aStreet[0], 'UTF-8');
+						// STREET2
+						$aRow[] = mb_strtoupper ($aStreet[1], 'UTF-8');
+						// STREET3
+						$aRow[] = mb_strtoupper ($aStreet[2], 'UTF-8');
+					}else{
+						// STREET1
+						$aRow[] = mb_strtoupper ($shippingAddress->getStreet(1), 'UTF-8');
 
-					// STREET3
-					$aRow[] = mb_strtoupper ($shippingAddress->getStreet(3), 'UTF-8');
+						// STREET2
+						$aRow[] = mb_strtoupper ($shippingAddress->getStreet(2), 'UTF-8');
+
+						// STREET3
+						$aRow[] = mb_strtoupper ($shippingAddress->getStreet(3), 'UTF-8');
+					}
 
 					// COUNTRYCODE
 					$aRow[] = mb_strtoupper ($shippingAddress->getCountry(), 'UTF-8');
