@@ -12,35 +12,39 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- * @category    design
- * @package     base_default
+ * @category    Addonline
+ * @package     Addonline_Gls
  * @copyright   Copyright (c) 2014 GLS
  * @author 	    Addonline (http://www.addonline.fr)
  * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
  **/
-?>
-<div id="layer_gls_wrapper" >
-	<div>
-		<h3><?php echo __("Choose Mondial Relay ParcelShop")?></h3><a class="close"></a>
-		<div class="contenu">
-			<div id="gls_headers">
-				<div class="left">
-					<span><?php echo __("Your zipcode")?></span>
-					<input type="text" id="cp_recherche" value="<?php echo $this->getShippingPostcode() ?>"/>
-					<button id="cp_recherche_bouton" onclick="geocodeGLSAdresse()"><?php echo $this->helper('gls')->__("Search")?></button>
-				</div>
-				<div class="right">
-					<?php
-					$smsNotification = strpos($this->getTelephone(), "06") === 0 || strpos($this->getTelephone(), "07") === 0;
-					?>
-					<label><input type="checkbox" id="sms_checkbox" <?php if($smsNotification) {?>checked="checked"<?php }?> /> <?php echo __("To receive an sms when delivery is done")?></label>
-					<input type="text" id="num_telephone" class="valid-telephone-portable" <?php if($smsNotification) {?>value="<?php echo $this->getTelephone(); ?><?php }?>" />
-				</div>
-			</div>
-			<div id="col_gauche_gls">
-				<div id="map_gls"></div>
-			</div>
-			<div id="col_droite_gls"></div>
-		</div>
-	</div>
-</div>
+
+$installer = $this;
+
+$installer->startSetup();
+
+$this->addAttribute('order', 'gls_relay_point_id', array(
+		'type'     => 'varchar',
+		'label'    => 'Id du point relay GLS',
+		'visible'  => true,
+		'required' => false,
+		'input'    => 'text',
+));
+
+$this->addAttribute('order', 'gls_warn_by_phone', array(
+		'type'     => 'varchar',
+		'label'    => 'Prévenir par téléphone',
+		'visible'  => true,
+		'required' => false,
+		'input'    => 'text',
+));
+
+$this->addAttribute('order', 'gls_trackid', array(
+		'type'     => 'varchar',
+		'label'    => 'Trackid',
+		'visible'  => true,
+		'required' => false,
+		'input'    => 'text',
+));
+
+$installer->endSetup();

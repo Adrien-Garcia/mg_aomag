@@ -5,7 +5,7 @@
  *
  * @category    Addonline
  * @package     Addonline_Gls
- * @copyright   Copyright (c) 2013 GLS
+ * @copyright   Copyright (c) 2014 GLS
  * @author 	    Addonline (http://www.addonline.fr)
  */
 /**
