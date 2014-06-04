@@ -8,12 +8,12 @@
 $installer = $this;
 $installer->startSetup();
 $storeId = 0;
-if ($installer->hasSponsorshipInstall()) {
+/*if ($installer->hasSponsorshipInstall()) {
 	$installer->run("
 	ALTER TABLE `{$this->getTable('sponsorship')}` RENAME `{$this->getTable('auguria_sponsorship/sponsorship')}`;
 	");
 }
-else {
+else {*/
 	$cmsContent = '"<p>By sponsoring friends you can earn:</p>\r\n<ul class=\"disc\">\r\n<li>Cash</li>\r\n<li>Vouchers</li>\r\n</ul>\r\n<p>Every time one of your godson order, you win 5% of its order !</p>\r\n<p>But that\'s not all, if your godson sponsors too, you earn 50% of what your godson has won...</p>\r\n<p>For example,</p>\r\n<ul class=\"disc\">\r\n<li>your godson place an order of 100 euros (you win 5 points)</li>\r\n<li>your godson sponsors 2 friends who order 100 euros each (you win 5 points)</li>\r\n<li>the godchildren of your godson each sponsor 2 people who order 100 euros each (you win 5 points)...</li>\r\n</ul>\r\n<p>Then you can exchange your points into cash or vouchers.</p>\r\n<p style=\"text-align:right;\"><a href=\"../sponsorship\">Yes I want sponsors friends to earn cash or vouchers !</a></p>"';
 	$installer->run("
 	CREATE TABLE IF NOT EXISTS {$this->getTable('auguria_sponsorship/sponsorship')} (
@@ -64,5 +64,5 @@ else {
 	INSERT INTO `{$this->getTable('cms/page_store')}` (`page_id`, `store_id`) VALUES
 	(LAST_INSERT_ID(), ".$storeId.");
 	");
-}
+/*}*/
 $installer->endSetup(); 
