@@ -5,7 +5,16 @@
 
 class OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_View_Media {
 
-    public function getGalleryUrl($image=null)
+	/**
+	 * Set the original module name to avoid breaking translations
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setModuleName('Mage_Catalog');
+	}
+	
+	public function getGalleryUrl($image=null)
     {
         #$params = array('id'=>$this->getProduct()->getId());
         $params = array(
