@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Addonline_UrlrewriteCleaner>
+            <version>0.0.1</version>
+        </Addonline_UrlrewriteCleaner>
+    </modules>
+    <global>
+        <models>
+            <urlrewritecleaner>
+                <class>Addonline_UrlrewriteCleaner_Model</class>
+            </urlrewritecleaner>
+        </models>    
+    </global>
+    <crontab>
+		<jobs>
+			<urlrewritecleaner>
+				<schedule>
+					<config_path>* 1 * * *</config_path>
+				</schedule>
+				<run><model>urlrewritecleaner/cleaner::clean</model></run>
+			</urlrewritecleaner>
+		</jobs>
+	</crontab>
+    <default>
+    	<catalog><seo><clean_urlrewrite_day>30</clean_urlrewrite_day></seo></catalog>
+    </default>
+</config>

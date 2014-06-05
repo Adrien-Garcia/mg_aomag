@@ -62,7 +62,7 @@ class Addonline_SoColissimo_Model_Cities_Batch{
 
 					// Insertion dans la table
 					if(!isset($data[2]))continue;
-					$this->_connectionWrite->query("INSERT INTO `socolissimo_cities` (`country`,`city_name`,`city_zipcode`,`date_fichier`) VALUES ('".$country."',".$this->_connectionWrite->quote($data[2]).",".$this->_connectionWrite->quote($data[1]).",'".$date_fichier_distant."');");
+					$this->_connectionWrite->query("INSERT INTO ".Mage::getSingleton('core/resource')->getTableName('socolissimo_cities')." (`country`,`city_name`,`city_zipcode`,`date_fichier`) VALUES ('".$country."',".$this->_connectionWrite->quote($data[2]).",".$this->_connectionWrite->quote($data[1]).",'".$date_fichier_distant."');");
 
 				}
 
@@ -86,7 +86,10 @@ class Addonline_SoColissimo_Model_Cities_Batch{
 	}
 
 	public function createTableBDD(){
-		$createQuery = "CREATE TABLE IF NOT EXISTS `socolissimo_cities` (
+
+		$prefix = Mage::getConfig()->getTablePrefix();
+
+		$createQuery = "CREATE TABLE IF NOT EXISTS `".$prefix."socolissimo_cities` (
   `geonameid` int(11) NOT NULL AUTO_INCREMENT,
   `country` varchar(45) NOT NULL,
   `city_name` varchar(255) DEFAULT NULL,

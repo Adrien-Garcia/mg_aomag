@@ -9,7 +9,7 @@ $installer = $this;
 
 $installer->startSetup();
 if (!$installer->hasSponsorshipInstall()) {
-	$installer->run("
+	/*$installer->run("
 	ALTER TABLE {$this->getTable('auguria_sponsorship/sponsorship')} ADD COLUMN `message` text;
 	ALTER TABLE {$this->getTable('auguria_sponsorship/sponsorship')} ADD COLUMN `parent_mail` varchar(255);
 	ALTER TABLE {$this->getTable('auguria_sponsorship/sponsorship')} ADD COLUMN `parent_name` varchar(255);
@@ -17,6 +17,6 @@ if (!$installer->hasSponsorshipInstall()) {
 	ALTER TABLE {$this->getTable('auguria_sponsorship/sponsorship')} ADD COLUMN `datetime_boost` datetime;
 	
 	UPDATE {$this->getTable('auguria_sponsorship')} SET `datetime_boost` = `datetime` WHERE ISNULL(`datetime_boost`);
-	    ");
+	    ");*/
 } 
 $installer->endSetup(); 
