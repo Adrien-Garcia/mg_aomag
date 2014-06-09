@@ -360,13 +360,14 @@ function choisirRelaisGLS(index) {
 	jQuery("select[name='shipping_address_id']").prop('selectedIndex',0);
 	jQuery("select[name='shipping_address_id'] option[value='']").prop('selectedIndex',0);	
 			
-	if(jQuery("#sms_checkbox").is(":checked")) {
+	//if(jQuery("#sms_checkbox").is(":checked")) {
 		v= jQuery("#num_telephone").val();
-		if (!(/^0(6|7)\d{8}$/.test(v)) || (/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)) ) {
-			alert( Translator.translate("Please provide a valide mobile phone number.") );
+		//if (!(/^0(6|7)\d{8}$/.test(v)) || (/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)) ) {
+		if(!v){
+			alert( Translator.translate("Please provide a valide phone number.") );
 			return;			
 		}
-	}	
+	//}	
 	var contenu_html = "<div id='gls_relais_choisi'><span>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+"</span>"      +" <span class='modifier_relay'>" + Translator.translate("Change ParcelShop") + "</span>"   +  "<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+"<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text() + "</div>";
 	jQuery("input[id^=\"s_method_gls_relay_\"]").each(function(index, element){
 		jQuery(element).parent().append(contenu_html);
