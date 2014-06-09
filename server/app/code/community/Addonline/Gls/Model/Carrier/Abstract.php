@@ -24,8 +24,8 @@ if (file_exists(dirname(__FILE__).'/Addonline_Gls_Model_owebia_includes_OwebiaSh
 	include_once 'Addonline_Gls_Model_owebia_includes_OS2_AddressFilterParser_GLS.php';
 	include_once 'Addonline_Gls_Model_owebia_includes_OwebiaShippingHelper_GLS.php';
 } else {
-	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/owebia_includes/OS2_AddressFilterParser_GLS.php';
-	include_once Mage::getBaseDir('code').'/local/Addonline/Gls/owebia_includes/OwebiaShippingHelper_GLS.php';
+	include_once Mage::getBaseDir('code').'/community/Addonline/Gls/owebia_includes/OS2_AddressFilterParser_GLS.php';
+	include_once Mage::getBaseDir('code').'/community/Addonline/Gls/owebia_includes/OwebiaShippingHelper_GLS.php';
 }
 
 abstract class Addonline_Gls_Model_Carrier_Abstract extends Mage_Shipping_Model_Carrier_Abstract
