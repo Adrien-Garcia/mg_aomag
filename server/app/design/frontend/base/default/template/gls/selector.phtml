@@ -2,39 +2,40 @@
 /**
  * Copyright (c) 2014 GLS
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * NOTICE OF LICENSE
  *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
  *
- * @category    design
- * @package     base_default
+ * @category    Addonline
+ * @package     Addonline_Gls
  * @copyright   Copyright (c) 2014 GLS
  * @author 	    Addonline (http://www.addonline.fr)
- * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
- **/
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 ?>
-<div id="layer_gls_wrapper" >
+<div id="layer_gls_wrapper">
 	<div>
-		<h3><?php echo __("Choose Mondial Relay ParcelShop")?></h3><a class="close"></a>
+		<h3><?php echo __("Choose Mondial Relay ParcelShop")?></h3>
+		<a class="close"></a>
 		<div class="contenu">
 			<div id="gls_headers">
 				<div class="left">
-					<span><?php echo __("Your zipcode")?></span>
-					<input type="text" id="cp_recherche" value="<?php echo $this->getShippingPostcode() ?>"/>
+					<span><?php echo __("Your zipcode")?></span> <input type="text"
+						id="cp_recherche"
+						value="<?php echo $this->getShippingPostcode() ?>" />
 					<button id="cp_recherche_bouton" onclick="geocodeGLSAdresse()"><?php echo $this->helper('gls')->__("Search")?></button>
 				</div>
 				<div class="right">
 					<?php
-					$smsNotification = strpos($this->getTelephone(), "06") === 0 || strpos($this->getTelephone(), "07") === 0;
-					?>
-					<label><input type="checkbox" id="sms_checkbox" <?php if($smsNotification) {?>checked="checked"<?php }?> /> <?php echo __("To receive an sms when delivery is done")?></label>
-					<input type="text" id="num_telephone" class="valid-telephone-portable" <?php if($smsNotification) {?>value="<?php echo $this->getTelephone(); ?><?php }?>" />
+    $smsNotification = strpos($this->getTelephone(), "06") === 0 || strpos($this->getTelephone(), "07") === 0;
+    ?>
+					<label><input type="checkbox" id="sms_checkbox"
+						<?php if($smsNotification) {?> checked="checked" <?php }?> /> <?php echo __("To receive an sms when delivery is done")?></label>
+					<input type="text" id="num_telephone"
+						class="valid-telephone-portable" <?php if($smsNotification) {?>
+						value="<?php echo $this->getTelephone(); ?><?php }?>" />
 				</div>
 			</div>
 			<div id="col_gauche_gls">
