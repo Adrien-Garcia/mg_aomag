@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2008-13 Owebia
  *
@@ -17,18 +16,35 @@
  * @project    Magento Owebia Shipping 2 module
  * @author     Antoine Lemoine
  * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
-**/
+ */
 
-class Addonline_Gls_Block_Adminhtml_System_Config_Form_Field_Informations extends Mage_Adminhtml_Block_System_Config_Form_Field
+/**
+ * Addonline_Gls
+ *
+ * @category    Addonline
+ * @package     Addonline_Gls
+ * @copyright   Copyright (c) 2014 GLS
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+ class Addonline_Gls_Block_Adminhtml_System_Config_Form_Field_Informations extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
-	public function __() {
-		$args = func_get_args();
-		//return Mage::helper('owebia-shipping2')->__($args);
-		return false;
-	}
 
-	protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element) {
-		$version = Mage::getConfig()->getNode('modules/Addonline_Gls/version');
-		return 'Version: '.$version;
-	}
+    /* (non-PHPdoc)
+     * @see Mage_Core_Block_Abstract::__()
+     */
+    public function __()
+    {
+        $args = func_get_args();
+        // return Mage::helper('owebia-shipping2')->__($args);
+        return false;
+    }
+
+    /* (non-PHPdoc)
+     * @see Mage_Adminhtml_Block_System_Config_Form_Field::_getElementHtml()
+     */
+    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
+    {
+        $version = Mage::getConfig()->getNode('modules/Addonline_Gls/version');
+        return 'Version: ' . $version;
+    }
 }

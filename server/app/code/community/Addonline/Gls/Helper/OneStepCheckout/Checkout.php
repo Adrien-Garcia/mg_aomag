@@ -2,35 +2,54 @@
 /**
  * Copyright (c) 2014 GLS
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * NOTICE OF LICENSE
  *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
  *
  * @category    Addonline
  * @package     Addonline_Gls
  * @copyright   Copyright (c) 2014 GLS
  * @author 	    Addonline (http://www.addonline.fr)
- * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
- **/
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 
+if ((string) Mage::getConfig()->getModuleConfig('Idev_OneStepCheckout')->active != 'true') {
 
-if ((string)Mage::getConfig()->getModuleConfig('Idev_OneStepCheckout')->active != 'true')
-{
-	class Idev_OneStepCheckout_Helper_Checkout extends Mage_Core_Helper_Abstract{}
+/**
+ * Addonline_Gls
+ *
+ * @category    Addonline
+ * @package     Addonline_Gls
+ * @copyright   Copyright (c) 2014 GLS
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+    class Idev_OneStepCheckout_Helper_Checkout extends Mage_Core_Helper_Abstract
+    {
+    }
 }
+
+/**
+ * Addonline_Gls
+ *
+ * @category    Addonline
+ * @package     Addonline_Gls
+ * @copyright   Copyright (c) 2014 GLS
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
 class Addonline_Gls_Helper_OneStepCheckout_Checkout extends Idev_OneStepCheckout_Helper_Checkout
 {
 
+    /* (non-PHPdoc)
+     * @see Idev_OneStepCheckout_Helper_Checkout::saveShipping()
+     */
     public function saveShipping($data, $customerAddressId)
     {
-    	$shipping_data = Mage::getSingleton('checkout/session')->getData('gls_shipping_relay_data');
-    	if($shipping_data)return array();
-    	else return parent::saveShipping($data, $customerAddressId);
+        $shipping_data = Mage::getSingleton('checkout/session')->getData('gls_shipping_relay_data');
+        if ($shipping_data)
+            return array();
+        else
+            return parent::saveShipping($data, $customerAddressId);
     }
 }

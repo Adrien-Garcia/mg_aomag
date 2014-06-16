@@ -1,19 +1,26 @@
 <?xml version="1.0"?>
 <!-- 
 /**
- * Addonline_GLS
- * 
+ * Copyright (c) 2014 GLS
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
  * @category    Addonline
  * @package     Addonline_Gls
- * @copyright   Copyright (c) 2013 GLS
+ * @copyright   Copyright (c) 2014 GLS
  * @author 	    Addonline (http://www.addonline.fr)
- */
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ **/
 -->
 <config>
 	<sections>
 		<carriers>
 			<groups>
-				<gls translate="label"  module="gls">
+				<gls translate="label" module="gls">
 					<label>GLS</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>18</sort_order>
@@ -21,22 +28,22 @@
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
 					<fields>
-					    <informations translate="label">
-                            <label>Informations</label>
-                            <frontend_model>gls/adminhtml_system_config_form_field_informations</frontend_model>
-                            <sort_order>0</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </informations> 
-                        <title translate="label">
-                            <label>Title</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>0</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </title>
+						<informations translate="label">
+							<label>Informations</label>
+							<frontend_model>gls/adminhtml_system_config_form_field_informations</frontend_model>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</informations>
+						<title translate="label">
+							<label>Title</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</title>
 						<active translate="label">
 							<label>Enabled</label>
 							<frontend_type>select</frontend_type>
@@ -53,24 +60,24 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</usernamews>		
+						</usernamews>
 						<passws translate="label">
-                            <label>GLS Webservice password</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </passws>   	
-                        <livraisontohome translate="label">
-                            <label>Delivery at home</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>4</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </livraisontohome>												
+							<label>GLS Webservice password</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</passws>
+						<livraisontohome translate="label">
+							<label>Delivery at home</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</livraisontohome>
 						<configtohome translate="label">
 							<label>Delivery at home setup</label>
 							<frontend_model>gls/adminhtml_system_config_form_field_config</frontend_model>
@@ -79,72 +86,70 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends><livraisontohome>1</livraisontohome></depends>
+							<depends>
+								<livraisontohome>1</livraisontohome>
+							</depends>
 						</configtohome>
 						<ordertohome translate="label">
-                            <label>Delivery at home order</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>6</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><livraisontohome>1</livraisontohome></depends>
-                        </ordertohome>                        						
-                        <livraisonrelay translate="label">
-                            <label>Shop Delivery</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </livraisonrelay>                                              
-                        <configrelay translate="label">
-                            <label>Shop Delivery setup</label>
-                            <frontend_model>gls/adminhtml_system_config_form_field_config</frontend_model>
-                            <frontend_type>textarea</frontend_type>
-                            <sort_order>11</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><livraisonrelay>1</livraisonrelay></depends>
-                        </configrelay>
-                        <orderrelay translate="label">
-                            <label>Shop Delivery order</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>12</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><livraisonrelay>1</livraisonrelay></depends>
-                        </orderrelay>   
-                        <!-- Ces données sont stockées mais ne sont pas éditables via le BO  
-                        <maxrelayweight translate="label">
-                            <label>Maximum weight for articles in standard relays</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>13</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </maxrelayweight>
-                        <maxxlrelayweight translate="label">
-                            <label>Maximum weight for articles in XL relays</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>14</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </maxxlrelayweight>
-                        -->  
-                        <onlyxlrelay translate="label">
-                            <label>Only XL shop search</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>15</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </onlyxlrelay>             
+							<label>Delivery at home order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>6</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<livraisontohome>1</livraisontohome>
+							</depends>
+						</ordertohome>
+						<livraisonrelay translate="label">
+							<label>Shop Delivery</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</livraisonrelay>
+						<configrelay translate="label">
+							<label>Shop Delivery setup</label>
+							<frontend_model>gls/adminhtml_system_config_form_field_config</frontend_model>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<livraisonrelay>1</livraisonrelay>
+							</depends>
+						</configrelay>
+						<orderrelay translate="label">
+							<label>Shop Delivery order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<livraisonrelay>1</livraisonrelay>
+							</depends>
+						</orderrelay>
+						<!-- Ces données sont stockées mais ne sont pas éditables via le BO 
+							<maxrelayweight translate="label"> <label>Maximum weight for articles in 
+							standard relays</label> <frontend_type>text</frontend_type> <sort_order>13</sort_order> 
+							<show_in_default>1</show_in_default> <show_in_website>1</show_in_website> 
+							<show_in_store>1</show_in_store> </maxrelayweight> <maxxlrelayweight translate="label"> 
+							<label>Maximum weight for articles in XL relays</label> <frontend_type>text</frontend_type> 
+							<sort_order>14</sort_order> <show_in_default>1</show_in_default> <show_in_website>1</show_in_website> 
+							<show_in_store>1</show_in_store> </maxxlrelayweight> -->
+						<onlyxlrelay translate="label">
+							<label>Only XL shop search</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</onlyxlrelay>
 						<tracking_view_url translate="label">
 							<label>Tracking URL</label>
 							<frontend_type>text</frontend_type>
@@ -153,99 +158,77 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</tracking_view_url>
-					    <importexport translate="label">
-                            <label>Import/Export functionalities</label>
-                            <frontend_type>select</frontend_type>
-                            <comment>{importexport_help}</comment>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>17</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </importexport> 
-                        <export_folder translate="label">
-                            <label>Export folder</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>18</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><importexport>1</importexport></depends>
-                        </export_folder>
-                        <import_folder translate="label">
-                            <label>Import folder</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>19</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><importexport>1</importexport></depends>
-                        </import_folder>
-                        <debug translate="label comment">
-                            <label>Debug</label>
-                            <comment>{debug_help}</comment>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </debug>     
-                        <!-- Non visibles 
-                        <compression translate="label">
-							<label>Compression</label>
+						<importexport translate="label">
+							<label>Import/Export functionalities</label>
 							<frontend_type>select</frontend_type>
+							<comment>{importexport_help}</comment>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<comment>{compression_help}</comment>
-							<sort_order>21</sort_order>
+							<sort_order>17</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</compression>
-						<auto_escaping translate="label">
-							<label>Auto-escaping</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<comment>{auto_escaping_help}</comment>
-							<sort_order>22</sort_order>
+						</importexport>
+						<export_folder translate="label">
+							<label>Export folder</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>18</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</auto_escaping>
-						<auto_correction translate="label">
-							<label>Auto-correction</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<comment>{auto_correction_help}</comment>
-							<sort_order>23</sort_order>
+							<depends>
+								<importexport>1</importexport>
+							</depends>
+						</export_folder>
+						<import_folder translate="label">
+							<label>Import folder</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>19</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</auto_correction>
-						<stop_to_first_match translate="label">
-							<label>Stop to first match</label>
+							<depends>
+								<importexport>1</importexport>
+							</depends>
+						</import_folder>
+						<debug translate="label comment">
+							<label>Debug</label>
+							<comment>{debug_help}</comment>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>24</sort_order>
+							<sort_order>20</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</stop_to_first_match>
-						-->
-                        <sort_order translate="label">
-                            <label>GLS module order</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>100</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </sort_order>
+						</debug>
+						<!-- Non visibles <compression translate="label"> <label>Compression</label> 
+							<frontend_type>select</frontend_type> <source_model>adminhtml/system_config_source_yesno</source_model> 
+							<comment>{compression_help}</comment> <sort_order>21</sort_order> <show_in_default>1</show_in_default> 
+							<show_in_website>1</show_in_website> <show_in_store>1</show_in_store> </compression> 
+							<auto_escaping translate="label"> <label>Auto-escaping</label> <frontend_type>select</frontend_type> 
+							<source_model>adminhtml/system_config_source_yesno</source_model> <comment>{auto_escaping_help}</comment> 
+							<sort_order>22</sort_order> <show_in_default>1</show_in_default> <show_in_website>1</show_in_website> 
+							<show_in_store>1</show_in_store> </auto_escaping> <auto_correction translate="label"> 
+							<label>Auto-correction</label> <frontend_type>select</frontend_type> <source_model>adminhtml/system_config_source_yesno</source_model> 
+							<comment>{auto_correction_help}</comment> <sort_order>23</sort_order> <show_in_default>1</show_in_default> 
+							<show_in_website>1</show_in_website> <show_in_store>1</show_in_store> </auto_correction> 
+							<stop_to_first_match translate="label"> <label>Stop to first match</label> 
+							<frontend_type>select</frontend_type> <source_model>adminhtml/system_config_source_yesno</source_model> 
+							<sort_order>24</sort_order> <show_in_default>1</show_in_default> <show_in_website>1</show_in_website> 
+							<show_in_store>1</show_in_store> </stop_to_first_match> -->
+						<sort_order translate="label">
+							<label>GLS module order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</sort_order>
 					</fields>
 				</gls>
 			</groups>
-		</carriers>		               
-    </sections>		
-    <sections>
+		</carriers>
+	</sections>
+	<sections>
 		<gls translate="label">
 			<label>GLS Advanced Setup</label>
 			<tab>sales</tab>
@@ -291,7 +274,8 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</process_children>
-						<load_item_options_on_parent translate="label">
+						<load_item_options_on_parent
+							translate="label">
 							<label>Item options on</label>
 							<comment>item.option.*</comment>
 							<frontend_type>select</frontend_type>
@@ -311,7 +295,8 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</load_item_data_on_parent>
-						<load_product_data_on_parent translate="label">
+						<load_product_data_on_parent
+							translate="label">
 							<label>Product data on</label>
 							<comment>product.*</comment>
 							<frontend_type>select</frontend_type>
@@ -331,7 +316,8 @@
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
 					<fields>
-						<load_item_options_on_parent translate="label">
+						<load_item_options_on_parent
+							translate="label">
 							<label>Item options on</label>
 							<comment>item.option.*</comment>
 							<frontend_type>select</frontend_type>
@@ -351,7 +337,8 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</load_item_data_on_parent>
-						<load_product_data_on_parent translate="label">
+						<load_product_data_on_parent
+							translate="label">
 							<label>Product data on</label>
 							<comment>product.*</comment>
 							<frontend_type>select</frontend_type>

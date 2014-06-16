@@ -18,20 +18,21 @@
  * @author     Antoine Lemoine
  * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
 **/
-
 class Addonline_Gls_Model_System_Config_Source_ProcessChildren extends Mage_Adminhtml_Model_System_Config_Source_Category
 {
-	public function toOptionArray($addEmpty = true) {
-		$options = array(
-			array(
-				'label' => Mage::helper('gls')->__('Self'),
-				'value' => '0'
-			),
-			array(
-				'label' => Mage::helper('gls')->__('Children'),
-				'value' => '1'
-			),
-		);
-		return $options;
-	}
+
+    public function toOptionArray($addEmpty = true)
+    {
+        $options = array(
+            array(
+                'label' => Mage::helper('gls')->__('Self'),
+                'value' => '0'
+            ),
+            array(
+                'label' => Mage::helper('gls')->__('Children'),
+                'value' => '1'
+            )
+        );
+        return $options;
+    }
 }

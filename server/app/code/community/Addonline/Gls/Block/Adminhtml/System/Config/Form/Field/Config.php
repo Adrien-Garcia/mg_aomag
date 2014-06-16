@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2008-13 Owebia
  *
@@ -13,72 +12,112 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- * @website    http://www.owebia.com/
- * @project    Magento Owebia Shipping 2 module
- * @author     Antoine Lemoine
- * @license    http://www.opensource.org/licenses/MIT  The MIT License (MIT)
-**/
+ * @website http://www.owebia.com/
+ * @project Magento Owebia Shipping 2 module
+ * 
+ * @author Antoine Lemoine
+ * @license http://www.opensource.org/licenses/MIT The MIT License (MIT)      
+ */
 
+/**
+ * Addonline_Gls
+ *
+ * @category    Addonline
+ * @package     Addonline_Gls
+ * @copyright   Copyright (c) 2014 GLS
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
 class Addonline_Gls_Block_Adminhtml_System_Config_Form_Field_Config extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
-	private static $JS_INCLUDED = false;
-	
-	public function __() {
-		$args = func_get_args();
-		return Mage::helper('gls')->__($args);
-	}
 
-	protected function _prepareLayout() {
-		$layout = $this->getLayout();
-		$head = $layout->getBlock('head');
-// 		$head->addJs('gls/owebia_shipping2/jquery-1.8.2.min.js');
-// 		$head->addJs('gls/owebia_shipping2/jquery.noconflict.js');
-// 		$head->addJs('gls/owebia_shipping2/jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js');
-// 		$head->addJs('gls/owebia_shipping2/jquery.layout-1.3.0-rc30.6.min.js');
-// 		$head->addJs('gls/owebia_shipping2/colorbox/jquery.colorbox-min.js');
-// 		$head->addJs('gls/owebia_shipping2/jquery.caret.1.02.min.js');
-// 		$head->addJs('gls/owebia_shipping2/os2editor.js');
-// 		//$head->addItem('js_css', 'gls/owebia_/jquery-ui-1.8.23.custom/css/ui-lightness/jquery-ui-1.8.23.custom.css');
-// 		$head->addItem('js_css', 'gls/owebia_shipping2/colorbox/colorbox.css', 'media="all"');
-// 		$head->addItem('js_css', 'gls/owebia_shipping2/os2editor.css', 'media="all"');
-		//$head->addItem('other', 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js');
-		//$head->append($block);
-		
-		parent::_prepareLayout();
-	}
+    /**
+     * @var boolean
+     */
+    private static $JS_INCLUDED = false;
 
-	private function label__($input) {
-		return str_replace(array("\r\n","\r","\n","'"), array("\\n","\\n","\\n","\\'"), $this->__($input));
-	}
+    /* (non-PHPdoc)
+     * @see Mage_Core_Block_Abstract::__()
+     */
+    public function __()
+    {
+        $args = func_get_args();
+        return Mage::helper('gls')->__($args);
+    }
 
-	protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element) {
-		$output = '';
-// 		if (!self::$JS_INCLUDED) {
-// 			$output = "<script type=\"text/javascript\">\n"
-// 				."//<![CDATA[\n"
-// 				."jQuery.noConflict();\n"
-// 				."var os2editor = new OS2Editor({\n"
-// 				."ajax_url: '".$this->getUrl('adminhtml/gls_ajax/index')."?isAjax=true',\n"
-// 				."form_key: FORM_KEY,\n"
-// 				."apply_btn_label: '".$this->label__('Apply')."',\n"
-// 				."cancel_btn_label: '".$this->label__('Cancel')."',\n"
-// 				."menu_item_dissociate_label: '".$this->label__('Dissociate')."',\n"
-// 				."menu_item_remove_label: '".$this->label__('Remove')."',\n"
-// 				."menu_item_edit_label: '".$this->label__('Edit')."',\n"
-// 				."prompt_new_value_label: '".$this->label__('Enter the new value:')."',\n"
-// 				."default_row_label: '".$this->label__('[No label]')."',\n"
-// 				."loading_label: '".$this->label__('Loading...')."'\n"
-// 				."});\n"
-// 				."
-// "
-// 				."//]]>\n"
-// 				."</script>\n"
-// 			;
-// 			self::$JS_INCLUDED = true;
-// 		}
+    /* (non-PHPdoc)
+     * @see Mage_Core_Block_Abstract::_prepareLayout()
+     */
+    protected function _prepareLayout()
+    {
+        $layout = $this->getLayout();
+        $head = $layout->getBlock('head');
+        // $head->addJs('gls/owebia_shipping2/jquery-1.8.2.min.js');
+        // $head->addJs('gls/owebia_shipping2/jquery.noconflict.js');
+        // $head->addJs('gls/owebia_shipping2/jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js');
+        // $head->addJs('gls/owebia_shipping2/jquery.layout-1.3.0-rc30.6.min.js');
+        // $head->addJs('gls/owebia_shipping2/colorbox/jquery.colorbox-min.js');
+        // $head->addJs('gls/owebia_shipping2/jquery.caret.1.02.min.js');
+        // $head->addJs('gls/owebia_shipping2/os2editor.js');
+        // //$head->addItem('js_css', 'gls/owebia_/jquery-ui-1.8.23.custom/css/ui-lightness/jquery-ui-1.8.23.custom.css');
+        // $head->addItem('js_css', 'gls/owebia_shipping2/colorbox/colorbox.css', 'media="all"');
+        // $head->addItem('js_css', 'gls/owebia_shipping2/os2editor.css', 'media="all"');
+        // $head->addItem('other', 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js');
+        // $head->append($block);
+        
+        parent::_prepareLayout();
+    }
 
-		$shipping_code = preg_replace('/^groups\[([^\]]*)\].*$/','\1',$element->getName());
-		return <<<EOD
+    /**
+     * tradution et echappement
+     * @param string $input
+     */
+    private function label__($input)
+    {
+        return str_replace(array(
+            "\r\n",
+            "\r",
+            "\n",
+            "'"
+        ), array(
+            "\\n",
+            "\\n",
+            "\\n",
+            "\\'"
+        ), $this->__($input));
+    }
+
+    /* (non-PHPdoc)
+     * @see Mage_Adminhtml_Block_System_Config_Form_Field::_getElementHtml()
+     */
+    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
+    {
+        $output = '';
+        // if (!self::$JS_INCLUDED) {
+        // $output = "<script type=\"text/javascript\">\n"
+        // ."//<![CDATA[\n"
+        // ."jQuery.noConflict();\n"
+        // ."var os2editor = new OS2Editor({\n"
+        // ."ajax_url: '".$this->getUrl('adminhtml/gls_ajax/index')."?isAjax=true',\n"
+        // ."form_key: FORM_KEY,\n"
+        // ."apply_btn_label: '".$this->label__('Apply')."',\n"
+        // ."cancel_btn_label: '".$this->label__('Cancel')."',\n"
+        // ."menu_item_dissociate_label: '".$this->label__('Dissociate')."',\n"
+        // ."menu_item_remove_label: '".$this->label__('Remove')."',\n"
+        // ."menu_item_edit_label: '".$this->label__('Edit')."',\n"
+        // ."prompt_new_value_label: '".$this->label__('Enter the new value:')."',\n"
+        // ."default_row_label: '".$this->label__('[No label]')."',\n"
+        // ."loading_label: '".$this->label__('Loading...')."'\n"
+        // ."});\n"
+        // ."
+        // "
+        // ."//]]>\n"
+        // ."</script>\n"
+        // ;
+        // self::$JS_INCLUDED = true;
+        // }
+        
+        $shipping_code = preg_replace('/^groups\[([^\]]*)\].*$/', '\1', $element->getName());
+        return <<<EOD
 {$output}
 <!--<div style="margin-bottom:1px;">
 	<button type="button" class="scalable" onclick="os2editor.init(this, '{$shipping_code}').page('source');"><span>{$this->__('Source &amp; Correction')}</span></button>
@@ -88,5 +127,5 @@ class Addonline_Gls_Block_Adminhtml_System_Config_Form_Field_Config extends Mage
 {$element->getElementHtml()}<br/>
 <a href="http://www.owebia.com/os2/fr/doc" target="_blank">{$this->__('Help')}</a>
 EOD;
-	}
+    }
 }
