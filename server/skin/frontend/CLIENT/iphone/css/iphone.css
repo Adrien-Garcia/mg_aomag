@@ -2777,6 +2777,11 @@ input[type="checkbox"]:checked {
 .opc .step-title .number { display:none; }
 
 .opc .step { background-color:#fff !important; padding:10px 0; position:relative; }
+
+.opc .step .buttons-set {
+	margin-top: 20px;
+}
+
 .opc .step .form-list { margin:0 0 15px; }
 
 .opc .step .form-list .wide label{
@@ -2906,6 +2911,10 @@ input[type="checkbox"]:checked {
 .checkout-agreements .agree { font-weight:bold; margin:10px 0 0; text-align:center; }
 .checkout-agreements .agree input,
 .checkout-agreements .agree label { margin-right:10px; vertical-align:middle; }
+
+.checkout-agreements .agreement-content {
+	display: none;
+}
 
 /* Advanced search
 -----------------------------*/

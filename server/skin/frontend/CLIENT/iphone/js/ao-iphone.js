@@ -41,5 +41,7 @@ jQuery(function($) {
 		$(this).toggleClass("opened").next().slideToggle();
 	});
 	
+	jQuery("p.agree a").live("click", function(e) { e.preventDefault(); jQuery(".agreement-content").show() });
+	
 	
 });
