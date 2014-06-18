@@ -71,12 +71,15 @@ class Magmi_ReindexingPlugin extends Magmi_GeneralImportPlugin
 	
 	public function updateIndexes()
 	{
+		$conf=Magmi_Config::getInstance();
+		$conf->load();
+		
 		//make sure we are not in session
 		if(session_id()!=="")
 		{
 			session_write_close();
 		}
-		$cl=$this->getParam("REINDEX:phpcli")." shell/indexer.php";
+		$cl=$this->getParam("REINDEX:phpcli")." ". rtrim($conf->get("MAGENTO","basedir"), "/") ."/shell/indexer.php";
 		$idxlstr=$this->getParam("REINDEX:indexes","");
 		$idxlist=explode(",",$idxlstr);
 		if(count($idxlist)==0)

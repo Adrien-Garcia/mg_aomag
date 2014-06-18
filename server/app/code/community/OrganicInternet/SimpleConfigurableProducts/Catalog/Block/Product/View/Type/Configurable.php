@@ -3,6 +3,16 @@
 class OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_View_Type_Configurable
     extends Mage_Catalog_Block_Product_View_Type_Configurable
 {
+
+	/**
+	 * Set the original module name to avoid breaking translations
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setModuleName('Mage_Catalog');
+	}
+		
     public function getJsonConfig()
     {
         $config = Zend_Json::decode(parent::getJsonConfig());

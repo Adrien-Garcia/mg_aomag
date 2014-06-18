@@ -4,6 +4,9 @@
         <Addonline_Aomagento>
             <active>true</active>
             <codePool>local</codePool>
+            <depends>
+                <Mage_Checkout/>
+            </depends>
         </Addonline_Aomagento>
     </modules>
 </config> 

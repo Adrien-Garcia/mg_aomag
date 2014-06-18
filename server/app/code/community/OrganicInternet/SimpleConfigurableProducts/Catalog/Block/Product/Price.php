@@ -2,7 +2,17 @@
 class OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_Price
     extends Mage_Catalog_Block_Product_Price
 {
-    #This is overridden as an admittedly nasty hack to not have to change the contents of catalog/product/price.phtml
+    
+	/**
+	 * Set the original module name to avoid breaking translations
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setModuleName('Mage_Catalog');
+	}
+	
+	#This is overridden as an admittedly nasty hack to not have to change the contents of catalog/product/price.phtml
     #This is because there's no nice way to keep price.phtml in sync between this extension and the magento core version
     #Yes, it's dependent on the value of $htmlToInsertAfter; I'm not aware of a better alternative.
     public function _toHtml() {

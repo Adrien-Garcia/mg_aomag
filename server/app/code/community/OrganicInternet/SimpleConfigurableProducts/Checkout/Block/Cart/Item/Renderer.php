@@ -2,6 +2,16 @@
 class OrganicInternet_SimpleConfigurableProducts_Checkout_Block_Cart_Item_Renderer
     extends Mage_Checkout_Block_Cart_Item_Renderer
 {
+	
+	/**
+	 * Set the original module name to avoid breaking translations
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setModuleName('Mage_Checkout');
+	}
+	
     protected function getConfigurableProductParentId()
     {
         if ($this->getItem()->getOptionByCode('cpid')) {

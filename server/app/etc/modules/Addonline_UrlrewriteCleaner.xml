@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+	    <Addonline_UrlrewriteCleaner>
+	        <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+            </depends>
+	    </Addonline_UrlrewriteCleaner>
+    </modules>
+</config>

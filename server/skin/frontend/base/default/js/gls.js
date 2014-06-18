@@ -1,10 +1,17 @@
 /**
- * Addonline_SoColissimo
- * 
+ * Copyright (c) 2014 GLS
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
  * @category    Addonline
- * @package     Addonline_SoColissimo
- * @copyright   Copyright (c) 2011 Addonline
+ * @package     Addonline_Gls
+ * @copyright   Copyright (c) 2014 GLS
  * @author 	    Addonline (http://www.addonline.fr)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -43,7 +50,8 @@ function clearMarkers() {
 jQuery(function($) {	
 	
 	
-	//Cas du onestep checkout, si on change l'adresse de livraison après avoir choisi gls
+	// Cas du onestep checkout, si on change l'adresse de livraison après avoir
+	// choisi gls
 	jQuery('.onestepcheckout-index-index .address-select').on("change", function() {
 		if(jQuery('#gls-location').size() <= 0 ){	
 			$("#attentionSoColissimo").remove();
@@ -51,7 +59,7 @@ jQuery(function($) {
 		}
 	}); 	
 	
-	/** 
+	/**
 	 * Sur l'événement change des radios boutons de choix de mode de livraison
 	 */
 	$("input[id^=\"s_method_gls\"]").live("click", function() {		
@@ -87,9 +95,11 @@ jQuery(function($) {
 });
 
 /**
- * Initialise les logos, descriptions, style sur le radio bouttons gls
- * ceci est fait en javascript pour ne pas surcharger le template available.phtml et ainsi éviter des conflits avec d'autres modules.
- * (appelé au chargement du DOM mais aussi au rechargement ajax (voir Checkout.prototype.setStepResponse dans  gls\additional.phtml)
+ * Initialise les logos, descriptions, style sur le radio bouttons gls ceci est
+ * fait en javascript pour ne pas surcharger le template available.phtml et
+ * ainsi éviter des conflits avec d'autres modules. (appelé au chargement du DOM
+ * mais aussi au rechargement ajax (voir Checkout.prototype.setStepResponse dans
+ * gls\additional.phtml)
  */
 function initGlsLogos() {
 	
@@ -110,11 +120,13 @@ function initGlsLogos() {
 			}
 			
 			if (typeGls=='relay') {
-				// si le relais choisi est en session (voir additionnal.phtml), on l'affiche sous le radio
+				// si le relais choisi est en session (voir additionnal.phtml),
+				// on l'affiche sous le radio
 				if (jQuery('#gls_relais_choisi_init').size()>0) {
 					jQuery('#gls_relais_choisi_init').appendTo(radioParent).attr('id', 'gls_relais_choisi');
 				} else {
-					//sinon,et si aucun relais n'a été choisi, on décoche le mode de livraison relais pour forcer à choisir un relais
+					// sinon,et si aucun relais n'a été choisi, on décoche le
+					// mode de livraison relais pour forcer à choisir un relais
 					if (jQuery('#gls_relais_choisi').size()==0) {
 						jQuery(element).prop("checked", "");
 					}
@@ -136,7 +148,7 @@ function getTypeGlsFromRadio(radio, forDescription) {
 	} else if (typeGls.startWith("relay")){ 
 		return 'relay';
 	} else {
-		//Sinon c'est un type de livraison inconnu
+		// Sinon c'est un type de livraison inconnu
 		alert("Mauvaise configuration du module GLS : dans le champ configuration le code doit commencer par tohome, toyou ou relay");
 		return false;
 	}
@@ -146,7 +158,7 @@ function shippingGLSRadioCheck(element) {
 	var glsRadio = jQuery(element);	
 	var typeGls =  getTypeGlsFromRadio(glsRadio, false);				
 	if(typeGls == "relay"){
-		//on affiche le picto de chargement étape suivante du opc
+		// on affiche le picto de chargement étape suivante du opc
 		jQuery("#shipping-method-please-wait").show();		
 		glsurl = glsBaseUrl + "selector/"			
 			jQuery.ajax({
@@ -175,7 +187,7 @@ function geocodeGLSAdresse() {
 		geocoder.geocode({'address': searchAdress}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				glsMyPosition = results[0].geometry.location;
-	 			//on met à jour la carte avec cette position				
+	 			// on met à jour la carte avec cette position
 				loadMap();				
 				loadListePointRelais();
 			} else {
@@ -210,8 +222,8 @@ function loadListePointRelais() {
 function loadMap(){
 	
 	mapOptions = {
-	    /*zoom: 10,*/
-	    /*center: glsMyPosition,*/
+	    /* zoom: 10, */
+	    /* center: glsMyPosition, */
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
 	    disableDefaultUI: true,
 		zoomControlOptions: {
@@ -234,7 +246,7 @@ function loadMap(){
 			onClose: function(){ jQuery("#layer_gls").html(''); jQuery("#layer_gls").data("overlay",null); resetGLSShippingMethod()}
 		});	
 	} else {
-		//glsRelayMap.setCenter(glsMyPosition);
+		// glsRelayMap.setCenter(glsMyPosition);
 	}
 	
 	jQuery("#shipping-method-please-wait").hide();
@@ -244,7 +256,8 @@ function loadMap(){
 function showGLSMap() {	
 	if ((typeof google)!="undefined") {
 		var init = false;		
-		//google.maps.event.addListener(glsRelayMap, 'tilesloaded', function () {
+		// google.maps.event.addListener(glsRelayMap, 'tilesloaded', function ()
+		// {
 
 			// création de bornes vides...
 			var bounds = new google.maps.LatLngBounds();
@@ -284,11 +297,11 @@ function showGLSMap() {
 				
 			}
 			init=true;
-		//});
+		// });
 	}
 }
 
-//générateur d'infobulle
+// générateur d'infobulle
 function infoGLSBulleGenerator(relay) {	
 
 	contentString = '<div class="info-window">'
@@ -314,12 +327,12 @@ function infoGLSBulleGenerator(relay) {
 
 
 function attachGLSClick(markerGLS,infowindowGLS, index){	
-	//Clic sur le relais dans la colonne de gauche
+	// Clic sur le relais dans la colonne de gauche
 	jQuery("#gls_point_relay_"+index).live("click",function() {		
 			clickHandler(markerGLS,infowindowGLS, index);		   
 		});
 		
-	//Clic sur le marqueur du relais dans la carte
+	// Clic sur le marqueur du relais dans la carte
 	google.maps.event.addListener(markerGLS, 'click', function() {		
 			clickHandler(markerGLS,infowindowGLS, index);
 		});
@@ -327,12 +340,12 @@ function attachGLSClick(markerGLS,infowindowGLS, index){
 }
 
 function clickHandler(markerGLS,infowindowGLS, index){
-	//fermer la derniere infobulle ouverte
+	// fermer la derniere infobulle ouverte
 	if(glsOpenedInfowindow) {
 		glsOpenedInfowindow.close();
 		jQuery("#layer_gls .gls_point_relay").removeClass("current");
     }			
-	//ouvrir l'infobulle
+	// ouvrir l'infobulle
 	infowindowGLS.open(glsRelayMap,markerGLS);
     glsOpenedInfowindow=infowindowGLS;
     
@@ -345,17 +358,20 @@ function clickHandler(markerGLS,infowindowGLS, index){
 
 function choisirRelaisGLS(index) {
 	
-	//resetShippingMethod();	
+	// resetShippingMethod();
 	jQuery("select[name='shipping_address_id']").prop('selectedIndex',0);
 	jQuery("select[name='shipping_address_id'] option[value='']").prop('selectedIndex',0);	
 			
-	if(jQuery("#sms_checkbox").is(":checked")) {
+	// if(jQuery("#sms_checkbox").is(":checked")) {
 		v= jQuery("#num_telephone").val();
-		if (!(/^0(6|7)\d{8}$/.test(v)) || (/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)) ) {
-			alert( Translator.translate("Please provide a valide mobile phone number.") );
+		// if (!(/^0(6|7)\d{8}$/.test(v)) ||
+		// (/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v))
+		// ) {
+		if(!v){
+			alert( Translator.translate("Please provide a valide phone number.") );
 			return;			
 		}
-	}	
+	// }
 	var contenu_html = "<div id='gls_relais_choisi'><span>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_name').text()+"</span>"      +" <span class='modifier_relay'>" + Translator.translate("Change ParcelShop") + "</span>"   +  "<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_address').text()+"<br/>"+jQuery('#gls_point_relay_'+index).find('.GLS_relay_zipcode').text()+" "+jQuery('#gls_point_relay_'+index).find('.GLS_relay_city').text() + "</div>";
 	jQuery("input[id^=\"s_method_gls_relay_\"]").each(function(index, element){
 		jQuery(element).parent().append(contenu_html);
