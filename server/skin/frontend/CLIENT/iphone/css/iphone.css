@@ -899,6 +899,11 @@ body > section > form > .fieldset h2 { color:#424242; font-size:18px; line-heigh
     position: relative; 
     -webkit-background-origin:content-box;
             background-origin:content-box;
+            
+	padding-right: 70px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 	#nav-container li a span:before {
 		content: "";
