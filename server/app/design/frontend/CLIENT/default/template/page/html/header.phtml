@@ -39,9 +39,15 @@
     <div class="header">
         
         <?php if ($this->getIsHomePage()):?>
-        <h1 class="logo"><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong></a></h1>
+        <h1 class="logo">
+        	<a title="<?php echo $this->getLogoAlt() ?>" class="logo lienhome">
+        		<strong><?php echo $this->getLogoAlt() ?></strong>
+        	</a>
+        </h1>
         <?php else:?>
-        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong></a>
+        	<a title="<?php echo $this->getLogoAlt() ?>" class="logo lienhome">
+        		<strong><?php echo $this->getLogoAlt() ?></strong>
+        	</a>
         <?php endif?>
         
         <div class="quick-access">

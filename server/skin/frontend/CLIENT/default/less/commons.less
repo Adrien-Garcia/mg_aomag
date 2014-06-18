@@ -458,6 +458,12 @@ p.required {
 		margin: auto;
 		width: @width;
 		padding: @padding;
+		
+		.lienhome{
+			
+			cursor:pointer;
+			
+		}
 		 
 		li {
 			display:inline;
@@ -705,7 +711,33 @@ tr.summary-details-excluded { font-style:italic; }
  |_| |_|\___|\__,_|\__,_|\___|_|   
 */
 /* header */
-.logo { float:left; }
+.logo {
+	float: left;
+	width: 320px;
+	height: 150px;
+	margin: 29px 0 0 0;
+	cursor:pointer;
+	
+	.lienhome{
+	
+		width:100%;
+		height:100%;
+		
+	}
+}
+
+.lienhome{
+	
+	display:inline-block;
+	
+}
+
+.logo strong{
+	
+	display:none;
+	
+}
+
 .header-container {
 	
 	background: @c5;
