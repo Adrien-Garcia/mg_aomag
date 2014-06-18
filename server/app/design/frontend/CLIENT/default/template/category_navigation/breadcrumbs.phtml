@@ -27,22 +27,32 @@
 <?php if($crumbs && is_array($crumbs)): ?>
 <div class="breadcrumbs">
     <ul>
+    
         <?php foreach($crumbs as $_crumbName=>$_crumbInfo): ?>
-            <li class="<?php echo $_crumbName ?>">
+        
+            <li class="<?php echo $_crumbName ?>" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
             <?php if($_crumbInfo['link']): ?>
                	
                	<?php if($_crumbName == "home") : ?>
             	
-            		<a class="lienhome" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></a>
+            		<a class="lienhome" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>" itemprop="url">
+            			<span itemprop="title">
+            				<?php echo $this->htmlEscape($_crumbInfo['label']) ?>
+            			</span>
+            		</a>
             	
             	<?php else : ?>
             	
-            		<a <?php if( !isset($_crumbInfo['navigation_type']) || $_crumbInfo['navigation_type']!=1 || $_crumbName!="home" ) : ?> href="<?php echo $_crumbInfo['link'] ?>" <?php endif; ?> title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></a>
+            		<a itemprop="url" <?php if( !isset($_crumbInfo['navigation_type']) || $_crumbInfo['navigation_type']!=1 || $_crumbName!="home" ) : ?> href="<?php echo $_crumbInfo['link'] ?>" <?php endif; ?> title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>">
+            			<span itemprop="title">
+            				<?php echo $this->htmlEscape($_crumbInfo['label']) ?>
+            			</span>
+            		</a>
             	
             	<?php endif; ?>
                	
             <?php elseif($_crumbInfo['last']): ?>
-                <strong><?php echo $this->htmlEscape($_crumbInfo['label']) ?></strong>
+                <strong itemprop="title"><span ><?php echo $this->htmlEscape($_crumbInfo['label']) ?></strong>
             <?php else: ?>
                 <?php echo $this->htmlEscape($_crumbInfo['label']) ?>
             <?php endif; ?>
