@@ -1,11 +1,17 @@
 <?php
 /**
- * Addonline_SoColissimo
- * 
+ * Addonline
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
  * @category    Addonline
  * @package     Addonline_SoColissimo
- * @copyright   Copyright (c) 2011 Addonline
- * @author 	    Addonline (http://www.addonline.fr)
+ * @copyright   Copyright (c) 2014 Addonline (http://www.addonline.fr)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
@@ -14,7 +20,7 @@ $installer->startSetup();
 
 /**
  * On nettoie la table core_config dans le cas d'une installation préalable
- * des Modules SocolissimoFlexibilite ou SocolissimoLiberte, et on récupère les 
+ * des Modules SocolissimoFlexibilite ou SocolissimoLiberte, et on récupère les
  * paramètres de l'installation préalable
  */
 $installer->run("
@@ -36,9 +42,7 @@ $installer->run("
 
 /**
  * On crée les tables pour la version Liberté si elles n'existent pas déjà
- * 
  */
-
 
 $installer->run("
 
@@ -69,8 +73,6 @@ CREATE TABLE {$this->getTable('socolissimoliberte_relais')} (
 
 ");
 
-
-
 $installer->run("
 
 CREATE TABLE {$this->getTable('socolissimoliberte_horaire_ouverture')} (
@@ -92,7 +94,6 @@ CREATE TABLE {$this->getTable('socolissimoliberte_horaire_ouverture')} (
 
 ");
 
-
 $installer->run("
 
 CREATE TABLE {$this->getTable('socolissimoliberte_periode_fermeture')} (
@@ -107,82 +108,81 @@ CREATE TABLE {$this->getTable('socolissimoliberte_periode_fermeture')} (
 
 ");
 
-
 /**
- * Les attributs suivants sont les mêmes que ceux créés par le module SocolissimoSimplicité et utilisés 
+ * Les attributs suivants sont les mêmes que ceux créés par le module SocolissimoSimplicité et utilisés
  * par le module ExpeditorInet qui permet de faire l'export vers l'éditeur de vignettes
  * On les crée tels quel pour être compatible avec ExpeditorInet
- **/
+ */
 $this->addAttribute('order', 'soco_product_code', array(
-		'type'     => 'varchar',
-		'label'    => 'Code produit So Colissimo',
-		'visible'  => true,
-		'required' => false,
-		'input'    => 'text',
+    'type' => 'varchar',
+    'label' => 'Code produit So Colissimo',
+    'visible' => true,
+    'required' => false,
+    'input' => 'text'
 ));
 
 $this->addAttribute('order', 'soco_shipping_instruction', array(
-		'type'     => 'varchar',
-		'label'    => 'Instructions de livraison So Colissimo',
-		'visible'  => true,
-		'required' => false,
-		'input'    => 'text',
+    'type' => 'varchar',
+    'label' => 'Instructions de livraison So Colissimo',
+    'visible' => true,
+    'required' => false,
+    'input' => 'text'
 ));
 
 $this->addAttribute('order', 'soco_door_code1', array(
-		'type'     => 'varchar',
-		'label'    => 'Code porte 1 So Colissimo',
-		'visible'  => true,
-		'required' => false,
-		'input'    => 'text',
+    'type' => 'varchar',
+    'label' => 'Code porte 1 So Colissimo',
+    'visible' => true,
+    'required' => false,
+    'input' => 'text'
 ));
 
 $this->addAttribute('order', 'soco_door_code2', array(
-		'type'     => 'varchar',
-		'label'    => 'Code porte 2 So Colissimo',
-		'visible'  => true,
-		'required' => false,
-		'input'    => 'text',
+    'type' => 'varchar',
+    'label' => 'Code porte 2 So Colissimo',
+    'visible' => true,
+    'required' => false,
+    'input' => 'text'
 ));
 
 $this->addAttribute('order', 'soco_interphone', array(
-		'type'     => 'varchar',
-		'label'    => 'Interphone So Colissimo',
-		'visible'  => true,
-		'required' => false,
-		'input'    => 'text',
+    'type' => 'varchar',
+    'label' => 'Interphone So Colissimo',
+    'visible' => true,
+    'required' => false,
+    'input' => 'text'
 ));
 
 $this->addAttribute('order', 'soco_relay_point_code', array(
-		'type'     => 'varchar',
-		'label'    => 'Code du point de retrait So Colissimo',
-		'visible'  => true,
-		'required' => false,
-		'input'    => 'text',
+    'type' => 'varchar',
+    'label' => 'Code du point de retrait So Colissimo',
+    'visible' => true,
+    'required' => false,
+    'input' => 'text'
 ));
 
 $this->addAttribute('order', 'soco_civility', array(
-		'type'     => 'varchar',
-		'label'    => 'Civilité',
-		'visible'  => true,
-		'required' => false,
-		'input'    => 'text',
+    'type' => 'varchar',
+    'label' => 'Civilité',
+    'visible' => true,
+    'required' => false,
+    'input' => 'text'
 ));
 
 $this->addAttribute('order', 'soco_phone_number', array(
-		'type'     => 'varchar',
-		'label'    => 'Numéro de portable',
-		'visible'  => true,
-		'required' => false,
-		'input'    => 'text',
+    'type' => 'varchar',
+    'label' => 'Numéro de portable',
+    'visible' => true,
+    'required' => false,
+    'input' => 'text'
 ));
 
 $this->addAttribute('order', 'soco_email', array(
-		'type'     => 'varchar',
-		'label'    => 'E-mail du destinataire',
-		'visible'  => true,
-		'required' => false,
-		'input'    => 'text',
+    'type' => 'varchar',
+    'label' => 'E-mail du destinataire',
+    'visible' => true,
+    'required' => false,
+    'input' => 'text'
 ));
 
 $installer->endSetup();

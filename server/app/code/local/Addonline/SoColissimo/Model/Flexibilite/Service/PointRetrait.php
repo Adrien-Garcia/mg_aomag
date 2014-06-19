@@ -1,234 +1,254 @@
 <?php
+/**
+ * Addonline
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Addonline
+ * @package     Addonline_SoColissimo
+ * @copyright   Copyright (c) 2014 Addonline (http://www.addonline.fr)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 
-if (!class_exists("PointRetrait", false)) 
-{
-class PointRetrait
-{
+if (! class_exists("PointRetrait", false)) {
 
-  /**
-   * 
-   * @var boolean $accesPersonneMobiliteReduite
-   * @access public
-   */
-  public $accesPersonneMobiliteReduite;
+/**
+ * PointRetrait
+ * 
+ * @category    Addonline
+ * @package     Addonline_SoColissimo
+ * @copyright   Copyright (c) 2014 Addonline
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+    class PointRetrait
+    {
 
-  /**
-   * 
-   * @var string $adresse1
-   * @access public
-   */
-  public $adresse1;
+        /**
+         *
+         * @var boolean $accesPersonneMobiliteReduite
+         * @access public
+         */
+        public $accesPersonneMobiliteReduite;
 
-  /**
-   * 
-   * @var string $adresse2
-   * @access public
-   */
-  public $adresse2;
+        /**
+         *
+         * @var string $adresse1
+         * @access public
+         */
+        public $adresse1;
 
-  /**
-   * 
-   * @var string $adresse3
-   * @access public
-   */
-  public $adresse3;
+        /**
+         *
+         * @var string $adresse2
+         * @access public
+         */
+        public $adresse2;
 
-  /**
-   * 
-   * @var string $codePostal
-   * @access public
-   */
-  public $codePostal;
+        /**
+         *
+         * @var string $adresse3
+         * @access public
+         */
+        public $adresse3;
 
-  /**
-   * 
-   * @var boolean $congesPartiel
-   * @access public
-   */
-  public $congesPartiel;
+        /**
+         *
+         * @var string $codePostal
+         * @access public
+         */
+        public $codePostal;
 
-  /**
-   * 
-   * @var boolean $congesTotal
-   * @access public
-   */
-  public $congesTotal;
+        /**
+         *
+         * @var boolean $congesPartiel
+         * @access public
+         */
+        public $congesPartiel;
 
-  /**
-   * 
-   * @var string $coordGeolocalisationLatitude
-   * @access public
-   */
-  public $coordGeolocalisationLatitude;
+        /**
+         *
+         * @var boolean $congesTotal
+         * @access public
+         */
+        public $congesTotal;
 
-  /**
-   * 
-   * @var string $coordGeolocalisationLongitude
-   * @access public
-   */
-  public $coordGeolocalisationLongitude;
+        /**
+         *
+         * @var string $coordGeolocalisationLatitude
+         * @access public
+         */
+        public $coordGeolocalisationLatitude;
 
-  /**
-   * 
-   * @var int $distanceEnMetre
-   * @access public
-   */
-  public $distanceEnMetre;
+        /**
+         *
+         * @var string $coordGeolocalisationLongitude
+         * @access public
+         */
+        public $coordGeolocalisationLongitude;
 
-  /**
-   * 
-   * @var string $horairesOuvertureDimanche
-   * @access public
-   */
-  public $horairesOuvertureDimanche;
+        /**
+         *
+         * @var int $distanceEnMetre
+         * @access public
+         */
+        public $distanceEnMetre;
 
-  /**
-   * 
-   * @var string $horairesOuvertureJeudi
-   * @access public
-   */
-  public $horairesOuvertureJeudi;
+        /**
+         *
+         * @var string $horairesOuvertureDimanche
+         * @access public
+         */
+        public $horairesOuvertureDimanche;
 
-  /**
-   * 
-   * @var string $horairesOuvertureLundi
-   * @access public
-   */
-  public $horairesOuvertureLundi;
+        /**
+         *
+         * @var string $horairesOuvertureJeudi
+         * @access public
+         */
+        public $horairesOuvertureJeudi;
 
-  /**
-   * 
-   * @var string $horairesOuvertureMardi
-   * @access public
-   */
-  public $horairesOuvertureMardi;
+        /**
+         *
+         * @var string $horairesOuvertureLundi
+         * @access public
+         */
+        public $horairesOuvertureLundi;
 
-  /**
-   * 
-   * @var string $horairesOuvertureMercredi
-   * @access public
-   */
-  public $horairesOuvertureMercredi;
+        /**
+         *
+         * @var string $horairesOuvertureMardi
+         * @access public
+         */
+        public $horairesOuvertureMardi;
 
-  /**
-   * 
-   * @var string $horairesOuvertureSamedi
-   * @access public
-   */
-  public $horairesOuvertureSamedi;
+        /**
+         *
+         * @var string $horairesOuvertureMercredi
+         * @access public
+         */
+        public $horairesOuvertureMercredi;
 
-  /**
-   * 
-   * @var string $horairesOuvertureVendredi
-   * @access public
-   */
-  public $horairesOuvertureVendredi;
+        /**
+         *
+         * @var string $horairesOuvertureSamedi
+         * @access public
+         */
+        public $horairesOuvertureSamedi;
 
-  /**
-   * 
-   * @var string $identifiant
-   * @access public
-   */
-  public $identifiant;
+        /**
+         *
+         * @var string $horairesOuvertureVendredi
+         * @access public
+         */
+        public $horairesOuvertureVendredi;
 
-  /**
-   * 
-   * @var string $indiceDeLocalisation
-   * @access public
-   */
-  public $indiceDeLocalisation;
+        /**
+         *
+         * @var string $identifiant
+         * @access public
+         */
+        public $identifiant;
 
-  /**
-   * 
-   * @var Conges $listeConges
-   * @access public
-   */
-  public $listeConges;
+        /**
+         *
+         * @var string $indiceDeLocalisation
+         * @access public
+         */
+        public $indiceDeLocalisation;
 
-  /**
-   * 
-   * @var string $localite
-   * @access public
-   */
-  public $localite;
+        /**
+         *
+         * @var Conges $listeConges
+         * @access public
+         */
+        public $listeConges;
 
-  /**
-   * 
-   * @var string $nom
-   * @access public
-   */
-  public $nom;
+        /**
+         *
+         * @var string $localite
+         * @access public
+         */
+        public $localite;
 
-  /**
-   * 
-   * @var string $periodeActiviteHoraireDeb
-   * @access public
-   */
-  public $periodeActiviteHoraireDeb;
+        /**
+         *
+         * @var string $nom
+         * @access public
+         */
+        public $nom;
 
-  /**
-   * 
-   * @var string $periodeActiviteHoraireFin
-   * @access public
-   */
-  public $periodeActiviteHoraireFin;
+        /**
+         *
+         * @var string $periodeActiviteHoraireDeb
+         * @access public
+         */
+        public $periodeActiviteHoraireDeb;
 
-  /**
-   * 
-   * @var int $poidsMaxi
-   * @access public
-   */
-  public $poidsMaxi;
+        /**
+         *
+         * @var string $periodeActiviteHoraireFin
+         * @access public
+         */
+        public $periodeActiviteHoraireFin;
 
-  /**
-   * 
-   * @var string $typeDePoint
-   * @access public
-   */
-  public $typeDePoint;
+        /**
+         *
+         * @var int $poidsMaxi
+         * @access public
+         */
+        public $poidsMaxi;
 
-  /**
-   * 
-   * @var string $codePays
-   * @access public
-   */  
-   public $codePays;
-  /**
-   * 
-   * @var string $codePays
-   * @access public
-   */  
-   public $langue;
-   
-  /**
-   * 
-   * @var string $codePays
-   * @access public
-   */  
-   public $libellePays;
-   
-  /**
-   * 
-   * @var string $codePays
-   * @access public
-   */  
-   
-   public $loanOfHandlingTool;
-   
-  /**
-   * 
-   * @var string $codePays
-   * @access public
-   */  
-   
-   public $parking;
-  
-  /**
-   * 
-   * @var string $codePays
-   * @access public
-   */  
-   public $reseau;
-}
+        /**
+         *
+         * @var string $typeDePoint
+         * @access public
+         */
+        public $typeDePoint;
 
+        /**
+         *
+         * @var string $codePays
+         * @access public
+         */
+        public $codePays;
+
+        /**
+         *
+         * @var string $codePays
+         * @access public
+         */
+        public $langue;
+
+        /**
+         *
+         * @var string $codePays
+         * @access public
+         */
+        public $libellePays;
+
+        /**
+         *
+         * @var string $codePays
+         * @access public
+         */
+        public $loanOfHandlingTool;
+
+        /**
+         *
+         * @var string $codePays
+         * @access public
+         */
+        public $parking;
+
+        /**
+         *
+         * @var string $codePays
+         * @access public
+         */
+        public $reseau;
+    }
 }

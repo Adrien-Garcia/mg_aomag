@@ -1,25 +1,18 @@
 <?xml version="1.0"?>
-<!-- 
-/**
- * Addonline_SoColissimo
- * 
- * @category    Addonline
- * @package     Addonline_SoColissimo
- * @copyright   Copyright (c) 2011 Addonline
- * @author 	    Addonline (http://www.addonline.fr)
- */
--->
+<!-- /** * Addonline_SoColissimo * * @category Addonline * @package Addonline_SoColissimo 
+	* @copyright Copyright (c) 2011 Addonline * @author Addonline (http://www.addonline.fr) 
+	*/ -->
 <config>
 	<tabs>
-        <addonline translate="label">
-            <label>Addonline config</label>
-            <sort_order>201</sort_order>
-        </addonline>
-    </tabs>
+		<addonline translate="label">
+			<label>Addonline config</label>
+			<sort_order>201</sort_order>
+		</addonline>
+	</tabs>
 	<sections>
 		<carriers>
 			<groups>
-				<socolissimo translate="label"  module="socolissimo">
+				<socolissimo translate="label" module="socolissimo">
 					<label>So Colissimo</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>18</sort_order>
@@ -27,14 +20,14 @@
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
 					<fields>
-					    <informations translate="label">
-                            <label>Informations</label>
-                            <frontend_model>socolissimo/adminhtml_system_config_form_field_informations</frontend_model>
-                            <sort_order>0</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </informations> 
+						<informations translate="label">
+							<label>Informations</label>
+							<frontend_model>socolissimo/adminhtml_system_config_form_field_informations</frontend_model>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</informations>
 						<active translate="label">
 							<label>Enabled</label>
 							<frontend_type>select</frontend_type>
@@ -60,7 +53,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</contrat>						
+						</contrat>
 						<domicile_signature translate="label">
 							<label>Livrasion à domicile</label>
 							<frontend_type>select</frontend_type>
@@ -69,7 +62,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</domicile_signature>		
+						</domicile_signature>
 						<international translate="label">
 							<label>Option international</label>
 							<frontend_type>select</frontend_type>
@@ -78,7 +71,8 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<comment>{Permet de filtrer ou non les points situés à l’étranger}</comment>
+							<comment>{Permet de filtrer ou non les points situés à
+								l’étranger}</comment>
 						</international>
 						<config translate="label">
 							<label>Configuration</label>
@@ -127,7 +121,8 @@
 						</stop_to_first_match>
 						<shipping_period translate="label comment">
 							<label>Shipping period</label>
-							<comment>Délai pour calculer les relais ouverts à la date de livraison = date du jour + délai</comment>
+							<comment>Délai pour calculer les relais ouverts à la date de
+								livraison = date du jour + délai</comment>
 							<frontend_type>text</frontend_type>
 							<sort_order>11</sort_order>
 							<show_in_default>1</show_in_default>
@@ -141,18 +136,24 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends><contrat>flexibilite</contrat></depends>
-						</id_socolissimo_flexibilite>						
-						<password_socolissimo_flexibilite translate="label">
+							<depends>
+								<contrat>flexibilite</contrat>
+							</depends>
+						</id_socolissimo_flexibilite>
+						<password_socolissimo_flexibilite
+							translate="label">
 							<label>Password Socolissmo</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>13</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends><contrat>flexibilite</contrat></depends>
+							<depends>
+								<contrat>flexibilite</contrat>
+							</depends>
 						</password_socolissimo_flexibilite>
-						<testws_socolissimo_flexibilite translate="label">
+						<testws_socolissimo_flexibilite
+							translate="label">
 							<label>Webservice Socolissmo de test</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
@@ -160,9 +161,11 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends><contrat>flexibilite</contrat></depends>
+							<depends>
+								<contrat>flexibilite</contrat>
+							</depends>
 							<comment>Laisser "Non" (développeurs uniquement)</comment>
-						</testws_socolissimo_flexibilite>	
+						</testws_socolissimo_flexibilite>
 						<rep_fichier_liberte translate="label">
 							<label>Répértoire des fichiers SoColissimo</label>
 							<frontend_type>text</frontend_type>
@@ -171,9 +174,12 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>0</show_in_website>
 							<show_in_store>0</show_in_store>
-							<depends><contrat>liberte</contrat></depends>
-							<comment>Répertoire (chemin absolu) où sont uploadés les fichiers SoColissimo Liberté</comment>
-						</rep_fichier_liberte>						
+							<depends>
+								<contrat>liberte</contrat>
+							</depends>
+							<comment>Répertoire (chemin absolu) où sont uploadés les fichiers
+								SoColissimo Liberté</comment>
+						</rep_fichier_liberte>
 						<sort_order translate="label">
 							<label>Sort Order</label>
 							<frontend_type>text</frontend_type>
@@ -185,8 +191,8 @@
 					</fields>
 				</socolissimo>
 			</groups>
-		</carriers>		        
-        <socolissimo translate="label" module="socolissimo">
+		</carriers>
+		<socolissimo translate="label" module="socolissimo">
 			<label>socolissimo</label>
 			<tab>addonline</tab>
 			<frontend_type>text</frontend_type>
@@ -194,27 +200,29 @@
 			<show_in_default>1</show_in_default>
 			<show_in_website>1</show_in_website>
 			<show_in_store>1</show_in_store>
-          	<groups>
-                <licence translate="label" module="socolissimo">
-                    <label>Licence</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>1</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>     		
-					<fields>	
+			<groups>
+				<licence translate="label" module="socolissimo">
+					<label>Licence</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
 						<serial translate="label" module="socolissimo">
 							<label>Serial</label>
 							<frontend_type>text</frontend_type>
-							<comment>Set here the serial number given by addonline, for multi-store : let DISABLED on default configuration, and set each serial on each corresponding store configuration scope</comment>
+							<comment>Set here the serial number given by addonline, for
+								multi-store : let DISABLED on default configuration, and set
+								each serial on each corresponding store configuration scope</comment>
 							<sort_order>1</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</serial>	
-					</fields>						
-				</licence>				                
+						</serial>
+					</fields>
+				</licence>
 			</groups>
-		</socolissimo>         
-    </sections>		
+		</socolissimo>
+	</sections>
 </config>
