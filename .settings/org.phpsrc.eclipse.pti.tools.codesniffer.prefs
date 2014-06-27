@@ -1,11 +1,11 @@
-active_standards=AO;PSR2
-custom_standard_names=PSR2;PSR1;AO
-custom_standard_paths=C\:\\Users\\spras\\workspace_php\\aoqualite\\PHP_CodeSniffer\\Standards\\PSR2;C\:\\Users\\spras\\workspace_php\\aoqualite\\PHP_CodeSniffer\\Standards\\PSR1;C\:\\Users\\spras\\workspace_php\\aoqualite\\PHP_CodeSniffer\\Standards\\AO
+active_standards=PSR2
+custom_standard_names=PSR2;AO;Worpress
+custom_standard_paths=${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\PSR2;${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\AO;${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\Wordpress
 debug_print_output=true
 default_tab_width=0
 eclipse.preferences.version=1
 file_extension=
 ignore_pattern=
 pear_library=<Internal>
-php_executable=PHP 5.3 Zend Server
+php_executable=PHP5.3
 pref_ignore_sniffs=
