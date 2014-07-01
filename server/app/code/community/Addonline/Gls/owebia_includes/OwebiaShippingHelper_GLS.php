@@ -397,7 +397,7 @@ class OwebiaShippingHelper_GLS
 		$conditions = $this->getRowProperty($row, 'conditions');
 		//ADDONLINE : on exclu la livraison GLS si un article dépasse le point max XL (30kg)
 		$code = $row['*id'];
-		$conditionGLS = '({count items where item.weight > '.Mage::getStoreConfig('carriers/gls/maxxlrelayweight').'} == 0)';
+		$conditionGLS = '({count items where product.weight > '.Mage::getStoreConfig('carriers/gls/maxxlrelayweight').'} == 0)';
 		if (isset($conditions)) {
 			$conditions .= ' && '.$conditionGLS;
 		} else {
