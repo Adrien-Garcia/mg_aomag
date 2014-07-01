@@ -1,6 +1,6 @@
-active_standards=PSR2
-custom_standard_names=PSR2;AO;Worpress
-custom_standard_paths=${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\PSR2;${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\AO;${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\Wordpress
+active_standards=AO;Zend
+custom_standard_names=AO;Worpress
+custom_standard_paths=${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\AO;${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\Wordpress
 debug_print_output=true
 default_tab_width=0
 eclipse.preferences.version=1
