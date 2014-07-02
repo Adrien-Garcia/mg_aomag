@@ -126,21 +126,20 @@ class Addonline_SoColissimo_Model_Flexibilite_Service
             
             $result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
             
-            // Mage::log('Request '.$pointRetraitServiceWSService->__getLastRequest());
-            // Mage::log('Response '.$pointRetraitServiceWSService->__getLastResponse());
-            // Mage::log($result);
-            
             if ($result->return->errorCode != 0) {
                 Mage::log($result->return);
             }
             return $result->return;
         } catch (SoapFault $fault) {
-            Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders());
-            Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest());
-            Mage::log('ResponseHeaders ' . $pointRetraitServiceWSService->__getLastResponseHeaders());
-            Mage::log('Response ' . $pointRetraitServiceWSService->__getLastResponse());
-            Mage::log($fault);
-            return false;
+            Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders(), null, 'socolissimo.log');
+            Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest(), null, 'socolissimo.log');
+            Mage::log('ResponseHeaders ' . $pointRetraitServiceWSService->__getLastResponseHeaders(), null, 'socolissimo.log');
+            Mage::log('Response ' . $pointRetraitServiceWSService->__getLastResponse(), null, 'socolissimo.log');
+            Mage::log($fault, null, 'socolissimo.log');
+            $result = new Varien_Object();
+            $result->errorCode= 500;
+            $result->errorMessage='Erreur WebService : '.$fault->faultcode.' '.$fault->faultstring;
+            return $result;
         }
     }
 
@@ -180,12 +179,15 @@ class Addonline_SoColissimo_Model_Flexibilite_Service
                 return $result->return->errorMessage;
             }
         } catch (SoapFault $fault) {
-            Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders());
-            Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest());
-            Mage::log('ResponseHeaders ' . $pointRetraitServiceWSService->__getLastResponseHeaders());
-            Mage::log('Response ' . $pointRetraitServiceWSService->__getLastResponse());
-            Mage::log($fault);
-            return false;
+            Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders(), null, 'socolissimo.log');
+            Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest(), null, 'socolissimo.log');
+            Mage::log('ResponseHeaders ' . $pointRetraitServiceWSService->__getLastResponseHeaders(), null, 'socolissimo.log');
+            Mage::log('Response ' . $pointRetraitServiceWSService->__getLastResponse(), null, 'socolissimo.log');
+            Mage::log($fault, null, 'socolissimo.log');
+            $result = new Varien_Object();
+            $result->errorCode= 500;
+            $result->errorMessage='Erreur WebService : '.$fault->faultcode.' '.$fault->faultstring;
+            return $result;
         }
     }
 
