@@ -82,6 +82,6 @@ class Addonline_SoColissimo_Model_Mysql4_Liberte_Relais_Collection extends Mage_
         $this->getSelect()
             ->order('distance')
             ->limit(10);
-        // Mage::log($this->getSelect()->__toString());
+        // Mage::log($this->getSelect()->__toString(), null, 'socolissimo.log');
     }
 }

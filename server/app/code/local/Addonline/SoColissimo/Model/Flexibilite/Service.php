@@ -103,11 +103,11 @@ class Addonline_SoColissimo_Model_Flexibilite_Service
         if (file_exists(dirname(__FILE__) . '/Addonline_SoColissimo_Model_Flexibilite_Service_findRDVPointRetraitAcheminement.php'))
             include_once 'Addonline_SoColissimo_Model_Flexibilite_Service_findRDVPointRetraitAcheminement.php';
         
-        $pointRetraitServiceWSService = new PointRetraitServiceWSService(array(
-            'trace' => TRUE
-        ), $this->getUrlWsdl());
-        
         try {
+            $pointRetraitServiceWSService = new PointRetraitServiceWSService(array(
+                'trace' => TRUE
+            ), $this->getUrlWsdl());
+        
             $findRDVPointRetraitAcheminement = new findRDVPointRetraitAcheminement();
             $findRDVPointRetraitAcheminement->accountNumber = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite');
             $findRDVPointRetraitAcheminement->password = Mage::getStoreConfig('carriers/socolissimo/password_socolissimo_flexibilite');
@@ -127,14 +127,16 @@ class Addonline_SoColissimo_Model_Flexibilite_Service
             $result = $pointRetraitServiceWSService->findRDVPointRetraitAcheminement($findRDVPointRetraitAcheminement);
             
             if ($result->return->errorCode != 0) {
-                Mage::log($result->return);
+                Mage::log($result->return, null, 'socolissimo.log');
             }
             return $result->return;
         } catch (SoapFault $fault) {
-            Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders(), null, 'socolissimo.log');
-            Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest(), null, 'socolissimo.log');
-            Mage::log('ResponseHeaders ' . $pointRetraitServiceWSService->__getLastResponseHeaders(), null, 'socolissimo.log');
-            Mage::log('Response ' . $pointRetraitServiceWSService->__getLastResponse(), null, 'socolissimo.log');
+            if (isset($pointRetraitServiceWSService)) {
+                Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders(), null, 'socolissimo.log');
+                Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest(), null, 'socolissimo.log');
+                Mage::log('ResponseHeaders ' . $pointRetraitServiceWSService->__getLastResponseHeaders(), null, 'socolissimo.log');
+                Mage::log('Response ' . $pointRetraitServiceWSService->__getLastResponse(), null, 'socolissimo.log');
+            }
             Mage::log($fault, null, 'socolissimo.log');
             $result = new Varien_Object();
             $result->errorCode= 500;
@@ -153,11 +155,12 @@ class Addonline_SoColissimo_Model_Flexibilite_Service
     {
         require_once dirname(__FILE__) . '/Service/PointRetraitServiceWSService.php';
         
-        $pointRetraitServiceWSService = new PointRetraitServiceWSService(array(
-            'trace' => TRUE
-        ), $this->getUrlWsdl());
-        
         try {
+            $pointRetraitServiceWSService = new PointRetraitServiceWSService(array(
+                'trace' => TRUE
+            ), $this->getUrlWsdl());
+        
+        
             $findPointRetraitAcheminementByID = new findPointRetraitAcheminementByID();
             $findPointRetraitAcheminementByID->accountNumber = Mage::getStoreConfig('carriers/socolissimo/id_socolissimo_flexibilite');
             $findPointRetraitAcheminementByID->password = Mage::getStoreConfig('carriers/socolissimo/password_socolissimo_flexibilite');
@@ -171,7 +174,7 @@ class Addonline_SoColissimo_Model_Flexibilite_Service
             $result = $pointRetraitServiceWSService->findPointRetraitAcheminementByID($findPointRetraitAcheminementByID);
             
             if ($result->return->errorCode == 0) {
-                // Mage::log($result->return->pointRetraitAcheminement);
+                // Mage::log($result->return->pointRetraitAcheminement, null, 'socolissimo.log');
                 $relais = Mage::getModel('socolissimo/flexibilite_relais');
                 $relais->setPointRetraitAcheminement($result->return->pointRetraitAcheminement);
                 return $relais;
@@ -179,10 +182,12 @@ class Addonline_SoColissimo_Model_Flexibilite_Service
                 return $result->return->errorMessage;
             }
         } catch (SoapFault $fault) {
-            Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders(), null, 'socolissimo.log');
-            Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest(), null, 'socolissimo.log');
-            Mage::log('ResponseHeaders ' . $pointRetraitServiceWSService->__getLastResponseHeaders(), null, 'socolissimo.log');
-            Mage::log('Response ' . $pointRetraitServiceWSService->__getLastResponse(), null, 'socolissimo.log');
+            if (isset($pointRetraitServiceWSService)) {
+                Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders(), null, 'socolissimo.log');
+                Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest(), null, 'socolissimo.log');
+                Mage::log('ResponseHeaders ' . $pointRetraitServiceWSService->__getLastResponseHeaders(), null, 'socolissimo.log');
+                Mage::log('Response ' . $pointRetraitServiceWSService->__getLastResponse(), null, 'socolissimo.log');
+            }
             Mage::log($fault, null, 'socolissimo.log');
             $result = new Varien_Object();
             $result->errorCode= 500;

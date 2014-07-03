@@ -46,37 +46,47 @@ class Addonline_Gls_Model_Service
         else
             require_once dirname(__FILE__) . DS . 'Addonline_Gls_Model_Webservice_PointsRelaisWSService.php';
         
-        $pointsRelaisWSService = new PointsRelaisWSService(array(
-            'trace' => TRUE
-        ), $this->getUrlWsdl());
-        // $aParameters = array('UserName' =>$login,'Password' =>$mdp,'ZipCode' => $zipcode,'Country' => $country);
-        
-        $aParameters = array(
-            'Credentials' => array(
-                'UserName' => $login,
-                'Password' => $mdp
-            ),
-            'Address' => array(
-                'Name1' => '',
-                'Name2' => '',
-                'Name3' => '',
-                'Street1' => '',
-                'BlockNo1' => '',
-                'Street2' => '',
-                'BlockNo2' => '',
-                'ZipCode' => $zipcode,
-                'City' => '',
-                'Province' => '',
-                'Country' => $country
-            )
-        );
-        
         try {
+            $pointsRelaisWSService = new PointsRelaisWSService(array(
+                'trace' => TRUE
+            ), $this->getUrlWsdl());
+            // $aParameters = array('UserName' =>$login,'Password' =>$mdp,'ZipCode' => $zipcode,'Country' => $country);
+            
+            $aParameters = array(
+                'Credentials' => array(
+                    'UserName' => $login,
+                    'Password' => $mdp
+                ),
+                'Address' => array(
+                    'Name1' => '',
+                    'Name2' => '',
+                    'Name3' => '',
+                    'Street1' => '',
+                    'BlockNo1' => '',
+                    'Street2' => '',
+                    'BlockNo2' => '',
+                    'ZipCode' => $zipcode,
+                    'City' => '',
+                    'Province' => '',
+                    'Country' => $country
+                )
+            );
+        
             $result = $pointsRelaisWSService->findRelayPoints($aParameters);
             return $result;
         } catch (SoapFault $fault) {
-            var_dump($fault);
-            return false;
+            if (isset($pointRetraitServiceWSService)) {
+                Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders(), null, 'gls.log');
+                Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest(), null, 'gls.log');
+                Mage::log('ResponseHeaders ' . $pointRetraitServiceWSService->__getLastResponseHeaders(), null, 'gls.log');
+                Mage::log('Response ' . $pointRetraitServiceWSService->__getLastResponse(), null, 'gls.log');
+            }
+            Mage::log($fault, null, 'gls.log');
+            $result = new Varien_Object();
+            $result->exitCode = new Varien_Object();
+            $result->exitCode->ErrorCode = 500;
+            $result->exitCode->ErrorDscr ='Erreur WebService : '.$fault->faultcode.' '.$fault->faultstring;
+            return $result;
         }
     }
 }

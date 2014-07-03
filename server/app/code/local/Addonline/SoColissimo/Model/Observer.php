@@ -374,7 +374,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
                 }
             }
         } catch (Exception $e) {
-            Mage::Log('Failed to save so-colissimo data : ' . print_r($shippingData, true));
+            Mage::Log('Failed to save so-colissimo data : ' . print_r($shippingData, true), null, 'socolissimo.log');
         }
     }
 

@@ -54,47 +54,55 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
         $country = $this->getRequest()->getParam('country', false);
         
         $listrelais = Mage::getSingleton('gls/service')->getRelayPointsForZipCode($zipcode, $country);
-        if (! isset($listrelais->SearchResults)) {
-            echo $this->__('Your parameters for GSL Webservice might be wrong, or the webservice is down');
-            Mage::log($listrelais, null, 'gls.log');
+
+        if (!isset($listrelais->exitCode->ErrorCode)) {
+            echo $this->__('Error call GLS webservice, it might be down, see var/log/gls.log');
         } else {
-            
-            $productMaxWeight = 0;
-            $items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
-            foreach ($items as $item) {
-                $productMaxWeight = (($productMaxWeight > $item->getWeight()) ? $productMaxWeight : $item->getWeight());
-            }
-            
-            $onlyxlrelay = Mage::getStoreConfig('carriers/gls/onlyxlrelay') || ($productMaxWeight > Mage::getStoreConfig('carriers/gls/maxrelayweight'));
-            foreach ($listrelais->SearchResults as $key => $pointRelais) {
-                
-                if ($onlyxlrelay && substr($pointRelais->Parcelshop->Address->Name1, strlen($pointRelais->Parcelshop->Address->Name1) - 2, strlen($pointRelais->Parcelshop->Address->Name1)) != 'XL') {
-                    continue;
+            if ($listrelais->exitCode->ErrorCode == 0) {
+                $productMaxWeight = 0;
+                $items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+                foreach ($items as $item) {
+                    $productMaxWeight = (($productMaxWeight > $item->getWeight()) ? $productMaxWeight : $item->getWeight());
                 }
-                $aRelay = array();
-                $aRelay['relayId'] = $pointRelais->Parcelshop->ParcelShopId;
-                $aRelay['relayName'] = $pointRelais->Parcelshop->Address->Name1 . ' ' . $pointRelais->Parcelshop->Address->Name2 . ' ' . $pointRelais->Parcelshop->Address->Name3;
-                $aRelay['relayAddress'] = $pointRelais->Parcelshop->Address->Street1 . ' ' . $pointRelais->Parcelshop->Address->BlockNo1 . ' ' . $pointRelais->Parcelshop->Address->Street2 . ' ' . $pointRelais->Parcelshop->Address->BlockNo2;
-                $aRelay['relayZipCode'] = $pointRelais->Parcelshop->Address->ZipCode;
-                $aRelay['relayCity'] = $pointRelais->Parcelshop->Address->City;
-                $aRelay['relayCountry'] = $pointRelais->Parcelshop->Address->Country;
-                $aRelay['relayLatitude'] = $pointRelais->Parcelshop->GLSCoordinates->Latitude;
-                $aRelay['relayLongitude'] = $pointRelais->Parcelshop->GLSCoordinates->Longitude;
                 
-                $relayWorkingDays = array();
-                for ($i = 0; $i < 7; $i ++) {
-                    if (isset($pointRelais->Parcelshop->GLSWorkingDay[$i])) {
-                        $relayWorkingDays[$i]['hours']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
-                        $relayWorkingDays[$i]['hours']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->To;
-                        $relayWorkingDays[$i]['breaks']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->From;
-                        $relayWorkingDays[$i]['breaks']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->To;
+                $onlyxlrelay = Mage::getStoreConfig('carriers/gls/onlyxlrelay') || ($productMaxWeight > Mage::getStoreConfig('carriers/gls/maxrelayweight'));
+                foreach ($listrelais->SearchResults as $key => $pointRelais) {
+                    
+                    if ($onlyxlrelay && substr($pointRelais->Parcelshop->Address->Name1, strlen($pointRelais->Parcelshop->Address->Name1) - 2, strlen($pointRelais->Parcelshop->Address->Name1)) != 'XL') {
+                        continue;
                     }
+                    $aRelay = array();
+                    $aRelay['relayId'] = $pointRelais->Parcelshop->ParcelShopId;
+                    $aRelay['relayName'] = $pointRelais->Parcelshop->Address->Name1 . ' ' . $pointRelais->Parcelshop->Address->Name2 . ' ' . $pointRelais->Parcelshop->Address->Name3;
+                    $aRelay['relayAddress'] = $pointRelais->Parcelshop->Address->Street1 . ' ' . $pointRelais->Parcelshop->Address->BlockNo1 . ' ' . $pointRelais->Parcelshop->Address->Street2 . ' ' . $pointRelais->Parcelshop->Address->BlockNo2;
+                    $aRelay['relayZipCode'] = $pointRelais->Parcelshop->Address->ZipCode;
+                    $aRelay['relayCity'] = $pointRelais->Parcelshop->Address->City;
+                    $aRelay['relayCountry'] = $pointRelais->Parcelshop->Address->Country;
+                    $aRelay['relayLatitude'] = $pointRelais->Parcelshop->GLSCoordinates->Latitude;
+                    $aRelay['relayLongitude'] = $pointRelais->Parcelshop->GLSCoordinates->Longitude;
+                    
+                    $relayWorkingDays = array();
+                    for ($i = 0; $i < 7; $i ++) {
+                        if (isset($pointRelais->Parcelshop->GLSWorkingDay[$i])) {
+                            $relayWorkingDays[$i]['hours']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
+                            $relayWorkingDays[$i]['hours']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->To;
+                            $relayWorkingDays[$i]['breaks']['from'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->From;
+                            $relayWorkingDays[$i]['breaks']['to'] = $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->To;
+                        }
+                    }
+                    $aRelay['relayWorkingDays'] = $relayWorkingDays;
+                    $aPointsRelais[$pointRelais->Parcelshop->ParcelShopId] = $aRelay;
                 }
-                $aRelay['relayWorkingDays'] = $relayWorkingDays;
-                $aPointsRelais[$pointRelais->Parcelshop->ParcelShopId] = $aRelay;
-            }
-        }
-        
+            } elseif ($listrelais->exitCode->ErrorCode == 502) {
+                echo  $this->__('Authentification error GLS webservice, login or password might be wrong');
+            } elseif ($listrelais->exitCode->ErrorCode == 998) {
+                //Aucune donnée ne correspond à la recherche. La requête est formulée correctement mais aucun 
+                //résultat dans la base de données points relais GLS.
+                echo  $this->__('Aucun relais ne correspond à votre recherche');
+            } else {
+                echo $listrelais->exitCode->ErrorDscr;
+            } 
+        }       
         // Creation du block
         $this->loadLayout();
         $block = $this->getLayout()->createBlock('Addonline_Gls_Block_Listrelay', 'root', array(

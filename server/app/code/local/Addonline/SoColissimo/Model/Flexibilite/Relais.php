@@ -95,7 +95,7 @@ class Addonline_SoColissimo_Model_Flexibilite_Relais extends Addonline_SoColissi
      */
     public function toJson(array $arrAttributes = array())
     {
-        Mage::log('relais toJson');
+        //Mage::log('relais toJson', null, 'socolissimo.log');
         return $this->getData();
     }
 }

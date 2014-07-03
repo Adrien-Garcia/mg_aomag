@@ -471,7 +471,7 @@ class OwebiaShippingHelper_GLS
 		if (isset($row[$key]['value'])) {
 			$property = $row[$key]['value'];
 			if ($key == 'label' || $key == 'description' ) {
-			Mage::log('getRowProperty '.$property);
+			    //Mage::log('getRowProperty '.$property, null, 'gls.log');
 				$property = Mage::helper('gls')->__($property);
 			}
 			$output = $property;

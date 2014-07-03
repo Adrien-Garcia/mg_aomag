@@ -25,7 +25,7 @@
 class Addonline_SoColissimo_Model_Liberte_Batch
 {
 
-    const LOG_FILE = 'import_socolissimo_liberte.log';
+    const LOG_FILE = 'socolissimo_import_liberte.log';
 
     /**
      * @var array

@@ -108,7 +108,7 @@ class Addonline_Gls_Model_Observer extends Varien_Object
                     ->save();
             }
         } catch (Exception $e) {
-            Mage::Log('Failed to save GLS data : ' . print_r($shippingData, true));
+            Mage::Log('Failed to save GLS data : ' . print_r($shippingData, true), null, 'gls.log');
         }
     }
 }
