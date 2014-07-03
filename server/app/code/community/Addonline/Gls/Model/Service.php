@@ -75,6 +75,12 @@ class Addonline_Gls_Model_Service
             $result = $pointsRelaisWSService->findRelayPoints($aParameters);
             return $result;
         } catch (SoapFault $fault) {
+            /* On va flusher le cache wsdl, car parfois une mise à jour du WS peut nécéssiter un flush de ce cache */
+            foreach (glob(sys_get_temp_dir() . DS . 'wsdl*') as $filename) {
+                if( strpos(file_get_contents($filename),$this->getUrlWsdl()) !== false) {
+                    unlink($filename);
+                }
+            }
             if (isset($pointRetraitServiceWSService)) {
                 Mage::log('RequestHeaders ' . $pointRetraitServiceWSService->__getLastRequestHeaders(), null, 'gls.log');
                 Mage::log('Request ' . $pointRetraitServiceWSService->__getLastRequest(), null, 'gls.log');
