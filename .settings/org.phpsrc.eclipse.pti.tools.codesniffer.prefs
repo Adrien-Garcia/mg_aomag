@@ -1,6 +1,6 @@
 active_standards=AO;Zend
-custom_standard_names=AO;Worpress
-custom_standard_paths=${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\AO;${workspace_loc}\\aoqualite\\PHP_CodeSniffer\\Standards\\Wordpress
+custom_standard_names=
+custom_standard_paths=
 debug_print_output=true
 default_tab_width=0
 eclipse.preferences.version=1
