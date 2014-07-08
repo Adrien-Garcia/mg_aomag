@@ -209,7 +209,8 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
             $socoShippingData['CEDOORCODE2'] = '';
             $socoShippingData['CEENTRYPHONE'] = '';
             $socoShippingData['CECIVILITY'] = '';
-            $socoShippingData['CEEMAIL'] = $quote->getCustomer()->getData('email');
+            //$socoShippingData['CEEMAIL'] = $quote->getCustomer()->getData('email');
+            $socoShippingData['CEEMAIL'] = $quote->getCustomerEmail();
             
             if ($telephone) {
                 $arrayAddressData['telephone'] = $telephone;
