@@ -145,4 +145,12 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
             Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data', $_GET);
         }
     }
+    
+    /**
+     * Vide les informations GLS en session
+     */
+    public function clearSessionRelayInformationsAction ()
+    {        
+        Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data', null);        
+    }
 }

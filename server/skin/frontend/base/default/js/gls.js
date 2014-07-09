@@ -55,9 +55,17 @@ jQuery(function($) {
 	jQuery('.onestepcheckout-index-index .address-select').on("change", function() {
 		if(jQuery('#gls-location').size() <= 0 ){	
 			$("#attentionGLS").remove();
-			$("label[for=\"billing-address-select\"]").parent().before('<p id="attentionGLS" style="font-weight:bold;color:red;text-align:justify; padding-right:5px;">Suite à la modification de votre adresse et si votre mode de livraison est GLS, veuillez séléctionner votre point de retrait en cliquant sur le mode de livraison.</p>');
-		}
+			$("label[for=\"billing-address-select\"]").parent().before('<p id="attentionGLS" style="font-weight:bold;color:red;text-align:justify; padding-right:5px;">Suite à la modification de votre adresse et si votre mode de livraison est GLS, veuillez séléctionner votre point de retrait en cliquant sur le mode de livraison.</p>');			
+		}				
 	}); 	
+	
+	jQuery('select[name="shipping_address_id"]').on("change",function(){
+		unsetGLSShippingMethod();
+	});	
+	
+	jQuery('input[name="billing[use_for_shipping]"]').on("change",function(){		
+		unsetGLSShippingMethod();
+	});
 	
 	/**
 	 * Sur l'événement change des radios boutons de choix de mode de livraison
@@ -176,7 +184,19 @@ function shippingGLSRadioCheck(element) {
 function resetGLSShippingMethod() {
 	if (jQuery('#gls_relais_choisi').size()==0) {
 		jQuery("input[name='shipping_method']:checked").prop("checked","");
-	}
+	}				
+}
+
+function unsetGLSShippingMethod(){
+	jQuery("input[name='shipping_method']:checked").prop("checked","");
+	glsurl = glsBaseUrl + "clearSessionRelayInformations/";	
+	
+	jQuery.ajax({
+		url: glsurl,
+		success: function(data){
+			jQuery('#gls_relais_choisi').remove();
+		}
+	});	
 }
 
 function geocodeGLSAdresse() {
@@ -350,8 +370,7 @@ function clickHandler(markerGLS,infowindowGLS, index){
     glsOpenedInfowindow=infowindowGLS;
     
     // Mise en évidence du relais dans la liste
-	jQuery("#layer_gls .gls_point_relay").removeClass("current").eq(index).addClass("current");
-	console.log(jQuery(".gls_point_relay").eq(index).position().top);
+	jQuery("#layer_gls .gls_point_relay").removeClass("current").eq(index).addClass("current");	
 	jQuery("#col_droite_gls").scrollTop(0).scrollTop(jQuery(".gls_point_relay").eq(index).position().top);
     
 }
@@ -404,9 +423,7 @@ function choisirRelaisGLS(index) {
 	    dataType: 'json', 
 		success: function(){
 			// On fait la sauvegarde de la méthode de livraison
-			shippingMethod.save();	
+			 shippingMethod.save();	
 		}
 	});		
 }
-
-
