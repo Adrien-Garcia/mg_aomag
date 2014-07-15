@@ -1217,17 +1217,17 @@ input[type="checkbox"]:checked {
 }
 
 .toolbar {
-	height: 50px;
+	/*height: 50px;*/
 	margin: 0;
 	background: #ddd;
 }
 
-.toolbar .pager,
+/*.toolbar .pager,
 .toolbar .pager .amount,
 .toolbar .pager .pages,
 .toolbar .limiter {
     float:right;
-}
+}*/
 .toolbar .amount,
 .toolbar .view-mode {
     line-height:23px;
@@ -1239,7 +1239,7 @@ input[type="checkbox"]:checked {
     top:1px;
     vertical-align:middle;
 }
-.toolbar .pager { display:none; }
+/*.toolbar .pager { display:none; }*/
 .toolbar .pager .pages strong {
     margin-right:5px;
     vertical-align:middle;
@@ -1265,11 +1265,51 @@ input[type="checkbox"]:checked {
     vertical-align:baseline;
 }
 
+.toolbar .pages {
+	height: 50px;
+	position: relative;
+	text-align: center;
+}
+
+.toolbar .pages a {
+	display: inline-block;
+	line-height: 50px;
+	padding: 0 10px;
+}
+
+.toolbar .pages a.current {
+	text-decoration: underline;
+	color: #017db5;
+}
+
+.toolbar .pages .prev-page,
+.toolbar .pages .next-page {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background: red;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0;
+	background: #017db5 url(../images/sprite_retina.png) -150px -100px;
+	background-size: 250px 300px
+}
+
+.toolbar .pages .disabled {
+	opacity: .2;
+}
+
+.toolbar .pages .next-page {
+	left: auto;
+	right: 0;
+	background-position: -150px -0px;
+}
 
 
 .toolbar .sorter {
-	max-width: 220px;
 	position: relative;
+	width: 55%;
 }
 
 .toolbar .sort-by > label {
@@ -1301,10 +1341,11 @@ input[type="checkbox"]:checked {
     position: absolute;
     top: 0;
     right: 0;
+    width: 100%;
 }
 .toolbar .sort-by select {
     opacity: 0;
-    width: 220px;
+    width: 100%;
     height: 50px;
 }
 
@@ -3019,15 +3060,15 @@ ul.disc li { padding-left:10px; background:url(../images/bkg_bulletsm.gif) no-re
 
 .more-button.loading:before {
 	background: url(../images/loader_orange.gif) no-repeat center;
-	background-size: 24px 24px;
+	background-size: 32px 32px;
 	content: '';
 	display: block;
-	height: 24px;
-	width: 24px;
-	left: 5px;
+	height: 32px;
+	width: 32px;
+	right: 10px;
 	top: 50%;
-	margin-top: -12px;
-	position: absolute; 
+	margin-top: -16px;
+	position: absolute;
 	z-index: 5000;
 }
 

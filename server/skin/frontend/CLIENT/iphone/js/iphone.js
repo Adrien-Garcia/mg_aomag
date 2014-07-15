@@ -65,7 +65,7 @@ document.observe("dom:loaded", function() {
             var that = this;
             
             this.list = list;
-            this.list.insert({ after : '<div class="more"><span id="more_button" class="more-button">More</span></div>'});
+            this.list.insert({ after : '<div class="more"><span id="more_button" class="more-button">' + Translator.translate('more') + '</span></div>'});
             this.href = href.readAttribute('href');
             this.button = $('more_button');
             this.holder = new Element('div', { 'class': 'response-holder' });
@@ -355,7 +355,7 @@ document.observe("dom:loaded", function() {
                     this.clonedSubmenuList.insert({
                         top: subcategoryHeader
                     });
-                    subcategoryHeader.insert({ after : new Element('li').update('<a href="' + sliderLink.href + '"><span>All Products</span></a>') });
+                    subcategoryHeader.insert({ after : new Element('li').update('<a href="' + sliderLink.href + '"><span>' + Translator.translate('All products') + '</span></a>') });
 
                     this.clonedSubmenuList.firstDescendant().firstDescendant().observe('click', function(e) {
                         if (last) {
