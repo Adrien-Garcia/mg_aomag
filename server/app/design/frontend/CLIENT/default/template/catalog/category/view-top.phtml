@@ -39,12 +39,19 @@
         $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></p>';
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
+    
+    $_category_h1 = "";
+    if($_category->getData('balise_h1')) {
+        $_category_h1 = $_helper->categoryAttribute($_category, $_category->getData('balise_h1'), 'balise_h1');
+    } else {
+        $_category_h1 = $_helper->categoryAttribute($_category, $_category->getName(), 'name');
+    }
 ?>
 <div class="page-title category-title">
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif; ?>
-    <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+    <h1><?php echo $_category_h1 ?></h1>
 </div>
 
 <?php //echo $this->getMessagesBlock()->getGroupedHtml() ?>
