@@ -153,6 +153,7 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
      */
     public function clearSessionRelayInformationsAction ()
     {        
-        Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data', null);        
+        Mage::getSingleton('checkout/session')->setData('gls_shipping_relay_data', null);       
+        Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->setShippingMethod(null)->save();
     }
 }
