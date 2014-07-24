@@ -97,16 +97,18 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
                     $aRelay['relayLongitude'] = $pointRelais->Parcelshop->GLSCoordinates->Longitude;
                     
                     $relayWorkingDays = array();
-                    for ($i = 0; $i < 7; $i ++) {
-                        if (isset($pointRelais->Parcelshop->GLSWorkingDay[$i])) {
-                            $relayWorkingDays[$i]['hours']['from'] = 
-                                $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
-                            $relayWorkingDays[$i]['hours']['to'] = 
-                                $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->To;
-                            $relayWorkingDays[$i]['breaks']['from'] = 
-                                $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->From;
-                            $relayWorkingDays[$i]['breaks']['to'] = 
-                                $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->To;
+                    for ($i = 0; $i < 7; $i ++) {                                                
+                        if(is_array($pointRelais->Parcelshop->GLSWorkingDay)){
+                            if (isset($pointRelais->Parcelshop->GLSWorkingDay[$i])) {
+                                $relayWorkingDays[$i]['hours']['from'] = 
+                                    $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->From;
+                                $relayWorkingDays[$i]['hours']['to'] = 
+                                    $pointRelais->Parcelshop->GLSWorkingDay[$i]->OpeningHours->Hours->To;
+                                $relayWorkingDays[$i]['breaks']['from'] = 
+                                    $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->From;
+                                $relayWorkingDays[$i]['breaks']['to'] = 
+                                    $pointRelais->Parcelshop->GLSWorkingDay[$i]->Breaks->Hours->To;
+                            }
                         }
                     }
                     $aRelay['relayWorkingDays'] = $relayWorkingDays;
