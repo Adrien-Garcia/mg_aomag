@@ -21,7 +21,19 @@
 			</aomagento>
 		</routers>
     </admin>
-
+	
+	<frontend>
+    	<translate>
+            <modules>
+                <aomagento>
+                     <files>
+                          <default>Addonline_Aomagento.csv</default>
+                     </files>
+                </aomagento>
+            </modules>
+        </translate>
+    </frontend>
+	
     <adminhtml>
 	    <acl>
 	        <resources>

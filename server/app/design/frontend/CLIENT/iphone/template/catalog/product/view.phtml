@@ -80,6 +80,12 @@
 
         </div>
         
+        <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2') ):?>
+            <div class="options-container-big">
+                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+            </div>
+        <?php endif;?>
+        
         <div class="product-add-to"><?php echo $this->getChildHtml('addto') ?></div>
         
         <div class="product-review"><?php echo $this->getReviewsSummaryHtml($_product, false, true)?></div>
@@ -96,12 +102,7 @@
             <?php endforeach;?>
 
         </div>
-
-        <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2') ):?>
-            <div class="options-container-big">
-                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-            </div>
-        <?php endif;?>
+                
     </form>
     <?php //echo $this->getChildHtml('upsell_products') ?>
     <?php echo $this->getChildHtml('productTagList') ?>
