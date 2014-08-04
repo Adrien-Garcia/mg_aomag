@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2008-13 Owebia
+ * Copyright (c) 2008-14 Owebia
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -200,6 +200,11 @@ class OwebiaShippingHelper
 		} else {
 			return Zend_Json::encode($input);
 		}
+	}
+
+	public static function escapeString($input)
+	{
+		return self::json_encode($input);
 	}
 
 	protected $_input;
@@ -479,7 +484,7 @@ class OwebiaShippingHelper
 				} else {
 					$replacement = $original;
 				}
-				$output = $this->replace('{'.$original.'}', $this->_autoescapeStrings($replacement), $output);
+				$output = $this->replace('{'.$original.'}', $this->_autoEscapeStrings($replacement), $output);
 				$output = $this->replace($original, $replacement, $output);
 				//$this->addMessage('error', $row, $key, $original.' => '.$replacement.' = '.$output);
 			}
@@ -779,10 +784,10 @@ class OwebiaShippingHelper
 
 					if ($value=='*' || $reference_value===$value) {
 						$replacement = $fee;
-						$this->debug('      compare <span class=osh-formula>'.self::esc($this->_autoescapeStrings($reference_value)).'</span> == <span class=osh-formula>'.self::esc($this->_autoescapeStrings($value)).'</span>');
+						$this->debug('      compare <span class=osh-formula>'.self::esc($this->_autoEscapeStrings($reference_value)).'</span> == <span class=osh-formula>'.self::esc($this->_autoEscapeStrings($value)).'</span>');
 						break;
 					}
-					$this->debug('      compare <span class=osh-formula>'.self::esc($this->_autoescapeStrings($reference_value)).'</span> != <span class=osh-formula>'.self::esc($this->_autoescapeStrings($value)).'</span>');
+					$this->debug('      compare <span class=osh-formula>'.self::esc($this->_autoEscapeStrings($reference_value)).'</span> != <span class=osh-formula>'.self::esc($this->_autoEscapeStrings($value)).'</span>');
 				}
 				//$replacement = self::toString($replacement);
 				if ($use_cache) $this->_setCache($original, $replacement);
@@ -840,12 +845,12 @@ class OwebiaShippingHelper
 	{
 		if (is_bool($formula)) return $formula;
 		if (!preg_match('/^(?:'
-				.'(?:'
-					.'E|int|float|array|true|false|null|and|or|in'
+				.'\b(?:'
+					.'E|e|int|float|string|boolean|object|array|true|false|null|and|or|in'
 					.'|floor|ceil|round|rand|pow|pi|sqrt|log|exp|abs|substr|strtolower|preg_match|in_array'
 					.'|max|min|range|array_match_any|array_match_all'
-				.')'
-				.'|\'[^\']*\'|[0-9,\'\.\-\(\)\*\/\?\:\+\<\>\=\&\|%!]|\s)*$/', $formula)) {
+				.')\b'
+				.'|\'[^\']*\'|\"[^\"]*\"|[0-9,\'\.\-\(\)\*\/\?\:\+\<\>\=\&\|%!]|\s)*$/', $formula)) {
 			$errors = array(
 				PREG_NO_ERROR => 'PREG_NO_ERROR',
 				PREG_INTERNAL_ERROR => 'PREG_INTERNAL_ERROR',
@@ -869,7 +874,7 @@ class OwebiaShippingHelper
 		$eval_result = null;
 		//echo $formula.'<br/>';
 		@eval('$eval_result = ('.$formula.');');
-		$this->debug('      evaluate <span class=osh-formula>'.self::esc($formula).'</span> = <span class=osh-replacement>'.self::esc($this->_autoescapeStrings($eval_result)).'</span>');
+		$this->debug('      evaluate <span class=osh-formula>'.self::esc($formula).'</span> = <span class=osh-replacement>'.self::esc($this->_autoEscapeStrings($eval_result)).'</span>');
 		return $eval_result;
 	}
 
@@ -1178,11 +1183,11 @@ class OwebiaShippingHelper
 		if (is_array($input)) {
 			$items = array();
 			foreach ($input as $v) {
-				$items[] = isset($v) && (is_string($v) || empty($v)) ? "'{$v}'" : self::toString($v);
+				$items[] = isset($v) && (is_string($v) || empty($v)) ? self::escapeString($v) : self::toString($v);
 			}
 			return 'array('.join(',', $items).')';
 		} else {
-			return isset($input) && (is_string($input)/* || empty($input)*/) ? "'{$input}'" : self::toString($input);
+			return isset($input) && (is_string($input)/* || empty($input)*/) ? self::escapeString($input) : self::toString($input);
 		}
 	}
 

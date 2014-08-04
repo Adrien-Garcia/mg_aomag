@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2008-13 Owebia
+ * Copyright (c) 2008-14 Owebia
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -32,11 +32,12 @@ class Owebia_Shipping2_Model_Os2_Data_Cart extends Owebia_Shipping2_Model_Os2_Da
 		$request = $arguments['request'];
 		$this->_options = $arguments['options'];
 
-		$quote = Mage::getModel('checkout/session')->getQuote();
+		$quote = Mage::getModel('checkout/session')->getQuote(); // Do not use Mage::getSingleton('checkout/session')->getQuote();
+		$shipping_address = $quote->getShippingAddress();
 		$this->_data = array(
 			'price-tax+discount' => (double)$quote->getData('subtotal_with_discount'), //$request->getData('package_value_with_discount'),
 			'price-tax-discount' => (double)$quote->getData('subtotal'), //$request->getData('package_value'),
-			'price+tax+discount' => (double)$quote->getData('grand_total'),
+			'price+tax+discount' => (double)$quote->getData('grand_total') - $shipping_address->getData('shipping_amount') - $shipping_address->getData('shipping_tax_amount'),
 			'price+tax-discount' => null,
 			'weight' => $request->getData('package_weight'),
 			'qty' => $request->getData('package_qty'),
