@@ -52,7 +52,13 @@
         <session_save><![CDATA[files]]></session_save>
         <cache>
             <backend>File</backend><!-- apc / memcached / empty=file -->
+            <slow_backend>File</slow_backend>
+            <prefix>aomagento_</prefix>
         </cache>
+        <remote_addr_headers>
+            <header1>HTTP_X_REAL_IP</header1>
+            <header2>HTTP_X_FORWARDED_FOR</header2>
+        </remote_addr_headers>
     </global>
     <admin>
         <routers>
