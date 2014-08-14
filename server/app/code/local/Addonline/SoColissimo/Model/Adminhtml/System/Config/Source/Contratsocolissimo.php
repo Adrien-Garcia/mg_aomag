@@ -38,18 +38,43 @@ class Addonline_SoColissimo_Model_Adminhtml_System_Config_Source_Contratsocoliss
         $cfgData = Mage::getSingleton('adminhtml/config_data');
         $storeId = $cfgData->getScopeId();
         
-        if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_FLEXIBILITE)) {
+        $atLeastOneOption = false;
+        
+        if ($observer->_9cd4777ae76310fd6977a5c559c51821($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_FLEXIBILITE)) {
+            $atLeastOneOption = true;
             $options[] = array(
                 'value' => 'flexibilite',
                 'label' => Mage::helper('socolissimo')->__('Flexibilité')
             );
         }
-        if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_LIBERTE)) {
+        if ($observer->_9cd4777ae76310fd6977a5c559c51821($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_LIBERTE)) {
+            $atLeastOneOption = true;
             $options[] = array(
                 'value' => 'liberte',
                 'label' => Mage::helper('socolissimo')->__('Liberté')
             );
         }
+        
+        if ($observer->_9cd4777ae76310fd6977a5c559c51821($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_FLEXIBILITE_MULTI)) {
+            $atLeastOneOption = true;
+            $options[] = array(
+                    'value' => 'flexibilite multi sites',
+                    'label' => Mage::helper('socolissimo')->__('Flexibilité Multi Sites')
+            );
+        }
+        if ($observer->_9cd4777ae76310fd6977a5c559c51821($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_LIBERTE_MULTI)) {
+            $atLeastOneOption = true;
+            $options[] = array(
+                    'value' => 'liberte multi sites',
+                    'label' => Mage::helper('socolissimo')->__('Liberté Multi Sites')
+            );
+        }
+
+        if(!$atLeastOneOption) {
+            $observer->_addNotificationToStore($storeId);
+        } else {
+            $observer->_removeNotificationsOfStore($storeId);
+        }    
         return $options;
     }
 }
