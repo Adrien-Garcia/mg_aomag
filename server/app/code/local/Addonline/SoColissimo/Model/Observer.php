@@ -23,301 +23,101 @@
  * @copyright Copyright (c) 2014 Addonline
  * @author Addonline (http://www.addonline.fr)
  */
-class Addonline_SoColissimo_Model_Observer extends Varien_Object
+class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addonline_Licence_Model_ModuleLicenceConfig
 {
     
-    // const CONTRAT_BOTH = 0;
+
+    const INBOX_ERROR_TITLE = "Le module So Colissimo n'a pas une clé licence valide pour le magasin __storeCode__ .";
+
     const CONTRAT_FLEXIBILITE = 1;
-
+    
     const CONTRAT_LIBERTE = 2;
-
+    
     const CONTRAT_FLEXIBILITE_MULTI = 3;
-
+    
     const CONTRAT_LIBERTE_MULTI = 4;
-
+    
     const CONTRAT_FLEXIBILITE_EAN = "SoColissimoFlexibilite";
-
+    
     const CONTRAT_LIBERTE_EAN = "SoColissimoLiberte";
-
+    
     const CONTRAT_FLEXIBILITE_MULTI_EAN = "SoColissimoFlexibiliteMultisite";
-
+    
     const CONTRAT_LIBERTE_MULTI_EAN = "SoColissimoLiberteMultisite";
-
-    const INBOX_ERREUR_TITLE = "Le module So Colissimo n'a pas une clé licence valide pour le magasin __storeCode__ .";
-
+    
+    
+    
     /**
-     * retourn le titre qu'on va mettre à la notification Magento
-     * 
-     * @param unknown $storeCode            
+     * retourn la clé pour ce module permettant de faire nos savants calculs de licence
+     * @see Addonline_Licence_Model_LicenceConfig::getLicenceKeyMaster()
      */
-    public function getNotificationTitle ($storeCode)
-    {
-        return str_replace("__storeCode__", $storeCode, self::INBOX_ERREUR_TITLE);
+    public function getLicenceKeyMaster() {
+        return 'e983cfc54f88c7114e99da95f5757df6';
     }
-
-    /**
-     * retourne une url au format attendu pour faire le checksum de la clé ( = ww.abc.com )
-     * 
-     * @param unknown $url            
-     */
-    public function _prepareUrl ($url)
-    {
-        $url = strtolower($url);
-        $domainname = preg_replace("/^[\w\:\/]*\/\/?([\w\d\.\-]+).*\/*$/", "$1", $url);
-        return preg_replace("/^([\w\d\.\-]+).*\/*$/", "$1", $domainname);
-    }
-
-    /**
-     * on marque les notifications qui concerne le store $storeCode comme lu
-     * a noter qu'on trouve les notifications concernant notre store d'apres le titre de la notification
-     * 
-     * @param unknown $storeCode            
-     */
-    public function _removeNotificationsOfStore ($storeId)
-    {
-        $this->licenceLog("_removeNotificationsOfStore() pour $storeId");
-        $store = Mage::getModel('core/store')->load($storeId);
-        $_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 
-            0);
-        $title = $this->getNotificationTitle($store['code']);
+    
+    public function getLicenceInfoConfig($what, $store = null) {
         
-        foreach ($_unreadNotices as $notice) {
-            if ($notice->getData('title') == $title) {
-                $notice->setIsRead(1)->save();
-            }
-        }
-    }
-
-    /**
-     *
-     * @param unknown $toCheckStoreId            
-     */
-    public function _addNotificationToStore ($toCheckStoreId)
-    {
-        $storeErreur = Mage::getModel('core/store')->load($toCheckStoreId);
-        $storeErreurKey = trim(Mage::getStoreConfig('socolissimo/licence/serial', $storeErreur));
-        // on a pas trouvé la clé
-        if ($storeErreurKey != 'DISABLED') {
-            // le soco du store a une clé, donc y a une vrai erreur
-            $severity = Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;
-            
-            $description = "Vous devez renseigner une clé licence valide pour le module So Colissimo pour le magasin " .
-                 $storeErreur['code'] . ". Le module a été désactivé.";
-            $title = $this->getNotificationTitle($storeErreur['code']);
-            $date = date('Y-m-d H:i:s');
-            Mage::getModel('adminnotification/inbox')->parse(
-                array(
-                        array(
-                                'severity' => $severity,
-                                'date_added' => $date,
-                                'title' => $title,
-                                'description' => $description,
-                                'url' => '',
-                                'internal' => true
-                        )
-                ));
-        }
-    }
-
-    /**
-     * test pour un store (ou pas), un type de contrat
-     * donc si on a le storeid, on prend sa licence et on la test pour le $contrat
-     * si on a pas de storeid alors, on prend la licence de tous les stores et on la test pour le $contrat
-     * 
-     * @param unknown $toCheckStoreId            
-     * @param unknown $contrat            
-     * @return boolean
-     */
-    public function _9cd4777ae76310fd6977a5c559c51821 ($toCheckStoreId, $contrat)
-    {
-        if (Mage::getStoreConfig('addonline/licence/aomagento')) {
-            // return true;
-        }
-        
-        $contratPossibles = array();
-        $contratPossibles[self::CONTRAT_FLEXIBILITE] = self::CONTRAT_FLEXIBILITE_EAN;
-        $contratPossibles[self::CONTRAT_LIBERTE] = self::CONTRAT_LIBERTE_EAN;
-        $contratPossibles[self::CONTRAT_FLEXIBILITE_MULTI] = self::CONTRAT_FLEXIBILITE_MULTI_EAN;
-        $contratPossibles[self::CONTRAT_LIBERTE_MULTI] = self::CONTRAT_LIBERTE_MULTI_EAN;
-        
-        // si on a le module de licence AO alors on dit que la licence est toujours bonne
-        
-        $key = 'e983cfc54f88c7114e99da95f5757df6';
-        $store_error = null;
-        
-        // si on a a précisé le store
-        if (! is_object($toCheckStoreId)) {
-            $store = Mage::getModel('core/store')->load($toCheckStoreId);
-            $storeUrl = $this->_prepareUrl($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB));
-            $storeKey = trim(Mage::getStoreConfig('socolissimo/licence/serial', $store));
-            
-            // on ne trouve pas le ean " = le nom en francais du contrat", on met un texte bidon
-            // au niveau code c'est pas top, mais pour la relecture du code obfuscated ca complique la lecture
-            if (! isset($contratPossibles[$contrat])) {
-                $contratPossibles[$contrat] = rand(10000000000000000000, 10000000000000000000000);
-            }
-            if (md5($storeUrl . $key . $contratPossibles[$contrat]) === $storeKey) {
-                return true;
-            }
-        }         // pas de store précis, on test sur tous les stores
-        else {
-            $stores = Mage::getModel('core/store')->getCollection();
-            foreach ($stores as $store) {
-                $store = Mage::getModel('core/store')->load($toCheckStoreId);
-                $storeUrl = $this->_prepareUrl($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB));
-                $storeKey = trim(Mage::getStoreConfig('socolissimo/licence/serial', $store));
+        switch($what) {
+            case "licence/serial":
+                return trim(Mage::getStoreConfig('socolissimo/licence/serial', $store));                
+                break;
                 
-                // on ne trouve pas le ean " = le nom en francais du contrat", on met un texte bidon
-                // au niveau code c'est pas top, mais pour la relecture du code obfuscated ca complique la lecture
-                if (! isset($contratPossibles[$contrat])) {
-                    $contratPossibles[$contrat] = rand(10000000000000000000, 10000000000000000000000);
-                }
-                if (md5($storeUrl . $key . $contratPossibles[$contrat]) === $storeKey) {
-                    return true;
-                }
-            }
+            case "module/version":
+                return Mage::getConfig()->getNode('modules/Addonline_SoColissimo/version');
+            break;
+            
+            case "module/keymaster":
+                return $this->getLicenceKeyMaster();
+            break;
+                
+            case "module/name":
+                return "So Colissimo";
+            break;
+            
+            case "notification/licence/error/title":
+                return self::INBOX_ERROR_TITLE;
+            break;
+                                    
         }
-        
-        return false;
     }
-
+    
+    
     /**
-     * test le numéro de licence pour le FO pour un store précis
-     * 
-     * @param integer $toCheckStoreId            
-     * @return boolean
+     * retourne un tableau des licences de ce module sous a la forme [licence_id] = licence_txt
+     * on peut récuperer soit toutes, les mono sites ou les multi sites
+     * @see Addonline_Licence_Model_LicenceConfig::getLicenceContrats()
      */
-    public function _9cd4777ae76310fd6977a5c559c51820 ($toCheckStoreId)
-    {
-        $this->licenceLog("_9cd4777ae76310fd6977a5c559c51820() start pour le storeId " . $toCheckStoreId);
-        // si on a le module de licence AO alors on dit que la licence est toujours bonne
-        if (Mage::getStoreConfig('addonline/licence/aomagento')) {
-            // $this->licenceLog("return true licence/aomagento présent");
-            // return true;
-        }
-        
-        $key = 'e983cfc54f88c7114e99da95f5757df6';
-        $store_error = null;
-        
+    public function getLicenceContrats($which = self::GET_CONTRAT_ALL) {
+    
         $contratPossibles = array();
-        $contratPossibles[self::CONTRAT_FLEXIBILITE] = self::CONTRAT_FLEXIBILITE_EAN;
-        $contratPossibles[self::CONTRAT_LIBERTE] = self::CONTRAT_LIBERTE_EAN;
-        
-        $isKeyValide = false;
-        $isKeyMulti = null;
-        $valideStoreIds = array();
-        $keyIsForEan = "";
-        
-        // on veut tous les stores
-        $stores = Mage::getModel('core/store')->getCollection();
-        
-        $this->licenceLog("debut test pour mono site");
-        
-        // on va tester dans un premier temps les cles contrat mono site
-        // on test pour tous les types de contrats
-        foreach ($contratPossibles as $contratPossibleKey => $contratPossibleEan) {
-            // on test tous les stores
-            foreach ($stores as $store) {
-                // pour chaque store on va donc tester la licence vs clé mono site et vs clé multisite
-                $storeUrl = $this->_prepareUrl($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB));
-                $storeKey = trim(Mage::getStoreConfig('socolissimo/licence/serial', $store));
-                if ($storeKey != 'DISABLED') {
-                    if (md5($storeUrl . $key . $contratPossibleEan) === $storeKey) {
-                        $isKeyValide = true;
-                        $isKeyMulti = false;
-                        $valideStoreIds[] = $store->getStoreId();
-                        $keyIsForEan = $contratPossibleEan;
-                        $this->licenceLog(
-                            "licence valide trouvee pour le store " . $store->getStoreId() . " ( " . $store['code'] . ")");
-                    }
+    
+        switch($which) {
+            case self::GET_CONTRAT_ALL:
+            case self::GET_CONTRAT_MONO:
+                $contratPossibles[self::CONTRAT_FLEXIBILITE] = self::CONTRAT_FLEXIBILITE_EAN;
+                $contratPossibles[self::CONTRAT_LIBERTE] = self::CONTRAT_LIBERTE_EAN;
+    
+                // si on veut tous les contrats, on ne fait pas de break, on continue
+                if($which != self::GET_CONTRAT_ALL) {
+                    break;
                 }
-            }
-        }
-        
-        $this->licenceLog("fin test pour mono site");
-        
-        // pas trouvé de clé valide mono site on recherche en multi
-        if (! $isKeyValide) {
-            
-            $this->licenceLog("debut test pour multi sites");
-            
-            // on prend va tester que dans les contrats multi
-            $contratPossibles = array();
-            $contratPossibles[self::CONTRAT_FLEXIBILITE_MULTI] = self::CONTRAT_FLEXIBILITE_MULTI_EAN;
-            $contratPossibles[self::CONTRAT_LIBERTE_MULTI] = self::CONTRAT_LIBERTE_MULTI_EAN;
-            
-            foreach ($contratPossibles as $contratPossibleKey => $contratPossibleEan) {
-                // on test tous les stores
-                foreach ($stores as $store) {
-                    // pour chaque store on va donc tester la licence vs clé multi site et vs clé multisite
-                    $storeUrl = $this->_prepareUrl($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB));
-                    $storeKey = trim(Mage::getStoreConfig('socolissimo/licence/serial', $store));
-                    
-                    if ($storeKey != 'DISABLED') {
-                        if (md5($storeUrl . $key . $contratPossibleEan) === $storeKey) {
-                            $isKeyValide = true;
-                            $isKeyMulti = TRUE;
-                            $valideStoreIds[] = $store->getStoreId();
-                            $keyIsForEan = $contratPossibleEan;
-                            $this->licenceLog(
-                                "licence valide trouvee pour le store " . $store->getStoreId() . " ( " . $store['code'] .
-                                     ")");
-                        }
-                    }
+    
+            case self::GET_CONTRAT_ALL:
+            case self::GET_CONTRAT_MULTI:
+                $contratPossibles[self::CONTRAT_FLEXIBILITE_MULTI] = self::CONTRAT_FLEXIBILITE_MULTI_EAN;
+                $contratPossibles[self::CONTRAT_LIBERTE_MULTI] = self::CONTRAT_LIBERTE_MULTI_EAN;
+    
+                // si on veut tous les contrats, on ne fait pas de break, on continue (sert à rien pour l'instant, car y a rien dessous)
+                if($which != self::GET_CONTRAT_ALL) {
+                    break;
                 }
-            }
         }
-        
-        $this->licenceLog("fin test pour multi sites");
-        
-        if ($isKeyValide) {
-            $t = "licence valide pour $keyIsForEan";
-            if ($isKeyMulti) {
-                $t .= ", c'est du multisite";
-            } else {
-                $t .= ", c'est du monosite";
-            }
-        } else {
-            $t = "pas de licence";
-        }
-        $this->licenceLog($t);
-        $this->licenceLog(" on vs avec $toCheckStoreId et y a " . count($valideStoreIds) . " store valide");
-        
-        // est ce qu'on a une clé valide ?
-        if ($isKeyValide) {
-            // si on est mono site alors on vérifie que la clé valide est bien celle du site sur lequel on est
-            if (! $isKeyMulti) {
-                if (in_array($toCheckStoreId, $valideStoreIds)) {
-                    $retour = true;
-                } else {
-                    $retour = false;
-                }
-            } else {
-                $retour = true;
-            }
-        }         // on n'a pas de clé
-        else {
-            $retour = false;
-        }
-        
-        $storeErreur = Mage::getModel('core/store')->load($toCheckStoreId);
-        $storeErreurKey = trim(Mage::getStoreConfig('socolissimo/licence/serial', $storeErreur));
-        // on a pas trouvé la clé
-        if (! $retour) {
-            // le soco du store a une clé, donc y a une vrai erreur
-            if ($storeErreurKey != 'DISABLED') {
-                // on previent en mettant un msg dans le bo que la clé n'est pas bonne pour ce store
-                $this->_addNotificationToStore($toCheckStoreId);
-                return false;
-            }             // donc la clé n'a pas été trouvé mais le soco est marqué disabled, on retourne false
-            else {
-                return false;
-            }
-        }         // pas d'erreur ? on retourne true alors
-        else {
-            return true;
-        }
+    
+        return $contratPossibles;
     }
+        
+
+
 
     /**
      * Enter Description here
@@ -581,8 +381,5 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
         }
     }
 
-    private function licenceLog ($t)
-    {
-        Mage::log($t, null, 'socoLicence.log');
-    }
+
 }

@@ -31,7 +31,7 @@ class Addonline_SoColissimo_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isFlexibilite()
     {
-        if(Mage::getStoreConfig('carriers/socolissimo/contrat') == 'flexibilite' || Mage::getStoreConfig('carriers/socolissimo/contrat') == 'flexibilite multi sites') {
+        if(Mage::getStoreConfig('carriers/socolissimo/contrat') == 'flexibilite') {
             return true;
         } else {
             return false;

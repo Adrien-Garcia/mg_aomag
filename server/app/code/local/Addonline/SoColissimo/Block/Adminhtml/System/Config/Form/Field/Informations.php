@@ -40,6 +40,53 @@ class Addonline_SoColissimo_Block_Adminhtml_System_Config_Form_Field_Information
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $version = Mage::getConfig()->getNode('modules/Addonline_SoColissimo/version');
-        return 'Version: ' . $version;
+        
+        $storeId    = Mage::getSingleton('adminhtml/config_data')->getScopeId();
+
+        $moi = Mage::helper('addonline_licence');
+
+        // on veut des infos sur la licence
+        $module         = Mage::getSingleton('socolissimo/observer');
+        $licenceInfos   = $moi->_9cd4777ae76310fd6977a5c559c51820($module, $storeId, false);
+        
+        $storeKey       = $licenceInfos['keyOfStore'];
+
+        $ts = array();
+        
+        $ts[] = 'Version: ' . $version;
+        
+        $ts[] = "Clé: " . $storeKey;
+        
+        // si le client a saisi au niveau du magasin une clé invalide mais au dessus on a une clé valide alors elle va etre utilsé
+        // et donc on a une clé valide meme si celle saisi est fausse.. donc on le signale sinon ca fait bizarre
+        // de voir une clé bidon mais marquée comme valide
+        if($licenceInfos["isKeyValide"] && $storeKey != $licenceInfos['keyValideIs'] && $licenceInfos['keyValideIs'] != "") {
+            $ts[] = "Clé réellement utilisée: " .  $licenceInfos['keyValideIs'];    
+        }
+      
+        if($licenceInfos["isKeyValide"]) {
+            if($licenceInfos["isKeyMulti"]) {
+                $ts[] = 'Licence: ' . $licenceInfos["keyIsForEan"] . " (multi sites)"; 
+            } else {
+                 $ts[] = 'Licence: ' . $licenceInfos["keyIsForEan"] . " (mono site)"; 
+            }
+        
+        } else {
+             $ts[] ="Erreur: clé invalide";
+        }
+        
+        $ts[] = "Licence Checker Version: " . $moi->getVersion();
+        
+        // pas top, mais ici comme on vient de regarder la licence on met une notification si la licence n'est pas bonne
+        // ou au contraire on vire les notifications de ce store si la clé est bonne
+        if(!$licenceInfos["isKeyValide"]) {
+            $moi->_addNotificationErrorLicence($module, $storeId);
+        } else {
+            $moi->_removeNotificationsLicenceError($module, $storeId);
+        }
+                
+        return implode("<br />", $ts);
+
+
     }
 }

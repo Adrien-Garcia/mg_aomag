@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Addonline
  *
@@ -17,28 +18,28 @@
 /**
  * Addonline_SoColissimo
  *
- * @category    Addonline
- * @package     Addonline_SoColissimo
- * @copyright   Copyright (c) 2014 Addonline
- * @author 	    Addonline (http://www.addonline.fr)
+ * @category Addonline
+ * @package Addonline_SoColissimo
+ * @copyright Copyright (c) 2014 Addonline
+ * @author Addonline (http://www.addonline.fr)
  */
 class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
 {
 
-
     /**
      * adresse de livraison
      */
-    private function _getShippingAddress()
+    private function _getShippingAddress ()
     {
         return Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress();
     }
 
     /**
      * mode de livraison
+     *
      * @return string
      */
-    public function getAddressShippingMethod()
+    public function getAddressShippingMethod ()
     {
         if ($adress = $this->_getShippingAddress()) {
             return $adress->getShippingMethod();
@@ -50,7 +51,7 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
     /**
      * rue
      */
-    public function getShippingStreet()
+    public function getShippingStreet ()
     {
         return $this->_getShippingAddress()->getStreetFull();
     }
@@ -58,7 +59,7 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
     /**
      * code postal
      */
-    public function getShippingPostcode()
+    public function getShippingPostcode ()
     {
         return $this->_getShippingAddress()->getPostcode();
     }
@@ -66,7 +67,7 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
     /**
      * ville
      */
-    public function getShippingCity()
+    public function getShippingCity ()
     {
         return $this->_getShippingAddress()->getCity();
     }
@@ -74,7 +75,7 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
     /**
      * pays
      */
-    public function getShippingCountry()
+    public function getShippingCountry ()
     {
         return $this->_getShippingAddress()->getCountry();
     }
@@ -82,18 +83,20 @@ class Addonline_SoColissimo_Block_Selector extends Mage_Core_Block_Template
     /**
      * telephone
      */
-    public function getTelephone()
+    public function getTelephone ()
     {
         return $this->_getShippingAddress()->getTelephone();
     }
-
-    /* (non-PHPdoc)
-     * @see Mage_Core_Block_Template::_toHtml()
+    
+    /*
+     * (non-PHPdoc) @see Mage_Core_Block_Template::_toHtml()
      */
-    protected function _toHtml()
+    protected function _toHtml ()
     {
         $storeId = Mage::app()->getStore()->getStoreId();
-        if (Mage::getModel('socolissimo/observer')->_9cd4777ae76310fd6977a5c559c51820($storeId)) {
+        
+        if (Mage::helper('addonline_licence')->_9cd4777ae76310fd6977a5c559c51820(
+            (Mage::getModel('socolissimo/observer')), $storeId)) {
             return parent::_toHtml();
         } else {
             return "<H1>La clé de licence du module SoColissimo est invalide</H1>";
