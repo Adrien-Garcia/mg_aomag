@@ -44,7 +44,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addo
 
     /**
      * rettourne des infos sur le module
-     * 
+     *
      * @see Addonline_Licence_Model_ModuleLicenceConfig::getLicenceInfoConfig()
      */
     public function getLicenceInfoConfig ($what, $store = null)
@@ -69,7 +69,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addo
             case "notification/licence/error/title":
                 return "Le module So Colissimo n'a pas une clé licence valide pour le magasin __storeCode__ .";
                 break;
-                
+            
             default:
                 return NULL;
                 break;
@@ -79,7 +79,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addo
     /**
      * retourne un tableau des licences de ce module sous a la forme [licence_id] = licence_txt
      * on peut récuperer soit toutes, les mono sites ou les multi sites
-     * 
+     *
      * @see Addonline_Licence_Model_LicenceConfig::getLicenceContrats()
      */
     public function getLicenceContrats ($which = self::GET_CONTRAT_ALL)

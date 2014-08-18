@@ -226,6 +226,7 @@ class Addonline_Licence_Helper_Data extends Mage_Core_Helper_Abstract
      * ca permet du coup de récuperer le clé de licence, la version du module, etc....
      * on met un switch comme ca si on doit faire un traitement sur le retour pour un $what particulier on peut
      * par defaut on recupere le $what direct dans le module avec sa fonction getLicenceInfoConfig()
+     * 
      * @see Addonline_Licence_Model_ModuleLicenceConfig
      * @param unknown $module            
      * @param unknown $what            
@@ -281,8 +282,9 @@ class Addonline_Licence_Helper_Data extends Mage_Core_Helper_Abstract
         
         $title = $this->getNotificationErrorTitle($module, $store['code']);
         
-        $desc = "Vous devez renseigner une clé licence valide pour le module " . $this->_getStoreConfigOfModule($module, "module/name") . 
-             " pour le magasin " . $store['code'] . ". Le module a été désactivé.";
+        $desc = "Vous devez renseigner une clé licence valide pour le module " .
+             $this->_getStoreConfigOfModule($module, "module/name") . " pour le magasin " . $store['code'] .
+             ". Le module a été désactivé.";
         
         $this->_addNotification($title, $desc);
     }
@@ -336,7 +338,7 @@ class Addonline_Licence_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * permet de logguer dans AOLicence.log des infos
-     * 
+     *
      * @param unknown $t            
      */
     private function licenceLog ($t)
