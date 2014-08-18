@@ -25,103 +25,96 @@
  */
 class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addonline_Licence_Model_ModuleLicenceConfig
 {
-    
-
-    const INBOX_ERROR_TITLE = "Le module So Colissimo n'a pas une clé licence valide pour le magasin __storeCode__ .";
 
     const CONTRAT_FLEXIBILITE = 1;
-    
+
     const CONTRAT_LIBERTE = 2;
-    
+
     const CONTRAT_FLEXIBILITE_MULTI = 3;
-    
+
     const CONTRAT_LIBERTE_MULTI = 4;
-    
+
     const CONTRAT_FLEXIBILITE_EAN = "SoColissimoFlexibilite";
-    
+
     const CONTRAT_LIBERTE_EAN = "SoColissimoLiberte";
-    
+
     const CONTRAT_FLEXIBILITE_MULTI_EAN = "SoColissimoFlexibiliteMultisite";
-    
+
     const CONTRAT_LIBERTE_MULTI_EAN = "SoColissimoLiberteMultisite";
-    
-    
-    
+
     /**
-     * retourn la clé pour ce module permettant de faire nos savants calculs de licence
-     * @see Addonline_Licence_Model_LicenceConfig::getLicenceKeyMaster()
+     * rettourne des infos sur le module
+     * 
+     * @see Addonline_Licence_Model_ModuleLicenceConfig::getLicenceInfoConfig()
      */
-    public function getLicenceKeyMaster() {
-        return 'e983cfc54f88c7114e99da95f5757df6';
-    }
-    
-    public function getLicenceInfoConfig($what, $store = null) {
-        
-        switch($what) {
+    public function getLicenceInfoConfig ($what, $store = null)
+    {
+        switch ($what) {
             case "licence/serial":
-                return trim(Mage::getStoreConfig('socolissimo/licence/serial', $store));                
+                return trim(Mage::getStoreConfig('socolissimo/licence/serial', $store));
                 break;
-                
+            
             case "module/version":
                 return Mage::getConfig()->getNode('modules/Addonline_SoColissimo/version');
-            break;
+                break;
             
             case "module/keymaster":
-                return $this->getLicenceKeyMaster();
-            break;
-                
+                return "e983cfc54f88c7114e99da95f5757df6";
+                break;
+            
             case "module/name":
                 return "So Colissimo";
-            break;
+                break;
             
             case "notification/licence/error/title":
-                return self::INBOX_ERROR_TITLE;
-            break;
-                                    
+                return "Le module So Colissimo n'a pas une clé licence valide pour le magasin __storeCode__ .";
+                break;
+                
+            default:
+                return NULL;
+                break;
         }
     }
-    
-    
+
     /**
      * retourne un tableau des licences de ce module sous a la forme [licence_id] = licence_txt
      * on peut récuperer soit toutes, les mono sites ou les multi sites
+     * 
      * @see Addonline_Licence_Model_LicenceConfig::getLicenceContrats()
      */
-    public function getLicenceContrats($which = self::GET_CONTRAT_ALL) {
-    
+    public function getLicenceContrats ($which = self::GET_CONTRAT_ALL)
+    {
         $contratPossibles = array();
-    
-        switch($which) {
+        
+        switch ($which) {
             case self::GET_CONTRAT_ALL:
             case self::GET_CONTRAT_MONO:
                 $contratPossibles[self::CONTRAT_FLEXIBILITE] = self::CONTRAT_FLEXIBILITE_EAN;
                 $contratPossibles[self::CONTRAT_LIBERTE] = self::CONTRAT_LIBERTE_EAN;
-    
+                
                 // si on veut tous les contrats, on ne fait pas de break, on continue
-                if($which != self::GET_CONTRAT_ALL) {
+                if ($which != self::GET_CONTRAT_ALL) {
                     break;
                 }
-    
+            
             case self::GET_CONTRAT_ALL:
             case self::GET_CONTRAT_MULTI:
                 $contratPossibles[self::CONTRAT_FLEXIBILITE_MULTI] = self::CONTRAT_FLEXIBILITE_MULTI_EAN;
                 $contratPossibles[self::CONTRAT_LIBERTE_MULTI] = self::CONTRAT_LIBERTE_MULTI_EAN;
-    
-                // si on veut tous les contrats, on ne fait pas de break, on continue (sert à rien pour l'instant, car y a rien dessous)
-                if($which != self::GET_CONTRAT_ALL) {
+                
+                // si on veut tous les contrats, on ne fait pas de break, on continue (sert à rien pour l'instant, car y
+                // a rien dessous)
+                if ($which != self::GET_CONTRAT_ALL) {
                     break;
                 }
         }
-    
+        
         return $contratPossibles;
     }
-        
-
-
 
     /**
      * Enter Description here
-     * 
+     *
      * @param unknown $observer            
      * @return Addonline_SoColissimo_Model_Observer
      */
@@ -275,7 +268,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addo
 
     /**
      * Sauvegarde les donnees de la commande propre a So Colissimo
-     * 
+     *
      * @param unknown $observer            
      */
     public function addSocoAttributesToOrder ($observer)
@@ -349,7 +342,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addo
 
     /**
      * enleve les données soco de la session
-     * 
+     *
      * @param unknown $observer            
      */
     public function resetSession ($observer)
@@ -360,7 +353,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addo
 
     /**
      * renvoie le productCode SoColissimo
-     * 
+     *
      * @param unknown $type            
      * @return string|boolean
      */
@@ -380,6 +373,4 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addo
             return false;
         }
     }
-
-
 }
