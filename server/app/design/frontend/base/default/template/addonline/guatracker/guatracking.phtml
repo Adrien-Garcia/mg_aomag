@@ -16,20 +16,20 @@
         
             if($aConfig[1] == 'event'):?>            
             
-                $("<?php echo $aConfig[0]; ?>").on("click", function(e) {
+                jQuery("<?php echo $aConfig[0]; ?>").on("click", function(e) {
     
-        			var lid = $(this).attr("id");
+        			var lid = jQuery(this).attr("id");
         			
         			// on determine le label qu'on va envoyer à ga
-        			var lelabel = $(this).attr("title");
+        			var lelabel = jQuery(this).attr("title");
         			if(lelabel == undefined) {
-        				lids = $(this).attr("src").split("/");
+        				lids = jQuery(this).attr("src").split("/");
         				if (lids instanceof Array) {
         					lelabel = lids[lids.length - 1];
         				}
         			}
         			
-        			if(lelabel == undefined) { lelabel == $(this).attr("src"); }
+        			if(lelabel == undefined) { lelabel == jQuery(this).attr("src"); }
     
         			ga('send', '<?php echo $aConfig[1]; ?>', '<?php echo $aConfig[2]; ?>', '<?php echo $aConfig[3]; ?>', lelabel);
     
@@ -37,7 +37,7 @@
             <?php endif; ?>
             
             <?php if($aConfig[1] == 'pageview'):?>
-                $("<?php echo $aConfig[0]; ?>").on("click", function(e) {                    			
+                jQuery("<?php echo $aConfig[0]; ?>").on("click", function(e) {                    			
     			ga('send', '<?php echo $aConfig[1]; ?>', '<?php echo $aConfig[2]; ?>', '<?php echo $aConfig[3]; ?>');
     		});
             
