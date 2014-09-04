@@ -844,6 +844,26 @@ pre.changelog{white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre
 				<h2>Changelog</h2>
 
 				<pre class=changelog>
+[2.5.18 - 24 juillet 2014]
+Pas de modification, nouvelle version pour Magento Connect
+
+[2.5.17 - 24 juillet 2014]
+Correction d'un bug d'affichage des totaux dans le panier suite au correctif 2.5.16 : annulation de la modification faite dans la version 2.5.14 (récupération de la session avec Mage::getModel('checkout/session') et non avec Mage::getSingleton('checkout/session'), avec getSingleton, $session->getQuote() ne contient pas les totaux calculés et si on appelle $quote->collectTotals(), les totaux sont doublés)
+
+[2.5.16 - 24 juillet 2014]
+Correction d'un bug dans le montant du panier suite à la modification de la récupération de la session dans la version 2.5.14 : appel de $quote->collectTotals();
+
+[2.5.15 - 07 juin 2014]
+Remplacement de static:: par self:: pour une rétro-compatibilité avec PHP < 5.3
+
+[2.5.14 - 26 mai 2014]
+Correction des retours lignes dans 3 fichiers : CR => CRLF (merci à Christophe S.)
+Correction d'un bug avec l'utilisation des expressions régulières et des caractères joker dans le filtrage des adresses (merci à Alexis A., Morgan R., Maxime L.)
+Correction d'un bug dans le calcul de la valeur {cart.price+tax+discount}
+Correction d'un bug dans la récupération de la session (merci à Gabriel F.)
+Support des nombres au format 2.04e2 avec le e en minuscule (merci à Morgan R.)
+Ajout de la possibilité d'avoir des espaces, des virgules et des tirets dans le nom des codes région en entourant les valeurs par des guillemets (ne pas oublier de les échapper si nécessaire)
+
 [2.5.13 - November 5, 2013]
 Fixed a bug occuring when auto-escaping strings in tables (thanks to Sylvain P.)
 Fixed a bug in the calculation of variables {car.price+tax+discount} and {cart.price+tax-discount} when the cart contains bundle products (thanks to Nematis)

@@ -29,11 +29,16 @@ jQuery(document).ready(function($) {
 			VARNISH_DYN_URL,
 			data,
 			function (data) {
+
+				//On remplace les blocks html dynamiques dans la page	
 				for(var id in data.blocks) {
 					$('#' + id).empty().html(data.blocks[id]);
-					
 				}
                                 
+				//on remplace les formkey dans les formulaires
+				$("input[name='form_key']").val(data.formkey);
+				
+				//on initialise le cookie de session
 				$.cookie('frontend', data.sid, { path: '/', domain : COOKIE_DOMAIN });
                                 
 			},

@@ -29,14 +29,18 @@
     <ul>
     
         <?php foreach($crumbs as $_crumbName=>$_crumbInfo): ?>
-        
-            <li class="<?php echo $_crumbName ?>" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            
+            <?php if($_crumbName == "home") : ?>
+                <li class="<?php echo $_crumbName ?>">
+            <?php else: ?>
+                <li class="<?php echo $_crumbName ?>" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <?php endif; ?>
             <?php if($_crumbInfo['link']): ?>
                	
                	<?php if($_crumbName == "home") : ?>
             	
-            		<a class="lienhome" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>" itemprop="url">
-            			<span itemprop="title">
+            		<a class="lienhome" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>">
+            			<span >
             				<?php echo $this->htmlEscape($_crumbInfo['label']) ?>
             			</span>
             		</a>

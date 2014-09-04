@@ -26,6 +26,8 @@ class Addonline_SoColissimo_Model_Adminhtml_System_Config_Source_Contratsocoliss
 {
 
     /**
+     * mathias : deprécié, on l'utilisait pour faire le select du type de licence dans le BO / config de SoCo
+     * A présent on affiche les informations et le type de licence en texte brut (voir Addonline_SoColissimo_Block_Adminhtml_System_Config_Form_Field_Informations )
      * Options getter
      *
      * @return array
@@ -33,23 +35,42 @@ class Addonline_SoColissimo_Model_Adminhtml_System_Config_Source_Contratsocoliss
     public function toOptionArray()
     {
         $options = array();
-        $observer = Mage::getSingleton('socolissimo/observer');
         
-        $cfgData = Mage::getSingleton('adminhtml/config_data');
-        $storeId = $cfgData->getScopeId();
+        return $array();
         
-        if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_FLEXIBILITE)) {
-            $options[] = array(
-                'value' => 'flexibilite',
-                'label' => Mage::helper('socolissimo')->__('Flexibilité')
-            );
-        }
-        if ($observer->_9cd4777ae76310fd6977a5c559c51820($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_LIBERTE)) {
-            $options[] = array(
-                'value' => 'liberte',
-                'label' => Mage::helper('socolissimo')->__('Liberté')
-            );
-        }
-        return $options;
+        
+//         // on déprécie ...
+        
+//         $observer = Mage::getSingleton('socolissimo/observer');
+        
+//         $cfgData = Mage::getSingleton('adminhtml/config_data');
+//         $storeId = $cfgData->getScopeId();
+        
+//         $atLeastOneOption = false;
+        
+//         if ($observer->_9cd4777ae76310fd6977a5c559c51821($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_FLEXIBILITE)
+//         || $observer->_9cd4777ae76310fd6977a5c559c51821($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_FLEXIBILITE_MULTI)) {
+//             $atLeastOneOption = true;
+//             $options[] = array(
+//                 'value' => 'flexibilite',
+//                 'label' => Mage::helper('socolissimo')->__('Flexibilité')
+//             );
+//         }
+//         if ($observer->_9cd4777ae76310fd6977a5c559c51821($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_LIBERTE)
+//             || $observer->_9cd4777ae76310fd6977a5c559c51821($storeId, Addonline_SoColissimo_Model_Observer::CONTRAT_LIBERTE_MULTI)) {
+//             $atLeastOneOption = true;
+//             $options[] = array(
+//                 'value' => 'liberte',
+//                 'label' => Mage::helper('socolissimo')->__('Liberté')
+//             );
+//         }
+
+
+//         if(!$atLeastOneOption) {
+//             $observer->_addNotificationToStore($storeId);
+//         } else {
+//             $observer->_removeNotificationsOfStore($storeId);
+//         }    
+//         return $options;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Addonline
  *
@@ -17,162 +18,113 @@
 /**
  * Objet Observer
  *
- * @category    Addonline
- * @package     Addonline_SoColissimo
- * @copyright   Copyright (c) 2014 Addonline
- * @author 	    Addonline (http://www.addonline.fr)
+ * @category Addonline
+ * @package Addonline_SoColissimo
+ * @copyright Copyright (c) 2014 Addonline
+ * @author Addonline (http://www.addonline.fr)
  */
-class Addonline_SoColissimo_Model_Observer extends Varien_Object
+class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addonline_Licence_Model_ModuleLicenceConfig
 {
-
-    const CONTRAT_BOTH = 0;
 
     const CONTRAT_FLEXIBILITE = 1;
 
     const CONTRAT_LIBERTE = 2;
 
+    const CONTRAT_FLEXIBILITE_MULTI = 3;
+
+    const CONTRAT_LIBERTE_MULTI = 4;
+
+    const CONTRAT_FLEXIBILITE_EAN = "SoColissimoFlexibilite";
+
+    const CONTRAT_LIBERTE_EAN = "SoColissimoLiberte";
+
+    const CONTRAT_FLEXIBILITE_MULTI_EAN = "SoColissimoFlexibiliteMultisite";
+
+    const CONTRAT_LIBERTE_MULTI_EAN = "SoColissimoLiberteMultisite";
+
     /**
-     * test le numéro de licence
-     * @param integer $store_id
-     * @param integer $contrat
-     * @return boolean
+     * rettourne des infos sur le module
+     *
+     * @see Addonline_Licence_Model_ModuleLicenceConfig::getLicenceInfoConfig()
      */
-    public function _9cd4777ae76310fd6977a5c559c51820($store_id, $contrat = self::CONTRAT_BOTH)
+    public function getLicenceInfoConfig ($what, $store = null)
     {
-        if (Mage::getStoreConfig('addonline/licence/aomagento')) {
-            return true;
-        }
-        
-        $key = 'e983cfc54f88c7114e99da95f5757df6';
-        $store_error = null;
-        
-        // Si on spécifie le store, on ne control que celui-ci
-        if (! is_object($store_id)) {
-            $store = Mage::getModel('core/store')->load($store_id);
-            $storeurl = $store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
-            $storekey = Mage::getStoreConfig('socolissimo/licence/serial', $store);
+        switch ($what) {
+            case "licence/serial":
+                return trim(Mage::getStoreConfig('socolissimo/licence/serial', $store));
+                break;
             
-            if (($storekey != 'DISABLED')) {
-                // Cas appel pour affichage layer socolissimo
-                if ($contrat == self::CONTRAT_BOTH && md5($storeurl . $key . 'SoColissimoFlexibilite') != $storekey && md5($storeurl . $key . 'SoColissimoLiberte') != $storekey) {
-                    $severity = Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;
-                    $title = "Vous devez renseigner une clé licence valide pour le module So Colissimo , pour le magasin " . $store['code'] . ". Le module a été désactivé";
-                    $description = "Le module So Colissimo n'a pas une clé licence valide";
-                    $date = date('Y-m-d H:i:s');
-                    Mage::getModel('adminnotification/inbox')->parse(array(
-                        array(
-                            'severity' => $severity,
-                            'date_added' => $date,
-                            'title' => $title,
-                            'description' => $description,
-                            'url' => '',
-                            'internal' => true
-                        )
-                    ));
-                    $store_error .= 1;
-                }
-                // Cas appel pour contruction liste déroulante contrat avec la clé SocolissimoFlexibilité activée :
-                if ($contrat == self::CONTRAT_FLEXIBILITE && md5($storeurl . $key . 'SoColissimoFlexibilite') != $storekey) {
-                    $store_error .= 1;
-                }
-                // Cas appel pour contruction liste déroulante contrat avec la clé SocolissimoFlexibilité activée :
-                if ($contrat == self::CONTRAT_LIBERTE && md5($storeurl . $key . 'SoColissimoLiberte') != $storekey) {
-                    $store_error .= 1;
-                }
-            }
+            case "module/version":
+                return Mage::getConfig()->getNode('modules/Addonline_SoColissimo/version');
+                break;
             
-            // Mise en place du contrat sur le store default
-            $websites = Mage::app()->getWebsites(true);
-            if ($websites[0]->getId() == $store_id) {
-                $stores = Mage::getModel('core/store')->getCollection();
-                $contract = false;
-                foreach ($stores as $store) {
-                    $contract = Mage::getStoreConfig('carriers/socolissimo/contrat', $store);
-                    if ($contract == 'flexibilite') {
-                        $contract = self::CONTRAT_FLEXIBILITE;
-                    }
-                    if ($contract == 'liberte') {
-                        $contract = self::CONTRAT_LIBERTE;
-                    }
-                    if ($contract && $contract == $contrat) {
-                        return true;
-                    }
-                }
-            }
+            case "module/keymaster":
+                return "e983cfc54f88c7114e99da95f5757df6";
+                break;
             
-            // Sinon, on controle tous les stores
-        } else {
+            case "module/name":
+                return "So Colissimo";
+                break;
             
-            $stores = Mage::getModel('core/store')->getCollection();
-            foreach ($stores as $store) {
-                $storeurl = Mage::app()->getStore($store['store_id'])->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
-                $storekey = Mage::getStoreConfig('socolissimo/licence/serial', $store);
-                if (($storekey != 'DISABLED')) {
-                    // Cas appel pour affichage layer socolissimo
-                    if ($contrat == self::CONTRAT_BOTH && md5($storeurl . $key . 'SoColissimoFlexibilite') != $storekey && md5($storeurl . $key . 'SoColissimoLiberte') != $storekey) {
-                        $severity = Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR;
-                        $title = "Vous devez renseigner une clé licence valide pour le module So Colissimo , pour le magasin " . $store['code'] . ". Le module a été désactivé";
-                        $description = "Le module So Colissimo n'a pas une clé licence valide";
-                        $date = date('Y-m-d H:i:s');
-                        Mage::getModel('adminnotification/inbox')->parse(array(
-                            array(
-                                'severity' => $severity,
-                                'date_added' => $date,
-                                'title' => $title,
-                                'description' => $description,
-                                'url' => '',
-                                'internal' => true
-                            )
-                        ));
-                        $store_error .= 1;
-                    }
-                    // Cas appel pour contruction liste déroulante contrat avec la clé SocolissimoFlexibilité activée :
-                    if ($contrat == self::CONTRAT_FLEXIBILITE && md5($storeurl . $key . 'SoColissimoFlexibilite') != $storekey) {
-                        $store_error .= 1;
-                    }
-                    // Cas appel pour contruction liste déroulante contrat avec la clé SocolissimoFlexibilité activée :
-                    if ($contrat == self::CONTRAT_LIBERTE && md5($storeurl . $key . 'SoColissimoLiberte') != $storekey) {
-                        $store_error .= 1;
-                    }
-                }
-            }
-        }
-        
-        if (! is_object($store_id)) {
-            $thisStore = Mage::getModel('core/store')->load($store_id);
-            $thisStorekey = Mage::getStoreConfig('socolissimo/licence/serial', $thisStore);
-            if ($thisStorekey == 'DISABLED') {
-                return false;
-            }
-        }
-        
-        if (! $store_error) {
-            if ($contrat == self::CONTRAT_BOTH) {
-                $_unreadNotices = Mage::getModel('adminnotification/inbox')->getCollection()->getItemsByColumnValue('is_read', 0);
-                foreach ($_unreadNotices as $notice) :
-                    if (strpos($notice->getData('description'), 'So Colissimo')) :
-                        $notice->setIsRead(1)->save();
-                    	endif;
-                endforeach
-                ;
-            }
-            return true;
-        } else {
-            return false;
+            case "notification/licence/error/title":
+                return "Le module So Colissimo n'a pas une clé licence valide pour le magasin __storeCode__ .";
+                break;
+            
+            default:
+                return NULL;
+                break;
         }
     }
 
     /**
+     * retourne un tableau des licences de ce module sous a la forme [licence_id] = licence_txt
+     * on peut récuperer soit toutes, les mono sites ou les multi sites
+     *
+     * @see Addonline_Licence_Model_LicenceConfig::getLicenceContrats()
+     */
+    public function getLicenceContrats ($which = self::GET_CONTRAT_ALL)
+    {
+        $contratPossibles = array();
+        
+        switch ($which) {
+            case self::GET_CONTRAT_ALL:
+            case self::GET_CONTRAT_MONO:
+                $contratPossibles[self::CONTRAT_FLEXIBILITE] = self::CONTRAT_FLEXIBILITE_EAN;
+                $contratPossibles[self::CONTRAT_LIBERTE] = self::CONTRAT_LIBERTE_EAN;
+                
+                // si on veut tous les contrats, on ne fait pas de break, on continue
+                if ($which != self::GET_CONTRAT_ALL) {
+                    break;
+                }
+            
+            case self::GET_CONTRAT_ALL:
+            case self::GET_CONTRAT_MULTI:
+                $contratPossibles[self::CONTRAT_FLEXIBILITE_MULTI] = self::CONTRAT_FLEXIBILITE_MULTI_EAN;
+                $contratPossibles[self::CONTRAT_LIBERTE_MULTI] = self::CONTRAT_LIBERTE_MULTI_EAN;
+                
+                // si on veut tous les contrats, on ne fait pas de break, on continue (sert à rien pour l'instant, car y
+                // a rien dessous)
+                if ($which != self::GET_CONTRAT_ALL) {
+                    break;
+                }
+        }
+        
+        return $contratPossibles;
+    }
+
+    /**
      * Enter Description here
-     * @param unknown $observer
+     *
+     * @param unknown $observer            
      * @return Addonline_SoColissimo_Model_Observer
      */
-    public function checkoutEventSocodata($observer)
+    public function checkoutEventSocodata ($observer)
     {
         $quote = $observer->getEvent()->getQuote();
         $request = Mage::app()->getRequest();
         
-        // si on n'a pas le paramètre shipping_method c'est qu'on n'est pas sur la requête de mise à jour du mode de livraison
+        // si on n'a pas le paramètre shipping_method c'est qu'on n'est pas sur la requête de mise à jour du mode de
+        // livraison
         // dans ce cas on ne change rien
         if (! $request->getParam('shipping_method')) {
             return $this;
@@ -209,7 +161,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
             $socoShippingData['CEDOORCODE2'] = '';
             $socoShippingData['CEENTRYPHONE'] = '';
             $socoShippingData['CECIVILITY'] = '';
-            //$socoShippingData['CEEMAIL'] = $quote->getCustomer()->getData('email');
+            // $socoShippingData['CEEMAIL'] = $quote->getCustomer()->getData('email');
             $socoShippingData['CEEMAIL'] = $quote->getCustomerEmail();
             
             if ($telephone) {
@@ -224,9 +176,12 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
             }
             
             $relaisFound = false;
-            if (strpos($shippingMethod, 'socolissimo_poste') === 0 || strpos($shippingMethod, 'socolissimo_cityssimo') === 0 || strpos($shippingMethod, 'socolissimo_commercant') === 0) {
+            if (strpos($shippingMethod, 'socolissimo_poste') === 0 ||
+                 strpos($shippingMethod, 'socolissimo_cityssimo') === 0 ||
+                 strpos($shippingMethod, 'socolissimo_commercant') === 0) {
                 if (Mage::helper('socolissimo')->isFlexibilite()) {
-                    $relais = Mage::getSingleton('socolissimo/flexibilite_service')->findPointRetraitAcheminementByID($idRelais, $reseau);
+                    $relais = Mage::getSingleton('socolissimo/flexibilite_service')->findPointRetraitAcheminementByID(
+                        $idRelais, $reseau);
                     $relaisFound = ($relais instanceof Addonline_SoColissimo_Model_Flexibilite_Relais);
                 } else {
                     $relais = Mage::getModel('socolissimo/liberte_relais')->loadByIdentifiantReseau($idRelais, $reseau);
@@ -237,7 +192,8 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
             if ($relaisFound) {
                 
                 $socoShippingData['PRID'] = $relais->getIdentifiant();
-                $socoShippingData['DELIVERYMODE'] = $relais->getTypeRelais(); // on écrase pour mettre les bons types pour la belgique
+                $socoShippingData['DELIVERYMODE'] = $relais->getTypeRelais(); // on écrase pour mettre les bons types
+                                                                              // pour la belgique
                 
                 $arrayAddressData['customer_address_id'] = null;
                 
@@ -254,12 +210,14 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
                 $street['2'] = $relais->getAdresse2();
                 $street['3'] = $relais->getAdresse3();
                 
-                $shippingAddress->setStreet($street); // on appelle setStreet directement sur l'objet address au lieu de passer par addData, pour la gestion en plusieurs lignes
+                $shippingAddress->setStreet($street); // on appelle setStreet directement sur l'objet address au lieu de
+                                                      // passer par addData, pour la gestion en plusieurs lignes
                 
                 $customerNotesArray['0'] = 'Livraison relais colis socolissimo : ' . $relais->getIdentifiant();
                 
                 $arrayAddressData['save_in_address_book'] = 0;
-                Mage::getSingleton('checkout/session')->setData('socolissimo_livraison_relais', $relais->getIdentifiant());
+                Mage::getSingleton('checkout/session')->setData('socolissimo_livraison_relais', 
+                    $relais->getIdentifiant());
             } else {
                 $socoShippingData['PRID'] = '';
             }
@@ -277,7 +235,8 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
         
         if ($relaisPrecedent && $relaisPrecedent != '') {
             if (! isset($socoShippingData['PRID']) || $socoShippingData['PRID'] == '') {
-                // si l'adresse de livraison était un relais et que maintenant ça ne l'est plus il faut remettre l'adresse de facturation :
+                // si l'adresse de livraison était un relais et que maintenant ça ne l'est plus il faut remettre
+                // l'adresse de facturation :
                 $billingAddress = $quote->getBillingAddress();
                 $shippingAdress = $quote->getShippingAddress();
                 $shippingAdress->setData('customer_id', $billingAddress->getData('customer_id'));
@@ -309,16 +268,18 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 
     /**
      * Sauvegarde les donnees de la commande propre a So Colissimo
-     * @param unknown $observer
+     *
+     * @param unknown $observer            
      */
-    public function addSocoAttributesToOrder($observer)
+    public function addSocoAttributesToOrder ($observer)
     {
         try {
             Mage::getSingleton('checkout/session')->setData('socolissimo_livraison_relais', null);
             $checkoutSession = Mage::getSingleton('checkout/session');
             $shippingData = $checkoutSession->getData('socolissimo_shipping_data');
             
-            // on ne fait le traitement que si le mode d'expedition est socolissimo (et donc qu'on a recupere les donnees de socolissimo)
+            // on ne fait le traitement que si le mode d'expedition est socolissimo (et donc qu'on a recupere les
+            // donnees de socolissimo)
             if (isset($shippingData) && count($shippingData) > 0) {
                 if (isset($shippingData['DELIVERYMODE'])) {
                     $observer->getEvent()
@@ -381,9 +342,10 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 
     /**
      * enleve les données soco de la session
-     * @param unknown $observer
+     *
+     * @param unknown $observer            
      */
-    public function resetSession($observer)
+    public function resetSession ($observer)
     {
         $checkoutSession = Mage::getSingleton('checkout/session');
         $checkoutSession->setData('socolissimoliberte_shipping_data', array());
@@ -391,10 +353,11 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object
 
     /**
      * renvoie le productCode SoColissimo
-     * @param unknown $type
+     *
+     * @param unknown $type            
      * @return string|boolean
      */
-    protected function _getSocoProductCode($type)
+    protected function _getSocoProductCode ($type)
     {
         if ($type == 'poste') {
             return 'BPR';

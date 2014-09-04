@@ -451,7 +451,10 @@ p.required {
 */
 /* fil d'Arianne breadcumb chemin */
 .breadcrumbs-container {
-	border-bottom: 1px solid @c4;
+	width: @width;
+	margin:0 auto;
+	background:#fff;
+	border-bottom: 1px solid #d4d4d4;
 	padding: 15px 0;
 	
 	.breadcrumbs {
@@ -478,7 +481,7 @@ p.required {
 				font-weight: normal;
 			}
 			
-			span {
+			a + span {
 				.arrow-right-empty;
 				text-indent: -200em;
 				overflow: hidden;
