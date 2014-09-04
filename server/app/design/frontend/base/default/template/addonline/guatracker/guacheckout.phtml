@@ -1,0 +1,56 @@
+<?php /** */?>
+
+<?php if($this->isActive()): ?>
+    <!--Addonline GUA Checkout Section start -->
+    <script type="text/javascript">
+         // 24.07.2014 : mathias delantes
+         // tracking du tunnel d'achat, la fameuse onepage
+        
+         // etape 1
+         $('#billing-buttons-container :button').on("click", function() {
+         	ga('send', 'pageview', {
+         		  'page': '<?php echo $this->getPage(1); ?>',
+         		  'title': '<?php echo $this->getTitle(1); ?>'
+         		});
+         });
+        
+         // etape 2
+         $('#shipping-buttons-container :button').on("click", function() {
+         	ga('send', 'pageview', {
+         		'page': '<?php echo $this->getPage(2); ?>',
+       		  'title': '<?php echo $this->getTitle(2); ?>'
+         		});
+         });
+        
+         // etape 3
+         $('#shipping-method-buttons-container :button').on("click", function() {
+         	ga('send', 'pageview', {
+         		'page': '<?php echo $this->getPage(3); ?>',
+         	    'title': '<?php echo $this->getTitle(3); ?>'
+         		});
+         });
+        
+         // etape 4
+         $('#payment-buttons-container :button').on("click", function() {
+         	ga('send', 'pageview', {
+         		'page': '<?php echo $this->getPage(4); ?>',
+       		  'title': '<?php echo $this->getTitle(4); ?>'
+         		});
+         });
+        
+         // etape 5
+         // impossible de faire le "on" sur "click", ca ne le prend pas du coup on fait sur mousedown
+         // là ca marche par contre, il ne continue pas avec le "onclick" qui est fait par le onepage checkout
+         // du coup on le trigger... on dirait qu'il eventPreventDefaut() dès qu'il y a un event .. ?!!
+         // note : on fait $(document.body).on() car ca arrive en ajax
+         $(document.body).on("mousedown", '#review-buttons-container :submit', function() {
+         	ga('send', 'pageview', {
+         		'page': '<?php echo $this->getPage(5); ?>',
+       		  'title': '<?php echo $this->getTitle(5); ?>'
+         		});
+         	$(this).trigger("click");
+         });
+    </script>
+    <?php echo $this->getChildHtml(); ?>
+    <!--Addonline GUA Checkout Section end -->
+<?php endif; ?>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <block type="addonline_guatracker/gua" name="addonline_google_tracker" template="addonline/guatracker/guatag.phtml" />            
+        </reference>
+        <reference name="before_body_end">
+            <block type="addonline_guatracker/gua" name="addonline_google_tracker" template="addonline/guatracker/guatag.phtml" />
+            <block type="addonline_guatracker/guacheckout" name="addonline_google_checkout" template="addonline/guatracker/guacheckout.phtml" />
+            <block type="addonline_guatracker/guatracking" name="addonline_google_tracking" template="addonline/guatracker/guatracking.phtml" />
+        </reference>
+    </default>
+</layout>

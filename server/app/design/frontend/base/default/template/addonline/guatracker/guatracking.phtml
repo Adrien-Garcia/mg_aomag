@@ -1,0 +1,49 @@
+<?php /** */?>
+
+<?php if($this->isActive()): ?>
+    <!--Addonline GUA Tracking Section start -->
+    <script type="text/javascript">
+
+        <?php foreach($this->getConfigurationArray() as $config): 
+            $aConfig = explode(';',$config);         
+        
+            for($i=0;$i<5;$i++){
+                //On remplit les champs du tableau non prévu
+                if(!isset($aConfig[$i]))$aConfig[$i]='';
+                //On échappe les quotes
+                $aConfig[$i] = str_replace("'","\'",$aConfig[$i]);
+            }                                                
+        
+            if($aConfig[1] == 'event'):?>            
+            
+                $("<?php echo $aConfig[0]; ?>").on("click", function(e) {
+    
+        			var lid = $(this).attr("id");
+        			
+        			// on determine le label qu'on va envoyer à ga
+        			var lelabel = $(this).attr("title");
+        			if(lelabel == undefined) {
+        				lids = $(this).attr("src").split("/");
+        				if (lids instanceof Array) {
+        					lelabel = lids[lids.length - 1];
+        				}
+        			}
+        			
+        			if(lelabel == undefined) { lelabel == $(this).attr("src"); }
+    
+        			ga('send', '<?php echo $aConfig[1]; ?>', '<?php echo $aConfig[2]; ?>', '<?php echo $aConfig[3]; ?>', lelabel);
+    
+        		});
+            <?php endif; ?>
+            
+            <?php if($aConfig[1] == 'pageview'):?>
+                $("<?php echo $aConfig[0]; ?>").on("click", function(e) {                    			
+    			ga('send', '<?php echo $aConfig[1]; ?>', '<?php echo $aConfig[2]; ?>', '<?php echo $aConfig[3]; ?>');
+    		});
+            
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </script>
+    <?php echo $this->getChildHtml(); ?>
+    <!--Addonline GUA Tracking Section end -->
+<?php endif; ?>

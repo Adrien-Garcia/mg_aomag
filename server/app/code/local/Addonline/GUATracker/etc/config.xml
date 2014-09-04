@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Addonline_GUATracker>
+            <version>0.1.0</version>
+        </Addonline_GUATracker>
+    </modules>
+    <global>
+        <models>
+            <addonline_guatracker>
+                <class>Addonline_GUATracker_Model</class>
+            </addonline_guatracker>
+        </models>
+        <blocks>
+            <addonline_guatracker>
+                <class>Addonline_GUATracker_Block</class>
+            </addonline_guatracker>
+        </blocks>
+        <helpers>
+            <addonline_guatracker>
+                <class>Addonline_GUATracker_Helper</class>
+            </addonline_guatracker>
+        </helpers>
+        <resources>
+            <addonline_guatracker_setup>
+                <setup>
+                    <module>Addonline_GUATracker</module>
+                </setup>
+            </addonline_guatracker_setup>
+        </resources>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <guatracker module="Addonline_GUATracker">
+                    <file>addonline_guatracker.xml</file>
+                </guatracker>
+            </updates>
+        </layout>
+    </frontend>    
+</config>
