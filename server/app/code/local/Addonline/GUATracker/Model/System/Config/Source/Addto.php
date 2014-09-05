@@ -1,9 +1,5 @@
 <?php
-/**
- * @package
- * @author Stefan richter (richter@aromicon.com)
- * @license aromicon gmbh 2013
- */
+
 class Addonline_GUATracker_Model_System_Config_Source_Addto
 {
     public function toOptionArray()
