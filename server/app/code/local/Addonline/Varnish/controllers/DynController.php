@@ -19,9 +19,12 @@ class Addonline_Varnish_DynController extends Mage_Core_Controller_Front_Action 
 		}
 	
 		$response = array();
-		$response['sid'] = Mage::getModel('core/session')->getEncryptedSessionId();
-	
-		//si on visite une page produit on ajoute le produit aux dernier produit vus
+		// sid nécéssaire à la creation du cookie de session
+		$response['sid'] = Mage::getModel('core/session')->getEncryptedSessionId(); 
+		// formkey nécéssaire dans tous les formulaires de la page
+		$response['formkey'] = Mage::getSingleton('core/session')->getFormKey();
+		
+		//si on visite une page produit on ajoute le produit aux derniers produit vus
 		if ($currentProductId = $this->getRequest()->getParam('currentProductId')) {
 			Mage::getSingleton('catalog/session')->setLastViewedProductId($currentProductId);
 		}

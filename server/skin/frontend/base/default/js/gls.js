@@ -212,6 +212,7 @@ function geocodeGLSAdresse() {
 				loadListePointRelais();
 			} else {
 				alert('Adresse invalide '+searchAdress);
+				unsetGLSShippingMethod();
 			}
 	    });
 	} else {
