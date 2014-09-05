@@ -37,5 +37,21 @@
                 </guatracker>
             </updates>
         </layout>
-    </frontend>    
+    </frontend>
+    <default>   
+    	<google>
+    		<addonline_google_checkout_tracking>
+    			<title_1>commander : souscripteur</title_1>
+    			<page_1>/fin-de-l-etape-1</page_1>
+    			<title_2>commander : bénéficiaire</title_2>
+    			<page_2>/fin-de-l-etape-2</page_2>
+    			<title_3>commander : mode de livraison</title_3>
+    			<page_3>/fin-de-l-etape-3</page_3>
+    			<title_4>commander : information de paiement</title_4>
+    			<page_4>/fin-de-l-etape-4</page_4>
+    			<title_5>commander : vérification de la commande</title_5>
+    			<page_5>/fin-de-l-etape-5</page_5>
+    		</addonline_google_checkout_tracking>
+    	</google>     
+    </default>    
 </config>

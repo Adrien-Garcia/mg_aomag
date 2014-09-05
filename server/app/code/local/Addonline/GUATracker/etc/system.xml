@@ -218,6 +218,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
+							<comment>Format : [regex];event;[category];[action] ou [regex];pageview;[page];[title]</comment>
 							<depends>
 								<enable>1</enable>
 							</depends>
