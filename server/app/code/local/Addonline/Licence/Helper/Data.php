@@ -28,7 +28,7 @@ class Addonline_Licence_Helper_Data extends Mage_Core_Helper_Abstract
     public function _9cd4777ae76310fd6977a5c559c51820 ($module, $toCheckStoreId, $simpleReturn = true)
     {
         $this->licenceLog(
-            "_9cd4777ae76310fd6977a5c559c51820() V" . $this->getVersion() . " : start pour " .
+            "_9cd4777ae76310fd6977a5c559c51820()" . $this->getVersion() . " : start pour " .
                  $this->_getStoreConfigOfModule($module, "module/name") . " , le storeId " . $toCheckStoreId);
         
         // on recupere la clé spécifique de notre module qui sert a encoder/decoder les licences
@@ -343,6 +343,7 @@ class Addonline_Licence_Helper_Data extends Mage_Core_Helper_Abstract
      */
     private function licenceLog ($t)
     {
+        return;
         Mage::log($t, null, 'AOLicence.log');
     }
 }
