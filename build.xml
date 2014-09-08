@@ -111,6 +111,7 @@
 	<target name="create_zip_socolissimo" depends="">
 		<property name="zip-name" value="socolissimo_${DSTAMP}${TSTAMP}.zip" />
 		<zip destfile="${zip-name}" >
+			<zipfileset dir="server/app/code/local/Addonline/Licence" prefix="app/code/local/Addonline/Licence" ></zipfileset>
 			<zipfileset dir="server/app/code/local/Addonline/SoColissimo" prefix="app/code/local/Addonline/SoColissimo" ></zipfileset>
 			<zipfileset file="server/app/design/frontend/base/default/layout/socolissimo.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
 			<zipfileset dir="server/app/design/frontend/base/default/template/socolissimo" prefix="app/design/frontend/base/default/template/socolissimo" ></zipfileset>
@@ -139,7 +140,7 @@
 		<ftp server="modules-ecommerce.ftp.addonline.biz" port="21" remotedir="${oxid-dir}" userid="qb1djKTvv" password="J70Rr$aDh6" passive="true">
 			<fileset file="${oxid-filename}"></fileset>
 		</ftp>
-		<delete file="${oxid-filename}" />
+		<delete file="${oxid-filename}" /> 
 	</target>
 
 	<target name="create_zip_gls" depends="">
