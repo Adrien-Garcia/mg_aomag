@@ -38,6 +38,9 @@ $remoteIp = @$_SERVER['REMOTE_ADDR'];
 if (strpos ($remoteIp, '192.168.') ===0 || $remoteIp=='127.0.0.1') { //si on est derrière un proxy
 	$remoteIp = @$_SERVER['HTTP_X_FORWARDED_FOR'];
 }
+if (count(explode(', ', $remoteIp))>1) { //si on est derrière un proxy qui ajoute , 127.0.0.1 
+    $remoteIp = explode(', ', $remoteIp)[0];
+}
 if (!in_array($remoteIp, $autorized_ips))
 {
 	_log("Tentative non autorisée ".@$_SERVER['REQUEST_URI']." depuis ".$remoteIp);

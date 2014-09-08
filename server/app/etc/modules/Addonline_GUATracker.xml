@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Addonline_GUATracker>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Addonline_GUATracker>
+    </modules>
+</config>
