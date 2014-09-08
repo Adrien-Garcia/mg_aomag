@@ -343,7 +343,6 @@ class Addonline_Licence_Helper_Data extends Mage_Core_Helper_Abstract
      */
     private function licenceLog ($t)
     {
-        return;
         Mage::log($t, null, 'AOLicence.log');
     }
 }
