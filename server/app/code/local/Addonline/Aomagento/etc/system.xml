@@ -75,6 +75,29 @@
 								</addonline_licence>
 							</depends>
 						</generator_flexi>
+						<generator_flexi_multi>
+							<label>Générer la clé SoColissimoFlexibilite Multisite</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+							 <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_socolissimo_generation_generator_flexi_multi button.generate_key").live("click", function(e) {
+						        		generate_key(e, "SoColissimoFlexibiliteMultisite", "row_addonline_socolissimo_generation_generator_flexi_multi");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<addonline_licence>
+									<key_generation>1</key_generation>
+								</addonline_licence>
+							</depends>
+						</generator_flexi_multi>
 						<generator_liberte>
 							<label>Générer la clé SoColissimoLiberte</label>
 							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
@@ -92,7 +115,25 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</generator_liberte>				
+						</generator_liberte>
+						<generator_liberte_multi>
+							<label>Générer la clé SoColissimoLiberte Multisite</label>
+							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
+							<comment>
+							Entrer le nom de domaine ci-dessus (http://nom.de.domaine/)
+						    <![CDATA[
+						        <script type="text/javascript">
+						        	jQuery("#row_addonline_socolissimo_generation_generator_liberte_multi button.generate_key").live("click", function(e) {
+						        		generate_key(e, "SoColissimoLiberteMultisite", "row_addonline_socolissimo_generation_generator_liberte_multi");
+						        	});
+						        </script>
+						    ]]>
+						    </comment>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</generator_liberte_multi>				
 					</fields>
 				</socolissimo_generation>
 				<advanceslideshow_generation>
