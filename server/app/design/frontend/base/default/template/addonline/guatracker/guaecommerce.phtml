@@ -1,0 +1,17 @@
+<?php /** */?>
+
+<?php if($this->isActive()): ?>
+    <!--Addonline GUA Ecommerce Section start -->  
+    <script type="text/javascript"> 
+        ga('require', 'ecommerce', 'ecommerce.js');
+        <?php $_order = $this->getOrder();?>
+        ga('ecommerce:addTransaction', { 'id': '<?php echo $_order->getData('increment_id')?>', 'affiliation': '<?php echo Mage::app()->getStore()->getName() ?>', 'revenue': '<?php echo $_order->getGrandTotal()?>', 'shipping': '<?php echo $_order->getShippingInclTax()?>', 'tax': '<?php echo  $_order->getTaxAmount()?>', 'currency': '<?php echo $_order->getOrderCurrencyCode();?>'});
+        <?php foreach($_order->getAllVisibleItems() as $_item): ?>
+        <?php if($_item->getParentItem()) continue; ?>
+        ga('ecommerce:addItem', {'id': '<?php echo $_order->getData('increment_id') ?>', 'name': '<?php echo str_replace('\'','', $_item->getName()) ?>', 'sku': '<?php echo $_item->getSku() ?>', 'price': '<?php echo $_item->getPrice() ?>', 'quantity': '<?php echo (int) $_item->getQtyOrdered() ?>'});
+        <?php endforeach;?>
+        ga('ecommerce:send'); 
+    </script>
+    <?php echo $this->getChildHtml(); ?>
+    <!--Addonline GUA Ecommerce Section end -->
+<?php endif; ?>

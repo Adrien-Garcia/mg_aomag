@@ -226,6 +226,35 @@
                     </fields>
                 </addonline_google_tracking>
                 
+                <addonline_google_ecommerce translate="label">
+                    <label>Addonline Google Ecommerce</label>
+                    <frontend_type>text</frontend_type>                    
+                    <sort_order>525</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable>
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable> 
+                        <success_url>
+                            <label>Checkout Success Page URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Si vous ne remplissez pas, la valeur par défaut est /checkout/onepage/success</comment>
+                        </success_url>                                     
+                    </fields>
+                </addonline_google_ecommerce>
+                
                 <addonline_google_remarketing translate="label">
                     <label>Addonline Google Remarketing</label>
                     <frontend_type>text</frontend_type>                    
