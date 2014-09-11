@@ -143,7 +143,7 @@
 		</ftp>
 		
 		<property name="oxid-filename" value="219b76fe07762065bb83247f43603529" />
-		<property name="oxid-dir" value="out/downloads/42" />
+		<property name="oxid-dir" value="out/downloads/21" />
 		
 		<copy file="${zip-name}" tofile="${oxid-filename}"/>
 		<ftp server="modules-ecommerce.ftp.addonline.biz" port="21" remotedir="${oxid-dir}" userid="qb1djKTvv" password="J70Rr$aDh6" passive="true">
