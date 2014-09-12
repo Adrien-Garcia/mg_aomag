@@ -1,6 +1,6 @@
 /**
  * Addonline_SoColissimo
- * 
+ *
  * @category    Addonline
  * @package     Addonline_SoColissimo
  * @copyright   Copyright (c) 2011 Addonline
@@ -12,7 +12,7 @@
  */
 String.prototype.startWith = function(t, i) { if (i==false) { return
 (t == this.substring(0, t.length)); } else { return (t.toLowerCase()
-== this.substring(0, t.length).toLowerCase()); } } 
+== this.substring(0, t.length).toLowerCase()); } }
 
 /**
  * Variables globales
@@ -31,21 +31,21 @@ jQuery(function($) {
 	
 	//Cas du onestep checkout, si on change l'adresse de livraison après avoir choisi socolissimo
 	jQuery('.onestepcheckout-index-index .address-select').live("change", function() {
-		if(jQuery('#socolissimo-location').size() <= 0 ){	
+		if(jQuery('#socolissimo-location').size() <= 0 ){
 			$("#attentionSoColissimo").remove();
 			$("label[for=\"billing-address-select\"]").parent().before('<p id="attentionSoColissimo" style="font-weight:bold;color:red;text-align:justify; padding-right:5px;">Suite à la modification de votre adresse et si votre mode de livraison est So Colissimo, veuillez séléctionner votre point de retrait en cliquant sur le mode de livraison.</p>');
 		}
-	});	
+	});
 	
-	/** 
+	/**
 	 * Sur l'événement change des radios boutons de choix de mode de livraison
 	 */
 	$("input[id^=\"s_method_socolissimo_\"]").live("click", function() {
 		shippingRadioCheck(this);
-	});		
+	});
 
 	initSocolissimoLogos();
-	
+
 });
 
 /**
@@ -54,7 +54,7 @@ jQuery(function($) {
  * (appelé au chargement du DOM mais aussi au rechargement ajax (voir Checkout.prototype.setStepResponse dans  socolissimo\additional.phtml)
  */
 function initSocolissimoLogos() {
-	
+
 	
 	
 	jQuery("input[id^=\"s_method_socolissimo_\"]").each(function(index, element){
@@ -103,7 +103,7 @@ function getTypeSocolissimoFromRadio(radio, forDescription) {
 		return 'poste';
 	} else if (typeSocolissimo.startWith("cityssimo")) {
 		return 'cityssimo';
-	} else if (typeSocolissimo.startWith("commercant")){ 
+	} else if (typeSocolissimo.startWith("commercant")){
 		if (forDescription) {
 			if (typeSocolissimo.startWith("commercant_be")) {
 				return 'commercant_be';
@@ -117,7 +117,7 @@ function getTypeSocolissimoFromRadio(radio, forDescription) {
 			}
 		}
 		return 'domicile';
-	} else if (typeSocolissimo.startWith("rdv")){ 
+	} else if (typeSocolissimo.startWith("rdv")){
 		return 'rdv';
 	} else {
 		//Sinon c'est un type de livraison inconnu
@@ -126,8 +126,8 @@ function getTypeSocolissimoFromRadio(radio, forDescription) {
 	}
 }
 
-function shippingRadioCheck(element) {	
-	var socoRadio = jQuery(element);	
+function shippingRadioCheck(element) {
+	var socoRadio = jQuery(element);
 
 	//on affiche le picto de chargement étape suivante du opc
 	jQuery("#shipping-method-please-wait").show();
@@ -166,15 +166,15 @@ function shippingRadioCheck(element) {
 			if (jQuery("#layer_socolissimo").data("overlay") == undefined) {
 				jQuery("#layer_socolissimo").overlay({
 					mask: {
-						color: '#000', 
-						loadSpeed: 200, 
-						opacity: 0.5 
-					}, 
+						color: '#000',
+						loadSpeed: 200,
+						opacity: 0.5
+					},
 					load: true,
 					closeOnClick: false,
 					top: "center",
 					onBeforeClose : function(event){
-						//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo 
+						//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo
 						var telephoneElt = jQuery("#socolissimo-hook input[name='tel_socolissimo']");
 						if (!telephoneElt || telephoneElt.val() == undefined) {
 							resetShippingMethod();
@@ -194,7 +194,7 @@ function shippingRadioCheck(element) {
 				jQuery("#layer_socolissimo").data("overlay").load();
 			}
 
-			if (typeSocolissimo.startWith("poste") || typeSocolissimo.startWith("cityssimo") || typeSocolissimo.startWith("commercant")){ 
+			if (typeSocolissimo.startWith("poste") || typeSocolissimo.startWith("cityssimo") || typeSocolissimo.startWith("commercant")){
 
 				//initialisation des champs "adresse" du layer qui peuvent être vides dans le cas du onestepcheckout avec un nouveau client sans adresse enregistrée
 				if (jQuery("#socolissimo_postcode").val() == '') {
@@ -229,12 +229,12 @@ function shippingRadioCheck(element) {
 					});
 				});
 
-				//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client) 
+				//on localise l'adresse qui est préchargée (adresse de livraison par défaut du compte client)
 				if (jQuery("#socolissimo_postcode").val() != "") {
 					geocodeAdresse();
 				}
 
-			}					
+			}
 
 
 		},
@@ -314,50 +314,56 @@ function loadListeRelais() {
 		showMap();
 		jQuery(".loader-wrapper").fadeTo(300, 0).hide();
 	});
-	
-	
+
+
 }
 
+var init_ = true; // permet de n'initialiser la carte qu'une fois, NE PAS CONFONDRE AVEC LA VARIABLE "init"
 function showMap() {
 	if ((typeof google)!="undefined") {
-		var myOptions = {
+		if( init_ ) {
+			init_ = false;
+			var myOptions = {
 		    	zoom: 15,
 		    	center: socolissimoMyPosition,
 		    	mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			socolissimoMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			iconUrl = jQuery("#layer_socolissimo .ligne1").css("background-image");
+			iconMatch = iconUrl.match("url\\(\"(.*)\"\\)");
+			if (iconMatch == null) {
+				//chrome
+				iconMatch = iconUrl.match("url\\((.*)\\)");
+			}
+			iconUrl = iconMatch[1];
+			var marker = new google.maps.Marker({
+			    map: socolissimoMap, 
+			    position: socolissimoMyPosition,
+			    icon : iconUrl
+			});
+		} else {
+			socolissimoMap.setCenter( socolissimoMyPosition );
 		}
-		socolissimoMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-		iconUrl = jQuery("#layer_socolissimo .ligne1").css("background-image");
-		iconMatch = iconUrl.match("url\\(\"(.*)\"\\)");
-		if (iconMatch == null) {
-			//chrome
-			iconMatch = iconUrl.match("url\\((.*)\\)");
-		}
-		iconUrl = iconMatch[1];
-		var marker = new google.maps.Marker({
-		    map: socolissimoMap, 
-		    position: socolissimoMyPosition,
-		    icon : iconUrl
-		});
 		var init = false;
 		google.maps.event.addListener(socolissimoMap, 'tilesloaded', function () {
-			if (!init){			
-				for (icounter=0; icounter<socolissimoListRelais.length; icounter++) {					
-					relaisSocolissimo = socolissimoListRelais[icounter];	
-					var relaisPosition =  new google.maps.LatLng(relaisSocolissimo.latitude, relaisSocolissimo.longitude);				
+			if (!init){		
+				for (icounter=0; icounter<socolissimoListRelais.length; icounter++) {
+					relaisSocolissimo = socolissimoListRelais[icounter];
+					var relaisPosition =  new google.maps.LatLng(relaisSocolissimo.latitude, relaisSocolissimo.longitude);
 					marker = new google.maps.Marker({
-					    map: socolissimoMap, 
+					    map: socolissimoMap,
 					    position: relaisPosition,
 					    title : relaisSocolissimo.libelle,
 					    icon : relaisSocolissimo.urlPicto
-					});								
+					});
 					if (!socolissimoMap.getBounds().contains(relaisPosition)){
 						newBounds = socolissimoMap.getBounds().extend(relaisPosition);
 						socolissimoMap.fitBounds(newBounds);
-					}								
-					infowindow=infoBulleGenerator(relaisSocolissimo);				
-					attachClick(marker,infowindow, icounter);								
-				}			
-			}		
+					}
+					infowindow=infoBulleGenerator(relaisSocolissimo);
+					attachClick(marker,infowindow, icounter);
+				}
+			}
 			init=true;
 		});
 	}
@@ -416,26 +422,26 @@ function infoBulleGenerator(relaisSocolissimo) {
 function attachClick(marker,infowindow, index){
 	//Clic sur le relais dans la colonne de gauche
 	jQuery("#point_retrait_"+index).click(function() {
-			//fermer la derniere infobulle ouverte
-			if(socolissimoOpenedInfowindow) {
-				socolissimoOpenedInfowindow.close();
-		    }
-			//ouvrir l'infobulle
-		   infowindow.open(socolissimoMap,marker);
-		   socolissimoOpenedInfowindow=infowindow;
+		//fermer la derniere infobulle ouverte
+		if(socolissimoOpenedInfowindow) {
+			socolissimoOpenedInfowindow.close();
+		   }
+		//ouvrir l'infobulle
+		  infowindow.open(socolissimoMap,marker);
+		  socolissimoOpenedInfowindow=infowindow;
 		   
-		});
+	});
 		
 	//Clic sur le marqueur du relais dans la carte
 	google.maps.event.addListener(marker, 'click', function() {
-			//fermer la derniere infobulle ouverte
-			if(socolissimoOpenedInfowindow) {
-				socolissimoOpenedInfowindow.close();
-		    }
-			//ouvrir l'infobulle
-		   infowindow.open(socolissimoMap,marker);
-		   socolissimoOpenedInfowindow=infowindow;
-		   
+		//fermer la derniere infobulle ouverte
+		if(socolissimoOpenedInfowindow) {
+			socolissimoOpenedInfowindow.close();
+		   }
+		//ouvrir l'infobulle
+		  infowindow.open(socolissimoMap,marker);
+		  socolissimoOpenedInfowindow=infowindow;
+		  
 		});
 }
 
@@ -482,7 +488,7 @@ function validerTelephone() {
 
 /** ajout de la fonction de validation numéro de téléphone portable */
 Validation.add('valid-telephone-portable', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
-    return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
+	return (/^0(6|7)\d{8}$/.test(v) && !(/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v)));
 });
 
 Validation.add('valid-telephone-portable-belgique', 'Veuillez saisir un numéro de téléphone portable correct', function(v) {
