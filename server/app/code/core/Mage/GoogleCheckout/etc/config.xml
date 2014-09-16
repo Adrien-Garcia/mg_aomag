@@ -37,6 +37,11 @@
                 <class>Mage_GoogleCheckout_Model</class>
             </googlecheckout>
         </models>
+        <blocks>
+            <googlecheckout>
+                <class>Mage_GoogleCheckout_Block</class>
+            </googlecheckout>
+        </blocks>
         <helpers>
             <googlecheckout>
                 <class>Mage_GoogleCheckout_Helper</class>
