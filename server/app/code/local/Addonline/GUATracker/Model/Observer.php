@@ -17,11 +17,14 @@ class Addonline_GUATracker_Model_Observer extends Varien_Object
         }
     }
     
-    public function sendGUAInfos ($observer){        
-        $order = $observer->getEvent()->getOrder();        
-        $state = $observer->getEvent()->getState();
-        $status = $observer->getEvent()->getStatus();
-        $guaecommerce = Mage::app()->getLayout()->createBlock('addonline_guatracker/guaecommerce');
-        $guaecommerce->sendTransaction($order);
+    public function sendGUAInfos ($observer){    
+
+        Mage::log(Mage::getStoreConfigFlag('google/addonline_google_ecommerce/order_status'),null,'guatracker.log');
+                
+        if($observer->getEvent()->getState() == Mage::getStoreConfigFlag('google/addonline_google_ecommerce/order_status')){
+            $order = $observer->getEvent()->getOrder();                    
+            $guaecommerce = Mage::app()->getLayout()->createBlock('addonline_guatracker/guaecommerce');
+            $guaecommerce->sendTransaction($order);
+        }
     }
 }

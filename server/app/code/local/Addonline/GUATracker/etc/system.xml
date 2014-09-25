@@ -31,13 +31,13 @@
                         <add_to>
                             <label>Script Position</label>
                             <frontend_type>select</frontend_type>
-                            <source_model>addonline_guatracker/system_config_source_addto</source_model>
+                            <source_model>guatracker/system_config_source_addto</source_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Here you can choose the script postion in you html code. "Head" will work always. "Before Body End" might not work on custom themes.</comment>
-                        </add_to>
+                        </add_to> 
                         <account_id>
                             <label>Account Id</label>
                             <frontend_type>text</frontend_type>
@@ -218,7 +218,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enable> 
-                        <!--  <order_status>
+                        <order_status>
                             <label>Order status</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_order_status</source_model>                            
@@ -226,16 +226,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </order_status>  -->
-                        <success_url>
-                            <label>Checkout Success Page URL</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Si vous ne remplissez pas, la valeur par défaut est /checkout/onepage/success</comment>
-                        </success_url>                                     
+                            <depends>
+								<enable>1</enable>
+							</depends>
+                        </order_status>                                  
                     </fields>
                 </addonline_google_ecommerce>
                 
