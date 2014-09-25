@@ -2,15 +2,49 @@
 <config>
     <modules>
         <Addonline_GUATracker>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Addonline_GUATracker>
     </modules>
     <global>
         <models>
-            <addonline_guatracker>
+            <guatracker>
                 <class>Addonline_GUATracker_Model</class>
-            </addonline_guatracker>
+                <resourceModel>guatracker_mysql4</resourceModel>
+            </guatracker>
+            <guatracker_mysql4>
+			     <class>Addonline_GUATracker_Model_Mysql4</class>
+			     <entities>
+			         <guaordersinfos>
+			           <table>guatracker_ordersinfos</table>
+			         </guaordersinfos>
+			      </entities>
+			</guatracker_mysql4>
+            <sales>
+                <rewrite>
+                    <order>Addonline_GUATracker_Model_Order</order>
+                </rewrite>
+            </sales>
         </models>
+        <resources>
+            <guatracker_setup>
+                <setup>
+                    <module>Addonline_GUATracker</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </guatracker_setup>
+            <guatracker_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </guatracker_write>
+            <guatracker_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </guatracker_read>
+        </resources>
         <blocks>
             <addonline_guatracker>
                 <class>Addonline_GUATracker_Block</class>
@@ -37,7 +71,40 @@
                 </guatracker>
             </updates>
         </layout>
+        <events>
+        	<checkout_type_onepage_save_order>
+				<observers>
+					<guatracker_observer>
+						<type>singleton</type>
+						<class>guatracker/observer</class>
+						<method>saveGuaInfos</method>
+					</guatracker_observer>
+				</observers>
+			</checkout_type_onepage_save_order>			
+            <sales_order_status_change>
+                <observers>
+					<guatracker_observer>
+						<type>singleton</type>
+						<class>guatracker/observer</class>
+						<method>sendGUAInfos</method>
+					</guatracker_observer>
+				</observers>
+            </sales_order_status_change>        
+        </events>
     </frontend>
+    <adminhtml>
+    	<events>
+            <sales_order_status_change>
+                <observers>
+					<guatracker_observer>
+						<type>singleton</type>
+						<class>guatracker/observer</class>
+						<method>sendGUAInfos</method>
+					</guatracker_observer>
+				</observers>
+            </sales_order_status_change>        
+        </events>
+    </adminhtml>
     <default>   
     	<google>
     		<addonline_google_checkout_tracking>
