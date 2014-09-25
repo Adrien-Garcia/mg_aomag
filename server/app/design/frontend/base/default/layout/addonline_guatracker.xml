@@ -2,8 +2,7 @@
 <layout version="0.1.0">
     <default>
         <reference name="head">
-            <block type="addonline_guatracker/gua" name="addonline_google_tracker" template="addonline/guatracker/guatag.phtml" />
-            <block type="addonline_guatracker/guaecommerce" name="addonline_google_ecommerce" template="addonline/guatracker/guaecommerce.phtml" />
+            <block type="addonline_guatracker/gua" name="addonline_google_tracker" template="addonline/guatracker/guatag.phtml" />            
             <block type="addonline_guatracker/otherstrackers" name="addonline_others_trackers" template="addonline/guatracker/othershead.phtml" />                                 
         </reference>
         <reference name="before_body_end">
