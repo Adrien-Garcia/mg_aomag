@@ -53,9 +53,7 @@ class Addonline_GUATracker_Block_Guaecommerce extends Mage_Core_Block_Template
                     'itemPrice' => $item->getPrice(),
                     'itemQuantity' => $item->getQtyToInvoice()
             ));
-        }       
-
-        Mage::Log('sendTransaction end', null, 'guatracker.log');
+        }
 	}
 	
 

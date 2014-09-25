@@ -18,8 +18,6 @@ class Addonline_GUATracker_Model_Observer extends Varien_Object
     }
     
     public function sendGUAInfos ($observer){    
-
-        Mage::log(Mage::getStoreConfigFlag('google/addonline_google_ecommerce/order_status'),null,'guatracker.log');
                 
         if($observer->getEvent()->getState() == Mage::getStoreConfigFlag('google/addonline_google_ecommerce/order_status')){
             $order = $observer->getEvent()->getOrder();                    
