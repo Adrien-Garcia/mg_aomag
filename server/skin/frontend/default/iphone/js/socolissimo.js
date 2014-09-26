@@ -333,34 +333,30 @@ function loadListeRelais() {
 
 }
 var indexMarker = 0;
-var init_ = true; // permet de n'initialiser la carte qu'une fois, NE PAS CONFONDRE AVEC LA VARIABLE "init"
 function showMap() {
 	if ((typeof google)!="undefined") {
 		indexMarker = 0;
-		if( init_ ) {
-			init_ = false;
-			var myOptions = {
-			    	zoom: 15,
-			    	center: socolissimoMyPosition,
-			    	disableDefaultUI: true,
-			    	mapTypeId: google.maps.MapTypeId.ROADMAP
-			}
-			socolissimoMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-			iconUrl = jQuery("#layer_socolissimo .ligne1").css("background-image");
-			iconMatch = iconUrl.match("url\\(\"(.*)\"\\)");
-			if (iconMatch == null) {
-				//chrome
-				iconMatch = iconUrl.match("url\\((.*)\\)");
-			}
-			iconUrl = iconMatch[1];
-			var marker = new google.maps.Marker({
-			    map: socolissimoMap,
-			    position: socolissimoMyPosition,
-			    icon : iconUrl
-			});
-		}else {
-			socolissimoMap.setCenter( socolissimoMyPosition );
+		
+		var myOptions = {
+		    	zoom: 15,
+		    	center: socolissimoMyPosition,
+		    	disableDefaultUI: true,
+		    	mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
+		socolissimoMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		iconUrl = jQuery("#layer_socolissimo .ligne1").css("background-image");
+		iconMatch = iconUrl.match("url\\(\"(.*)\"\\)");
+		if (iconMatch == null) {
+			//chrome
+			iconMatch = iconUrl.match("url\\((.*)\\)");
+		}
+		iconUrl = iconMatch[1];
+		var marker = new google.maps.Marker({
+		    map: socolissimoMap,
+		    position: socolissimoMyPosition,
+		    icon : iconUrl
+		});
+			
 		var init = false;
 		google.maps.event.addListener(socolissimoMap, 'tilesloaded', function () {
 			if (!init){

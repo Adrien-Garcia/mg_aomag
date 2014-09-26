@@ -348,6 +348,7 @@ class Addonline_SoColissimo_Model_Observer extends Varien_Object implements Addo
     public function resetSession ($observer)
     {
         $checkoutSession = Mage::getSingleton('checkout/session');
+        $checkoutSession->setData('socolissimo_shipping_data', array());
         $checkoutSession->setData('socolissimoliberte_shipping_data', array());
     }
 
