@@ -1,5 +1,5 @@
 <?php
-class Addonline_GUATracker_Model_GUAOrdersInfos extends Mage_Core_Model_Abstract
+class Addonline_GUATracker_Model_Guaordersinfo extends Mage_Core_Model_Abstract
 {
 
     public function _construct()

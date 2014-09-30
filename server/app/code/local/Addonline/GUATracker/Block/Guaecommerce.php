@@ -39,7 +39,7 @@ class Addonline_GUATracker_Block_Guaecommerce extends Mage_Core_Block_Template
                 'transactionAffiliation' => Mage::getBaseUrl(),
                 'transactionRevenue' => ($oOrder->getGrandTotal() - $oOrder->getShippingAmount()), // not including tax or shipping
                 'transactionShipping' => $oOrder->getShippingAmount(),
-                'transactionTax' => $oOrder->getShippingAmount()
+                'transactionTax' => $oOrder->getTaxAmount()
         ));
         
         foreach($oOrder->getAllItems() as $item){
