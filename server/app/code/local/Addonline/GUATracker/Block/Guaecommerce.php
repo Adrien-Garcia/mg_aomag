@@ -35,7 +35,7 @@ class Addonline_GUATracker_Block_Guaecommerce extends Mage_Core_Block_Template
         $oTracker = new Tracker(/* web property id */ Mage::getStoreConfig('google/addonline_google_tag/account_id'), /* client id */ $guaOrderInfos->getGaUniqueId(), /* user id */ null);                                
         // Send a transaction
         $oTracker->send('transaction', array(
-                'transactionId' => $oOrder->getId(),
+                'transactionId' => $oOrder->getIncrementId(),
                 'transactionAffiliation' => Mage::getBaseUrl(),
                 'transactionRevenue' => ($oOrder->getGrandTotal() - $oOrder->getShippingAmount()), // not including tax or shipping
                 'transactionShipping' => $oOrder->getShippingAmount(),
@@ -46,7 +46,7 @@ class Addonline_GUATracker_Block_Guaecommerce extends Mage_Core_Block_Template
         
             // Send an item record related to the preceding transaction
             $oTracker->send('item', array(
-                    'transactionId' => $oOrder->getId(),
+                    'transactionId' => $oOrder->getIncrementId(),
                     'itemName' => $item->getName(),
                     'itemCode' => $item->getSku(),
                     'itemCategory' => '',
