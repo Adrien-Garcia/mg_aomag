@@ -51,7 +51,7 @@ class Addonline_GUATracker_Block_Guaecommerce extends Mage_Core_Block_Template
                     'itemCode' => $item->getSku(),
                     'itemCategory' => '',
                     'itemPrice' => $item->getPrice(),
-                    'itemQuantity' => $item->getQtyToInvoice()
+                    'itemQuantity' => $item->getQtyInvoiced()
             ));
         }
 	}
