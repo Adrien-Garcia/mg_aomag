@@ -206,6 +206,17 @@
 				<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
 	</target>
 	
+	<target name="create_zip_guatracker" depends="">
+					<property name="zip-name" value="guatracker_${DSTAMP}${TSTAMP}.zip" />
+					<zip destfile="${zip-name}" >
+						<zipfileset dir="server/app/code/local/Addonline/GUATracker" prefix="app/code/local/Addonline/GUATracker" ></zipfileset>
+						<zipfileset file="server/app/etc/modules/Addonline_GUATracker.xml" prefix="app/etc/modules" ></zipfileset>
+						<zipfileset file="server/app/design/frontend/base/default/layout/addonline_guatracker.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
+						<zipfileset dir="server/app/design/frontend/base/default/template/addonline/guatracker" prefix="app/design/frontend/base/default/template/addonline/guatracker" ></zipfileset>
+					</zip>
+					<echo message="Refresh your project to see the generated ${zip-name} file"></echo>
+		</target>
+	
 	<target name="create_zip_reviewboost" depends="">
 					<property name="zip-name" value="reviewboost_${DSTAMP}${TSTAMP}.zip" />
 					<zip destfile="${zip-name}" >
@@ -223,6 +234,6 @@
                         <zipfileset file="server/app/etc/modules/Addonline_EmailCgv.xml" prefix="app/etc/modules" ></zipfileset>
                     </zip>
                     <echo message="Refresh your project to see the generated ${zip-name} file"></echo>
-        </target>
+        </target>		
 	
 </project>
