@@ -186,11 +186,11 @@ class Addonline_Gls_Model_Import
             ->addObject($order)
             ->save();
         
-        // $emailSentStatus = $shipment->getData('email_sent');
-        // if (!is_null($customerEmail) && !$emailSentStatus) {
-        // $shipment->sendEmail(true, $customerEmailComments);
-        // $shipment->setEmailSent(true);
-        // }
+        $emailSentStatus = $shipment->getData('email_sent');
+        if (!is_null($customerEmail) && !$emailSentStatus) {
+        $shipment->sendEmail(true, $customerEmailComments);
+        $shipment->setEmailSent(true);
+        }
         
         return $this;
     }
