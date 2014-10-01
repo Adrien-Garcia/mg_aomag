@@ -1,6 +1,6 @@
 <?php
 
-class Addonline_GUATracker_Model_Mysql4_GUAOrdersInfos extends Mage_Core_Model_Mysql4_Abstract
+class Addonline_GUATracker_Model_Mysql4_Guaordersinfos extends Mage_Core_Model_Mysql4_Abstract
 {
     public function _construct()
     {    
