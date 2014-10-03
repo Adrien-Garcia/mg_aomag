@@ -42,7 +42,7 @@ class Addonline_GUATracker_Block_Guaecommerce extends Mage_Core_Block_Template
                 'transactionTax' => $oOrder->getTaxAmount()
         ));
         
-        foreach($oOrder->getAllItems() as $item){
+        foreach($oOrder->getAllVisibleItems() as $item){
         
             // Send an item record related to the preceding transaction
             $oTracker->send('item', array(
