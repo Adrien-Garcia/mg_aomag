@@ -31,7 +31,16 @@ class Addonline_SoColissimo_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isFlexibilite()
     {
-        if(Mage::getStoreConfig('carriers/socolissimo/contrat') == 'flexibilite') {
+        
+        $moi = Mage::helper('addonline_licence');
+        
+        // on veut des infos sur la licence
+        $module = Mage::getSingleton('socolissimo/observer');
+        $licenceInfos = $moi->_9cd4777ae76310fd6977a5c559c51820($module, $storeId, false);
+        
+        $licence = $licenceInfos["keyIsForEanId"];
+        
+        if($licenceInfos == Addonline_SoColissimo_Model_Observer::CONTRAT_FLEXIBILITE || licenceInfos == Addonline_SoColissimo_Model_Observer::CONTRAT_FLEXIBILITE_MULTI) {
             return true;
         } else {
             return false;
