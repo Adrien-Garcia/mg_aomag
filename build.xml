@@ -115,7 +115,7 @@
 			<zipfileset dir="server/app/code/local/Addonline/SoColissimo" prefix="app/code/local/Addonline/SoColissimo" ></zipfileset>
 			<zipfileset file="server/app/design/frontend/base/default/layout/socolissimo.xml" prefix="app/design/frontend/base/default/layout" ></zipfileset>
 			<zipfileset dir="server/app/design/frontend/base/default/template/socolissimo" prefix="app/design/frontend/base/default/template/socolissimo" ></zipfileset>
-			<zipfileset dir="server/app/design/frontend/default/iphone/template/socolissimo" prefix="app/design/frontend/base/default/template/socolissimo" ></zipfileset>
+			<zipfileset dir="server/app/design/frontend/default/iphone/template/socolissimo" prefix="app/design/frontend/default/iphone/template/socolissimo" ></zipfileset>
 			<zipfileset file="server/app/etc/modules/Addonline_SoColissimo.xml" prefix="app/etc/modules" ></zipfileset>
 			<zipfileset file="server/app/etc/modules/Addonline_Licence.xml" prefix="app/etc/modules" ></zipfileset>
 			<zipfileset file="server/app/locale/fr_FR/Addonline_SoColissimo.csv" prefix="app/locale/fr_FR" ></zipfileset>
