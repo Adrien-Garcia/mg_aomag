@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,12 +108,10 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
                         if (is_array($v['value']) && in_array($k, $v['value'])) {
                             $defTextArr[] = $v['label'];
                         }
-                    } elseif (isset($v['value'])) {
-					    if ($v['value']==$defText) {
-					        $defTextArr[] = $v['label'];
-					        break;
-					    }
-					}
+                    } elseif ($v['value']==$defText) {
+                        $defTextArr[] = $v['label'];
+                        break;
+                    }
                 }
                 $defText = join(', ', $defTextArr);
             }

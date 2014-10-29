@@ -1,4 +1,4 @@
-<!--@subject Rappel d'échec de transaction de paiement @-->
+<!--@subject Payment Transaction Failed Reminder @-->
 <!--@vars
 {"var reason":"Transaction Failed Reason",
 "var checkoutType":"Checkout Type",
@@ -16,7 +16,7 @@
 <table>
     <thead>
         <tr>
-            <th>Une transaction de paiement a échoué.</th>
+            <th>La transaction de paiement a échouée.</th>
         </tr>
     </thead>
     <tbody>
@@ -26,38 +26,40 @@
                     <b>Raison</b><br />
                     {{var reason}}
                 </p>
-                <p><b>Type de passage de commande</b><br />
+                <p>
+                    <b>Type de paiement</b><br />
                     {{var checkoutType}}
                 </p>
                 <p>
-                  <b>Client&nbsp;:</b><br />
+                    <b>Client:</b><br />
                     <a href="mailto:{{var customerEmail}}">{{var customer}}</a> &lt;{{var customerEmail}}&gt;
                 </p>
-                <p><b>Articles&nbsp;:</b><br />
+                <p>
+                    <b>Articles</b><br />
                     {{var items}}
                 </p>
                 <p>
-                  <b>Total&nbsp;:</b><br />
+                    <b>Total:</b><br />
                     {{var total}}
                 </p>
                 <p>
-                    <b>Adresse de facturation&nbsp;:</b><br />
+                    <b>Adresse de facturation:</b><br />
                     {{var billingAddress.format('html')}}
                 </p>
                 <p>
-                  <b>Adresse de livraison&nbsp;:</b><br />
+                    <b>Adresse d'expédition:</b><br />
                     {{var shippingAddress.format('html')}}
                 </p>
                 <p>
-                  <b>Mode de livraison&nbsp;:</b><br />
+                    <b>Mode d'expédition:</b><br />
                     {{var shippingMethod}}
                 </p>
                 <p>
-                  <b>Mode de paiement&nbsp;:</b><br />
+                    <b>Mode de paiement:</b><br />
                     {{var paymentMethod}}
                 </p>
                 <p>
-                  <b>Date &amp; Heure&nbsp;:</b><br />
+                    <b>Date et heure:</b><br />
                     {{var dateAndTime}}
                 </p>
             </td>
