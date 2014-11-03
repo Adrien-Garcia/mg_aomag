@@ -27,9 +27,11 @@ class Addonline_Varnish_Block_Catalog_Product_Price extends OrganicInternet_Simp
 	public function _toHtml()
 	{
 		$html = parent::_toHtml();
-		$product_id = $this->getProduct()->getId();
-		//id=BlockAlias pour pouvoir le sélectionner en javascript (sans . dans le nom), par contre on met rel=NameInLayout pour pouvoir le sélectionner dans la layout (avec . dans le nom)
-		$html = '<div id="catalog_product_'.$product_id.'" class="varnish_catalog_product" rel="'.$product_id.'">'.$html.'</div>';
+		if (Mage::registry('varnish_static')) {
+    		$product_id = $this->getProduct()->getId();
+    		//id=BlockAlias pour pouvoir le sélectionner en javascript (sans . dans le nom), par contre on met rel=NameInLayout pour pouvoir le sélectionner dans la layout (avec . dans le nom)
+    		$html = '<div id="catalog_product_'.$product_id.'" class="varnish_catalog_product" rel="'.$product_id.'">'.$html.'</div>';
+		}
 		return $html;
 	}
 
