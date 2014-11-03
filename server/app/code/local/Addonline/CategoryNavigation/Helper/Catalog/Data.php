@@ -10,7 +10,9 @@
  */
 class Addonline_CategoryNavigation_Helper_Catalog_Data extends Mage_Catalog_Helper_Data
 {
-
+    
+    protected $_moduleName = 'Mage_Catalog';
+    
   /**
      * Return current category path or get it from current category
      * and creating array of categories|product paths for breadcrumbs
