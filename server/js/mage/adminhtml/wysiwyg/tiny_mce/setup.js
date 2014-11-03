@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -151,7 +151,6 @@ tinyMceWysiwygSetup.prototype =
 
                 ed.onBeforeSetContent.add(function(ed, o) {
                     varienGlobalEvents.fireEvent('tinymceBeforeSetContent', o);
-                    
                 });
 
                 ed.onSetContent.add(function(ed, o) {

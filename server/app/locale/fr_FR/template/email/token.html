@@ -1,11 +1,9 @@
-<!--@subject Bonjour, {{var name}} @-->
+<!--@subject Welcome, {{var name}} @-->
 <!--@vars
 {"htmlescape var=$userName":"User name",
 "var $applicationName":"Application name",
 "var $status":"Token new status"}
 @-->
 
-Bonjour {{htmlescape var=$userName}},<br /><br />
-
-Votre autorisation d'accès pour l'application <b>{{htmlescape var=$applicationName}}</b> a été passée au statut <b>{{htmlescape var=$status}}</b> par l'administrateur.<br /><br />
-
+Bonjour, {{htmlescape var=$userName}}<br /><br />
+Votre autorisation de <b>{{htmlescape var=$applicationName}}</b> __('has been changed to')__ <b>{{htmlescape var=$status}}</b> par l'équipe d'administration.<br /><br />

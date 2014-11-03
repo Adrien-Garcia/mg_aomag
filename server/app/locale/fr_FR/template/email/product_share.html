@@ -1,17 +1,13 @@
-<!--@subject Bienvenue, {{var name}} @-->
+<!--@subject Welcome, {{var name}} @-->
 <!--@vars
-{"htmlescape var=$name":"Nom du destinataire",
-"var email":"Email du destinataire",
-"var product_url":"Url pour le produit",
-"var product_name":"Nom du produit",
-"var product_image":"Url pour la petite image du produit (75 px)",
-"var sender_name":"Nom de l'expéditeur",
-"var sender_email":"Email de l'expéditeur",
-"var message":"Message de l'expéditeur"}
+{"htmlescape var=$name":"Recipient Name",
+"var email":"Recipient Email address",
+"var product_url":"Url for Product",
+"var product_name":"Product Name",
+"var product_image":"Url for product small image (75 px)",
+"var sender_name":"Sender name",
+"var sender_email":"Sender email",
+"var message":"Sender Message"}
 @-->
 
-Bonjour {{htmlescape var=$name}},<br /><br />
-
-{{htmlescape var=$sender_name}} a souhaité vous faire connaître le produit <a href="{{var product_url}}">{{var product_name}}</a>.<br /><br />
-Voici son message&nbsp;: <br />{{var message}}<br /><br />
-
+Bienvenue, {{htmlescape var=$name}}<br /><br />Regardez <a href="{{var product_url}}">{{var product_name}}</a><br /><br />Message: <br />{{var message}}<br /><br />
