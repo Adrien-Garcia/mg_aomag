@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -37,16 +37,6 @@
                 <class>Mage_GoogleCheckout_Model</class>
             </googlecheckout>
         </models>
-        <blocks>
-            <googlecheckout>
-                <class>Mage_GoogleCheckout_Block</class>
-            </googlecheckout>
-        </blocks>
-        <helpers>
-            <googlecheckout>
-                <class>Mage_GoogleCheckout_Helper</class>
-            </googlecheckout>
-        </helpers>
     </global>
     <default>
         <payment>
