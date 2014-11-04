@@ -37,7 +37,7 @@ class Addonline_Gls_Model_Service
         return $this->_urlWsdl;
     }
 
-    public function getRelayPointsForZipCode ($zipcode, $country)
+    public function getRelayPointsForZipCode ($zipcode, $country,$address='')
     {
         $login = Mage::getStoreConfig('carriers/gls/usernamews');
         $mdp = Mage::getStoreConfig('carriers/gls/passws');
@@ -61,7 +61,7 @@ class Addonline_Gls_Model_Service
                             'Name1' => '',
                             'Name2' => '',
                             'Name3' => '',
-                            'Street1' => '',
+                            'Street1' => $address,
                             'BlockNo1' => '',
                             'Street2' => '',
                             'BlockNo2' => '',

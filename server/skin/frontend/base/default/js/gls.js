@@ -201,7 +201,7 @@ function unsetGLSShippingMethod(){
 
 function geocodeGLSAdresse() {
 		
-	var searchAdress = jQuery('#cp_recherche').val();		
+	var searchAdress = jQuery('#adresse_recherche').val()+' '+jQuery('#cp_recherche').val();		
 	if ((typeof google) != "undefined") {
 		var geocoder = new google.maps.Geocoder();		
 		geocoder.geocode({'address': searchAdress}, function(results, status) {
@@ -229,7 +229,7 @@ function changeMap() {
 function loadListePointRelais() {	
 	if(jQuery("#cp_recherche").val()){
 		glsurl = glsBaseUrl + "listPointsRelais"
-		glsurl = glsurl + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
+		glsurl = glsurl + "/address/" + jQuery("#adresse_recherche").val() + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
 		jQuery.ajax({
 			url: glsurl,
 			success: function(data){				
