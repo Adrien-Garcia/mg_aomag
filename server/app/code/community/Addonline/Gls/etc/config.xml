@@ -19,7 +19,7 @@
 <config>
 	<modules>
 		<Addonline_Gls>
-			<version>1.0.3</version>
+			<version>1.0.4</version>
 			<depends>
 				<Mage_Shipping />
 			</depends>
@@ -151,6 +151,11 @@
 						<sort_order>1</sort_order>
 						<action>gls/import</action>
 					</import>
+					<configuration translate="title" module="gls">
+						<title>Configuration</title>
+						<sort_order>2</sort_order>
+						<action>gls/configuration</action>
+					</configuration>
 				</children>
 				<depends>
 					<config>carriers/gls/importexport</config>
@@ -183,6 +188,9 @@
 								<import translate="title">
 									<title>Import tracking</title>
 								</import>
+								<configuration translate="title">
+									<title>Configuration</title>
+								</configuration>
 							</children>
 						</gls>
 					</children>
@@ -195,6 +203,11 @@
 			<general>
 				<weight_unit>kg</weight_unit>
 			</general>
+			<import_export>
+				<active>0</active>
+				<export_folder>var/export/gls/</export_folder>
+				<import_folder>var/import/gls/</import_folder>
+			</import_export>
 			<bundle_product>
 				<process_children>0</process_children>
 				<load_item_options_on_parent>1</load_item_options_on_parent>
@@ -245,9 +258,7 @@
 				<maxxlrelayweight>30</maxxlrelayweight>
 				<onlyxlrelay>0</onlyxlrelay>
 				<model>Addonline_Gls_Model_Carrier_ShippingMethod</model>
-				<tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match={tracking_number}</tracking_view_url>
-				<export_folder>var/export/gls/</export_folder>
-				<import_folder>var/import/gls/</import_folder>
+				<tracking_view_url>https://gls-group.eu/EU/en/parcel-tracking?match={tracking_number}</tracking_view_url>				
 				<debug>0</debug>
 				<auto_escaping>0</auto_escaping>
 				<auto_correction>1</auto_correction>
@@ -256,4 +267,14 @@
 			</gls>
 		</carriers>
 	</default>
+	<crontab>
+		<jobs>
+			<gls>
+				<schedule>
+					<config_path>gls/import_export/cron_expression</config_path>
+				</schedule>
+				<run><model>addonline_gls/cron::import_export</model></run>
+			</gls>
+		</jobs>
+	</crontab>
 </config>

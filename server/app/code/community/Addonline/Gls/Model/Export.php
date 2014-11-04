@@ -177,6 +177,10 @@ class Addonline_Gls_Model_Export
                 
                 // Adding the order to the export array
                 $aOrdersToExport[] = $aRow;
+                
+                //On flag la commande comme exportée
+                $order->setGlsExported(1);
+                $order->save();
             }
         
             /*
