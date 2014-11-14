@@ -38,6 +38,7 @@
             <customer>
 				<rewrite>
 					<observer>Addonline_Varnish_Model_Customer_Observer</observer>
+					<session>Addonline_Varnish_Model_Customer_Session</session>
 				</rewrite>
 			</customer>
             <catalog_resource>
