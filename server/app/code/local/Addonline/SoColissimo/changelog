@@ -1,3 +1,6 @@
+[2.1.2 - 14 novembre 2014]
+Préfixage des classes CSS socolissimo pour éviter les conflits
+
 [2.1.1 - 13 octobre 2014]
 Correction de bug sur la méthode isFlexibilite()
 

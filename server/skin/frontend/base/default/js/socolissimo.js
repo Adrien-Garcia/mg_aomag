@@ -177,7 +177,7 @@ function shippingRadioCheck(element) {
 						//si on n'a pas choisi de type de livraison socolissimo, on décoche le mode de livraison socolissimo
 						var telephoneElt = jQuery("#socolissimo-hook input[name='tel_socolissimo']");
 						if (!telephoneElt || telephoneElt.val() == undefined) {
-							resetShippingMethod();
+							//resetShippingMethod();
 						} else {
 							var shippingMethod = jQuery("input[name='shipping_method']:checked").val();
 							if (shippingMethod.startWith("socolissimo_poste") || shippingMethod.startWith("socolissimo_commercant") || shippingMethod.startWith("socolissimo_cityssimo")) {
@@ -293,7 +293,7 @@ function changeMap() {
 }
 
 function loadListeRelais() {
-	jQuery(".loader-wrapper").fadeTo(300, 1);
+	jQuery(".soco_loader-wrapper").fadeTo(300, 1);
 	socoUrl = socolissimoBaseUrl + "listrelais?"
 	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
@@ -312,7 +312,7 @@ function loadListeRelais() {
 			alert(response.error);
 		}
 		showMap();
-		jQuery(".loader-wrapper").fadeTo(300, 0).hide();
+		jQuery(".soco_loader-wrapper").fadeTo(300, 0).hide();
 	});
 
 
@@ -327,7 +327,7 @@ function showMap() {
 	    	mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
 		socolissimoMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-		iconUrl = jQuery("#layer_socolissimo .ligne1").css("background-image");
+		iconUrl = jQuery("#layer_socolissimo .soco_ligne1").css("background-image");
 		iconMatch = iconUrl.match("url\\(\"(.*)\"\\)");
 		if (iconMatch == null) {
 			//chrome
@@ -367,7 +367,7 @@ function showMap() {
 
 //générateur d'infobulle
 function infoBulleGenerator(relaisSocolissimo) {
-	contentString = '<div class="adresse">'+
+	contentString = '<div class="soco_adresse">'+
     '<b>'+relaisSocolissimo.libelle+ '</b><br/>'+
     '<b>'+relaisSocolissimo.adresse+ ' ' + relaisSocolissimo.code_postal + ' ' + relaisSocolissimo.commune + '</b><br/>';
     if (relaisSocolissimo.conges_total) {
@@ -457,7 +457,7 @@ function choisirRelais(index) {
 			if (radio.val().startWith("socolissimo_"+socolissimoType)) {
 				if (socolissimoRelaisChoisi.type==socolissimoType) {
 					radio.prop("checked", "checked");	//on utilise prop au lieu de attr pour que le radio soit bien mis à jour
-					jQuery("#socolissimo-telephone span."+socolissimoType).attr("style","display:block;");
+					//jQuery("#socolissimo-telephone span."+socolissimoType).attr("style","display:block;");
 				} else {
 					radio.prop("checked", "");	//on utilise prop au lieu de attr pour que le radio soit bien mis à jour
 					jQuery("#socolissimo-telephone span."+socolissimoType).attr("style","display:none;");
@@ -474,7 +474,8 @@ function choisirRelais(index) {
 
 jQuery('#socolissimo-telephone-form').submit(function(event) {
 	event.preventDefault();
-	validerTelephone();
+	return true;
+	//validerTelephone();
 });
 
 function validerTelephone() {

@@ -197,8 +197,8 @@ function shippingRadioCheck(element) {
 					},
 					onLoad: function(){
 						jQuery('#layer_socolissimo').css({top: jQuery( window ).scrollTop()+'px',height:jQuery( window ).height()+'px'});
-						mapHeight = jQuery( window ).height() - jQuery('#layer_socolissimo .map-header').height();
-						jQuery('#map_canvas,.adresses').css({height: mapHeight+'px'});
+						mapHeight = jQuery( window ).height() - jQuery('#layer_socolissimo .soco_map-header').height();
+						jQuery('#map_canvas,.soco_adresses').css({height: mapHeight+'px'});
 					},
 					fixed: false
 				});
@@ -308,7 +308,7 @@ function changeMap() {
 }
 
 function loadListeRelais() {
-	jQuery(".loader-wrapper").fadeTo(300, 1);
+	jQuery(".soco_loader-wrapper").fadeTo(300, 1);
 	socoUrl = socolissimoBaseUrl + "listrelais?"
 	jQuery("#layer_socolissimo input:checkbox").each(function(index, element){
 		check = jQuery(element);
@@ -327,7 +327,7 @@ function loadListeRelais() {
 			alert(response.error);
 		}
 		showMap();
-		jQuery(".loader-wrapper").fadeTo(300, 0).hide();
+		jQuery(".soco_loader-wrapper").fadeTo(300, 0).hide();
 	});
 
 
@@ -344,7 +344,7 @@ function showMap() {
 		    	mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
 		socolissimoMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-		iconUrl = jQuery("#layer_socolissimo .ligne1").css("background-image");
+		iconUrl = jQuery("#layer_socolissimo .soco_ligne1").css("background-image");
 		iconMatch = iconUrl.match("url\\(\"(.*)\"\\)");
 		if (iconMatch == null) {
 			//chrome
@@ -392,29 +392,29 @@ function showMap() {
 
 
 function infoBulleGenerator(relaisSocolissimo) {
-	contentString = '<div class="adresse">';
+	contentString = '<div class="soco_adresse">';
 	if(relaisSocolissimo.type=='commercant') {
-		contentString +='<div class="entete '+relaisSocolissimo.type+'">Commerçant</div>';
+		contentString +='<div class="soco_entete '+relaisSocolissimo.type+'">Commerçant</div>';
 	}
 	if(relaisSocolissimo.type=='poste') {
-		contentString +='<div class="entete '+relaisSocolissimo.type+'">Bureau de poste</div>';
+		contentString +='<div class="soco_entete '+relaisSocolissimo.type+'">Bureau de poste</div>';
 	}
 	if(relaisSocolissimo.type=='cityssimo') {
-		contentString +='<div class="entete '+relaisSocolissimo.type+'">Espace cityssimo</div>';
+		contentString +='<div class="soco_entete '+relaisSocolissimo.type+'">Espace cityssimo</div>';
 	}
 	
 	
 	if (relaisSocolissimo.distance) {
-		contentString += '<div class="distance">à '+relaisSocolissimo.distance+' km</div>';
+		contentString += '<div class="soco_distance">à '+relaisSocolissimo.distance+' km</div>';
 	}
-	contentString += '<div class="libelle">'+relaisSocolissimo.libelle+ '</div>'+
-    '<div class="adresse-data">'+relaisSocolissimo.adresse+ '<br/>' + relaisSocolissimo.code_postal + ' ' + relaisSocolissimo.commune + '</div>';
-	contentString += '<div class="horaires">';
+	contentString += '<div class="soco_libelle">'+relaisSocolissimo.libelle+ '</div>'+
+    '<div class="soco_adresse-data">'+relaisSocolissimo.adresse+ '<br/>' + relaisSocolissimo.code_postal + ' ' + relaisSocolissimo.commune + '</div>';
+	contentString += '<div class="soco_horaires">';
     if (relaisSocolissimo.conges_total) {
 		contentString += '<b>En congés </b>';
 	    
 	} else {
-		contentString += '<div class="title">Horaires d\'ouverture : ';
+		contentString += '<div class="soco_title">Horaires d\'ouverture : ';
 		if (relaisSocolissimo.deb_periode_horaire) {
 			contentString += '<br/>valables du ' + relaisSocolissimo.deb_periode_horaire + ' au '+ relaisSocolissimo.fin_periode_horaire;
 		}
@@ -437,7 +437,7 @@ function infoBulleGenerator(relaisSocolissimo) {
     if (relaisSocolissimo.indicateur_acces==1) {
     	contentString += '<img src="/skin/frontend/base/default/images/socolissimo/picto_mobilite_reduite.jpg" />';
     }
-    if (relaisSocolissimo.fermetures.totalRecords>0) { contentString += '<div class="title">Periodes de fermeture :</div>';
+    if (relaisSocolissimo.fermetures.totalRecords>0) { contentString += '<div class="soco_title">Periodes de fermeture :</div>';
 		for (i=0; i<relaisSocolissimo.fermetures.items.length; i++) {
 			fermeture = relaisSocolissimo.fermetures.items[i];
 			datedu = fermeture.deb_periode_fermeture;
@@ -449,7 +449,7 @@ function infoBulleGenerator(relaisSocolissimo) {
 
     //contentString += '</p>';
 
-    contentString += '<div class="bouton"><span data-id="commercant" data-index="'+indexMarker+'"​>​Choisir ce lieu</span>​</div>';
+    contentString += '<div class="soco_bouton"><span data-id="commercant" data-index="'+indexMarker+'"​>​Choisir ce lieu</span>​</div>';
 
     contentString += '</div>';
 
@@ -507,10 +507,10 @@ function choisirRelais(index) {
 			if (radio.val().startWith("socolissimo_"+socolissimoType)) {
 				if (socolissimoRelaisChoisi.type==socolissimoType) {
 					radio.prop("checked", "checked");	//on utilise prop au lieu de attr pour que le radio soit bien mis à jour
-					jQuery("#socolissimo-telephone span."+socolissimoType).attr("style","display:block;");
+					jQuery("#socolissimo-telephone span.soco_"+socolissimoType).attr("style","display:block;");
 				} else {
 					radio.prop("checked", "");	//on utilise prop au lieu de attr pour que le radio soit bien mis à jour
-					jQuery("#socolissimo-telephone span."+socolissimoType).attr("style","display:none;");
+					jQuery("#socolissimo-telephone span.soco_"+socolissimoType).attr("style","display:none;");
 				}
 			}
 		}
@@ -519,12 +519,12 @@ function choisirRelais(index) {
 	
 	
 	
-	jQuery('#map_canvas .adresse').html(jQuery("#socolissimo-telephone").html());
+	jQuery('#map_canvas .soco_adresse').html(jQuery("#socolissimo-telephone").html());
 	relaisSocolissimoInfowindow[index].open(socolissimoMap, relaisSocolissimoMarker[index]);
-	jQuery('#map_canvas .adresse').html(jQuery("#socolissimo-telephone").html());
+	jQuery('#map_canvas .soco_adresse').html(jQuery("#socolissimo-telephone").html());
 	
 	
-	jQuery('#map_canvas .adresse form').attr('id',jQuery('#map_canvas .adresse form').attr('id')+'_po');
+	jQuery('#map_canvas .soco_adresse form').attr('id',jQuery('#map_canvas .soco_adresse form').attr('id')+'_po');
 	socolissimoTelephoneForm = new VarienForm('socolissimo-telephone-form_po');
 
 	//jQuery("#socolissimo-map").hide();
