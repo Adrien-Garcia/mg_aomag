@@ -36,6 +36,14 @@ class Addonline_Gls_Model_Export
     public $fileMimeType;
 
     public $fileCharset;
+    
+    private $_aProductnoCorrespondance = array(
+            'ls_tohome' => 02,
+            'ls_tohome_international' => 01,
+            'ls_toyou' => 18,
+            'ls_toyou_international' => 19,
+            'ls_relay' => 17
+    );
 
     public function run ()
     {
@@ -73,6 +81,7 @@ class Addonline_Gls_Model_Export
                     'PRODUCTNO',
                     'ORDERWEIGHTTOT',
                     'CONSID',
+                    'CONTACT',
                     'CONTACTMAIL',
                     'CONTACTMOBILE',
                     'CONTACTPHONE',
@@ -97,26 +106,41 @@ class Addonline_Gls_Model_Export
                 // ORDERID
                 $aRow[] = $order->getIncrementId();
                 
-                // ORDERNAME
-                $aRow[] = mb_strtoupper(
-                    $shippingAddress->getFirstname() . ' ' . $shippingAddress->getLastname(), 
-                    'UTF-8'
-                );
+                // ORDERNAME                
+                if($shippingAddress->getCompany()){
+                    $aRow[] = mb_strtoupper($shippingAddress->getCompany());
+                }else{                
+                    $aRow[] = mb_strtoupper(
+                        $shippingAddress->getFirstname() . ' ' . $shippingAddress->getLastname(), 
+                        'UTF-8'
+                    );
+                }
                 
                 // PRODUCTNO
-                $shippingMethod = $order->getShippingMethod();
-                $shippingCode = $shippingMethod;
-                if (strpos($shippingMethod, 'ls_tohome') > 0) {
-                    // $shippingCode = 'BP';
-                    $shippingCode = ''; // le bon code sera déterminé par winExpé, selon le pays de destination
+                $shippingMethod = $order->getShippingMethod();                                
+                $international = Mage::getStoreConfig('carrier/gls/internationalshipping');                                
+                
+                if (strpos($shippingMethod, 'ls_tohome') > 0) {                    
+                    if($international){
+                        $aRow[] = $this->_aProductnoCorrespondance['ls_tohome_international'];
+                    }else{
+                        $aRow[] = $this->_aProductnoCorrespondance['ls_tohome'];
+                    }
                 }
-                // if (strpos($shipping_method, 'ls_toyou') > 0) {
-                // $shipping_code = 'ADO';
-                // }
+                if (strpos($shippingMethod, 'ls_toyou') > 0) {
+                    if($international){
+                        $aRow[] = $this->_aProductnoCorrespondance['ls_toyou_international'];
+                    }else{
+                        $aRow[] = $this->_aProductnoCorrespondance['ls_toyou'];
+                    }
+                }
                 if (strpos($shippingMethod, 'ls_relay') > 0) {
-                    $shippingCode = 'SHD';
-                }
-                $aRow[] = $shippingCode;
+                    if($international){
+                        $aRow[] = $this->_aProductnoCorrespondance['ls_relay_international'];
+                    }else{
+                        $aRow[] = $this->_aProductnoCorrespondance['ls_relay'];
+                    }
+                }                
                 
                 // ORDERWEIGHTTOT
                 $totalWeight = 0;
@@ -128,6 +152,16 @@ class Addonline_Gls_Model_Export
                 
                 // CONSID
                 $aRow[] = $order->getCustomerId();
+                
+                // CONTACT
+                if($shippingAddress->getCompany()){
+                    $aRow[] = mb_strtoupper(
+                        $shippingAddress->getFirstname() . ' ' . $shippingAddress->getLastname(), 
+                        'UTF-8'
+                    );
+                }else{
+                    $aRow[] = '';                   
+                }
                 
                 // CONTACTMAIL
                 $aRow[] = $shippingAddress->getEmail();

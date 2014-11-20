@@ -245,6 +245,15 @@
  "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configtohome>
 				<ordertohome>1</ordertohome>
+				<livraisontoyou>0</livraisontoyou>
+                <configtoyou><![CDATA[
+{
+ "label": "Livraison à domicile garantie",
+ "code": "toyou_fr",
+ "shipto": "FR",
+ "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
+}]]></configtoyou>
+                <ordertoyou>2</ordertoyou>
 				<livraisonrelay>1</livraisonrelay>
 				<configrelay><![CDATA[
 {
