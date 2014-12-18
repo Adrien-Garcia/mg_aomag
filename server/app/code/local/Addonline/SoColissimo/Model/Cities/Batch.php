@@ -72,6 +72,11 @@ class Addonline_SoColissimo_Model_Cities_Batch
             // On compare les 2 dates
             if ($date_fichier_distant > $date_fichier || $forceUpdate) {
                 
+            	//On test le dossier tmp
+            	if(!file_exists(Mage::getBaseDir() . DS . 'var' . DS . 'tmp')){
+            		mkdir(Mage::getBaseDir() . DS . 'var' . DS . 'tmp');
+            	}
+            	
                 // On télécharge le fichier zip en local
                 file_put_contents(Mage::getBaseDir() . DS . 'var' . DS . 'tmp' . DS . 'cities.zip', fopen($this->_urlFiles . $country . '.zip', 'r'));
                 
