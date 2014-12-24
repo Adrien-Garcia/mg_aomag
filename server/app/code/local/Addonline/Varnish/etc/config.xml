@@ -30,11 +30,11 @@
 					<product_price>Addonline_Varnish_Block_Catalog_Product_Price</product_price>
 				</rewrite>
 			</catalog>
-			<core>
+			<!-- <core>
 			     <rewrite>
 			         <messages>Addonline_Varnish_Block_Core_Messages</messages>
 			     </rewrite>
-			</core>
+			</core> -->
 		</blocks>
         <models>
             <varnish>
