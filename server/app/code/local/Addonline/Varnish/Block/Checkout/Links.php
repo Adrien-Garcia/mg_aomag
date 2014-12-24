@@ -34,16 +34,16 @@ class Addonline_Varnish_Block_Checkout_Links extends Idev_OneStepCheckout_Block_
         if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
         	
         	if (Mage::registry('varnish_static')) {
-        		$text = $this->__('My Cart');
+        		$text = $this->__('My Cart (0)');
         	} else {
         		$count = $this->getSummaryQty() ? $this->getSummaryQty()
 	                : $this->helper('checkout/cart')->getSummaryCount();
 	            if ($count == 1) {
-	                $text = $this->__('My Cart (%s item)', $count);
+	                $text = $this->__('My Cart (%s)', $count);
 	            } elseif ($count > 0) {
-	                $text = $this->__('My Cart (%s items)', $count);
+	                $text = $this->__('My Cart (%s)', $count);
 	            } else {
-	                $text = $this->__('My Cart');
+	                $text = $this->__('My Cart (0)');
 	            }
         	}
 

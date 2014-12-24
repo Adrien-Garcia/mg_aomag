@@ -49,10 +49,10 @@ class Addonline_Varnish_Model_Observer
         if (isset($configuration[$module]['action']) && $configuration[$module]['action'] != $actionName) {
             $needCaching = false;
         }
-        
+
         //Cas particulier des pages 404 : il ne faut pas les cacher sous peine de poser des problème sur des traitements qui ne doiivent pas être cachés et qui peuvent être sur certains cas traité par l'action noRoute...
         if ($actionName == 'noRoute') {
-	        $needCaching = false;
+        	$needCaching = false;
         }
         
         if ($needCaching) {
@@ -105,12 +105,26 @@ class Addonline_Varnish_Model_Observer
      */
     public function purgeCache($observer)
     {
+    	
+    	$tags = $observer->getTags();
+
+    	// Dans le cas du vidage de cache de config , il ne faut pas passer par la méthode "isEnabled" qui va justement chercher ses infos dans la config, 
+    	// ce qui peux faire planter en 404 via une Mage_Core_Model_Store_Exception car il n'arrive pas à charger la config du Store
+    	// on ne poursuit donc le traitement que dans le cas des tags catalog_product, catalog_category ou cms_page 
+        if (count($tags)==0) {
+        	return;
+        } else {	   
+        	$tag = $tags[0];
+	        if ($tag != 'catalog_product' && $tag !='catalog_category' && $tag !='cms_page') {
+	        	return;
+	        }
+        }
+    	
     	// If Varnish is not enabled on admin don't do anything
     	if (!Mage::helper('varnish')->isEnabled()) {
     		return;
     	}
-    
-    	$tags = $observer->getTags();
+    	
     	$urls = array();
     
     	
@@ -258,8 +272,11 @@ class Addonline_Varnish_Model_Observer
     	//si on met à jour la page cms Home on met à jour le cache de la home page
     	if ($page->getIdentifier() == 'home') {
     		$urls[] = '/$';
-    	}
-    	
+    	} else {
+    	    if ($page->getId()) {
+    			$urls[] = '/' . $page->getIdentifier();
+    		}
+    	}   	
     	return $urls;
     }
 }

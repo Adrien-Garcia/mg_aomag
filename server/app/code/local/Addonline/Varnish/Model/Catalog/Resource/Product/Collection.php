@@ -6,11 +6,11 @@ class Addonline_Varnish_Model_Catalog_Resource_Product_Collection extends Mage_C
 		$this->_productLimitationFilters['use_price_index'] = true;
 	
 		if (!isset($this->_productLimitationFilters['customer_group_id']) && is_null($customerGroupId)) {
-			if(!Mage::registry('varnish_static')) {
+			//if(!Mage::registry('varnish_static')) {
 				$customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
-			} else {
-				$customerGroupId = 0;
-			}
+			//} else {
+				//$customerGroupId = 0;
+			//}
 		}
 		if (!isset($this->_productLimitationFilters['website_id']) && is_null($websiteId)) {
 			$websiteId       = Mage::app()->getStore($this->getStoreId())->getWebsiteId();

@@ -30,6 +30,11 @@
 					<product_price>Addonline_Varnish_Block_Catalog_Product_Price</product_price>
 				</rewrite>
 			</catalog>
+			<core>
+			     <rewrite>
+			         <messages>Addonline_Varnish_Block_Core_Messages</messages>
+			     </rewrite>
+			</core>
 		</blocks>
         <models>
             <varnish>
@@ -46,11 +51,6 @@
 					<product_collection>Addonline_Varnish_Model_Catalog_Resource_Product_Collection</product_collection>
 				</rewrite>
 			</catalog_resource>
-			<catalogrule_resource>
-				<rewrite>
-					<rule>Addonline_Varnish_Model_CatalogRule_Resource_Rule</rule>
-				</rewrite>
-			</catalogrule_resource>
         </models>
         <helpers>
             <varnish>
