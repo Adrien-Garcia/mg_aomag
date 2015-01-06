@@ -118,7 +118,14 @@ class Addonline_Gls_Model_Export
                 
                 // PRODUCTNO
                 $shippingMethod = $order->getShippingMethod();                                
-                $international = Mage::getStoreConfig('carrier/gls/internationalshipping');                                
+
+                //On regarde si la livraison est en France
+                $country_code = mb_strtoupper($shippingAddress->getCountry(), 'UTF-8');
+                if($country_code == 'FR'){ 
+                	$international = true;
+                }else{
+                	$international = false;
+                }
                 
                 if (strpos($shippingMethod, 'ls_tohome') > 0) {                    
                     if($international){

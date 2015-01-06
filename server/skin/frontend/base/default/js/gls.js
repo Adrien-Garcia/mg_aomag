@@ -232,9 +232,13 @@ function loadListePointRelais() {
 		glsurl = glsurl + "/address/" + jQuery("#adresse_recherche").val() + "/zipcode/" + jQuery("#cp_recherche").val() + "/country/" + "FR";
 		jQuery.ajax({
 			url: glsurl,
-			success: function(data){				
-				jQuery("#col_droite_gls").html(data);	
-				showGLSMap();
+			success: function(data){	
+				if(data.indexOf("gls_ws_error") <= 0){
+					jQuery("#col_droite_gls").html(data);	
+					showGLSMap();
+				}else{
+					jQuery("#layer_gls_wrapper .contenu").append(data);
+				}
 			}
 		});		
 	}

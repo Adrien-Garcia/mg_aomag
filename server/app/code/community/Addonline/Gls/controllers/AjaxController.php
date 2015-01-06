@@ -49,6 +49,8 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
      */
     public function listPointsRelaisAction ()
     {
+    	
+    	
         $aPointsRelais = array();
         $response = new Varien_Object();
         
@@ -59,7 +61,7 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
         $listrelais = Mage::getSingleton('gls/service')->getRelayPointsForZipCode($zipcode, $country,$address);
         
         if (! isset($listrelais->exitCode->ErrorCode)) {
-            echo $this->__('Error call GLS webservice, it might be down, see var/log/gls.log');
+            $aPointsRelais['error'] = $this->__('Error call GLS webservice, it might be down, see var/log/gls.log');
         } else {
             if ($listrelais->exitCode->ErrorCode == 0) {
                 $productMaxWeight = 0;
@@ -122,16 +124,16 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
                 }else{
                     // Aucune donnée ne correspond à la recherche. La requête est formulée correctement mais aucun
                     // résultat dans la base de données points relais GLS.
-                    echo $this->__('Aucun relais ne correspond à votre recherche');
+                    $aPointsRelais['error'] = $this->__('Aucun relais ne correspond à votre recherche');
                 }
             } elseif ($listrelais->exitCode->ErrorCode == 502) {
-                echo $this->__('Authentification error GLS webservice, login or password might be wrong');
-            } elseif ($listrelais->exitCode->ErrorCode == 998) {
+                $aPointsRelais['error'] = $this->__('Authentification error GLS webservice, login or password might be wrong');
+            } elseif ($listrelais->exitCode->ErrorCode == 999) {
                 // Aucune donnée ne correspond à la recherche. La requête est formulée correctement mais aucun
                 // résultat dans la base de données points relais GLS.
-                echo $this->__('Aucun relais ne correspond à votre recherche');
+                $aPointsRelais['error'] = $this->__('Aucun relais ne correspond à votre recherche');
             } else {
-                echo $listrelais->exitCode->ErrorDscr;
+                $aPointsRelais['error'] = $listrelais->exitCode->ErrorDscr;
             }
         }
         // Creation du block
