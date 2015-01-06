@@ -90,6 +90,15 @@ class Varien_Autoload
         }
         $classFile.= '.php';
         //echo $classFile;die();
+        if(strpos($classFile,'Merchant')!==false){
+            try{
+                Throw new Exception('TOTO');
+        
+            } catch (Exception $e ){
+               echo $e->getTraceAsString();
+                exit;
+            }
+        }
         return include $classFile;
     }
 

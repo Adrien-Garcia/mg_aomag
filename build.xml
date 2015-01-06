@@ -134,9 +134,11 @@
 
 		<!-- transfert par ftp sur le site modules ; le nom du fichier est défini dans la base oxid : select DISTINCT OXSTOREHASH from oxfiles where OXFILENAME='socolissimo.zip' --> 
 		<!-- Dans le cas où le fichier est modifié via le BO oxid : il faut modifier les 2 variables ci-dessous en conséquence -->
+		<!--
 		<property name="oxid-filename" value="4291c96bf2e3eba2a13026bb3485bde0" />
 		<property name="oxid-dir" value="out/downloads/42" />
 		
+		 
 		<copy file="${zip-name}" tofile="${oxid-filename}"/>
 		<ftp server="modules-ecommerce.ftp.addonline.biz" port="21" remotedir="${oxid-dir}" userid="qb1djKTvv" password="J70Rr$aDh6" passive="true">
 			<fileset file="${oxid-filename}"></fileset>
@@ -149,7 +151,7 @@
 		<ftp server="modules-ecommerce.ftp.addonline.biz" port="21" remotedir="${oxid-dir}" userid="qb1djKTvv" password="J70Rr$aDh6" passive="true">
 			<fileset file="${oxid-filename}"></fileset>
 		</ftp>
-		<delete file="${oxid-filename}" /> 
+		<delete file="${oxid-filename}" /> --> 
 	</target>
 
 	<target name="create_zip_gls" depends="">

@@ -75,6 +75,9 @@
 							<import translate="title">
 								<title>Import tracking</title>
 							</import>
+							<configuration translate="title">
+								<title>Configuration</title>
+							</configuration>
 						</children>
 					</gls>
 				</children>

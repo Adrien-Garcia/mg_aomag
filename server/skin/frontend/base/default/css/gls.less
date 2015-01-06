@@ -1,4 +1,4 @@
- * Copyright (c) 2014 GLS
+ /* Copyright (c) 2014 GLS
  *
  * NOTICE OF LICENSE
  *
@@ -106,13 +106,13 @@ dd.s_method_gls #gls_relais_choisi {
 	}
 	
 	#gls_headers {
-		background: url(../images/gls/search-repeat.png) repeat-x;
+		background: url(../images/gls/search-repeat.png) repeat-x 0 100%;		
 		margin: 0 -15px 15px;
-		padding: 0 15px 0 15px;
-		height: 57px;
+		padding: 0 15px 15px 15px;		
 		
-		.left {
+		.left_gls {
 			margin-top: 15px;
+			clear:both !important;
 			
 			span {
 				font-size: 14px;
@@ -135,6 +135,13 @@ dd.s_method_gls #gls_relais_choisi {
 				border: solid 1px #d2d2d2;
 				vertical-align: middle;
 			}
+			
+			#adresse_recherche{
+				border-radius: 8px;
+				width: 279px;
+				margin-right: 50px;
+			}
+			
 			button {
 				background: none;
 				border: none;
@@ -158,7 +165,7 @@ dd.s_method_gls #gls_relais_choisi {
 			}
 		}
 		
-		.right {
+		.right_gls {
 			margin-top: 15px;
 			
 			label {
@@ -255,6 +262,20 @@ dd.s_method_gls #gls_relais_choisi {
 	    	
 	    }
 	}
+	
+	.gls_ws_error{
+    	position: absolute;
+		top: 50px;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		padding-left: 463px;
+		padding-top:65px;
+		z-index: 9;
+		color: red;
+		text-align: left;
+		font-size: 14px;
+    }
 	
 	#col_droite_gls{
 	    width: 268px;
