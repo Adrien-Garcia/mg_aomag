@@ -53,7 +53,7 @@ class Addonline_Gls_Model_Export
         }
     }
 
-    public function export ($collection)
+    public function export ($collection, $local = false)
     {
         if ($collection->getSize() > 0) {
             
@@ -142,11 +142,7 @@ class Addonline_Gls_Model_Export
                     }
                 }
                 if (strpos($shippingMethod, 'ls_relay') > 0) {
-                    if($international){
-                        $aRow[] = $this->_aProductnoCorrespondance['ls_relay_international'];
-                    }else{
-                        $aRow[] = $this->_aProductnoCorrespondance['ls_relay'];
-                    }
+                    $aRow[] = $this->_aProductnoCorrespondance['ls_relay'];
                 }                
                 
                 // ORDERWEIGHTTOT
@@ -224,10 +220,15 @@ class Addonline_Gls_Model_Export
                 $order->save();
             }
         
-            /*
-             * Save the file
-             */
-            $this->array2csv($aOrdersToExport, $this->filename, $delimiter, $encloser, $exportFolder);
+            
+            if(!$local){
+                /*
+                 * Save the file
+                 */
+                $this->array2csv($aOrdersToExport, $this->filename, $delimiter, $encloser, $exportFolder);
+            }else{
+                return $this->printCsv($aOrdersToExport, $this->filename, $delimiter, $encloser);
+            }
         } else {
             Mage::log("Export : " . Mage::helper('gls')->__('No Order has been selected'), null, self::LOG_FILE);
         }
@@ -270,5 +271,28 @@ class Addonline_Gls_Model_Export
         }
         fclose($df);
         return ob_get_clean();
+    }
+    
+    public function printCsv(array &$array, 
+        $filename, 
+        $delimiter = ';', 
+        $encloser = '"')
+    {
+        if (count($array) == 0) {
+            return null;
+        }
+        
+        $csvData = '';
+        foreach ($array as $row) {
+            // WINEXPE attends de l'ISO-8859-1
+            $rowData = '';
+            foreach (array_keys($row) as $key) {
+                $cellData = $encloser.iconv('UTF-8', 'ISO-8859-9', $row[$key]).$encloser.$delimiter;
+                $rowData .= $cellData;
+            }   
+            $csvData .= $rowData."\r\n";
+                
+        }
+        return $csvData;
     }
 }
