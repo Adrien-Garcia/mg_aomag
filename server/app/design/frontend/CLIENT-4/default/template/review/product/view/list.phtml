@@ -1,0 +1,70 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php $_items = $this->getReviewsCollection()->getItems();?>
+<div class="box-collateral box-reviews" id="customer-reviews">
+    <?php if (count($_items)):?>
+        <h2><?php echo $this->__('Customer Reviews') ?> <a href="#" class="add-my-review">Ajouter mon commentaire</a></h2>
+        <div class="toolbar"><?php echo $this->getChildHtml('toolbar') ?></div>
+        <dl>
+        <?php foreach ($_items as $_review):?>
+            <dt itemprop="review" itemscope itemtype="http://schema.org/Review" itemref="schema_org_review_<? echo $_review->getId(); ?>">
+            	<?php $_votes = $_review->getRatingVotes(); ?>
+                <?php if (count($_votes)): ?>
+                <table class="ratings-table" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                    <col width="1" />
+                    <col />
+                    <tbody>
+                        <?php foreach ($_votes as $_vote): ?>
+                        <tr>
+                            <td>
+                                <div class="rating-box">
+                                    <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+                 					<meta itemprop="ratingValue" content="<?php echo $_vote->getPercent() ?>" />
+									<meta itemprop="bestRating" content="100" />
+									<meta itemprop="worstRating" content="0" />
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+
+                </table>
+                <?php endif; ?>
+                <span class="title"><?php echo $this->escapeHtml($_review->getTitle()) ?></span><br/>
+                <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><?php echo $this->__('par <span>%s</span>', $this->escapeHtml($_review->getNickname())) ?><meta itemprop="name" content="<?php echo $this->escapeHtml($_review->getNickname()); ?>" /></span>
+                <small class="date"><?php echo $this->__('le %s', $this->formatDate($_review->getCreatedAt()), 'long') ?></small><meta itemprop="datePublished" content="<?php echo $this->formatDate($_review->getCreatedAt()) ?>" /> 
+            </dt>
+            <dd id="schema_org_review_<? echo $_review->getId(); ?>" ><span itemprop="reviewBody" >
+                <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?></span>
+            </dd>
+        <?php endforeach; ?>
+        </dl>
+        <div class="toolbar"><?php echo $this->getChildHtml('toolbar') ?></div>
+    <?php endif;?>
+    <?php echo $this->getChildHtml('review_form') ?>
+</div>

@@ -70,6 +70,35 @@
 		
 	</default>
 	
+	<!-- Home page -->
+	<cms_index_index>
+		<reference name="content">
+			<block type="core/template" template="catalog/home.phtml" name="home" />
+		</reference>
+		<reference name="home">
+			<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
+				<action method="setSlideshow"><id>1</id></action>
+			</block>
+			<block type="advancedslideshow/slideshow" name="slideshow-mobile" template="advancedslideshow/slideshow.phtml" before="-">
+				<action method="setSlideshow"><id>2</id></action>
+			</block>
+			<block type="cms/block" name="home-mea"><action method="setBlockId"><block_id>home-mea</block_id></action></block>
+			<block type="aocatalog/product_category" name="home-cat-1" template="catalog/homepage/home_mea.phtml">
+				<action method="setProductsCount"><count>4</count></action>
+				<action method="setData"><name>category_id</name><value>79</value></action>
+				<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
+			</block>
+			<block type="aocatalog/product_category" name="home-cat-2" template="catalog/homepage/home_mea.phtml">
+				<action method="setProductsCount"><count>4</count></action>
+				<action method="setData"><name>category_id</name><value>80</value></action>
+				<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
+			</block>
+			
+		</reference>
+	</cms_index_index>
+	
+	
+	
 	<customer_logged_in>
         <reference name="top">
             <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position><liParams /><aParams>class="logout"</aParams></action>

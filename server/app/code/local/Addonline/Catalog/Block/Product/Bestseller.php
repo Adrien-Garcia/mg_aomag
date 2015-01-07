@@ -113,4 +113,16 @@ class Addonline_Catalog_Block_Product_Bestseller extends Mage_Catalog_Block_Prod
         }
         return $this->getData('current_category');
     }
+
+    public function getBestsellerProductCollection() {
+
+        $aProductCollection = Mage::getResourceModel('reports/product_collection')
+            ->addAttributeToSelect(array('*'))
+            //->addOrderedQty()
+            ->addAttributeToSort('ordered_qty','desc')
+            ->addStoreFilter()
+            ->setPageSize($this->getProductsCount());
+        
+        return $aProductCollection;
+    }
 }
