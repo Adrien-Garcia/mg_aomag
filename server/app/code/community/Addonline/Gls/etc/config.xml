@@ -19,7 +19,7 @@
 <config>
 	<modules>
 		<Addonline_Gls>
-			<version>1.0.4</version>
+			<version>1.0.5</version>
 			<depends>
 				<Mage_Shipping />
 			</depends>
@@ -151,11 +151,6 @@
 						<sort_order>1</sort_order>
 						<action>gls/import</action>
 					</import>
-					<configuration translate="title" module="gls">
-						<title>Configuration</title>
-						<sort_order>2</sort_order>
-						<action>gls/configuration</action>
-					</configuration>
 				</children>
 				<depends>
 					<config>carriers/gls/importexport</config>
