@@ -69,7 +69,7 @@ jQuery(function($) {
 		$(this).find('img').remove();
 	});
 	
-	$(".products-grid .mini-product").each(function(){
+	$(".cms-home .products-grid .mini-product").each(function(){
 		var src = $(this).find('a.product-image>img').attr('src');
 		var w = $(this).find('a.product-image>img').attr('width');
 		var h = $(this).find('a.product-image>img').attr('height');

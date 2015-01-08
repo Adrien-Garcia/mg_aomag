@@ -68,7 +68,7 @@
             	<action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>50</position><liParams /><aParams>class="my-account"</aParams></action>
             </block>
 		</reference>
-		
+
 		<remove name="tags_popular"/>		
 		<remove name="tags_all"/>
 		<remove name="right.poll"/>
@@ -79,16 +79,19 @@
 	
 	<!-- Home page -->
 	<cms_index_index>
+
 	  <reference name="content">
 		<block type="core/template" template="catalog/home.phtml" name="home" />
 	  </reference>
 	  <reference name="home">
+
 	  	<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
 		  <action method="setSlideshow"><id>1</id></action>
 		</block>
-		<block type="advancedslideshow/slideshow" name="slideshow-mobile" template="advancedslideshow/slideshow.phtml" before="-">
-		  <action method="setSlideshow"><id>2</id></action>
-		</block>
+		<remove name="slideshow-mobile" />
+		<action method="unsetChild"><name>home-mea</name></action>
+		<action method="unsetChild"><name>home-cat-1</name></action>
+		<action method="unsetChild"><name>home-cat-2</name></action>
 	  	<block type="core/template" name="home-page-descript" template="page/html/descript.phtml">
 		    <block type="cms/block" name="description-site">
 		      <action method="setBlockId"><block_id>description-site</block_id></action>
