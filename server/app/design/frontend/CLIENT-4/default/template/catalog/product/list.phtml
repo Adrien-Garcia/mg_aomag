@@ -91,7 +91,9 @@
         <?php endif ?>
             <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
             <?php
-				$this->getChild("mini-fiche")->setData("product", $_product);
+                $this->getChild("mini-fiche")->setData("product", $_product);
+                $this->getChild("mini-fiche")->setData("height", 210);
+				$this->getChild("mini-fiche")->setData("width", 244);
 				echo $this->getChildHtml("mini-fiche", false);
 			?>
             </li>
