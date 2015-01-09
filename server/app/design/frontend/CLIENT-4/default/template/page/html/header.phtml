@@ -37,13 +37,15 @@
         <?php if ($this->getIsHomePage()):?>
         <h1 class="logo">
         	<a title="<?php echo $this->getLogoAlt() ?>" class="logo lienhome">
-        		<strong><?php echo $this->getLogoAlt() ?></strong>
+        		<?php echo $this->getLogoAlt() ?>
         	</a>
         </h1>
         <?php else:?>
+            <span class="logo">
         	<a title="<?php echo $this->getLogoAlt() ?>" class="logo lienhome">
-        		<strong><?php echo $this->getLogoAlt() ?></strong>
+        		<?php echo $this->getLogoAlt() ?>
         	</a>
+            </span>
         <?php endif?>
         <?php echo $this->getChildHtml('top') ?>
         

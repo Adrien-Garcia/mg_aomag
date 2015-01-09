@@ -41,11 +41,11 @@
     <div class="page">
         <?php echo $this->getChildHtml('header') ?>
         <div class="main-container col2-left-layout">
-			<div class="breadcrumbs-container"><?php echo $this->getChildHtml('breadcrumbs') ?></div>
+
 			<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
             <?php echo $this->getChildHtml('global_messages') ?>
 			<div class="main">
-            	
+	           <div class="breadcrumbs-container"><?php echo $this->getChildHtml('breadcrumbs') ?></div>
             	<?php // Compare link
 				$compareHelper = $this->helper('catalog/product_compare');
 				$comparedItemCount = $compareHelper->getItemCount();
@@ -55,10 +55,11 @@
 				<?php endif; ?>
             	
                 <?php echo $this->getChildHtml('main-header') ?>
+                <div class="col-left sidebar"><?php echo $this->getChildHtml('left') ?></div>
                 <div class="col-main">
                     <?php echo $this->getChildHtml('content') ?>
                 </div>
-                <div class="col-left sidebar"><?php echo $this->getChildHtml('left') ?></div>
+
                 <?php echo $this->getChildHtml('main-footer') ?>
             </div>
         </div>

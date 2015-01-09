@@ -33,19 +33,19 @@
 ?>
 <?php if($this->getCollection()->getSize()): ?>
 <div class="toolbar">
+    <?php echo $this->getPagerHtml() ?>
     <div class="pager">
-        <p class="amount">
-			<?php echo $this->__('%s article(s) au total', $this->getTotalNum()) ?>
-        </p>
+        
 
         <div class="limiter">
+        <?php echo $this->__('articles par page') ?>
             <select onchange="setLocation(this.value)">
             <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
                 <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
                     <?php echo $_limit ?>
                 </option>
             <?php endforeach; ?>
-            </select> <?php echo $this->__('articles par page') ?>
+            </select> 
         </div>
 
         
@@ -89,8 +89,7 @@
         
     </div>
     <?php endif; ?>
-    
-    <?php echo $this->getPagerHtml() ?>
+
     
 </div>
 <?php endif ?>
