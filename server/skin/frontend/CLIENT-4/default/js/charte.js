@@ -69,7 +69,7 @@ jQuery(function($) {
 		$(this).find('img').remove();
 	});
 	
-	$(".cms-home .products-grid .mini-product").each(function(){
+	$(".products-grid .mini-product").each(function(){
 		var src = $(this).find('a.product-image>img').attr('src');
 		var w = $(this).find('a.product-image>img').attr('width');
 		var h = $(this).find('a.product-image>img').attr('height');
@@ -97,6 +97,8 @@ jQuery(function($) {
 		$(this).append('<div class="primary-button"><p>Voir la collection</p></div>');
 	});
 
+	$('select').wrap('<div class="select"></div>');
+	$('.main-container>.breadcrumbs-container').prependTo('.main-container>.main');
 	/* Page title */
 	$(".col-main .page-title").prependTo(".main");
 	

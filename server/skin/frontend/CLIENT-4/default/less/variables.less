@@ -1,4 +1,5 @@
-@color-main: #eb5b5b;
+//@color-main: #eb5b5b;
+@color-main: #00b9af;
 @color-second: #f4f4f4;
 
 /*
@@ -10,10 +11,17 @@
 */
 /* variables */
 @c1: #0067ac; /* prix */
-@c2: #eb5b5b; /* dominante */
-@c2t: rgba(255, 111, 111, 0.7); /* dominante */
-@c2t20: rgba(255, 111, 111, 0.2); /* dominante */
-@c2t10: rgba(255, 111, 111, 0.1); /* dominante */
+@c2: @color-main; /* dominante */
+@c2t: fade(@color-main,70%); /* dominante */
+@c2t90: fade(@color-main,90%); /* dominante */
+@c2t80: fade(@color-main,80%); /* dominante */
+@c2t70: fade(@color-main,70%); /* dominante */
+@c2t60: fade(@color-main,60%); /* dominante */
+@c2t50: fade(@color-main,50%); /* dominante */
+@c2t40: fade(@color-main,40%); /* dominante */
+@c2t30: fade(@color-main,30%); /* dominante */
+@c2t20: fade(@color-main,20%); /* dominante */
+@c2t10: rfade(@color-main,10%); /* dominante */
 /* nuances de gris */
 @c3: #0d0d0d; 
 @c4: #939393;

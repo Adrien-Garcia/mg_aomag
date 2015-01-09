@@ -187,18 +187,18 @@ ul,ol         { list-style:none; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
 .page-popup { background:#fff; padding:25px 30px; text-align:left; }
 .main-container {  }
-.main { width:@width; padding: @padding; margin:35px auto 0 auto; min-height:400px; background: #fff }
+.main { width:@width; padding: 0px; margin:55px auto 0 auto; min-height:400px; background: #fff }
 
 /* Base Columns */
-.col-left { float:left; width:225px; margin-bottom: 20px; }
-.col-main { float:left; width:715px; padding:0 0 1px; }
+.col-left { float:left; width:210px; margin: 50px 36px 0 0; }
+.col-main { float:left; width:732px; padding:0 0 1px; }
 .col-right { float:right; width:195px; padding:0 0 1px; }
 
 /* 1 Column Layout */
-.col1-layout .col-main { float:none; width:auto; }
+.col1-layout .col-main { float:none; width:auto; margin: 10px 0 0 0;}
 
 /* 2 Columns Layout */
-.col2-left-layout .col-main { float:right; }
+.col2-left-layout .col-main { float:left; }
 .col2-right-layout .col-main {}
 
 /* 3 Columns Layout */
@@ -247,7 +247,7 @@ input,select,textarea,button {
 	font-size: 14px;
 }
 
-input.input-text,select,textarea {
+input.input-text,textarea {
 	border: 1px solid @c6;
 	padding: 2px 10px 3px 10px;
 	color:@c4;
@@ -258,9 +258,55 @@ input.input-text,select,textarea {
 	}
 }
 select{
+	//border: 0px;
 	height:26px;
 	padding-right: 0;
 }
+
+.select{
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	height: 28px;
+	//border: 1px solid rgba(0,0,0,0.2);
+
+}
+
+  .select select {
+  	position: relative;
+  	top: -4px;
+  	padding: 0;
+  	margin: 0;
+    //width: 120%;
+    //width: calc(~"100% + 17px");
+  }
+
+@-moz-document url-prefix() { 
+  .select {
+  	position: relative;
+  	top: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.2);
+  }
+  .select select {
+  	position: relative;
+  	top: -4px;
+  	padding: 0;
+  	margin: 0;
+    //width: 120%;
+    //width: calc(~"100% + 17px");
+  }
+  
+}
+
+/* Firefox focus has odd artifacts around the text, this kills that. See https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-focusring */
+.select select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+
+
 
 textarea { overflow:auto; }
 input.radio { margin-right:3px; position:relative;top:2px;}
@@ -456,16 +502,15 @@ p.required {
 */
 /* fil d'Arianne breadcumb chemin */
 .breadcrumbs-container {
-	width: @width;
-	margin:0 auto;
-	background:#fff;
-	border-bottom: 1px solid #d4d4d4;
-	padding: 15px 0;
+	width: 100%;
+	height: 29px;
+	padding: 14px 0 3px 27px;
+	//border-bottom: 1px solid #d4d4d4;
+	font-family: berlin_boldbold;
+	//padding: 15px 0;
 	
 	.breadcrumbs {
 		margin: auto;
-		width: @width;
-		padding: @padding;
 		
 		.lienhome{
 			
@@ -500,12 +545,14 @@ p.required {
 /* Page Heading */
 .page-title {
 	position: relative;
-	
+	padding-left: 27px;
 	h1,
 	h2 {
+
 		font-family: @font-bold;
 		color: @c3;
-		font-size: 30px;
+		font-size: 42px;
+		line-height: 10px;
 	}
 	
 	.required {
@@ -740,7 +787,7 @@ tr.summary-details-excluded { font-style:italic; }
 		position: absolute;
 		width: 100%;
 		height: 281px;
-		background-color: @c2t20;
+		background: url('../images/fond-header.png') repeat @c2;
 		z-index: -10;
 	}
 
@@ -805,7 +852,7 @@ tr.summary-details-excluded { font-style:italic; }
 			vertical-align: top;
 		}
 
-		h1.logo {
+		span.logo, h1.logo {
 			cursor: pointer;
 			display: block;
 			position: absolute;
@@ -889,7 +936,8 @@ tr.summary-details-excluded { font-style:italic; }
 		text-decoration: none;
 		
 		&:before {
-			.picto-cart-header;
+			.picto-cart-header-t;
+			background: @c2;
 			content: "";
 			position: absolute;
 			top: 4px;
@@ -955,7 +1003,7 @@ tr.summary-details-excluded { font-style:italic; }
 	z-index: 2;
 	position: absolute;
 	margin: 0px 1px 0px -50%;
-	float: left;
+	//float: left;
 	left: 50%;
 	width: 100vw;
 	max-width: 981px;
@@ -1095,7 +1143,8 @@ tr.summary-details-excluded { font-style:italic; }
 			margin-top: 9px;
 			margin-right: 10px;
 			&:before {
-				.picto-cart-header;
+				.picto-cart-header-t;
+				background-color: @c2;
 				content: "";
 				position: absolute;
 				left: -20px;
@@ -1107,7 +1156,7 @@ tr.summary-details-excluded { font-style:italic; }
 // @media screen and (min-width: 980px) {
 	.nav-container {
 		margin: 0px 1px 20px -490px;
-		float: left;
+		//float: left;
 		position: relative;
 		left: 50%;
 		width: 100vw;
@@ -1312,7 +1361,7 @@ tr.summary-details-excluded { font-style:italic; }
 .cart-table .btn-empty { float:right; }
 .cart-table .btn-update { margin-left:10px; }
 
-
+//Common
 
 
 
@@ -1725,7 +1774,7 @@ tr.summary-details-excluded { font-style:italic; }
 				z-index: 1;
 				font-family: verdana;
 				font-size: 12px;
-				color : rgba(255, 111, 111, 0.5);
+				color : @c2t50;
 				pointer-events: none;
 			}
 			input {
