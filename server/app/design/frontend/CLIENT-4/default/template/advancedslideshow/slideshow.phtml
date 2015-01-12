@@ -1,0 +1,35 @@
+<?php
+$result = $this->getSlideshowData();
+?>
+
+
+<?php if (count($result)>0 ):?>	
+<div class="slideshow">
+				
+<?php foreach($result as $id => $block): 
+$_image = $block['image'];
+$_url = $block['url'];
+?>
+<?php if( $block['is_product'] ) {
+							$_image_produit = $block['product']['image'];
+							$_url_produit = $block['product']['url'];
+						?>
+							<div class="product item" <?php if($block['image'] != null): ?>style="background-image:url(<?php echo $block['image']; ?>);"<?php endif; ?>>
+								<div>
+									<?php /*a class="product-image" href="<?php echo $_url_produit; ?>"><img src="<?php echo $_image_produit; ?>" /></a*/?>
+									<a class="product-name" href="<?php echo $_url_produit; ?>"><?php echo $block['product']['name']; ?></a>
+									<?php /*div class="desc std">
+                        				<?php echo Mage::helper('core/string')->truncate($block['product']->getShortDescription(), 80) ?>
+                        			</div*/?>
+                        			<?php echo $this->getPriceHtml($block['product'], true) ?>
+                        			<a class="lnk" href="<?php echo $_url_produit; ?>">Détails</a>
+								</div>
+							</div>
+						<?php } else {?>
+							<div class="item">
+								<a href="<?php echo $_url; ?>"><img src="<?php echo $_image; ?>" /></a>
+							</div>
+						<?php }?>	
+<?php endforeach; ?>
+</div>
+<?php endif; ?>
