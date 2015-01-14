@@ -10,7 +10,7 @@
 		&:after {
 			content: "";
 			height: 1px;
-			border-bottom: 1px solid @c4;
+			//border-bottom: 1px solid @c4;
 			position: absolute;
 			top: 95px;
 			left: 0;
@@ -24,23 +24,32 @@
 		h1 {
 			line-height: 95px;
 		}
-		
-		.link-print, .link-empty-compare {
-			.lnk-primary;
+		.link-print, .link-empty-compare{
+			position: relative;
+			font-family: @font-light;
+			font-weight: bold;
+			font-size: 9px;
+			text-transform: uppercase;
+			text-decoration: none;
+		}
+		.link-print::before{
+			content: "";
+			position: absolute;
+			top: 3px;
+			left: -16px;
+			.picto-printer;
+		}
+		.link-empty-compare::before {
+			content: "";
+			position: absolute;
+			top: 3px;
+			left: -16px;
+			.picto-trash;
 		}
 		
 		.link-empty-compare {
 			margin-left: 40px;
-			
-			&:after {
-				content: "";
-				width: 1px;
-				height: 20px;
-				background: @c4;
-				position: absolute;
-				top: 0;
-				left: -20px;
-			}
+			margin-right: 20px;
 		}
 	}
 }
@@ -48,19 +57,29 @@
 /* Accès au comparateur à droite du fil d'Arianne */
 .compare-link {
 	text-decoration: none;
-	float: right;
-	margin-top: -70px;
+	left: 850px;	
 	position: relative;
 	z-index: 1;
 	display: none; /* affiché seulement sur certaines pages (famille, produit) */
-	
+	position: relative;
+	&::before{
+		.picto-comparateur;
+		content: "";
+		top: 5px;
+		left: -14px;
+		position: absolute;
+	}
+	*{
+	font-family: @font-light;
+	font-size: 9px;
+	font-weight: bold;
+	text-transform: uppercase;
+	}
 	.link {
-		text-decoration: underline;
+		text-decoration: none;
+
 	}
 	
-	.count {
-		color: @c2;
-	}
 }
 	/* ainsi que le fil d'Arianne */
 	.catalog-product-compare-index .breadcrumbs-container {
@@ -72,44 +91,61 @@
 	border-spacing: 10px;
 	width: 100%;
 	margin-top: 20px;
-	
+	border-collapse: collapse;
+
 	th {
-		text-align: right;
+		text-align: left;
+		font-weight: bold;
+		color: @c3;
+		padding: 0 10px 8px 0;
 	}
-	
+	tr.product-shop-row{border-bottom: 2px dotted @c4;}
 	td {
-		text-align: center;
-		padding: 0 0 8px 0;
-		width: 185px;
-		border-bottom: 1px solid @c4;
+		text-align: left;
+		padding: 0 10px 8px 0;
+		width: 213px;
+		font-family: @font-light;
+		font-size: 10.5px;
 		
 		&.empty {
 			border-bottom: none;
+			width: 0px;
 		}
 	}
-	
+	tr.add-to-row{
+		border-top: 2px @c6 dotted;
+
+	}
+	.add-to-links a{
+			color: @c2;
+	}
 	.add-to-row td,
 	.remove-row td {
-		border: none;
+		//border: none;
 		padding-bottom: 0;
+		
 	}
 	
 	.btn-remove {
-		float: right;
+		float: left;
 		margin-bottom: 10px;
 		margin-right: 10px;
 	}
 	
 	.btn-cart {
+		text-align: center;
 		.primary-button;
+		.primary-button.color-main;
 		margin: 20px auto 0 auto;
-		width: 164px;
+		padding: 0 15px;
+		width: auto;
+		height: 28px;
 	}
 	
 	.product-image { display:block; margin:0 0 10px; clear: both; }
 	.product-name {
-		margin: 0 0 5px;
-		height: 43px;
+		margin: 0px;
+		height: 80px;
 		overflow: hidden;
 		a {
 			font-family: @font-bold;
