@@ -20,7 +20,7 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
     protected function _getHtml(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)
     {
         $html = '';
-
+        $isClient4 = Mage::getSingleton('core/design_package')->getPackageName() == "CLIENT-4";
         $children = $menuTree->getChildren();
         $parentLevel = $menuTree->getLevel();
         $childLevel = is_null($parentLevel) ? 0 : $parentLevel + 1;
@@ -30,8 +30,7 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
 
         $parentPositionClass = $menuTree->getPositionClass();
         $itemPositionClassPrefix = $parentPositionClass ? $parentPositionClass . '-' : 'nav-';
-
-        
+        if( $childLevel == 1 && $isClient4) $html .="<div>";
         foreach ($children as $child) {
 
             $child->setLevel($childLevel);
@@ -66,12 +65,12 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
                 $html .= $this->_getHtml($child, $childrenWrapClass);
 
                 //Uniquement dans le Package de skin "Client-4"
-                if(Mage::getSingleton('core/design_package')->getPackageName() == "CLIENT-4"){
+                if($isClient4){
                     if( $childLevel == 0){
                         //S'il y a une image
                         
                         if($child->getImage()){
-                            $html .= "<li class='img-category'><img class='visuel' width='195' height='160' src='". $child->getImage() ."' /></li>";
+                            $html .= "<li class='img-category'><img class='visuel' src='". $child->getImage() ."' /></li>";
                         }else{
                             $html .= "";
                         }
@@ -90,7 +89,7 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
 
             $counter++;
         }
-
+        if( $childLevel == 1 && $isClient4) $html .= "</div>";
         return $html;
     }
 

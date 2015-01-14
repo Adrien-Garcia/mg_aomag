@@ -123,7 +123,7 @@ body {
 img           { border:0; vertical-align:top; }
 
 a             { color: @c3; text-decoration:underline; }
-a:hover       { opacity: .8; }
+// a:hover       { opacity: .8; }
 :focus        { outline:0; }
 
 /* Headings */
@@ -460,24 +460,36 @@ p.required {
                              |___/           
 */
 /* messages */
-.main .messages { }//display: none; } /* les messages sont affciher au niveau template de page (1colmun.phtml...) */
-.success { color:#84cb1d; }
-.error { color:#dc3c16; }
-.notice { color:#dbb000; }
+.main .messages { }//display: none; } /* les messages sont affciher au niveau Nav bar (topmenu.phtml...) */
+.success { color:#73a950; }
+.error { color:#ef5f53; }
+.notice { color:#e28534; }
 
 .messages {
 	overflow: hidden;
 	transition: width 2s;
-	&:focus{width:0px;}
-	border-bottom: 1px solid @c4;
+	//border-bottom: 1px solid @c4;
 	font-size: 16px;
-	padding: 15px 0;
 	margin-bottom: 15px;
+	z-index: 0;
+	position: relative;
+
+	&>.close-button{
+		.picto-close1;
+		position: absolute;
+		top: 16px;
+		right: 25px;
+		cursor: pointer;
+	}
+
 	> li {
 		width: @width;
-		padding: @padding;
+		padding: 13px 13px 13px 30px;
 		margin: auto;
-		
+		color: #fff;
+		font-family: @font-light;
+		font-size: 10px;
+		height: 42px;
 		ul {
 			padding-left: 25px;
 			position: relative;
@@ -486,37 +498,37 @@ p.required {
 		}
 		
 		&.success-msg {
-			color: #84cb1d;
+			background-color: #73a950;
 			
 			ul:before {
 				content: "";
 				position: absolute;
-				top: 4px;
+				top: 2px;
 				left: 0;
-				.picto-success;
+				.picto-notice;
 			}
 		}
 		
 		&.error-msg {
-			color: #dc3c16;
+			background-color: #ef5f53;
 			
 			ul:before {
 				content: "";
 				position: absolute;
-				top: 5px;
+				top: 2px;
 				left: 0;
-				.picto-error;
+				.picto-notice;
 			}
 		}
 		
 		&.note-msg,
 		&.notice-msg {
-			color: #dbb000;
+			background-color: #e28534;
 			
 			ul:before {
 				content: "";
 				position: absolute;
-				top: 0;
+				top: 2px;
 				left: 0;
 				.picto-notice;
 			}
@@ -1040,12 +1052,14 @@ tr.summary-details-excluded { font-style:italic; }
 	width: 100vw;
 	max-width: 980px;
 
+
 	#nav {
 		max-width:980px; margin:0 auto;
 		width: 980px;
 		min-width: 726px;
 		position: relative;
 		height: 42px;
+		z-index: 1;
 		
 		li.level0:first-child{}//margin-left: 10px;}
 		li.level0 {
@@ -1092,26 +1106,32 @@ tr.summary-details-excluded { font-style:italic; }
 			ul.level0 {
 				display: none;
 				position: absolute;
-				padding: 20px;
+				padding: 34px;
 				top: 42px;
 				left: 0;
 				background: @c8;
 				width: 980px;
 				box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.5);
+				min-height: 280px;
 				
+				&>div{width: 666px; /*display: flex;  flex-flow: row wrap;*/}
+
 				li.level1 {
 				
 					float: left;
-					/*width: 25%;*/
-					padding-right: 20px;
+					width: 25%;
+					padding-right: 35px;
 					
 					> a {
-						font-family: @font-bold;
-						font-size: 16px;
-						color: #fff;
+						display: inline-block;
+						margin: 0 0 10px 0;
+						font-family: @font-xbold;
+						font-size: 14px;
+						color: @c5;
 						text-transform: uppercase;
 						text-decoration: none;
 					}
+					> a:hover{color: #fff;}
 					
 					ul.level1 {
 					
@@ -1125,9 +1145,9 @@ tr.summary-details-excluded { font-style:italic; }
 							margin-bottom: 3px;
 							
 							a {
-								font-family: open_sanslight;
-								font-size: 14px;
-								color: #fff;
+								font-family: @font-light;
+								font-size: 12px;
+								color: @c5;
 								text-decoration: none;
 								padding: 0 0 0 0px;
 								position: relative;
@@ -1135,16 +1155,25 @@ tr.summary-details-excluded { font-style:italic; }
 								
 								&:hover {
 									text-decoration: underline;
+									color: #fff;
 								}
 							}
 						}
-					
 					}
+
 
 					
 				}
 				li.img-category{
-						float: right;
+					position: absolute;
+					top: 35px;
+					right: 55px;
+					&>img, &{
+						width: 210px;
+						height: 210px;
+					}
+					border-radius: 105px;
+					overflow: hidden;
 				}
 				
 			}
@@ -1158,9 +1187,10 @@ tr.summary-details-excluded { font-style:italic; }
 			font-size: 12px;
 			color: @c2;
 			text-decoration: none;
-			text-transform: uppercase;
-			margin-top: 9px;
-			margin-right: 10px;
+			text-transform: uppercase;	
+			margin-right: 15px;
+			height: 100%;
+			padding: 10px 0;
 			&:before {
 				.picto-cart-header-t;
 				background-color: @c2;

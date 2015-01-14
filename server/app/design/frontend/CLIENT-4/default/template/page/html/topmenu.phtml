@@ -36,7 +36,12 @@
 <div class="nav-container">
     <ul id="nav">
         <?php echo $_menu ?>
-        <li class=" level0 last level-top cart"><?php echo $this->getChildHtml('cart-link'); ?></li>
+        <li class=" level0 last level-top cart"><?php echo $this->getChildHtml('cart-link'); ?>
+	        <ul class="level0">
+	        <?php echo $this->getChildHtml('menu-cart'); ?>
+	        </ul>
+        </li>
     </ul>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 </div>
 <?php endif ?>

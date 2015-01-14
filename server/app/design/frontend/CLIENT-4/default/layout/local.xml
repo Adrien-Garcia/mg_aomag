@@ -10,6 +10,9 @@
 	               	<action method="addCartLink"></action>
 	           	</block>
    			 </block>
+   			 <block type="core/template" name="menu-cart" as="menu-cart" template="checkout/menu-cart.phtml">
+   			 	<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
+   			 </block>
 		</reference>
 		<reference name="root">
 			<block type="core/text_list" name="main-header"></block>
@@ -138,7 +141,7 @@
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
 		</reference>
 		<reference name="product.info.upsell">
-			<action method="setItemLimit"><type>upsell</type><limit>50</limit></action>
+			<action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
 			<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
 		</reference>
 		<reference name="product.info">
