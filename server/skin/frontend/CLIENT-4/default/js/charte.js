@@ -58,7 +58,7 @@ jQuery(function($) {
 		auto: true,
 		slideMargin: 0 
 	});
-	$(window).resize(function(){sliderHome.reloadSlider();});
+	$(window).resize(function(){if($('body').hasClass('.cms-home'))sliderHome.reloadSlider();});
 
 	//accueil : circles
 	// $(".std .circle").appendTo(".col-main .circles");
@@ -97,16 +97,36 @@ jQuery(function($) {
 		$(this).append('<div class="primary-button"><p>Voir la collection</p></div>');
 	});
 
+	$('.messages').click(function(){
+		$(this).hide('2s');
+	});
 	$('select').wrap('<div class="select"></div>');
 	$('.main-container>.breadcrumbs-container').prependTo('.main-container>.main');
+	$('.catalog-product-view .main-container .product-shop .wrapper-sku-ratings .product-sku')
+		.insertAfter('.catalog-product-view .main-container .product-shop .product-collateral .box-collateral.box-description>h2');
 	/* Page title */
 	$(".col-main .page-title").prependTo(".main");
 	
-	$("input.qty").click(function(){
-        var input = this;
-        input.focus();
-        input.setSelectionRange(0,999); 
-    });
+	//incrementer
+	$("span.qty").each(function(){
+		var input = $(this).find('input[type=number]');
+		$(this).prepend("<span>-</span>");
+		$(this).find('span:first-of-type').click(function(){
+			//input.stepDown(1);
+			input.val( parseInt(input.val()) > 0 ? parseInt(input.val()) - 1 : parseInt(input.val()));
+		});
+		$(this).append("<span>+</span>");
+		$(this).find('span:last-of-type').click(function(){
+			//input.stepUp(1);
+			input.val(parseInt(input.val()) < 999 ? parseInt(input.val()) + 1 : parseInt(input.val()));
+		});
+
+	});
+	// $("input.qty").click(function(){
+ //        var input = this;
+ //        input.focus();
+ //        input.setSelectionRange(0,999); 
+ //    });
 	
 	var t = new Array();
 	$(".more-views li a").each(function() {

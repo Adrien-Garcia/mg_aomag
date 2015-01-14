@@ -45,15 +45,13 @@
         	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
         	<?php echo $this->getChildHtml('global_messages') ?>
             <div class="main">
-            
-            	<?php // Compare link
-				$compareHelper = $this->helper('catalog/product_compare');
-				$comparedItemCount = $compareHelper->getItemCount();
-				?>
-				<?php if( $comparedItemCount > 0 ): ?>
-					<a class="compare-link" href="<?php echo $compareHelper->getListUrl(); ?>"><span class="link"><?php echo $this->__("Comparateur"); ?></span> <span class="count">(<?php echo $comparedItemCount; ?>)</span></a>
-				<?php endif; ?>
-            
+                <?php // Compare link
+                $compareHelper = $this->helper('catalog/product_compare');
+                $comparedItemCount = $compareHelper->getItemCount();
+                ?>
+                <?php if( $comparedItemCount > 0 ): ?>
+                    <a class="compare-link" href="<?php echo $compareHelper->getListUrl(); ?>"><span class="link"><?php echo $this->__("Comparateur"); ?></span> <span class="count">(<?php echo $comparedItemCount; ?>)</span></a>
+                <?php endif; ?>
                 <div class="col-main">
                     <?php echo $this->getChildHtml('global_messages') ?>
                     <?php echo $this->getChildHtml('content') ?>

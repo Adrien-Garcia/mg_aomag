@@ -38,6 +38,7 @@ class Addonline_CategoryNavigation_Model_Catalog_Observer extends Mage_Catalog_M
 			$categoryData = array(
 					'name' => $category->getName(),
 					'id' => $nodeId,
+					'image' => $category->getImageUrl(),//$category->getImageUrl(),
 					'url' => $pageCms?$menuBlock->getUrl('/').$pageCms:Mage::helper('catalog/category')->getCategoryUrl($category),
 					'is_active' => $this->_isActiveMenuCategory($category),
 					'navigation_type' => $category->getNavigationType() //ADDONLINE : on ajoute navigation_type au noeud

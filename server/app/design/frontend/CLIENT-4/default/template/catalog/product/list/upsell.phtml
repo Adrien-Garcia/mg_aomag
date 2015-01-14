@@ -35,6 +35,8 @@
             <?php if($_link=$this->getIterableItem()): ?>
             <li class="item">
 				<?php
+                    $this->getChild("mini-fiche")->setData("height", 210);
+                    $this->getChild("mini-fiche")->setData("width", 244);
 					$this->getChild("mini-fiche")->setData("product", $_link);
 					echo $this->getChildHtml("mini-fiche", false);
 				?>

@@ -58,10 +58,8 @@ module.exports = function(grunt) {
         glue: {
             command: 'glue ../images/client/origin --less=../less --img=../images/client/sprites --sprite-namespace= --namespace= --cachebuster'
         }
-    }
-    
+    },
   });
-
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-shell');

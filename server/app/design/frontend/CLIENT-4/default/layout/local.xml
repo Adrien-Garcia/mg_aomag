@@ -53,6 +53,9 @@
             <block type="cms/block" name="cms_footer_bloc_4">
                 <action method="setBlockId"><block_id>cms_footer_bloc_4</block_id></action>
             </block>
+            <block type="cms/block" name="cms_footer_bloc_6">
+                <action method="setBlockId"><block_id>cms_footer_bloc_6</block_id></action>
+            </block>
             <block type="newsletter/subscribe" name="footer.newsletter" template="newsletter/subscribe.phtml"/>
 		</reference>
 		<reference name="header">
@@ -115,6 +118,14 @@
 		</block>
 	  </reference>
 	</cms_index_index>
+
+<!-- 	<catalog_product_view translate="label">
+		<reference name="content">
+			<block type="catalog/product_view" name="product.info" template="catalog/product/view.phtml">
+				
+			</block>
+		</reference>
+	</catalog_product_view> -->
 
 	<customer_logged_in>
         <reference name="top">

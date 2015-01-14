@@ -63,6 +63,20 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
                 }
                 $html .= '<ul class="level' . $childLevel . '">';
                 $html .= $this->_getHtml($child, $childrenWrapClass);
+
+                //Uniquement dans le Package de skin "Client-4"
+                if(Mage::getSingleton('core/design_package')->getPackageName() == "CLIENT-4"){
+                    if( $childLevel == 0){
+                        //S'il y a une image
+                        
+                        if($child->getImage()){
+                            $html .= "<li class='img-category'><img class='visuel' width='195' height='160' src='". $child->getImage() ."' /></li>";
+                        }else{
+                            $html .= "";
+                        }
+                    }
+                }
+
                 $html .= '</ul>';
 
                 if (!empty($childrenWrapClass)) {
