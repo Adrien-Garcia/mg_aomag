@@ -245,7 +245,6 @@ class Mage_Catalog_Model_Observer
 
             $categoryData = array(
                 'name' => $category->getName(),
-                'img' => $category->getImageUrl(), // or thumbnail if you wanted.
                 'id' => $nodeId,
                 'url' => Mage::helper('catalog/category')->getCategoryUrl($category),
                 'is_active' => $this->_isActiveMenuCategory($category)

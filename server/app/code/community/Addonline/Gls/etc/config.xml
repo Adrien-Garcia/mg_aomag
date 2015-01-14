@@ -222,19 +222,19 @@
 				<livraisontohome>1</livraisontohome>
 				<configtohome><![CDATA[
 {
- "label": "Livraison à domicile",
+ "label": "Livraison à domicile en 24/48H",
  "code": "tohome_fr",
  "shipto": "FR",
  "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 },
 {
- "label": "Livraison à domicile",
+ "label": "Livraison à domicile en 24/48H",
  "code": "tohome_eu",
  "shipto": "{address_filter.EU}",
  "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 },
 {
- "label": "Livraison à domicile",
+ "label": "Livraison à domicile en 24/48H",
  "code": "tohome_ue",
  "shipto": "{address_filter.AF},{address_filter.AS},{address_filter.NA},{address_filter.SA},{address_filter.OC},{address_filter.AN},{address_filter.DOM},{address_filter.COM}",
  "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
@@ -243,7 +243,7 @@
 				<livraisontoyou>0</livraisontoyou>
                 <configtoyou><![CDATA[
 {
- "label": "Livraison à domicile garantie",
+ "label": "En cas d’absence, choisissez où et quand vous souhaitez être livré",
  "code": "toyou_fr",
  "shipto": "FR",
  "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
@@ -252,7 +252,7 @@
 				<livraisonrelay>1</livraisonrelay>
 				<configrelay><![CDATA[
 {
- "label": "Livraison en Point Relais",
+ "label": "Retrait en Point Relais de votre choix",
  "code": "relay_fr",
  "shipto": "FR",
  "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"

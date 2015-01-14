@@ -151,7 +151,7 @@ class Addonline_Gls_Model_Export
                 foreach ($items as $item) {
                     $totalWeight += $item->getRowWeight();
                 }
-                $aRow[] = $totalWeight;
+                $aRow[] = number_format($totalWeight, 2, '.', '');;
                 
                 // CONSID
                 $aRow[] = $order->getCustomerId();

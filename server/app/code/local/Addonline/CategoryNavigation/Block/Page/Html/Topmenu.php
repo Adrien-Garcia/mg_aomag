@@ -56,12 +56,13 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
             }
 			//FIN ADDONLINE
             $html .= $this->escapeHtml($child->getName()) . '</span></a>';
-            
+
             if ($child->hasChildren()) {
                 if (!empty($childrenWrapClass)) {
                     $html .= '<div class="' . $childrenWrapClass . '">';
                 }
                 $html .= '<ul class="level' . $childLevel . '">';
+
                 $html .= $this->_getHtml($child, $childrenWrapClass);
 
                 //Uniquement dans le Package de skin "Client-4"
@@ -82,7 +83,9 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
                 if (!empty($childrenWrapClass)) {
                     $html .= '</div>';
                 }
+
             }
+             
             $html .= '</li>';
 
             $counter++;
