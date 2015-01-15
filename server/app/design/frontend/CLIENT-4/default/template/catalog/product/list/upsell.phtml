@@ -28,13 +28,15 @@
 <div class="box-collateral box-up-sell">
     <h2><?php echo $this->__('Ces produits peuvent vous intéresser') ?></h2>
     <ul class="products-grid" id="upsell-product-table">
-    <?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>
+    <?php  $this->setColumnCount(4); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>
     <?php $this->resetItemsIterator() ?>
     <?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
         <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
             <?php if($_link=$this->getIterableItem()): ?>
             <li class="item">
 				<?php
+                    $this->getChild("mini-fiche")->setData("height", 210);
+                    $this->getChild("mini-fiche")->setData("width", 244);
 					$this->getChild("mini-fiche")->setData("product", $_link);
 					echo $this->getChildHtml("mini-fiche", false);
 				?>

@@ -257,72 +257,78 @@
 			.product-grid-mea{
 				display: inline-block;
 				max-width: 410px;
-				.mini-product{
-					cursor: pointer;
-					float: left;
-					display: inline-block;
-					margin: 0;
-					width: 205px;
-					height: 205px;
-					overflow: hidden;
-					position: relative;
-					//border: solid #000 1px;
-					.price-box, .product-name {
+				.products-grid{
+					width: 100%;
+					.mini-product{
+						cursor: pointer;
+						float: left;
 						display: inline-block;
 						margin: 0;
-						padding: 0;
-						line-height: 13px;
-						height: 15px;
-						bottom: 10px;
-						position: absolute;
-						background-color: rgba(255, 255, 255, 0.8);
-
-						.price, .price-regular, a, *{
-							font-family: verdana;
-							font-weight: bold;
-							font-size: 11px;
-							color: @color-main;
-							text-decoration: none;
-						}
-						a{
-							color: #000;
-						}
-						h2{
-							font-size: 11px;
-						}
-					}
-					.product-name{
-						width: 140px;
-						padding-left: 5px;
-						text-align: left;
-					  	text-overflow: ellipsis;
-	  					white-space: nowrap;
-						overflow: hidden;
-						left: 0px;
-					}
-					.price-box{
-						padding-right: 5px;
-						text-align: right;
-						width: 63px;
-						right: 0px;
-					}
-					.product-plus{
-						transition: margin 0.5s, background 0.5s;
 						width: 205px;
-						height: 410px;
-						padding-top: 205px;
-						margin-top: 0px;
-						background-color: rgba(255, 255, 255, 0);
-						.actions *, .short-description{
-							color: #000;
+						height: 205px;
+						overflow: hidden;
+						position: relative;
+						//border: solid #000 1px;
+						.price-box, .product-name {
+							top: auto;
+							display: inline-block;
+							margin: 0;
+							padding: 0;
+							line-height: 13px;
+							height: 15px;
+							bottom: 10px;
+							position: absolute;
+							background-color: rgba(255, 255, 255, 0.8);
+
+							.price, .price-regular, a, *{
+								font-family: verdana;
+								font-weight: bold;
+								font-size: 11px;
+								color: @color-main;
+								text-decoration: none;
+							}
+							a{
+								color: #000;
+							}
+							h2{
+								font-size: 11px;
+							}
 						}
-					}
-					.product-plus:hover{
-						margin-top: -205px;
-						background-color: rgba(255, 255, 255, 0.5);
-					}
-					.link-learn{
-						display: none;
+						.product-name{
+							width: 142px;
+							padding-left: 5px;
+							text-align: left;
+						  	text-overflow: ellipsis;
+		  					white-space: nowrap;
+							overflow: hidden;
+							left: 0px;
+						}
+						.price-box{
+							padding-right: 5px;
+							text-align: right;
+							width: 63px;
+							right: 0px;
+						}
+						.product-plus{
+							transition: margin 0.5s, background 0.5s;
+							width: 205px;
+							height: 410px;
+							padding-top: 205px;
+							margin-top: 0px;
+							background-color: rgba(255, 255, 255, 0);
+							.actions *, .short-description{
+								color: #000;
+							}
+						}
+						.product-plus:hover{
+							margin-top: -205px;
+							background-color: @c2t50;
+						}
+						.link-learn{
+							//display: none;
+							width: 105px;
+
+						}
 					}
 				}
 

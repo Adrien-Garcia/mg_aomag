@@ -10,6 +10,9 @@
 	               	<action method="addCartLink"></action>
 	           	</block>
    			 </block>
+   			 <block type="core/template" name="menu-cart" as="menu-cart" template="checkout/menu-cart.phtml">
+   			 	<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
+   			 </block>
 		</reference>
 		<reference name="root">
 			<block type="core/text_list" name="main-header"></block>
@@ -53,6 +56,9 @@
             <block type="cms/block" name="cms_footer_bloc_4">
                 <action method="setBlockId"><block_id>cms_footer_bloc_4</block_id></action>
             </block>
+            <block type="cms/block" name="cms_footer_bloc_6">
+                <action method="setBlockId"><block_id>cms_footer_bloc_6</block_id></action>
+            </block>
             <block type="newsletter/subscribe" name="footer.newsletter" template="newsletter/subscribe.phtml"/>
 		</reference>
 		<reference name="header">
@@ -86,7 +92,7 @@
 	  <reference name="home">
 
 	  	<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
-		  <action method="setSlideshow"><id>1</id></action>
+		  <action method="setSlideshow"><id>3</id></action>
 		</block>
 		<remove name="slideshow-mobile" />
 		<action method="unsetChild"><name>home-mea</name></action>
@@ -116,6 +122,14 @@
 	  </reference>
 	</cms_index_index>
 
+<!-- 	<catalog_product_view translate="label">
+		<reference name="content">
+			<block type="catalog/product_view" name="product.info" template="catalog/product/view.phtml">
+				
+			</block>
+		</reference>
+	</catalog_product_view> -->
+
 	<customer_logged_in>
         <reference name="top">
             <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position><liParams /><aParams>class="logout"</aParams></action>
@@ -127,7 +141,7 @@
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
 		</reference>
 		<reference name="product.info.upsell">
-			<action method="setItemLimit"><type>upsell</type><limit>50</limit></action>
+			<action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
 			<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
 		</reference>
 		<reference name="product.info">
