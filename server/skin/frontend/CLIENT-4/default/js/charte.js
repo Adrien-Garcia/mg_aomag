@@ -51,6 +51,20 @@ jQuery(function($) {
 	// });
 	
 	// Accueil : carrousel
+	$('li.level0.cart').hover(function(){
+		$('#nav .cart-mini').bxSlider({
+			minSlides: 6,
+			maxSlides: 6,
+			slideWidth: 140,
+			moveSlides: 1,
+			auto: false,
+			pager: false,
+			nextText:">",
+			prevText:"<",
+			slideMargin: 0,
+			hideControlOnEnd: true
+		});
+	});
 	var sliderHome = $('.cms-home .slideshow').bxSlider({
 		minSlides: 1,
 		maxSlides: 1,
@@ -75,7 +89,7 @@ jQuery(function($) {
 		$(this).find('img').remove();
 	});
 	
-	$(".products-grid .mini-product").each(function(){
+	$(".products-grid .mini-product, .cart .mini-product").each(function(){
 		var src = $(this).find('a.product-image>img').attr('src');
 		var w = $(this).find('a.product-image>img').attr('width');
 		var h = $(this).find('a.product-image>img').attr('height');

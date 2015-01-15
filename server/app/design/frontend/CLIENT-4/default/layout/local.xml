@@ -11,6 +11,13 @@
 	           	</block>
    			 </block>
    			 <block type="core/template" name="menu-cart" as="menu-cart" template="checkout/menu-cart.phtml">
+				<block type="j2tajaxcheckout/cart" name="j2tajaxcheckout" template="j2tajaxcheckout/ajaxcart.phtml">
+					<block type="checkout/cart_sidebar" name="cart_sidebar_ajax" as="cart_sidebar_ajax" template="checkout/cart/sidebar.phtml">
+						<action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
+						<action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/sidebar/default.phtml</template></action>
+						<action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/sidebar/default.phtml</template></action>
+					</block>
+				</block>
    			 	<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
    			 </block>
 		</reference>

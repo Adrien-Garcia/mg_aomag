@@ -91,4 +91,6 @@
 "The link to a friend was sent.","Votre message a été envoyé."
 "My Cart (0)","Mon caddy (0)"
 "My Cart (%s)","Mon caddy (%s)"
+"My Cart (%s item)","Mon caddy ( %s )"
+"My Cart (%s items)","Mon caddy (%s articles)"
 "Mage_Catalog::Sort By","Tri"
