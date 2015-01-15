@@ -40,8 +40,8 @@ class Addonline_Gls_Model_Export
     private $_aProductnoCorrespondance = array(
             'ls_tohome' => 02,
             'ls_tohome_international' => 01,
-            'ls_toyou' => 18,
-            'ls_toyou_international' => 19,
+            'ls_fds' => 18,
+            'ls_fds_international' => 19,
             'ls_relay' => 17
     );
 
@@ -134,11 +134,11 @@ class Addonline_Gls_Model_Export
                         $aRow[] = $this->_aProductnoCorrespondance['ls_tohome'];
                     }
                 }
-                if (strpos($shippingMethod, 'ls_toyou') > 0) {
+                if (strpos($shippingMethod, 'ls_fds') > 0) {
                     if($international){
-                        $aRow[] = $this->_aProductnoCorrespondance['ls_toyou_international'];
+                        $aRow[] = $this->_aProductnoCorrespondance['ls_fds_international'];
                     }else{
-                        $aRow[] = $this->_aProductnoCorrespondance['ls_toyou'];
+                        $aRow[] = $this->_aProductnoCorrespondance['ls_fds'];
                     }
                 }
                 if (strpos($shippingMethod, 'ls_relay') > 0) {

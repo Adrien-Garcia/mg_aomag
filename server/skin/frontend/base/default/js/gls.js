@@ -151,13 +151,13 @@ function getTypeGlsFromRadio(radio, forDescription) {
 	var typeGls = shippingMethod.replace("gls_","");
 	if (typeGls.startWith("tohome")) {		
 		return 'tohome';
-	} else if (typeGls.startWith("toyou")) {
-		return 'toyou';
+	} else if (typeGls.startWith("fds")) {
+		return 'fds';
 	} else if (typeGls.startWith("relay")){ 
 		return 'relay';
 	} else {
 		// Sinon c'est un type de livraison inconnu
-		alert("Mauvaise configuration du module GLS : dans le champ configuration le code doit commencer par tohome, toyou ou relay");
+		alert("Mauvaise configuration du module GLS : dans le champ configuration le code doit commencer par tohome, fds ou relay");
 		return false;
 	}
 }
