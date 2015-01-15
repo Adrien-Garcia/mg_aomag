@@ -121,7 +121,7 @@ class Addonline_Gls_Model_Export
 
                 //On regarde si la livraison est en France
                 $country_code = mb_strtoupper($shippingAddress->getCountry(), 'UTF-8');
-                if($country_code == 'FR'){ 
+                if($country_code != 'FR'){ 
                 	$international = true;
                 }else{
                 	$international = false;
