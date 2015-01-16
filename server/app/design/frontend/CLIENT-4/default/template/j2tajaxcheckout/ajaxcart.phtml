@@ -28,6 +28,18 @@ $this->numberUpsellsPerLine()
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 </div>
 
+<div id="cart_content" class="cart_content" style="display:none;"><?php
+$count = Mage::helper('checkout/cart')->getSummaryCount();
+
+if( $count == 1 ) {
+    echo $this->__('My Cart (%s item)', $count);
+} elseif( $count > 0 ) {
+    echo $this->__('My Cart (%s items)', $count);
+} else {
+    echo $this->__('My Cart');
+}
+?></div>
+
 <div class="j2t_full_cart_content" id="j2t_full_cart_content">
     <?php echo $this->getChildHtml('cart_content_ajax');?>
 </div>

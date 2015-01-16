@@ -39,17 +39,14 @@
     <?php $_items = $this->getItems() ?>
     <?php if(count($_items)): ?>
         <ol id="cart-sidebar" class="mini-products-list">
-        <div class="control previous">&nbsp;</div>
-        <?php foreach($_items as $_item): ?>
-            <?php echo $this->getItemHtml($_item) ?>
-        <?php endforeach; ?>
-        <div class="control next">&nbsp;</div>
+            <div class="control previous">&nbsp;</div>
+            <?php foreach($_items as $_item): ?>
+                <?php echo $this->getItemHtml($_item) ?>
+            <?php endforeach; ?>
+            <div class="control next">&nbsp;</div>
         </ol>
 
         <script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
-    <?php else: ?>
-        <p class="empty"><?php echo $this->__('You have no items in your shopping cart.') ?></p>
-    <?php endif ?>
     </div>
     <div class="cart-additional">
     <?php if ($_cartQty>0): ?>
@@ -65,10 +62,18 @@
             </div>
         </div>
     <?php endif ?>
-    <div class="actions">
-        <?php echo $this->getChildHtml('extra_actions') ?>
-        <button <?php if(!$_cartQty || !$this->isPossibleOnepageCheckout()){echo " disabled ";} ?> type="button" title="<?php echo $this->__('Passer Commande') ?>" class="button primary-button color-main little" onclick="setLocation('<?php echo $this->getCheckoutUrl() ?>')"><span class="p"><?php echo $this->__('Passer Commande') ?></span></button>
-    </div>
+        <div class="actions">
+            <?php echo $this->getChildHtml('extra_actions') ?>
+            <button <?php if(!$_cartQty || !$this->isPossibleOnepageCheckout()){echo " disabled ";} ?> type="button" title="<?php echo $this->__('Passer Commande') ?>" class="button primary-button color-main little" onclick="setLocation('<?php echo $this->getCheckoutUrl() ?>')"><span class="p"><?php echo $this->__('Passer Commande') ?></span></button>
+        </div>
     </div>
 </div>
+    <?php else: ?>
+        <p class="empty"><?php echo $this->__('You have no items in your shopping cart.') ?></p>
+    </div>
+</div>
+
+<?php endif; ?>
+
 <?php endif;?>
+ 
