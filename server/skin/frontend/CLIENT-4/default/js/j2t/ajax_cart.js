@@ -85,6 +85,12 @@ function sendcart(url, type){
                     hideJ2tOverlay();
                 }
 
+            var txt = $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].innerHTML;
+            var pos = txt.search("a bien été ajouté à votre panier.");
+            txt = txt.slice(0,pos);
+            $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].innerHTML = txt;
+            $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].insert({after:'<span class="m-txt">a bien été ajouté à votre panier.</span>'});
+
             }
 
         });
@@ -293,8 +299,8 @@ function j2tCenterWindow(element) {
             // set the style of the element so it is centered
             var styles = {
                 position: 'absolute',
-                top: y + 'px',
-                left : x + 'px'
+                // top: y + 'px',
+                // left : x + 'px'
             };
             el.setStyle(styles);
 
