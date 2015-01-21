@@ -32,18 +32,22 @@
     $_height = $this->getData("height") ? $this->getData("height") : 140;
 ?>
 <li class="item">
+    <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
     <?php if ($this->hasProductUrl()): ?>
         <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize($_width, $_height)->setWatermarkSize('30x10'); ?>" width="<?php echo $_width;?>" height="<?php echo $_height;?>" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></a>
     <?php else: ?>
         <span class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize($_width, $_height)->setWatermarkSize('30x10'); ?>" width="<?php echo $_width;?>" height="<?php echo $_height;?>" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
     <?php endif; ?>
+    <?php if($this->getQty()>1):?>
+        <div class="quantity"><?php echo $this->getQty() ?> x</div> 
+    <?php endif;?>
     <div class="product-details">
-        <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
+        
         <?php if ($isVisibleProduct): ?>
         <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item') ?>" class="btn-edit"><?php echo $this->__('Edit item')?></a>
         <?php endif ?>
         <p class="product-name"><?php if ($this->hasProductUrl()): ?><a href="<?php echo $this->getProductUrl() ?>"><?php endif; ?><?php echo $this->escapeHtml($this->getProductName()) ?><?php if ($this->hasProductUrl()): ?></a><?php endif; ?></p>
-        <strong><?php echo $this->getQty() ?></strong> x
+
 
     <?php if ($canApplyMsrp): ?>
 

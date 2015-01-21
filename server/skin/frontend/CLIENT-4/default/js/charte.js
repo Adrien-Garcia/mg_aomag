@@ -49,22 +49,19 @@ jQuery(function($) {
 	// }).mouseout(function() {
 	// 	clearInterval(id);
 	// });
+	//Menu : cart carrousel custom
+	$('li.level0.cart ul.level0 .block-cart ol.mini-products-list .item').each(function(i){	$(this).addClass(''+i);});
+	if($('li.level0.cart ul.level0 .block-cart ol.mini-products-list .item').size()>6){
+		$('li.level0.cart ul.level0 .block-cart ol.mini-products-list .control.previous').click(function () {
+			$(this).siblings('.item').filter(':first').insertAfter($(this).siblings('.item').filter(':last'));
+		});
+		$('li.level0.cart ul.level0 .block-cart ol.mini-products-list .control.next').click(function () {
+			$(this).siblings('.item').filter(':last').insertBefore($(this).siblings('.item').filter(':first'));
+		});
+	}
 	
 	// Accueil : carrousel
-	$('li.level0.cart').hover(function(){
-		$('#nav .cart-mini').bxSlider({
-			minSlides: 6,
-			maxSlides: 6,
-			slideWidth: 140,
-			moveSlides: 1,
-			auto: false,
-			pager: false,
-			nextText:">",
-			prevText:"<",
-			slideMargin: 0,
-			hideControlOnEnd: true
-		});
-	});
+	
 	var sliderHome = $('.cms-home .slideshow').bxSlider({
 		minSlides: 1,
 		maxSlides: 1,
@@ -179,7 +176,7 @@ jQuery(function($) {
 	});
 	//$(".more-views li:not('.bx-clone') img").eq(0).click();
 	
-	$(".mousetrap").live("click", function() {
+	$("#wrap").on('click',".mousetrap",function() {
 		//$(this).prev("a").click();
 		//console.log($(this).prevAll("a"));
 		//$.fancybox($(this).prev("a"));

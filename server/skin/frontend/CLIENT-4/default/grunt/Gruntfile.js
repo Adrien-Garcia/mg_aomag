@@ -67,7 +67,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bell');
 
   // Default task(s).
-  grunt.registerTask('default', ['shell:glue', 'less:development', 'autoprefixer', 'watch'; 'bell']);
+  grunt.registerTask('default', ['shell:glue', 'less:development', 'autoprefixer', 'watch']);
   grunt.registerTask('build', ['shell:glue', 'less:production', 'bell']);
 
 };
