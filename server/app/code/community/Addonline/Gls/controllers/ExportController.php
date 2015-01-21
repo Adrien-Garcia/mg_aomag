@@ -90,7 +90,7 @@ class Addonline_Gls_ExportController extends Mage_Adminhtml_Controller_Action
             $csvData = $export->export($collection,true);
     
             /* download the file */
-            $this->_prepareDownloadResponse('commandes_gls_'.date('Ymdhis').'.csv', $csvData, 'text/csv');
+            $this->_prepareDownloadResponse('GlsCmd_'.date('Ymdhis').'.csv', $csvData, 'text/csv');
       
         } else {
             $this->_getSession()->addError($this->__('No Order has been selected'));
