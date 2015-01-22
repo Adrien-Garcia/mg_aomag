@@ -392,7 +392,7 @@ function choisirRelaisGLS(index) {
 		// (/^0(6|7)(0{8}|1{8}|2{8}|3{8}|4{8}|5{8}|6{8}|7{8}|8{8}|9{8}|12345678)$/.test(v))
 		// ) {
 		if(!v){
-			alert( Translator.translate("Please provide a valide phone number.") );
+			alert( Translator.translate("Veuillez saisir un numéro de téléphone valide (portable de préférence).") );
 			return;			
 		}
 	// }
