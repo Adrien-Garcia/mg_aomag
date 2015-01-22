@@ -29,15 +29,17 @@
 		<div class="wrap">
 			
 			<div class="bloc about">
-				<span class="title">A propos</span>
+				<!-- <span class="title">A propos</span>
 				<p>Donec sollicitudin lorem vitae dolor convallis, quis scelerisque ligula convallis. Nam sagittis, nibh a rhoncus maximus, ante felis pretium magna, quis egestas nunc tellus vel est. Suspendisse suscipit hendrerit odio, id blandit quam hendrerit vitae. Aliquam id blandit ante.</p>
-				<div class="primary-button transparent"><p>En savoir plus</p></div>
+				<div class="primary-button transparent"><p>En savoir plus</p></div> -->
+				<?php echo $this->getChildHtml("footer1_bloc1") ?>
 			</div>
 
 			<div class="bloc visit">
 				<!--span class="title">Paiement sécurisé</span-->
-				<p>tous nos produits sont fabriqués artisanalement dans nos atelier</p>
-				<div class="primary-button"><p>Visiter nos ateliers</p></div>
+				<!-- <p>tous nos produits sont fabriqués artisanalement dans nos atelier</p>
+				<div class="primary-button"><p>Visiter nos ateliers</p></div> -->
+				<?php echo $this->getChildHtml("footer1_bloc2") ?>
 			</div>
 			<div class="bloc newsletter">
 				<span class="title">Newsletter</span>
@@ -45,8 +47,9 @@
 				<?php echo $this->getChildHtml("footer.newsletter") ?>
 			</div>
 			<div class="bloc livraison">
-				<span class="title"><span>Livraison Gratuite</span></span>
-				<p>Dès 60€ d’achat</p>
+				<!-- <span class="title"><span>Livraison Gratuite</span></span>
+				<p>Dès 60€ d’achat</p> -->
+				<?php echo $this->getChildHtml("footer1_bloc4") ?>
 			</div>
 		</div>
 	</div>

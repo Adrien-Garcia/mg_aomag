@@ -51,6 +51,15 @@
 		</reference>
 		<reference name="footer">
 			<remove name="footer_links" />
+			<block type="cms/block" name="footer1_bloc1">
+                <action method="setBlockId"><block_id>footer1_bloc1</block_id></action>
+            </block>
+            <block type="cms/block" name="footer1_bloc2">
+                <action method="setBlockId"><block_id>footer1_bloc2</block_id></action>
+            </block>
+            <block type="cms/block" name="footer1_bloc4">
+                <action method="setBlockId"><block_id>footer1_bloc4</block_id></action>
+            </block>
 			<block type="cms/block" name="cms_footer_bloc_1">
                 <action method="setBlockId"><block_id>cms_footer_bloc_1</block_id></action>
             </block>
