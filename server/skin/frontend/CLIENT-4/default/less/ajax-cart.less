@@ -20,9 +20,9 @@ div.j2tajax-progress {
     height: 74px !important;
 
 	img {
-	    -webkit-animation:spin 1.2s linear infinite;
-	    -moz-animation:spin 1.2s linear infinite;
-	    animation:spin 1.2s linear infinite;
+	    -webkit-animation:spin 1.2s steps(24) infinite;
+	    -moz-animation:spin 1.2s steps(24) infinite;
+	    animation:spin 1.2s steps(24) infinite;
 	}
 	p{ color: #fff; font-family: @font-bold; font-size: 13px; text-transform: uppercase;}
 }
@@ -38,6 +38,14 @@ div.j2t-overlay{
     left: 0;
     z-index: 198;
     opacity: .6 !important;
+}
+#j2t_ajax_confirm .j2t_ajax_close{
+	position: absolute;
+	.close-dialog;
+	top: -50px;
+	left: 335px;
+	cursor: pointer;
+	pointer-events: none;
 }
 
 #j2t_ajax_confirm_wrapper {
@@ -74,17 +82,27 @@ div.j2t-overlay{
 	.j2tajax-checkout-txt {
 		float: left;
 		font-family: @font-regular;
+		color: @c6;
 		font-size: 21px;
 		text-transform: uppercase;
-		height: 60px;
-		width: 290px;
+		width: 230px;
+		span{
+			display: block;
+			margin: 20px 0 ;
+			text-transform: none;
+			color: @c2;
+			font-family: @font-light;
+			font-size: 11px;
+		}
 	}
 	
+	
 	.j2t-cart-bts {
-		overflow: hidden;
+		//overflow: hidden;
 		float: right;
+		margin-top: -73px;
+		width: 292px;
 
-		
 		.j2t-or {
 			display: none;
 		}
@@ -103,11 +121,16 @@ div.j2t-overlay{
 				left: 0;
 			}
 		}
-		
+		.j2t-cart-bts-continue{
+			clear: left;
+			float: left;
+			background: @color-second;
+		}
 		.j2t-checkout-link {
 			.primary-button;
 			.primary-button.color-main;
-			float: right;
+			float: left;
+			top: 0px;
 		}
 	}
 }

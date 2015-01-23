@@ -35,6 +35,18 @@ a{
 	display: inline-block;
 	a{text-decoration: none; color: #fff;font-family: @font-xbold;}
 	&>span{display: inline-block;position: relative;top: -3px;}
+	&.inv{
+		padding: 8px 15px 8px 25px;
+		&>p:before,.p:before {
+			content: "";
+			position: absolute;
+			top: 9px;
+			left: -15px;
+			.nav-left-black;
+		
+		}
+		&>p:after,.p:after{content: none;}
+	}
 	&>p,.p{
 		display: inline-block;
 		position: relative;

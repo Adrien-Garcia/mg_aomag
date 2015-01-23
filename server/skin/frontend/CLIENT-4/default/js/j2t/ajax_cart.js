@@ -85,11 +85,11 @@ function sendcart(url, type){
                     hideJ2tOverlay();
                 }
 
-            var txt = $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].innerHTML;
-            var pos = txt.search("a bien été ajouté à votre panier.");
-            txt = txt.slice(0,pos);
-            $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].innerHTML = txt;
-            $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].insert({after:'<span class="m-txt">a bien été ajouté à votre panier.</span>'});
+            // var txt = $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].innerHTML;
+            // var pos = txt.search("a bien été ajouté à votre panier.");
+            // txt = txt.slice(0,pos);
+            // $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].innerHTML = txt;
+            // $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].insert({after:'<span class="m-txt">a bien été ajouté à votre panier.</span>'});
 
             }
 
@@ -340,8 +340,8 @@ function showConfirm(){
         decorateTable('j2t-upsell-product-table');
     }
 
-    $('j2t_ajax_confirm_wrapper').replace('<div id="j2t_ajax_confirm_wrapper">'+$('j2t_ajax_confirm_wrapper').innerHTML);
-
+    $('j2t_ajax_confirm_wrapper').replace('<div class="j2t_ajax_close" id="j2t_ajax_close">&nbsp;</div><div id="j2t_ajax_confirm_wrapper">'+$('j2t_ajax_confirm_wrapper').innerHTML);
+    $$('.j2t-cart-bts')[0].insert({bottom :'<div id="j2t-cart-bts-continue" class="j2t-cart-bts-continue primary-button inv"><p>Continuer mes achats</p></div>' });
     confirm_box.style.position = 'absolute';
     j2tCenterWindow(confirm_box);
 }

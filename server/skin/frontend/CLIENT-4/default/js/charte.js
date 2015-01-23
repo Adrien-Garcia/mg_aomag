@@ -201,6 +201,9 @@ jQuery(function($) {
 		    index: idx
 		});
 	});
+
+	$("#j2t_ajax_confirm").on('click','#j2t_ajax_close',function(){$("#j2t-overlay").trigger('click');});
+	$("#j2t_ajax_confirm").on('click','#j2t-cart-bts-continue',function(){$("#j2t-overlay").trigger('click');});
 	
 	// Produit : carrousel sur les ventes incitatives
 	if ($("#upsell-product-table > li").size() > 4) {
