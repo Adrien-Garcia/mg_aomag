@@ -34,31 +34,17 @@
 ?>
 <div class="account-login">
     <div class="page-title">
-        <h1><?php echo $this->__('Login or Create an Account') ?></h1>
+        <h1><?php echo $this->__('Log in') ?></h1>
     </div>
     
     
         <div class="col2-set">
-            <div class="col-1 new-users">
-                <div class="content">
-                    <h2><?php echo $this->__('New Customers') ?></h2>
-                    
-                    <span class="avantages"><?php echo __("Profitez de nombreux avantages :");?></span>
-                    <ul class="lst-avantages">
-                    	<li><span>-</span> <?php echo __("Commandes plus rapides");?></li>
-                    	<li><span>-</span> <?php echo __("Gestion de carnet d'adresses");?></li>
-                    	<li><span>-</span> <?php echo __("Suivi de commande");?></li>
-                    	<li><span>-</span> <?php echo __("Liste d’envies");?></li>
-                    </ul>
-                    
-                    <?php echo $this->getChildHtml('customer_form_register'); ?>
-                </div>
-            </div>
-            <div class="col-2 registered-users">
+            
+            <div class="col-1 registered-users">
             	<form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
 		        <?php echo $this->getBlockHtml('formkey'); ?>
                 <div class="content">
-                    <h2><?php echo $this->__('Registered Customers') ?></h2>
+                    <h2><?php echo $this->__('Connection') ?></h2>
                     <p><?php echo $this->__('If you have an account with us, please log in.') ?></p>
                     <ul class="form-list">
                         <li>
@@ -79,10 +65,25 @@
                     <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
                     <div class="buttons-set">
 	                    <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
-	                    <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+	                    <button type="submit" class="button primary-button color-main" title="<?php echo $this->__('Connection') ?>" name="send" id="send2"><span><span><?php echo $this->__('Connection') ?></span></span></button>
 	                </div>
                 </div>
                 </form>
+            </div>
+            <div class="col-2 new-users">
+                <div class="content">
+                    <h2><?php echo $this->__('New Customers') ?></h2>
+                    
+                    <span class="avantages"><?php echo __("Profitez de nombreux avantages :");?></span>
+                    <ul class="lst-avantages">
+                        <li> <?php echo __("Commandes plus rapides");?></li>
+                        <li> <?php echo __("Gestion de carnet d'adresses");?></li>
+                        <li> <?php echo __("Suivi de commande");?></li>
+                        <li> <?php echo __("Liste d’envies");?></li>
+                    </ul>
+                    <hr>
+                    <?php echo $this->getChildHtml('customer_form_register'); ?>
+                </div>
             </div>
         </div>
         <?php if (Mage::helper('checkout')->isContextCheckout()): ?>

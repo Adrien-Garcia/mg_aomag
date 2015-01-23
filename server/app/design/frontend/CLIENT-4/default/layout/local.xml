@@ -5,6 +5,9 @@
 	<!-- TOUTES LES PAGES -->
 	<default>
 		<reference name="catalog.topnav">
+			<block type="core/template" template="page/html/searchmenu.phtml" name="menu-search">
+				<block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.phtml"/>
+			</block>
 			<block type="page/template_links" name="cart-link" as="cart-link">
 				<block type="checkout/links" name="cart-link-">
 	               	<action method="addCartLink"></action>

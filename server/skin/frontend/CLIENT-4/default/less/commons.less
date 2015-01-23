@@ -627,7 +627,7 @@ p.required {
 		font-family: @font-bold;
 		color: @c3;
 		font-size: 42px;
-		line-height: 10px;
+		//line-height: 10px;
 	}
 	
 	.required {
@@ -1101,6 +1101,72 @@ tr.summary-details-excluded { font-style:italic; }
 			height: 100%;
 			font-size: 12px;
 			
+			&.search{
+				&:hover {
+					opacity: 1;
+					background: url('../images/picto-recherche.png') no-repeat 50% 12px #3a3a3a;
+				}
+				background: url('../images/picto-recherche.png') no-repeat 50% 12px;
+				width: 35px;
+				height: 100%;
+				ul.search{
+					min-height: 98px;
+					height: 98px;
+					padding: 14px;
+					&>div.searchmenu{
+						width: 100%;
+						
+						form{
+							span,button{float: left; display: inline-block;}
+							label{display: none;}
+							span.input-search{
+								position: relative;
+								margin-right: 10px;
+								display: inline-block;
+								float: left;
+								&:after {
+									content: '';
+									position: absolute;
+									bottom: -4px;
+									left: 0px;
+									width: 100%;
+								    height: 25%;
+								    border-left: 2px solid #757575;
+								    border-right: 2px solid #757575;
+									border-bottom: 2px solid #757575;
+								}
+							}
+							input#search{
+								width: 883px;
+								height:56px;
+								line-height:56px;
+								font-size: 40px;
+								background: none;
+								border: none;
+								font-family: berlinregular;
+								appearance: none;
+								-moz-appearance: none;
+								-webkit-appearance: none;
+								&:focus{color: #fff;}
+							}
+							button.button{
+								height: 56px;
+								width: 56px;
+								margin-top: 4px;
+								appearance: none;
+								-moz-appearance: none;
+								-webkit-appearance: none;
+								background-color: #757575;
+								position: relative;
+								border: none;
+								&:before{position: absolute;content:"";.nav-right-black-big;left:24px;top:20px;}
+								span{display: none;}
+							}
+						}
+					}
+					
+				}
+			}
 			> a {
 				font-family: @font-bold;
 				// font-size: 12px;
@@ -1351,7 +1417,7 @@ tr.summary-details-excluded { font-style:italic; }
 									top: 20px;
 									left: 0;
 									height: 17px;
-									width: 37px;
+									width: 40px;
 									background: @c3;
 									padding-left: 13px;
 									font-family: @font-xbold;
