@@ -23,9 +23,9 @@
 				<stylesheet>css/gls.css</stylesheet>
 			</action>
 
-			<action method="addJs">
-				<script>jquery/jquery-1.7.1.min.js</script>
-			</action>
+<!-- 			<action method="addJs"> -->
+<!-- 				<script>jquery/jquery-1.7.1.min.js</script> -->
+<!-- 			</action> -->
 			<action method="addJs">
 				<script>jquery/jquery.noconflict.js</script>
 			</action>
@@ -58,9 +58,9 @@
 				<stylesheet>css/gls.css</stylesheet>
 			</action>
 
-			<action method="addJs">
-				<script>jquery/jquery-1.7.1.min.js</script>
-			</action>
+<!-- 			<action method="addJs"> -->
+<!-- 				<script>jquery/jquery-1.7.1.min.js</script> -->
+<!-- 			</action> -->
 			<action method="addJs">
 				<script>jquery/jquery.noconflict.js</script>
 			</action>

@@ -5,12 +5,14 @@ dd.s_method_gls {
 
 	li {
 	
-		min-height: 25px;
+		min-height: 44px;
 		overflow: hidden;
+		
 		
 		input {
 			float: left;
-			margin-right:110px;
+			margin-right:60px;
+			margin-top: 15px;
 		}
 		
 		label {
@@ -29,7 +31,7 @@ dd.s_method_gls li {
 
 dd.s_method_gls li img {
 	position: absolute;
-	top: -8px;
+	top: 0;
 	left: 25px;
 	max-width:90px;
 }
@@ -107,9 +109,9 @@ dd.s_method_gls #gls_relais_choisi {
 		&:before {
 			content: "";
 			width: 43px;
-			height: 32px;
+			height: 43px;
 			position: absolute;
-			top: 16px;
+			top: 9px;
 			left: 10px;
 			background: url(../images/gls/picto_relay.png);
 		}
@@ -123,7 +125,7 @@ dd.s_method_gls #gls_relais_choisi {
 		position: relative;
 		z-index: 2;
 		
-		.left {
+		.left_gls {
 			padding: 5px 10px;
 			background-color: #d9d9d9;
 			background-image: -webkit-linear-gradient(bottom, #d2d2d2, #fff);
@@ -137,6 +139,7 @@ dd.s_method_gls #gls_relais_choisi {
 				color: #06187c;
 				margin-right: 16px;
 				vertical-align: middle;
+				display: block;
 			}
 			input {
 				text-align: center;
@@ -144,15 +147,18 @@ dd.s_method_gls #gls_relais_choisi {
 				width: 70px;
 				height: 23px;
 				font-size: 14px;
-				-webkit-border-radius: 8px;
-				-moz-border-radius: 8px;
-				border-radius: 8px 0 0 8px;
+				border-radius: 8px;
 				background-color: #fff;
 				-webkit-box-shadow: inset 0 3px 3px rgba(214,214,214,.75);
 				-moz-box-shadow: inset 0 3px 3px rgba(214,214,214,.75);
 				box-shadow: inset 0 3px 3px rgba(214,214,214,.75);
 				border: solid 1px #d2d2d2;
 				vertical-align: middle;
+				
+				&#adresse_recherche {
+					width: 100%;
+				}
+				
 			}
 			button {
 				background: none;
@@ -177,7 +183,7 @@ dd.s_method_gls #gls_relais_choisi {
 			}
 		}
 		
-		.right {
+		.right_gls {
 			padding: 5px 10px;
 			overflow: hidden;
 			border-top: 1px solid #aeb2be;
