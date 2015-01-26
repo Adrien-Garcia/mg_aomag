@@ -34,6 +34,8 @@
 	}
 }
 
+.customer-account-edit {}
+
 .edit_adresse{
 	position: relative;
 	text-decoration: none;
@@ -66,48 +68,74 @@
 		content: "";
 	}
 }
-address>div.addr{
+.trash a{
+	position: relative;
+	text-decoration: none;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	clear: both;
+	float: left;
+	&:before{
+		position: absolute;
+		top: 2px;
+		left: -15px;
+		background-color: @color-main;
+		.picto-trash-t;
+		content: "";
+	}
+}
+address>div.addr,address.addr{
 	float: left;
 	clear: both;
 }
+h2.legend{
+	font: 18px @font-regular;
+	text-transform: uppercase;
+}
 
 .customer-account-index{
-	a{
-		font: 11px @font-light;
-	}
-	#my-orders-table {
-		width: 100%;
-		max-width: 100%;
-		min-width: 100%;
-		margin-bottom: 20px;
-		border: solid 1px @color-second;
-		font: 11px @font-light;
-		color:#999;
-		th {
-			padding: 5px 10px;
-			font-size: 14px;
+	.dashboard{
+		a{
+			font: 11px @font-light;
+		}
+		p.hello{
+			font: 18px @font-regular;
+			text-transform: uppercase;
+		}
+		#my-orders-table {
+			width: 100%;
+			max-width: 100%;
+			min-width: 100%;
+			margin-bottom: 20px;
 			border: solid 1px @color-second;
 			font: 11px @font-light;
-			font-weight: bold;
-		}
-		
-		td {
-			padding: 7px 10px;
-			border: solid 1px @color-second;
 			color:#999;
+			th {
+				padding: 5px 10px;
+				font-size: 14px;
+				border: solid 1px @color-second;
+				font: 11px @font-light;
+				font-weight: bold;
+			}
+			
+			td {
+				padding: 7px 10px;
+				border: solid 1px @color-second;
+				color:#999;
+			}
+			
+			em { /* status */
+				white-space: nowrap;
+				font-style: normal;
+			}
+			
+			a {
+				color: @c2;
+				margin: 0 5px;
+			}
+			
+			.separator { display: none; }
 		}
-		
-		em { /* status */
-			white-space: nowrap;
-			font-style: normal;
-		}
-		
-		a {
-			color: @c2;
-			margin: 0 5px;
-		}
-		
-		.separator { display: none; }
 	}
 }
 
@@ -217,7 +245,6 @@ address>div.addr{
 
 /* My Account ============================================================================= */
 
-body[class^=" customer-"],
 body[class^=" sales-"],
 body[class^=" wishlist-"],
 body[class^=" newsletter-"] {
@@ -244,18 +271,20 @@ body[class^=" newsletter-"] {
 	
 	ul {
 		border-top: 1px solid @c5;
-		
+		font: 10px @font-light;
 		li {
-			line-height: 50px;
-			border-bottom: 1px solid @c5;
-			
+			line-height: 26px;
+			background: @color-second;
+			border-bottom: 1px solid #fff;
+			padding-left: 10px;
+			&.current{background: @c3; }
 			a {
 				text-decoration: none;
 			}
 			
 			strong {
 				font-weight: normal;
-				color: @c2;
+				color: #fff;
 			}
 		}
 	}
@@ -266,7 +295,7 @@ body[class^=" newsletter-"] {
 
 /********** < Dashboard */
 .dashboard {
-	h2{font: 15px @font-xbold;text-transform: uppercase;}
+	h2{font: 15px @font-xbold;text-transform: uppercase; display: inline-block;}
 	h3{font: 10px @font-light;font-weight: bold;text-transform: uppercase;}
 
 	font-size: 11px;
@@ -286,7 +315,7 @@ body[class^=" newsletter-"] {
 		}
 	}
 	
-	.col2-set { margin:0 0 15px; }
+	.col2-set { margin:0 0 60px; }
 	
 	/* General Box */
 	.box-account { }
@@ -349,51 +378,70 @@ body[class^=" newsletter-"] {
 /* Account information */
 
 .my-account {
-	
+	margin-bottom: 60px;
+	li{width: 50%;display: inline-block; clear: both;}
 	.page-title {
 		border-bottom: 1px solid @c5;
 		padding-bottom: 20px;
 		margin-bottom: 20px;
 	}
-	
-	.name-prefix {
-		float: left;
-		margin-right: 20px;
-	}
-	
-	.name-firstname {
-		float: left;
-		width: 300px;
-	}
-	
-	.name-lastname {
-		float: right;
-		width: 300px;
-	}
-	
-	.customer-dob {
-		> div {
-			width: 103px;
-			margin-right: 19px;
+	.fieldset:not(.password) .fields{
+		div{clear: both;}
+		.name-prefix {
 			float: left;
 		}
-		.dob-year {
-			margin-right: 0;
+		
+		.name-firstname {
+			float: left;
+			width: 300px;
 		}
 		
+		.name-lastname {
+			float: left;
+			width: 300px;
+		}
+	}
+	.dob{
+		float: left;
+		.customer-dob {
+			
+			.dob-day, .dob-month, .dob-year {
+				width: 50px;
+				float: left;
+				margin-right: 15px;
+				input {
+					text-align: center;
+				}
+			}
+			.dob-year {
+				width: 65px;
+			}
+
+			> div {
+				width: 100px;
+				float: left;
+			}
+		}
 	}
 	
 	.customer-email {
-		width: 347px;
-		margin-right: 21px;
+		float: right;
+		.input-box{width: 300px;}
 	}
-	
+	.control{
+		float: left;
+	}
 	.fieldset.password {
+		h2.legend{
+			clear: both;
+			float: left;
+		}
 		li {
 			width: 225px;
 			margin-right: 20px;
 			float: left;
-			
+			margin-bottom: 0;
+			.field{margin-bottom: 10px;}
 			&.last {
 				margin-right: 0;
 			}
@@ -408,9 +456,23 @@ body[class^=" newsletter-"] {
 		.primary-button;
 		float: right;
 	}
-	
+	button.button{
+		float: right;
+	}
 	.buttons-set {
 		display: none;
+	}
+	ol{
+		li.item{
+			width: 50%;
+			float: left;
+			clear: none;
+		}
+	}
+	.addresses-list h3{
+		font-family: verdana;
+		font-size: 11px;
+		font-weight: bold;
 	}
 }
 .addresses-list {
@@ -436,6 +498,17 @@ body[class^=" newsletter-"] {
 	a { color: @c2; }
 	.separator { margin:0 3px; }
 	
+}
+
+.customer-address-form {
+	form{
+		.fieldset{
+			select{width: 300px;}
+			.field{width: 300px;}
+			li.fields{width: 100%;}
+			li.control{width: 100%;}
+		}
+	}
 }
 
 
@@ -476,14 +549,17 @@ body[class^=" newsletter-"] {
 	#my-orders-table {
 		margin-bottom: 20px;
 		border: solid 1px @color-second;
+		font: 11px @font-light;
 		th {
-			padding: 5px 10px;
-			font-size: 14px;
+			
+			font: 11px @font-light;
+			font-weight: bold;
+			padding: 7px 10px;
 			border: solid 1px @color-second;
 		}
 		
 		td {
-			padding: 26px 10px;
+			padding: 7px 10px;
 			border: solid 1px @color-second;
 		}
 		
@@ -508,14 +584,15 @@ body[class^=" newsletter-"] {
 /* Order View */
 .sales-order-view {
 	
-	.page-title {
+	.my-account {
 		.order-id {
 			font-size: 16px;
 		}
-		
+		h2.legend{display: inline-block;}
 		.order-status {
-			font-size: 16px;
+			font-size: 10px;
 			font-family: @font-light;
+			color: #999;
 		}
 		
 		a {
@@ -530,7 +607,40 @@ body[class^=" newsletter-"] {
 			margin: 0 10px;
 		}
 	}
-	
+	.order-info{
+		ul#order-info-tabs{
+			.link_facture{
+				float: right;
+				a{display: inline;}
+			}
+			h3{
+				display: inline;
+				font: bold 11px @font-light;
+				text-transform: uppercase;
+
+			}
+
+			li{
+				font: 10px @font-light;
+				display: inline-block;
+				color:@color-main;
+				p{display: inline;}
+				span.label{display: inline-block; color:#666; width: 150px;}
+				span.contenu{display: inline-block; width: 150px;}
+			}
+		}
+
+	}
+	.order-info-box{
+		margin-top: 15px;
+		font: 10px @font-light;
+		h3{
+			display: inline;
+			font: bold 11px @font-light;
+			text-transform: uppercase;
+		}
+	}
+	.box-title{	margin-bottom: 10px;}
 	.subtotal {
 		font-family: @font-bold;
 	}
@@ -547,7 +657,7 @@ body[class^=" newsletter-"] {
 .order-info dt,
 .order-info dd,
 .order-info ul,
-.order-info li { display:inline; }
+.order-info li { }//display:inline; }
 .order-info .current { font-weight:bold; }
 .order-info li { margin:0 3px; }
 
@@ -583,17 +693,20 @@ body[class^=" newsletter-"] {
 	
 	#my-orders-table {
 		margin-bottom: 20px;
-		
+		border:none;
 		th {
-			border-bottom: 1px solid @c6;
+			border:none;
 			padding: 5px 10px;
 			font-size: 14px;
+			background: none;
 		}
 		
 		td {
+			border:none;
 			padding: 26px 10px;
+			background: none;
 		}
-		
+		tr{background: none !important;}
 		em { /* status */
 			white-space: nowrap;
 			font-style: normal;
@@ -635,6 +748,38 @@ body[class^=" newsletter-"] {
 		}
 	}
 }
+
+table.data-table{
+	margin-bottom: 20px;
+	border: solid 1px @color-second;
+	font: 11px @font-light;
+	th {
+		
+		font: 11px @font-light;
+		font-weight: bold;
+		padding: 7px 10px;
+		border: solid 1px @color-second;
+		.odd, .even{background: none;}
+	}
+	
+	td {
+		padding: 7px 10px;
+		border: solid 1px @color-second;
+	}
+	
+	em { /* status */
+		white-space: nowrap;
+		font-style: normal;
+	}
+	
+	a {
+		color: @c2;
+		margin: 0 5px;
+	}
+	
+	.separator { display: none; }
+}
+
 
 .order-additional { margin:15px 0; }
 /* Order Gift Message */
