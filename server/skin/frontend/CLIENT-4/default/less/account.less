@@ -34,6 +34,83 @@
 	}
 }
 
+.edit_adresse{
+	position: relative;
+	text-decoration: none;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	float: right;
+	&:before{
+		position: absolute;
+		top: 2px;
+		left: -15px;
+		background-color: @color-main;
+		.picto-note-t;
+		content: "";
+	}
+}
+
+.edit{
+	position: relative;
+	text-decoration: none;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	clear: both;
+	float: left;
+	&:before{
+		position: absolute;
+		top: 2px;
+		left: -15px;
+		background-color: @color-main;
+		.picto-edit-t;
+		content: "";
+	}
+}
+address>div.addr{
+	float: left;
+	clear: both;
+}
+
+.customer-account-index{
+	a{
+		font: 11px @font-light;
+	}
+	#my-orders-table {
+		width: 100%;
+		max-width: 100%;
+		min-width: 100%;
+		margin-bottom: 20px;
+		border: solid 1px @color-second;
+		font: 11px @font-light;
+		color:#999;
+		th {
+			padding: 5px 10px;
+			font-size: 14px;
+			border: solid 1px @color-second;
+			font: 11px @font-light;
+			font-weight: bold;
+		}
+		
+		td {
+			padding: 7px 10px;
+			border: solid 1px @color-second;
+			color:#999;
+		}
+		
+		em { /* status */
+			white-space: nowrap;
+			font-style: normal;
+		}
+		
+		a {
+			color: @c2;
+			margin: 0 5px;
+		}
+		
+		.separator { display: none; }
+	}
+}
+
 .registered-users {
 	
 	.input-box {
@@ -189,7 +266,10 @@ body[class^=" newsletter-"] {
 
 /********** < Dashboard */
 .dashboard {
-	
+	h2{font: 15px @font-xbold;text-transform: uppercase;}
+	h3{font: 10px @font-light;font-weight: bold;text-transform: uppercase;}
+
+	font-size: 11px;
 	.page-title {
 		border-bottom: 1px solid @c5;
 		padding-bottom: 20px;
@@ -213,24 +293,21 @@ body[class^=" newsletter-"] {
 	.box-account .box-head { text-align:right; }
 	.box-account .box-head h2 {
 		float:left;
-		font-family: @font-bold;
-		font-size: 24px;
 	}
 	
 	.box .box-title {
-		text-align: right;
-		border-bottom: 1px solid @c5;
+		//text-align: right;
+		//border-bottom: 1px solid @c5;
 		margin-bottom: 10px;
+		position: relative;
 	}
 	.box .box-title h3,
 	.box .box-title h4 {
 		float:left;
-		font-size: 14px;
-		text-transform: uppercase;
-		font-family: @font-bold;
 	}
 	.box a {
 		color: @c2;
+		position: relative;
 	}
 	.box .box-content h4 {
 		font-weight: normal;
@@ -361,6 +438,8 @@ body[class^=" newsletter-"] {
 	
 }
 
+
+
 /* Order List */
 .sales-order-history {
 	
@@ -396,15 +475,16 @@ body[class^=" newsletter-"] {
 	
 	#my-orders-table {
 		margin-bottom: 20px;
-		
+		border: solid 1px @color-second;
 		th {
-			border-bottom: 1px solid @c6;
 			padding: 5px 10px;
 			font-size: 14px;
+			border: solid 1px @color-second;
 		}
 		
 		td {
 			padding: 26px 10px;
+			border: solid 1px @color-second;
 		}
 		
 		em { /* status */

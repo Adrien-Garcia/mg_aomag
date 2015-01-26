@@ -50,7 +50,7 @@
                         <li>
                             <label for="email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
                             <div class="input-box">
-                                <input type="text" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
+                                <input type="text" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" placeholder="mon@mail.com" />
                             </div>
                         </li>
                         <li>
@@ -64,7 +64,7 @@
                     </ul>
                     <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
                     <div class="buttons-set">
-	                    <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
+	                    <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="forgot"><?php echo $this->__('Forgot Your Password?') ?></a>
 	                    <button type="submit" class="button primary-button color-main" title="<?php echo $this->__('Connection') ?>" name="send" id="send2"><span><span><?php echo $this->__('Connection') ?></span></span></button>
 	                </div>
                 </div>
