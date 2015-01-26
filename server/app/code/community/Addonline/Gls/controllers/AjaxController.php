@@ -57,8 +57,9 @@ class Addonline_Gls_AjaxController extends Mage_Core_Controller_Front_Action
         $address = $this->getRequest()->getParam('address', false);
         $zipcode = $this->getRequest()->getParam('zipcode', false);
         $country = $this->getRequest()->getParam('country', false);
+        $city = $this->getRequest()->getParam('city', false);
         
-        $listrelais = Mage::getSingleton('gls/service')->getRelayPointsForZipCode($zipcode, $country,$address);
+        $listrelais = Mage::getSingleton('gls/service')->getRelayPointsForZipCode($zipcode, $country,$address,$city);
         
         if (! isset($listrelais->exitCode->ErrorCode)) {
             $aPointsRelais['error'] = $this->__('Error call GLS webservice, it might be down, see var/log/gls.log');
