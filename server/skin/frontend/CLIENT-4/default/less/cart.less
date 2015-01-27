@@ -1,26 +1,30 @@
 .cart{
-	
+	//position: relative;
 	h1{
 		margin:-10px 0 25px 0;
 	}
 	
 	.btn-update{
-		margin:1px 0 0 0;
+
+		margin:1px 15px 0 0;
 		background:none;
 		border:none;
 		color:@c4;
 		font-family:@font-light;
-		font-size:14px;
+		font-weight: bold;
+		font-size:9px;
+		text-transform: uppercase;
 		position:relative;
+		top: -75px;
+		float: right;
 		padding:0 0 0 10px;
 		
 		&:before{
 			content:"";
 			display:block;
 			position:absolute;
-			top:6px;
-			left:0;
-			.arrow-right-primary();
+			left:-5px;
+			.picto-update;
 		}
 		
 		&:hover{
@@ -30,19 +34,139 @@
 	
 }
 
-.cart-table{
-	
-/* 	table-layout:auto; */
-	
-	thead{
-		tr.last{
-			th{
-				text-transform:uppercase;
-				border-bottom:1px solid @c6;
-				
-			}
+#shopping-cart-table{
+
+	margin: 10px 0 10px; 
+	border: none;
+	thead tr.first.last{
+		border: none;
+		th {
+		color: @c6;
+		font: 12px @font-bold;
+		padding: 5px 0;
+		border: none;
+		&:nth-child(2){padding-left: 55px;}
 		}
 	}
+	tr{position: relative;border-bottom: 1px solid #fff;}
+	td {
+		color: #999;
+		font: 12px @font-xbold;
+		background: @color-second;
+		height: 70px;
+		vertical-align: middle;
+		padding: 10px 20px;
+		border: 0px;
+		border-bottom: 1px solid #fff;
+		a{
+			display: inline-block;
+		}
+		&:nth-child(1) {
+			padding: 0;
+			margin: 0;
+			background: none;
+			border-right: 1px solid #fff;
+			width: 70px;
+			a{margin: 0;}
+		}
+		&:nth-child(2) {
+			width: 100%;
+			padding-left:50px;
+			padding-right:50px;
+			vertical-align: middle;
+			
+			h2.product-name a{
+				width: 100%;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				color: #000;
+				font: 12px @font-bold;
+				text-decoration: none;
+			}
+		}
+		&:nth-child(3){
+			div{display: inline-block;vertical-align: top;}
+			.regular-price{color: #999; font: 12px @font-xbold;}
+			.add-to-cart-alt{
+				float: left;
+				margin-top: 9px;
+				span.qty{
+					float: left;
+					&>span{padding: 6px 0;}
+					margin-right: 15px;
+				}
+				button.button{
+					height: 30px;
+					float: left;
+					background: transparent;
+					padding: 2px 15px;
+					&>.p:after{top: 12px;}
+				}
+			}
+			.price-box{float: left;width:75px; margin-right:15px; }
+			.cart-cell{
+				width: 344px;
+				margin: 0 auto;
+				&>p{display: none;}
+			}
+		}
+		&:nth-child(4){
+			span.qty{
+				width: 61px;
+				float: left;
+				&>span{padding: 6px 0;}
+				margin-right: 15px;
+			}
+		}
+		&:nth-child(5){
+			
+		}
+		&:nth-child(6){
+			.btn-remove{
+				.picto-delete;
+			}
+		}
+		
+	}
+	
+	.product-name {
+		font-weight: normal;
+		font-size: 14px;
+		
+		a {
+			color: @c2;
+		}
+	}
+	
+	textarea {
+		width: 100%;
+		margin-top: 10px;
+	}
+	
+	input.qty {
+		float: left;
+		width: 64px;
+		text-align: center;
+		padding: 4px 10px;
+	}
+	
+	.old-price {
+		display: block;
+	}
+	
+	.btn-cart {
+		.lnk-primary;
+		float: left;
+		white-space: nowrap;
+	}
+	
+	.link-edit {
+		color: @c2;
+	}
+	
+
+/* 	table-layout:auto; */
 	
 	.product-name {
 		margin:0 0 5px;
@@ -55,55 +179,6 @@
 	
 	td{
 		padding:25px 10px;
-	}
-	
-	tr{
-		td{
-			&:first-child{
-				width:76px;
-				padding:0 !important;
-				background:#fff;
-			}
-			&:nth-child(2){
-				width:420px;
-			}
-			&:nth-child(3),
-			&:nth-child(4),
-			&:nth-child(6),
-			&:nth-child(7){
-				width:76px;
-				text-align:center;
-			}
-			&:nth-child(5){
-				width:84px;
-			}
-			&:nth-child(8){
-				width:53px;
-				text-align:center;
-				
-				a{
-					margin:0 auto;
-				}
-			}
-		}
-	}
-	
-	.qty{
-		text-align: center;
-		width:62px;
-	}
-
-}
-
-.btn-continue{
-	background:none;
-	border:none;
-	color:@c4;
-	font-family:@font-light;
-	margin:15px 0 0 0;
-	
-	&:hover{
-		.hover();
 	}
 }
 
@@ -126,11 +201,19 @@
 	border-bottom:1px solid @c6;
 	margin:0;
 }
+.cart .cart-collaterals{
+	padding:0px 0 0;
+	.col3-set{ 
+		float:left;
+		width:100%; 
 
-.cart .cart-collaterals { padding:40px 0 0; }
-.cart .cart-collaterals .col2-set { float:left; width:635px; }
-.cart .cart-collaterals .col2-set .col-2 { margin:0 0 0 2%; }
+		.col-1{
+			
+		}
 
+		.col-3{}
+	}
+}
 
 .cart .crosssell{
 	
@@ -245,7 +328,7 @@
 }
 
 .cart .shipping{
-	margin-top:31px;
+	//margin-top:31px;
 	
 	h2{
 		margin:0 0 17px 0;

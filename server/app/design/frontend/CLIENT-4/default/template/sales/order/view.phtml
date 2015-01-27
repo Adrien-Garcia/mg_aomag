@@ -86,12 +86,13 @@
         </dl>
     </div>
     <?php endif; ?>
+    <hr>
     <div class="buttons-set">
-        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->getBackTitle() ?></a></p>
+        <p class="back-link"><button class="button primary-button inv" href="<?php echo $this->getBackUrl() ?>"><span class="p"><span><?php echo $this->getBackTitle() ?></span></span></button></p>
         <div class="buttonset">
-<?php echo $this->getChildHtml('buttons') ?>
-<?php echo $this->getStatusHistoryRssUrl($_order) ?>
-</div>
+            <?php echo $this->getChildHtml('buttons') ?>
+            <?php echo $this->getStatusHistoryRssUrl($_order) ?>
+        </div>
     </div>
 
 </div>

@@ -245,20 +245,14 @@ h2.legend{
 
 /* My Account ============================================================================= */
 
-body[class^=" sales-"],
-body[class^=" wishlist-"],
-body[class^=" newsletter-"] {
-
-	/*.main {
-		margin-top: 35px;
-	}*/
-	
-	.breadcrumbs-container {
-		display: none;
+.newsletter-manage-index{
+	form .fieldset{
+		text-align: center;
 	}
-	
+	button.primary-button[type="submit"]{
+		margin-right: 15px;
+	}
 }
-
 /* Navigation */
 .block-account {
 	
@@ -690,11 +684,16 @@ body[class^=" newsletter-"] {
 	.table-caption {
 		display: none;
 	}
-	
+	button.button.inv>span.p:before{top: 12px;}
+
 	#my-orders-table {
 		margin-bottom: 20px;
 		border:none;
 		th {
+			font: 10px @font-light;
+			font-weight: bold;
+			text-transform: uppercase;
+			color: #000;
 			border:none;
 			padding: 5px 10px;
 			font-size: 14px;
@@ -702,9 +701,13 @@ body[class^=" newsletter-"] {
 		}
 		
 		td {
+			font: 10px @font-light;
+			color: #999;
 			border:none;
-			padding: 26px 10px;
+			padding: 5px 10px;
 			background: none;
+			h3.product-name{font: 10px @font-light;color:#666;}
+			span.price-excl-tax{padding-top: 14px;}
 		}
 		tr{background: none !important;}
 		em { /* status */
@@ -720,13 +723,19 @@ body[class^=" newsletter-"] {
 		.separator { display: none; }
 		
 		tfoot {
+			text-transform: uppercase;
 			td {
 				border: none;
 			}
 			
 			.grand_total strong {
-				font-size: 22px !important;
-				color: #000 !important;
+				font-size: 16px !important;
+				font-family: @font-xbold;
+				color: #666 !important;
+				span.price{
+					font-size: 22px !important;
+					color: #000;
+				}
 			}
 		}		
 		
@@ -822,22 +831,82 @@ table.data-table{
 .my-wishlist {
 	
 	#wishlist-table {
-		
+		margin: 30px 0 50px; 
+		border: none;
 		th {
-			border-bottom: 1px solid @c4;
+			border-bottom: 1px solid #fff;
 			padding: 5px 10px;
 			font-size: 14px;
 		}
-		
+		thead{display: none;}
+		tr{position: relative;}
 		td {
+			background: @color-second;
+			height: 70px;
 			vertical-align: top;
-			padding: 20px;
-			
-			&:first-child {
-				padding: 5px;
+			padding: 10px 20px;
+			border: none;
+			border-bottom: 1px solid #fff;
+			a{
+				display: inline-block;
 			}
+			&:nth-child(1) {
+				padding: 0;
+				margin: 0;
+				background: none;
+				position: absolute;
+				left: -20px;
+			}
+			&:nth-child(2) {
+				a{margin: 0;}
+
+				border-right: 1px solid #fff;
+				width: 70px;
+				padding: 0;
+			}
+			&:nth-child(3){
+				h3 a{
+					width: 160px;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					color: #000;
+					font: 12px @font-bold;
+					text-decoration: none;
+				}
+				width: 265px;
+				padding: 21px 45px; 
+				textarea,.description{display: none;}
+			}
+			&:nth-child(4){
+				div{display: inline-block;vertical-align: top;}
+				.regular-price{color: #999; font: 12px @font-xbold;}
+				.add-to-cart-alt{
+					float: left;
+					margin-top: 9px;
+					span.qty{
+						float: left;
+						&>span{padding: 6px 0;}
+						margin-right: 15px;
+					}
+					button.button{
+						height: 30px;
+						float: left;
+						background: transparent;
+						padding: 2px 15px;
+						&>.p:after{top: 12px;}
+					}
+				}
+				.price-box{float: left;width:75px; margin-right:15px; }
+				.cart-cell{
+					width: 344px;
+					margin: 0 auto;
+					&>p{display: none;}
+				}
+			}
+			
 		}
-	
+		
 		.product-name {
 			font-weight: normal;
 			font-size: 14px;
@@ -852,10 +921,11 @@ table.data-table{
 			margin-top: 10px;
 		}
 		
-		.qty {
+		input.qty {
+			float: left;
 			width: 64px;
 			text-align: center;
-			margin-bottom: 10px;
+			padding: 4px 10px;
 		}
 		
 		.old-price {
@@ -873,28 +943,6 @@ table.data-table{
 		}
 	}
 	
-	.buttons-set {
-		margin-top: 20px;
-		
-		.btn-add {
-			.lnk-primary;
-			margin: 10px 20px 0 0;
-			display: inline-block;
-		}
-		.btn-share {
-			.lnk-primary;
-			margin: 10px 35px 0 0;
-			display: inline-block;
-			
-			&:after {
-				content: "|";
-				position: absolute;
-				top: -6px;
-				right: -25px;
-				font-size: 20px;
-			}
-		}
-	}
 }
 
 /* My Tags */
