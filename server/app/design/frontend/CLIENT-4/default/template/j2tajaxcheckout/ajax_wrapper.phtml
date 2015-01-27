@@ -9,18 +9,17 @@
     var confirmH = <?php echo $confirm_arr[1];?>;
 
 </script>
-
 <div class="j2t-overlay" id="j2t-overlay" style="display: none;">&nbsp;</div>
 
-<div style="display: none; width: <?php echo $loading_arr[0];?>px; height: <?php echo $loading_arr[1];?>px; top: 550px;" class="j2tajax-progress" id="j2t_ajax_progress">
+<div style="display: none; width: <?php echo $loading_arr[0];?>px; height: <?php echo $loading_arr[1];?>px; top: 140px;" class="j2tajax-progress" id="j2t_ajax_progress">
         &nbsp;
 </div>
 <div class="j2t-loading-data" id="j2t-loading-data" style="display: none;">
-    <img alt="<?php echo $this->__('loading...');?>" src="<?php echo $this->getSkinUrl('images/client/ajax-loader.gif');?>"/>
+    <img alt="<?php echo $this->__('loading...');?>" src="<?php echo $this->getSkinUrl('images/client/ajax-loader.png');?>"/>
     <p><?php echo $this->__('loading...');?></p>
 </div>
 
-<div style="display: none; width: <?php echo $confirm_arr[0];?>px; height: <?php echo $confirm_arr[1];?>px; position: fixed; top: 496px;" class="j2tajax-confirm" id="j2t_ajax_confirm">
+<div style="display: none; width: <?php echo $confirm_arr[0];?>px; height: <?php echo $confirm_arr[1];?>px; position: fixed; top: 140px;" class="j2tajax-confirm" id="j2t_ajax_confirm">
         &nbsp;
 </div>
 

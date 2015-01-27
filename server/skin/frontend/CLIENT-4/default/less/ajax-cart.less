@@ -1,21 +1,30 @@
-div.j2tajax-confirm, div.j2tajax-progress {
+div.j2tajax-confirm, div.j2tajax-progress{
 	display:block;
     z-index: 199;
+    top: 144px !important;
     text-align: center;
-    background: #fff;
-    width: 435px !important;
-    height: 144px !important;
-    -webkit-box-shadow: 0 0 12px rgba(0,0,0,.54); -moz-box-shadow: 0 0 12px rgba(0,0,0,.54); box-shadow: 0 0 12px rgba(0,0,0,.54);
+    left: 0px;
+    right: 0px;
+    margin: 0 auto 0 auto;
+}
+div.j2tajax-confirm{
+	background: #fff;
+    width: 700px !important;
+    height: 390px !important;
 }
 
 div.j2tajax-progress {
-	z-index: 199;
 	font-size: 18px;
 	color: @c4;
-	
+    width: 94px !important;
+    height: 74px !important;
+
 	img {
-		margin: 35px 0 10px 0;
+	    -webkit-animation:spin 1.2s steps(24) infinite;
+	    -moz-animation:spin 1.2s steps(24) infinite;
+	    animation:spin 1.2s steps(24) infinite;
 	}
+	p{ color: #fff; font-family: @font-bold; font-size: 13px; text-transform: uppercase;}
 }
 
 
@@ -30,16 +39,24 @@ div.j2t-overlay{
     z-index: 198;
     opacity: .6 !important;
 }
+#j2t_ajax_confirm .j2t_ajax_close{
+	position: absolute;
+	.close-dialog;
+	top: -50px;
+	left: 335px;
+	cursor: pointer;
+	pointer-events: none;
+}
 
 #j2t_ajax_confirm_wrapper {
 	text-align: left;
-	padding: 20px;
+	padding: 66px;
 	
 	ul { /* reset .messages */
 		border: none;
 		padding: 0;
 		margin-bottom: 8px;
-		overflow: hidden;
+		overflow: visible;
 		
 		&:before {
 			display: none;
@@ -47,27 +64,45 @@ div.j2t-overlay{
 		
 		li {
 			width: auto;
+			height: auto;
 			border: none !important;
 			background: none;
 			margin: 0 !important;
 			padding: 0 !important;
 			color: @c4;
+			span{display: inline-block;}
 		}
 	}
 	
 	.j2tajax-checkout-img {
 		float: left;
-		margin-right: 10px;
+		margin-right: 66px;
 	}
 	
 	.j2tajax-checkout-txt {
 		float: left;
-		width: 330px;
+		font-family: @font-regular;
+		color: @c6;
+		font-size: 21px;
+		text-transform: uppercase;
+		width: 230px;
+		span{
+			display: block;
+			margin: 20px 0 ;
+			text-transform: none;
+			color: @c2;
+			font-family: @font-light;
+			font-size: 11px;
+		}
 	}
 	
+	
 	.j2t-cart-bts {
-		overflow: hidden;
-		
+		//overflow: hidden;
+		float: right;
+		margin-top: -73px;
+		width: 292px;
+
 		.j2t-or {
 			display: none;
 		}
@@ -86,10 +121,20 @@ div.j2t-overlay{
 				left: 0;
 			}
 		}
-		
+		.j2t-cart-bts-continue{
+			clear: left;
+			float: left;
+			background: @color-second;
+		}
 		.j2t-checkout-link {
 			.primary-button;
-			float: right;
+			.primary-button.color-main;
+			float: left;
+			top: 0px;
 		}
 	}
 }
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

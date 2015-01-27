@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 	  }
 	},
   
-  	watch: {
+	watch: {
 	  css: {
 	    files: ['../less/**/*.less'],
 	    tasks: ['less:development', 'autoprefixer', 'bell'],

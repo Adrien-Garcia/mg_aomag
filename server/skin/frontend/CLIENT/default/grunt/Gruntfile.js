@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 	  }
 	},
   
-  	watch: {
+	watch: {
 	  css: {
 	    files: ['../less/**/*.less'],
 	    tasks: ['less:development', 'autoprefixer', 'bell'],
@@ -58,10 +58,8 @@ module.exports = function(grunt) {
         glue: {
             command: 'glue ../images/client/origin --less=../less --img=../images/client/sprites --sprite-namespace= --namespace= --cachebuster'
         }
-    }
-    
+    },
   });
-
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-shell');
@@ -69,7 +67,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bell');
 
   // Default task(s).
-  grunt.registerTask('default', ['shell:glue', 'less:development', 'autoprefixer', 'watch']);
+  grunt.registerTask('default', ['shell:glue', 'less:development', 'autoprefixer', 'watch', 'bell']);
   grunt.registerTask('build', ['shell:glue', 'less:production', 'bell']);
 
 };

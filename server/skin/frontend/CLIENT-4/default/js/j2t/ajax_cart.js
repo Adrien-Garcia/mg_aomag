@@ -51,7 +51,8 @@ function sendcart(url, type){
                 alert('Exception : ' + e);
             },
             onComplete: function (xhr)
-            {
+            {   
+                //alert('success');
                 $('j2t-temp-div').innerHTML = xhr.responseText;
                 var return_message = $('j2t-temp-div').down('.j2t_ajax_message').innerHTML;
                 
@@ -68,25 +69,27 @@ function sendcart(url, type){
                 
 
                 var mini_cart_txt = $('j2t-temp-div').down('.cart_side_ajax').innerHTML;
-
                 $$('.mini-cart').each(function (el){
                     el.replace(mini_cart_txt);
                     //new Effect.Opacity(el, { from: 0, to: 1, duration: 1.5 });
                 });
-
                 $$('.block-cart').each(function (el){
                     el.replace(mini_cart_txt);
                     //new Effect.Opacity(el, { from: 0, to: 1, duration: 1.5 });
                 });
-
                 
                 replaceDelUrls();
-
                 if (ajax_cart_show_popup){
                     showConfirm();
                 } else {
                     hideJ2tOverlay();
                 }
+
+            // var txt = $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].innerHTML;
+            // var pos = txt.search("a bien été ajouté à votre panier.");
+            // txt = txt.slice(0,pos);
+            // $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].innerHTML = txt;
+            // $$('#j2t_ajax_confirm .j2tajax-checkout-txt')[0].insert({after:'<span class="m-txt">a bien été ajouté à votre panier.</span>'});
 
             }
 
@@ -159,8 +162,14 @@ function sendcart(url, type){
 function replaceDelUrls(){
     //if (!inCart){
         $$('a').each(function(el){
-            if(el.href.search('checkout/cart/delete') != -1 && el.href.search('javascript:cartdelete') == -1){
-                el.href = 'javascript:cartdelete(\'' + el.href +'\')';
+            if(el.up('.nav-container')!=undefined){
+                if(el.href.search('checkout/cart/delete') != -1 && el.href.search('javascript:cartdelete') == -1){
+                    el.href = 'javascript:cartdelete(\'' + el.href +'\',true)';
+                }
+            }else{
+                if(el.href.search('checkout/cart/delete') != -1 && el.href.search('javascript:cartdelete') == -1){
+                    el.href = 'javascript:cartdelete(\'' + el.href +'\')';
+                }
             }
         });
     //}
@@ -174,8 +183,8 @@ function replaceAddUrls(){
     });
 }
 
-function cartdelete(url){
-    
+function cartdelete(url, mini_cart){
+    if(typeof(mini_cart)==='undefined') mini_cart = false;
     showLoading();
     url = url.replace('checkout', 'j2tajaxcheckout/index/cartdelete');
     var myAjax = new Ajax.Request(
@@ -201,7 +210,10 @@ function cartdelete(url){
             });
 
             
-
+            if(mini_cart){
+                location.reload();
+                return;
+            }
             var process_reload_cart = false;
             var full_cart_content = $('j2t-temp-div').down('.j2t_full_cart_content').innerHTML;
             $$('.cart').each(function (el){
@@ -287,8 +299,8 @@ function j2tCenterWindow(element) {
             // set the style of the element so it is centered
             var styles = {
                 position: 'absolute',
-                top: y + 'px',
-                left : x + 'px'
+                // top: y + 'px',
+                // left : x + 'px'
             };
             el.setStyle(styles);
 
@@ -328,8 +340,8 @@ function showConfirm(){
         decorateTable('j2t-upsell-product-table');
     }
 
-    $('j2t_ajax_confirm_wrapper').replace('<div id="j2t_ajax_confirm_wrapper">'+$('j2t_ajax_confirm_wrapper').innerHTML);
-
+    $('j2t_ajax_confirm_wrapper').replace('<div class="j2t_ajax_close" id="j2t_ajax_close">&nbsp;</div><div id="j2t_ajax_confirm_wrapper">'+$('j2t_ajax_confirm_wrapper').innerHTML);
+    $$('.j2t-cart-bts')[0].insert({bottom :'<div id="j2t-cart-bts-continue" class="j2t-cart-bts-continue primary-button inv"><p>Continuer mes achats</p></div>' });
     confirm_box.style.position = 'absolute';
     j2tCenterWindow(confirm_box);
 }

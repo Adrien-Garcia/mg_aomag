@@ -19,16 +19,19 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    design
- * @package     base_default
+ * @package     Client4_default
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php// echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php $_orders = $this->getOrders(); ?>
 <div class="page-title">
-    <h1><?php echo $this->__('My Orders') ?></h1>
+    <h1><?php echo $this->__('My Dashboard') ?></h1>
+    
 </div>
+<h2 class="legend"><?php echo $this->__('My Orders') ?></h2>
+<hr>
 <?php echo $this->getPagerHtml(); ?>
 <?php if($_orders->getSize()): ?>
 <table class="data-table" id="my-orders-table">
