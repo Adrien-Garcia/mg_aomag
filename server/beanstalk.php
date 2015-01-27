@@ -78,6 +78,10 @@ if (isset ($_GET['hook'])) {
 			apc_clear_cache('user');
 			apc_clear_cache('opcode');
 		}
+		//On vide le cache d'opcode
+		if(function_exists('opcache_reset')) {
+		    opcache_reset();
+		}
 		//on vide le cache File
 		$cacheDir = dirname(__FILE__).DS.'var'.DS.'cache';
 		emptyDir($cacheDir, false);
