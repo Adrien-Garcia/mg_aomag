@@ -44,6 +44,7 @@ class Varien_Autoload
      */
     public function __construct()
     {
+        register_shutdown_function(array($this, 'destroy'));
         $this->_isIncludePathDefined = defined('COMPILER_INCLUDE_PATH');
         if (defined('COMPILER_COLLECT_PATH')) {
             $this->_collectClasses  = true;
@@ -90,15 +91,6 @@ class Varien_Autoload
         }
         $classFile.= '.php';
         //echo $classFile;die();
-        if(strpos($classFile,'Merchant')!==false){
-            try{
-                Throw new Exception('TOTO');
-        
-            } catch (Exception $e ){
-               echo $e->getTraceAsString();
-                exit;
-            }
-        }
         return include $classFile;
     }
 
@@ -130,7 +122,7 @@ class Varien_Autoload
     /**
      * Class destructor
      */
-    public function __destruct()
+    public function destroy()
     {
         if ($this->_collectClasses) {
             $this->_saveCollectedStat();
