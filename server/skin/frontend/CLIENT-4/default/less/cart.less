@@ -183,15 +183,7 @@
 }
 
 /* Shopping Cart Collateral boxes */
-
-.cart .crosssell,
-.cart .discount{
-	background:#fff;
-	border:none;
-	padding:0;
-}
 .cart .crosssell h2,
-.cart .discount h2,
 .cart .shipping h2{
 	font-family:@font-bold;
 	font-weight:normal;
@@ -208,14 +200,59 @@
 		width:100%; 
 
 		.col-1{
-			
+			form#discount-coupon-form{
+				background: @c2t10;
+				padding: 50px 34px;
+				width: 280px;
+				height: 180px;
+				.discount{
+					text-align: center;
+					h2{
+						font: 18px @font-xbold;
+						text-transform: uppercase;
+						color: @color-main;
+					}
+					.input-text{
+						margin-top: 0;
+						width: 210px;
+						padding: 2px 50px 3px 10px;
+						position: absolute;
+						height: 28px;
+						top: 0;	
+						right: 0;
+						border: 1px solid @color-main;
+					}
+					.discount-form{position: relative;}
+					button{
+						float: left;
+						font-size: 14px;
+						padding: 0px 25px 2px 15px;
+						height: 28px;
+						position: absolute;
+						top: 0;
+						right: 0;
+						z-index: 3;
+						&>span{
+							display: inline-block;
+							position: relative;
+							&:after {
+								content: "";
+								position: absolute;
+								top: 11px;
+								right: -15px;
+								.nav-right-white;
+							}
+						}
+					}
+				}
+			}
 		}
 
 		.col-3{}
 	}
 }
 
-.cart .crosssell{
+/*.cart .crosssell{
 	
 	.item{
 		padding:22px 15px 19px 0;
@@ -288,10 +325,10 @@
 			.hover();
 		}
 	}
-}
+}*/
 
 /* Discount Codes & Estimate Shipping and Tax Boxes */
-.cart .discount,
+
 .cart .shipping {
 	
 	margin:0 0 18px;
@@ -314,10 +351,6 @@
 		}
 	}
 	
-	.buttons-set{
-		margin-top:18px;
-		text-align:left;
-	}
 }
 
 .cart .discount{
