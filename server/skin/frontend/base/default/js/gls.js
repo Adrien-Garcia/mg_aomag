@@ -126,11 +126,11 @@ function initGlsLogos() {
 		if (typeGls) {
 			var radioParent = jQuery(element).parent();
 			if (radioParent.children('img').size() == 0) {
-				if(gls_theme == 'Mobile'){
-					radioParent.prepend('<img src="/skin/frontend/default/iphone/images/gls/picto_'+typeGls+'.png" >');
-				}else{
+//				if(gls_theme == 'Mobile'){
+//					radioParent.prepend('<img src="/skin/frontend/default/iphone/images/gls/picto_'+typeGls+'.png" >');
+//				}else{
 					radioParent.prepend('<img src="/skin/frontend/base/default/images/gls/picto_'+typeGls+'.png" >');
-				}
+//				}
 			}
 			
 			if (typeGls=='relay') {

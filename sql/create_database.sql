@@ -1,4 +1,4 @@
-CREATE DATABASE aomagento DEFAULT CHARSET utf8 COLLATE utf8_unicode_ci;
-CREATE USER 'aomagento'@'localhost' IDENTIFIED BY 'aoamgento';
-GRANT ALL PRIVILEGES ON aomagento.* TO 'aomagento'@'localhost' WITH GRANT OPTION;
+CREATE DATABASE addonline_aomagento_magento DEFAULT CHARSET utf8 COLLATE utf8_unicode_ci;
+CREATE USER 'taaKcufCbv'@'localhost' IDENTIFIED BY 'WEywe2+tuNv';
+GRANT ALL PRIVILEGES ON addonline_aomagento_magento.* TO 'taaKcufCbv'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

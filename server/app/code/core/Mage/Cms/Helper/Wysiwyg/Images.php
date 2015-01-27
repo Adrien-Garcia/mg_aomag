@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -49,12 +49,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     protected $_storeId = null;
 
-    /**
-     * Images Storage root directory
-     * @var
-     */
-    protected $_storageRoot;
-
 
     /**
      * Set a specified store ID value
@@ -74,13 +68,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function getStorageRoot()
     {
-        if (!$this->_storageRoot) {
-            $this->_storageRoot = realpath(
-                Mage::getConfig()->getOptions()->getMediaDir()
-                . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
-            ) . DS;
-        }
-        return $this->_storageRoot;
+        return Mage::getConfig()->getOptions()->getMediaDir() . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
+            . DS;
     }
 
     /**
@@ -111,7 +100,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function convertPathToId($path)
     {
-        $path = str_replace($this->getStorageRoot(), '', $path);
+        $storageRoot = realpath($this->getStorageRoot());
+        $path = str_replace($storageRoot, '', $path);
         return $this->idEncode($path);
     }
 
@@ -124,8 +114,9 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function convertIdToPath($id)
     {
         $path = $this->idDecode($id);
-        if (!strstr($path, $this->getStorageRoot())) {
-            $path = $this->getStorageRoot() . $path;
+        $storageRoot = realpath($this->getStorageRoot());
+        if (!strstr($path, $storageRoot)) {
+            $path = $storageRoot . DS . $path;
         }
         return $path;
     }
@@ -208,7 +199,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function getCurrentPath()
     {
         if (!$this->_currentPath) {
-            $currentPath = $this->getStorageRoot();
+            $currentPath = realpath($this->getStorageRoot());
             $node = $this->_getRequest()->getParam($this->getTreeNodeName());
             if ($node) {
                 $path = realpath($this->convertIdToPath($node));

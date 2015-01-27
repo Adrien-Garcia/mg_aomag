@@ -10,18 +10,18 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -57,7 +57,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     protected $_product;
 
     /**
-     * ADDONLINE : Optimisations
+     * JETPULP : Optimisations
      * see http://turnkeye.com/blog/magento-perfomance-optimization-of-configurable-products/
      * 
      * cached prices array
@@ -167,7 +167,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     public function _addAssociatedProductFilters()
     {
         $this->getProduct()->getTypeInstance(true)
-            ->getUsedProducts($this->getColumnValues('attribute_id'), $this->getProduct()); // Filter associated products
+            ->getUsedProducts($this->getColumnValues('attribute_id'), $this->getProduct()); //Filter associated products
         return $this;
     }
 
@@ -195,7 +195,10 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 ->from(array('def' => $this->_labelTable))
                 ->joinLeft(
                     array('store' => $this->_labelTable),
-                    $this->getConnection()->quoteInto('store.product_super_attribute_id = def.product_super_attribute_id AND store.store_id = ?', $this->getStoreId()),
+                    $this->getConnection()->quoteInto(
+                        'store.product_super_attribute_id = def.product_super_attribute_id AND store.store_id = ?',
+                        $this->getStoreId()
+                    ),
                     array(
                         'use_default' => $useDefaultCheck,
                         'label' => $labelCheck
@@ -249,18 +252,18 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
 
             $values = array();
 
-            //ADDONLINE : Optimisations see http://turnkeye.com/blog/magento-perfomance-optimization-of-configurable-products/
+            //JETPULP : Optimisations see http://turnkeye.com/blog/magento-perfomance-optimization-of-configurable-products/
             if (!Mage::app()->getStore()->isAdmin() && isset(self::$_pricings[$this->getProduct()->getId()])) {
             	$values = self::$_pricings[$this->getProduct()->getId()];
             } else {
             	$__prods = $this->getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->getProduct());
-           	//FIN ADDONLINE
+           	//FIN JETPULP
             foreach ($this->_items as $item) {
-               $productAttribute = $item->getProductAttribute();
-               if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract)) {
-                   continue;
-               }
-               //ADDONLINE
+                $productAttribute = $item->getProductAttribute();
+                if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract)) {
+                    continue;
+                }
+               //JETPULP
                //  $options = $productAttribute->getFrontend()->getSelectOptions();
                $_options = array();
                if (get_class($productAttribute->getSource()) == 'Mage_Eav_Model_Entity_Attribute_Source_Table') {
@@ -271,34 +274,41 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                } else {
                    $options = $productAttribute->getFrontend()->getSelectOptions();
                }
-               //FIN ADDONLINE
-               foreach ($options as $option) {
-                   foreach ($this->getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->getProduct()) as $associatedProduct) {
-                        if (!empty($option['value'])
-                            && $option['value'] == $associatedProduct->getData(
-                                                        $productAttribute->getAttributeCode())) {
-                            // If option available in associated product
-                            if (!isset($values[$item->getId() . ':' . $option['value']])) {
-                                // If option not added, we will add it.
-                                $values[$item->getId() . ':' . $option['value']] = array(
-                                    'product_super_attribute_id' => $item->getId(),
-                                    'value_index'                => $option['value'],
-                                    'label'                      => $option['label'],
-                                    'default_label'              => $option['label'],
-                                    'store_label'                => $option['label'],
-                                    'is_percent'                 => 0,
-                                    'pricing_value'              => null,
-                                    'use_default_value'          => true
-                                );
-                            }
+               //FIN JETPULP
+
+                $optionsByValue = array();
+                foreach ($options as $option) {
+                    $optionsByValue[$option['value']] = $option['label'];
+                }
+
+                foreach ($this->getProduct()->getTypeInstance(true)
+                             ->getUsedProducts(array($productAttribute->getAttributeCode()), $this->getProduct())
+                         as $associatedProduct) {
+
+                    $optionValue = $associatedProduct->getData($productAttribute->getAttributeCode());
+
+                    if (array_key_exists($optionValue, $optionsByValue)) {
+                        // If option available in associated product
+                        if (!isset($values[$item->getId() . ':' . $optionValue])) {
+                            // If option not added, we will add it.
+                            $values[$item->getId() . ':' . $optionValue] = array(
+                                'product_super_attribute_id' => $item->getId(),
+                                'value_index'                => $optionValue,
+                                'label'                      => $optionsByValue[$optionValue],
+                                'default_label'              => $optionsByValue[$optionValue],
+                                'store_label'                => $optionsByValue[$optionValue],
+                                'is_percent'                 => 0,
+                                'pricing_value'              => null,
+                                'use_default_value'          => true
+                            );
                         }
-                   }
-               }
-            }
-            //ADDONLINE
+                    }
+                }
+            }           
+            //JETPULP
             self::$_pricings[$this->getProduct()->getId()] = $values;
             }
-            //FIN ADDONLINE
+            //FIN JETPULP
             
             foreach ($pricings[0] as $pricing) {
                 // Addding pricing to options

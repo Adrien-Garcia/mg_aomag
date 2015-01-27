@@ -41,9 +41,13 @@
             <default_setup>
                 <connection>
                     <host><![CDATA[localhost]]></host>
-                    <username><![CDATA[root]]></username>
-                    <password><![CDATA[root]]></password>
-                    <dbname><![CDATA[mage_aomagento]]></dbname>
+                    <username><![CDATA[taaKcufCbv]]></username>
+                    <password><![CDATA[WEywe2+tuNv]]></password>
+                    <dbname><![CDATA[addonline_aomagento_magento]]></dbname>
+                    <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
+                    <model><![CDATA[mysql4]]></model>
+                    <type><![CDATA[pdo_mysql]]></type>
+                    <pdoType><![CDATA[]]></pdoType>
                     <active>1</active>
                     <profiler>1</profiler>
                 </connection>
