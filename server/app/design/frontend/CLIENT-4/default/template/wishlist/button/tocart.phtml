@@ -26,5 +26,5 @@
 ?>
 
 <?php if($this->getWishlist()->getItemsCount() && $this->getWishlist()->isSalable()): ?>
-    <a href="#" title="<?php echo $this->__('Add All to Cart') ?>" onclick="addAllWItemsToCart()" class="btn-add"><?php echo $this->__('Add All to Cart') ?></a>
+    <button href="#" title="<?php echo $this->__('Add All to Cart') ?>" onclick="addAllWItemsToCart()" class="btn-add button primary-button color-main"><?php echo $this->__('Add All to Cart') ?></button>
 <?php endif;?>

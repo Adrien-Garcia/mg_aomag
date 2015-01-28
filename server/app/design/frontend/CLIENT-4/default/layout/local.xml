@@ -398,4 +398,10 @@
         </reference>
 	</sales_order_view>
 
+	<wishlist_index_index translate="label">
+        <reference name="my.account.wrapper">
+            <remove name="customer.wishlist.button.update" />
+        </reference>
+    </wishlist_index_index>
+
 </layout>

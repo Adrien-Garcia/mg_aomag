@@ -18,7 +18,7 @@ jQuery(function($) {
 		str = str.replace('h', 'http://');
 		//str = str.replace('m', 'www');
 		//str = str.replace('d', '.');
-		str = str.replace('j', 'changerlelien');
+		str = str.replace('j', 'changermonlien');
 		str = str.replace('k', '.');
 		str = str.replace('l', 'preprod.addonline');
 		str = str.replace('@', '.');
@@ -204,6 +204,11 @@ jQuery(function($) {
 
 	$("#j2t_ajax_confirm").on('click','#j2t_ajax_close',function(){$("#j2t-overlay").trigger('click');});
 	$("#j2t_ajax_confirm").on('click','#j2t-cart-bts-continue',function(){$("#j2t-overlay").trigger('click');});
+
+	//reorder columns wishlist
+    $(".my-wishlist table#wishlist-table tr").each( function() { 
+        $(this).children(":first-child").before($(this).children(":last-child").removeClass("last"));
+    });
 	
 	// Produit : carrousel sur les ventes incitatives
 	if ($("#upsell-product-table > li").size() > 4) {

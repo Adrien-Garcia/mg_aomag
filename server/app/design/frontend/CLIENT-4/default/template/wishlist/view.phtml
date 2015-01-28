@@ -31,8 +31,12 @@
             <?php if ($this->helper('wishlist')->isRssAllow() && $this->hasWishlistItems()): ?>
                 <a href="<?php echo $this->helper('wishlist')->getRssUrl($this->getWishlistInstance()->getId()); ?>" class="link-rss"><?php echo $this->__('RSS Feed') ?></a>
             <?php endif; ?>
-            <h1><?php echo $this->getTitle(); ?></h1>
+                <h1><?php echo $this->__('My Dashboard') ?></h1>
+                
+            
         </div>
+        <h2 class="legend"><?php echo $this->getTitle(); ?></h2>
+        <hr>
         <?php// echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
         <form id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update', array('wishlist_id' => $this->getWishlistInstance()->getId())) ?>" method="post">
@@ -46,6 +50,7 @@
                 <?php else: ?>
                     <p class="wishlist-empty"><?php echo $this->__('You have no items in your wishlist.') ?></p>
                 <?php endif ?>
+                <hr>
                 <div class="buttons-set buttons-set2">
                     <?php echo $this->getChild('control_buttons')->toHtml();?>
                 </div>
