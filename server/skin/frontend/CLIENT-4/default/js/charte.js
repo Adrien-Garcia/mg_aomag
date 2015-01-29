@@ -96,7 +96,7 @@ jQuery(function($) {
 					 'background-size': w+'px '+h+'px'});
 		$(this).find('a.product-image>img').remove();
 		$(this).click(function(){
-			window.location = href;
+			//window.location = href;
 		})
 	});
 	$(".home-mea .first").each(function(){

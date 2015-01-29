@@ -44,7 +44,11 @@
         </div>
     </li>
 <?php endforeach ?>
+    <li class="recap">
+    <?php echo $this->getChildHtml("checkout.progress.wrapper");?>
+    </li>
 </ol>
+
 <script type="text/javascript">
 //<![CDATA[
     var accordion = new Accordion('checkoutSteps', '.step-title', true);

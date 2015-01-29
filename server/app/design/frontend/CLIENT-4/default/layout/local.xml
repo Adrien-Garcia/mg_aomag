@@ -183,7 +183,7 @@
 		</reference>
 		<reference name="product.info">
 			<block type="page/html_pager" name="product_review_list.toolbar" />
-                <block type="core/template" name="product_review_list.count" template="review/product/view/count.phtml" />
+            <block type="core/template" name="product_review_list.count" template="review/product/view/count.phtml" />
 			<block type="review/product_view_list" name="product.info.product_additional_data" as="product_additional_data" template="review/product/view/list.phtml">
                     <block type="review/form" name="product.review.form" as="review_form">
                         <block type="page/html_wrapper" name="product.review.form.fields.before" as="form_fields_before" translate="label">
@@ -297,13 +297,17 @@
 		        </crumbInfo>
 	       	</action>
 	    </reference>
+	    <reference name="checkout.cart.crosssell">
+			<action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
+			<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
+		</reference>
 	</checkout_cart_index>
 	
 	<checkout_onepage_index translate="label">
 		<reference name="root" before="-">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
 			<block type="core/template" name="onepage-title" as="onepage.title" template="checkout/onepage-title.phtml" />
 		</reference>
-		
 		<reference name="head">
 		   <action method="addCss"><stylesheet>css/socolissimo.css</stylesheet></action>
 		
@@ -313,9 +317,19 @@
 		    <action method="addItem"><type>skin_js</type><script>js/socolissimo.js</script></action>
 		
 		    <block type="core/text" name="map.js"><action method="setText"><text><![CDATA[<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&region=FR"></script>]]></text></action></block>
-		   
 		</reference>
-
+		<reference name="checkout.onepage">
+            <block type="page/html_wrapper" name="checkout.progress.wrapper" translate="label">
+                <label>Checkout Progress Wrapper</label>
+                <action method="setElementId"><value>checkout-progress-wrapper</value></action>
+                <block type="checkout/onepage_progress" name="checkout.progress" before="-" template="checkout/onepage/progress.phtml">
+                    <block type="checkout/onepage_progress" name="billing.progress" template="checkout/onepage/progress/billing.phtml"></block>
+                    <block type="checkout/onepage_progress" name="shipping.progress" template="checkout/onepage/progress/shipping.phtml"></block>
+                    <block type="checkout/onepage_progress" name="shippingmethod.progress" template="checkout/onepage/progress/shipping_method.phtml"></block>
+                    <block type="checkout/onepage_progress" name="payment.progress" template="checkout/onepage/progress/payment.phtml"></block>
+                </block>
+            </block>
+        </reference>
 	 	<reference name="before_body_end">
 	    	<block type="core/template" name="socolissimo_additional" after="-" template="socolissimo/additional.phtml" />
 	    </reference>

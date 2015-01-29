@@ -69,7 +69,7 @@
                 </li>
             </ul>
             <div class="buttons-set">
-                <button type="button" title="<?php echo $this->__('Estimate shipping cost') ?>" onclick="coShippingMethodForm.submit()"><?php echo $this->__('Estimate shipping cost') ?></button>
+                <button class="primary-button" type="button" title="<?php echo $this->__('Estimate shipping cost') ?>" onclick="coShippingMethodForm.submit()"><span class="p"><span><?php echo $this->__('Estimate shipping cost') ?></span></span></button>
             </div>
         </form>
         <script type="text/javascript">
@@ -82,7 +82,7 @@
         <form id="co-shipping-method-form" action="<?php echo $this->getUrl('checkout/cart/estimateUpdatePost') ?>">
             <dl class="sp-methods">
                 <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
-                    <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+                    <dt><h2><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></h2></dt>
                     <dd>
                         <ul>
                         <?php foreach ($_rates as $_rate): ?>
@@ -107,7 +107,7 @@
                 <?php endforeach; ?>
             </dl>
             <div class="buttons-set">
-                <button type="submit" title="<?php echo $this->__('Update Total') ?>" name="do" value="<?php echo $this->__('Update Total') ?>"><?php echo $this->__('Update Total') ?></button>
+                <button class="primary-button" type="submit" title="<?php echo $this->__('Update Total') ?>" name="do" value="<?php echo $this->__('Update Total') ?>"><span class="p"><span><?php echo $this->__('Update Total') ?></span></span></button>
             </div>
         </form>
         <?php endif; ?>

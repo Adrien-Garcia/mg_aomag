@@ -51,11 +51,11 @@
 	tr{position: relative;border-bottom: 1px solid #fff;}
 	td {
 		color: #999;
-		font: 12px @font-xbold;
+		font: 12px/15px @font-xbold;
 		background: @color-second;
 		height: 70px;
 		vertical-align: middle;
-		padding: 10px 20px;
+		padding: 0 20px 0 20px;
 		border: 0px;
 		border-bottom: 1px solid #fff;
 		a{
@@ -176,10 +176,7 @@
 			text-decoration:none;
 		}
 	}
-	
-	td{
-		padding:25px 10px;
-	}
+
 }
 
 /* Shopping Cart Collateral boxes */
@@ -221,6 +218,10 @@
 						top: 0;	
 						right: 0;
 						border: 1px solid @color-main;
+						background: transparent;
+						&:focus{
+							background: #fff;
+						}
 					}
 					.discount-form{position: relative;}
 					button{
@@ -247,8 +248,85 @@
 				}
 			}
 		}
+		.col-2{
+			.shipping{
+				h2{line-height: 1;border: none;}
+				form{
+					label{
+						font: 10px @font-light;
+						text-transform: uppercase;
+						em{float: right;}
+					}
+					select, input{font: 11px/18px @font-light;font-weight: bold;}
+					.sp-methods dd{margin: 10px;}
+				}
+			}
+		}
 
-		.col-3{}
+		.col-3{
+			top: -50px;
+			position: relative;
+			font: 10px/14px @font-light;
+			text-transform: uppercase;
+			text-align: left;
+			color:#666;
+			.a-right{text-align: left !important;}
+			table#shopping-cart-totals-table{
+				tr td{
+					padding: 10px 0;
+					&:first-child{
+						width: 137px;
+						font-family:@font-light;
+						color: #666;
+					}
+					.price{
+						font-size: 14px;			
+						font-family: @font-xbold;
+						font-weight: normal;
+					}
+				}
+				tfoot{
+					padding: 10px 0;
+					strong{font: 10px/14px @font-light;font-weight: bold;}
+					tr:first-child td{border-top: 1px dotted #000;}
+
+					tr:last-child td{
+						border-top: 1px dotted #000;
+						&:first-child strong{
+								font: 14px/18px @font-xbold;
+								font-weight: normal;
+								color: #666;
+						}
+						.price{
+								font: 20px/24px @font-xbold;
+								font-weight: normal;
+						}
+					}
+				}
+			}
+			ul.checkout-types{
+				margin-top: 20px;
+				li{
+					margin: 10px 0;
+				}
+				button.primary-button.btn-checkout{
+					width: 100%;
+					height: 55px;
+					font-size: 18px;
+				}
+			}
+		}
+	}
+
+	.crosssell{
+		&>h2{margin-bottom: 20px;}
+		#crosssell-products-list .item .mini-product{
+			.product-name{border: none; text-transform: none;}
+			.product-plus button{
+				position: relative;
+	   			top: 5px;
+	   		}
+		}
 	}
 }
 
@@ -336,19 +414,6 @@
 	select,
 	.input-text{
 		width:260px;
-	}
-	
-	button{
-		.lnk-primary();
-		background:none;
-		border:none;
-		color:@c4;
-		font-size:14px;
-		cursor:pointer;
-		
-		&:hover{
-			.hover();
-		}
 	}
 	
 }
@@ -439,10 +504,6 @@
 	width:305px;
 	padding-right:67px;
 	
-	table {
-		width:100%;
-		font-size:14px;
-	}
 	
 	td {
 		padding:0 0 5px 0;
@@ -487,33 +548,33 @@
 		}
 	}
 	
-	.checkout-types {
-		font-size:13px;
-		padding:8px 15px 15px;
-		text-align:right;
+	// .checkout-types {
+	// 	font-size:13px;
+	// 	padding:8px 15px 15px;
+	// 	text-align:right;
 		
-		li{
-			clear:both;
-			margin:10px 0;
+	// 	li{
+	// 		clear:both;
+	// 		margin:10px 0;
 			
-			button{
-				.primary-button();
-				height:46px;
-				width:308px;
-				margin-left:-18px;
+	// 		button{
+	// 			.primary-button();
+	// 			height:46px;
+	// 			width:308px;
+	// 			margin-left:-18px;
 				
-				span{
-					background:none;
-					line-height:inherit;
-					font-size:22px;
-				}
+	// 			span{
+	// 				background:none;
+	// 				line-height:inherit;
+	// 				font-size:22px;
+	// 			}
 				
-			}
+	// 		}
 			
-			&:last-child{
-				display:none;
-			}
-		}
-	}
+	// 		&:last-child{
+	// 			display:none;
+	// 		}
+	// 	}
+	// }
 	
 }
