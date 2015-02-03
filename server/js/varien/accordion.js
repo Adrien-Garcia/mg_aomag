@@ -34,6 +34,8 @@ Accordion.prototype = {
         headers.each(function(header) {
             Event.observe(header,'click',this.sectionClicked.bindAsEventListener(this));
         }.bind(this));
+
+    
     },
 
     sectionClicked: function(event) {
@@ -69,6 +71,8 @@ Accordion.prototype = {
                 }
             }
         }
+        eve = new CustomEvent("open_Section",{"this":section});
+        document.dispatchEvent(eve);
     },
 
     closeSection: function(section) {

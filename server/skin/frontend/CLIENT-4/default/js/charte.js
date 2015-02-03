@@ -59,7 +59,19 @@ jQuery(function($) {
 			$(this).siblings('.item').filter(':last').insertBefore($(this).siblings('.item').filter(':first'));
 		});
 	}
-	
+
+	function resizeCheckoutSteps(){
+		var h1 = $("#checkoutSteps li.recap").height();
+		var h2 = $("#checkoutSteps li.section.allow.active>.step").height();
+		h1 += $("#checkoutSteps li.section").height();
+		h2 += $("#checkoutSteps li.section").height();
+		var height = Math.max(h1,h2);
+		$("#checkoutSteps").height(height+50);
+	}
+    $(document).on("open_Section", function(e) {
+      resizeCheckoutSteps();
+    });
+	resizeCheckoutSteps();
 	// Accueil : carrousel
 	
 	var sliderHome = $('.cms-home .slideshow').bxSlider({

@@ -12,7 +12,7 @@
 <config>
 	<modules>
 		<Addonline_SoColissimo>
-			<active>false</active>
+			<active>true</active>
 			<codePool>local</codePool>
 			<depends>
 				<Mage_Shipping />
