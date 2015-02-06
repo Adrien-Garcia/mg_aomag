@@ -33,7 +33,7 @@ Default layout, loads most of the pages
 	<default translate="label" module="page">
 		<reference name="head">
 			<action method="addCss"><stylesheet>css/fonts.css</stylesheet></action>
-			<action method="addItem"><type>skin_js</type><name>js/jquery.js</name></action>
+<!-- 			<action method="addItem"><type>skin_js</type><name>js/jquery.js</name></action> pour assurer le fonctionnement du module GLS -->
 			<action method="addItem"><type>skin_js</type><name>js/jquery.noconflict.js</name></action>
 			<action method="addCss"><stylesheet>css/jquery.bxslider.css</stylesheet></action>
 			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.bxslider.min.js</name><params/></action>
