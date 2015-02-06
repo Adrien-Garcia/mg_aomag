@@ -35,8 +35,8 @@
 <div class="form-language">
     <?php foreach ($this->getStores() as $_lang): ?>
         <?php $_checked = ($_lang->getId() == $this->getCurrentStoreId()) ? ' checked' : '' ?>
-        <input type="radio" id="radio<?php echo $_lang->getCurrentUrl() ?>" name="radio-language" value="<?php echo $_lang->getCurrentUrl() ?>" <?php echo $_checked ?> onchange="window.location.href=this.value">
-    		<label for="radio<?php echo $_lang->getCurrentUrl() ?>" class="radio-language-label"><?php echo substr($this->escapeHtml($_lang->getName()),0,2) ?></label>
+        <input type="radio" id="radio<?php echo $_lang->getId() ?>" name="radio-language" value="<?php echo $_lang->getCurrentUrl() ?>" <?php echo $_checked ?> onchange="window.location.href=this.value">
+    		<label for="radio<?php echo $_lang->getId() ?>" class="radio-language-label"><?php echo substr($this->escapeHtml($_lang->getName()),0,2) ?></label>
     <?php endforeach; ?>
     </select>
 </div>

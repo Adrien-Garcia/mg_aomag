@@ -1037,7 +1037,7 @@ dd.s_method_socolissimo{
 				font-weight: normal !important;
 				text-align: left;
 			}
-			.last{
+			tr.last td{
 				border-bottom: 1px dotted #000;
 			}
 		}
@@ -1080,8 +1080,8 @@ dd.s_method_socolissimo{
 					padding:15px 0 0 0;
 				}
 			}
-			&>tr.last{
-				border-bottom: 1px dotted #000;
+			&>tr.last td{
+				//border-bottom: 1px dotted #000;
 			}
 			
 			
@@ -1105,9 +1105,10 @@ dd.s_method_socolissimo{
 	}
 	#review-buttons-container{
 		padding-right:20px !important;
-		
+		border-top: 1px dotted #000 !important;
 		button{
 			height:46px;
+			padding: 0 15px 7px;
 		}
 	}
 	.checkout-onepage-success,
@@ -1122,4 +1123,22 @@ dd.s_method_socolissimo{
 			}
 		}
 	}
+
+.sales-order-print{
+	#my-orders-table.data-table{
+		tr{
+			background: #fff !important;
+		}
+		tfoot{
+			td{
+				border: none;
+			}
+			tr.grand_total{
+				color: #000;
+				font-size: 14px;
+			}
+		}
+		
+	}
+}
 /* ================================= Solution by www.h-o.nl =============================== */

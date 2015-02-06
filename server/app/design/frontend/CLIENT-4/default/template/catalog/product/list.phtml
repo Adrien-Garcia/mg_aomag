@@ -48,7 +48,10 @@
     <?php foreach ($_productCollection as $_product): ?>
         <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
             <?php // Product Image ?>
-            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(205); ?>" width="205" height="205" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(210); ?>" width="210" height="210" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+            <?php if ( $helperao->isNew(null, $_product) ) :?>
+                <span class="new"><?php echo __("new"); ?></span>
+            <?php endif;?>
             <?php // Product description ?>
             <div class="product-shop">
                
@@ -57,19 +60,20 @@
                     <?php echo $this->getPriceHtml($_product, true) ?>
                     <?php if ($helperao->getReductionPercent($_product) > 0) :?>
 	                <span class="percentage">-<?php echo $helperao->getReductionPercent($_product); ?>%</span>
-	                <?php elseif ( $helperao->isNew(null, $_product) ) :?>
-	                <span class="new"><?php echo __("new"); ?></span>
-	                <?php endif;?>
+	                <?php endif; ?>
                     <div class="desc std">
-                        <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
-                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                        <?php echo $_helper->productAttribute($_product, $_product->getDescription(), 'description') ?>
+                        
                     </div>
                     <ul class="add-to-links">
+                            <li>
+                                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="primary-button color-main"><p><span><?php echo $this->__('Details') ?></span></p></a>
+                            </li>
                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                            <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Wishlist') ?></a></li>
                         <?php endif; ?>
                         <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
-                            <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                            <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Comparator') ?></a></li>
                         <?php endif; ?>
                     </ul>
                

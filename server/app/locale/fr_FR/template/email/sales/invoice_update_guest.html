@@ -13,16 +13,17 @@
 body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
 @-->
 
-<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
-<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
-<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
-<tr>
-    <td align="center" valign="top" style="padding:20px 0 20px 0">
-        <!-- [ header starts here] -->
-        <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+<body style="background:#F4F4F4; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; margin:0; padding:0;color:#999;text-align:center;" >
+    <div  style="background:#F4F4F4; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; margin:25px; padding:0;color:#999;width:561px;" width="561">
+        <table cellspacing="0" cellpadding="0" border="0" height="100%" width="561" bgcolor="#F4F4F4">
             <tr>
-                <td valign="top"><a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
-            </tr>
+            <td align="center" valign="top" style="padding:20px 0 20px 0">
+                <!-- [ header starts here] -->
+                <table bgcolor="FFFFFF" cellspacing="0" cellpadding="" border="0" width="650" style="border:1px solid #E0E0E0;background:#Fff;color:#999;">
+                    <tr>
+                    <td valign="top" align="center">
+                        <a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px; " align="center" border="0"/></a></td>
+                    </tr>
             <!-- [ middle starts here] -->
             <tr>
                 <td valign="top">
@@ -34,13 +35,13 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                     <p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">{{var comment}}</p>
                     <p style="font-size:12px; line-height:16px; margin:0;">
                         Si vous avez des questions, n'hésitez pas à nous contacter à l'adresse
-                        <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+                        <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#00b9af;">{{config path='trans_email/ident_support/email'}}</a>
                         ou par téléphone au {{config path='general/store_information/phone'}}.
                     </p>
                 </td>
             </tr>
             <tr>
-                <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;">Merci encore, <strong>{{var store.getFrontendName()}}</strong></p></center></td>
+                <td bgcolor="#222" align="left" style="font-family:Verdana;background:#222; text-align:left;color:#757575; padding:0 0 25px 30px; " height="68px"><a href="{{store url="/"}}" style="font-family:Verdana;font-size:10px; margin:0; color:#757575;" color="#757575">Accueil, &laquo;{{var store.getFrontendName()}}&raquo;</a>&#124;<a href="{{store url="customer/account/"}}" style="font-family:Verdana;color:#757575;font-size:10px; margin:0;">Votre compte client</a></td>
             </tr>
         </table>
     </td>
