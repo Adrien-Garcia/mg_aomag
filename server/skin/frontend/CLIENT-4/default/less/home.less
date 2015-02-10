@@ -82,12 +82,14 @@
 				.price {
 					font-size: 28px;
 				}
-				
+
+				.special-price .price,				
 				.old-price .price {
 					color: #000;
 					font-size: 20px;
 				}
 				
+
 				.lnk {
 					.primary-button;
 					padding-left: 30px;
@@ -274,11 +276,12 @@
 							display: inline-block;
 							margin: 0;
 							padding: 0;
-							line-height: 13px;
-							height: 15px;
-							bottom: 10px;
+							line-height: 25px;
+							height: 30px;
+							bottom: 0px;
 							position: absolute;
 							background-color: rgba(255, 255, 255, 0.8);
+							a{margin-bottom: 9px;}
 
 							.price, .price-regular, a, *{
 								font-family: verdana;
@@ -292,6 +295,9 @@
 							}
 							h2{
 								font-size: 11px;
+							}
+							.old-price{
+								display: none;
 							}
 						}
 						.product-name{
