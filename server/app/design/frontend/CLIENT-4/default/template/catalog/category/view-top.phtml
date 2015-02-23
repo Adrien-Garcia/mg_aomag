@@ -39,7 +39,7 @@
         $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></p>';
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
-    $_imgHtml = ''; //NO IMAGE
+    //$_imgHtml = ''; //NO IMAGE
     
     $_category_h1 = "";
     if($_category->getData('balise_h1')) {

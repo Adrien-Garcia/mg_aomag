@@ -69,8 +69,8 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
                     if( $childLevel == 0){
                         //S'il y a une image
                         
-                        if($child->getImage()){
-                            $html .= "<li class='img-category'><img class='visuel' src='". $child->getImage() ."' /></li>";
+                        if($child->getThumbnail()){
+                            $html .= "<li class='img-category'><img class='visuel' src='". $child->getThumbnail() ."' /></li>";
                         }else{
                             $html .= "";
                         }
