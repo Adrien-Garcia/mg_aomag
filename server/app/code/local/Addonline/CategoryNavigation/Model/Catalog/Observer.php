@@ -39,6 +39,7 @@ class Addonline_CategoryNavigation_Model_Catalog_Observer extends Mage_Catalog_M
 					'name' => $category->getName(),
 					'id' => $nodeId,
 					'image' => $category->getImageUrl(),//$category->getImageUrl(),
+					'thumbnail' => $this->getThumbnailUrl($category->getThumbnail()),//$category->getImageUrl(),
 					'url' => $pageCms?$menuBlock->getUrl('/').$pageCms:Mage::helper('catalog/category')->getCategoryUrl($category),
 					'is_active' => $this->_isActiveMenuCategory($category),
 					'navigation_type' => $category->getNavigationType() //ADDONLINE : on ajoute navigation_type au noeud
@@ -55,5 +56,18 @@ class Addonline_CategoryNavigation_Model_Catalog_Observer extends Mage_Catalog_M
 			$this->_addCategoriesToMenu($subcategories, $categoryNode,$menuBlock,$addTags);
 		}
 	}
+    /**
+     * Retrieve image URL
+     *
+     * @return string
+     */
+    public function getThumbnailUrl($thumbnail)
+    {
+        $url = false;
+        if ($image = $thumbnail) {
+            $url = Mage::getBaseUrl('media').'catalog/category/'.$image;
+        }
+        return $url;
+    }
 	
 }
