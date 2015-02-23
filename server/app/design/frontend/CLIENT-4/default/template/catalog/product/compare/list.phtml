@@ -55,7 +55,7 @@
                     <?php endif; ?>
                     
                     <?php if($_item->isSaleable()): ?>
-                        <p><button type="button" title="<?php echo $this->__('Acheter') ?>" class="button btn-cart" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToCartUrl($_item) ?>', true)"><span><span><?php echo $this->__('Acheter') ?></span></span></button></p>
+                        <p><button type="button" title="<?php echo $this->__('Acheter') ?>" class="button btn-cart" onclick="window.location='<?php echo $this->helper('catalog/product_compare')->getAddToCartUrl($_item) ?>'"><span><span><?php echo $this->__('Acheter') ?></span></span></button></p>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                     <?php endif; ?>
@@ -116,7 +116,7 @@
                     <?php endif; ?>
                     
                     <?php if($_item->isSaleable()): ?>
-                        <p><button type="button" title="<?php echo $this->__('Acheter') ?>" class="button btn-cart" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToCartUrl($_item) ?>', true)"><span><span><?php echo $this->__('Acheter') ?></span></span></button></p>
+                        <p><button type="button" title="<?php echo $this->__('Acheter') ?>" class="button btn-cart" onclick="window.location='<?php echo $this->helper('catalog/product_compare')->getAddToCartUrl($_item) ?>'"><span><span><?php echo $this->__('Acheter') ?></span></span></button></p>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                     <?php endif; ?>
