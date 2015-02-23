@@ -25,6 +25,10 @@ jQuery(function($) {
 		str = str.replace('|', 'biz');
 		document.location=str;
 	});
+
+	$('.level-top.search').on('mouseout',function(){
+		if(!$(this).hasClass('over'))$(this).find('input#search').trigger('blur');
+	});
 	
 	/* Menu : donner la hauteur à toute les colonnes de second niveau */
 	// var id;

@@ -56,7 +56,7 @@
 				}
 								
 				&.active {
-					.puce-active;
+					background: @color-main;
 				}
 			}
 		}
@@ -187,7 +187,7 @@
 					content: "";
 					position: absolute;
 					top : -56px;
-					margin-left: 10px;
+					right: ~"calc(50% - 14px)";
 					background-color: @color-main;
 					.flag-t
 				}
@@ -220,15 +220,13 @@
 				font-size: 61px;
 				font-family: uberlin_xboldregular;
 				text-transform: uppercase;
-				width: 33%;
 				min-width: 170px;
 				-webkit-hyphens: auto;
 				   -moz-hyphens: auto;
 				    -ms-hyphens: auto;
 				        hyphens: auto;
 				 -ms-word-break: break-all;
-				 margin-left: 70px;
-				 margin-top: 30px;
+				 margin: 30px 70px 0;
 				@media screen and (-webkit-min-device-pixel-ratio:0) {
 				   	word-break: break-word;
 				}
@@ -254,6 +252,7 @@
 				text-transform: uppercase;
 				font-weight: normal;
 				width: 410px;
+				left: ~"calc(50% - 205px)";
 				text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
 			}
 			.product-grid-mea{

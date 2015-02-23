@@ -65,7 +65,7 @@
         <strong><?php echo $this->__('Page:') ?></strong>
         <ol>
         <?php if (!$this->isFirstPage()): ?>
-            <li>
+            <li class="previous">
                 <a class="previous<?php if(!$this->getAnchorTextForPrevious()): ?> i-previous<?php endif;?>" href="<?php echo $this->getPreviousPageUrl() ?>" title="<?php echo $this->__('Previous') ?>">
                     <?php echo $this->__('Previous') ?>
                 </a>
@@ -98,7 +98,7 @@
         <?php endif;?>
 
         <?php if (!$this->isLastPage()): ?>
-            <li>
+            <li class="next">
                 <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif; ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo $this->__('Next') ?>">
                     <?php echo $this->__('Next') ?>
                 </a>

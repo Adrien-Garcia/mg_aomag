@@ -124,11 +124,6 @@
 			overflow: hidden;
 			color: @c4;
 		}
-		
-		.link-learn {
-			font-size: 13px;
-			margin: 60px 0 0;
-		}
 
 		.actions {  }
 		
@@ -431,12 +426,14 @@
 			color: @c3;
 			border-right: solid 1px @c3;
 			&:last-child, &:nth-last-child(2){
-				border-right: none;
+				//border-right: none;
 			}
 			&.current {
 				font-weight: bold;
 			}
-			
+			&:nth-last-child(2):not(.previous){border-right: none;}
+			&:last-child:not(.next),&.previous{border-right: none;}
+			&.next{border-right: none;}
 			a, span {
 				color: @c3;
 				text-decoration: none;

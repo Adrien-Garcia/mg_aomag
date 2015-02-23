@@ -53,23 +53,6 @@
 			</action>
 		</reference>
 
-		<reference name="breadcrumbs">
-	    	<action method="addCrumb">
-	            <name>Accueil</name>
-	            <params>
-	                <label>Accueil</label>
-	                <title>Accueil</title>
-	                <link>/</link>
-	            </params>
-            </action>
-	        <action method="addCrumb">
-		        <crumbName>Mon panier</crumbName>
-		        <crumbInfo>
-		        	<label>Mon panier</label>
-		        	<title>Mon panier</title>
-		        </crumbInfo>
-	       	</action>
-	    </reference>
 		<reference name="footer">
 			<remove name="footer_links" />
 			<block type="cms/block" name="footer1_bloc1">
