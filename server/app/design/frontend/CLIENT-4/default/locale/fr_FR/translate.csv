@@ -132,3 +132,6 @@
 "Mage_Checkout::Your Checkout Progress","Avancement de votre commande"
 "Place Order","Régler ma commande maintenant"
 "My Search","Ma Recherche"
+"Mage_Catalog::Currently Shopping by:","Options sélectionnées"
+"Mage_Catalog::Shopping Options","Options disponibles"
+"Mage_Catalog::Clear All","Tout supprimer"
