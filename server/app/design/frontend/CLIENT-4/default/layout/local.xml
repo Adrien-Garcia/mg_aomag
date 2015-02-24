@@ -80,6 +80,7 @@
                 <action method="setBlockId"><block_id>cms_footer_bloc_6</block_id></action>
             </block>
             <block type="newsletter/subscribe" name="footer.newsletter" template="newsletter/subscribe.phtml"/>
+            <block type="core/template" name="jetpulp" template="page/html/jetpulp.phtml" />
 		</reference>
 		<reference name="header">
 			<block type="page/template_links" name="cart-link" as="cart-link">
@@ -140,6 +141,9 @@
 			<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
 		</block>
 	  </reference>
+	  <reference name="jetpulp">
+			<action method="setTemplate"><template>page/html/jetpulp-lnk.phtml</template></action>
+		</reference>
 	</cms_index_index>
 
 <!-- 	<catalog_product_view translate="label">

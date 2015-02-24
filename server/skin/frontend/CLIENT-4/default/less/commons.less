@@ -2245,11 +2245,11 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 	
 	.footer-2 {
+	
 		background: #fff;
-		//border-bottom: 1px solid @c4;
 		color: @c4;
 		overflow: hidden;
-		padding: 30px 0;
+		padding: 55px 0;
 		width: 980px;
 		margin: auto;
 		
@@ -2262,19 +2262,28 @@ tr.summary-details-excluded { font-style:italic; }
 			}
 			
 			p {
-				color: @c3;
+				
 				font-family: @font-xbold;
 				text-transform: uppercase;
 				font-size: 16px;
-				margin-bottom: 20px;
+				margin-bottom: 15px;
+				color: @c6;
+				font-size: 12px;
 			}
 			
 			a {
 				position: relative;
 				text-decoration: none;
+				color: @c4;
+				padding: 4px 0;
+				display: inline-block;
+				font-size: 11px;
 			}
-			//&.address;
+			
 			&.address{
+				
+				float: right;
+				
 				&>div:first-child::before{
 					content: "";
 					width: 100%;
@@ -2309,51 +2318,38 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 	
 	.footer-3 {
+		
 		width: 100%;
 		display: block;
-		background: @c3;
+		background: @c6;
 		font-size: 12px;
 		color: @c4;
-		line-height: 85px;
+		
 		.wrap {
+			
 			width: 980px;
 			min-width: 960px;
 			padding: 0;
 			margin: 0 auto;
+			position: relative;
+			height: 70px;
 			
-			ul{display: inline-block;}
-			ul:not(.logo) {
-				float: right;
-				text-align: center;
-				li {
-					display: inline;
-					margin: 0 3px;
-					a {
-						text-decoration: none;
-					}
-					&:before {
-						content: "-";
-						position: relative;
-						left: -3px;
-					}
-					&:first-child:before {
-						content: "";
-					}
-				}
+			&:before {
+				content: "";
+				.footer-paiement;
+				position: absolute;
+				top: 0;
+				left: 0;
 			}
-			ul.logo{
-				 
-				text-align: center;
-			li{
-				display: inline-block;
-				margin-right: 10px;
+			
+			.jetpulp {
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				
+				img { border: none; }
 			}
-				li:nth-child(1){.visa;}
-				li:nth-child(2){.mastercard;}
-				li:nth-child(3){.paypal;}
-				li:nth-child(4){.amer-express;}
-				li:nth-child(5){.discover;}
-			}
+			
 		}
 
 	}
