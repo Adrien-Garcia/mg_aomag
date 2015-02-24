@@ -11,6 +11,14 @@
  */
 jQuery(function($) {
 	
+	/*
+	 * MAJ du panier
+	 */
+	$(".btn-update").click(function() {
+		$(this).addClass("refreshing");
+		$("#form-cart").submit();
+	});
+	
 	/* Obfuscation lien accueil */
 	demoer = {'home':'hjkl@|'};
 	$('.lienhome').bind('click', function(){
