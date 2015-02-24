@@ -425,18 +425,30 @@ p.control input.radio { margin-right:6px; }
 	}
 	
 	.back-link {
+	
+		float: left;
+		margin: 0;
+	
 		a {
-			.lnk-primary-back;
+			font-size: 14px;
+			font-family: @font-xbold;
+			text-transform: uppercase;
+			text-decoration: none;
+			position: relative;
+			padding-left: 20px;
+			
+			&:before {
+				content: "";
+				.nav-left-black;
+				position: absolute;
+				top: 11px;
+				left: 0;
+			}
 			
 			small {
 				display: none;
 			}
 		}
-	}
-	
-	.back-link {
-		float: left;
-		margin: 0;
 	}
 	
 	button.button {
