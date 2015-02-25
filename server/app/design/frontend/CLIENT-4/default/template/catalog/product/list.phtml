@@ -67,7 +67,7 @@
                     </div>
                     <ul class="add-to-links">
                             <li>
-                                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="primary-button color-main"><p><span><?php echo $this->__('Details') ?></span></p></a>
+                                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="primary-button color-main little"><p><span><?php echo $this->__('Details') ?></span></p></a>
                             </li>
                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
                             <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Wishlist') ?></a></li>
