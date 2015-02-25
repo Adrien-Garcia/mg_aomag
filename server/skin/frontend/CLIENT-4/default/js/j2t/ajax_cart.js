@@ -216,6 +216,12 @@ function cartdelete(url, mini_cart){
             }
             var process_reload_cart = false;
             var full_cart_content = $('j2t-temp-div').down('.j2t_full_cart_content').innerHTML;
+            var full_cart_h1 = $$('.j2t_full_cart_content ')[0].remove('.page-title').innerHTML;//$('j2t-temp-div').down('.j2t_full_cart_content .page-title').innerHTML;
+            ;
+            $$('.page-title').each(function (el){
+                el.innerHTML = full_cart_h1;
+                process_reload_cart = true;
+            });
             $$('.cart').each(function (el){
                 el.replace(full_cart_content);
                 process_reload_cart = true;
