@@ -54,6 +54,6 @@
 
 </div>
 <?php endif ?>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
-<?php //echo $this->getChildHtml('global_messages') ?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml('global_messages') ?>
 <?php //echo $this->getChildHtml('messages') ?>

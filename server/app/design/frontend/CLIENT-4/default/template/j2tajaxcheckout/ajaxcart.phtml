@@ -37,6 +37,10 @@ if( $count == 1 ) {
 }
 ?></div>
 
+<div class="j2t_ajax_message">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+</div>
+
 <div class="j2t_full_cart_content" id="j2t_full_cart_content">
     <?php echo $this->getChildHtml('cart_content_ajax');?>
 </div>
