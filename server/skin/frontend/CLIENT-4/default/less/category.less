@@ -357,14 +357,12 @@
 			float: left;
 			margin: 0 15px 0 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
 		}
 		
 		.limiter {
 			float: left;
 			margin: 0 15px 0 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
 		}
 		
 	}
@@ -381,7 +379,6 @@
 			float: left;
 			margin: 0 15px 0 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
 
 			.asc, .desc {
 				text-indent: -200em;
@@ -445,13 +442,16 @@
 		> strong { display: none; }
 		
 		li {
+			line-height: 10px;
 			float: left;
 			color: @c3;
 			&.current {
 				font-weight: bold;
+				text-decoration: underline;
 			}
 			&:first-child,&.previous+li,&.next,&.previous{border-left: none !important;}
 			&:not(.previous),&:not(.next),&:not(:first-child){border-left: solid 1px @c3;}
+			&:not(.previous):not(.next){margin-top: 12px;}
 			a, span {
 				color: @c3;
 				text-decoration: none;
