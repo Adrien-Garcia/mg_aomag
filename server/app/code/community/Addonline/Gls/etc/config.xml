@@ -257,7 +257,7 @@
  "shipto": "FR",
  "fees": "!{free_shipping}*{table {cart.price+tax+discount} in 150.00:5.00, 160.00:3.00, 100000.00:00.00}"
 }]]></configrelay>
-				<orderrelay>2</orderrelay>
+				<orderrelay>3</orderrelay>
 				<maxrelayweight>20</maxrelayweight>
 				<maxxlrelayweight>30</maxxlrelayweight>
 				<onlyxlrelay>0</onlyxlrelay>
