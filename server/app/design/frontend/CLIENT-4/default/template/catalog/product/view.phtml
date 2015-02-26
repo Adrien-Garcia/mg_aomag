@@ -46,22 +46,28 @@
             <input type="hidden" name="related_product" id="related-products-field" value="" />
         </div>
 
+        <div class="product-img-box">
+            <?php echo $this->getChildHtml('media') ?>
+        </div>
+
         <div class="product-shop">
             <div class="product-name">
                 <h1 itemprop="name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                 <?php if ( $_product->getData('brand')) :?><span itemprop="brand" itemscope itemtype="http://schema.org/Brand"><meta itemprop="name" content="<?php echo $_product->getAttributeText('brand') ?>"></span><?php endif; ?>
             </div>
+            <?php if (!$this->hasOptions()):?>
+    			 <div class="wrapper-stock-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <?php echo $this->getChildHtml('product_type_data') ?>
 
-			 <div class="wrapper-stock-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <?php echo $this->getChildHtml('product_type_data') ?>
-            <?php echo $this->getTierPriceHtml() ?>
-            </div>
+                <?php echo $this->getTierPriceHtml() ?>
+                </div>
+            <?php endif; ?>
             
             <?php echo $this->getChildHtml('alert_urls') ?>
            
             <?php echo $this->getChildHtml('extrahint') ?>
 
-            <?php if (!$this->hasOptions()):?>
+             <?php if (!$this->hasOptions()):?>
                 <div class="add-to-box">
                     <?php if($_product->isSaleable()): ?>
                         <?php echo $this->getChildHtml('addtocart') ?>
@@ -74,11 +80,18 @@
                     <?php echo $this->getChildHtml('addto') ?>
                 </div>
             <?php endif; ?>
+            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+
+            <?php endif; ?>
+            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+            <?php endif;?>
                 <div class="wrapper-sku-ratings">
-                    <span class="product-sku"><?php echo __("Référence produit : ") ?><?php echo $_product->getSku(); ?></span>
-  
                     <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
-                    <?php echo $this->getChildHtml('addto') ?>
+                    <?php if (!$this->hasOptions()):?>
+                        <?php echo $this->getChildHtml('addto') ?>
+                    <?php endif; ?>
                 </div>
             <div class="product-collateral">
             <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
@@ -87,33 +100,32 @@
                     <h2><?php echo $this->escapeHtml($title); ?></h2>
 
                 <?php endif;?>
-                    
                     <?php echo $html; ?>
+                    
                 </div>
             <?php endforeach;?>
-                <?php// echo $this->getChildHtml('product_additional_data') ?>
+                
+                <span class="product-sku"><?php echo __("Référence produit : ") ?><?php echo $_product->getSku(); ?></span>
             </div>
             
             <?php echo $this->getChildHtml('other');?>
 
-            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-            <?php endif;?>
-
         </div>
 
-        <div class="product-img-box">
-            <?php echo $this->getChildHtml('media') ?>
-        </div>
+        
         <div class="clearer"></div>
         <div class="product-similar-product">
             <?php echo $this->getChildHtml('upsell_products') ?>
         </div>
 
-        <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-            <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-        <?php endif;?>
+
     </form>
+    <script type="text/javascript">
+
+        jQuery.noConflict();
+        var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
+        
+    </script>
     <script type="text/javascript">
     //<![CDATA[
         var productAddToCartForm = new VarienForm('product_addtocart_form');
@@ -166,6 +178,6 @@
     //]]>
     </script>
     </div>
-
+    <?php echo $this->getChildHtml('product_additional_data') ?>
     
 </div>

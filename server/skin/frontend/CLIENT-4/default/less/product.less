@@ -237,42 +237,57 @@
 	position: relative;
 	
 	ul {
+		overflow: hidden;
+		height:58px;
 		li {
 			float: left;
 			opacity: 0.5;
-			margin: 2px;
+			box-sizing: border-box;
+			overflow: hidden;
+			margin: 0px; padding: 0;
+			position: relative;
 			a {
 				float: left;
-				//border: 1px solid @c5;
-				margin: 0 5px;
+				margin: 0 ;
 				position: relative;
 			}
 			
 			&.current{
-				margin: 0px;
+				
 				opacity: 1;
-				border: 2px @c2 solid;
+				&:before{
+					display: block;
+					content:"";
+					top: 0; bottom: 10px; left: 0; right: 0;
+					position: absolute;
+					z-index: 1;
+					border: 2px solid @color-main;
+				}
 			}
 		}
 	}
-	
-	.bx-prev, .bx-next {
+	.bx-controls-direction{
+		.bx-prev, .bx-next {
+			position: absolute;
+			top: 25px;
+			margin-top: -10px;
+			text-indent: -200em;
+			overflow: hidden;
+			width: 14px; height: 42px;
+			background: @c6;
+		}
+	}
+	.bx-next{right:5px;}
+	.bx-prev{left:-5px;}
+	.bx-prev::before,.bx-next:before{
+		content:"";
 		position: absolute;
-		top: 50%;
-		margin-top: -10px;
-		text-indent: -200em;
-		overflow: hidden;
+		top: 18px;
+		right: 5px;
 	}
+	.bx-prev::before{.nav-left-white;}
 	
-	.bx-prev {
-		.more-views-prev;
-		left: 0;
-	}
-	
-	.bx-next {
-		.more-views-next;
-		right: 0;
-	}
+	.bx-next::before{.nav-right-white;}
 	
 }
 
@@ -284,7 +299,8 @@
 
 /* Product Shop */
 .product-view .product-shop {
-	float:right; width: 490px;
+	float:left; width: 420px;
+	margin-left: 70px;
 	
 	.product-name h1 {
 		margin-bottom: 20px;
@@ -383,12 +399,12 @@
 			.regular-price .price, .special-price .price {
 				font-size: 20px;
 				color: @c2;
-				font-family: uberlin_xboldregular;
+				font-family: @font-boldbold;
 				letter-spacing: 0.5px;
 			}
 			.old-price .price {
 				font-size: 20px;
-
+				font-family: @font-boldbold;
 			}
 		}
 		
@@ -457,6 +473,8 @@
 		&.box-additional{
 			padding-top: 30px;
 			border-top: 2px dotted @c6;
+			.label{color:#999;}
+			table{border-collapse: collapse;}
 		}
 		
 	}
@@ -529,6 +547,16 @@
 /* Block: Upsell */
 .product-view .box-up-sell {
 	
+	.products-grid{
+		.mini-product{
+			.product-name{
+				a{
+					font-family: @font-boldbold;
+				}
+			}
+		}
+	}
+
 	.bx-wrapper {
 		max-width: none !important;
 		position: relative;
@@ -550,7 +578,7 @@
 					background: @c4;
 					text-indent: -200em;
 					overflow: hidden;
-					
+
 					&.active {
 						background: @c2;
 					}

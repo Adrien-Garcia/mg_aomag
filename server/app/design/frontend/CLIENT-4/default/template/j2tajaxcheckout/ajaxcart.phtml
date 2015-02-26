@@ -33,11 +33,11 @@ if( $count == 1 ) {
 } elseif( $count > 0 ) {
     echo $this->__('My Cart (%s items)', $count);
 } else {
-    echo $this->__('My Cart');
+    echo $this->__('My Cart (0)');
 }
 ?></div>
 
-<div class="j2t_ajax_message">
+<div class="j2t_ajax_message" style="display:none;">
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 </div>
 
