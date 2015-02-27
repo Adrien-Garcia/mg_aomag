@@ -1,4 +1,8 @@
 <?php
+
+//Ajout ADDONLINE : check if user is logged in magento admin
+require_once("magento_admin.php");
+
 session_start();
 unset($_SESSION["plugin_install_error"]);
 require_once("../inc/magmi_pluginhelper.php");
