@@ -3,7 +3,7 @@
 <?php if($this->isActive()): ?>
     <!--Addonline GUA Tracking Section start -->
     <script type="text/javascript">
-
+    jQuery(document).ready(function() {
         <?php foreach($this->getConfigurationArray() as $config): 
             $aConfig = explode(';',$config);         
         
@@ -15,14 +15,13 @@
             }                                                
         
             if($aConfig[1] == 'event'):?>            
-            
-                jQuery("<?php echo $aConfig[0]; ?>").on("click", function(e) {
+                jQuery(document).on("click","<?php echo $aConfig[0]; ?>", function(e) {
     
         			var lid = jQuery(this).attr("id");
         			
         			// on determine le label qu'on va envoyer à ga
         			var lelabel = jQuery(this).attr("title");
-        			if(lelabel == undefined) {
+        			if(lelabel == undefined && jQuery(this).attr("src")) {
         				lids = jQuery(this).attr("src").split("/");
         				if (lids instanceof Array) {
         					lelabel = lids[lids.length - 1];
@@ -31,18 +30,19 @@
         			
         			if(lelabel == undefined) { lelabel == jQuery(this).attr("src"); }
     
-        			ga('send', '<?php echo $aConfig[1]; ?>', '<?php echo $aConfig[2]; ?>', '<?php echo $aConfig[3]; ?>', lelabel);
+        			ga('send', '<?php echo $aConfig[1]; ?>', '<?php echo $aConfig[2]; ?>', '<?php echo rtrim($aConfig[3]); ?>', lelabel);
     
         		});
             <?php endif; ?>
             
             <?php if($aConfig[1] == 'pageview'):?>
-                jQuery("<?php echo $aConfig[0]; ?>").on("click", function(e) {                    			
-    			ga('send', '<?php echo $aConfig[1]; ?>', '<?php echo $aConfig[2]; ?>', '<?php echo $aConfig[3]; ?>');
+            jQuery(document).on("click","<?php echo $aConfig[0]; ?>", function(e) {                    			
+    			ga('send', '<?php echo $aConfig[1]; ?>', '<?php echo $aConfig[2]; ?>', '<?php echo rtrim($aConfig[3]); ?>');
     		});
             
             <?php endif; ?>
         <?php endforeach; ?>
+    });
     </script>
     <?php echo $this->getChildHtml(); ?>
     <!--Addonline GUA Tracking Section end -->

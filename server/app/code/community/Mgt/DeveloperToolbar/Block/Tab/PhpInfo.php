@@ -39,7 +39,7 @@ class Mgt_DeveloperToolbar_Block_Tab_PhpInfo extends Mgt_DeveloperToolbar_Block_
     {
         ob_start();
         phpinfo();
-        preg_match ('%<style type="text/css">(.*?)</style>.*?(<body>.*</body>)%s', ob_get_clean(), $matches);
+        preg_match ('%<style type="text/css">(.*?)</style>.*?<body>(.*)</body>%s', ob_get_clean(), $matches);
         echo "<div class='mgt-developer-toolbar-phpinfo-display'><style type='text/css'>\n",
             join( "\n",
                 array_map(

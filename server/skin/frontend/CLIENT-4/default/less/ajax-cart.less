@@ -41,7 +41,7 @@ div.j2t-overlay{
 }
 #j2t_ajax_confirm .j2t_ajax_close{
 	position: absolute;
-	.close-dialog;
+	.sprite(@close-dialog);
 	top: -50px;
 	left: 335px;
 	cursor: pointer;
@@ -86,13 +86,17 @@ div.j2t-overlay{
 		font-size: 21px;
 		text-transform: uppercase;
 		width: 230px;
-		span{
+		max-height: 125px;
+		overflow: hidden;
+		span:not(:first-child){
 			display: block;
 			margin: 20px 0 ;
 			text-transform: none;
 			color: @c2;
 			font-family: @font-light;
 			font-size: 11px;
+			position: absolute;
+			bottom: 165px;
 		}
 	}
 	
@@ -115,7 +119,7 @@ div.j2t-overlay{
 			text-decoration: none;
 			&:before {
 				content: "";
-				.arrow-left-primary;
+				.sprite(@arrow-left-primary);
 				position: absolute;
 				top: 6px;
 				left: 0;

@@ -6,7 +6,7 @@
 .category-products {}
 
 .new {
-	.new-fr;
+	.sprite(@new-fr);
 	position: absolute;
 	top: 15px;
 	left: 0;
@@ -161,7 +161,7 @@
 					top: 4px;
 					opacity: 0.6;
 					&:before{
-						.plus-circle;
+						.sprite(@plus-circle);
 						content: "";
 						position: absolute;
 						top:3px;
@@ -284,7 +284,7 @@
 			position: absolute;
 			top: 6px;
 			left: 6px;
-			.remove-filter;
+			.sprite(@remove-filter);
 		}
 	}
 	
@@ -302,7 +302,7 @@
 			display: inline-block;
 			
 			&:before {
-				.remove-filter;
+				.sprite(@remove-filter);
 				content: "";
 				position: absolute;
 				top: 6px;
@@ -357,18 +357,15 @@
 			float: left;
 			margin: 0 15px 0 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
 		}
 		
 		.limiter {
 			float: left;
 			margin: 0 15px 0 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
 		}
 		
 	}
-	
 	/* Sorter */
 	.sorter {
 		float: right;
@@ -381,7 +378,6 @@
 			float: left;
 			margin: 0 15px 0 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
 
 			.asc, .desc {
 				text-indent: -200em;
@@ -392,16 +388,16 @@
 				position: relative;
 				top: -8px;
 				&:hover {
-					opacity: .4;
+					opacity: 0.4;
 				}
 			}
 			
 			.asc {
-				.picto-asc;
+				.sprite(@picto-asc);
 			}
 			
 			.desc {
-				.picto-desc;
+				.sprite(@picto-desc);
 			}
 			
 		}
@@ -415,16 +411,16 @@
 				overflow: hidden;
 				display: inline-block;
 				vertical-align: middle;
-				opacity: .4;
+				opacity: 0.4;
 				margin-left: 10px;
 			}
 			
 			.grid {
-				.grille;
+				.sprite(@grille);
 			}
 			
 			.list {
-				.liste;
+				.sprite(@liste);
 			}
 			
 			a:hover {
@@ -445,13 +441,16 @@
 		> strong { display: none; }
 		
 		li {
+			line-height: 10px;
 			float: left;
 			color: @c3;
 			&.current {
 				font-weight: bold;
+				text-decoration: underline;
 			}
 			&:first-child,&.previous+li,&.next,&.previous{border-left: none !important;}
 			&:not(.previous),&:not(.next),&:not(:first-child){border-left: solid 1px @c3;}
+			&:not(.previous):not(.next){margin-top: 12px;}
 			a, span {
 				color: @c3;
 				text-decoration: none;
@@ -467,16 +466,16 @@
 				float: left;
 				
 				&:hover {
-					opacity: .4;
+					opacity: 0.4;
 				}
 			}
 			
 			a.next {
-				.page-next;
+				.sprite(@page-next);
 			}
 			
 			a.previous {
-				.page-prev;
+				.sprite(@page-prev);
 			}
 		}
 	}

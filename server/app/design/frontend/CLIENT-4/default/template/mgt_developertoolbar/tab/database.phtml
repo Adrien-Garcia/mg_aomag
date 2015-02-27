@@ -100,7 +100,7 @@ $_queries = $_profiler->getQueryProfiles();
   $i = 0;
   foreach ($_queries as $query): ?>
     <li class="<?php echo ($i % 2 ? 'even' : 'odd')?>">
-      <?php echo $_helper->formatSql(wordwrap($query->getQuery())); ?>
+      <?php echo $_helper->formatSql(str_replace(array("<",">"),array("&lt;","&gt;"),wordwrap($query->getQuery()))); ?>
       <span class="mgt-developer-toolbar-query-info">
       <?php echo $this->__('Elapsed seconds:'); ?> <?php echo $query->getElapsedSecs() ?>
       </span>
