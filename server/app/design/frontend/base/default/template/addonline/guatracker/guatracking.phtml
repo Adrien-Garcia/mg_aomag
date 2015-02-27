@@ -28,7 +28,9 @@
         				}
         			}
         			
-        			if(lelabel == undefined) { lelabel == jQuery(this).attr("src"); }
+        			if(lelabel == undefined) { lelabel = jQuery(this).attr("src"); }
+        			if(lelabel == undefined) { lelabel = jQuery(this).attr("href"); }
+        			if(lelabel == undefined) { lelabel = 'undefined' }
     
         			ga('send', '<?php echo $aConfig[1]; ?>', '<?php echo $aConfig[2]; ?>', '<?php echo rtrim($aConfig[3]); ?>', lelabel);
     
