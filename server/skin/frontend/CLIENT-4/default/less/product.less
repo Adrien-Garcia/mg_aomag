@@ -7,8 +7,8 @@
 .ratings .rating-links { margin:0; float: left; border-left: 1px solid @c5; }
 .ratings dt {}
 .ratings dd {}
-.rating-box { font-size:0; line-height:0; text-indent:-999em; overflow:hidden; .stars-off; }
-.rating-box .rating { float:left; .stars-on }
+.rating-box { font-size:0; line-height:0; text-indent:-999em; overflow:hidden; .sprite(@stars-off); }
+.rating-box .rating { float:left; .sprite(@stars-on) }
 .ratings .rating-box { float:left; margin-right:3px; }
 .ratings .amount {}
 
@@ -285,9 +285,9 @@
 		top: 18px;
 		right: 5px;
 	}
-	.bx-prev::before{.nav-left-white;}
+	.bx-prev::before{.sprite(@nav-left-white);}
 	
-	.bx-next::before{.nav-right-white;}
+	.bx-next::before{.sprite(@nav-right-white);}
 	
 }
 
@@ -378,14 +378,14 @@
 				float: right;
 				margin-top: 13px; 
 				&:before {
-					.picto-in-stock;
+					.sprite(@picto-in-stock);
 				}
 			}
 			
 			&.out-of-stock {
 				color: #dc3c16;
 				&:before {
-					.picto-out-of-stock;
+					.sprite(@picto-out-of-stock);
 				}
 			}
 		}
@@ -424,7 +424,7 @@
 				position: absolute;
 				top: 4px;
 				left: 0px;
-				.plus-circle;
+				.sprite(@plus-circle);
 			}
 			&:last-child {
 				border-left: 1px solid @c5;
@@ -685,10 +685,10 @@
 				position: relative;
 				cursor: pointer;
 				display: inline-block;
-				.etoile-off;
+				.sprite(@etoile-off);
 				
 				&.on {
-					.etoile-on;
+					.sprite(@etoile-on);
 				}
 				
 				input {

@@ -395,6 +395,7 @@
 	margin:0;
 	line-height:36px;
 	opacity:1!important;
+	.primary-button{line-height: normal;}
 }
 .opc .buttons-set p.required {
 	margin:0;
@@ -897,7 +898,7 @@ dd.s_method_socolissimo{
 				
 				.cvv-what-is-this{
 					display:inline-block;
-					.picto-helper();
+					.sprite(@picto-helper);
 					font-size:0px;
 					text-indent:-999em;
 					vertical-align: middle;
@@ -935,7 +936,6 @@ dd.s_method_socolissimo{
 			padding-right:20px;
 			margin-bottom:10px;
 			padding-bottom:10px;
-			border-bottom:1px solid @c5;
 			
 			strong{
 				font-family:@font-bold;
@@ -950,6 +950,7 @@ dd.s_method_socolissimo{
 			color:@c3;
 			text-transform: none;
 			margin-bottom: 20px;
+			text-align: center;
 			.separator{
 				display:none;
 			}
@@ -965,9 +966,9 @@ dd.s_method_socolissimo{
 					&:before{
 						position: absolute;
 						content: "";
-						.picto-note-t;
+						.sprite(@picto-note-t);
 						background-color: @color-main; 
-						margin-left: -16px;
+						left: -16px;
 					}
 				}
 			}
@@ -979,7 +980,6 @@ dd.s_method_socolissimo{
 			padding-bottom:18px;
 			font-weight: normal;
 			margin-bottom:15px;
-			border-bottom:1px solid @c5;
 		}
 		
 		#payment-progress-opcheckout{
@@ -1114,6 +1114,9 @@ dd.s_method_socolissimo{
 	}
 	.checkout-onepage-success,
 	.checkout-onepage-failure{
+		.col-main{
+			padding: 0 30px;
+		}
 		.buttons-set{
 			
 			margin-top:30px;

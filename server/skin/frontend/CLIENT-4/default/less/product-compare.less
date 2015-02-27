@@ -37,14 +37,14 @@
 			position: absolute;
 			top: 0px;
 			left: -16px;
-			.picto-printer;
+			.sprite(@picto-printer);
 		}
 		.link-empty-compare::before {
 			content: "";
 			position: absolute;
 			top: -1px;
 			left: -16px;
-			.picto-trash;
+			.sprite(@picto-trash);
 		}
 		
 		.link-empty-compare {
@@ -63,7 +63,7 @@
 	display: none; /* affiché seulement sur certaines pages (famille, produit) */
 	position: relative;
 	&::before{
-		.picto-comparateur;
+		.sprite(@picto-comparateur);
 		content: "";
 		top: 5px;
 		left: -14px;
@@ -131,7 +131,7 @@
 		float: left;
 		margin-bottom: 10px;
 		margin-right: 10px;
-		.remove-filter;
+		.sprite(@remove-filter);
 	}
 	
 	.btn-cart {

@@ -6,7 +6,7 @@
 .category-products {}
 
 .new {
-	.new-fr;
+	.sprite(@new-fr);
 	position: absolute;
 	top: 15px;
 	left: 0;
@@ -161,7 +161,7 @@
 					top: 4px;
 					opacity: 0.6;
 					&:before{
-						.plus-circle;
+						.sprite(@plus-circle);
 						content: "";
 						position: absolute;
 						top:3px;
@@ -284,7 +284,7 @@
 			position: absolute;
 			top: 6px;
 			left: 6px;
-			.remove-filter;
+			.sprite(@remove-filter);
 		}
 	}
 	
@@ -302,7 +302,7 @@
 			display: inline-block;
 			
 			&:before {
-				.remove-filter;
+				.sprite(@remove-filter);
 				content: "";
 				position: absolute;
 				top: 6px;
@@ -366,7 +366,6 @@
 		}
 		
 	}
-	
 	/* Sorter */
 	.sorter {
 		float: right;
@@ -389,16 +388,16 @@
 				position: relative;
 				top: -8px;
 				&:hover {
-					opacity: .4;
+					opacity: 0.4;
 				}
 			}
 			
 			.asc {
-				.picto-asc;
+				.sprite(@picto-asc);
 			}
 			
 			.desc {
-				.picto-desc;
+				.sprite(@picto-desc);
 			}
 			
 		}
@@ -412,16 +411,16 @@
 				overflow: hidden;
 				display: inline-block;
 				vertical-align: middle;
-				opacity: .4;
+				opacity: 0.4;
 				margin-left: 10px;
 			}
 			
 			.grid {
-				.grille;
+				.sprite(@grille);
 			}
 			
 			.list {
-				.liste;
+				.sprite(@liste);
 			}
 			
 			a:hover {
@@ -467,16 +466,16 @@
 				float: left;
 				
 				&:hover {
-					opacity: .4;
+					opacity: 0.4;
 				}
 			}
 			
 			a.next {
-				.page-next;
+				.sprite(@page-next);
 			}
 			
 			a.previous {
-				.page-prev;
+				.sprite(@page-prev);
 			}
 		}
 	}
