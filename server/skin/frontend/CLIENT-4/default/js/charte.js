@@ -106,8 +106,12 @@ jQuery(function($) {
 	$(".circles .circle").each(function(){
 		$(this).wrap('<div class="circle-container"></div>');
 		var src = $(this).find('img').attr('src');
+		
 		$(this).css('background-image','url('+src+')');
 		$(this).find('img').remove();
+		var link = $(this).find("a");
+		if(link.length>0)
+			$(this).wrap('<a href="'+link.attr("href")+'" title="'+link.attr("title")+'" ></a>')
 	});
 	
 	$(".products-grid .mini-product, .cart .mini-product").each(function(){
