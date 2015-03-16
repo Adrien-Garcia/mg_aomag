@@ -64,7 +64,7 @@
     <?php endif ?>
         <div class="actions">
             <?php echo $this->getChildHtml('extra_actions') ?>
-            <button <?php if(!$_cartQty ){echo " disabled ";} ?> type="button" title="<?php echo $this->__('Passer Commande') ?>" class="button primary-button color-main little" onclick="location.href = '<?php echo $this->getCheckoutUrl() ?>';"><span class="p"><?php echo $this->__('Passer Commande') ?></span></button>
+            <button <?php if(!$_cartQty ){echo " disabled ";} ?> type="button" title="<?php echo $this->__('Passer Commande') ?>" class="button primary-button color-main little" onclick="location.href = '<?php echo $this->getCheckoutUrl() ?>';"><span ><span class="p"><?php echo $this->__('Passer Commande') ?></span></span></button>
         </div>
     </div>
 </div>

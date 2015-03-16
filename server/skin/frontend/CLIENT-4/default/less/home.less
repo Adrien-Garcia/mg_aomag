@@ -297,13 +297,13 @@
 							height: 30px;
 							bottom: 0px;
 							position: absolute;
-							background-color: rgba(255, 255, 255, 0.8);
+							
 							a{margin-bottom: 9px;}
 
 							.price, .price-regular, a, *{
 								font-family: verdana;
 								font-weight: bold;
-								font-size: 11px;
+								font-size: 10px;
 								color: @color-main;
 								text-decoration: none;
 							}
@@ -318,19 +318,22 @@
 							}
 						}
 						.product-name{
-							width: 142px;
+							//width: 142px;
 							padding-left: 5px;
 							text-align: left;
 						  	text-overflow: ellipsis;
 		  					white-space: nowrap;
 							overflow: hidden;
 							left: 0px;
+							a {width: 137px;}
+							background-color: rgba(255, 255, 255, 0.8);
 						}
 						.price-box{
 							padding-right: 5px;
 							text-align: right;
 							width: 63px;
 							right: 0px;
+							background: none;
 						}
 						.product-plus{
 							transition: margin 0.5s, background 0.5s;
@@ -367,9 +370,6 @@
 			}
 		}
 
-	}
-	.footer-container .footer-2{
-		display: none;
 	}
 	
 }

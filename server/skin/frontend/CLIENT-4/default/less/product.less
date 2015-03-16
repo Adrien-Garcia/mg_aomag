@@ -197,18 +197,24 @@
 	float: right;
 	margin-bottom: 20px;
 	width: 100%;
-	border: 2px dotted #000;
+	border: 1px dashed #000;
 	border-right: none;
 	border-left: none;
 	padding: 0px 0 15px;
+
+	.quantity{
+		float: left;
+		display: inline-block;
+	}
 
 	label {
 		display: block;
 		margin-right:5px;
 		font-family: verdana;
-		font-size: 11px;
+		font-size: 10px;
 		color: @c4;
 		margin-top: 8px;
+		text-transform: uppercase;
 	}
 	input.qty {
 		float:left;
@@ -219,7 +225,7 @@
 		font-size: 16px;
 		text-align: center;
 	}
-	.button { float:left;margin-top: -14px; }
+	.btn-cart { float: left; margin-top: 10px; }
 }
 
 
@@ -433,9 +439,6 @@
 	}
 	
 	.btn-cart {
-		.primary-button;
-		.primary-button.color-main;		
-
 		//height: 36px;
 		margin-left	: 10px; 
 		padding-left: 20px;
@@ -472,7 +475,7 @@
 		}
 		&.box-additional{
 			padding-top: 30px;
-			border-top: 2px dotted @c6;
+			border-top: 1px dashed @c6;
 			.label{color:#999;}
 			table{border-collapse: collapse;}
 		}

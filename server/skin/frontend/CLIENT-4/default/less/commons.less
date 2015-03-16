@@ -35,16 +35,15 @@ input[type=number]::-webkit-outer-spin-button {
 	text-decoration: none;
 	color: #000;
 	background: #fff;
-	padding: 8px 15px 8px 15px;
+	padding: 0;
 	height: 42px;
 	border: none;
 	box-sizing: border-box;
 	cursor: pointer;
 	display: inline-block;
 	a{text-decoration: none; color: #fff;font-family: @font-xbold;}
-	&>span{display: inline-block;position: relative;top: -3px;margin:0;}
+	&>span,&>p{display: inline-block;position: relative;top: -3px;margin:8px 15px;}
 	&.inv{
-		padding: 8px 15px 8px 15px;
 		&>p:before,.p:before {
 			content: "";
 			position: absolute;
@@ -54,11 +53,13 @@ input[type=number]::-webkit-outer-spin-button {
 			.sprite(@nav-left-black);
 		
 		}
-		&>p,.p{margin:0 0 0 10px !important;}
+		&>p,.p{pading:0 0 0 10px;}
 		&>p:after,.p:after{content: none;}
 	}
 	&>p,.p{
-		margin:0 10px 0 0 !important;
+		font-size: 14px;
+		margin-right:25px;
+		line-height: 20px;
 		display: inline-block;
 		position: relative;
 		&:after {
@@ -94,7 +95,7 @@ input[type=number]::-webkit-outer-spin-button {
 	}
 	&.little{
 		height: 28px;
-		padding: 2px 25px 2px 15px;
+		&>span,&>p{margin: 2px 15px;}
 	}
 	&.transparent{background: transparent; color: #000;}
 	
@@ -110,7 +111,7 @@ span.qty{
 	border: 1px @c7 solid;
 	display: inline-block;
 	height: 28px;
-	float: left;
+
 	input.qty{border: none;}
 }
 span.qty>span{
@@ -123,6 +124,7 @@ span.qty>span{
 	background-color: @c7;
 	float: left;
 	cursor: pointer;
+	padding: 6px 0px;
 }
 
 .lnk-primary {
@@ -159,7 +161,7 @@ span.qty>span{
 
 body {
 	font-family: @font-light, Arial, Helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	line-height: 1.40;
 	color: @c4;
 	position: absolute;
@@ -1001,7 +1003,7 @@ tr.summary-details-excluded { font-style:italic; }
 			a {
 				position: relative;
 				padding-left: 0px;
-				font-family: 'berlinregular';
+				font-family: @font-boldbold;
 				// font-size: 12pt;
 				color: #000;
 				text-decoration: none;
@@ -1445,6 +1447,10 @@ tr.summary-details-excluded { font-style:italic; }
 								}
 								.product-image{
 									border: none;
+									display: inline-block;
+									width: 140px;
+									height: 140px;
+									background: #fff;
 								}
 								.quantity{
 									display: block;
@@ -2060,8 +2066,8 @@ tr.summary-details-excluded { font-style:italic; }
 
 			&>p{font-family: verdana;}
 			&>.primary-button>p{
+				font-size: 14px;
 				font-family: @font-xbold;
-				&:after{top: 7px;}
 			}
 
 			&.about{
@@ -2165,7 +2171,7 @@ tr.summary-details-excluded { font-style:italic; }
 				font-size: 12px;
 				bottom: 0;
 				left: 0;
-				margin: 0;
+				//margin: 0;
 			}
 			
 			&.paiement p:before {
