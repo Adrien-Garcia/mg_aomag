@@ -83,6 +83,7 @@ jQuery(function($) {
     $(document).on("open_Section", function(e) {
       resizeCheckoutSteps();
     });
+    $('#checkoutSteps .address-select, #checkoutSteps .radio').on('change', function(e){resizeCheckoutSteps();});
 	resizeCheckoutSteps();
 	// Accueil : carrousel
 	

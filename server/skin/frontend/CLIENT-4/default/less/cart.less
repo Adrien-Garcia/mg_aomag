@@ -39,11 +39,12 @@
 
 	margin: 10px 0 10px; 
 	border: none;
+	border-collapse: separate;
 	thead tr.first.last{
 		border: none;
 		th {
 		color: @c6;
-		font: 12px @font-bold;
+		font: 12px @font-boldbold;
 		padding: 5px 0;
 		border: none;
 		&:nth-child(2){padding-left: 55px;}
@@ -76,14 +77,15 @@
 			padding-right:50px;
 			vertical-align: middle;
 			
-			h2.product-name a{
+			.product-name a{
 				width: 100%;
 				white-space: nowrap;
 				text-overflow: ellipsis;
 				overflow: hidden;
 				color: #000;
-				font: 12px @font-bold;
+				font: 12px @font-boldbold;
 				text-decoration: none;
+				letter-spacing: 0.3px;
 			}
 		}
 		&:nth-child(3){
@@ -134,10 +136,14 @@
 	.product-name {
 		font-weight: normal;
 		font-size: 14px;
+		margin:0 0 5px;
+		color:@c4;
 		
-		a {
+		a{
+			text-decoration:none;
 			color: @c2;
 		}
+
 	}
 	
 	textarea {
@@ -165,25 +171,11 @@
 	.link-edit {
 		color: @c2;
 	}
-	
-
-/* 	table-layout:auto; */
-	
-	.product-name {
-		margin:0 0 5px;
-		color:@c4;
-		
-		a{
-			text-decoration:none;
-		}
-	}
-
 }
 
 /* Shopping Cart Collateral boxes */
 .cart .crosssell h2,
 .cart .shipping h2{
-	font-family:@font-bold;
 	font-weight:normal;
 	color:@c3;
 	text-transform: uppercase;

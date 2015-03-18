@@ -41,6 +41,7 @@ input[type=number]::-webkit-outer-spin-button {
 	box-sizing: border-box;
 	cursor: pointer;
 	display: inline-block;
+	letter-spacing: 0.5px;
 	a{text-decoration: none; color: #fff;font-family: @font-xbold;}
 	&>span,&>p{display: inline-block;position: relative;top: -3px;margin:8px 15px;}
 	&>p,.p{
@@ -195,7 +196,7 @@ h1            {
 	font-weight:normal; 
 	font-family: @font-xbold;
 }
-h2            { font-size:22px; font-weight:normal; }
+h2            { font-size:18px; font-weight:normal; }
 h3            { font-size:16px; font-weight:normal; }
 h4            { font-size:14px; font-weight:normal; }
 h5            { font-size:12px; font-weight:normal; }
@@ -356,6 +357,7 @@ select{
 	margin: 0;
 	padding: 0;
 	height: 28px;
+	width: 100%;
 	//border: 1px solid rgba(0,0,0,0.2);
 
 }
@@ -395,7 +397,7 @@ select{
 
 hr{border-top: 1.5px dotted #000; margin: 20px 0;clear: both;}
 textarea { overflow:auto; }
-input.radio { margin-right:3px; position:relative;top:2px;}
+input.radio { margin-right:3px; }
 input.checkbox { margin-right:3px; }
 input.qty { width:2.5em !important; }
 
@@ -666,9 +668,10 @@ p.required {
 	h1,
 	h2 {
 
-		font-family: @font-bold;
+		font-family: @font-xbold;
 		color: @c3;
 		font-size: 42px;
+		letter-spacing: 2px;
 		//line-height: 10px;
 	}
 	
@@ -1867,7 +1870,7 @@ tr.summary-details-excluded { font-style:italic; }
 .checkout-agreements .agree input.checkbox { margin-right:6px; }
 .checkout-agreements .agree label { font-weight:bold; color:#666; }
 
-.opc .checkout-agreements { border:1px solid #d9dde3; border-width:0 1px; padding:5px 30px; }
+.opc .checkout-agreements { padding:5px 30px; }
 .opc .checkout-agreements li { margin:20px 0 0; }
 .opc .checkout-agreements .agreement-content { background-color:#fff; border-color:#e4e4e4; padding:5px; }
 .opc .checkout-agreements .agree { padding-left:6px; }

@@ -22,13 +22,13 @@
 }
 
 .opc {
-	.required em{float: right;}
 	position:relative;
 	overflow:hidden;
 	height:1220px;
-	text-align:center;
-	border:1px solid #BBAFA0;
-	background:#F9F3E3;
+	text-align:left;
+	border:none;
+	background:none;
+	.required em{float: right;}
 	input[type="text"],input[type="password"]{
 		border-color: fade(@c6,20%);
 		.p-base();
@@ -48,6 +48,7 @@
 	label{
 		.p-base();
 		text-transform: uppercase;
+		margin: 7px 0;
 	}
 	.form-list li{margin-bottom: 0;}
 	.buttons-set {
@@ -74,11 +75,11 @@
 			.block-title h3{font: 14px @font-xbold; text-transform: uppercase;white-space: normal;width: 183px;}
 			.block-content{
 				dl>div{
-					border-top: 2px dotted #000;
+					border-top: 1px dotted #000;
 					font: bold 10px @font-light;
 					text-transform: uppercase;
 					padding: 13px 0;
-					&:last-child{border-bottom: 2px dotted #000;}
+					&:last-child{border-bottom: 1px dotted #000;}
 				}
 			}
 		}
@@ -126,17 +127,18 @@
 		margin-top: 25px;
 	}
 	.step {
-		padding:30px 20px;
+		margin: 40px 0; 
+		padding: 0px 20px;
 		position:absolute;
 		border:0;
 		top:165px;
 		left:0;
 		z-index:1;
-		background:@c6;
-		width:605px;
+		background:#fff;
 		//height:900px;
 		border:none;
-		width:643px;
+		background:none;
+		width:100%;
 		text-align:left;
 	}
 	.step-title .number{
@@ -204,38 +206,41 @@
 	.step-title {
 		width:16%;
 	}
-	.form-list .field,.form-list .wide {
+	.form-list{ 
+		.field, .wide {
 	}
-	.form-list li fieldset {
+	li fieldset {
 		margin-bottom:10px;
 	}
-	.form-list label {
-		&[for="billing-address-select"]{
+	label {
+		&[for=billing-address-select], &[for=shipping-address-select]{
 			.p-base();
 			text-transform: uppercase;
 			font-weight: bold;
 			color: #000;
+			font-size: 10px;
 		}
 		text-align:right;
 		padding:4px 0 0;
 	}
-	.form-list li.fields {
+	li.fields {
 		margin:0;
 	}
-	.form-list div.fields {
+	div.fields {
 		width:100%;
 		overflow:hidden;
 		margin:0 0 8px;
 	}
-	.form-list .wide,.form-list li.fields .field {
+	.wide,li.fields .field {
 		//margin:0 0 8px;
 	}
-	.form-list li.wide .input-box,.form-list .input-box {
+	li.wide .input-box,.input-box {
 		clear:none;
 	}
-	.form-list li.control label {
+	li.control label {
 		float:left;
 	}
+}
 	form .form-list li.wide {
 		margin-bottom:8px;
 	}
@@ -347,13 +352,14 @@
 }
 #opc-shipping_method dl.sp-methods{
 	dt{
+		margin-top: 30px;
 		text-transform: uppercase;
 		font: 13px @font-xbold;
 		color: #000;
 		margin-bottom: 15px;
 	}
 	dd{
-		padding-bottom: 50px;
+		padding-bottom: 30px;
 		border-bottom: 1px dotted #000;
 	}
 	.s_method_socolissimo img{
@@ -382,14 +388,6 @@
 .checkout-onepage-index .col-main {
 	padding:0;
 	border:0;
-}
-.opc {
-	position:relative;
-	overflow:hidden;
-	height:1220px;
-	text-align:left;
-	border:none;
-	background:none;
 }
 .opc .buttons-set {
 	margin:0;
@@ -428,20 +426,6 @@
 }
 .opc .step-title,.opc .allow .step-title {
 	border-color:#FBFAF6;
-}
-.opc .step {
-	padding:30px 20px;
-	position:absolute;
-	border:0;
-	top:165px;
-	left:0;
-	z-index:1;
-	background:#fff;
-	//height:900px;
-	border:none;
-	background:none;
-	width:100%;
-	text-align:left;
 }
 .opc .step-title .number,.opc .allow .step-title .number,.opc .active .step-title .number {
 	float:none;
@@ -539,17 +523,14 @@
 }
 /*-----*/
 .opc h3{
+	text-transform: uppercase;
 	font-weight:normal;
-	font-size:20px;
+	font-size:14px;
 }
 .opc .form-list .field,.opc .form-list .wide {
 }
 .opc .form-list li fieldset {
 	margin-bottom:10px;
-}
-.opc .form-list label {
-	text-align:right;
-	padding:0;
 }
 .opc .form-list li.fields {
 	margin:0;
@@ -570,7 +551,7 @@
 	width:254px;
 }
 .opc .form-list .control input {
-	margin:0 0 0 10px;
+	margin:10px 0 0 10px;
 }
 .opc .form-list li.control label {
 	float:left;
@@ -613,102 +594,103 @@
 	text-indent:-3000px;
 	position: absolute;
 	top:0;
-	z-index: 0}
-	.opc:first-of-type .allow .step-title a {
+	z-index: 0;
+}
+.opc:first-of-type .allow .step-title a {
+}
+#opc-login{
+	h3 {
+		margin-bottom:12px;
 	}
-	#opc-login{
-		h3 {
-			margin-bottom:12px;
-		}
-		.input-box{
-			width:100%;
-			float:none;
-			margin:0;
-		}
-		.input-text{
-			width:100%;
-		}
+	.input-box{
+		width:100%;
+		float:none;
+		margin:0;
 	}
-	#opc-login .col-2 {
-		float:left;
-	}
-	#opc-login .col-2 form fieldset h4 {
-		display:none;
-	}
-	#opc-login .col-2 {
-		display:block;
-		width:357px;
-		padding-right:20px;
-		border-right:1px solid @c5;
-	}
-	#opc-login .col-2 fieldset {
+	.input-text{
 		width:100%;
 	}
-	#opc-login .col-2 .input-box {
+}
+#opc-login .col-2 {
+	float:left;
+}
+#opc-login .col-2 form fieldset h4 {
+	display:none;
+}
+#opc-login .col-2 {
+	display:block;
+	width:357px;
+	padding-right:20px;
+	border-right:1px solid @c5;
+}
+#opc-login .col-2 fieldset {
+	width:100%;
+}
+#opc-login .col-2 .input-box {
+}
+#opc-login .col-2 .input-text {
+}
+#opc-login .col-2 .form-list label {
+	text-align:left;
+}
+#opc-login .col-2 .form-list label {
+	width:110px;
+}
+#opc-login .form-list li.control label {
+	float:none;
+}
+#opc-login .form-list li.control input {
+	margin:0 8px 0 0;
+}
+#opc-login .col-1 {
+	float:right;
+	padding:0 0 0 10px;
+
+	.account-benefits li{
+		list-style-type: circle;
+		position:relative;
+		margin-left:15px; 
+		padding:0 0 9px;
+		.p-base();
 	}
-	#opc-login .col-2 .input-text {
-	}
-	#opc-login .col-2 .form-list label {
+}
+#opc-login .col-1 h4,#opc-login .col-1 .ul {
+	display:none;
+}
+#checkout-step-review.step {
+}
+#opc-review .step {
+	padding:30px 0;
+}
+#opc-review .product-name {
+	font-weight:bold;
+	color:#0a263c;
+}
+#opc-review .item-options {
+	margin:5px 0 0;
+}
+#opc-review .buttons-set {
+	padding:20px 0;
+	border:0;
+}
+#opc-review .buttons-set p {
+	margin:0;
+	line-height:40px;
+}
+#opc-review .buttons-set .please-wait {
+	height:40px;
+	line-height:40px;
+}
+#opc-shipping_method .buttons-set {
+	border-top:1px solid #E4E4E4;
+}
+.form-list li.control{
+	margin-bottom:5px;
+	label{
+		display:inline-block;
 		text-align:left;
 	}
-	#opc-login .col-2 .form-list label {
-		width:110px;
-	}
-	#opc-login .form-list li.control label {
-		float:none;
-	}
-	#opc-login .form-list li.control input {
-		margin:0 8px 0 0;
-	}
-	#opc-login .col-1 {
-		float:right;
-		padding:0 0 0 10px;
-
-		.account-benefits li{
-			list-style-type: circle;
-			position:relative;
-			margin-left:15px; 
-			padding:0 0 9px;
-			.p-base();
-		}
-	}
-	#opc-login .col-1 h4,#opc-login .col-1 .ul {
-		display:none;
-	}
-	#checkout-step-review.step {
-	}
-	#opc-review .step {
-		padding:30px 0;
-	}
-	#opc-review .product-name {
-		font-weight:bold;
-		color:#0a263c;
-	}
-	#opc-review .item-options {
-		margin:5px 0 0;
-	}
-	#opc-review .buttons-set {
-		padding:20px 0;
-		border:0;
-	}
-	#opc-review .buttons-set p {
-		margin:0;
-		line-height:40px;
-	}
-	#opc-review .buttons-set .please-wait {
-		height:40px;
-		line-height:40px;
-	}
-	#opc-shipping_method .buttons-set {
-		border-top:1px solid #E4E4E4;
-	}
-	.form-list li.control{
-		margin-bottom:5px;
-		label{
-			display:inline-block;
-			text-align:left;
-		}
-	}
+}
 .opc #checkout-step-billing,
 .opc #checkout-step-shipping{
 	&>form>fieldset>.form-list>li.wide{margin-bottom: 20px;}
@@ -738,6 +720,8 @@
 /* Largeur des formulaire d'adresse */
 .opc #checkout-step-billing #billing-new-address-form,
 .opc #checkout-step-shipping #shipping-new-address-form{
+	border-top: 1px dotted #000;
+	border-bottom: 1px dotted #000;
 	ul:first-of-type{clear: both;}
 	ul{float: left;width: 44%;margin-right: 36px;}
 	li.fields,
@@ -948,9 +932,8 @@ dd.s_method_socolissimo{
 		
 		dt{
 			color:@c3;
-			text-transform: none;
-			margin-bottom: 20px;
-			text-align: center;
+			text-transform: uppercase;
+			font-size: 10px;
 			.separator{
 				display:none;
 			}
@@ -966,7 +949,7 @@ dd.s_method_socolissimo{
 					&:before{
 						position: absolute;
 						content: "";
-						.sprite(@picto-note-t);
+						.sprite(@picto-edit-t);
 						background-color: @color-main; 
 						left: -16px;
 					}
@@ -977,7 +960,6 @@ dd.s_method_socolissimo{
 		dd{
 			color: @c4;
 			text-transform: none;
-			padding-bottom:18px;
 			font-weight: normal;
 			margin-bottom:15px;
 		}
