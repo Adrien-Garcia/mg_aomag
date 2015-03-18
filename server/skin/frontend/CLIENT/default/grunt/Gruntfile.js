@@ -69,7 +69,9 @@ module.exports = function(grunt) {
         },
         options: {
             proxy: "aomagento.clement.addonline.devl",
-            watchTask: true
+            watchTask: true,
+            logLevel: "debug",
+            reloadOnRestart:false
         }
     }
   }
