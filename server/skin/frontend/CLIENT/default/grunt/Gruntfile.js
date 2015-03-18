@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 
         options: {
           // Task-specific options go here.
-        	browsers: ['last 2 versions']
+          browsers: ['last 2 versions']
         },
 
         // prefix the specified file
@@ -22,25 +22,25 @@ module.exports = function(grunt) {
     },
     
     less: {
-	  development: {
-	    options: {
-	    	cleancss: true
-	    },
-	    files: {
-	      "../css/styles.css": "../less/styles.less"
-	    }
-	  },
-	  production: {
-	    options: {
-	      cleancss: true
-	    },
-	    files: {
-		  "../css/styles.css": "../less/styles.less"
-	    }
-	  }
-	},
+    development: {
+      options: {
+        cleancss: true
+      },
+      files: {
+        "../css/styles.css": "../less/styles.less"
+      }
+    },
+    production: {
+      options: {
+        cleancss: true
+      },
+      files: {
+      "../css/styles.css": "../less/styles.less"
+      }
+    }
+  },
 
-	sprite: {
+  sprite: {
       all: {
         src: '../images/client/origin/*.png',
         dest: '../images/client/sprites/origin.png',
@@ -49,21 +49,33 @@ module.exports = function(grunt) {
       }
     },
   
-	watch: {
-	  css: {
-	    files: ['../less/**/*.less'],
-	    tasks: ['less:development', 'autoprefixer', 'bell'],
-	    options: {
-	      
-	    },
-	  },
-	  spriter: {
-		  files: ['../images/client/origin/**/*.png'],
-		  tasks: ['sprite:all'],
-	  }
-	}
-	
+  watch: {
+    css: {
+      files: ['../less/**/*.less'],
+      tasks: ['less:development', 'autoprefixer', 'bell'],
+      options: {
+        
+      },
+    },
+    spriter: {
+      files: ['../images/client/origin/**/*.png'],
+      tasks: ['sprite:all'],
+    }
+  },
+  browserSync: {
+    dev: {
+        bsFiles: {
+            src : '../css/styles.css'
+        },
+        options: {
+            proxy: "aomagento.clement.addonline.devl",
+            watchTask: true
+        }
+    }
+  }
+  
   });
+  grunt.loadNpmTasks('grunt-browser-sync');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-spritesmith');
@@ -71,7 +83,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bell');
 
   // Default task(s).
-  grunt.registerTask('default', ['sprite:all', 'less:development', 'autoprefixer', 'watch']);
+  grunt.registerTask('default', ['browserSync','sprite:all', 'less:development', 'autoprefixer', 'watch']);
   grunt.registerTask('build', ['sprite:all', 'less:production', 'bell']);
 
 };

@@ -61,9 +61,21 @@ module.exports = function(grunt) {
 		  files: ['../images/client/origin/**/*.png'],
 		  tasks: ['sprite:all'],
 	  }
-	}
+	},
+  browserSync: {
+    dev: {
+        bsFiles: {
+            src : '../css/styles.css'
+        },
+        options: {
+            proxy: "aomagento.clement.addonline.devl",
+            watchTask: true
+        }
+    }
+  }
 	
   });
+  grunt.loadNpmTasks('grunt-browser-sync');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-spritesmith');
@@ -71,7 +83,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bell');
 
   // Default task(s).
-  grunt.registerTask('default', ['sprite:all', 'less:development', 'autoprefixer', 'watch']);
+  grunt.registerTask('default', ['browserSync','sprite:all', 'less:development', 'autoprefixer', 'watch']);
   grunt.registerTask('build', ['sprite:all', 'less:production', 'bell']);
 
 };
