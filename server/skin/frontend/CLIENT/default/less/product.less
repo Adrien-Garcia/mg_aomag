@@ -7,8 +7,8 @@
 .ratings .rating-links { margin:0; float: left; border-left: 1px solid @c5; }
 .ratings dt {}
 .ratings dd {}
-.rating-box { font-size:0; line-height:0; text-indent:-999em; overflow:hidden; .stars-off; }
-.rating-box .rating { float:left; .stars-on }
+.rating-box { font-size:0; line-height:0; text-indent:-999em; overflow:hidden; .sprite(@stars-off); }
+.rating-box .rating { float:left; .sprite(@stars-on); }
 .ratings .rating-box { float:left; margin-right:3px; }
 .ratings .amount {}
 
@@ -154,7 +154,7 @@
 /********** Product Prices > */
 
 .percentage {
-	.pourcentage-reduction;
+	.sprite(@pourcentage-reduction);
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -257,12 +257,12 @@
 	}
 	
 	.bx-prev {
-		.more-views-prev;
+		.sprite(@more-views-prev);
 		left: 0;
 	}
 	
 	.bx-next {
-		.more-views-next;
+		.sprite(@more-views-next);
 		right: 0;
 	}
 	
@@ -355,14 +355,14 @@
 			&.in-stock {
 				color: #84cb1d;
 				&:before {
-					.picto-in-stock;
+					.sprite(@picto-in-stock);
 				}
 			}
 			
 			&.out-of-stock {
 				color: #dc3c16;
 				&:before {
-					.picto-out-of-stock;
+					.sprite(@picto-out-of-stock);
 				}
 			}
 		}
@@ -605,10 +605,10 @@
 				position: relative;
 				cursor: pointer;
 				display: inline-block;
-				.etoile-off;
+				.sprite(@etoile-off);
 				
 				&.on {
-					.etoile-on;
+					.sprite(@etoile-on);
 				}
 				
 				input {

@@ -39,6 +39,15 @@ module.exports = function(grunt) {
 	    }
 	  }
 	},
+
+	sprite: {
+      all: {
+        src: '../images/client/origin/*.png',
+        dest: '../images/client/sprites/origin.png',
+        destCss: '../less/origin.less',
+        engine: 'pngsmith'
+      }
+    },
   
 	watch: {
 	  css: {
@@ -48,26 +57,21 @@ module.exports = function(grunt) {
 	      
 	    },
 	  },
-	  sprite: {
-		  files: ['../images/client/origin/**/*.*'],
-		  tasks: ['shell:glue'],
+	  spriter: {
+		  files: ['../images/client/origin/**/*.png'],
+		  tasks: ['sprite:all'],
 	  }
-	},
+	}
 	
-	shell: {
-        glue: {
-            command: 'glue ../images/client/origin --less=../less --img=../images/client/sprites --sprite-namespace= --namespace= --cachebuster'
-        }
-    },
   });
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-spritesmith');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-bell');
 
   // Default task(s).
-  grunt.registerTask('default', ['shell:glue', 'less:development', 'autoprefixer', 'watch', 'bell']);
-  grunt.registerTask('build', ['shell:glue', 'less:production', 'bell']);
+  grunt.registerTask('default', ['sprite:all', 'less:development', 'autoprefixer', 'watch']);
+  grunt.registerTask('build', ['sprite:all', 'less:production', 'bell']);
 
 };

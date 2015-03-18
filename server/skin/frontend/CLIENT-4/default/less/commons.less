@@ -43,22 +43,10 @@ input[type=number]::-webkit-outer-spin-button {
 	display: inline-block;
 	a{text-decoration: none; color: #fff;font-family: @font-xbold;}
 	&>span,&>p{display: inline-block;position: relative;top: -3px;margin:8px 15px;}
-	&.inv{
-		&>p:before,.p:before {
-			content: "";
-			position: absolute;
-			top: 9px;
-			left: -15px;
-			
-			.sprite(@nav-left-black);
-		
-		}
-		&>p,.p{pading:0 0 0 10px;}
-		&>p:after,.p:after{content: none;}
-	}
 	&>p,.p{
 		font-size: 14px;
-		margin-right:25px;
+		margin: 10px 15px;
+		margin-right: 25px;
 		line-height: 20px;
 		display: inline-block;
 		position: relative;
@@ -70,6 +58,24 @@ input[type=number]::-webkit-outer-spin-button {
 			.sprite(@nav-right-black);
 		}
 	}
+	&.inv{
+		&>p:before,.p:before {
+			content: "";
+			position: absolute;
+			top: 9px;
+			left: -15px;
+			
+			.sprite(@nav-left-black);
+		
+		}
+		&>p,.p{
+			pading:0 0 0 10px;
+			margin-right: 15px;
+			margin-left: 25px;
+		}
+		&>p:after,.p:after{content: none;}
+	}
+	
 	&.color-main{
 		&.inv>p:before,&.inv>.p:before{
 			.sprite(@nav-left-white);

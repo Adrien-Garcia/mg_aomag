@@ -63,7 +63,7 @@
 		position: absolute;
 		top: 5px;
 		left: 0;
-		.arrow-right-primary;
+		.sprite(@arrow-right-primary);
 	}
 }
 
@@ -77,7 +77,7 @@
 		position: absolute;
 		top: 5px;
 		left: 0;
-		.arrow-left-primary;
+		.sprite(@arrow-left-primary);
 	}
 }
 
@@ -164,7 +164,7 @@ ul,ol         { list-style:none; }
 }
 
 .fancybox-close {
-	.picto-close;
+	.sprite(@picto-close);
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -357,7 +357,7 @@ p.control input.radio { margin-right:6px; }
 	&:before{
 		content:"";
 		display:block;
-		.validation-arrow();
+		.sprite(@validation-arrow);
 		position:absolute;
 		top:2px;
 		left:0;
@@ -411,7 +411,7 @@ p.required {
 				position: absolute;
 				top: 4px;
 				left: 0;
-				.picto-success;
+				.sprite(@picto-success);
 			}
 		}
 		
@@ -423,7 +423,7 @@ p.required {
 				position: absolute;
 				top: 5px;
 				left: 0;
-				.picto-error;
+				.sprite(@picto-error);
 			}
 		}
 		
@@ -436,7 +436,7 @@ p.required {
 				position: absolute;
 				top: 0;
 				left: 0;
-				.picto-notice;
+				.sprite(@picto-notice);
 			}
 		}
 	}
@@ -482,7 +482,7 @@ p.required {
 			}
 			
 			a + span {
-				.arrow-right-empty;
+				.sprite(@arrow-right-empty);
 				text-indent: -200em;
 				overflow: hidden;
 				display: inline-block;
@@ -665,7 +665,7 @@ tr.summary-details-excluded { font-style:italic; }
 	display: block;
 	text-indent: -200em;
 	overflow: hidden;
-	.remove-filter;
+	.sprite(@remove-filter);
 	&:hover {
 		opacity: .6;
 	}
@@ -675,7 +675,7 @@ tr.summary-details-excluded { font-style:italic; }
 	display: block; 
 	text-indent: -999em;
 	overflow: hidden;
-	.remove-filter;
+	.sprite(@remove-filter);
 }
 .btn-edit    { display:block; width:11px; height:11px; font-size:0; line-height:0; background:url(../images/btn_edit.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
 
@@ -783,7 +783,7 @@ tr.summary-details-excluded { font-style:italic; }
 					position: absolute;
 					top: 5px;
 					left: 0;
-					.picto-wishlist;
+					.sprite(@picto-wishlist);
 				}
 				
 				li a.my-account:before {
@@ -791,7 +791,7 @@ tr.summary-details-excluded { font-style:italic; }
 					position: absolute;
 					top: 5px;
 					left: 0;
-					.picto-account;
+					.sprite(@picto-account);
 				}
 				
 				li a.logout:before {
@@ -799,7 +799,7 @@ tr.summary-details-excluded { font-style:italic; }
 					position: absolute;
 					top: 5px;
 					left: 0;
-					.picto-logout;
+					.sprite(@picto-logout);
 				}
 			}
 			
@@ -821,7 +821,7 @@ tr.summary-details-excluded { font-style:italic; }
 		left: 0;
 		text-indent: -200em;
 		overflow: hidden;
-		.logo-client-header;
+		.sprite(@logo-client-header);
 	}
 	
 	.top-link-cart {
@@ -834,7 +834,7 @@ tr.summary-details-excluded { font-style:italic; }
 		color: @c3;
 		
 		&:before {
-			.picto-cart-header;
+			.sprite(@picto-cart-header);
 			content: "";
 			position: absolute;
 			top: -9px;
@@ -865,7 +865,7 @@ tr.summary-details-excluded { font-style:italic; }
 			border: none;
 			text-indent: -200em;
 			overflow: hidden;
-			.form-search-button;
+			.sprite(@form-search-button);
 			position: absolute;
 			top: 1px;
 			right: 1px;
@@ -967,7 +967,7 @@ tr.summary-details-excluded { font-style:italic; }
 					position: absolute;
 					bottom: -20px;
 					left: 0;
-					.ombre-menu;
+					.sprite(@ombre-menu);
 				}
 				
 				li.level1 {
@@ -1005,7 +1005,7 @@ tr.summary-details-excluded { font-style:italic; }
 								
 								&:before {
 									content: "";
-									.puce-nav;
+									.sprite(@puce-nav);
 									position: absolute;
 									top: 6px;
 									left: 0;
@@ -1494,7 +1494,7 @@ tr.summary-details-excluded { font-style:italic; }
 			
 			&:after {
 				content: "";
-				.footer-bloc-ombre;
+				.sprite(@footer-bloc-ombre);
 				position: absolute;
 				bottom: -10px;
 				left: 0;
@@ -1520,19 +1520,19 @@ tr.summary-details-excluded { font-style:italic; }
 			}
 			
 			&.paiement .title:before {
-				.picto-securise;
+				.sprite(@picto-securise);
 				left: 24px;
 				top: 12px;
 			}
 			
 			&.livraison .title:before {
-				.picto-livraison;
+				.sprite(@picto-livraison);
 				left: 20px;
 				top: 18px;
 			}
 			
 			&.newsletter .title:before {
-				.picto-newsletter;
+				.sprite(@picto-newsletter);
 				left: 22px;
 				top: 18px;
 			}
@@ -1546,7 +1546,7 @@ tr.summary-details-excluded { font-style:italic; }
 			}
 			
 			&.paiement p:before {
-				.pictos-cartes;
+				.sprite(@pictos-cartes);
 				content: "";
 				position: absolute;
 				left: 50px;
@@ -1554,7 +1554,7 @@ tr.summary-details-excluded { font-style:italic; }
 			}
 			
 			&.livraison p:before {
-				.pictos-socolissimo;
+				.sprite(@pictos-socolissimo);
 				content: "";
 				position: absolute;
 				left: 30px;
@@ -1619,7 +1619,7 @@ tr.summary-details-excluded { font-style:italic; }
 				text-decoration: none;
 				&:before {
 					content: "";
-					.arrow-right-empty;
+					.sprite(@arrow-right-empty);
 					position: absolute;
 					top: 6px;
 					left: 0;

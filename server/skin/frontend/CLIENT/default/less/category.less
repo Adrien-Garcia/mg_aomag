@@ -6,7 +6,7 @@
 .category-products {}
 
 .new {
-	.new-fr;
+	.sprite(@new-fr);
 	position: absolute;
 	top: 0;
 	right: 10px;
@@ -194,7 +194,7 @@
 			position: relative;
 			padding-left: 20px;
 			&:before {
-				.arrow-right;
+				.sprite(@arrow-right);
 				content: "";
 				position: absolute;
 				top: 6px;
@@ -269,11 +269,11 @@
 			}
 			
 			.asc {
-				.picto-asc;
+				.sprite(@picto-asc);
 			}
 			
 			.desc {
-				.picto-desc;
+				.sprite(@picto-desc);
 			}
 			
 		}
@@ -292,11 +292,11 @@
 			}
 			
 			.grid {
-				.grille;
+				.sprite(@grille);
 			}
 			
 			.list {
-				.liste;
+				.sprite(@liste);
 			}
 			
 			a:hover {
@@ -338,11 +338,11 @@
 			}
 			
 			a.next {
-				.page-next;
+				.sprite(@page-next);
 			}
 			
 			a.previous {
-				.page-prev;
+				.sprite(@page-prev);
 			}
 		}
 	}
