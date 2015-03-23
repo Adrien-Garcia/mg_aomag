@@ -91,19 +91,9 @@ if (isset ($_GET['hook'])) {
 		
 		/*
 		 *  Compilation 
-		 *   - des sprites par Glue
 		 *   - des css par Less  
   		 */	
 		$output = array();
-		$cmdeGlue = "glue skin/frontend/CLIENT/default/images/client/origin -l -f --img=skin/frontend/CLIENT/default/images/client/sprites --css=skin/frontend/CLIENT/default/less --sprite-namespace= --namespace= --cachebuster --optipng 2>&1";
-		$output[] = "exec >> ".$cmdeGlue;
-		$resultGlue;
-		exec($cmdeGlue, $output, $resultGlue);
-		if ($resultGlue!=0) {
-			$output[]="<h2>ERREUR lors de la génération du sprite par GLUE !! : $resultGlue</h2>";
-			_log($output, true);
-			die();
-		} 
 		
 		$cmdeLess = "lessc -x skin/frontend/CLIENT/default/less/styles.less > skin/frontend/CLIENT/default/css/styles.css 2>&1";
 		$output[] = "exec >> ".$cmdeLess;
