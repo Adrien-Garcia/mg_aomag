@@ -20,7 +20,9 @@
 		display: none;
 	}
 }
-
+#checkoutSteps{
+  .transition(height, 0.3s, ease-in-out, 0s);
+}
 .opc {
 	position:relative;
 	overflow:hidden;
@@ -36,210 +38,220 @@
 		color: #000;
 		height: 28px;
 	}
-	select{
-		.p-base();
-		font-weight: bold;
-		color: #000;
-		height: 28px;
-	}
-	p{
-		.p-base();
-	}
-	label{
-		.p-base();
-		text-transform: uppercase;
-		margin: 7px 0;
-	}
-	.form-list li{margin-bottom: 0;}
-	.buttons-set {
-		margin:15px 0 0;
-		opacity:1!important;
-		p.required {
-			margin:0;
-			padding:0 0 10px;
-		}
-		.back-link {
-			display:none;
-		}
-		a {
-		}
-	}
-	.ul {
-		list-style:disc outside;
-		padding-left:18px;
-	}
-	li.recap{
-		float: right;
-		padding-top: 20px;
-		.block-progress{
-			.block-title h3{font: 14px @font-xbold; text-transform: uppercase;white-space: normal;width: 183px;}
-			.block-content{
-				dl>div{
-					border-top: 1px dotted #000;
-					font: bold 10px @font-light;
-					text-transform: uppercase;
-					padding: 13px 0;
-					&:last-child{border-bottom: 1px dotted #000;}
-				}
-			}
-		}
-	}
-	li.section {
-		float:left;
-		width:20%;
-		text-align: center;
-		display:inline;
-		height: 180px;
-		background: @c6;
-		div.step{width: 75%;}
-		.step-title{
-			.number{
-				font-size: 20px;
-				background: @c4;
-				color: @c6;
-			}
-			h2{color: @c4;}
-		}
-		&.allow:not(.active){
-			background: @color-main;
-			.step-title{
-				.number{
-					background: #fff;
-					color: @color-main;
-				}
-				h2{color: #fff;}
-			}
-		}
-		&.active{
-			background: #fff;
-			.step-title{
-				.number{
-					background: @color-main;
-					color: #fff;
-				}
-				h2{color: @color-main;}
-			}
-		}
-	}
-	.step-title,.allow .step-title {
-		border:1px solid #F9F3E3;
-		height:100px;
-		margin-top: 25px;
-	}
-	.step {
-		margin: 40px 0; 
-		padding: 0px 20px;
-		position:absolute;
-		border:0;
-		top:165px;
-		left:0;
-		z-index:1;
-		background:#fff;
-		//height:900px;
-		border:none;
-		background:none;
-		width:100%;
-		text-align:left;
-	}
-	.step-title .number{
-		float:none;
-		display:block;
-		margin:0 auto;
-		margin-bottom:10px;
-	}
-	.step-title {
-		position:relative;
-		float:left;
-		text-align:center;
-		padding:15px 11px 0;
-		margin-left:-1px;
-		background:none;
-	}
-	.step-title a {
-		display:none;
-	}
-	.step-title .number {
-		background:#ccc;
-		color:@c6;
-		width:42px;
-		height:42px;
-		line-height:20px;
-		-moz-border-radius:20px;
-		-webkit-border-radius:20px;
-		border-radius:20px;
-		margin-bottom:10px;
-		padding:0;
-		border:0;
-	}
-	.step-title h2 {
-		font-size:12px;
-		color:#bbb;
-		clear:both;
-	}
-	.allow .step-title {
-		cursor:pointer;
-		background:none;
-	}
-	.allow .step-title h2 {
-		color:#000;
-	}
-	.active .step-title {
-		color:#ef0606;
-		cursor:default;
-		border:1px solid #BBAFA0;
-		border-bottom:1px solid #FBFAF6;
-		z-index:1;
-		background:#FBFAF6 url(../images/bkg_checkout.gif) 0 0 repeat-x;
-	}
-	.active .step-title .number {
-		background:#F18200;
-		border-color:#fff;
-		color:#fff;
-	}
-	.active .step-title h2 {
-		color:#F18200;
-	}
-	.step-title h2,.allow .step-title h2,.active .step-title h2 {
-		width:100%;
-		text-align:center;
-	}
-	.step-title {
-		width:16%;
-	}
-	.form-list{ 
-		.field, .wide {
-	}
-	li fieldset {
-		margin-bottom:10px;
-	}
-	label {
-		&[for=billing-address-select], &[for=shipping-address-select]{
-			.p-base();
-			text-transform: uppercase;
-			font-weight: bold;
-			color: #000;
-			font-size: 10px;
-		}
-		text-align:right;
-		padding:4px 0 0;
-	}
-	li.fields {
-		margin:0;
-	}
-	div.fields {
-		width:100%;
-		overflow:hidden;
-		margin:0 0 8px;
-	}
-	.wide,li.fields .field {
-		//margin:0 0 8px;
-	}
-	li.wide .input-box,.input-box {
-		clear:none;
-	}
-	li.control label {
-		float:left;
-	}
+  input[type="checkbox"], input[type="radio"]{
+    float: left;
+    margin-left: 0;
+    margin-right: 10px;
+    margin-top: 0;
+  }
+  select{
+      .p-base();
+      font-weight: bold;
+      color: #000;
+      height: 28px;
+  }
+  p{
+      .p-base();
+  }
+  label{
+      .p-base();
+      text-transform: uppercase;
+      margin: 7px 0;
+  }
+  .form-list li{margin-bottom: 0;}
+  .buttons-set {
+      margin:15px 0 0;
+      opacity:1!important;
+      p.required {
+        position:absolute;
+        top:-30px;
+        left: 20px;
+        margin:0;
+        em{ float: left; margin-right: 2px;}
+          margin:0;
+          padding:0 0 10px;
+      }
+  }
+  .ul {
+      list-style:disc outside;
+      padding-left:18px;
+  }
+  li.recap{
+      float: right;
+      padding-top: 20px;
+      position: relative;
+      background: #fff;
+      z-index:2;
+
+      .block-progress{
+          .block-title h3{font: 14px @font-xbold; text-transform: uppercase;white-space: normal;width: 183px;}
+          .block-content{
+              dl>div{
+                  border-top: 1px dotted #000;
+                  font: bold 10px @font-light;
+                  text-transform: uppercase;
+                  padding: 13px 0;
+                  &:last-child{border-bottom: 1px dotted #000;}
+              }
+          }
+      }
+  }
+  li.section {
+      float:left;
+      width:20%;
+      text-align: center;
+      display:inline;
+      height: 180px;
+      background: @c6;
+      div.step{width: 75%;}
+      .step-title{
+          .number{
+              font-size: 20px;
+              background: @c4;
+              color: @c6;
+          }
+          h2{color: @c4;}
+      }
+      &.allow:not(.active){
+          background: @color-main;
+          .step-title{
+              .number{
+                  background: #fff;
+                  color: @color-main;
+              }
+              h2{color: #fff;}
+          }
+      }
+      &.active{
+          background: #fff;
+          .step-title{
+              .number{
+                  background: @color-main;
+                  color: #fff;
+              }
+              h2{color: @color-main;}
+          }
+      }
+  }
+  .step-title,.allow .step-title {
+      border:1px solid #F9F3E3;
+      height:100px;
+      margin-top: 25px;
+  }
+  .step {
+      margin: 60px 0;
+      padding: 0px 20px;
+      position:absolute;
+      border:0;
+      top:165px;
+      left:0;
+      z-index:1;
+      background:#fff;
+      //height:900px;
+      border:none;
+      background:none;
+      width:100%;
+      text-align:left;
+  }
+  .step-title .number{
+      float:none;
+      display:block;
+      margin:0 auto;
+      margin-bottom:10px;
+  }
+  .step-title {
+      position:relative;
+      float:left;
+      text-align:center;
+      padding:15px 11px 0;
+      margin-left:-1px;
+      background:none;
+  }
+  .step-title a {
+      display:none;
+  }
+  .step-title .number {
+      background:#ccc;
+      color:@c6;
+      width:42px;
+      height:42px;
+      line-height:20px;
+      -moz-border-radius:20px;
+      -webkit-border-radius:20px;
+      border-radius:20px;
+      margin-bottom:10px;
+      padding:0;
+      border:0;
+  }
+  .step-title h2 {
+      font-size:12px;
+      color:#bbb;
+      clear:both;
+  }
+  .allow .step-title {
+      cursor:pointer;
+      background:none;
+  }
+  .allow .step-title h2 {
+      color:#000;
+  }
+  .active .step-title {
+      color:#ef0606;
+      cursor:default;
+      border:1px solid #BBAFA0;
+      border-bottom:1px solid #FBFAF6;
+      z-index:1;
+      background:#FBFAF6 url(../images/bkg_checkout.gif) 0 0 repeat-x;
+  }
+  .active .step-title .number {
+      background:#F18200;
+      border-color:#fff;
+      color:#fff;
+  }
+  .active .step-title h2 {
+      color:#F18200;
+  }
+  .step-title h2,.allow .step-title h2,.active .step-title h2 {
+      width:100%;
+      text-align:center;
+  }
+  .step-title {
+      width:16%;
+  }
+  .form-list{
+      .field, .wide {
+  }
+  li fieldset {
+      margin-bottom:10px;
+  }
+  label {
+      &[for=billing-address-select], &[for=shipping-address-select]{
+          .p-base();
+          text-transform: uppercase;
+          font-weight: bold;
+          color: #000;
+          font-size: 10px;
+      }
+      text-align:right;
+      padding:4px 0 0;
+  }
+  li.fields {
+      margin:0;
+  }
+  div.fields {
+      width:100%;
+      overflow:hidden;
+      margin:0 0 8px;
+  }
+  .wide,li.fields .field {
+      //margin:0 0 8px;
+  }
+  li.wide .input-box,.input-box {
+      clear:none;
+  }
+  li.control label {
+      float:none;
+  }
 }
 	form .form-list li.wide {
 		margin-bottom:8px;
@@ -250,7 +262,7 @@
 	}
 }
 .opc:first-of-type .step{
-	
+
 	-webkit-transition: all 0.5s ease-in-out;
 	-moz-transition: all 0.5s ease-in-out;
 	-o-transition: all 0.5s ease-in-out;
@@ -323,9 +335,6 @@
 }
 #checkout-step-review.step {
 }
-#opc-review .step {
-	padding:30px 0;
-}
 #opc-review .product-name {
 	font-weight:bold;
 	color:#0a263c;
@@ -345,6 +354,9 @@
 	height:40px;
 	line-height:40px;
 }
+#opc-review .agree label{
+  text-transform: none;
+}
 #opc-shipping_method .buttons-set {
 	border-top:1px solid #E4E4E4;
 }
@@ -352,15 +364,15 @@
 }
 #opc-shipping_method dl.sp-methods{
 	dt{
-		margin-top: 30px;
+		&:first-child{margin-top: 0px;}
+      margin-top: 30px;
 		text-transform: uppercase;
 		font: 13px @font-xbold;
 		color: #000;
 		margin-bottom: 15px;
 	}
 	dd{
-		padding-bottom: 30px;
-		border-bottom: 1px dotted #000;
+		//border-bottom: 1px dotted #000;
 	}
 	.s_method_socolissimo img{
 		top: auto;
@@ -368,7 +380,7 @@
 	label{
 		color: #000 !important;
 		display: inline-block;
-		font: 13px berlin_boldbold;
+		font: 13px/13px berlin_boldbold;
 		text-transform: none;
 	}
 	.price{
@@ -385,6 +397,10 @@
 	margin:0 0 34px;
 	padding:0;
 }
+.block-progress .price{
+  color: @color-main;
+  font-weight: bold;
+}
 .checkout-onepage-index .col-main {
 	padding:0;
 	border:0;
@@ -400,7 +416,6 @@
 	padding:0 0 10px;
 }
 .opc .buttons-set .back-link {
-	display:none;
 }
 .opc .buttons-set .please-wait {
 	float: right;
@@ -499,7 +514,7 @@
 .opc .step-title,.opc .allow .step-title,.opc .active .step-title {
 	*display:block;
 	*float:left;
-} 
+}
 .opc .step-title h2,.opc .allow .step-title h2,.opc .active .step-title h2 {
 	width:100%;
 	text-align:center;
@@ -551,10 +566,7 @@
 	width:254px;
 }
 .opc .form-list .control input {
-	margin:10px 0 0 10px;
-}
-.opc .form-list li.control label {
-	float:left;
+	margin-top: 0.8em;
 }
 .opc form .form-list li.wide {
 	margin-bottom:8px;
@@ -567,7 +579,6 @@
 	-webkit-transition: all 0.5s ease-in-out;
 	-moz-transition: all 0.5s ease-in-out;
 	-o-transition: all 0.5s ease-in-out;
-	-webkit-transition: all 0.5s ease-in-out;
 	transition: all 0.5s ease-in-out;
 }
 .opc:first-of-type .step[style*='display:none;'],
@@ -599,42 +610,46 @@
 .opc:first-of-type .allow .step-title a {
 }
 #opc-login{
-	h3 {
-		margin-bottom:12px;
-	}
-	.input-box{
-		width:100%;
-		float:none;
-		margin:0;
-	}
-	.input-text{
-		width:100%;
-	}
-}
-#opc-login .col-2 {
-	float:left;
-}
-#opc-login .col-2 form fieldset h4 {
-	display:none;
-}
-#opc-login .col-2 {
-	display:block;
-	width:357px;
-	padding-right:20px;
-	border-right:1px solid @c5;
-}
-#opc-login .col-2 fieldset {
-	width:100%;
-}
-#opc-login .col-2 .input-box {
-}
-#opc-login .col-2 .input-text {
-}
-#opc-login .col-2 .form-list label {
-	text-align:left;
-}
-#opc-login .col-2 .form-list label {
-	width:110px;
+  h3 {
+      margin-bottom:12px;
+  }
+  .input-box{
+      width:100%;
+      float:none;
+      margin:0;
+  }
+  .input-text{
+      width:100%;
+  }
+
+  .buttons-set{
+    margin-top: 10px;
+  }
+
+  .col-2 {
+    float: left;
+    display: block;
+    width: 357px;
+    padding-right: 20px;
+    border-right: 1px solid @c5;
+    form fieldset h4 {
+      display: none;
+    }
+    fieldset {
+      width: 100%;
+    }
+
+    .input-box {
+    }
+    .input-text {
+    }
+    .form-list label {
+      text-align: left;
+    }
+    .form-list label {
+      width: 110px;
+    }
+  }
 }
 #opc-login .form-list li.control label {
 	float:none;
@@ -649,7 +664,7 @@
 	.account-benefits li{
 		list-style-type: circle;
 		position:relative;
-		margin-left:15px; 
+		margin-left:15px;
 		padding:0 0 9px;
 		.p-base();
 	}
@@ -658,9 +673,6 @@
 	display:none;
 }
 #checkout-step-review.step {
-}
-#opc-review .step {
-	padding:30px 0;
 }
 #opc-review .product-name {
 	font-weight:bold;
@@ -692,24 +704,65 @@
 	}
 }
 .opc #checkout-step-billing,
-.opc #checkout-step-shipping{
-	&>form>fieldset>.form-list>li.wide{margin-bottom: 20px;}
+.opc #checkout-step-shipping,
+.opc #checkout-step-shipping_method{
+  &>form>fieldset>.form-list>li.wide{margin-bottom: 20px;}
+  .use-for-shipping{
+    float: left; margin-right: 20px;
+  }
+  input[type="checkbox"], input[type="radio"] {
+    margin-top: 10px;
+  }
+  #billing-new-address-form,
+  #shipping-new-address-form{
+    border-top: 1px dotted #000;
+    //border-bottom: 1px dotted #000;
+    ul:first-of-type{clear: both;}
+    ul{float: left;width: 44%;margin-right: 36px;}
+    li.fields,
+    li.wide {
+      .field,
+      .field:first-child,
+      .field:last-child {
+        margin: 0;
+        padding: 0;
+        width: 100%;;
+      }
+      label {
+        display: inline-block;
+        text-align: left;
+
+        & + .input-box {
+          display: inline-block;
+          width: 100%;
+        }
+      }
+
+      .input-box {
+        margin: 0;
+      }
+
+      .input-text {
+        width: 100% !important;
+      }
+
+      .select {
+        width: 100%;
+        select {
+          width: 100%;
+          &[name="billing[prefix]"],
+          &[name="shipping[prefix]"] {
+            width: 100px;
+          }
+        }
+      }
+    }
+  }
+
 }
-.opc #checkout-step-billing .buttons-set,
-.opc #checkout-step-shipping .buttons-set{
-	
-	position:relative;
-	margin-top:40px;
-	
-	p.required{
-		position:absolute;
-		top:0px;
-		left:0;
-		margin:0;
-	}
-}
+
 .opc .buttons-set{
-	
+
 	.required{
 		em{
 			color:@c2;
@@ -717,76 +770,34 @@
 		}
 	}
 }
-/* Largeur des formulaire d'adresse */
-.opc #checkout-step-billing #billing-new-address-form,
-.opc #checkout-step-shipping #shipping-new-address-form{
-	border-top: 1px dotted #000;
-	border-bottom: 1px dotted #000;
-	ul:first-of-type{clear: both;}
-	ul{float: left;width: 44%;margin-right: 36px;}
-	li.fields,
-	li.wide{
-		
-		label{
-			display:inline-block;
-			text-align:left;
-			
-			&+.input-box{
-				display:inline-block;
-				width:100%;
-			}
-		}
-		
-		.input-box{
-			margin:0 0 13px 0;
-		}
-		
-		.input-text{
-			width:100% !important;
-			
-			&[id*="street2"]{
-				//width: 345px!important;
-
-			}
-		}
-		
-		select{
-			width:100%;
-			
-			&[name="billing[prefix]"]{
-				width:100px;
-			}
-		}
-	}
-}
 #shipping-new-address-form{
-	
-	
+
+
 	margin-bottom:0;
-	
+
 	fieldset{
 		margin-bottom:0;
 	}
-	
+
 }
 dt.s_method_socolissimo-title,
 /*dd.s_method_socolissimo{
-	
+
 	position:absolute;
 	left:200px;
 	font-size:14px;
 }
 dt.s_method_socolissimo-title{
-	
+
 	top:23px;
 }
 dd.s_method_socolissimo{
-	
+
 	top:67px;
 	}*/
 	.s_method_socolissimo div{
 		border-bottom:0 !important;
-		
+
 		strong{
 			font-weight:normal;
 			color:@c3;
@@ -801,10 +812,15 @@ dd.s_method_socolissimo{
 		border-bottom:0 !important;
 	}
 	.s_method_gls{
-		label{
-			display:block;
-			margin:10px 0 0 0;
-		}
+      label{
+          display:block;
+          margin-left: 88px;
+      }
+      li {
+        img{
+          top: 0px;
+        }
+      }
 	}
 	.sp-methods .price,
 	dd.s_method_gls li span.price{
@@ -819,25 +835,28 @@ dd.s_method_socolissimo{
 	}
 	#shipping-method-buttons-container{
 		border-top:0 !important;
-		margin-top:40px !important;
 	}
 	#checkout-payment-method-load{
-		
+
 		> dt:first-child{
 			margin-top:0;
 		}
-		
+
+        input[type="radio"]{
+          margin-top: 3px;
+        }
+
 		label.required em{
 			float:right;
 			right:0;
 		}
-		
+
 		ul.form-list{
-			
+
 			padding:0;
-			
+
 			&#payment_form_ccsave{
-				
+
 				li:first-child{
 					width:340px;
 					float:left;
@@ -845,7 +864,7 @@ dd.s_method_socolissimo{
 				li:first-child + li{
 					width:340px;
 					float:right;
-					
+
 					select{
 						width:100%;
 					}
@@ -857,16 +876,16 @@ dd.s_method_socolissimo{
 				li:first-child + li + li + li{
 					width:340px;
 					float:right;
-					
+
 					.v-fix{
 						width:155px;
 					}
-					
+
 					.v-fix:first-child{
 						float:left;
 						margin-right:30px;
 					}
-					
+
 					select{
 						width:100%;
 						margin:0;
@@ -874,12 +893,12 @@ dd.s_method_socolissimo{
 				}
 				li:first-child + li + li + li + li{
 					width:340px;
-					
+
 					.input-text{
 						width:310px !important;
 					}
 				}
-				
+
 				.cvv-what-is-this{
 					display:inline-block;
 					.sprite(@picto-helper);
@@ -888,19 +907,19 @@ dd.s_method_socolissimo{
 					vertical-align: middle;
 					margin-top:4px;
 				}
-				
+
 			}
-			
+
 		}
-		
+
 	}
 	#payment-buttons-container{
-		
+
 		margin-top:40px;
-		
+
 		.required{
 			float:left;
-			
+
 			em{
 				color:@c2;
 				font-style: normal;
@@ -909,27 +928,27 @@ dd.s_method_socolissimo{
 	}
 
 	.opc-block-progress{
-		
+
 		strong{
 			font-weight:normal;
 		}
-		
+
 		.block-title{
-			
+
 			line-height:16px;
 			padding-right:20px;
 			margin-bottom:10px;
 			padding-bottom:10px;
-			
+
 			strong{
 				font-family:@font-bold;
 				font-size:14px;
 				text-transform:uppercase;
 				color:@c3;
 			}
-			
+
 		}
-		
+
 		dt{
 			color:@c3;
 			text-transform: uppercase;
@@ -937,7 +956,7 @@ dd.s_method_socolissimo{
 			.separator{
 				display:none;
 			}
-			
+
 			.changelink{
 				display:block;
 				margin:3px 0 4px 0;
@@ -951,20 +970,20 @@ dd.s_method_socolissimo{
 						position: absolute;
 						content: "";
 						.sprite(@picto-edit-t);
-						background-color: @color-main; 
+						background-color: @color-main;
 						left: -16px;
 					}
 				}
 			}
 		}
-		
+
 		dd{
 			color: @c4;
 			text-transform: none;
 			font-weight: normal;
 			margin-bottom:15px;
 		}
-		
+
 		#payment-progress-opcheckout{
 			dd{
 				border-bottom:0;
@@ -972,24 +991,25 @@ dd.s_method_socolissimo{
 		}
 	}
 	#checkout-review-table{
-		
+
 		border:none;
-		
-		
+
+
 		thead tr.last th.a-right:first-child{
 			border-right: 0;
 			text-align:center !important;
 		}
-		
+
 		thead tr.last th.a-right:first-child + th{
 			text-align:center;
 		}
-		
+
 		thead tr.last th{
 			text-transform: uppercase;
 			padding-top:0px;
+            padding-left: 0;
 		}
-		
+
 		thead th{
 			height: 50px;
 			color: #000;
@@ -1002,7 +1022,7 @@ dd.s_method_socolissimo{
 			color: #000;
 			font-weight: bold;
 		}
-		
+
 		tbody{
 			td{
 				border:none;
@@ -1013,8 +1033,12 @@ dd.s_method_socolissimo{
 				color: #999;
 				font: 10px @font-light;
 				text-align: center;
+                .item-options{
+                  text-align: left;
+                  margin-left: 25px;
+                }
 			}
-			
+
 			h3{
 				font-size:14px;
 				color:@c4 !important;
@@ -1025,41 +1049,44 @@ dd.s_method_socolissimo{
 				border-bottom: 1px dotted #000;
 			}
 		}
-		
+
 		tfoot{
-			
+            border: none;
+            padding-bottom: 30px;
 			font: 10px @font-light;
 			text-transform: uppercase;
 			td{
 				border:none;
-				
+
 				padding:0 0 5px 0;
-				
+
 				&:first-child{
 					padding-right:0;
 				}
-				
+
 				position:relative;
 				left:-20px;
 			}
-			
+
 			> tr:first-child{
-				
+
 				th,
 				td{
 					padding-top:20px;
 				}
-				
+
 			}
-			
+
 			> tr:last-child{
-				
+
 				strong{
-					font-size:22px !important;
+					font-size:14px !important;
 					color:@c3;
+                    font-family: @font-xbold;
+                    font-weight: normal;
 				}
-				
-				
+
+
 				td{
 					padding:15px 0 0 0;
 				}
@@ -1067,26 +1094,33 @@ dd.s_method_socolissimo{
 			&>tr.last td{
 				//border-bottom: 1px dotted #000;
 			}
-			
-			
-			
+
+
+
 			tr > td:first-child{
 				padding-right:40px;
 			}
-			
+
 			tr > td:first-child + td{
 				/* 			padding-right:35px;
 				*/
 			}
-			
+
 			th strong,
 			td strong {
-				font-family:@font-bold;
-				font-weight:normal;
+				font-family:@font-light;
+				font-weight: bold;
+                font-size: 10px;
 			}
-			
+
 		}
+
 	}
+    #checkout-review-submit{
+      border-top: 1px dotted #000;
+      margin-top: 35px;
+    }
+
 	#review-buttons-container{
 		padding-right:20px !important;
 		border-top: 1px dotted #000 !important;
@@ -1101,9 +1135,9 @@ dd.s_method_socolissimo{
 			padding: 0 30px;
 		}
 		.buttons-set{
-			
+
 			margin-top:30px;
-			
+
 			button{
 				float:none;
 				margin-left:0px;
@@ -1125,7 +1159,7 @@ dd.s_method_socolissimo{
 				font-size: 14px;
 			}
 		}
-		
+
 	}
 }
 /* ================================= Solution by www.h-o.nl =============================== */

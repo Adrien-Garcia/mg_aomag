@@ -195,10 +195,11 @@ h1            {
 	font-size:42px; 
 	font-weight:normal; 
 	font-family: @font-xbold;
+    letter-spacing: 2px;
 }
-h2            { font-size:18px; font-weight:normal; }
-h3            { font-size:16px; font-weight:normal; }
-h4            { font-size:14px; font-weight:normal; }
+h2            { font-size:18px; font-weight:normal;letter-spacing: 0.8px; }
+h3            { font-size:16px; font-weight:normal;letter-spacing: 0.6px; }
+h4            { font-size:14px; font-weight:normal;letter-spacing: 0.4px; }
 h5            { font-size:12px; font-weight:normal; }
 h6            { font-size:11px; font-weight:normal; }
 
@@ -275,7 +276,7 @@ ul,ol         { list-style:none; }
 .page-print { background:#fff; padding:25px 30px; text-align:left; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
 .page-popup { background:#fff; padding:25px 30px; text-align:left; }
-.main-container {  }
+.main-container { position: relative; z-index: 1; }
 .main { width:@width; padding: 0px; margin:55px auto 0 auto; min-height:400px; background: #fff }
 
 /* Base Columns */
@@ -315,12 +316,13 @@ ul,ol         { list-style:none; }
 /* Global Styles ========================================================================= */
 
 label.required em {
-	/*float: right;*/
-	margin-left: 5px;
-	color:@c2;
-	font-style:normal;
-	font-family:@font-light;
-	font-size:14px;
+  /*float: right;*/
+  margin-left: 5px;
+  color:@c2;
+  font-style:normal;
+  font-family:@font-light;
+  font-size:14px;
+  line-height: 1em;
 }
 
 /*
@@ -370,22 +372,22 @@ select{
     //width: calc(~"100% + 17px");
   }
 
-@-moz-document url-prefix() { 
-  .select {
-  	position: relative;
-  	top: 10px;
-    overflow: hidden;
-    //border: 1px solid rgba(0,0,0,0.2);
-  }
-  .select select {
-  	position: relative;
-  	padding: 0;
-  	margin: 0;
-    //width: 120%;
-    //width: calc(~"100% + 17px");
-  }
-  
-}
+//@-moz-document url-prefix() {
+//  .select {
+//  	position: relative;
+//  	top: 10px;
+//    overflow: hidden;
+//    //border: 1px solid rgba(0,0,0,0.2);
+//  }
+//  .select select {
+//  	position: relative;
+//  	padding: 0;
+//  	margin: 0;
+//    //width: 120%;
+//    //width: calc(~"100% + 17px");
+//  }
+//
+//}
 
 /* Firefox focus has odd artifacts around the text, this kills that. See https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-focusring */
 .select select:-moz-focusring {
@@ -494,12 +496,12 @@ p.control input.radio { margin-right:6px; }
 /* Form Validation */
 .validation-advice { 
 	clear:both;
-	min-height:13px;
-	margin:9px 0 0;
+	min-height:11px;
+	margin:4px 0 0;
 	padding-left:17px;
-	font-size:14px;
+	font-size:9px;
 /* 	font-weight:bold; */
-	line-height:13px;
+	line-height:11px;
 	position:relative;
 	color:#dc3c16;
 	font-family:@font-light;
@@ -541,7 +543,7 @@ p.required {
 }
 *:not([id^="j2t"])>.messages {
 	max-width: 980px;
-	margin: -20px 0px 15px 462px;
+	margin: -20px 0px 15px calc(50% - 490px);
 	width: 980px;
 	overflow: hidden;
 	transition: width 2s;
@@ -626,6 +628,7 @@ p.required {
 	padding: 14px 0 3px 27px;
 	//border-bottom: 1px solid #d4d4d4;
 	font-family: @font-boldbold;
+    font-size: 13px;
 	//padding: 15px 0;
 	
 	.breadcrumbs {
@@ -642,7 +645,7 @@ p.required {
 			
 			a {
 				text-decoration: none;
-				color: @c3;
+				color: @c6;
 			}
 		 
 			strong {
@@ -842,8 +845,8 @@ tr.summary-details-excluded { font-style:italic; }
 	&:hover {
 		opacity: 0.6;	}
 }
-.btn-previous  { display:block; width:11px; height:11px; font-size:0; line-height:0; background:url(../images/btn_previous.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
-.btn-remove2 { 
+.btn-previous  { display:block; width:11px; height:11px; font-size:0; line-height:0; background:url(../images/page-prev.png) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
+.btn-remove2 {
 	display: block; 
 	text-indent: -999em;
 	overflow: hidden;
@@ -1140,14 +1143,13 @@ tr.summary-details-excluded { font-style:italic; }
 		position: relative;
 		height: 42px;
 		z-index: 1;
-		
+		.nav-1{ cursor: pointer;}
 		li.level0:first-child{}//margin-left: 10px;}
 		li.level0 {
 		
 			float: left;
 			height: 100%;
 			font-size: 12px;
-			
 			&.search{
 				&:hover {
 					opacity: 1;
@@ -1227,6 +1229,7 @@ tr.summary-details-excluded { font-style:italic; }
 				position: relative;
 				text-decoration: none;
 				height: 100%;
+                letter-spacing: 0.8px;
 				
 			}
 			
@@ -1254,12 +1257,13 @@ tr.summary-details-excluded { font-style:italic; }
 				display: none;
 				position: absolute;
 				padding: 34px;
-				top: 42px;
+				top: 41px;
 				left: 0;
 				background: @c8;
 				width: 980px;
-				box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.5);
+				box-shadow: 3px 6px 5px 0px rgba(0,0,0,0.5);
 				min-height: 280px;
+                z-index: 3;
 				
 				&>div:not(.cart_side_ajax){width: 666px; /*display: flex;  flex-flow: row wrap;*/}
 
@@ -1273,10 +1277,11 @@ tr.summary-details-excluded { font-style:italic; }
 						display: inline-block;
 						margin: 0 0 10px 0;
 						font-family: @font-xbold;
-						font-size: 14px;
+						font-size: 13px;
 						color: @c5;
 						text-transform: uppercase;
 						text-decoration: none;
+                        letter-spacing: 0.5px;
 					}
 					> a:hover{color: #fff;}
 					
@@ -2088,7 +2093,7 @@ tr.summary-details-excluded { font-style:italic; }
 				color: #000;
 				text-align: center;
 				.title{
-					display: default;
+					display: initial;
 					margin-left: auto;
 					margin-right: auto;
 					color: #000;
@@ -2200,6 +2205,7 @@ tr.summary-details-excluded { font-style:italic; }
 				color: #fff;
 
 				.title {
+                    letter-spacing: 2px;
 					margin-left: auto;
 					margin-right: auto;
 					width: 176px;
@@ -2218,6 +2224,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 				}
 				p {
+                    letter-spacing: 1px;
 					font-family: @font-bold;
 					font-size: 18px;
 					text-transform: uppercase;

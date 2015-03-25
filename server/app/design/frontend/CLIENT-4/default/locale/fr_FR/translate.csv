@@ -113,6 +113,7 @@
 "Mage_Sales::View All","Voir toutes mes commandes"
 "You are currently not subscribed to any newsletter.","Vous n’êtes abonné à aucune newsletter."
 "Mage_Customer::* Required Fields","<em>*</em> Champs obligatoire"
+"Mage_Checkout::* Required Fields","<em>*</em> Champs obligatoire"
 "Mage_Customer::Save":"Sauvegarder"
 "Mage_Customer::Please select region, state or province","Sélectionner la région/département"
 "Mage_Customer::Use as my default billing address","Utiliser comme adresse de facturation par défaut"

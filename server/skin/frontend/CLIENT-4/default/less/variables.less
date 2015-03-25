@@ -2,6 +2,13 @@
 //@color-main: #00b9af;
 @color-second: #f4f4f4;
 
+
+.transition(@transition-property, @transition-time, @method, @delay) {
+  -webkit-transition: @transition-property @transition-time @method @delay;
+  -moz-transition: @transition-property @transition-time @method @delay;
+  -o-transition: @transition-property @transition-time @method @delay;
+  transition: @transition-property @transition-time @method @delay;
+}
 /*
  __     __         _       _     _           
  \ \   / /_ _ _ __(_) __ _| |__ | | ___  ___ 

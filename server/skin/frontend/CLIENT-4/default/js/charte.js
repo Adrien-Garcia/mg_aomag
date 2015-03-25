@@ -78,13 +78,23 @@ jQuery(function($) {
 		h1 += $("#checkoutSteps li.section").height();
 		h2 += $("#checkoutSteps li.section").height();
 		var height = Math.max(h1,h2);
-		$("#checkoutSteps").height(height+50);
+		$("#checkoutSteps").height(height+60);
 	}
     $(document).on("open_Section", function(e) {
       resizeCheckoutSteps();
     });
     $('#checkoutSteps .address-select, #checkoutSteps .radio').on('change', function(e){resizeCheckoutSteps();});
-	resizeCheckoutSteps();
+    $('#checkoutSteps button').on('click',function(e){setTimeout(resizeCheckoutSteps,250);});
+    if($('body').hasClass('checkout-onepage-index') ){
+        var height = Math.max($('.recap:first').height(),$("#checkoutSteps li.section.allow.active>.step").height());
+        setInterval(function(){
+            if(Math.max($('.recap:first').height(),$("#checkoutSteps li.section.allow.active>.step").height()) != height){
+                resizeCheckoutSteps();
+                height = Math.max($('.recap:first').height(),$("#checkoutSteps li.section.allow.active>.step").height());
+            }
+        }, 1000);
+    }
+    resizeCheckoutSteps();
 	// Accueil : carrousel
 	
 	var sliderHome = $('.cms-home .slideshow').bxSlider({
