@@ -54,11 +54,11 @@
 .price-box .price {  }
 
 /* Regular price */
-.regular-price { color: @c2; }
+.regular-price { color: @regular-price; }
 .regular-price .price { font-size: 16px; }
 
 /* Old price */
-.old-price { margin:0; color: @c4; display: inline; }
+.old-price { margin:0; color: @regular-price-old; display: inline; }
 .old-price .price-label { display: none; }
 .old-price .price { font-size: 16px; text-decoration: line-through; }
 
@@ -403,7 +403,7 @@
 			display: inline-block;
 			.regular-price .price, .special-price .price {
 				font-size: 20px;
-				color: @c2;
+				color: @regular-price;
 				font-family: @font-boldbold;
 				letter-spacing: 0.5px;
 			}
