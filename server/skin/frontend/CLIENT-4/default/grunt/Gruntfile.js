@@ -24,7 +24,7 @@ module.exports = function(grunt) {
     less: {
 	  development: {
 	    options: {
-	    	cleancss: true
+	    	//cleancss: true
 	    },
 	    files: {
 	      "../css/styles.css": "../less/styles.less"
