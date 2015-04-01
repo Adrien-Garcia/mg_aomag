@@ -55,16 +55,14 @@
                 <h1 itemprop="name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                 <?php if ( $_product->getData('brand')) :?><span itemprop="brand" itemscope itemtype="http://schema.org/Brand"><meta itemprop="name" content="<?php echo $_product->getAttributeText('brand') ?>"></span><?php endif; ?>
             </div>
-            <?php if (!$this->hasOptions()):?>
     			 <div class="wrapper-stock-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                 <?php echo $this->getChildHtml('product_type_data') ?>
 
                 <?php echo $this->getTierPriceHtml() ?>
                 </div>
-            <?php endif; ?>
-            
+
             <?php echo $this->getChildHtml('alert_urls') ?>
-           
+
             <?php echo $this->getChildHtml('extrahint') ?>
 
              <?php if (!$this->hasOptions()):?>
@@ -72,7 +70,7 @@
                     <?php if($_product->isSaleable()): ?>
                         <?php echo $this->getChildHtml('addtocart') ?>
                     <?php endif; ?>
-                    
+
                 </div>
                 <?php echo $this->getChildHtml('extra_buttons') ?>
             <?php elseif (!$_product->isSaleable()): ?>
@@ -101,18 +99,18 @@
 
                 <?php endif;?>
                     <?php echo $html; ?>
-                    
+
                 </div>
             <?php endforeach;?>
-                
+
                 <span class="product-sku"><?php echo __("Référence produit : ") ?><?php echo $_product->getSku(); ?></span>
             </div>
-            
+
             <?php echo $this->getChildHtml('other');?>
 
         </div>
 
-        
+
         <div class="clearer"></div>
         <div class="product-similar-product">
             <?php echo $this->getChildHtml('upsell_products') ?>
@@ -122,9 +120,9 @@
     </form>
     <script type="text/javascript">
 
-        jQuery.noConflict();
-        var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
-        
+//        jQuery.noConflict();
+//        var spConfig = new Product.Config(<?php //echo $this->getJsonConfig() ?>//);
+
     </script>
     <script type="text/javascript">
     //<![CDATA[
@@ -179,5 +177,5 @@
     </script>
     </div>
     <?php echo $this->getChildHtml('product_additional_data') ?>
-    
+
 </div>

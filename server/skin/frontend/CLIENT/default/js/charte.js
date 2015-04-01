@@ -85,42 +85,9 @@ jQuery(function($) {
         input.setSelectionRange(0,999); 
     });
 	
-	var t = new Array();
-	$(".more-views li a").each(function() {
-		t[t.length] = $(this).attr("href");
-	})
+	galerie();
 	
-	if ($(".more-views li").length > 6) {
-		/* On initialize bxSlider si on est sur la page produit */
-		$('.bxslider').bxSlider({
-			minSlides: 6,
-			maxSlides: 6,
-			slideWidth: 68,
-			pager: false,
-			slideMargin: 10 
-		});
-	}
-		
-	/* Permet de mettre l'état current sur la bonnne miniature au chargement */
-	$(".more-views .bxslider a").each(function(idx,el){
-		var a = $(el).attr("rel");
-		var b = a.substring(a.indexOf("http"), a.lastIndexOf("'")); // ATTENTION : suppose que smallimage est en fin d'attribut
-		
-		if($("#zoom-1 img").attr("src") == b){
-			$(el).parents("li").addClass("current");
-		}	
-	});
-	
-	//Zoom sur l'image de la page produit
-	$('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
-	
-	$(".more-views img").bind("click", function(e) {
-		$(this).parents("li").addClass("current").siblings().removeClass("current");
-		var url = $(this).attr("src");
-		$(this).parents("ul").find("img[src='" + url + "']").parents("li").addClass("current");
-	});
-	//$(".more-views li:not('.bx-clone') img").eq(0).click();
-	
+
 	$(".mousetrap").live("click", function() {
 		//$(this).prev("a").click();
 		//console.log($(this).prevAll("a"));
@@ -202,7 +169,46 @@ jQuery(function($) {
 		}
 	}
 	
-})
+});
+
+var galerie = function(){
+    t = new Array();
+    jQuery(".more-views li a").each(function() {
+        t[t.length] = jQuery(this).attr("href");
+    });
+
+    if (jQuery(".more-views li").length > 6) {
+        /* On initialize bxSlider si on est sur la page produit */
+        jQuery('.bxslider').bxSlider({
+            minSlides: 6,
+            maxSlides: 6,
+            slideWidth: 68,
+            pager: false,
+            slideMargin: 10
+        });
+    }
+
+    /* Permet de mettre l'état current sur la bonnne miniature au chargement */
+    jQuery(".more-views .bxslider a").each(function(idx,el){
+        var a = jQuery(el).attr("rel");
+        var b = a.substring(a.indexOf("http"), a.lastIndexOf("'")); // ATTENTION : suppose que smallimage est en fin d'attribut
+
+        if(jQuery("#zoom-1 img").attr("src") == b){
+            jQuery(el).parents("li").addClass("current");
+        }
+    });
+
+    //Zoom sur l'image de la page produit
+    jQuery('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
+
+    jQuery(".more-views img").bind("click", function(e) {
+        jQuery(this).parents("li").addClass("current").siblings().removeClass("current");
+        var url = jQuery(this).attr("src");
+        jQuery(this).parents("ul").find("img[src='" + url + "']").parents("li").addClass("current");
+    });
+    //$(".more-views li:not('.bx-clone') img").eq(0).click();
+};
+
 
 /*
  * Plugin jQuery d'initilisation des valeurs par défaut sur les champs texte
