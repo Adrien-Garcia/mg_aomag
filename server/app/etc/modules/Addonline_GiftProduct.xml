@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <Addonline_GiftProduct>
-            <active>false</active>
-            <codePool>local</codePool>
-        </Addonline_GiftProduct>
-    </modules>
-</config> 
