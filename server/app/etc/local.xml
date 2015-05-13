@@ -40,9 +40,9 @@
             </db>
             <default_setup>
                 <connection>
-                    <host><![CDATA[localhost]]></host>
-                    <username><![CDATA[taaKcufCbv]]></username>
-                    <password><![CDATA[WEywe2+tuNv]]></password>
+                    <host><![CDATA[127.0.0.1]]></host>
+                    <username><![CDATA[root]]></username>
+                    <password><![CDATA[]]></password>
                     <dbname><![CDATA[addonline_aomagento_magento]]></dbname>
                     <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
                     <model><![CDATA[mysql4]]></model>

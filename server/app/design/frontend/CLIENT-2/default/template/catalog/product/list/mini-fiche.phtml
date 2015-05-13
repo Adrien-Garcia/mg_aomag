@@ -1,0 +1,26 @@
+<?php
+$_product = $this->getData("product");
+$_helper = $this->getParentBlock()->helper('catalog/output');
+$helperao = $this->getParentBlock()->helper('aocatalog');
+$_productNameStripped = $this->stripTags($_product->getName(), null, true);
+?>
+<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->getParentBlock()->stripTags($this->getParentBlock()->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->getParentBlock()->helper('catalog/image')->init($_product, 'small_image')->resize(205); ?>" width="205" height="205" alt="<?php echo $this->getParentBlock()->stripTags($this->getParentBlock()->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                <?php echo $this->getParentBlock()->getPriceHtml($_product, true) ?>
+                <?php if ($helperao->getReductionPercent($_product) > 0) :?>
+                <span class="percentage">-<?php echo $helperao->getReductionPercent($_product); ?>%</span>
+                <?php elseif ( $helperao->isNew(null, $_product) ) :?>
+                <span class="new"><?php echo __("new"); ?></span>
+                <?php endif;?>
+                <p class="short-description"><?php echo $helperao->getHtmlSubstring($_product->getShortDescription(), 90); ?></p>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                <div class="actions">
+                    <ul class="add-to-links">
+                        <?php if ($this->getParentBlock()->helper('wishlist')->isAllow()) : ?>
+                            <li><a href="<?php echo $this->getParentBlock()->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->getParentBlock()->__('Add to Wishlist') ?></a></li>
+                        <?php endif; ?>
+                        <?php if($_compareUrl=$this->getParentBlock()->getAddToCompareUrl($_product)): ?>
+                            <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->getParentBlock()->__('Add to Compare') ?></a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>

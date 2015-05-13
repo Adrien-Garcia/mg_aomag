@@ -1,0 +1,47 @@
+.cms-no-route {
+	
+	.breadcrumbs-container {
+		display: none;
+	}
+	
+	.main-container {
+		position: relative;
+		
+		&::before {
+			content: "";
+			height: 1px;
+			border-bottom: 1px solid #939393;
+			position: absolute;
+			top: 70px;
+			left: 0;
+			right: 0;
+		}
+		
+		.main {
+			margin-top: 0;
+			
+			.page-title {
+				margin: 25px 0;
+			}
+	
+			.std {
+				position: relative;
+				padding: 40px 0 0 470px;
+				
+				&::before {
+					content: "404";
+					font-size: 343px;
+					font-family: @font-bold;
+					color: #0d0d0d;
+					line-height: 343px;
+					opacity: .06;
+					filter: opacity(6);
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+		}
+	}
+	
+}
