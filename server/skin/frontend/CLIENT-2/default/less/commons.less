@@ -7,26 +7,24 @@
 */
 /* fonctions */
 .hover{
-	opacity: .8;
+	opacity: .6;
 }
 
 .primary-button {
 	text-align: center;
 	display: block;
-	font-family: @font-bold;
-	font-size: 16px;
+	font-family: 'oswaldbook';
+	font-size: 12px;
 	text-transform: uppercase;
 	text-decoration: none;
-	color: #fff;
-	background: @c2;
-	border-radius: 4px;
-	padding: 7px 15px;
-	height: 36px;
+	color: @c-01;
+	background: @c-05;
+	height: 30px;
 	border: none;
 	box-sizing: border-box;
 	cursor: pointer;
-	&:hover {
-		.hover;
+	&:hover{
+		.transparent(1);
 	}
 }
 
@@ -166,7 +164,7 @@ ul,ol         { list-style:none; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
 .page-popup { background:#fff; padding:25px 30px; text-align:left; }
 .main-container {  }
-.main { width:@width; padding: @padding; margin:35px auto 0 auto; min-height:400px; background: #fff }
+.main { width:@width; padding: 0; margin:35px auto 0 auto; min-height:400px; background: #fff }
 
 /* Base Columns */
 .col-left { float:left; width:225px; margin-bottom: 20px; }
@@ -331,7 +329,6 @@ p.control input.radio { margin-right:6px; }
 	margin:9px 0 0;
 	padding-left:17px;
 	font-size:14px;
-/* 	font-weight:bold; */
 	line-height:13px;
 	position:relative;
 	color:#dc3c16;
@@ -1501,6 +1498,7 @@ tr.summary-details-excluded { font-style:italic; }
 		border-top: 1px solid rgba(51, 51, 51, 0.1);
 		overflow: hidden;
 		width:	@width;
+		height:120px;
 		margin: 0 auto;
 		
 		.bloc {

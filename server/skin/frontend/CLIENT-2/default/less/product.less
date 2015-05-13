@@ -44,40 +44,40 @@
 /********** < Product Prices */
 .price { white-space:nowrap !important; }
 
-.price-box { margin:5px 0; }
+.price-box { margin:3px 0 10px 0; }
 .price-box .price {  }
 
 /* Regular price */
-.regular-price { color: @c1; }
-.regular-price .price { font-size: 21px; }
+.regular-price { color: @c-08; }
+.regular-price .price { font-size: 16px; }
 
 /* Old price */
-.old-price { margin:0; color: @c4; display: inline; }
+.old-price { margin:0; color: @c-08; display: inline; }
 .old-price .price-label { display: none; }
 .old-price .price { font-size: 16px; text-decoration: line-through; }
 
 /* Special price */
-.special-price { color: @c1; display: inline; }
+.special-price { color: @c-08; display: inline; }
 .special-price .price-label { display: none; }
-.special-price .price { font-size: 21px; }
+.special-price .price { font-size: 16px; }
 
 /* Minimal price (as low as) */
 .minimal-price { }
-.minimal-price .price { color: @c1; font-size: 21px; }
-.minimal-price .price-label { display: block; font-size: 16px; color: @c4; }
+.minimal-price .price { color: @c-08; font-size: 16px; }
+.minimal-price .price-label { display: block; font-size: 16px; color: @c-08; }
 
 .minimal-price-link { display:block; }
-.minimal-price-link .label {color:#1e7ec8;}
-.minimal-price-link .price { font-weight:normal; color:#1e7ec8; }
+.minimal-price-link .label {color:@c-08;}
+.minimal-price-link .price { font-weight:normal; color:@c-08; }
 
 /* Excluding tax */
-.price-excluding-tax { display:block; color:#999; }
-.price-excluding-tax .label { white-space:nowrap; color:#999; }
+.price-excluding-tax { display:block; color:@c-08; }
+.price-excluding-tax .label { white-space:nowrap; color:@c-08; }
 .price-excluding-tax .price { font-size:22px; font-weight:normal; color:@c1; }
 
 /* Including tax */
-.price-including-tax { display:block; color:#999; }
-.price-including-tax .label { white-space:nowrap; color:#999; }
+.price-including-tax { display:block; color:@c-08; }
+.price-including-tax .label { white-space:nowrap; color:@c-08; }
 .price-including-tax .price { font-size:22px; font-weight:normal; color:@c1; }
 
 /* Configured price */
@@ -108,8 +108,8 @@
 	}
 	
 	.price {
-		color: @c1;
-		font-size: 14px;
+		color: @c-08;
+		font-size: 16px;
 	}
 	
 }
@@ -129,7 +129,7 @@
 }
 
 /* Price notice next to the options */
-.price-notice { padding-left:10px; color:#999; }
+.price-notice { padding-left:10px; color:@c-08; }
 .price-notice .price { font-weight:bold; color:#2f2f2f; }
 
 /* Price as configured */
@@ -175,12 +175,6 @@
 .tier-prices-grouped li { padding:2px 0; color:#e26703; }
 .tier-prices-grouped li .price { font-weight:bold; }
 
-/* Add to Links */
-.add-to-links {
-	margin: 15px 0 0;
-	a { color: @c4; }
-	.separator { display:none; }
-}
 
 /* Add to Cart */
 .add-to-cart {
