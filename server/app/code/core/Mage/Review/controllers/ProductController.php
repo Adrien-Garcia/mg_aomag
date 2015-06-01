@@ -216,7 +216,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                 }
             }
         }
-
         if ($redirectUrl = Mage::getSingleton('review/session')->getRedirectUrl(true)) {
             $this->_redirectUrl($redirectUrl);
             return;

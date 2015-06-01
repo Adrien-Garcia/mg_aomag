@@ -1,36 +1,16 @@
 /* Account Login/Create Pages ============================================================ */
 .customer-account-login {
-	
-	/*.main-container {
-		position: relative;
-		
-		&:after {
-			content: "";
-			height: 1px;
-			border-bottom: 1px solid @c4;
-			position: absolute;
-			top: 95px;
-			left: 0;
-			right: 0;
-		}
+
+	.content > h2 {
+		font-family: 'oswaldlight';
+		font-size: 19px;
+		text-transform: uppercase;
+		font-weight: normal;
+		margin-bottom:25px;
 	}
 	
-	.page-title {
-		line-height: 95px;
-		
-		h1 {
-			line-height: 95px;
-		}
-	}*/
-	
-	/*.col2-set {
-		margin-top: 30px;
-	}*/
-	
-	.content > h2 {
-		font-family: @font-bold;
-		font-size: 24px;
-		margin-bottom: 10px;
+	.button-effect-inverse{
+		font-size:12px;
 	}
 }
 
@@ -48,23 +28,41 @@
 .new-users {
 	
 	h2.legend {
-		font-size: 20px;
+		font-family: 'oswaldlight';
+		font-size: 19px;
 		text-transform: uppercase;
+		font-weight: normal;
+		margin:30px 0;
 	}
 	
 	.avantages {
-		color: #000;
+		color: @c-08;
 		display: block;
-		margin-bottom: 5px;
+		margin-bottom: 20px;
 	}
 	
 	.lst-avantages {
-		line-height: 26px;
+		line-height: 19px;
+		font-size:13px;
+		color:@c-08;
 		margin-bottom: 20px;
 		
-		span {
-			color: @c2;
+		li{
+			position:relative;
+			padding-left:15px;
+			
+			&:before{
+				border:1px solid rgba(51, 51, 51, 0.4);
+				width:5px;
+				height:5px;
+				.border-radius(5px);
+				content:"";
+				position:absolute;
+				top:6px;
+				left:0;
+			}
 		}
+
 	}
 
 	.name-prefix {
@@ -157,41 +155,60 @@ body[class^=" newsletter-"] {
 
 /* Navigation */
 .block-account {
-	
-	.block-title {
-		font-size: 24px;
-		font-family: @font-bold;
-		color: #000;
-		margin-bottom: 10px;
-	}
+	width:232px;
 	
 	ul {
-		border-top: 1px solid @c5;
+		border-top: 1px solid 1px solid rgba(0,0,0,0.1);
 		
 		li {
-			line-height: 50px;
-			border-bottom: 1px solid @c5;
+			padding-left:10px;
+			
+			&.current{
+				color:@c-05;
+				position:relative;
+				
+				&:before{
+					position:absolute;
+					top:9px;
+					left:0;
+					content:"";
+					.sprite(@arrow-right-empty);
+				}			
+			}
+			
+			line-height: 30px;
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+			 font-family: 'oswaldbook';
+			 letter-spacing:1px;
+			 text-transform:uppercase ;
 			
 			a {
 				text-decoration: none;
+				color:@c-08;
 			}
 			
 			strong {
 				font-weight: normal;
-				color: @c2;
+				color: @c-05;
 			}
 		}
 	}
 }
 
+.my-account {
+	
+	.title-buttons .link-rss {
+		float:none;
+		margin:0;
+	}
+}
 
-.my-account .title-buttons .link-rss { float:none; margin:0; }
 
 /********** < Dashboard */
 .dashboard {
 	
 	.page-title {
-		border-bottom: 1px solid @c5;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
 		padding-bottom: 20px;
 		margin-bottom: 20px;
 	}
@@ -213,27 +230,67 @@ body[class^=" newsletter-"] {
 	.box-account .box-head { text-align:right; }
 	.box-account .box-head h2 {
 		float:left;
-		font-family: @font-bold;
-		font-size: 24px;
+		font-family: 'oswaldlight';
+		font-size: 18px;
+		text-transform: uppercase;
+		margin-bottom:25px;
+		letter-spacing:1px;
 	}
 	
 	.box .box-title {
 		text-align: right;
 		border-bottom: 1px solid @c5;
-		margin-bottom: 10px;
+		margin-bottom: 25px;
 	}
 	.box .box-title h3,
 	.box .box-title h4 {
 		float:left;
-		font-size: 14px;
 		text-transform: uppercase;
-		font-family: @font-bold;
+		font-size:11px;
+		
 	}
-	.box a {
+	
+	
+	.box .box-title a {
 		color: @c2;
+		position:relative;
+		text-indent:-9999px;
+		
+		
+		&:before{
+			position:absolute;
+			top:0;
+			right:0;
+			content:"";
+			.sprite(@picto-modif);
+			
+		
+		}
 	}
-	.box .box-content h4 {
-		font-weight: normal;
+	.box .box-content{
+		
+		 h4 {
+			font-weight: normal;
+			text-decoration:underline;
+			margin-bottom:5px;
+		}
+		
+		p, address{
+			font-size:14px;
+			line-height:18px;
+			color:@c-05;
+			
+			a{
+				color:@c-08;
+				display:block;
+				margin-top:7px;
+				.transition-ease-in-out(.2s);
+				
+				&:hover{
+					color:@c-04;
+				}
+			}
+		}
 	}
 	
 	/* Block: Recent Orders */

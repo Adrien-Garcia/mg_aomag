@@ -39,13 +39,16 @@
         </p>
 
         <div class="limiter">
-            <select onchange="setLocation(this.value)">
-            <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
-                <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
-                    <?php echo $_limit ?>
-                </option>
-            <?php endforeach; ?>
-            </select> <?php echo $this->__('articles par page') ?>
+            <?php echo $this->__('articles par page') ?>
+            <div class="content-select">
+                <select onchange="setLocation(this.value)">
+                <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+                    <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                        <?php echo $_limit ?>
+                    </option>
+                <?php endforeach; ?>
+                </select> 
+            </div>
         </div>
 
         
@@ -57,13 +60,15 @@
         
         <div class="sort-by">
             <label><?php echo $this->__('Sort By') ?></label>
-            <select onchange="setLocation(this.value)">
-            <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
-                <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
-                    <?php echo $this->__($_order) ?>
-                </option>
-            <?php endforeach; ?>
-            </select>
+            <div class="content-select">
+                <select onchange="setLocation(this.value)">
+                <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+                    <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
+                        <?php echo $this->__($_order) ?>
+                    </option>
+                <?php endforeach; ?>
+                </select>
+            </div>
             <?php if($this->getCurrentDirection() == 'desc'): ?>
                 <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>" class="asc" title="<?php echo $this->__('Set Ascending Direction') ?>"><?php echo $this->__('Set Ascending Direction') ?></a>
             <?php else: ?>

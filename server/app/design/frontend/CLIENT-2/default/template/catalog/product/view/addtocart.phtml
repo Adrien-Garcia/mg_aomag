@@ -29,10 +29,24 @@
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
-        <label for="qty"><?php echo $this->__('Quantity') ?> :</label>
-        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+            <div class="content-cart">
+                <label for="qty"><?php echo $this->__('Quantity') ?> </label>
+                <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+            </div>
         <?php endif; ?>
-        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        
+         <?php if ($this->displayProductStockStatus()): ?>
+                <?php if ($_product->isAvailable()): ?>
+                    <p class="availability in-stock" ><?php echo $this->__('In stock') ?></p>
+                <?php else: ?>
+                    <p class="availability out-of-stock"><?php echo $this->__('Out of stock') ?></p>        
+                <?php endif; ?>
+                <meta itemprop="availability" content="<?php echo $_product->isAvailable()?$this->__('In stock'):$this->__('Out of stock')?>" />
+            <?php endif; ?>
+            
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart button-effect-inverse" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
     </div>
+    
+    
 <?php endif; ?>

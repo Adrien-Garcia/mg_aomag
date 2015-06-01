@@ -37,26 +37,20 @@
 <!-- 2columns-left -->
 <body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
 <?php echo $this->getChildHtml('after_body_start') ?>
-<div class="wrapper">
+<div class="wrapper columnleft2">
     <?php echo $this->getChildHtml('global_notices') ?>
     <div class="page">
         <?php echo $this->getChildHtml('header') ?>
         <div class="main-container col2-left-layout">
-			<div class="breadcrumbs-container"><?php echo $this->getChildHtml('breadcrumbs') ?></div>
-			<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-            <?php echo $this->getChildHtml('global_messages') ?>
+			
+			
 			<div class="main">
-            	
-            	<?php // Compare link
-				$compareHelper = $this->helper('catalog/product_compare');
-				$comparedItemCount = $compareHelper->getItemCount();
-				?>
-				<?php if( $comparedItemCount > 0 ): ?>
-					<a class="compare-link" href="<?php echo $compareHelper->getListUrl(); ?>"><span class="link"><?php echo $this->__("Comparateur"); ?></span> <span class="count">(<?php echo $comparedItemCount; ?>)</span></a>
-				<?php endif; ?>
-            	
+            	<div class="breadcrumbs-container"><?php echo $this->getChildHtml('breadcrumbs') ?></div>           	
                 <?php echo $this->getChildHtml('main-header') ?>
+                <?php echo $this->getChildHtml('page.title') ?>
                 <div class="col-main">
+                    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+                    <?php echo $this->getChildHtml('global_messages') ?>
                     <?php echo $this->getChildHtml('content') ?>
                 </div>
                 <div class="col-left sidebar"><?php echo $this->getChildHtml('left') ?></div>

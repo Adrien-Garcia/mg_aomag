@@ -13,5 +13,5 @@
 	    <?php endforeach; ?>
 	</ul>
 	</div>
-	<a href="" class="link-all-products">Tous les produits</a>
+	<a href="<?php echo $this->getCategoryFromId()->getUrl(); ?>" class="link-all-products"><?php echo $this->__('All products') ?></a>
 <?php endif;  ?>

@@ -25,6 +25,7 @@
  */
 ?>
 <?php if($crumbs && is_array($crumbs)): ?>
+<div class="breadcrumbs-container">
 <div class="breadcrumbs">
     <ul>
     
@@ -66,5 +67,12 @@
             </li>
         <?php endforeach; ?>
     </ul>
+    
+    <?php echo $this->getChildHtml('catalog_compare_head') ?>
+    
+</div>
 </div>
 <?php endif; ?>
+
+
+

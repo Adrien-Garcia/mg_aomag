@@ -1,0 +1,22 @@
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+    $_imgHtml   = '';
+    if ($_imgUrl = $_category->getImageUrl()) {
+        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+    
+    $_category_h1 = "";
+    if($_category->getData('balise_h1')) {
+        $_category_h1 = $_helper->categoryAttribute($_category, $_category->getData('balise_h1'), 'balise_h1');
+    } else {
+        $_category_h1 = $_helper->categoryAttribute($_category, $_category->getName(), 'name');
+    }
+?>
+
+<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+    <div class="category-description std">
+        <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+    </div>
+<?php endif; ?>

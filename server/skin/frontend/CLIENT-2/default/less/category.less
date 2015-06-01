@@ -2,14 +2,18 @@
 .category-title {  }
 .category-image { width:100%; overflow:hidden; margin:0 0 10px; text-align:center; }
 .category-image img {}
-.category-description { margin:0 0 10px; }
+.category-description { 
+	margin:0 0 20px;
+	border-bottom:1px solid rgba(0, 0, 0, 0.2);
+	padding: 0 0 20px;
+}
 .category-products {}
 
 .new {
 	.sprite(@new-fr);
 	position: absolute;
 	top: 0;
-	right: 10px;
+	right: 0;
 	text-indent: -200em;
 	overflow: hidden;
 }
@@ -59,21 +63,32 @@
 }
 
 
-.products-grid {
+.products-grid, .crosssell {
 	position:relative;
+	
 	
 	li.item {
 		border: 1px solid rgba(51, 51, 51, 0.1);;
 		float: left;
-		width: 205px;
+		width: 232px;
 		padding: 10px;
 		margin: 0 8px 8px 0;
 		text-align: center;
 		position: relative;
+		.transition-ease-in-out(.2s);
+		
+		&:hover{
+			border:1px solid rgba(51, 51, 51, 0.5);
+		}
 		
 		&.last {
 			margin-right: 0;
 		}
+		
+		&:last-child{
+			margin-right: 0;
+		}
+		
 		.content-image{
 			position:relative;
 			height:219px;
@@ -146,7 +161,7 @@
 		
 		.product-name {
 			margin: 10px 0 0px;
-			height: 25px;
+			//height: 25px;
 			overflow: hidden;
 			a {
 				font-family: 'oswaldbook';
@@ -163,8 +178,8 @@
 		}
 		
 		.percentage {
-			top: 10px;
-			right: 20px;
+			top: 0;
+			right: 0;
 		}
 		
 		.short-description {
@@ -173,58 +188,7 @@
 			color: @c4;
 		}
 		
-		.link-learn {
-			.primary-button;
-			font-size: 12px;
-			height: 30px;
-			font-family: 'oswaldbook';
-			color:@c-01;
-			line-height:30px;
-			float: left;			
-			width: 208px;
-			width: 208px;
-			display: block;
-			background: none;
-			vertical-align: middle;
-			position: relative;
-			z-index: 1;
-			-webkit-backface-visibility: hidden;
-			-moz-osx-font-smoothing: grayscale;
-			overflow: hidden;
-			-webkit-transition: border-color 0.3s, color 0.3s;
-			transition: border-color 0.3s, color 0.3s;
-			-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-			transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-			background:@c-05;
-			
-			&:before{
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 150%;
-				height: 100%;
-				background: @c-04;
-				z-index: -1;
-				-webkit-transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
-				transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
-				-webkit-transform-origin: 0% 100%;
-				transform-origin: 0% 100%;
-				-webkit-transition: -webkit-transform 0.3s, opacity 0.3s, background-color 0.3s;
-				transition: transform 0.3s, opacity 0.3s, background-color 0.3s;
-			}
-			&:hover{
-				&:before{
-				opacity: 1;
-				background-color:  @c-04;
-				-webkit-transform: rotate3d(0, 0, 1, 0deg);
-				transform: rotate3d(0, 0, 1, 0deg);
-				-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-				transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-				}
-			}
-						
-		}
+		
 
 	}
 
@@ -238,10 +202,11 @@
 .products-list {
 	
 	li.item {
-	
-		position: relative;
+		
+		border:1px solid rgba(0, 0, 0, 0.1);
 		margin-bottom: 20px;
-		margin-right: 20px;
+		padding:10px;
+		position:relative;
 	
 		.product-image {
 			float: left;
@@ -251,55 +216,78 @@
 		.product-shop {
 		
 			float: left;
-			
-			.new {
-				left: 76px;
-				right: auto;
-			}
-			
-			.percentage {
-				top: 10px;
-				left: 140px;
-				right: auto;
-			}
+
 			
 			.product-name {
-				margin: 0 0 5px;
-				height: 43px;
+				margin: 10px 0 10px;
+				height: 22px;
 				overflow: hidden;
 				a {
-					font-family: @font-bold;
+					font-family: 'oswaldbook';
 					font-size: 16px;
 					text-decoration: none;
-					color: @c3;
+					color: @c-05;
+					text-transform:uppercase;
+					letter-spacing:1px;
 				} 
 			}
 			
 			.desc {
-				width: 265px;
-				height: 80px;
+				width: 360px;
+				height: 60px;
 				overflow: hidden;
-				margin-bottom: 33px;
-				color: @c4;
+				margin-bottom: 15px;
+				color: @c-08;
 			}
 			
 			.price-box {
-				position: absolute;
-				top: 70px;
-				right: 0;
-				width: 205px;
-				text-align: center;
+			margin:3px 0 15px;
+				
 				
 			}
 			
-			.link-learn {
-				.primary-button;
-				width: 208px;
-				position: absolute;
-				right: 0;
-				bottom: 10px;
-				font-size: 12px;
+			.add-to-links{
+				margin-bottom:15px;
+				
+				.separator{ 
+					display:none;
+				}
+				
+				li{
+				 display: inline-block;
+				 margin-right:20px;
+					a{
+						color:@c-05;
+						text-decoration:none;
+						display:inline-block;
+						font-size:11px;
+						.transition-ease-in-out(.2s);
+						position: relative;
+						padding:0 0 0 17px;
+						
+						
+						
+						&:before{
+							content:"";
+							.sprite(@add-black);
+							display:block;
+							position:absolute;
+							top:1px;
+							left:0;
+						}
+						
+						&:hover{
+							.transparent(1);
+							color:@c-04;							
+						}
+					}
+				}
+			}
+			
+			.button-effect {
+				width: 232px;
 				height: 30px;
+				text-align:center;
 			}
 			
 		}
@@ -314,23 +302,32 @@
 .block-layered-nav .block-title { display: none; }
 
 .block-layered-nav .block-subtitle {
-	font-family: @font-bold;
-	font-size: 18px;
 	padding: 0 10px;
 	margin-bottom: 10px;
-	color: #000;
+	color:@c-05;
+	font-family: 'oswaldbook';
+	font-size:12px;
+	text-transform: uppercase;
 }
 .block-layered-nav .block-content { background: none;  }
 .block-layered-nav dt {
+	font-size:11px;
 	text-transform: uppercase;
 	margin-bottom: 10px;
 	padding: 0 10px;
-	color: #000;
+	color: @c-05;
 }
 .block-layered-nav dd {
 	padding: 0 10px 20px 10px;
 	margin-bottom: 20px;
 	border-bottom: 1px solid #ddd;
+	font-size:11px;
+	li{
+		line-height:18px;
+		a{
+			color:@c-10;
+		}
+	}
 }
 
 .block-layered-nav .currently {
@@ -378,17 +375,54 @@
 
 /* Toolbar */
 .catalog-category-view .toolbar {
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 	margin-top: 35px;
 }
 
 .toolbar {
-	color: @c4;
-	background: @c5;
+	color: @c-05;
 	clear: both;
 	overflow: hidden;
-	padding: 0 15px;
-	line-height: 36px;
+	padding: 0;
+	line-height: 38px;
+	border-top:1px solid rgba(0, 0, 0, 0.1);
+	border-bottom:1px solid rgba(0, 0, 0, 0.1);
+	font-size:13px;
+	
+	.content-select{
+		  height:25px;
+		   overflow: hidden;
+		   border: 1px solid rgba(51, 51, 51, 0.2);
+		   display:inline-block;
+		   padding:0;
+		   position:relative;
+		   top:7px;
+		   width: 60px;
+		   
+		   &:after{
+				content: "";
+				display:inline-block;
+				.sprite(@arrow-select);
+				position:absolute;
+				top:0;
+				right:0;
+			}	
+			
+			select{
+			   background: transparent;
+			   padding: 0;
+			   font-size: 13px;
+			   line-height:16px;
+			   border: 0;
+			   border-radius: 0;
+			   -webkit-appearance: none;
+			   position:absolute;
+			   top:0;
+			   left:0;
+			    width: 80px;
+				
+			}		
+	}
 	
 	/* Pager */
 	.pager {
@@ -396,16 +430,22 @@
 		
 		.amount {
 			float: left;
-			margin: 0 15px 0 0;
+			margin: 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
+			border-right: 1px solid rgba(0, 0, 0, 0.1);
+			font-style: italic;
+			width:240px;
+			
+			
 		}
 		
 		.limiter {
 			float: left;
-			margin: 0 15px 0 0;
-			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
+			margin: 0;
+			padding: 0 15px 0 10px;
+			
+			label{ display:inline-block;}
+
 		}
 		
 	}
@@ -416,9 +456,10 @@
 		
 		.sort-by {
 			float: left;
-			margin: 0 15px 0 0;
-			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
+			margin: 0;
+			padding: 0 36px 0 25px;
+			
+			
 			
 			.asc, .desc {
 				text-indent: -200em;
@@ -451,7 +492,7 @@
 				overflow: hidden;
 				display: inline-block;
 				vertical-align: middle;
-				opacity: .4;
+				opacity: .2;
 				margin-left: 10px;
 			}
 			
@@ -462,10 +503,14 @@
 			.list {
 				.sprite(@liste);
 			}
-			
-			a:hover {
-				opacity: .7 !important;
+			a{
+				.transition-ease-in-out(.2s);
+				&:hover{
+					.transparent(0.5) !important;
+				} 
 			}
+			
+			
 			
 			strong {
 				opacity: 1 !important;
@@ -482,19 +527,21 @@
 			float: left;
 			
 			&.current {
-				color: @c-05;
+				color: @c-09;
 			}
 			
 			a, span {
-				padding: 0 10px;
+				padding: 0 5px;
+				text-decoration:none;
 			}
 			
 			a.next, a.previous {
 				padding: 0;
-				margin-top: 11px;
+				margin-top: 13px;
 				text-indent: -200em;
 				overflow: hidden;
 				float: left;
+				.transition-ease-in-out(.2s);
 				
 				&:hover {
 					opacity: .4;

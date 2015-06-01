@@ -1,5 +1,5 @@
 <?php
-class Addonline_Catalog_Model_Observer extends Varien_Object {
+/*class Addonline_Catalog_Model_Observer extends Varien_Object {
 	
 	function limitProductCompare($event) {
 		$limit = Mage::getStoreConfig('addonline/aocompare/limit');
@@ -12,4 +12,4 @@ class Addonline_Catalog_Model_Observer extends Varien_Object {
 		$session->getMessages()->clear();
 		$session->addNotice(Mage::helper('catalog/product_compare')->__('You have reached the limit of products to compare. Remove one and try again.'));
 	}
-}
+}*/

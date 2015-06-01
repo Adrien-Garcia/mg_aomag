@@ -43,12 +43,12 @@
                 <div class="content">
                     <h2><?php echo $this->__('New Customers') ?></h2>
                     
-                    <span class="avantages"><?php echo __("Profitez de nombreux avantages :");?></span>
+                    <p class="avantages"><?php echo __("Enregistrez-vous et profitez de nombreux avantages : ");?></p>
                     <ul class="lst-avantages">
-                    	<li><span>-</span> <?php echo __("Commandes plus rapides");?></li>
-                    	<li><span>-</span> <?php echo __("Gestion de carnet d'adresses");?></li>
-                    	<li><span>-</span> <?php echo __("Suivi de commande");?></li>
-                    	<li><span>-</span> <?php echo __("Liste d’envies");?></li>
+                    	<li><?php echo __("Commandes plus rapides");?></li>
+                    	<li><?php echo __("Gestion de carnet d'adresses");?></li>
+                    	<li><?php echo __("Suivi de commande");?></li>
+                    	<li><?php echo __("Liste d’envies");?></li>
                     </ul>
                     
                     <?php echo $this->getChildHtml('customer_form_register'); ?>
@@ -62,13 +62,13 @@
                     <p><?php echo $this->__('If you have an account with us, please log in.') ?></p>
                     <ul class="form-list">
                         <li>
-                            <label for="email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                            <label for="email" class="required"><?php echo $this->__('Email Address') ?><em>*</em></label>
                             <div class="input-box">
                                 <input type="text" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
                             </div>
                         </li>
                         <li>
-                            <label for="pass" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+                            <label for="pass" class="required"><?php echo $this->__('Password') ?><em>*</em></label>
                             <div class="input-box">
                                 <input type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" />
                             </div>
@@ -79,7 +79,7 @@
                     <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
                     <div class="buttons-set">
 	                    <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
-	                    <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+	                    <button type="submit" class="button button-effect-inverse" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
 	                </div>
                 </div>
                 </form>

@@ -165,7 +165,14 @@
 					<action method="setToolbarBlockName"><name>product_list_toolbar_2</name></action>
 				</block>
 			</reference>
+			<reference name="left">
+				<block type="catalog/category_view" name="description_category" template="catalog/category/description.phtml" before="-"/>
+			</reference>
 		</reference>
+		
+		<reference name="breadcrumbs">
+        	<block type="catalog/product_compare_sidebar" name="catalog.compare.head" as="catalog_compare_head" template="catalog/product/compare/sidebar.phtml"/>
+        </reference>
 
 	</catalog_category_layered>
 	<catalog_category_default>
@@ -193,7 +200,15 @@
 					<action method="setToolbarBlockName"><name>product_list_toolbar_2</name></action>
 				</block>
 			</reference>
+			
+			<reference name="left">
+				<block type="catalog/category_view" name="description_category" template="catalog/category/description.phtml" before="-"/>
+			</reference>
 		</reference>
+		
+		<reference name="breadcrumbs">
+        	<block type="catalog/product_compare_sidebar" name="catalog.compare.head" as="catalog_compare_head" template="catalog/product/compare/sidebar.phtml"/>
+        </reference>
 
 	</catalog_category_default>
 	
@@ -209,6 +224,18 @@
 		<!-- Change le titre de la page -->
 		<reference name="head">
 		    <action method="setForcedTitle"><title>Mon panier</title></action>
+		</reference>
+		<reference name="root">
+			<remove name="breadcrumbs"/>
+			<!-- <action method="unsetChild"><name>breadcrumbs</name></action> -->
+		</reference>
+		<reference name="content">
+			<action method="unsetChild"><name>checkout.cart.crosssell</name></action>
+				<block type="checkout/cart_crosssell" name="checkout.cart.crosssell" as="crosssell-mini-fiche" template="checkout/cart/crosssell.phtml">
+					<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
+				</block>
+				<block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs" before="-"/>
+			
 		</reference>
 		
 		<!-- Ajout du fil d'arianne -->
@@ -228,7 +255,8 @@
 		        	<title>Mon panier</title>
 		        </crumbInfo>
 	       	</action>
-	    </reference>
+	    </reference> 
+	    
 	</checkout_cart_index>
 	
 	<checkout_onepage_index translate="label">
@@ -312,5 +340,44 @@
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
 		</reference>
 	</sendfriend_product_send>
-
+	
+	<newsletter_manage_index translate="label">
+		<reference name="root">
+			<block type="core/template" name="pagetitle" as="page.title" template="newsletter/pagetitle.phtml" />
+		</reference>
+	</newsletter_manage_index>
+	
+	<wishlist_index_index translate="label">
+		<reference name="root">
+			<block type="core/template" name="pagetitle" as="page.title" template="wishlist/pagetitle.phtml" />
+		</reference>
+	</wishlist_index_index>
+	
+	 <sales_order_history>
+	 	<reference name="root">
+			<block type="core/template" name="pagetitle" as="page.title" template="sales/order/pagetitle.phtml" />
+		</reference>
+	 </sales_order_history>
+	 
+	  <customer_address_form>
+	 	<reference name="root">
+			<block type="core/template" name="pagetitle" as="page.title" template="customer/address/pagetitle.phtml" />
+		</reference>
+	 </customer_address_form>
+	 
+	 <customer_account_edit>
+	 	<reference name="root">
+			<block type="core/template" name="pagetitle" as="page.title" template="customer/form/pagetitle.phtml" />
+		</reference>
+	 </customer_account_edit>
+	 
+	 <customer_account_index>
+	 	<reference name="root">
+			<block type="core/template" name="pagetitle" as="page.title" template="customer/account/pagetitle.phtml" />
+		</reference>
+	 </customer_account_index>
+	
+	
+	
+    
 </layout>

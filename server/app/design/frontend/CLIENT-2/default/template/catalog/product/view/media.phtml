@@ -38,7 +38,7 @@
 <p class="product-image product-image-zoom">
 	<a href="<?php echo $this->helper('catalog/image')->init($_product, 'image')?>" id="zoom-1" class="cloud-zoom fancybox" rel="zoomWidth: 470, zoomHeight: 470, adjustX: 20, adjustY: 0, showTitle: false, minWidth: 470, minHeight: 470">
     <?php
-        $_img = '<img itemprop="image" id="image" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(470).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" width="470" height="470" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+        $_img = '<img itemprop="image" id="image" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(392,480).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" width="392" height="480" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
         echo $_helper->productAttribute($_product, $_img, 'image');
     ?>
     </a>
@@ -49,8 +49,8 @@
     <ul class="bxslider">
     <?php foreach ($this->getGalleryImages() as $_image): ?>
        	<li>
-            <a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" class="cloud-zoom-gallery" rel="useZoom: 'zoom-1', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(470); ?>'">
-            	<img width="68" height="68" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(68); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+            <a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" class="cloud-zoom-gallery" rel="useZoom: 'zoom-1', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(392); ?>'">
+            	<img width="72" height="88" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(72,88); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
             </a>
        </li>
     <?php endforeach; ?>
