@@ -21,6 +21,11 @@ jQuery(function($) {
 		$(".search").slideToggle();
 	});
 	
+	$(".share-with").click(function(e) {
+		e.preventDefault();
+		$(".addthis_sharing_toolbox").slideToggle();
+	});
+	
 	$("#slideshow").bxSlider({
 		controls: false
 	});

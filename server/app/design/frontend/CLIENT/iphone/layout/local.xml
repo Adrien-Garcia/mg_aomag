@@ -39,7 +39,32 @@ Default layout, loads most of the pages
 			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.bxslider.min.js</name><params/></action>
 			<action method="addItem"><type>skin_js</type><name>js/ao-iphone.js</name></action>
 		</reference>
+		
+		<reference name="header">
+			<block type="page/template_links" name="menu_compte" />
+		</reference>
+		
 	</default>
+	
+	<customer_logged_out>
+		<reference name="menu_compte">
+			<action method="addLink" translate="label" module="customer"><label>Connexion</label><path>/customer/account/</path></action>
+			<action method="addLink" translate="label" module="customer"><label>Nouveau compte</label><path>/customer/account/create/</path></action>
+		</reference>
+	</customer_logged_out>
+	
+	<customer_logged_in>
+		<reference name="menu_compte">
+			<action method="addLink" translate="label" module="customer"><label>Account Dashboard</label><path>/customer/account/</path></action>
+				<action method="addLink" translate="label" module="customer"><label>Account Information</label><path>/customer/account/edit/</path></action>
+				<action method="addLink" translate="label" module="customer"><label>Address Book</label><path>/customer/address/</path></action>
+				<action method="addLink" translate="label" module="sales"><label>My Orders</label><path>/sales/order/history/</path></action>
+				<action method="addLink" translate="label" module="review"><label>My Product Reviews</label><path>/review/customer</path></action>
+				<action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active"><label>My Wishlist</label><path>/wishlist/</path></action>
+				<action method="addLink" translate="label" module="newsletter"><label>Newsletter</label><path>/newsletter/manage/</path></action>
+				<action method="addLink" translate="label" module="customer"><label>Log Out</label><path>/customer/account/logout/</path></action>
+		</reference>
+	</customer_logged_in>
 
     <cms_index_index translate="label">
         <label>CMS Home Page</label>
