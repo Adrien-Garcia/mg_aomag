@@ -37,7 +37,7 @@
 <!-- 1column -->
 <body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
 <?php echo $this->getChildHtml('after_body_start') ?>
-<div class="wrapper">
+<div class="wrapper column1">
     <?php echo $this->getChildHtml('global_notices') ?>
     <div class="page">
         <?php echo $this->getChildHtml('header') ?>
@@ -45,20 +45,15 @@
         <?php echo $this->getChildHtml('slideshow-desktop') ?>
         
         <div class="main-container col1-layout">
-        	<div class="breadcrumbs-container"><?php echo $this->getChildHtml('breadcrumbs') ?></div>
-        	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-        	<?php echo $this->getChildHtml('global_messages') ?>
+        	
             <div class="main">
-            
-            	<?php // Compare link
-				$compareHelper = $this->helper('catalog/product_compare');
-				$comparedItemCount = $compareHelper->getItemCount();
-				?>
-				<?php if( $comparedItemCount > 0 ): ?>
-					<a class="compare-link" href="<?php echo $compareHelper->getListUrl(); ?>"><span class="link"><?php echo $this->__("Comparateur"); ?></span> <span class="count">(<?php echo $comparedItemCount; ?>)</span></a>
-				<?php endif; ?>
+                
+                <?php echo $this->getChildHtml('breadcrumbs') ?>
+            	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+            	<?php echo $this->getChildHtml('global_messages') ?>
             
                 <div class="col-main">
+                    
                     <?php echo $this->getChildHtml('global_messages') ?>
                     <?php echo $this->getChildHtml('content') ?>
                 </div>

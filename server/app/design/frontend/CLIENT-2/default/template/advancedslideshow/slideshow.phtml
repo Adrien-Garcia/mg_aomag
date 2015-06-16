@@ -22,12 +22,12 @@ $_url = $block['url'];
 		<div class="product item" <?php if($block['image'] != null): ?>style="background-image:url(<?php echo $block['image']; ?>);"<?php endif; ?>>
 			<div>
 				<?php /*a class="product-image" href="<?php echo $_url_produit; ?>"><img src="<?php echo $_image_produit; ?>" /></a*/?>
-				<a class="product-name" href="<?php echo $_url_produit; ?>"><?php echo $block['product']['name']; ?></a>
+				<!-- <a class="product-name" href="<?php //echo $_url_produit; ?>"><?php //echo $block['product']['name']; ?></a> -->
 				<?php /*div class="desc std">
     				<?php echo Mage::helper('core/string')->truncate($block['product']->getShortDescription(), 80) ?>
     			</div*/?>
-    			<?php echo $this->getPriceHtml($block['product'], true) ?>
-    			<a class="lnk" href="<?php echo $_url_produit; ?>">Détails</a>
+    			<?php //echo $this->getPriceHtml($block['product'], true) ?>
+    			<a class="button-effect lnk-decouvrir" href="<?php echo $_url_produit; ?>">Découvrir</a>
 			</div>
 		</div>
 	<?php } else {?>

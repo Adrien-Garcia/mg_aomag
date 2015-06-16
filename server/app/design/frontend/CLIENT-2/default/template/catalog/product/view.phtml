@@ -51,18 +51,18 @@
                 <h1 itemprop="name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                 <?php if ( $_product->getData('brand')) :?><span itemprop="brand" itemscope itemtype="http://schema.org/Brand"><meta itemprop="name" content="<?php echo $_product->getAttributeText('brand') ?>"></span><?php endif; ?>
             </div>
+            
+            <div class="wrapper-stock-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <?php echo $this->getChildHtml('product_type_data') ?>
+                <?php echo $this->getTierPriceHtml() ?>
+            </div>
 			
 			<div class="wrapper-sku-ratings">
-				<span class="product-sku"><?php echo __("Rèf : ") ?><?php echo $_product->getSku(); ?></span>
+				<span class="product-sku"><?php echo __("Ref : ") ?><?php echo $_product->getSku(); ?></span>
             	<?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
             </div>
             <?php echo $this->getChildHtml('alert_urls') ?>
-            
-            <div class="wrapper-stock-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <?php echo $this->getChildHtml('product_type_data') ?>
-            <?php echo $this->getTierPriceHtml() ?>
-            </div>
-            
+  
             <?php echo $this->getChildHtml('extrahint') ?>
 
             <?php if (!$this->hasOptions()):?>
@@ -72,12 +72,31 @@
                     <?php endif; ?>
                     <?php echo $this->getChildHtml('addto') ?>
                 </div>
+                
                 <?php echo $this->getChildHtml('extra_buttons') ?>
+                
             <?php elseif (!$_product->isSaleable()): ?>
                 <div class="add-to-box">
                     <?php echo $this->getChildHtml('addto') ?>
                 </div>
             <?php endif; ?>
+            
+            
+           
+            <div class="clearer"></div>
+        <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+            <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+        <?php endif;?>
+            
+            
+            <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+                <div class="description <?php echo "box-{$alias}"?>">
+                    <?php if ($title = $this->getChildData($alias, 'title')):?>
+                    <h2><?php echo $this->escapeHtml($title); ?></h2>
+                    <?php endif;?>
+                    <?php echo $html; ?>
+                </div>
+            <?php endforeach;?>
             
             <?php echo $this->getChildHtml('other');?>
 
@@ -91,10 +110,7 @@
             <?php echo $this->getChildHtml('media') ?>
         </div>
 
-        <div class="clearer"></div>
-        <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-            <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-        <?php endif;?>
+        
     </form>
     <script type="text/javascript">
     //<![CDATA[
@@ -150,14 +166,7 @@
     </div>
 
     <div class="product-collateral">
-<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
-        <div class="box-collateral <?php echo "box-{$alias}"?>">
-            <?php if ($title = $this->getChildData($alias, 'title')):?>
-            <h2><?php echo $this->escapeHtml($title); ?></h2>
-            <?php endif;?>
-            <?php echo $html; ?>
-        </div>
-<?php endforeach;?>
+
         <?php echo $this->getChildHtml('upsell_products') ?>
         <?php echo $this->getChildHtml('product_additional_data') ?>
     </div>

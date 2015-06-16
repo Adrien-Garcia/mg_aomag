@@ -28,6 +28,7 @@
     <h2><?php echo $this->__('Write Your Own Review') ?></h2>
     <?php if ($this->getAllowWriteReviewFlag()): ?>
     <form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
+     <?php echo $this->getBlockHtml('formkey'); ?>
         <fieldset>
             <?php echo $this->getChildHtml('form_fields_before')?>
             <?php if( $this->getRatings() && $this->getRatings()->getSize()): ?>
@@ -68,7 +69,7 @@
                 </ul>
             </fieldset>
             <div class="buttons-set">
-                <button type="submit" title="<?php echo $this->__('Submit Review') ?>" class="button"><span><span><?php echo $this->__('Submit Review') ?></span></span></button>
+                <button type="submit" title="<?php echo $this->__('Submit Review') ?>" class="button button-effect"><span><span><?php echo $this->__('Submit Review') ?></span></span></button>
             </div>
     </form>
     <script type="text/javascript">

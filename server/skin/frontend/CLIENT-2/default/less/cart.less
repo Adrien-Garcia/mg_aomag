@@ -8,24 +8,31 @@
 		margin:1px 0 0 0;
 		background:none;
 		border:none;
-		color:@c4;
+		color:@c-05;
 		font-family:@font-light;
-		font-size:14px;
+		font-size:11px;
 		position:relative;
-		padding:0 0 0 10px;
+		padding:0 0 0 20px;
+		text-decoration:underline;;
 		
 		&:before{
 			content:"";
 			display:block;
 			position:absolute;
-			top:6px;
+			top:2px;
 			left:0;
-			.sprite(@arrow-right-primary);
+			.sprite(@reload);
+			.transition-ease-in-out(.4s);
 		}
 		
 		&:hover{
-			.hover();
+			color:@c-04;
+			&:before{
+				.rotate(-360deg);
+			}
 		}
+		
+		
 	}
 	
 }
@@ -34,34 +41,31 @@
 	
 /* 	table-layout:auto; */
 	
-	thead{
-		tr.last{
-			th{
-				text-transform:uppercase;
-				border-bottom:1px solid @c6;
-				
-			}
-		}
-	}
 	
 	.product-name {
-		margin:0 0 5px;
-		color:@c4;
+		color:@c-08;
+		padding:0 20px;
 		
 		a{
 			text-decoration:none;
+			font-size:13px;
+			color:@c-08;
 		}
 	}
 	
 	td{
-		padding:25px 10px;
+		padding:8px 0;
+		font-size:13px;
+		img{
+			border:1px solid rgba(0, 0, 0, 0.1);
+			padding:7px;
+		}
 	}
 	
 	tr{
 		td{
 			&:first-child{
 				width:76px;
-				padding:0 !important;
 				background:#fff;
 			}
 			&:nth-child(2){
@@ -91,6 +95,7 @@
 	.qty{
 		text-align: center;
 		width:62px;
+		color:@c-08;
 	}
 
 }
@@ -98,8 +103,9 @@
 .btn-continue{
 	background:none;
 	border:none;
-	color:@c4;
-	font-family:@font-light;
+	color:@c-05;
+	font-size:11px;
+	text-transform:uppercase;
 	margin:15px 0 0 0;
 	
 	&:hover{
@@ -107,32 +113,51 @@
 	}
 }
 
-/* Shopping Cart Collateral boxes */
 
+/* Shopping Cart Collateral boxes */
+.crosssell h2{
+	font-family: 'oswaldlight';
+	font-size:24px;
+	color:@c-05;
+	text-transform:uppercase;
+	margin:30px 15px;
+}
 .cart .crosssell,
 .cart .discount{
 	background:#fff;
 	border:none;
 	padding:0;
+	
+	
 }
 .cart .crosssell h2,
 .cart .discount h2,
 .cart .shipping h2{
-	font-family:@font-bold;
 	font-weight:normal;
-	color:@c3;
+	color:@c-05;
 	text-transform: uppercase;
-	padding:0 15px 15px 15px;
-	border-bottom:1px solid @c6;
 	margin:0;
+	text-align:right;
+	font-family: 'oswaldlight';
 }
 
-.cart .cart-collaterals { padding:40px 0 0; }
-.cart .cart-collaterals .col2-set { float:left; width:635px; }
-.cart .cart-collaterals .col2-set .col-2 { margin:0 0 0 2%; }
+.cart .cart-collaterals {
+	width:@width;
+	.cart-collaterals-left{
+		width:552px;
+		float:left;
+		padding:55px 0 0 0;
+	}
+	.cart-collaterals-right{
+		width:312px;
+		float:right;
+	}
+}
 
 
 .cart .crosssell{
+	clear:both;
+	width:@width;
 	
 	.item{
 		padding:22px 15px 19px 0;
@@ -210,46 +235,105 @@
 /* Discount Codes & Estimate Shipping and Tax Boxes */
 .cart .discount,
 .cart .shipping {
-	
+	border:3px double rgba(0,0,0,0.1);
+	padding:30px 45px;
 	margin:0 0 18px;
-	
+	h2{
+		width:115px;
+		float:left;
+	}
 	select,
 	.input-text{
 		width:260px;
 	}
 	
 	button{
-		.lnk-primary();
-		background:none;
+		background:rgba(51,51,51,0.2);
+		font-family: 'oswaldlight';
+		font-size:12px;
+		text-transform:uppercase;
 		border:none;
-		color:@c4;
-		font-size:14px;
+		letter-spacing:1px;
+		line-height:25px;
+		position:relative;
+		padding:0 20px 0 12px;
 		cursor:pointer;
+		.transition-ease-in-out(.2s);
 		
-		&:hover{
-			.hover();
+		&:after{
+			content:"";
+			.sprite(@arrow-right-empty);
+			position:absolute;
+			top:8px;
+			right:10px;
 		}
+		&:hover{
+			background:@c-04;
+		}
+
 	}
 	
-	.buttons-set{
-		margin-top:18px;
-		text-align:left;
-	}
+	
 }
 
 .cart .discount{
+	float:left;
+	
+	width:100%;
+	
+	
 	.input-text{
-		width:260px;
-		margin-top:22px;
+		width:160px;
+		margin-top:12px;
+		float:left;
+		height:25px;
 	}
+	.buttons-set{
+		position:absolute;
+		top:12px;
+		left:164px;
+	}
+	
+	.discount-form{
+		width:295px;
+		float:left;
+		margin-left:30px;
+		position:relative;
+	}
+	
 }
 
 .cart .shipping{
-	margin-top:31px;
+	margin-top:10px;
+	float:left;
+	width:100%;
+		
+	.shipping-form{
+		float:left;
+		width:210px;
+		margin-left:30px;
+	}
 	
-	h2{
-		margin:0 0 17px 0;
-	}	
+	#shipping-zip-form{
+		position:relative;
+		
+		#postcode{
+			width:90px;
+		}
+		select{
+			width:208px;
+		}
+		input{
+			height:25px;
+		}
+		button{
+			position:absolute;
+			top:124px;
+			left:115px;
+		}
+	
+	}
+	
 }
 
 /********** < Common Checkout Styles */
@@ -320,20 +404,31 @@
 /* Shopping Cart Totals */
 .cart .totals { 
 	float:right;
-	width:305px;
-	padding-right:67px;
+	width:312px;
+	text-transform: uppercase;
+	text-align:left;
 	
+	.border{
+		border-bottom:1px solid rgba(0,0,0,0.1);
+	}
 	table {
 		width:100%;
-		font-size:14px;
+		font-size:11px;
 	}
 	
 	td {
-		padding:0 0 5px 0;
+		padding:0 0 10px 0;
+		width:150px;
 		
 		&:first-child{
 			padding-right:0;
 		}
+	}
+	
+	.grand-total-txt{
+		font-size:18px;
+		color:@c-05;
+		padding-top:10px;
 	}
 	
 	tfoot{
@@ -352,21 +447,13 @@
 		}
 		
 		> tr:last-child{
-			font-size:22px;
-			color:@c3;
+			font-size:18px;
+			color:@c-05;
 			
-			td:first-child{
-				padding-right:20px;
-			}
-			
-			td{
-				padding:15px 0 0 0;
-			}
 		}
 		
 		th strong,
 		td strong {
-			font-family:@font-bold;
 			font-weight:normal;
 		}
 	}
@@ -381,10 +468,10 @@
 			margin:10px 0;
 			
 			button{
-				.primary-button();
-				height:46px;
-				width:308px;
+				height:48px;
+				width:312px;
 				margin-left:-18px;
+				line-height:48px;
 				
 				span{
 					background:none;
