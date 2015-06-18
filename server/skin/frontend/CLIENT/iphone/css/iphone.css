@@ -233,7 +233,24 @@ a.btn-remove,
 	width: 25px;
 }
 
-a.link-edit { background:url(../images/btn_edit.png) no-repeat left; display:inline-block; font-size:11px; font-weight:normal; line-height:18px; padding:0 0 0 23px; }
+a.link-edit {
+	position: relative;
+	display: inline-block;
+	font-size: 11px;
+	font-weight: normal;
+	line-height: 18px;
+	padding: 0 0 0 23px;
+}
+	a.link-edit:before {
+		content: "";
+		background: url(../images/sprite_retina.png) -50px -125px;
+		background-size: 125px 150px;
+		width: 25px;
+		height: 25px;
+		position: absolute;
+		top: -4px;
+		left: 0;
+	}
 
 .reward-message,
 .messages .note-msg,
@@ -663,10 +680,10 @@ body > footer {
 }
 address.copyright {
 	background: #dddddd;
-	line-height: 20px;
-	height: 45px;
+	line-height: 50px;
+	height: 50px;
 	color: #9e9e9e;
-	padding: 5px 60px 0 10px;
+	padding: 0 60px 0 10px;
 	margin: 20px 10px 0 10px;
 	position: relative;
 	font-size: 16px;
@@ -1749,7 +1766,7 @@ input[type="checkbox"]:checked {
 /* ------------ */
 
 .product-view .box-tags { padding:15px; }
-.product-view .box-tags a { color:#1394ca; display:inline-block; font-weight:bold; }
+.product-view .box-tags a { color:#f18200; display:inline-block; font-weight:bold; }
 .product-view .box-tags li { display:inline; margin-right:10px; }
 .product-view .box-tags h2 { color:#424242; font-size:18px; font-weight:bold; margin:0 0 10px; }
 .product-view .box-tags h3,
@@ -1781,6 +1798,12 @@ input[type="checkbox"]:checked {
 
 .share-with {
 	margin: 0 0 0 5px;
+}
+
+.addthis_sharing_toolbox {
+	display: none;
+	margin-top: 20px;
+	text-align: center;
 }
 
 .link-wishlist span, .share-with span {
@@ -2134,7 +2157,7 @@ input[type="checkbox"]:checked {
     display:block;
 }
 .my-account .info-box.recent-orders .box-title a:before {
-    background: url(../images/sprite_retina.png) -100px -451px;
+    background: url(../images/sprite_retina.png) -100px -200px;
 	background-size: 250px 300px;
     content:"";
     
@@ -2149,7 +2172,7 @@ input[type="checkbox"]:checked {
 
 .my-account .box .box-title a:before,
 .my-account .info-box .box-title a:before {
-    background: url(../images/sprite_retina.png) -50px -451px;
+    background: url(../images/sprite_retina.png) -50px -200px;
 	background-size: 250px 300px;
     content:"";
     
@@ -2319,7 +2342,7 @@ input[type="checkbox"]:checked {
 }
 
 .my-account .dashboard .info-box .box-title:before {
-    background: url(../images/sprite_retina.png) -15px -472px;
+    background: url(../images/sprite_retina.png) -15px -222px;
 	background-size: 250px 300px;
     content:"";
     
@@ -2331,7 +2354,7 @@ input[type="checkbox"]:checked {
     left: 17px;
 }
 .my-account .dashboard .box .box-title:before {
-    background: url(../images/sprite_retina.png) -15px -472px;
+    background: url(../images/sprite_retina.png) -15px -222px;
 	background-size: 250px 300px;
     content:"";
     
@@ -2343,11 +2366,11 @@ input[type="checkbox"]:checked {
     left: 17px;
 }
 .my-account .dashboard .info-box .box-title.collapsed:before { 
-	background: url(../images/sprite_retina.png) -165px -472px;
+	background: url(../images/sprite_retina.png) -165px -222px;
 	background-size: 250px 300px;
 }
 .my-account .dashboard .box .box-title.collapsed:before{ 
-	background: url(../images/sprite_retina.png) -165px -472px;
+	background: url(../images/sprite_retina.png) -165px -222px;
 	background-size: 250px 300px;
 }
 .my-account .dashboard .box-reviews ol { list-style:none; padding:0; }
@@ -2538,7 +2561,7 @@ input[type="checkbox"]:checked {
 -----------------------------*/
 .my-wishlist .data-table { border-spacing:0; border-collapse:collapse; width:100%; }
 .my-wishlist .data-table th,
-.my-wishlist .data-table td { padding:15px; text-align:left; vertical-align:top; }
+.my-wishlist .data-table td { padding:15px 0; text-align:left; vertical-align:top; border-bottom: 1px solid #ddd; }
 .my-wishlist .data-table tr { }
 .my-wishlist .data-table .select { display:none; }
 .my-wishlist .data-table .btn-remove { float:right; }
@@ -2547,10 +2570,10 @@ input[type="checkbox"]:checked {
 .my-wishlist .data-table .product-image img { display:block; margin:0 0 10px; }
 .my-wishlist .data-table .price-box { margin:10px 0; }
 .my-wishlist .data-table .comment { clear:left; margin:10px 0 0; }
-.my-wishlist .data-table .btn-cart { background:transparent; border:none; color:#1394ca; font-size:15px; height:16px; display:inline-block; margin:0 5px; padding:0; text-decoration:underline; -webkit-appearance:none; vertical-align:middle; }
+.my-wishlist .data-table .btn-cart { background:transparent; border:none; color:#f18200; font-size:15px; height:16px; display:inline-block; margin:0 5px; padding:0; text-decoration:underline; -webkit-appearance:none; vertical-align:middle; }
 .my-wishlist .data-table .added-on { font-size:11px; }
 .my-wishlist .data-table .qty { vertical-align:middle; width:50px; }
-.my-wishlist .buttons-set { padding:15px 15px 10px; }
+.my-wishlist .buttons-set { padding: 15px 0; }
 .my-wishlist .buttons-set:empty,
 .my-wishlist .wishlist-empty + .buttons-set { display:none; }
 .my-wishlist .buttons-set button { margin:10px 0 !important; }
@@ -2583,7 +2606,7 @@ input[type="checkbox"]:checked {
 }
 .my-wishlist .item-manage .split-button .list-container li {
     border-bottom:1px solid #e4e4e4;
-    color:#1394ca;
+    color:#f18200;
     padding:8px;
 }
 .my-wishlist .item-manage .split-button .list-container li:last-child {
@@ -2678,8 +2701,6 @@ input[type="checkbox"]:checked {
 	background: #dddddd;
 	color: #474747;
 	display: block;
-	height: 30px;
-	line-height: 30px;
 	font: 16px/18px open_sanslight;
 	text-transform: none;
 }
@@ -2708,7 +2729,7 @@ input[type="checkbox"]:checked {
 
 .cart-table .downloadable { margin:10px 0 0; }
 .cart-table .product-options td { background:none; padding:0; }
-.cart-table .product-options .toggle { color:#1394ca; cursor:pointer; display:inline-block; margin:10px; }
+.cart-table .product-options .toggle { color:#f18200; cursor:pointer; display:inline-block; margin:10px; }
 .cart-table .product-options .item-options { padding-top:10px; }
 
 .cart-table .toggle { font-size:13px; display:inline-block; }
@@ -3042,10 +3063,8 @@ ul.disc li { padding-left:10px; background:url(../images/bkg_bulletsm.gif) no-re
     text-transform :uppercase;
     display:block;
     border:0;
-    height:50px;
-    line-height:35px;
     margin:0;
-    padding:0;
+    padding: 9px 0;
     -webkit-appearance:none;
             appearance:none;
 /*     text-shadow:0 -1px 0 rgba(0, 0, 0, .45); */
@@ -3053,8 +3072,7 @@ ul.disc li { padding-left:10px; background:url(../images/bkg_bulletsm.gif) no-re
 }
 
 .more-button {
-    height: 38px;
-    padding: 6px 0;
+
     position: relative;
 }
 
@@ -3077,7 +3095,7 @@ ul.disc li { padding-left:10px; background:url(../images/bkg_bulletsm.gif) no-re
 .catalogsearch-result-index .more {
 	margin-top: 15px;
 }
-/* .more-button { background:url(../images/bg_gradient.png) repeat-x #1394ca center; color:#fff; font-size:21px; line-height:25px; display:inline-block; padding:5px 25px; position:relative; vertical-align:top; } */
+/* .more-button { background:url(../images/bg_gradient.png) repeat-x #f18200 center; color:#fff; font-size:21px; line-height:25px; display:inline-block; padding:5px 25px; position:relative; vertical-align:top; } */
 
 /* Theme options */
 
@@ -3246,7 +3264,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
     .controls .next { background-image:url(../images/arrow_right_retina.png); background-size:7px 12px; }
     
     /*a.btn-remove, .btn-remove2 { background-image:url(../images/btn_remove_retina.png); background-size:11px 11px; }*/
-    a.link-edit { background-image:url(../images/btn_edit_retina.png); background-size:18px 18px; }
+    /*a.link-edit { background-image:url(../images/btn_edit_retina.png); background-size:18px 18px; }*/
     
     
 

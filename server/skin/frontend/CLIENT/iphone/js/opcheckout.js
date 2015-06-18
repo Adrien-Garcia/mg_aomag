@@ -302,6 +302,7 @@ Billing.prototype = {
 
     resetLoadWaiting: function(transport){
         checkout.setLoadWaiting(false);
+        jQuery("html, body").animate({scrollTop: 0}, 200);
     },
 
     /**
@@ -467,6 +468,7 @@ Shipping.prototype = {
 
     resetLoadWaiting: function(transport){
         checkout.setLoadWaiting(false);
+        jQuery("html, body").animate({scrollTop: 0}, 200);
     },
 
     nextStep: function(transport){
@@ -558,6 +560,7 @@ ShippingMethod.prototype = {
 
     resetLoadWaiting: function(transport){
         checkout.setLoadWaiting(false);
+        jQuery("html, body").animate({scrollTop: 0}, 200);
     },
 
     nextStep: function(transport){
@@ -761,6 +764,7 @@ Payment.prototype = {
 
     resetLoadWaiting: function(){
         checkout.setLoadWaiting(false);
+        jQuery("html, body").animate({scrollTop: 0}, 200);
     },
 
     nextStep: function(transport){
@@ -828,6 +832,7 @@ Review.prototype = {
 
     resetLoadWaiting: function(transport){
         checkout.setLoadWaiting(false, this.isSuccess);
+        jQuery("html, body").animate({scrollTop: 0}, 200);
     },
 
     nextStep: function(transport){
