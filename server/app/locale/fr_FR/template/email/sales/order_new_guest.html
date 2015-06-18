@@ -1,4 +1,4 @@
-<!--@subject {{var store.getFrontendName()}}: New Order # {{var order.increment_id}} @-->
+<!--@subject {{var store.getFrontendName()}}: Nouvelle commande n°{{var order.increment_id}} @-->
 <!--@vars
 {"store url=\"\"":"Store Url",
 "var logo_url":"Email Logo Image Url",
@@ -18,8 +18,8 @@
 body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
 @-->
 
-<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
-<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<body style="background:#F0F0F0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F0F0F0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
 <tr>
     <td align="center" valign="top" style="padding:20px 0 20px 0">
@@ -33,16 +33,14 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                 <td valign="top">
                     <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">Bonjour, {{htmlescape var=$order.getBillingAddress().getName()}}</h1>
                     <p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
-                        Nous vous remercions pour votre commande auprès de {{var store.getFrontendName()}}. Une fois votre colis expédié, nous vous enverrons un e-mail avec un lien pour suivre votre commande. Si vous avez des questions au sujet de votre commande, veuillez nous contacter à l'adresse.
-                        ou nous appeler au.
-                        du lundi au vendredi entre 8h et 17h <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> Vous trouverez la confirmation de votre commande ci-dessous. Merci encore de votre confiance <span class="nobr">{{config path='general/store_information/phone'}}</span> Votre commande #{{var order.increment_id}}.
-                    </p>
-                    <p style="font-size:12px; line-height:16px; margin:0;">(enregistrée le {{var order.getCreatedAtFormated('long')}}).</p>
-                </td>
+                <span style="font-size:12px; line-height:16px; margin:0;">Merci d'avoir passé commande sur  {{var store.getFrontendName()}}.<br/>Nous vous enverrons prochainement un lien de suivi pour votre colis lorsqu'il sera expédié.</span></p>
+                  <p style="font-size:12px; line-height:16px; margin:0;">Si vous avez des questions au sujet de votre commande, n'hésitez pas à nous contacter sur <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> ou bien appelez-nous au <span class="nobr">{{config path='general/store_information/phone'}}</span> du lundi au vendredi, de 9h  à 18h. </p>
+                    <p align="center" style="font-size:12px; line-height:16px; margin:0;"><br>
+                Votre confirmation de commande est ci-dessous.</p></td>
             </tr>
             <tr>
                 <td>
-                    <h2 style="font-size:18px; font-weight:normal; margin:0;">Informations de facturation <small>Mode de paiement</small></h2>
+                    <h2 style="font-size:18px; font-weight:normal; margin:0;">Votre commande n°{{var order.increment_id}} <small>(datant du {{var order.getCreatedAtFormated('long')}})</small></h2>
                 </td>
             </tr>
             <tr>
@@ -50,9 +48,9 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                     <table cellspacing="0" cellpadding="0" border="0" width="650">
                         <thead>
                         <tr>
-                            <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">Informations d'expédition:</th>
+                            <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">Informations de facturation :</th>
                             <th width="10"></th>
-                            <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">Mode d'expédition:</th>
+                            <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">Mode de paiement :</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -72,9 +70,9 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                         <thead>
                         <tr>
-                            <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">Merci encore:</th>
+                            <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">Informations de livraison :</th>
                             <th width="10"></th>
-                            <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">Méthode d'expédition:</th>
+                            <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">Mode de livraison :</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -98,7 +96,10 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                 </td>
             </tr>
             <tr>
-                <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;">Encore merci, <strong>{{var store.getFrontendName()}}</strong></p></center></td>
+                <td bgcolor="#EAEAEA" align="center" style="background:#dcdcdc; text-align:center;"><center>
+              <p style="font-size:12px; margin:0;"><span style="font-size:12px; line-height:16px; margin:0;">Pour votre prochaine commande, nous vous conseillons de <a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">créer un compte</a></span>.</p>
+              <p style="font-size:12px; margin:0;"><span style="font-size:12px; line-height:16px; margin:0;">Merci encore de votre achat</span>.<br> L'équipe <strong>{{var store.getFrontendName()}}</strong></p>
+              </center></td>
             </tr>
         </table>
     </td>
