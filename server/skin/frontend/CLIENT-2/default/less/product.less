@@ -86,7 +86,7 @@
 /* Minimal price (as low as) */
 .minimal-price { }
 .minimal-price .price { color: @c-08; font-size: 16px; }
-.minimal-price .price-label { display: block; font-size: 16px; color: @c-08; }
+.minimal-price .price-label { display: inline-block; font-size: 16px; color: @c-08; }
 
 .minimal-price-link { display:block; }
 .minimal-price-link .label {color:@c-08;}
@@ -300,6 +300,9 @@
 	display: inline;
 }
 
+.catalog-product-view .breadcrumbs-container{ position: relative; border-bottom: solid 1px #e5e5e5;}
+.catalog-product-view .main{ margin-top: 20px;}
+
 
 
 /* Product Shop */
@@ -462,7 +465,7 @@
 	
 	.add-to-links {
 		text-align: right;
-		margin-top: 100px;
+		margin-top: 75px;
 		
 		li {
 			display: inline;
@@ -475,6 +478,7 @@
 				text-decoration:none;
 				position:relative;
 				display:inline-block;
+				font-size: 11px;
 				.transition-ease-in-out(.2s);
 				
 				&:hover{
@@ -484,7 +488,7 @@
 				
 				&:before{
 					position:absolute;
-					top: 4px;
+					top: 0px;
 					left:-18px;
 					content:"";
 					.sprite(@add-black);
@@ -512,6 +516,8 @@
 		border: none;
 		text-align: center;
 		display: block;
+
+		span{ font-size: 18px; letter-spacing: 3px;}
 	}
 	
 	.description{
@@ -527,6 +533,12 @@
 			text-transform:uppercase;
 			color:c-01;
 		}
+
+		.std{
+			font-size: 12px;
+			line-height: 16px;
+			font-family: georgia;
+		}
 	}
 }
 
@@ -534,11 +546,14 @@
 	
 	h2 {
 		 font-family: 'oswaldlight';
-		font-size: 30px;
+		//font-size: 30px;
+		font-size: 18px;
 		margin-bottom: 20px;
 		letter-spacin:1px;
 		text-transform:uppercase;
 		color:c-01;
+		padding-top: 20px;
+		border-top: solid 1px #e5e5e5;
 	}
 	
 	.box-collateral {
@@ -676,6 +691,7 @@
 	.add-to-cart{
 		float:left;
 		width:208px;
+		margin-bottom: 45px;
 	}
 	
 	 .add-to-links{

@@ -1,4 +1,9 @@
 .cms-no-route {
+
+	h1{
+		padding-bottom: 20px;
+		border-bottom: solid 1px #e5e5e5;
+	}
 	
 	.breadcrumbs-container {
 		display: none;
@@ -8,13 +13,13 @@
 		position: relative;
 		
 		&::before {
-			content: "";
-			height: 1px;
+			content: none;
+			/*height: 1px;
 			border-bottom: 1px solid #939393;
 			position: absolute;
 			top: 70px;
 			left: 0;
-			right: 0;
+			right: 0;*/
 		}
 		
 		
@@ -27,7 +32,35 @@
 	
 			.std {
 				position: relative;
-				padding: 40px 0 0 470px;
+				/*padding: 40px 0 0 470px;*/
+
+				li{
+					position:relative;
+					color:@c-08;
+					font-size:13px;
+					line-height:18px;
+					padding:0 0 0 12px;
+					
+					&:before{
+						content:"";
+						.arrondi(5px);
+						display:block;
+						width:3px;
+						height:3px;
+						position:absolute;
+						top:6px;
+						left:0;
+						border:1px solid @c-08;
+						background: none;
+					}
+				}
+
+				a{ 
+					color:#333;
+					text-decoration: underline;
+					
+					&:hover{ text-decoration: none;}
+				}
 				
 				&::before {
 					content: "404";

@@ -86,6 +86,9 @@
 .checkout-onepage-index .col-main { 
 	padding:0; 
 	border:0; 
+
+
+	.button-effect-inverse{float: none;}
 }
 
 .opc .buttons-set { 
@@ -322,10 +325,10 @@
 				content:"";
 				.arrondi(5px);
 				display:block;
-				width:5px;
-				height:5px;
+				width:3px;
+				height:3px;
 				position:absolute;
-				top:5px;
+				top:6px;
 				left:0;
 				border:1px solid @c-08;
 			}
@@ -336,7 +339,7 @@
 #opc-login .col-1 h4,#opc-login .col-1 .ul { display:none; }
 
 #checkout-step-review.step { }
-#opc-review .step { padding:30px 0; }
+#opc-review .step { padding:30px 0;  max-width: 700px;  width: 700px;  overflow: hidden; }
 #opc-review .product-name { font-weight:bold; color:#0a263c; }
 #opc-review .item-options { margin:5px 0 0; }
 #opc-review .buttons-set { padding:20px 0; border:0; }
@@ -384,12 +387,15 @@
 		.name-prefix{
 			width:72px;
 			float:left;
+
+			select{height:23px;}
 			
 		}
 		
 		.name-firstname{
 			width:365px;
 			float:right;
+			margin-top: -1px;
 		}
 	}
 
@@ -660,17 +666,30 @@ dd.s_method_gls li span.price{
 			margin:3px 0 4px 0;
 			
 			a{
-				color:@c-05;
+				color:@c-05; 
+				text-indent: -2000px;
+				overflow: hidden;
+				float: right;
+				margin-top: -18px;
+				display: inline-block;
+				.sprite(@edit-adresse);
 			}
 		}
+
+
 	}
 	
 	dd{
 		padding-bottom:18px;
 		margin-bottom:15px;
+		margin-top:20px; 
 		border-bottom:1px solid @c5;
-		font-size:11px;
+		font-size:13px;
+		color: #999;
+		line-height: 18px;
 		color:@c-08;
+
+		
 	}
 	
 	#payment-progress-opcheckout{
@@ -707,9 +726,14 @@ dd.s_method_gls li span.price{
 	
 	thead tr.last th{
 		text-transform: uppercase;
-		border-bottom: 1px solid rgb(212, 212, 212);
+		//border-bottom: 1px solid rgb(212, 212, 212);
 		padding-top:0px;
 	}
+	thead tr.last th:last-child{border-right: 1px solid rgb(212, 212, 212);}
+
+	thead tr th span.tax-flag{
+		text-transform: none;
+		font-size: 9px;}
 	
 	th{
 		font-size:14px;
@@ -756,7 +780,7 @@ dd.s_method_gls li span.price{
 			}
 			
 			position:relative;
-			left:-20px;
+			//left:-20px;
 		}
 		
 		> tr:first-child{
@@ -800,8 +824,14 @@ dd.s_method_gls li span.price{
 	}
 }
 
+
+
 #review-buttons-container{
-	padding-right:20px !important;
+	//padding-right:20px !important;
+
+	.f-left{
+		a{margin-left: 20px;}
+	}
 	
 	button{
 		height:46px;

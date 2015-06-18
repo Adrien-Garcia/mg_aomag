@@ -207,6 +207,11 @@ var galerie = function(){
         jQuery(this).parents("ul").find("img[src='" + url + "']").parents("li").addClass("current");
     });
     //$(".more-views li:not('.bx-clone') img").eq(0).click();
+
+    
+    //Style autocomplete recherche
+	$("#search_autocomplete").css({"border": "solid 1px ##d6d6d6", "background-color": "#FFF", "display": "block" })
+
 };
 
 

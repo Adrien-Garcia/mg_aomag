@@ -10,6 +10,24 @@
 	opacity: .6;
 }
 
+#search_autocomplete.search-autocomplete{ 
+
+	border:solid 1px #d6d6d6; 
+	background: color:#FFF; 
+	padding: 5px; 
+	cursor: pointer;
+	z-index: 9999;
+
+	ul{
+		li{
+			padding: 3px;
+			&:hover{ background:#e5e5e5;
+			 }
+		}
+	}
+
+}
+
 .primary-button {
 	text-align: center;
 	display: block;
@@ -56,7 +74,7 @@
 	}
 }
 
-.button-effect-inverse {
+button, .button-effect-inverse {
 	letter-spacing:1px;
 	text-decoration:none;
 	text-transform:uppercase;
@@ -77,6 +95,7 @@
 	background:@c-04;
 	border:none;
 	cursor:pointer;
+	font-weight: normal !important;
 	
 	&:before{
 		content: '';
@@ -447,7 +466,7 @@ p.control input.radio { margin-right:6px; }
 	font-size:14px;
 	line-height:13px;
 	position:relative;
-	color:#dc3c16;
+	color:#f15c22;
 	font-family:@font-light;
 	
 	
@@ -460,7 +479,7 @@ p.control input.radio { margin-right:6px; }
 		left:0;
 	}
 }
-.validation-failed { border:1px solid #dc3c16 !important; background:#fff !important; }
+.validation-failed { border:1px solid #f15c22 !important; background:#fff !important; }
 .validation-passed {}
 p.required {
 	
@@ -481,7 +500,7 @@ p.required {
 /* messages */
 .main .messages { display: none; } /* les messages sont affciher au niveau template de page (1colmun.phtml...) */
 .success { color:#84cb1d; }
-.error { color:#dc3c16; }
+.error { color:#f15c22; }
 .notice { color:#dbb000; }
 
 .messages {
@@ -514,7 +533,7 @@ p.required {
 		}
 		
 		&.error-msg {
-			color: #dc3c16;
+			color: #f15c22;
 			
 			ul:before {
 				content: "";
@@ -550,7 +569,7 @@ p.required {
 /* fil d'Arianne breadcumb chemin */
 .columnleft2{
 	.breadcrumbs-container {
-		top:65px;
+		top:30px;
 		position:absolute;
 		left:0;
 	}	
@@ -616,6 +635,8 @@ p.required {
 .page-title {
 	position: relative;
 	
+	
+
 	h1,
 	h2 {
 		 font-family: 'oswaldlight';
@@ -1097,6 +1118,13 @@ tr.summary-details-excluded { font-style:italic; }
 				.header .form-search .search-autocomplete li .amount { float:right; font-weight:bold; }
 				.header .form-search .search-autocomplete li.odd { background-color:#fffefb; }
 				.header .form-search .search-autocomplete li.selected { background-color:#f7e8dd; }
+
+				.search_autocomplete{
+					display: block !important;
+					border:solid 1px red;
+					padding:3px;
+					background-color:#FFF;
+				}
 			}
 	
 		}
