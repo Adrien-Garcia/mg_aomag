@@ -13,7 +13,7 @@
 #search_autocomplete.search-autocomplete{ 
 
 	border:solid 1px #d6d6d6; 
-	background: color:#FFF; 
+	background-color:#FFF; 
 	padding: 5px; 
 	cursor: pointer;
 	z-index: 9999;
@@ -351,7 +351,7 @@ label.required em {
 */
 /* formulaires */
 input,select,textarea,button {
-	font-family: @font-light;
+	/*font-family: @font-light;*/
 	font-size: 14px;
 }
 
@@ -1847,6 +1847,8 @@ tr.summary-details-excluded { font-style:italic; }
 				.placeholder(rgba(51, 51, 51, 0.2));
 				font-size:12px;
 			}
+			#newsletter { height:25px;}
+
 			button.button{
 				background:@c-06;
 				color:@c-05;
@@ -1859,14 +1861,17 @@ tr.summary-details-excluded { font-style:italic; }
 				 line-height:25px;
 				 .transition-ease-in-out(.2s);
 				 position:relative;
+				 display: inline-block;
+
 				 &:hover{
-				 	.scale(1.2);
+				 	//.scale(1.2);
 				 }
+
 				 &:before {
 					position:absolute;
 					display:block;
 					content:"";
-					.sprite(@arrow-right-empty);
+					.sprite(@fleche-nl-footer);
 					left: 33px;
 					top: 9px;				
 				}
