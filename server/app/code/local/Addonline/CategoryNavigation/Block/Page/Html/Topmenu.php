@@ -20,7 +20,16 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
     protected function _getHtml(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)
     {
         $html = '';
+        
         $isClient4 = Mage::getSingleton('core/design_package')->getPackageName() == "CLIENT-4";
+        
+        /*
+         * la variable personnalisée 'include_category_thumb_in_navigation_submenu' à TRUE
+         * indique que la miniature de la catégorie de 1er niveau
+         * doit être affichée dans le sous megnou
+         */ 
+        $includeThumb = Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('include_category_thumb_in_navigation_submenu')->getValue('text')=='true'?true:false;
+        
         $children = $menuTree->getChildren();
         $parentLevel = $menuTree->getLevel();
         $childLevel = is_null($parentLevel) ? 0 : $parentLevel + 1;
@@ -30,7 +39,7 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
 
         $parentPositionClass = $menuTree->getPositionClass();
         $itemPositionClassPrefix = $parentPositionClass ? $parentPositionClass . '-' : 'nav-';
-        if( $childLevel == 1 && $isClient4) $html .="<div>";
+        //if( $childLevel == 1 && $includeThumb) $html .="<div>";
         foreach ($children as $child) {
 
             $child->setLevel($childLevel);
@@ -60,21 +69,18 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
                 if (!empty($childrenWrapClass)) {
                     $html .= '<div class="' . $childrenWrapClass . '">';
                 }
-                $html .= '<ul class="level' . $childLevel . '">';
+                
+                if( $includeThumb && $childLevel == 0 && $child->getThumbnail() ) {
+                    $html .= '<ul class="level' . $childLevel . '  with-thumb">';
+                } else {
+                    $html .= '<ul class="level' . $childLevel . '">';
+                }
 
                 $html .= $this->_getHtml($child, $childrenWrapClass);
 
-                //Uniquement dans le Package de skin "Client-4"
-                if($isClient4){
-                    if( $childLevel == 0){
-                        //S'il y a une image
-                        
-                        if($child->getThumbnail()){
-                            $html .= "<li class='img-category'><img class='visuel' src='". $child->getThumbnail() ."' /></li>";
-                        }else{
-                            $html .= "";
-                        }
-                    }
+                // on ajoute si besoin un li pour la miniature
+                if( $includeThumb && $childLevel == 0 && $child->getThumbnail() ) {
+                    $html .= "<li class='img-category'><img class='visuel' src='". $child->getThumbnail() ."' /></li>";
                 }
 
                 $html .= '</ul>';
@@ -89,7 +95,7 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
 
             $counter++;
         }
-        if( $childLevel == 1 && $isClient4) $html .= "</div>";
+        //if( $childLevel == 1 && $includeThumb) $html .= "</div>";
         return $html;
     }
 

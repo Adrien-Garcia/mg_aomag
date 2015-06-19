@@ -13,7 +13,7 @@
 #search_autocomplete.search-autocomplete{ 
 
 	border:solid 1px #d6d6d6; 
-	background: color:#FFF; 
+	background: #FFF; 
 	padding: 5px; 
 	cursor: pointer;
 	z-index: 9999;
@@ -1230,6 +1230,20 @@ tr.summary-details-excluded { font-style:italic; }
 				width: 1272px;
 				padding:48px 161px 25px 161px;
 				
+				&.with-thumb {
+					padding-right: 471px !important;
+				}
+				
+				li.img-category {
+					position: absolute;
+					top: 48px;
+					right: 161px;
+					
+					img {
+						width: 312px;
+						/*max-height: 208*/
+					}
+				}
 								
 				li.level1 {
 				
