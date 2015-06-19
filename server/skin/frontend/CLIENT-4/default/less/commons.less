@@ -1281,6 +1281,11 @@ tr.summary-details-excluded { font-style:italic; }
 				box-shadow: 3px 6px 5px 0px rgba(0,0,0,0.5);
 				min-height: 280px;
                 z-index: 3;
+                
+                &.with-thumb {
+	                width: 100%;
+	                padding-right: 300px;
+				}
 				
 				&>div:not(.cart_side_ajax){width: 666px; /*display: flex;  flex-flow: row wrap;*/}
 
@@ -1288,6 +1293,7 @@ tr.summary-details-excluded { font-style:italic; }
 				
 					float: left;
 					width: 25%;
+					min-width: 210px;
 					padding-right: 35px;
 					
 					> a {
