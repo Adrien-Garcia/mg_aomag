@@ -209,8 +209,7 @@ var galerie = function(){
     //$(".more-views li:not('.bx-clone') img").eq(0).click();
 
     
-    //Style autocomplete recherche
-	$("#search_autocomplete").css({"border": "solid 1px ##d6d6d6", "background-color": "#FFF", "display": "block" })
+    
 
 };
 
