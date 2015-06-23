@@ -33,6 +33,14 @@
 ?>
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
+
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+    $helperao = $this->helper('aocatalog');
+?>
+
+
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
@@ -107,7 +115,13 @@
         </div>
 
         <div class="product-img-box">
+            
             <?php echo $this->getChildHtml('media') ?>
+            <?php if ($helperao->getReductionPercent($_product) > 0) :?>
+            <span class="percentage">-<?php echo $helperao->getReductionPercent($_product); ?>%</span>
+                    <?php elseif ( $helperao->isNew(null, $_product) ) :?>
+                    <span class="new"><?php echo __("new"); ?></span>
+                    <?php endif;?> 
         </div>
 
         

@@ -68,7 +68,7 @@
 	&:before {
 		content: "";
 		position: absolute;
-		top: 2px;
+		top: 4px;
 		left: 0;
 		.sprite(@arrow-left-primary);
 	}
@@ -498,15 +498,18 @@ p.required {
 */
 
 /* messages */
-.main .messages { display: none; } /* les messages sont affciher au niveau template de page (1colmun.phtml...) */
+.main .messages { /*display: none;*/ } /* les messages sont affciher au niveau template de page (1colmun.phtml...) */
 .success { color:#84cb1d; }
 .error { color:#f15c22; }
 .notice { color:#dbb000; }
 
 .messages {
-	border-bottom: 1px solid @c4;
+	//border-bottom: 1px solid @c4;
 	font-size: 16px;
 	padding: 15px 0;
+	font-family: georgia;
+	margin-bottom: 30px;
+	background-color: #eee;
 	
 	> li {
 		width: @width;
@@ -907,7 +910,18 @@ tr.summary-details-excluded { font-style:italic; }
 			border-bottom:none;
 			
 			li.level0 > ul{			
-				border-top:1px solid @c-03;
+
+				&:before{ content:'';
+				background: #e5e5e5;
+				width:952px;
+				height:1px;
+				position: absolute;
+				top:0px;
+				left: 50%;
+				margin-left: -476px;}
+
+
+				//border-top:1px solid @c-03;
 			}
 		}
 	}
@@ -1204,7 +1218,7 @@ tr.summary-details-excluded { font-style:italic; }
 				> a {
 					background: #fff;
 					opacity: 1;
-					color: #f18200;
+					color: #bfbfbf;
 					
 					&:after { display:none; }
 				}
@@ -1212,6 +1226,8 @@ tr.summary-details-excluded { font-style:italic; }
 				ul.level0 { display: block; }
 				
 			}
+
+
 			
 			&.last {
 			
@@ -1298,6 +1314,18 @@ tr.summary-details-excluded { font-style:italic; }
 				
 			}
 			
+		}
+
+		li.active{
+			> a {
+				color: #333 !important;
+
+				span{ 
+					border-bottom: solid 4px #e5e5e5;
+					padding-bottom:2px; 
+				}
+				
+			}
 		}
 	}
 }
@@ -1879,6 +1907,12 @@ tr.summary-details-excluded { font-style:italic; }
 
 				 &:hover{
 				 	//.scale(1.2);
+					background:@c-04;
+					//color:#FFF;
+
+					&:before{background-color: transparent;}
+
+
 				 }
 
 				 &:before {
@@ -1887,7 +1921,9 @@ tr.summary-details-excluded { font-style:italic; }
 					content:"";
 					.sprite(@fleche-nl-footer);
 					left: 33px;
-					top: 9px;				
+					top: 8px;	
+					transform: rotate(0);	
+					background-color: transparent;		
 				}
 				 
 			}

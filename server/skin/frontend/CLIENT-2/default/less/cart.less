@@ -10,6 +10,12 @@ select {
 select::-ms-expand {
     display: none;}
 
+#j2t_ajax_confirm_wrapper{
+	  padding: 20px;
+  background: #FFF;
+  border:solid 1px #e5e5e5;
+  box-shadow: 2px 2px 5px #aaa;
+}
 
 .cart{
 	
@@ -29,7 +35,7 @@ select::-ms-expand {
 		text-decoration:underline;;
 		
 		&:before{
-			content:"";
+			content:none !important;
 			display:block;
 			position:absolute;
 			top:2px;
@@ -271,8 +277,11 @@ select::-ms-expand {
 		position:relative;
 		padding:0 20px 0 12px;
 		cursor:pointer;
+		width: auto;
+		color:#333333;
+
 		.transition-ease-in-out(.2s);
-		
+		&:before{content:none;}
 		&:after{
 			content:"";
 			.sprite(@arrow-right-empty);
@@ -305,6 +314,8 @@ select::-ms-expand {
 		position:absolute;
 		top:12px;
 		left:164px;
+
+
 	}
 	
 	.discount-form{
@@ -341,8 +352,8 @@ select::-ms-expand {
 		}
 		button{
 			position:absolute;
-			top:124px;
-			left:115px;
+			top:73px;
+			left:96px;
 		}
 	
 	}

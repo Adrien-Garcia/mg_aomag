@@ -57,17 +57,17 @@
                 </Addonline_Catalog>
             </modules>
         </translate>
-<!--         <events> -->
-<!--             <catalog_product_compare_add_product> -->
-<!--                 <observers> -->
-<!--                     <aocatalog> -->
-<!--                         <type>singleton</type> -->
-<!--                         <class>Addonline_Catalog_Model_Observer</class> -->
-<!--                         <method>limitProductCompare</method> -->
-<!--                     </aocatalog> -->
-<!--                 </observers> -->
-<!--             </catalog_product_compare_add_product> -->
-<!--         </events> -->
+        <events>
+        <catalog_product_compare_add_product>
+        <observers>
+        <aocatalog>
+        <type>singleton</type>
+        <class>Addonline_Catalog_Model_Observer</class>
+        <method>limitProductCompare</method>
+        </aocatalog>
+        </observers>
+        </catalog_product_compare_add_product>
+        </events>
     </frontend>
     <adminhtml>
         <translate>

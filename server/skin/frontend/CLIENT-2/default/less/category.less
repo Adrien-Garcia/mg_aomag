@@ -300,26 +300,32 @@
 }
 .block-layered-nav .block-title { display: none; }
 
+
+
+
+
 .block-layered-nav .block-subtitle {
-	padding: 0 10px;
+	//padding: 0 10px;
 	margin-bottom: 10px;
 	color:@c-05;
 	font-family: 'oswaldbook';
 	font-size:12px;
 	text-transform: uppercase;
+	letter-spacing: 1px;
+	line-height: 24px;
 }
 .block-layered-nav .block-content { background: none;  }
 .block-layered-nav dt {
 	font-size:11px;
 	text-transform: uppercase;
 	margin-bottom: 10px;
-	padding: 0 10px;
+	padding: 0 ;
 	color: @c-05;
 }
 .block-layered-nav dd {
-	padding: 0 10px 20px 10px;
+	padding: 0 10px 0 0;
 	margin-bottom: 20px;
-	border-bottom: 1px solid #ddd;
+	//border-bottom: 1px solid #ddd;
 	font-size:11px;
 	li{
 		line-height:18px;
@@ -346,22 +352,25 @@
 	}
 	
 	&+.actions {
-		border-bottom: 1px solid @c5;
+		margin-bottom: 40px;
 		
 		a {
 			text-decoration: none;
 			line-height: 28px;
+			padding-left: 10px;
 			position: relative;
-			padding-left: 20px;
+			display: block;
 			&:before {
-				.sprite(@arrow-right);
-				content: "";
-				position: absolute;
-				top: 6px;
-				left: 10px;
+				content:'';
+			position: absolute;
+			top: 9px;
+			right: 10px;
+	.sprite(@remove-filter);
 			}
 		}
 	}
+
+	
 	
 }
 

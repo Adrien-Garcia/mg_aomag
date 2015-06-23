@@ -332,7 +332,7 @@
 						</generator_giftproduct>
 					</fields>
 				</giftproduct_generation>
-                <!-- aocompare>
+                <aocompare>
                     <label>Option Compare</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
@@ -349,7 +349,7 @@
                           <show_in_store>1</show_in_store>
                         </limit>  
                     </fields>           
-                </aocompare-->  
+                </aocompare>  
 			</groups>
 		</addonline>
     </sections>

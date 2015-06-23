@@ -62,7 +62,7 @@ jQuery(function($) {
 	$('.cms-home .slideshow').bxSlider({
 		minSlides: 1,
 		maxSlides: 1,
-		slideWidth: 1272,
+		slideWidth: 1263,
 		auto: true,
 		slideMargin: 0 
 	});
