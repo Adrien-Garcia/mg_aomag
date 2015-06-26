@@ -120,10 +120,10 @@
 	            </params>
             </action>
 	        <action method="addCrumb">
-		        <crumbName>Mon panier</crumbName>
+		        <crumbName>Contact</crumbName>
 		        <crumbInfo>
-		        	<label>Mon panier</label>
-		        	<title>Mon panier</title>
+		        	<label>Contact</label>
+		        	<title>Contact</title>
 		        </crumbInfo>
 	       	</action>
 	    </reference> 
