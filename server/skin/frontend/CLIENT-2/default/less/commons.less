@@ -64,6 +64,7 @@
 	position: relative;
 	padding-left: 10px;
 	text-decoration: none;
+	line-height: inherit;
 	
 	&:before {
 		content: "";
@@ -71,6 +72,25 @@
 		top: 4px;
 		left: 0;
 		.sprite(@arrow-left-primary);
+		z-index: inherit;
+		transform:none;
+
+		  
+		  background-color: #FFF;
+		  -webkit-transform: none;
+		  transform: none;
+		  -webkit-transform-origin: 0;
+		  transform-origin: 0;
+		  transition: -webkit-transform 0.3s, opacity 0.3s, background-color 0.3s;
+		  transition: transform 0.3s, opacity 0.3s, background-color 0.3s
+
+	}
+
+	&:hover{
+		&:before{
+			background-color: #FFF;
+		}
+
 	}
 }
 
