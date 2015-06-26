@@ -286,7 +286,11 @@ ul,ol         { list-style:none; }
 .page-print { background:#fff; padding:25px 30px; text-align:left; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
 .page-popup { background:#fff; padding:25px 30px; text-align:left; }
-.main-container {  }
+.main-container { 
+min-height: calc(~"100vh - 630px");
+//border:solid 1px red;
+display: block;
+ }
 .main {
 	width:@width;
 	padding: 0;
@@ -2102,3 +2106,11 @@ tr.summary-details-excluded { font-style:italic; }
 /* ======================================================================================= */
 
 .guest-select {width:305px !important;}
+
+
+@media screen and (max-width: 1024px) {
+  .bloc {
+    display:block;
+    clear:both;
+  }
+}
