@@ -1,0 +1,5 @@
+[mirror]
+beanstalk = git@addonline.git.beanstalkapp.com:/addonline/aomagento.git
+
+[gitlab]
+mirror_for_user = php
