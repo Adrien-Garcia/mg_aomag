@@ -106,6 +106,7 @@ tinyMceWysiwygSetup.prototype =
             theme_advanced_buttons4 : 'insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,pagebreak',
             theme_advanced_toolbar_location : 'top',
             theme_advanced_toolbar_align : 'left',
+            theme_advanced_blockformats : "p,address,pre,h2,h3,h4,h5,h6",
             theme_advanced_statusbar_location : 'bottom',
             theme_advanced_resizing : true,
             convert_urls : false,
