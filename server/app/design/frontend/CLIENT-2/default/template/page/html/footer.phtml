@@ -58,7 +58,18 @@ en vous inscrivant gratuitement à la newsletter.</p>
     <div class="footer-3">
     	<div class="wrap">
         <?php echo $this->getChildHtml("cms_footer_links") ?>
-        <a href="http://www.jetpulp.fr" class="class3 logoJP" rel="nofollow" target="_blank">Jetpulp</a>
+        
+        <?php
+            $is_homepage = Mage::getBlockSingleton('page/html_header')->getIsHomePage();
+            if($is_homepage)
+            { ?>
+                <a href="http://www.jetpulp.fr" class="class3 logoJP" rel="nofollow" target="_blank">Jetpulp</a>
+            <?php } else {
+              ?>
+                <span href="http://www.jetpulp.fr" class="class3 logoJP" rel="nofollow" target="_blank">Jetpulp</span>
+            	<?php
+                }
+            ?>
         </div>
     </div>
 </div>
