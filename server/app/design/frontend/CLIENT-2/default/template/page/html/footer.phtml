@@ -60,7 +60,8 @@ en vous inscrivant gratuitement à la newsletter.</p>
         <?php echo $this->getChildHtml("cms_footer_links") ?>
         
         <?php
-            $is_homepage = Mage::getBlockSingleton('page/html_header')->getIsHomePage();
+           
+            $is_homepage =  Mage::getSingleton('cms/page')->getIdentifier() == 'home';
             if($is_homepage)
             { ?>
                 <a href="http://www.jetpulp.fr" class="class3 logoJP" rel="nofollow" target="_blank">Jetpulp</a>
