@@ -1,13 +1,21 @@
-/* Category Page ========================================================================= */
-.category-title {  }
+/*
+   _____       _______ ______ _____  ____  _____  _____ ______   _____        _____ ______ 
+  / ____|   /\|__   __|  ____/ ____|/ __ \|  __ \|_   _|  ____| |  __ \ /\   / ____|  ____|
+ | |       /  \  | |  | |__ | |  __| |  | | |__) | | | | |__    | |__) /  \ | |  __| |__   
+ | |      / /\ \ | |  |  __|| | |_ | |  | |  _  /  | | |  __|   |  ___/ /\ \| | |_ |  __|  
+ | |____ / ____ \| |  | |___| |__| | |__| | | \ \ _| |_| |____  | |  / ____ \ |__| | |____ 
+  \_____/_/    \_\_|  |______\_____|\____/|_|  \_\_____|______| |_| /_/    \_\_____|______|
+                                                                                           
+*/                                                                  
+
+
+
 .category-image { width:100%; overflow:hidden; margin:0 0 10px; text-align:center; }
-.category-image img {}
 .category-description { 
 	margin:0 0 20px;
 	border-bottom:1px solid rgba(0, 0, 0, 0.2);
 	padding: 0 0 20px;
 }
-.category-products {}
 
 .new {
 	.sprite(@new-fr);
@@ -21,9 +29,15 @@
 
 
 
+/*
+   _____ _____  _____ _____  
+  / ____|  __ \|_   _|  __ \ 
+ | |  __| |__) | | | | |  | |
+ | | |_ |  _  /  | | | |  | |
+ | |__| | | \ \ _| |_| |__| |
+  \_____|_|  \_\_____|_____/
+*/
 
-
-/* View Type: Grid */
 
 .category_name{
 	font-size:24px;
@@ -67,7 +81,8 @@
 	
 	
 	li.item {
-		border: 1px solid rgba(51, 51, 51, 0.1);;
+		.rgba(@c-05, 10%);
+		border: 1px solid @result;
 		float: left;
 		width: 232px;
 		padding: 10px;
@@ -77,7 +92,8 @@
 		.transition-ease-in-out(.2s);
 		
 		&:hover{
-			border:1px solid rgba(51, 51, 51, 0.5);
+			.rgba(@c-05, 50%);
+			border:1px solid @result;
 		}
 		
 		&.last {
@@ -110,8 +126,8 @@
 			}
 			/* Add to Links */
 			.add-to-links {
-				
-				background:rgba(51, 51, 51, 0.8);
+				.rgba(@c-05, 80%);
+				background:@result;
 				position:absolute;
 				bottom:-35px;
 				left:0;
@@ -160,7 +176,6 @@
 		
 		.product-name {
 			margin: 10px 0 0px;
-			//height: 25px;
 			overflow: hidden;
 			a {
 				font-family: 'oswaldbook';
@@ -197,12 +212,21 @@
 
 
 
-/* View Type: List */
+/*
+  _      _____  _____ _______ 
+ | |    |_   _|/ ____|__   __|
+ | |      | | | (___    | |   
+ | |      | |  \___ \   | |   
+ | |____ _| |_ ____) |  | |   
+ |______|_____|_____/   |_|   
+ 
+ */
+                            
 .products-list {
 	
 	li.item {
-		
-		border:1px solid rgba(0, 0, 0, 0.1);
+		.rgba(@c-02, 10%);
+		border:1px solid @result;
 		margin-bottom: 20px;
 		padding:10px;
 		position:relative;
@@ -240,9 +264,7 @@
 			}
 			
 			.price-box {
-			margin:3px 0 15px;
-				
-				
+				margin:3px 0 15px;	
 			}
 			
 			.add-to-links{
@@ -294,18 +316,22 @@
 
 }
 
-/* Block: Layered Navigation */
+
+/*
+  _           __     ________ _____  ______ _____    _   _     __      _______ _____       _______ _____ ____  _   _ 
+ | |        /\\ \   / /  ____|  __ \|  ____|  __ \  | \ | |   /\ \    / /_   _/ ____|   /\|__   __|_   _/ __ \| \ | |
+ | |       /  \\ \_/ /| |__  | |__) | |__  | |  | | |  \| |  /  \ \  / /  | || |  __   /  \  | |    | || |  | |  \| |
+ | |      / /\ \\   / |  __| |  _  /|  __| | |  | | | . ` | / /\ \ \/ /   | || | |_ | / /\ \ | |    | || |  | | . ` |
+ | |____ / ____ \| |  | |____| | \ \| |____| |__| | | |\  |/ ____ \  /   _| || |__| |/ ____ \| |   _| || |__| | |\  |
+ |______/_/    \_\_|  |______|_|  \_\______|_____/  |_| \_/_/    \_\/   |_____\_____/_/    \_\_|  |_____\____/|_| \_|
+ 
+ */
 .block-layered-nav {
 	border:0;
 }
 .block-layered-nav .block-title { display: none; }
 
-
-
-
-
 .block-layered-nav .block-subtitle {
-	//padding: 0 10px;
 	margin-bottom: 10px;
 	color:@c-05;
 	font-family: 'oswaldbook';
@@ -314,7 +340,7 @@
 	letter-spacing: 1px;
 	line-height: 24px;
 }
-.block-layered-nav .block-content { background: none;  }
+.block-layered-nav .block-content { background: none;}
 .block-layered-nav dt {
 	font-size:11px;
 	text-transform: uppercase;
@@ -325,7 +351,6 @@
 .block-layered-nav dd {
 	padding: 0 10px 0 0;
 	margin-bottom: 20px;
-	//border-bottom: 1px solid #ddd;
 	font-size:11px;
 	li{
 		line-height:18px;
@@ -362,16 +387,13 @@
 			display: block;
 			&:before {
 				content:'';
-			position: absolute;
-			top: 9px;
-			right: 10px;
-	.sprite(@remove-filter);
+				position: absolute;
+				top: 9px;
+				right: 10px;
+				.sprite(@remove-filter);
 			}
 		}
-	}
-
-	
-	
+	}	
 }
 
 
@@ -382,25 +404,46 @@
 }
 
 
-/*- RESULTAT DE RECHERCHE-*/
-
+/*
+  _____  ______  _____ _    _ _   _______    _______   _____  ______ _____ _    _ ______ _____   _____ _    _ ______ 
+ |  __ \|  ____|/ ____| |  | | | |__   __|/\|__   __| |  __ \|  ____/ ____| |  | |  ____|  __ \ / ____| |  | |  ____|
+ | |__) | |__  | (___ | |  | | |    | |  /  \  | |    | |__) | |__ | |    | |__| | |__  | |__) | |    | |__| | |__   
+ |  _  /|  __|  \___ \| |  | | |    | | / /\ \ | |    |  _  /|  __|| |    |  __  |  __| |  _  /| |    |  __  |  __|  
+ | | \ \| |____ ____) | |__| | |____| |/ ____ \| |    | | \ \| |___| |____| |  | | |____| | \ \| |____| |  | | |____ 
+ |_|  \_\______|_____/ \____/|______|_/_/    \_\_|    |_|  \_\______\_____|_|  |_|______|_|  \_\\_____|_|  |_|______|
+                                                                                                                     
+*/
 .catalogsearch-result-index{
 
-	.category-products, .col-left{ margin-top: 135px;}
+	.category-products, 
+	.col-left{
+		margin-top: 135px;
+	}
 
-	.page-title{position: absolute; left: 0;}
+	.page-title{
+		position: absolute; 
+		left: 0;
+	}
 
-	h1{ border-bottom: solid 1px #e5e5e5; padding-bottom: 50px; margin-bottom: 30px;}
-
-
-
-
+	h1{ 
+		border-bottom: solid 1px #e5e5e5; 
+		padding-bottom: 50px; 
+		margin-bottom: 30px;
+	}
 
 }
 
 
-
-/* Toolbar */
+/*
+  _______ ____   ____  _      ____          _____  
+ |__   __/ __ \ / __ \| |    |  _ \   /\   |  __ \ 
+    | | | |  | | |  | | |    | |_) | /  \  | |__) |
+    | | | |  | | |  | | |    |  _ < / /\ \ |  _  / 
+    | | | |__| | |__| | |____| |_) / ____ \| | \ \ 
+    |_|  \____/ \____/|______|____/_/    \_\_|  \_\
+    
+*/    
+                                                   
 .catalog-category-view .toolbar {
 	margin-bottom: 30px;
 	margin-top: 35px;
@@ -412,14 +455,16 @@
 	overflow: hidden;
 	padding: 0;
 	line-height: 38px;
-	border-top:1px solid rgba(0, 0, 0, 0.1);
-	border-bottom:1px solid rgba(0, 0, 0, 0.1);
+	.rgba(@c-02, 10%);
+	border-top:1px solid @result;
+	border-bottom:1px solid @result;
 	font-size:13px;
 	
 	.content-select{
 		  height:25px;
 		   overflow: hidden;
-		   border: 1px solid rgba(51, 51, 51, 0.2);
+		   .rgba(@c-05, 20%);
+		   border: 1px solid@result;
 		   display:inline-block;
 		   padding:0;
 		   position:relative;
@@ -446,10 +491,11 @@
 			   position:absolute;
 			   top:0;
 			   left:0;
-			    width: 80px;
-				
+			    width: 80px;				
 			}		
 	}
+	
+	
 	
 	/* Pager */
 	.pager {
@@ -461,9 +507,7 @@
 			padding: 0 15px 0 0;
 			border-right: 1px solid rgba(0, 0, 0, 0.1);
 			font-style: italic;
-			width:240px;
-			
-			
+			width:240px;		
 		}
 		
 		.limiter {
@@ -472,10 +516,11 @@
 			padding: 0 15px 0 10px;
 			
 			label{ display:inline-block;}
-
 		}
 		
 	}
+	
+	
 	
 	/* Sorter */
 	.sorter {
@@ -485,9 +530,7 @@
 			float: left;
 			margin: 0;
 			padding: 0 36px 0 25px;
-			
-			
-			
+						
 			.asc, .desc {
 				text-indent: -200em;
 				overflow: hidden;
@@ -536,9 +579,7 @@
 					.transparent(0.5) !important;
 				} 
 			}
-			
-			
-			
+						
 			strong {
 				opacity: 1 !important;
 			}
@@ -584,5 +625,4 @@
 			}
 		}
 	}
-
 }

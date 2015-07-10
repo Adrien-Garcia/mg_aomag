@@ -1,14 +1,22 @@
-/* Product View ========================================================================== */
+/* 
+  _____  _____   ____  _____  _    _  _____ _______  __      _______ ________          __
+ |  __ \|  __ \ / __ \|  __ \| |  | |/ ____|__   __| \ \    / /_   _|  ____\ \        / /
+ | |__) | |__) | |  | | |  | | |  | | |       | |     \ \  / /  | | | |__   \ \  /\  / / 
+ |  ___/|  _  /| |  | | |  | | |  | | |       | |      \ \/ /   | | |  __|   \ \/  \/ /  
+ | |    | | \ \| |__| | |__| | |__| | |____   | |       \  /   _| |_| |____   \  /\  /   
+ |_|    |_|  \_\\____/|_____/ \____/ \_____|  |_|        \/   |_____|______|   \/  \/   
+ 
+ */
+ 
+ 
 /* Rating */
 .no-rating { margin:0; }
 
-.ratings {  }
 .ratings strong { float:left; margin:1px 3px 0 0; }
 .ratings .rating-links { margin:0; float: right;  }
 .rating-box { font-size:0; line-height:0; text-indent:-999em; overflow:hidden; .sprite(@stars-off); }
 .rating-box .rating { float:left; .sprite(@stars-on); }
 .ratings .rating-box { float:left; margin-right:3px; }
-.ratings .amount {}
 
 .ratings-table th,
 .ratings-table td { font-size:11px; line-height:1.15; padding:3px 0; }
@@ -67,7 +75,6 @@
 .price { white-space:nowrap !important; }
 
 .price-box { margin:3px 0 10px 0; }
-.price-box .price {  }
 
 /* Regular price */
 .regular-price { color: @c-08; }
@@ -152,7 +159,7 @@
 
 /* Price notice next to the options */
 .price-notice { padding-left:10px; color:@c-08; }
-.price-notice .price { font-weight:bold; color:#2f2f2f; }
+.price-notice .price { font-weight:bold; color:@c-05; }
 
 /* Price as configured */
 .price-as-configured {
@@ -191,12 +198,12 @@
 
 /* Tier Prices */
 .product-pricing,
-.tier-prices { margin:10px 0; padding:10px; background-color:#f4f7f7; border:1px solid #dadddd; color:#424242; }
+.tier-prices { margin:10px 0; padding:10px; background-color:#f4f7f7; border:1px solid #dadddd; color:@c-05; }
 .tier-prices li { line-height:1.4; background:url(../images/i_tier.gif) no-repeat 0 3px; padding:2px 0 2px 10px; }
-.tier-prices .benefit { font-style:italic; font-weight:bold; color:#2f2f2f; }
-.tier-prices .price { font-weight:bold; color:#2f2f2f; }
+.tier-prices .benefit { font-style:italic; font-weight:bold; color:@c-05; }
+.tier-prices .price { font-weight:bold; color:@c-05; }
 
-.tier-prices-grouped li { padding:2px 0; color:#e26703; }
+.tier-prices-grouped li { padding:2px 0; color:@c-04; }
 .tier-prices-grouped li .price { font-weight:bold; }
 
 
@@ -229,16 +236,13 @@
 				text-align: center;
 				width: 34px;
 			}	
-		}
-		
-		
+		}	
 		.button { display:block;}
 	}
 	
 	.add-to-links{
 		float:left;
-		width:295px;
-		
+		width:295px;		
 	}
 
 }
@@ -267,7 +271,6 @@
 			
 			a {
 				float: left;
-				
 				position: relative;
 			}
 			
@@ -522,7 +525,8 @@
 	}
 	
 	.description{
-		border-top:1px solid rgba(0, 0, 0, 0.1);
+		.rgba(@c-02, 10%);
+		border-top:1px solid @result;
 		padding:25px 0;
 		clear:both;
 		
@@ -532,7 +536,7 @@
 			margin-bottom: 20px;
 			letter-spacin:1px;
 			text-transform:uppercase;
-			color:c-01;
+			color:@c-05;
 		}
 
 		.std{
@@ -547,14 +551,14 @@
 	
 	h2 {
 		 font-family: 'oswaldlight';
-		//font-size: 30px;
 		font-size: 18px;
 		margin-bottom: 20px;
 		letter-spacin:1px;
 		text-transform:uppercase;
 		color:c-01;
 		padding-top: 20px;
-		border-top: solid 1px #e5e5e5;
+		.rgba(@c-05, 10%);
+		border-top: solid 1px @result;
 	}
 	
 	.box-collateral {
@@ -574,13 +578,12 @@
 		
 		label { 
 			font-size: 11px;
-			color: @c-04;
-			color:#2f2f2f;
+			color:@c-05;
 			text-transform:uppercase;
 		}
 		
 		label.required em { 
-			color:#eb340a; 
+			color:#f15c22; 
 			margin-left:5px;
 		}
 		
@@ -588,7 +591,7 @@
 			background:none;
 			border:0;
 			padding:3px;
-			color:#2f2f2f;
+			color:@c-05;
 		}
 	}
 	
@@ -655,12 +658,11 @@
 .product-options ul.validation-failed { padding:0 7px; }
 
 
-.product-options-bottom {}
 .product-options-bottom .product-pricing,
-.product-options-bottom .tier-prices { margin:0; padding:0 0 10px; border:0; background:0; color:#e26703; }
+.product-options-bottom .tier-prices { margin:0; padding:0 0 10px; border:0; background:0; color:@c-04; }
 .product-options-bottom .tier-prices li { background:0; padding:2px 0; }
 .product-options-bottom .tier-prices .price,
-.product-options-bottom .tier-prices .benefit { color:#e26703; }
+.product-options-bottom .tier-prices .benefit { color:@c-04; }
 .product-options-bottom .price-box {
 	margin: 0 0 10px;
 	padding: 0;
@@ -669,7 +671,6 @@
 .product-options-bottom .add-to-links { padding:5px 0 0; text-align:right; }
 .col3-layout .product-options-bottom .price-box { float:none; padding:0 0 5px; }
 .product-options-bottom .price-tax { float:left; }
-.product-options-bottom .add-to-cart { }
 .product-options-bottom .btn-cart {
 	.primary-button;
 }
@@ -747,7 +748,7 @@
 .product-view .box-tags .product-tags li { display:inline; background:url(../images/bkg_pipe3.gif) 100% 4px no-repeat; padding:0 7px 0 4px; }
 .product-view .box-tags .product-tags li.first { padding-left:0; }
 .product-view .box-tags .product-tags li.last { background:none; padding-right:0; }
-.product-view .box-tags .form-add label { display:block; font-size:13px; font-weight:bold; margin:0 0 5px; color:#0a263c;}
+.product-view .box-tags .form-add label { display:block; font-size:13px; font-weight:bold; margin:0 0 5px; color:@c-05;}
 .product-view .box-tags .form-add .input-box { float:left; width:305px; margin:0 5px 0 0; background:url(../images/i_tag_add.gif) 0 2px no-repeat; padding:0 0 0 23px; }
 .product-view .box-tags .form-add input.input-text { width:299px; }
 .product-view .box-tags .form-add button.button span { border-color:#406a83; background:#618499; }
@@ -876,4 +877,4 @@
 .send-friend .form-list li.wide .input-box { width:612px; }
 .send-friend .form-list li.wide textarea { width:609px; }
 .send-friend .buttons-set .limit { float:right; margin:0 7px 0 0; font-size:11px; line-height:21px; }
-/* ======================================================================================= */
+

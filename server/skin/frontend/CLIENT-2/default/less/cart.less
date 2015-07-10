@@ -1,17 +1,16 @@
 select {
       -webkit-appearance: none;
       background: url(../images/flefleche-select.png) no-repeat right center;
-      //background-repeat: no-repeat;
       background-position: 97.5% center;
       padding:0 5% 0 0;
       -moz-appearance: none;
-    text-overflow: "";
-    }
+      text-overflow: "";
+}
 select::-ms-expand {
     display: none;}
 
 #j2t_ajax_confirm_wrapper{
-	  padding: 20px;
+ padding: 20px;
   background: #FFF;
   border:solid 1px #e5e5e5;
   box-shadow: 2px 2px 5px #aaa;
@@ -271,6 +270,7 @@ select::-ms-expand {
 	}
 	
 	button{
+		.rgba(@c-02, 20%);
 		background:rgba(51,51,51,0.2);
 		font-family: 'oswaldlight';
 		font-size:12px;
@@ -282,7 +282,7 @@ select::-ms-expand {
 		padding:0 20px 0 12px;
 		cursor:pointer;
 		width: auto;
-		color:#333333;
+		color:@c-05;
 
 		.transition-ease-in-out(.2s);
 		&:before{content:none;}
@@ -422,12 +422,11 @@ select::-ms-expand {
 .sp-methods .release-amounts { margin:0.5em 0; }
 .sp-methods .release-amounts button { float:left; margin:5px 10px 0 0; }
 
-/* .please-wait { float:right; } */
-/* .please-wait img { vertical-align:middle; } */
 .cvv-what-is-this { font-size:11px; cursor:help; margin-left:10px; }
 
-
 .cart .shipping .sp-methods { margin:20px 0 0; padding:5px 0 0; border-top:1px solid @c6; }
+
+
 
 /* Shopping Cart Totals */
 .cart .totals { 
@@ -437,7 +436,8 @@ select::-ms-expand {
 	text-align:left;
 	
 	.border{
-		border-bottom:1px solid rgba(0,0,0,0.1);
+		.rgba(@c-02, 10%);
+		border-bottom:1px solid @result;
 	}
 	table {
 		width:100%;

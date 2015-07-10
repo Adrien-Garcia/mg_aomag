@@ -1,9 +1,10 @@
 /* Account Login/Create Pages ============================================================ */
 .customer-account-login {
-
-	h1{ border-bottom: solid 1px #e5e5e5; padding-bottom: 20px; margin-bottom: 30px;}
-
-	
+	h1{ 
+		border-bottom: solid 1px @c-13; 
+		padding-bottom: 20px; 
+		margin-bottom: 30px;
+	}
 
 	.content > h2 {
 		font-family: 'oswaldlight';
@@ -27,12 +28,14 @@ body.sales-order-history,
 body.wishlist-index-index,
 body.newsletter-manage-index,
 body.customer-address-index{
-
-	
 	
 	.title-column-left{margin: 0; padding: 0; border: none;}
 
-	h1{ border-bottom: solid 1px #e5e5e5; padding-bottom: 20px; margin-bottom: 30px;}
+	h1{ 
+		border-bottom: solid 1px  @c-13; 
+		padding-bottom: 20px; 
+		margin-bottom: 30px;
+	}
 
 	h2{font-family: 'oswaldlight';
 		font-size: 18px;
@@ -40,7 +43,10 @@ body.customer-address-index{
 		font-weight: normal;
 		margin-bottom:25px;}
 
-	.col-main{ width: 660px; margin-bottom: 30px;}
+	.col-main{ 
+		width: 660px; 
+		margin-bottom: 30px;
+	}
 }
 
  body.customer-account-edit, body.customer-address-form{
@@ -62,7 +68,6 @@ body.customer-address-index{
 
  	.fieldset{ 
  		margin-bottom: 25px;
-		
 		.validate-zip-international{ width:90px;}
  	}
 
@@ -86,14 +91,15 @@ body.customer-address-form{
 		 		li:nth-child(2){ 
 		 			position: absolute;
 		 			top: 0;
-		 			right: 0;}
+		 			right: 0;
+		 		}
 		 		li:nth-child(3){ 
 		 			position: absolute;
 		 			top: 48px;
-		 			right: 0;}
+		 			right: 0;
+		 		}
 		 	}
 
-		 	#telephone, #fax, #company{}
  		}
 
  		div.fieldset:nth-child(2){
@@ -116,15 +122,11 @@ body.customer-address-form{
 		 		li:nth-child(4){ 
 		 			position: absolute;
 		 			top: 48px;
-		 			right: 0;}
-		 		
+		 			right: 0;
+		 		}		 		
 		 	}
  		}
- 	}
-
- 	
-
- 	
+ 	}	
  }
 
 
@@ -143,7 +145,6 @@ body.wishlist-index-index{
 				
 				.product-image{padding: 10px; border: 1px solid rgba(51, 51, 51, 0.1); height: auto; width: auto; display: block;}
 				
-
 				.product-name a{
 					font-family: 'oswaldbook';
 				  	font-size: 11px;
@@ -158,11 +159,8 @@ body.wishlist-index-index{
 
 			}
 		.buttons-set .btn-share:after{ content: none;}
-
 	} 
-	.my-wishlist #wishlist-table th{ border-bottom: none;}
-
-	
+	.my-wishlist #wishlist-table th{ border-bottom: none;}	
 }
 
 #my-orders-table{ 
@@ -203,7 +201,7 @@ body.wishlist-index-index{
 			}
 		}
 	}
-	}
+}
 
 
 
@@ -229,7 +227,8 @@ body.wishlist-index-index{
 		text-transform: uppercase;
 		font-weight: normal;
 		margin:30px 0;
-		color:#000000	}
+		color:@c-02;
+	}
 	
 	.avantages {
 		color: @c-08;
@@ -248,7 +247,8 @@ body.wishlist-index-index{
 			padding-left:15px;
 			
 			&:before{
-				border:1px solid rgba(51, 51, 51, 0.4);
+				.rgba(@c-05, 40%);
+				border:1px solid @result;
 				width:5px;
 				height:5px;
 				.border-radius(5px);
@@ -339,11 +339,6 @@ body[class^=" customer-"],
 body[class^=" sales-"],
 body[class^=" wishlist-"],
 body[class^=" newsletter-"] {
-
-	/*.main {
-		margin-top: 35px;
-	}*/
-	
 	.breadcrumbs-container {
 		display: none;
 	}
@@ -356,11 +351,18 @@ body[class^=" newsletter-"] {
 	margin-right: 60px;
 	
 	ul {
-		border-top: 1px solid 1px solid rgba(0,0,0,0.1);
+		.rgba(@c-02, 10%);
+		border-top: 1px solid 1px solid @result;
 		
 		li {
 			padding-left:10px;
 			font-size: 12px;
+			line-height: 30px;
+			.rgba(@c-02, 10%);
+			border-bottom: 1px solid @result;
+			font-family: 'oswaldbook';
+			letter-spacing:1px;
+			text-transform:uppercase ;
 			
 			&.current{
 				color:@c-05;
@@ -375,12 +377,6 @@ body[class^=" newsletter-"] {
 					.sprite(@arrow-right-empty);
 				}			
 			}
-			
-			line-height: 30px;
-			border-bottom: 1px solid rgba(0,0,0,0.1);
-			 font-family: 'oswaldbook';
-			 letter-spacing:1px;
-			 text-transform:uppercase ;
 			
 			a {
 				text-decoration: none;
@@ -408,7 +404,8 @@ body[class^=" newsletter-"] {
 .dashboard {
 	
 	.page-title {
-		border-bottom: 1px solid rgba(0,0,0,0.1);
+		.rgba(@c-02, 10%);
+		border-bottom: 1px solid @result;
 		padding-bottom: 20px;
 		margin-bottom: 20px;
 	}
@@ -446,8 +443,7 @@ body[class^=" newsletter-"] {
 	.box .box-title h4 {
 		float:left;
 		text-transform: uppercase;
-		font-size:10px;
-		
+		font-size:10px;		
 	}
 	
 	
@@ -455,16 +451,13 @@ body[class^=" newsletter-"] {
 		color: @c2;
 		position:relative;
 		text-indent:-9999px;
-		
-		
+				
 		&:before{
 			position:absolute;
 			top:0;
 			right:0;
 			content:"";
 			.sprite(@picto-modif);
-			
-		
 		}
 	}
 	.box .box-content{
@@ -502,10 +495,7 @@ body[class^=" newsletter-"] {
 		}
 	}
 	
-	/* Block: Account Information */
-	.box-info .box-head h2 {  }
-	.box-info h4 {  }
-	
+
 	/* Block: Reviews */
 	.box-reviews .box-head h2 { background-image:url(../images/i_ma-reviews.gif); }
 	.box-reviews .number { float:left; font-size:10px; font-weight:bold; line-height:1; color:#fff; margin:3px -20px 0 0; padding:2px 3px; background:#0a263c; }
@@ -597,12 +587,12 @@ body[class^=" newsletter-"] {
 	h2 {
 		font-family: @font-bold;
 		font-size: 24px;
-		color: #000;
+		color: @c-02;
 	}
 	
 	h3 {
 		font-family: @font-bold;
-		color: #000;
+		color: @c-02;
 		text-transform: uppercase;
 		font-size: 14px;
 	}
@@ -681,8 +671,6 @@ body[class^=" newsletter-"] {
 		
 		.separator { display: none; }
 	}
-
-	
 	
 	.buttons-set {
 		display: none;
@@ -722,11 +710,9 @@ body[class^=" newsletter-"] {
 	.grand_total {
 		font-family: @font-bold;
 		font-size: 22px;
-		color: #000;
+		color:@c-02;
 	}
 }
-
-.order-info {}
 
 .order-info dt,
 .order-info dd,
@@ -799,7 +785,7 @@ body[class^=" newsletter-"] {
 			
 			.grand_total strong {
 				font-size: 22px !important;
-				color: #000 !important;
+				color: @c-02 !important;
 			}
 		}	
 
@@ -813,7 +799,7 @@ body[class^=" newsletter-"] {
 		font-size: 14px;
 	}
 
-	strong { /* quté commandée/livrée */
+	strong { 
 		font-weight: normal;
 	}
 	
@@ -825,9 +811,11 @@ body[class^=" newsletter-"] {
 }
 
 .order-additional { margin:15px 0; }
+
 /* Order Gift Message */
 .gift-message dt strong { color:#666; }
 .gift-message dd { font-size:13px; margin:5px 0 0; }
+
 /* Order Comments */
 .order-about dt { font-weight:bold; }
 .order-about dd { font-size:13px; margin:0 0 7px; }
@@ -850,6 +838,7 @@ body[class^=" newsletter-"] {
 .page-print h2.h2 { font-size:16px; font-weight:bold; }
 .page-print .order-date { background:url(../images/bkg_divider1.gif) 0 100% repeat-x; padding:0 0 10px; margin:0 0 10px; }
 .page-print .col2-set { margin:0 0 10px; }
+
 /* Price Rewrites */
 .page-print .gift-message-link { display:none; }
 .page-print .price-excl-tax,
@@ -966,4 +955,3 @@ body[class^=" newsletter-"] {
 .billing-agreements .form-list li select { float:left; }
 .billing-agreements .form-list li button.button { float:left; margin-left:10px; }
 .billing-agreements .table-caption { font-weight:bold; font-size:13px; }
-/* ======================================================================================= */

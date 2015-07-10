@@ -1,3 +1,13 @@
+/*
+   _____ ____  __  __ _____        _____         _______ ______ _    _ _____  
+  / ____/ __ \|  \/  |  __ \ /\   |  __ \     /\|__   __|  ____| |  | |  __ \ 
+ | |   | |  | | \  / | |__) /  \  | |__) |   /  \  | |  | |__  | |  | | |__) |
+ | |   | |  | | |\/| |  ___/ /\ \ |  _  /   / /\ \ | |  |  __| | |  | |  _  / 
+ | |___| |__| | |  | | |  / ____ \| | \ \  / ____ \| |  | |____| |__| | | \ \ 
+  \_____\____/|_|  |_|_| /_/    \_\_|  \_\/_/    \_\_|  |______|\____/|_|  \_\
+  
+*/
+
 .catalog-product-compare-index  {
 	
 	.main {
@@ -10,7 +20,8 @@
 		&:after {
 			content: "";
 			height: 1px;
-			border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+			.rgba(@c-05, 10%);
+			border-bottom: 1px solid @result;
 			position: absolute;
 			top: 140px;
 			left: 0;
@@ -64,6 +75,7 @@
 	}
 }
 
+
 /* Accès au comparateur à droite du fil d'Arianne */
 .compare-link {
 	text-decoration: none;
@@ -98,10 +110,10 @@
 		color: @c2;
 	}
 }
-	/* ainsi que le fil d'Arianne */
-	.catalog-product-compare-index .breadcrumbs-container {
-		display: none;
-	}
+	
+.catalog-product-compare-index .breadcrumbs-container {
+	display: none;
+}
 
 /* La liste */
 #product_comparison {
@@ -113,7 +125,8 @@
 		text-align: left;
 		color:@c-11;
 		padding: 4px;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		.rgba(@c-02, 10%);
+		border-bottom: 1px solid @result;
 		line-height:16px;
 	}
 	
@@ -121,7 +134,8 @@
 		text-align: center;
 		padding: 8px 4px;
 		width: 152px;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		.rgba(@c-02, 10%);
+		border-bottom: 1px solid @result;
 		
 		&.empty {
 			border-bottom: none;

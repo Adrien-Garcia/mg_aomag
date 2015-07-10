@@ -2,7 +2,7 @@
 
 	h1{
 		padding-bottom: 20px;
-		border-bottom: solid 1px #e5e5e5;
+		border-bottom: solid 1px @c-13;
 	}
 	
 	.breadcrumbs-container {
@@ -14,12 +14,6 @@
 		
 		&::before {
 			content: none;
-			/*height: 1px;
-			border-bottom: 1px solid #939393;
-			position: absolute;
-			top: 70px;
-			left: 0;
-			right: 0;*/
 		}
 		
 		
@@ -32,7 +26,6 @@
 	
 			.std {
 				position: relative;
-				/*padding: 40px 0 0 470px;*/
 
 				li{
 					position:relative;
@@ -56,7 +49,7 @@
 				}
 
 				a{ 
-					color:#333;
+					color:@c-05;
 					text-decoration: underline;
 					
 					&:hover{ text-decoration: none;}
@@ -66,7 +59,7 @@
 					content: "404";
 					font-size: 343px;
 					font-family: @font-bold;
-					color: #0d0d0d;
+					color: @c3;
 					line-height: 343px;
 					opacity: .06;
 					filter: opacity(6);

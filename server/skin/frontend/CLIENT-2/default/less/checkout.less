@@ -6,43 +6,7 @@
 .checkout-onepage-index .col-right { width:232px; position:absolute; top:140px; right:0}
 .checkout-onepage-index .main{ padding:0; }
 
-/*
-.opc { position:relative; overflow:hidden; height:1070px; text-align:center; border:1px solid #BBAFA0; background:#F9F3E3; }
-.opc .buttons-set { margin:15px 0 0; opacity:1!important; }
-.opc .buttons-set p.required { margin:0; padding:0 0 10px; }
-.opc .buttons-set .back-link { display:none; }
 
-.opc .buttons-set a {  }
-.opc .ul { list-style:disc outside; padding-left:18px; }
-.opc li.section { display:inline; }
-.opc .allow .step-title { cursor:pointer; background:none; }
-.opc .allow .step-title h2 { color:#000; }
-.opc .active .step-title { color:#ef0606; cursor:default; border:1px solid #BBAFA0; border-bottom:1px solid #FBFAF6; z-index:2; background:#FBFAF6 url(../images/bkg_checkout.gif) 0 0 repeat-x; }
-.opc .active .step-title h2 { color:#F18200; }
-.opc .step-title { width:16%; }
-.opc .form-list .field,.opc .form-list .wide { }
-.opc .form-list li fieldset { margin-bottom:40px; }
-.opc .form-list label {text-align:right; padding:4px 0 0; }
-.opc .form-list label.required em { float:none; position:relative; right:4px; }
-.opc .form-list li.fields { margin:0; }
-.opc .form-list div.fields { width:100%; overflow:hidden; margin:0 0 8px; }
-.opc .form-list .wide,.opc .form-list li.fields .field { margin:0 0 8px; }
-.opc .form-list li.wide .input-box,.opc .form-list .input-box { clear:none;}
-.opc .form-list li.wide select { }
-.opc .form-list li.wide input.input-text { width:254px; }
-.opc .form-list .control input { margin:8px 0 0 25px; }
-.opc .form-list li.control label { float:left; }
-.opc form .form-list li.wide { margin-bottom:8px; }
-.opc form .address-select { margin:8px 0 20px; width:100%; }
-
-.opc:first-of-type .step{-webkit-transition: all 0.5s ease-in-out;-moz-transition: all 0.5s ease-in-out;-o-transition: all 0.5s ease-in-out;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;}
-.opc:first-of-type .step[style*='display:none;'],
-.opc:first-of-type .step[style*='display: none;']{display:block !important;}
-.opc:first-of-type .section .step{left: 100%;}
-.opc:first-of-type .allow .step{left: -100%;}
-.opc:first-of-type .active .step{left:0;}*/
-/* .opc:first-of-type li:last-child .step-title a{width:50%} */
-/* .opc:first-of-type li:first-child .step-title a{width:50%;left:50%} */
 
 #opc-login p.required { display:none; }
 #opc-login h3 { margin-bottom:18px; }
@@ -68,11 +32,6 @@
 #opc-review .buttons-set p { margin:0; line-height:40px; }
 #opc-review .buttons-set .please-wait { height:40px; line-height:40px; }
 #opc-shipping_method .buttons-set { border-top:1px solid #E4E4E4; }
-
-/* ================================= Solution by www.h-o.nl =============================== */
-
-
-
 
 
 
@@ -140,7 +99,6 @@
 		color:@c-04;
 		
 		.number, h2{color:@c-04 !important;}
-
 		
 		&:first-child{
 			border-left:1px solid @c-13;
@@ -245,6 +203,7 @@
 .opc.loged-in{
 	
 }
+
 /*-----*/
 
 .opc h3{
@@ -463,8 +422,6 @@
 		}
 		
 		select{
-			//width:208px;
-			
 			&[name="billing[prefix]"]{
 				width:72px;
 			}
@@ -483,17 +440,6 @@
 }
 
 dt.s_method_socolissimo-title,
-/*dd.s_method_socolissimo{
-	position:absolute;
-	left:200px;
-	font-size:14px;
-}
-dt.s_method_socolissimo-title{
-	top:23px;
-}
-dd.s_method_socolissimo{
-	top:67px;
-}*/
 .s_method_socolissimo div{
 	margin-left:0 !important;
 	border-bottom:0 !important;
@@ -516,7 +462,6 @@ dd.s_method_socolissimo{
 
 .s_method_gls{
 	label{
-		//display:block;
 		margin:10px 0 0 0;
 	}
 }
@@ -629,7 +574,7 @@ dd.s_method_gls li span.price{
 
 
 .opc-block-progress{
-	border:3px double #E5E5E5;
+	border:3px double @c-03;
 	padding:20px;
 	width:232px;
 	
@@ -726,7 +671,6 @@ dd.s_method_gls li span.price{
 	
 	thead tr.last th{
 		text-transform: uppercase;
-		//border-bottom: 1px solid rgb(212, 212, 212);
 		padding-top:0px;
 	}
 	thead tr.last th:last-child{border-right: 1px solid rgb(212, 212, 212);}
@@ -772,15 +716,12 @@ dd.s_method_gls li span.price{
 		
 		td{
 			border:none;
-			
+			position:relative;
 			padding:0 0 5px 0;
 		
 			&:first-child{
 				padding-right:0;
-			}
-			
-			position:relative;
-			//left:-20px;
+			}		
 		}
 		
 		> tr:first-child{
@@ -811,9 +752,6 @@ dd.s_method_gls li span.price{
 			padding-right:40px;
 		}
 		
-		tr > td:first-child + td{
-/* 			padding-right:35px; */
-		}
 		
 		th strong,
 		td strong {
@@ -827,7 +765,6 @@ dd.s_method_gls li span.price{
 
 
 #review-buttons-container{
-	//padding-right:20px !important;
 
 	.f-left{
 		a{margin-left: 20px;}
@@ -850,4 +787,3 @@ dd.s_method_gls li span.price{
 		}
 	}
 }
-/* ================================= Solution by www.h-o.nl =============================== */

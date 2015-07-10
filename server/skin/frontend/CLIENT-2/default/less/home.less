@@ -1,4 +1,13 @@
-/* Home Page ========================================================================= */
+/*
+ _    _  ____  __  __ ______ 
+ | |  | |/ __ \|  \/  |  ____|
+ | |__| | |  | | \  / | |__   
+ |  __  | |  | | |\/| |  __|  
+ | |  | | |__| | |  | | |____ 
+ |_|  |_|\____/|_|  |_|______|
+                              
+*/
+                             
 .cms-home {
 	
 	.main {
@@ -9,7 +18,8 @@
 	}
 	
 	.home-mea {
-		border-bottom: 1px solid rgba(56, 56, 56, .1);
+		.rgba(@c-05, 10%);
+		border-bottom: 1px solid @result;
 		width: @width;
 		height: 215px;
 		margin-bottom:27px;
@@ -139,7 +149,7 @@
 				.product-name {
 					font-size: 30px;
 					font-family: open_sansbold;
-					color: #0d0d0d;
+					color: @c-05;
 					text-decoration: none;
 				}
 				
@@ -152,7 +162,7 @@
 				}
 				
 				.old-price .price {
-					color: #000;
+					color: @c-02;
 					font-size: 20px;
 				}
 				
@@ -221,7 +231,8 @@
 	
 }
 
-//Width slider sur ipad
+/*Width slider sur ipad*/
+
 @media screen and (max-width: 1024px) {
   body.cms-index-index .wrapper .page .bx-wrapper{ max-width: 100% !important;}
 }
