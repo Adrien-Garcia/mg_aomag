@@ -28,7 +28,7 @@ class Addonline_CategoryNavigation_Block_Catalog_Seo_Sitemap_Tree_Category exten
 	public function getTemplate()
 	{
 		if ($this->_template == 'catalog/seo/tree.phtml') {
-	    	$this->_template = 'category_navigation/tree.phtml';
+	    	$this->_template = 'jetpulp/category_navigation/tree.phtml';
 	    }
 	    return parent::getTemplate();
 	}

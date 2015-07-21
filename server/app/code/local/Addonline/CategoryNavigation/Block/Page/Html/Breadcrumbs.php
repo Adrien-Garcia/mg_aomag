@@ -13,7 +13,7 @@ class Addonline_CategoryNavigation_Block_Page_Html_Breadcrumbs extends Mage_Page
     function __construct()
     {
         parent::__construct();
-        $this->setTemplate('category_navigation/breadcrumbs.phtml');
+        $this->setTemplate('jetpulp/category_navigation/breadcrumbs.phtml');
     }
 
 }
