@@ -19,7 +19,7 @@
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 Accordion = Class.create();
@@ -34,8 +34,6 @@ Accordion.prototype = {
         headers.each(function(header) {
             Event.observe(header,'click',this.sectionClicked.bindAsEventListener(this));
         }.bind(this));
-
-    
     },
 
     sectionClicked: function(event) {
@@ -71,8 +69,6 @@ Accordion.prototype = {
                 }
             }
         }
-        eve = new CustomEvent("open_Section",{"this":section});
-        document.dispatchEvent(eve);
     },
 
     closeSection: function(section) {
