@@ -23,7 +23,17 @@
 // il faudra désactiver Enhanced Grid dans etc/modules/EnhancedGrid.xml
 class Flagbit_ChangeAttributeSet_Adminhtml_Catalog_ProductController /*extends TBT_Enhancedgrid_Catalog_ProductController*/ extends Mage_Adminhtml_Controller_Action
 {
-	
+	/*
+	 * patch AO 2015-08-05
+	 * */
+	protected function _isAllowed()
+	{
+		return true;
+	}
+	/*
+	 * end patch
+	 * */
+
 	/**
 	 * Product list page
 	 */

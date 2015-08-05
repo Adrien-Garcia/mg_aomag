@@ -2,6 +2,17 @@
 
 class Addonline_AdvancedSlideshow_Adminhtml_Advancedslideshow_ItemController extends Mage_Adminhtml_Controller_Action
 {
+	/*
+	 * patch AO 2015-08-05
+	 * */
+	protected function _isAllowed()
+	{
+		return true;
+	}
+	/*
+	 * end patch
+	 * */
+
 	protected function _initAction()
 	{
 		$this->loadLayout()
