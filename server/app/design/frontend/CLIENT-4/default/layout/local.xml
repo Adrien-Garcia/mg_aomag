@@ -299,16 +299,7 @@
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
 			<block type="core/template" name="onepage-title" as="onepage.title" template="checkout/onepage-title.phtml" />
 		</reference>
-		<reference name="head">
-		   <action method="addCss"><stylesheet>css/socolissimo.css</stylesheet></action>
-		
-			<action method="addJs"><script>jquery/jquery-1.7.1.min.js</script></action>
-			<action method="addJs"><script>jquery/jquery.noconflict.js</script></action>
-			<action method="addJs"><script>jquery/jquery.tools.min.js</script></action>
-		    <action method="addItem"><type>skin_js</type><script>js/socolissimo.js</script></action>
-		
-		    <block type="core/text" name="map.js"><action method="setText"><text><![CDATA[<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&region=FR"></script>]]></text></action></block>
-		</reference>
+
 		<reference name="checkout.onepage">
             <block type="page/html_wrapper" name="checkout.progress.wrapper" translate="label">
                 <label>Checkout Progress Wrapper</label>
@@ -321,9 +312,7 @@
                 </block>
             </block>
         </reference>
-	 	<reference name="before_body_end">
-	    	<block type="core/template" name="socolissimo_additional" after="-" template="socolissimo/additional.phtml" />
-	    </reference>
+
     
 	</checkout_onepage_index>
 	
