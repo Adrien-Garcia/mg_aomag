@@ -111,17 +111,17 @@ extends Mage_Connect_Command
                 $config = $this->config();
             }
 
-            $rest = Mage_Connect_Rest_Builder::getAdapter($config->protocol);
+            $rest = new Mage_Connect_Rest($config->protocol);
             if(!empty($channelAuth)){
                 $rest->getLoader()->setCredentials($channelAuth['username'], $channelAuth['password']);
             }
 
             $cache->checkChannel($channel, $config, $rest);
 
-            $data = $packager->getDependenciesList($channel, $package, $cache, $config,
+            $data = $packager->getDependenciesList($channel, $package, $cache, $config, 
                     $argVersionMax, $argVersionMin, true, false, $rest
             );
-
+            
             $result = array();
             foreach ($data['result'] as $_package) {
                 $_result['channel'] = $_package['channel'];
@@ -139,14 +139,7 @@ extends Mage_Connect_Command
                 }
             }
 
-            $this->ui()->output(
-                array(
-                    $command=> array(
-                        'data'=>$result,
-                        'title'=>"Package installation information for {$params[1]}: "
-                    )
-                )
-            );
+            $this->ui()->output(array($command=> array('data'=>$result, 'title'=>"Package installation information for {$params[1]}: ")));
 
         } catch (Exception $e) {
             $this->doError($command, $e->getMessage());
@@ -182,22 +175,8 @@ extends Mage_Connect_Command
                 $cache = $this->getSconfig();
                 $config = $this->config();
             }
-            $data = $packager->getDependenciesList(
-                $channel,
-                $package,
-                $cache,
-                $config,
-                $argVersionMax,
-                $argVersionMin
-            );
-            $this->ui()->output(
-                array(
-                    $command=> array(
-                        'data'=>$data['deps'],
-                        'title'=>"Package deps for {$params[1]}: "
-                    )
-                )
-            );
+            $data = $packager->getDependenciesList($channel, $package, $cache, $config, $argVersionMax, $argVersionMin);
+            $this->ui()->output(array($command=> array('data'=>$data['deps'], 'title'=>"Package deps for {$params[1]}: ")));
 
         } catch (Exception $e) {
             $this->doError($command, $e->getMessage());
@@ -208,7 +187,7 @@ extends Mage_Connect_Command
     {
         $this->cleanupParams($params);
         try {
-            if (count($params) < 1) {
+            if(count($params) < 1) {
                 throw new Exception("Arguments should be: source.tgz [target.tgz]");
             }
             $sourceFile = $params[0];

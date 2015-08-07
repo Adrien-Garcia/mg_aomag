@@ -579,7 +579,7 @@ class Mage_Connect_Packager
         }
 
         if(!$restObj) {
-            $restObj = Mage_Connect_Rest_Builder::getAdapter($configObj->protocol);
+            $restObj = new Mage_Connect_Rest($configObj->protocol);
         }
 
         $updates = array();
@@ -786,7 +786,7 @@ class Mage_Connect_Packager
             $chanName = $cache->chanName($chanName);
 
             if (!$rest) {
-                $rest = Mage_Connect_Rest_Builder::getAdapter($config->protocol);
+                $rest = new Mage_Connect_Rest($config->protocol);
             }
             $rest->setChannel($cache->chanUrl($chanName));
             $releases = $rest->getReleases($package);
