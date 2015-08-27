@@ -13,11 +13,10 @@ Thème CLIENT
 
 Thème non-responsive : description à compléter
 
-Grunt installation :
+Grunt installation (utilisation des modules nodes installés sur la vm):
 ```
 cd /var/www/aomagento/server/skin/frontend/CLIENT/default/grunt
-npm install
-npm install --no-bin-links 	 	 #for windows hosts : Because no symbolic links
+ln -s /usr/lib/node_modules
 ```
 
 Grunt compilation :
@@ -30,11 +29,10 @@ Thème CLIENT-2
 
 Thème non-responsive : description à compléter
 
-Grunt installation :
+Grunt installation (utilisation des modules nodes installés sur la vm):
 ```
 cd /var/www/aomagento/server/skin/frontend/CLIENT-2/default/grunt
-npm install
-npm install --no-bin-links 	 	 #for windows hosts : Because no symbolic links
+ln -s /usr/lib/node_modules
 ```
 
 Grunt compilation :
@@ -47,11 +45,10 @@ Thème CLIENT-4
 
 Thème non-responsive : description à compléter
 
-Grunt installation :
+Grunt installation (utilisation des modules nodes installés sur la vm):
 ```
 cd /var/www/aomagento/server/skin/frontend/CLIENT-4/default/grunt
-npm install
-npm install --no-bin-links 	 	 #for windows hosts : Because no symbolic links
+ln -s /usr/lib/node_modules
 ```
 
 Grunt compilation :
