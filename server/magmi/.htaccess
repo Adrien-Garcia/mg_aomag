@@ -6,7 +6,7 @@ Order deny,allow
 Deny from all
 Require valid-user
 
-# Pour accepter une connection par IP cela ce gere sur NGINX sur l'infra de Jetpulp.
+# Pour accepter une connection par IP cela se gere sur NGINX sur l'infra de Jetpulp.
 # Voir Wiki Ngynx authentication.
 #Allow from 127.0.0.1
 Allow from 195.28.202.129
