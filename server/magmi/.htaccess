@@ -1,6 +1,6 @@
 AuthName "Magmi Authentification"
 AuthType Basic
-# Mettre/Changer l'adresse physique.
+# Mettre/Changer l'adresse physique
 AuthUserFile /srv/www/vhosts/aomagento.addonline.biz/magmi/.htpasswd
 Order deny,allow
 Deny from all
