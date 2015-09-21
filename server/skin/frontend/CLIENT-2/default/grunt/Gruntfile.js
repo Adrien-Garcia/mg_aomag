@@ -72,12 +72,12 @@ module.exports = function(grunt) {
             src : '../css/styles.css'
         },
         options: {
-            proxy: "mg_aomagento.dvittorelli.jetpulp.dev",
+            proxy: grunt.option('env') || 'aomagento.username.jetpulp.dev',
+            host: grunt.option('env') || 'aomagento.username.jetpulp.dev',
             watchTask: true,
             logLevel: "debug",
             reloadOnRestart:false,
-            open: "external",
-            host: "mg_aomagento.dvittorelli.jetpulp.dev"
+            open: "external"
         }
     }
   }
