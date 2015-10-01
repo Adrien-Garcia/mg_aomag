@@ -1,0 +1,155 @@
+body.jetcheckout:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section:not(#opc-login) .step-title,
+body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-login {
+  opacity: 1;
+}
+#checkout-shipping-method-load.method-refreshing {
+  height: 100px;
+  content: "Reloading Shipping Method ";
+  background: url(../images/opc-ajax-loader.gif) no-repeat center / auto;
+}
+/* Global layout */
+.jetcheckout-onepage-index {
+  padding: 0;
+  margin: 0;
+  background: #f3f3f3;
+  font: 12px Arial, Verdana, Helvetica, sans-serif;
+}
+.jetcheckout-onepage-index .page {
+  width: 960px;
+  margin: auto;
+}
+.jetcheckout-onepage-index .header {
+  text-align: center;
+  height: 130px;
+}
+.jetcheckout-onepage-index .header h1 {
+  margin: 0;
+}
+.jetcheckout-onepage-index .page-title {
+  display: none;
+}
+.jetcheckout-onepage-index .main {
+  overflow: hidden;
+}
+.jetcheckout-onepage-index .col-left {
+  float: left;
+  width: 300px;
+}
+.jetcheckout-onepage-index .col-main {
+  float: right;
+  width: 630px;
+}
+/* fieldset reset */
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+/* list reset */
+ol,
+ul,
+dl {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+/* button */
+button {
+  background: #ee3e81;
+  border: none;
+  font-weight: bold;
+  font-size: 15px;
+  text-transform: uppercase;
+  padding: 12px 15px 11px 15px;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+}
+/* text field */
+.input-text {
+  border: 1px solid #cecece;
+  border-radius: 3px;
+  background: #fff;
+  font: 12px Arial, Verdana, Helvetica, sans-serif;
+  line-height: 28px;
+  padding: 0 12px;
+}
+/* required fields */
+label.required em {
+  display: none;
+}
+label.required:after {
+  content: "*";
+  color: #ee3e81;
+}
+/* remove outline on all elements */
+* {
+  outline: none;
+}
+/* remove webkit background on autofilled fields */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px white inset;
+}
+/* Minimal setup for tab layout */
+.opc {
+  position: relative;
+  overflow: hidden;
+  height: 1070px;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+.opc:first-of-type .step {
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.opc:first-of-type .step[style*='display:none;'],
+.opc:first-of-type .step[style*='display: none;'] {
+  display: block !important;
+}
+.opc:first-of-type .section .step {
+  left: 100%;
+}
+.opc:first-of-type .allow .step {
+  left: -100%;
+}
+.opc:first-of-type .active .step {
+  left: 0;
+}
+.opc li.section {
+  display: inline;
+}
+.opc .step {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+}
+.opc .step-title {
+  position: relative;
+  float: left;
+  width: 25%;
+}
+.opc .step-title a {
+  display: none;
+}
+.opc .allow .step-title {
+  cursor: pointer;
+}
+.opc .active .step-title {
+  cursor: default;
+}
+/* First step => login step */
+#opc-login .col2-set {
+  overflow: hidden;
+}
+#opc-login .col-1,
+#opc-login .col-2 {
+  float: right;
+  width: 50%;
+}
