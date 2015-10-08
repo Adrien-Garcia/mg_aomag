@@ -27,13 +27,11 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 	.header {
 
 		text-align: center;
-		height: 130px;
+		line-height: 130px;
 
-		h1 {
-			margin: 0;
-
+		img {
+			vertical-align: middle;
 		}
-
 	}
 
 	.page-title {
@@ -47,11 +45,47 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 	.col-left {
 		float: left;
 		width: 300px;
+		margin-bottom: 100px;
 	}
 
 	.col-main {
 		float: right;
 		width: 630px;
+	}
+
+	.footer-container {
+
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+		font-size: 15px;
+		color: #3a3a3a;
+		line-height: 16px;
+		height: 80px;
+
+		.footer {
+			display: table-row;
+
+			span {
+				display: table-cell;
+				width: 2%;
+				padding: 0 13px;
+				border-right: 1px solid #d7d7d7;
+
+				b {
+					display: block;
+				}
+
+				&:first-child {
+					padding-left: 0;
+				}
+
+				&:last-child {
+					border-right: none;
+				}
+			}
+		}
+
 	}
 
 }
@@ -74,7 +108,7 @@ fieldset {
 }
 
 /* list reset */
-ol, ul, dl {
+ol, ul, dl, dt, dd {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
@@ -94,13 +128,18 @@ button {
 }
 
 /* text field */
-.input-text {
+.input-text, select {
 	border: 1px solid #cecece;
 	border-radius: 3px;
 	background: #fff;
 	font: 12px Arial,Verdana,Helvetica,sans-serif;
 	line-height: 28px;
 	padding: 0 12px;
+	box-sizing: border-box;
+}
+
+select {
+	height: 30px;
 }
 
 /* required fields */
@@ -122,6 +161,228 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	box-shadow: 0 0 0px 1000px white inset;
 }
 
+.form-list {
+
+	li {
+		margin-bottom: 15px;
+
+		.input-box {
+			margin-top: 2px;
+
+			.input-text, select {
+				width: 100%;
+			}
+		}
+	}
+
+	.fields {
+
+		overflow: hidden;
+
+		.field {
+			width: 50%;
+			float: left;
+			box-sizing: border-box;
+
+			&:nth-child(odd) { padding-right: 15px; }
+			&:nth-child(even) { padding-left: 15px; }
+		}
+
+	}
+
+}
+
+/*
+* je ne peux pas laisser ça dans .form-list .fields (cf. au-dessus)
+* car à l'étape de livraison, les radios ne sont pas dans un .form-list .fields
+*/
+.control {
+	font-weight: bold;
+	margin-bottom: 15px;
+	input {
+		vertical-align: middle;
+		margin: 0 5px 0 0;
+	}
+}
+
+/* Hn */
+h3 {
+	font-size: 20px;
+	color: @color;
+	margin: 0 0 20px 0;
+}
+
+/* lien */
+.lien {
+	color: #000;
+	text-decoration: none;
+	font-weight: bold;
+	line-height: 12px;
+	border-bottom: 1px solid #000;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	margin-left: 10px;
+	&:before {
+		content: url(../images/jetcheckout/fleche-lnk.svg);
+		position: absolute;
+		top: 0;
+		left: -10px;
+	}
+}
+
+.lien-gauche {
+	&:extend(.lien all);
+	&:before {
+		content: url(../images/jetcheckout/fleche-lnk-gauche.svg);
+	}
+}
+
+.op(@from, @to) {
+	opacity: @from;
+	transition: opacity .2s;
+	&:hover {
+		opacity: @to;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* order review */
+.order-review {
+
+	.review-block-title {
+	    opacity: .5;
+        font-size: 13px;
+        font-weight: bold;
+    	text-transform: uppercase;
+    	display: block;
+    	margin: 13px 0 43px 0;
+	}
+
+	.review-cart-title {
+		color: #3a3a3a;
+		float: left;
+		margin: 0 0 3px 0;
+	}
+
+	.change-cart {
+		float: right;
+		margin-top: 5px;
+		&:extend(.lien all);
+		.op(.5,.3);
+	}
+
+	.checkout-review-table {
+		border-top: 1px solid #d7d7d7;
+		clear: both;
+		border-spacing: 0;
+		width: 100%;
+
+		td {
+			padding: 13px 0;
+			background: url(../images/jetcheckout/separator.gif) repeat-x 0 100%;
+			vertical-align: top;
+
+			&:last-child { text-align: right; }
+		}
+
+		tbody {
+			td {
+				color: rgba(0,0,0,.5);
+
+				&:first-child {
+					width: 200px;
+				}
+
+				+ td {
+					text-align: center;
+				}
+
+				&:last-child {
+					width: 65px;
+				}
+			}
+		}
+
+		tfoot {
+
+			td {
+				color: rgba(0,0,0,.5);
+			}
+
+			tr.last {
+				font-weight: bold;
+				font-size: 16px;
+				text-transform: uppercase;
+
+				td {
+					background: none;
+					color: rgba(0,0,0,1);
+				}
+			}
+		}
+
+	}
+
+}
+
+
+
+
+
+
+/* progress */
+.opc-block-progress {
+
+	dt, dd {
+		display: none;
+		&.complete {
+			display: block;
+		}
+	}
+
+	dt {
+
+		overflow: hidden;
+		border-bottom: 1px solid rgba(0,0,0,.2);
+		margin-top: 35px;
+
+		h3 {
+			color: #3a3a3a;
+			margin-bottom: 3px;
+			float: left;
+		}
+		
+		a {
+			&:extend(.lien all);
+			.op(.5,.3);
+			float: right;
+			margin-top: 5px;
+		}
+		
+	}
+
+	dd {
+		padding-top: 15px;
+		address {
+			font-style: normal;
+			color: rgba(0,0,0,.5);
+		}
+	}
+
+
+}
 
 
 
@@ -132,7 +393,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 	position: relative;
 	overflow: hidden;
-	height: 1070px; // fix this in js
+	//height: 1070px; cf. jetpulp-opcheckout.js
 	background: #fff;
 	margin: 0;
 	padding: 0;
@@ -171,6 +432,106 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 
+/* Début charte jetpulp */
+.opc {
+
+	margin-bottom: 100px;
+
+	/* Charte des titres des étapes */
+	.step-title {
+
+		box-sizing: border-box;
+		font-size: 13px;
+		font-weight: bold;
+		border-right: 1px solid #e2e2e2;
+		border-bottom: 1px solid #e2e2e2;
+	    padding: 13px 0 12px 0;
+		text-align: center;
+		color: #bebebe;
+
+		h2 {
+			display: inline;
+			margin: 0;
+			font-size: 13px;
+			text-transform: uppercase;
+		}
+
+	}
+
+	.section:last-child {
+		.step-title {
+			border-right: none;
+		}
+	}
+
+	.section.allow {
+		.step-title {
+			h2 {
+				border-bottom: 1px solid;
+				position: relative;
+				&:after {
+					content: url(../images/jetcheckout/coche-verte.svg);
+					position: absolute;
+					top: -10px;
+					right: -12px;
+				}
+			}
+		}
+	}
+
+	.section.active {
+		.step-title {
+			border-bottom: #fff;
+			color: #000;
+			h2 {
+				border: none;
+				&:after { content: none; }
+			}
+		}
+	}
+
+	/* étapes : styles génériques */
+	.step {
+		top: 41px;
+		padding: 30px;
+		box-sizing: border-box;
+	}
+
+}
+
+
+
+/* buttons set */
+.buttons-set {
+	
+	overflow: hidden;
+	position: relative;
+	padding-top: 15px;
+
+	a {
+		&:extend(.lien all);
+		.op(1,.8);
+	}
+
+	.back-link {
+
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		margin: 0;
+
+		a {
+			float: left;
+			&:extend(.lien-gauche all);
+			.op(.5,.3);
+		}
+	}
+
+	button {
+		float: right;
+	}
+
+}
 
 /* First step => login step */
 #opc-login {
@@ -182,7 +543,31 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	.col-1,
 	.col-2 {
 		float: right;
-		width: 50%;
+		width: calc(~"50% - 15px");
+	}
+
+	.col-2 {
+		float: left;
+	}
+
+	.col-1 {
+		ul {
+			padding: 12px 0 0 0;
+			li {
+				margin-bottom: 13px;
+				padding-left: 15px;
+				background: url(../images/jetcheckout/coche-grise.svg) no-repeat 0 0;
+			}
+		}
+	}
+
+	.buttons-set {
+		a {
+			margin-top: 20px;
+		}
+		button {
+			float: none;
+		}
 	}
 
 }
@@ -190,3 +575,64 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 
 
+
+
+/* styles de la date de naissance */
+#opc-information, #opc-shipping_method {
+
+	.name-prefix {
+		width: 75px;
+	}
+
+	.name-firstname {
+		width: 210px;
+		padding-right: 15px;
+	}
+
+	.name-lastname {
+		padding-right: 0;
+		padding-left: 15px;
+	}
+
+}
+
+
+
+
+@media screen and (max-width: 1024px) {
+
+	.jetcheckout-onepage-index {
+
+		.page {
+			width: auto;
+		}
+
+		.col-left {
+			float: none;
+			width: 630px;
+			margin: auto;
+		}
+
+		.col-main {
+			float: none;
+			margin: auto;
+		}
+
+		.footer-container {
+
+			.footer {
+
+				span {
+
+					&:first-child {
+						padding-left: 13px;
+					}
+
+				}
+			}
+
+		}
+
+	}
+
+}

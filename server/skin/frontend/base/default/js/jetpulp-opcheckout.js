@@ -288,3 +288,34 @@ Shipping.prototype.resetLoadWaiting= function(transport){
     $('checkout-shipping-method-load').removeClassName("method-refreshing");
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+jQuery(function($) {
+
+    /*
+     * Tunnel : hauteur dynamique
+     */
+    if( $("body").hasClass("jetcheckout-onepage-index") ) {
+        setInterval(function() {
+            jQuery("#checkoutSteps").css("min-height", jQuery(".active .step:visible").outerHeight() + 40); // 40 étant la hauteur des onglets des étapes
+        }, 200);
+        jQuery("#checkoutSteps").css("min-height", jQuery(".active .step:visible").outerHeight() + 40); // 40 étant la hauteur des onglets des étapes
+    }
+
+})

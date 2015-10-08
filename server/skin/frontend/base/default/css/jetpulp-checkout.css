@@ -20,10 +20,10 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 }
 .jetcheckout-onepage-index .header {
   text-align: center;
-  height: 130px;
+  line-height: 130px;
 }
-.jetcheckout-onepage-index .header h1 {
-  margin: 0;
+.jetcheckout-onepage-index .header img {
+  vertical-align: middle;
 }
 .jetcheckout-onepage-index .page-title {
   display: none;
@@ -34,10 +34,38 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 .jetcheckout-onepage-index .col-left {
   float: left;
   width: 300px;
+  margin-bottom: 100px;
 }
 .jetcheckout-onepage-index .col-main {
   float: right;
   width: 630px;
+}
+.jetcheckout-onepage-index .footer-container {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  font-size: 15px;
+  color: #3a3a3a;
+  line-height: 16px;
+  height: 80px;
+}
+.jetcheckout-onepage-index .footer-container .footer {
+  display: table-row;
+}
+.jetcheckout-onepage-index .footer-container .footer span {
+  display: table-cell;
+  width: 2%;
+  padding: 0 13px;
+  border-right: 1px solid #d7d7d7;
+}
+.jetcheckout-onepage-index .footer-container .footer span b {
+  display: block;
+}
+.jetcheckout-onepage-index .footer-container .footer span:first-child {
+  padding-left: 0;
+}
+.jetcheckout-onepage-index .footer-container .footer span:last-child {
+  border-right: none;
 }
 /* fieldset reset */
 fieldset {
@@ -48,7 +76,9 @@ fieldset {
 /* list reset */
 ol,
 ul,
-dl {
+dl,
+dt,
+dd {
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -66,13 +96,18 @@ button {
   cursor: pointer;
 }
 /* text field */
-.input-text {
+.input-text,
+select {
   border: 1px solid #cecece;
   border-radius: 3px;
   background: #fff;
   font: 12px Arial, Verdana, Helvetica, sans-serif;
   line-height: 28px;
   padding: 0 12px;
+  box-sizing: border-box;
+}
+select {
+  height: 30px;
 }
 /* required fields */
 label.required em {
@@ -92,11 +127,180 @@ textarea:-webkit-autofill,
 select:-webkit-autofill {
   box-shadow: 0 0 0px 1000px white inset;
 }
+.form-list li {
+  margin-bottom: 15px;
+}
+.form-list li .input-box {
+  margin-top: 2px;
+}
+.form-list li .input-box .input-text,
+.form-list li .input-box select {
+  width: 100%;
+}
+.form-list .fields {
+  overflow: hidden;
+}
+.form-list .fields .field {
+  width: 50%;
+  float: left;
+  box-sizing: border-box;
+}
+.form-list .fields .field:nth-child(odd) {
+  padding-right: 15px;
+}
+.form-list .fields .field:nth-child(even) {
+  padding-left: 15px;
+}
+/*
+* je ne peux pas laisser ça dans .form-list .fields (cf. au-dessus)
+* car à l'étape de livraison, les radios ne sont pas dans un .form-list .fields
+*/
+.control {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.control input {
+  vertical-align: middle;
+  margin: 0 5px 0 0;
+}
+/* Hn */
+h3 {
+  font-size: 20px;
+  color: #ee3e81;
+  margin: 0 0 20px 0;
+}
+/* lien */
+.lien,
+.lien-gauche,
+.order-review .change-cart,
+.opc-block-progress dt a,
+.buttons-set a,
+.buttons-set .back-link a {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  line-height: 12px;
+  border-bottom: 1px solid #000;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.lien:before,
+.lien-gauche:before,
+.order-review .change-cart:before,
+.opc-block-progress dt a:before,
+.buttons-set a:before,
+.buttons-set .back-link a:before {
+  content: url(../images/jetcheckout/fleche-lnk.svg);
+  position: absolute;
+  top: 0;
+  left: -10px;
+}
+.lien-gauche:before,
+.buttons-set .back-link a:before {
+  content: url(../images/jetcheckout/fleche-lnk-gauche.svg);
+}
+/* order review */
+.order-review .review-block-title {
+  opacity: .5;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+  margin: 13px 0 43px 0;
+}
+.order-review .review-cart-title {
+  color: #3a3a3a;
+  float: left;
+  margin: 0 0 3px 0;
+}
+.order-review .change-cart {
+  float: right;
+  margin-top: 5px;
+  opacity: 0.5;
+  transition: opacity .2s;
+}
+.order-review .change-cart:hover {
+  opacity: 0.3;
+}
+.order-review .checkout-review-table {
+  border-top: 1px solid #d7d7d7;
+  clear: both;
+  border-spacing: 0;
+  width: 100%;
+}
+.order-review .checkout-review-table td {
+  padding: 13px 0;
+  background: url(../images/jetcheckout/separator.gif) repeat-x 0 100%;
+  vertical-align: top;
+}
+.order-review .checkout-review-table td:last-child {
+  text-align: right;
+}
+.order-review .checkout-review-table tbody td {
+  color: rgba(0, 0, 0, 0.5);
+}
+.order-review .checkout-review-table tbody td:first-child {
+  width: 200px;
+}
+.order-review .checkout-review-table tbody td + td {
+  text-align: center;
+}
+.order-review .checkout-review-table tbody td:last-child {
+  width: 65px;
+}
+.order-review .checkout-review-table tfoot td {
+  color: rgba(0, 0, 0, 0.5);
+}
+.order-review .checkout-review-table tfoot tr.last {
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.order-review .checkout-review-table tfoot tr.last td {
+  background: none;
+  color: #000000;
+}
+/* progress */
+.opc-block-progress dt,
+.opc-block-progress dd {
+  display: none;
+}
+.opc-block-progress dt.complete,
+.opc-block-progress dd.complete {
+  display: block;
+}
+.opc-block-progress dt {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-top: 35px;
+}
+.opc-block-progress dt h3 {
+  color: #3a3a3a;
+  margin-bottom: 3px;
+  float: left;
+}
+.opc-block-progress dt a {
+  opacity: 0.5;
+  transition: opacity .2s;
+  float: right;
+  margin-top: 5px;
+}
+.opc-block-progress dt a:hover {
+  opacity: 0.3;
+}
+.opc-block-progress dd {
+  padding-top: 15px;
+}
+.opc-block-progress dd address {
+  font-style: normal;
+  color: rgba(0, 0, 0, 0.5);
+}
 /* Minimal setup for tab layout */
 .opc {
   position: relative;
   overflow: hidden;
-  height: 1070px;
   background: #fff;
   margin: 0;
   padding: 0;
@@ -144,6 +348,86 @@ select:-webkit-autofill {
 .opc .active .step-title {
   cursor: default;
 }
+/* Début charte jetpulp */
+.opc {
+  margin-bottom: 100px;
+  /* Charte des titres des étapes */
+  /* étapes : styles génériques */
+}
+.opc .step-title {
+  box-sizing: border-box;
+  font-size: 13px;
+  font-weight: bold;
+  border-right: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 13px 0 12px 0;
+  text-align: center;
+  color: #bebebe;
+}
+.opc .step-title h2 {
+  display: inline;
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.opc .section:last-child .step-title {
+  border-right: none;
+}
+.opc .section.allow .step-title h2 {
+  border-bottom: 1px solid;
+  position: relative;
+}
+.opc .section.allow .step-title h2:after {
+  content: url(../images/jetcheckout/coche-verte.svg);
+  position: absolute;
+  top: -10px;
+  right: -12px;
+}
+.opc .section.active .step-title {
+  border-bottom: #fff;
+  color: #000;
+}
+.opc .section.active .step-title h2 {
+  border: none;
+}
+.opc .section.active .step-title h2:after {
+  content: none;
+}
+.opc .step {
+  top: 41px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+/* buttons set */
+.buttons-set {
+  overflow: hidden;
+  position: relative;
+  padding-top: 15px;
+}
+.buttons-set a {
+  opacity: 1;
+  transition: opacity .2s;
+}
+.buttons-set a:hover {
+  opacity: 0.8;
+}
+.buttons-set .back-link {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0;
+}
+.buttons-set .back-link a {
+  float: left;
+  opacity: 0.5;
+  transition: opacity .2s;
+}
+.buttons-set .back-link a:hover {
+  opacity: 0.3;
+}
+.buttons-set button {
+  float: right;
+}
 /* First step => login step */
 #opc-login .col2-set {
   overflow: hidden;
@@ -151,5 +435,54 @@ select:-webkit-autofill {
 #opc-login .col-1,
 #opc-login .col-2 {
   float: right;
-  width: 50%;
+  width: calc(50% - 15px);
+}
+#opc-login .col-2 {
+  float: left;
+}
+#opc-login .col-1 ul {
+  padding: 12px 0 0 0;
+}
+#opc-login .col-1 ul li {
+  margin-bottom: 13px;
+  padding-left: 15px;
+  background: url(../images/jetcheckout/coche-grise.svg) no-repeat 0 0;
+}
+#opc-login .buttons-set a {
+  margin-top: 20px;
+}
+#opc-login .buttons-set button {
+  float: none;
+}
+/* styles de la date de naissance */
+#opc-information .name-prefix,
+#opc-shipping_method .name-prefix {
+  width: 75px;
+}
+#opc-information .name-firstname,
+#opc-shipping_method .name-firstname {
+  width: 210px;
+  padding-right: 15px;
+}
+#opc-information .name-lastname,
+#opc-shipping_method .name-lastname {
+  padding-right: 0;
+  padding-left: 15px;
+}
+@media screen and (max-width: 1024px) {
+  .jetcheckout-onepage-index .page {
+    width: auto;
+  }
+  .jetcheckout-onepage-index .col-left {
+    float: none;
+    width: 630px;
+    margin: auto;
+  }
+  .jetcheckout-onepage-index .col-main {
+    float: none;
+    margin: auto;
+  }
+  .jetcheckout-onepage-index .footer-container .footer span:first-child {
+    padding-left: 13px;
+  }
 }

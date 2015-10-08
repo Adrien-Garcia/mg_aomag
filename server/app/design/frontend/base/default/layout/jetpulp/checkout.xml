@@ -109,11 +109,11 @@ One page checkout main layout
             <action method="addBodyClass"><classname>jetcheckout</classname></action>
             <block type="core/text_list" name="jetpulp.checkout.sidebar" as="sidebar" translate="label">
                 <block type="jetcheckout/onepage_review" name="jetcheckout.onepage.review" as="sidebar" template="jetpulp/checkout/review.phtml">
-                    <block type="checkout/onepage_review_info" name="review" template="checkout/onepage/review/info.phtml">
-                        <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+                    <block type="checkout/onepage_review_info" name="review" template="jetpulp/checkout/onepage/review/info.phtml">
+                        <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>jetpulp/checkout/onepage/review/item.phtml</template></action>
                         <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
                         <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
-                        <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+                        <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="jetpulp/checkout/onepage/review/totals.phtml"/>
                         <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
                             <label>Items Before</label>
                         </block>
@@ -127,10 +127,10 @@ One page checkout main layout
                 </block>
                 <block type="checkout/onepage_progress" name="progress" template="jetpulp/checkout/onepage/progress.phtml">
                     <action method="setInfoTemplate"><method></method><template></template></action>
-                    <block type="checkout/onepage_progress" name="information.progress" template="checkout/onepage/progress/billing.phtml"></block>
-                    <block type="checkout/onepage_progress" name="shipping.progress" template="checkout/onepage/progress/shipping.phtml"></block>
-                    <block type="checkout/onepage_progress" name="shippingmethod.progress" template="checkout/onepage/progress/shipping_method.phtml"></block>
-                    <block type="checkout/onepage_progress" name="payment.progress" template="checkout/onepage/progress/payment.phtml"></block>
+                    <block type="checkout/onepage_progress" name="information.progress" template="jetpulp/checkout/onepage/progress/billing.phtml"></block>
+                    <block type="checkout/onepage_progress" name="shipping.progress" template="jetpulp/checkout/onepage/progress/shipping.phtml"></block>
+                    <block type="checkout/onepage_progress" name="shippingmethod.progress" template="jetpulp/checkout/onepage/progress/shipping_method.phtml"></block>
+                    <block type="checkout/onepage_progress" name="payment.progress" template="jetpulp/checkout/onepage/progress/payment.phtml"></block>
                 </block>
 
             </block>
@@ -138,10 +138,13 @@ One page checkout main layout
         <reference name="header">
             <action method="setTemplate"><template>jetpulp/checkout/header.phtml</template></action>
         </reference>
+        <reference name="footer">
+            <action method="setTemplate"><template>jetpulp/checkout/footer.phtml</template></action>
+        </reference>
         <reference name="content">
             <block type="jetcheckout/onepage" name="checkout.onepage" template="jetpulp/checkout/onepage.phtml">
 
-                <block type="jetcheckout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml">
+                <block type="jetcheckout/onepage_login" name="checkout.onepage.login" as="login" template="jetpulp/checkout/onepage/login.phtml">
                     <!-- <block type="page/html_wrapper" name="checkout.onepage.login.before" as="login_before" translate="label">
                         <label>Login/Registration Before</label>
                         <action method="setMayBeInvisible"><value>1</value></action>
@@ -156,7 +159,7 @@ One page checkout main layout
                     <block type="checkout/onepage_shipping" name="checkout.onepage.shipping_address" as="shipping_address" template="jetpulp/checkout/onepage/shipping_method/shipping_address.phtml"/>
 
                 </block>
-                <block type="checkout/onepage_payment" name="checkout.onepage.payment" as="payment" template="checkout/onepage/payment.phtml">
+                <block type="checkout/onepage_payment" name="checkout.onepage.payment" as="payment" template="jetpulp/checkout/onepage/payment.phtml">
                     <block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="checkout/onepage/payment/info.phtml">
                         <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
                     </block>
@@ -177,9 +180,9 @@ One page checkout main layout
 
         <block type="checkout/onepage_progress" name="root" output="toHtml" template="jetpulp/checkout/onepage/progress.phtml">
             <action method="setInfoTemplate"><method></method><template></template></action>
-            <block type="checkout/onepage_progress" name="information.progress" template="checkout/onepage/progress/billing.phtml"></block>
-            <block type="checkout/onepage_progress" name="shipping.progress" template="checkout/onepage/progress/shipping.phtml"></block>
-            <block type="checkout/onepage_progress" name="shippingmethod.progress" template="checkout/onepage/progress/shipping_method.phtml"></block>
+            <block type="checkout/onepage_progress" name="information.progress" template="jetpulp/checkout/onepage/progress/billing.phtml"></block>
+            <block type="checkout/onepage_progress" name="shipping.progress" template="jetpulp/checkout/onepage/progress/shipping.phtml"></block>
+            <block type="checkout/onepage_progress" name="shippingmethod.progress" template="jetpulp/checkout/onepage/progress/shipping_method.phtml"></block>
             <!-- <block type="checkout/onepage_progress" name="payment.progress" template="checkout/onepage/progress/payment.phtml"></block> -->
         </block>
     </jetcheckout_onepage_progress>
@@ -190,7 +193,7 @@ One page checkout main layout
         <remove name="right"/>
         <remove name="left"/>
 
-        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/billing.phtml">
+        <block type="checkout/onepage_progress" name="root" output="toHtml" template="jetpulp/checkout/onepage/progress/billing.phtml">
             <action method="setInfoTemplate"><method></method><template></template></action>
         </block>
     </checkout_onepage_progress_billing>
@@ -199,7 +202,7 @@ One page checkout main layout
         <remove name="right"/>
         <remove name="left"/>
 
-        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/billing.phtml">
+        <block type="checkout/onepage_progress" name="root" output="toHtml" template="jetpulp/checkout/onepage/progress/billing.phtml">
             <action method="setInfoTemplate"><method></method><template></template></action>
         </block>
     </checkout_onepage_progress_information>
@@ -210,7 +213,7 @@ One page checkout main layout
         <remove name="right"/>
         <remove name="left"/>
 
-        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/shipping.phtml">
+        <block type="checkout/onepage_progress" name="root" output="toHtml" template="jetpulp/checkout/onepage/progress/shipping.phtml">
             <action method="setInfoTemplate"><method></method><template></template></action>
         </block>
     </checkout_onepage_progress_shipping>
@@ -221,7 +224,7 @@ One page checkout main layout
         <remove name="right"/>
         <remove name="left"/>
 
-        <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/shipping_method.phtml">
+        <block type="checkout/onepage_progress" name="root" output="toHtml" template="jetpulp/checkout/onepage/progress/shipping_method.phtml">
             <action method="setInfoTemplate"><method></method><template></template></action>
         </block>
     </checkout_onepage_progress_shipping_method>
@@ -231,7 +234,7 @@ One page checkout main layout
     <remove name="right"/>
     <remove name="left"/>
 
-    <block type="checkout/onepage_progress" name="root" output="toHtml" template="checkout/onepage/progress/payment.phtml">
+    <block type="checkout/onepage_progress" name="root" output="toHtml" template="jetpulp/checkout/onepage/progress/payment.phtml">
         <block type="checkout/onepage_payment_info" name="payment_info">
             <action method="setInfoTemplate"><method></method><template></template></action>
         </block>
@@ -310,8 +313,8 @@ One page checkout order review block
         <remove name="right"/>
         <remove name="left"/>
         <block type="jetcheckout/onepage_review" name="root" output="toHtml" template="jetpulp/checkout/review.phtml">
-            <block type="checkout/onepage_review_info" name="review"  template="checkout/onepage/review/info.phtml">
-                <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+            <block type="checkout/onepage_review_info" name="review"  template="jetpulp/checkout/onepage/review/info.phtml">
+                <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>jetpulp/checkout/onepage/review/item.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
                 <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
                 <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
@@ -321,8 +324,8 @@ One page checkout order review block
                 <block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
                     <label>Items After</label>
                 </block>
-                <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
-                <block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/>
+                <!-- <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/> -->
+                <!-- <block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/> -->
             </block>
         </block>
     </jetcheckout_onepage_review>

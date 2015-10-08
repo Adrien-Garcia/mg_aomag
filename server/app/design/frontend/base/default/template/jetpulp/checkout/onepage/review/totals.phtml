@@ -23,23 +23,25 @@
  * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @see Mage_Checkout_Block_Cart_Totals
+ */
 ?>
-<div class="block block-progress opc-block-progress">
-    
-    <div class="block-content">
-        <dl>
-            <?php if ($this->getCheckout()->getStepData('information', 'is_show')): ?>
-            <div id="information-progress-opcheckout">
-                <?php echo $this->getChildHtml('information.progress') ?>
-            </div>
-            <?php endif; ?>
-
-            <?php if ($this->getCheckout()->getStepData('shipping', 'is_show')): ?>
-            <div id="shipping-progress-opcheckout">
-                <?php echo $this->getChildHtml('shipping.progress') ?>
-            </div>
-            <?php endif; ?>
-        </dl>
-    </div>
-</div>
-
+<?php if ($this->getTotals()): ?>
+<tfoot>
+    <?php $_colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 2; ?>
+    <?php echo $this->renderTotals(null, $_colspan); ?>
+    <?php echo $this->renderTotals('footer', $_colspan); ?>
+    <?php if ($this->needDisplayBaseGrandtotal()):?>
+    <tr>
+        <td class="a-right" colspan="<?php echo $_colspan; ?>">
+            <small><?php echo $this->helper('sales')->__('Your credit card will be charged for') ?></small>
+        </td>
+        <td class="a-right">
+            <small><?php echo $this->displayBaseGrandtotal() ?></small>
+        </td>
+    </tr>
+    <?php endif?>
+</tfoot>
+<?php endif; ?>

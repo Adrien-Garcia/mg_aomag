@@ -24,22 +24,18 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div class="block block-progress opc-block-progress">
-    
-    <div class="block-content">
-        <dl>
-            <?php if ($this->getCheckout()->getStepData('information', 'is_show')): ?>
-            <div id="information-progress-opcheckout">
-                <?php echo $this->getChildHtml('information.progress') ?>
-            </div>
-            <?php endif; ?>
-
-            <?php if ($this->getCheckout()->getStepData('shipping', 'is_show')): ?>
-            <div id="shipping-progress-opcheckout">
-                <?php echo $this->getChildHtml('shipping.progress') ?>
-            </div>
-            <?php endif; ?>
-        </dl>
-    </div>
-</div>
-
+<?php if ($this->getCheckout()->getStepData('billing', 'complete')): ?>
+<dt class="complete">
+    <h3><?php echo $this->__('Billing Address') ?></h3>
+    <a
+        href="#billing"
+        onclick="checkout.changeSection('opc-billing'); return false;"><?php echo $this->__('Change') ?></a>
+</dt>
+<dd class="complete">
+    <address><?php echo $this->getBilling()->format('html') ?></address>
+</dd>
+<?php else: ?>
+<dt>
+    <?php echo $this->__('Billing Address') ?>
+</dt>
+<?php endif; ?>

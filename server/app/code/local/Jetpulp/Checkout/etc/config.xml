@@ -32,6 +32,30 @@
         </Jetpulp_Checkout>
     </modules>
     <frontend>
+        <translate>
+            <modules>
+                <Jetpulp_Checkout>
+                    <files>
+                        <default>Jetpulp_Checkout.csv</default>
+                    </files>
+                </Jetpulp_Checkout>
+                <Mage_Checkout>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Checkout>
+                <Mage_Customer>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Customer>
+                <Mage_Sales>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Sales>
+            </modules>
+        </translate>
         <secure_url>
             <jetcheckout_onepage>/jetcheckout/onepage</jetcheckout_onepage>
         </secure_url>
@@ -57,6 +81,11 @@
             <jetcheckout>
                 <class>Jetpulp_Checkout_Block</class>
             </jetcheckout>
+            <checkout>
+                <rewrite>
+                    <cart_totals>Jetpulp_Checkout_Block_Cart_Totals</cart_totals>
+                </rewrite>
+            </checkout>
         </blocks>
         <helpers>
             <jetcheckout>
