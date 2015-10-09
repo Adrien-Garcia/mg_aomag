@@ -205,6 +205,15 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	}
 }
 
+p.required {
+	margin: -90px 0 0 30px;
+	color: #757575;
+	font-size: 11px;
+	span {
+		color: #ff0000;
+	}
+}
+
 /* Hn */
 h3 {
 	font-size: 20px;
@@ -267,18 +276,23 @@ h3 {
         font-weight: bold;
     	text-transform: uppercase;
     	display: block;
-    	margin: 13px 0 43px 0;
+    	margin: 13px 0 0 0;
+    	pointer-events: none;
+	}
+
+	.collapsed {
+		display: block;
 	}
 
 	.review-cart-title {
 		color: #3a3a3a;
 		float: left;
-		margin: 0 0 3px 0;
+		margin: 43px 0 3px 0;
 	}
 
 	.change-cart {
 		float: right;
-		margin-top: 5px;
+		margin-top: 48px;
 		&:extend(.lien all);
 		.op(.5,.3);
 	}
@@ -531,6 +545,16 @@ h3 {
 		float: right;
 	}
 
+	.please-wait {
+	    position: absolute;
+	    bottom: 6px;
+	    right: 130px;
+	    img {
+			height: 20px;
+			width: auto;
+	    }
+	}
+
 }
 
 /* First step => login step */
@@ -598,41 +622,5 @@ h3 {
 
 
 
-
-@media screen and (max-width: 1024px) {
-
-	.jetcheckout-onepage-index {
-
-		.page {
-			width: auto;
-		}
-
-		.col-left {
-			float: none;
-			width: 630px;
-			margin: auto;
-		}
-
-		.col-main {
-			float: none;
-			margin: auto;
-		}
-
-		.footer-container {
-
-			.footer {
-
-				span {
-
-					&:first-child {
-						padding-left: 13px;
-					}
-
-				}
-			}
-
-		}
-
-	}
-
-}
+@import "jetpulp-checkout-1024-down"; 
+@import "jetpulp-checkout-650-down"; 

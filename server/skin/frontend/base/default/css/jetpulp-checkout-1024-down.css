@@ -1,0 +1,17 @@
+@media screen and (max-width: 1024px) {
+  .jetcheckout-onepage-index .page {
+    width: auto;
+  }
+  .jetcheckout-onepage-index .col-left {
+    float: none;
+    width: 630px;
+    margin: auto;
+  }
+  .jetcheckout-onepage-index .col-main {
+    float: none;
+    margin: auto;
+  }
+  .jetcheckout-onepage-index .footer-container .footer span:first-child {
+    padding-left: 13px;
+  }
+}

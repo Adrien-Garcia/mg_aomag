@@ -318,4 +318,15 @@ jQuery(function($) {
         jQuery("#checkoutSteps").css("min-height", jQuery(".active .step:visible").outerHeight() + 40); // 40 étant la hauteur des onglets des étapes
     }
 
+    /*
+     * Ouverture/fermeture du récapitulatif
+     */
+     $(".review-block-title").toggle(function() {
+        $(this).addClass("up").next(".collapsable").show('slow');
+     },function() {
+        $(this).removeClass("up").next(".collapsable").hide('slow', function() {
+            $(this).addClass("collapsed").removeAttr("style");
+        });
+     });
+
 })
