@@ -34,7 +34,6 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 .jetcheckout-onepage-index .col-left {
   float: left;
   width: 300px;
-  margin-bottom: 100px;
 }
 .jetcheckout-onepage-index .col-main {
   float: right;
@@ -48,6 +47,16 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
   color: #3a3a3a;
   line-height: 16px;
   height: 80px;
+  padding-top: 100px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 960px;
+  margin-left: -480px;
+}
+.jetcheckout-onepage-index .footer-container.static {
+  position: static;
+  margin-left: 0;
 }
 .jetcheckout-onepage-index .footer-container .footer {
   display: table-row;
@@ -66,6 +75,18 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 }
 .jetcheckout-onepage-index .footer-container .footer span:last-child {
   border-right: none;
+}
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+  /* For IE 6/7 (trigger hasLayout) */
 }
 /* fieldset reset */
 fieldset {
@@ -94,6 +115,10 @@ button {
   color: #fff;
   border-radius: 3px;
   cursor: pointer;
+  transition: opacity .2s;
+}
+button:hover {
+  opacity: .6;
 }
 /* text field */
 .input-text,
@@ -105,6 +130,11 @@ select {
   line-height: 28px;
   padding: 0 12px;
   box-sizing: border-box;
+  transition: border .2s;
+}
+.input-text:focus,
+select:focus {
+  border-color: #000;
 }
 select {
   height: 30px;
@@ -164,12 +194,19 @@ select:-webkit-autofill {
   margin: 0 5px 0 0;
 }
 p.required {
-  margin: -90px 0 0 30px;
+  margin: 10px 0 0 30px;
   color: #757575;
   font-size: 11px;
 }
 p.required span {
-  color: #ff0000;
+  color: #ee3e81;
+}
+.validation-advice {
+  color: #ee3e81;
+}
+.amorce {
+  display: block;
+  margin-bottom: 15px;
 }
 /* Hn */
 h3 {
@@ -362,7 +399,6 @@ h3 {
 }
 /* Début charte jetpulp */
 .opc {
-  margin-bottom: 100px;
   /* Charte des titres des étapes */
   /* étapes : styles génériques */
 }
@@ -490,6 +526,58 @@ h3 {
   padding-right: 0;
   padding-left: 15px;
 }
+/* Payment step */
+#opc-payment {
+  /* ATTENTION sépcifique au paiement "credit cart (saved) par défaut sur aomagento" */
+}
+#opc-payment .sp-methods dt {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+#opc-payment .sp-methods dt input {
+  vertical-align: middle;
+  margin: 0 5px 0 0;
+}
+#opc-payment .v-fix {
+  width: calc(50% - 15px);
+  float: left;
+}
+#opc-payment .v-fix + .v-fix {
+  float: right;
+}
+#opc-payment .verification-li {
+  overflow: visible;
+}
+#opc-payment .input-box-verification {
+  position: relative;
+}
+#opc-payment .tool-tip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 7px;
+  z-index: 10;
+  margin-bottom: -6px;
+}
+#opc-payment .tool-tip span {
+  position: absolute;
+  top: 32px;
+  left: 20px;
+  color: white;
+  font-style: italic;
+}
+#opc-payment .tooltip-verification {
+  text-indent: -200em;
+  overflow: hidden;
+  width: 14px;
+  height: 14px;
+  background: url(../images/jetcheckout/info.svg);
+  display: inline-block;
+  vertical-align: middle;
+}
+#opc-payment .tooltip-verification:hover + .tool-tip {
+  display: block;
+}
 @media screen and (max-width: 1024px) {
   .jetcheckout-onepage-index .page {
     width: auto;
@@ -503,8 +591,18 @@ h3 {
     float: none;
     margin: auto;
   }
-  .jetcheckout-onepage-index .footer-container .footer span:first-child {
-    padding-left: 13px;
+  .jetcheckout-onepage-index .footer-container {
+    display: none;
+    /* à réactiver si on décide de l'afficher .footer {
+
+				span {
+
+					&:first-child {
+						padding-left: 13px;
+					}
+
+				}
+			}*/
   }
   /* order review */
   .order-review .review-block-title {

@@ -314,6 +314,7 @@ jQuery(function($) {
     if( $("body").hasClass("jetcheckout-onepage-index") ) {
         setInterval(function() {
             jQuery("#checkoutSteps").css("min-height", jQuery(".active .step:visible").outerHeight() + 40); // 40 étant la hauteur des onglets des étapes
+            $(window).resize(); // footer fixe
         }, 200);
         jQuery("#checkoutSteps").css("min-height", jQuery(".active .step:visible").outerHeight() + 40); // 40 étant la hauteur des onglets des étapes
     }
@@ -328,5 +329,23 @@ jQuery(function($) {
             $(this).addClass("collapsed").removeAttr("style");
         });
      });
+
+    /*
+     * Footer fixe
+     */
+    var $footer = $(".footer-container");
+    var $main = $(".main-container");
+    var headerHeight = $(".header-container").height();
+    var footerHeight = $footer.outerHeight();
+    $(window).resize(function() {
+        var mainHeight = $main.height();
+        //console.log($(window).height() + " < " + (headerHeight + mainHeight + footerHeight));
+        if( $(window).height() < (headerHeight + mainHeight + footerHeight) ) {
+            $footer.addClass("static");
+        } else {
+            $footer.removeClass("static");
+        }
+    }).resize();
+
 
 })

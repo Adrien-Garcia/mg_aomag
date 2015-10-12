@@ -45,7 +45,6 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 	.col-left {
 		float: left;
 		width: 300px;
-		margin-bottom: 100px;
 	}
 
 	.col-main {
@@ -62,6 +61,18 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 		color: #3a3a3a;
 		line-height: 16px;
 		height: 80px;
+		padding-top: 100px;
+
+		position: fixed;
+		bottom: 0;
+		left: 50%;
+		width: 960px;
+		margin-left: -480px;
+
+		&.static {
+			position: static;
+			margin-left: 0;
+		}
 
 		.footer {
 			display: table-row;
@@ -97,7 +108,17 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 
 
 
-
+.clearfix:before,
+.clearfix:after {
+  content:"";
+  display:table;
+}
+.clearfix:after {
+  clear:both;
+}
+.clearfix {
+  zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}
 
 
 /* fieldset reset */
@@ -125,6 +146,11 @@ button {
 	color: #fff;
 	border-radius: 3px;
 	cursor: pointer;
+	transition: opacity .2s;
+
+	&:hover {
+		opacity: .6;
+	}
 }
 
 /* text field */
@@ -136,6 +162,11 @@ button {
 	line-height: 28px;
 	padding: 0 12px;
 	box-sizing: border-box;
+	transition: border .2s;
+
+	&:focus {
+		border-color: #000;
+	}
 }
 
 select {
@@ -206,12 +237,21 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 p.required {
-	margin: -90px 0 0 30px;
+	margin: 10px 0 0 30px;
 	color: #757575;
 	font-size: 11px;
 	span {
-		color: #ff0000;
+		color: @color;
 	}
+}
+
+.validation-advice {
+	color: @color;
+}
+
+.amorce {
+	display: block;
+	margin-bottom: 15px;
 }
 
 /* Hn */
@@ -449,8 +489,6 @@ h3 {
 /* Début charte jetpulp */
 .opc {
 
-	margin-bottom: 100px;
-
 	/* Charte des titres des étapes */
 	.step-title {
 
@@ -620,6 +658,82 @@ h3 {
 
 }
 
+
+
+
+
+
+
+/* Payment step */
+#opc-payment {
+
+	.sp-methods {
+
+		dt {
+			font-weight: bold;
+			margin-bottom: 15px;
+			input {
+				vertical-align: middle;
+				margin: 0 5px 0 0;
+			}
+		}
+
+		dd {}
+
+	}
+
+	/* ATTENTION sépcifique au paiement "credit cart (saved) par défaut sur aomagento" */
+	.v-fix {
+		width: calc(~"50% - 15px");
+    	float: left;
+	}
+
+	.v-fix + .v-fix {
+    	float: right;
+	}
+
+	.verification-li {
+		overflow: visible;
+	}
+
+	.input-box-verification {
+		position: relative;
+	}
+
+	.tool-tip {
+		display: none;
+	    position: absolute;
+	    bottom: 100%;
+	    left: 7px;
+	    z-index: 10;
+	    margin-bottom: -6px;
+
+	    span {
+			position: absolute;
+		    top: 32px;
+		    left: 20px;
+		    color: white;
+		    font-style: italic;
+	    }
+	}
+
+	.tooltip-verification {
+		text-indent: -200em;
+		overflow: hidden;
+		width: 14px;
+		height: 14px;
+		background: url(../images/jetcheckout/info.svg);
+		display: inline-block;
+		vertical-align: middle;
+
+		&:hover {
+			+ .tool-tip {
+				display: block;
+			}
+		}
+	}
+
+}
 
 
 @import "jetpulp-checkout-1024-down"; 

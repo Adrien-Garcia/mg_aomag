@@ -54,6 +54,11 @@
                         <additional>Jetpulp_Checkout.csv</additional>
                     </files>
                 </Mage_Sales>
+                <Mage_Payment>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Payment>
             </modules>
         </translate>
         <secure_url>
