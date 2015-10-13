@@ -1,0 +1,635 @@
+body.jetcheckout:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section:not(#opc-login) .step-title,
+body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-login {
+  opacity: 1;
+}
+#checkout-shipping-method-load.method-refreshing {
+  height: 100px;
+  content: "Reloading Shipping Method ";
+  background: url(../images/opc-ajax-loader.gif) no-repeat center / auto;
+}
+/* Global layout */
+.jetcheckout-onepage-index {
+  padding: 0;
+  margin: 0;
+  background: #f3f3f3;
+  font: 12px Arial, Verdana, Helvetica, sans-serif;
+}
+.jetcheckout-onepage-index .page {
+  width: 960px;
+  margin: auto;
+}
+.jetcheckout-onepage-index .header {
+  text-align: center;
+  line-height: 130px;
+}
+.jetcheckout-onepage-index .header img {
+  vertical-align: middle;
+}
+.jetcheckout-onepage-index .page-title {
+  display: none;
+}
+.jetcheckout-onepage-index .main {
+  overflow: hidden;
+}
+.jetcheckout-onepage-index .col-left {
+  float: left;
+  width: 300px;
+}
+.jetcheckout-onepage-index .col-main {
+  float: right;
+  width: 630px;
+}
+.jetcheckout-onepage-index .footer-container {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  font-size: 15px;
+  color: #3a3a3a;
+  line-height: 16px;
+  height: 80px;
+  padding-top: 100px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 960px;
+  margin-left: -480px;
+}
+.jetcheckout-onepage-index .footer-container.static {
+  position: static;
+  margin-left: 0;
+}
+.jetcheckout-onepage-index .footer-container .footer {
+  display: table-row;
+}
+.jetcheckout-onepage-index .footer-container .footer span {
+  display: table-cell;
+  width: 2%;
+  padding: 0 13px;
+  border-right: 1px solid #d7d7d7;
+}
+.jetcheckout-onepage-index .footer-container .footer span b {
+  display: block;
+}
+.jetcheckout-onepage-index .footer-container .footer span:first-child {
+  padding-left: 0;
+}
+.jetcheckout-onepage-index .footer-container .footer span:last-child {
+  border-right: none;
+}
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+  /* For IE 6/7 (trigger hasLayout) */
+}
+/* fieldset reset */
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+/* list reset */
+ol,
+ul,
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+/* button */
+button {
+  background: #ee3e81;
+  border: none;
+  font-weight: bold;
+  font-size: 15px;
+  text-transform: uppercase;
+  padding: 12px 15px 11px 15px;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+button:hover {
+  opacity: .6;
+}
+/* text field */
+.input-text,
+select {
+  border: 1px solid #cecece;
+  border-radius: 3px;
+  background: #fff;
+  font: 12px Arial, Verdana, Helvetica, sans-serif;
+  line-height: 28px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  transition: border .2s;
+}
+.input-text:focus,
+select:focus {
+  border-color: #000;
+}
+select {
+  height: 30px;
+}
+/* required fields */
+label.required em {
+  display: none;
+}
+label.required:after {
+  content: "*";
+  color: #ee3e81;
+}
+/* remove outline on all elements */
+* {
+  outline: none;
+}
+/* remove webkit background on autofilled fields */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px white inset;
+}
+.form-list li {
+  margin-bottom: 15px;
+}
+.form-list li .input-box {
+  margin-top: 2px;
+}
+.form-list li .input-box .input-text,
+.form-list li .input-box select {
+  width: 100%;
+}
+.form-list .fields {
+  overflow: hidden;
+}
+.form-list .fields .field {
+  width: 50%;
+  float: left;
+  box-sizing: border-box;
+}
+.form-list .fields .field:nth-child(odd) {
+  padding-right: 15px;
+}
+.form-list .fields .field:nth-child(even) {
+  padding-left: 15px;
+}
+/*
+* je ne peux pas laisser ça dans .form-list .fields (cf. au-dessus)
+* car à l'étape de livraison, les radios ne sont pas dans un .form-list .fields
+*/
+.control {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.control input {
+  vertical-align: middle;
+  margin: 0 5px 0 0;
+}
+p.required {
+  margin: 10px 0 0 30px;
+  color: #757575;
+  font-size: 11px;
+}
+p.required span {
+  color: #ee3e81;
+}
+.validation-advice {
+  color: #ee3e81;
+}
+.amorce {
+  display: block;
+  margin-bottom: 15px;
+}
+/* Hn */
+h3 {
+  font-size: 20px;
+  color: #ee3e81;
+  margin: 0 0 20px 0;
+}
+/* lien */
+.lien,
+.lien-gauche,
+.order-review .change-cart,
+.opc-block-progress dt a,
+.buttons-set a,
+.buttons-set .back-link a {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  line-height: 12px;
+  border-bottom: 1px solid #000;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.lien:before,
+.lien-gauche:before,
+.order-review .change-cart:before,
+.opc-block-progress dt a:before,
+.buttons-set a:before,
+.buttons-set .back-link a:before {
+  content: url(../images/jetcheckout/fleche-lnk.svg);
+  position: absolute;
+  top: 0;
+  left: -10px;
+}
+.lien-gauche:before,
+.buttons-set .back-link a:before {
+  content: url(../images/jetcheckout/fleche-lnk-gauche.svg);
+}
+/* order review */
+.order-review .review-block-title {
+  opacity: .5;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+  margin: 13px 0 0 0;
+  pointer-events: none;
+}
+.order-review .collapsed {
+  display: block;
+}
+.order-review .review-cart-title {
+  color: #3a3a3a;
+  float: left;
+  margin: 43px 0 3px 0;
+}
+.order-review .change-cart {
+  float: right;
+  margin-top: 48px;
+  opacity: 0.5;
+  transition: opacity .2s;
+}
+.order-review .change-cart:hover {
+  opacity: 0.3;
+}
+.order-review .checkout-review-table {
+  border-top: 1px solid #d7d7d7;
+  clear: both;
+  border-spacing: 0;
+  width: 100%;
+}
+.order-review .checkout-review-table td {
+  padding: 13px 0;
+  background: url(../images/jetcheckout/separator.gif) repeat-x 0 100%;
+  vertical-align: top;
+}
+.order-review .checkout-review-table td:last-child {
+  text-align: right;
+}
+.order-review .checkout-review-table tbody td {
+  color: rgba(0, 0, 0, 0.5);
+}
+.order-review .checkout-review-table tbody td:first-child {
+  width: 200px;
+}
+.order-review .checkout-review-table tbody td + td {
+  text-align: center;
+}
+.order-review .checkout-review-table tbody td:last-child {
+  width: 65px;
+}
+.order-review .checkout-review-table tfoot td {
+  color: rgba(0, 0, 0, 0.5);
+}
+.order-review .checkout-review-table tfoot tr.last {
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.order-review .checkout-review-table tfoot tr.last td {
+  background: none;
+  color: #000000;
+}
+/* progress */
+.opc-block-progress dt,
+.opc-block-progress dd {
+  display: none;
+}
+.opc-block-progress dt.complete,
+.opc-block-progress dd.complete {
+  display: block;
+}
+.opc-block-progress dt {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-top: 35px;
+}
+.opc-block-progress dt h3 {
+  color: #3a3a3a;
+  margin-bottom: 3px;
+  float: left;
+}
+.opc-block-progress dt a {
+  opacity: 0.5;
+  transition: opacity .2s;
+  float: right;
+  margin-top: 5px;
+}
+.opc-block-progress dt a:hover {
+  opacity: 0.3;
+}
+.opc-block-progress dd {
+  padding-top: 15px;
+}
+.opc-block-progress dd address {
+  font-style: normal;
+  color: rgba(0, 0, 0, 0.5);
+}
+/* Minimal setup for tab layout */
+.opc {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+.opc:first-of-type .step {
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.opc:first-of-type .step[style*='display:none;'],
+.opc:first-of-type .step[style*='display: none;'] {
+  display: block !important;
+}
+.opc:first-of-type .section .step {
+  left: 100%;
+}
+.opc:first-of-type .allow .step {
+  left: -100%;
+}
+.opc:first-of-type .active .step {
+  left: 0;
+}
+.opc li.section {
+  display: inline;
+}
+.opc .step {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+}
+.opc .step-title {
+  position: relative;
+  float: left;
+  width: 25%;
+}
+.opc .step-title a {
+  display: none;
+}
+.opc .allow .step-title {
+  cursor: pointer;
+}
+.opc .active .step-title {
+  cursor: default;
+}
+/* Début charte jetpulp */
+.opc {
+  /* Charte des titres des étapes */
+  /* étapes : styles génériques */
+}
+.opc .step-title {
+  box-sizing: border-box;
+  font-size: 13px;
+  font-weight: bold;
+  border-right: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 13px 0 12px 0;
+  text-align: center;
+  color: #bebebe;
+}
+.opc .step-title h2 {
+  display: inline;
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.opc .section:last-child .step-title {
+  border-right: none;
+}
+.opc .section.allow .step-title h2 {
+  border-bottom: 1px solid;
+  position: relative;
+}
+.opc .section.allow .step-title h2:after {
+  content: url(../images/jetcheckout/coche-verte.svg);
+  position: absolute;
+  top: -10px;
+  right: -12px;
+}
+.opc .section.active .step-title {
+  border-bottom: #fff;
+  color: #000;
+}
+.opc .section.active .step-title h2 {
+  border: none;
+}
+.opc .section.active .step-title h2:after {
+  content: none;
+}
+.opc .step {
+  top: 41px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+/* buttons set */
+.buttons-set {
+  overflow: hidden;
+  position: relative;
+  padding-top: 15px;
+}
+.buttons-set a {
+  opacity: 1;
+  transition: opacity .2s;
+}
+.buttons-set a:hover {
+  opacity: 0.8;
+}
+.buttons-set .back-link {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0;
+}
+.buttons-set .back-link a {
+  float: left;
+  opacity: 0.5;
+  transition: opacity .2s;
+}
+.buttons-set .back-link a:hover {
+  opacity: 0.3;
+}
+.buttons-set button {
+  float: right;
+}
+.buttons-set .please-wait {
+  position: absolute;
+  bottom: 6px;
+  right: 130px;
+}
+.buttons-set .please-wait img {
+  height: 20px;
+  width: auto;
+}
+/* First step => login step */
+#opc-login .col2-set {
+  overflow: hidden;
+}
+#opc-login .col-1,
+#opc-login .col-2 {
+  float: right;
+  width: calc(50% - 15px);
+}
+#opc-login .col-2 {
+  float: left;
+}
+#opc-login .col-1 ul {
+  padding: 12px 0 0 0;
+}
+#opc-login .col-1 ul li {
+  margin-bottom: 13px;
+  padding-left: 15px;
+  background: url(../images/jetcheckout/coche-grise.svg) no-repeat 0 0;
+}
+#opc-login .buttons-set a {
+  margin-top: 20px;
+}
+#opc-login .buttons-set button {
+  float: none;
+}
+/* styles de la date de naissance */
+#opc-information .name-prefix,
+#opc-shipping_method .name-prefix {
+  width: 75px;
+}
+#opc-information .name-firstname,
+#opc-shipping_method .name-firstname {
+  width: 210px;
+  padding-right: 15px;
+}
+#opc-information .name-lastname,
+#opc-shipping_method .name-lastname {
+  padding-right: 0;
+  padding-left: 15px;
+}
+/* Payment step */
+#opc-payment {
+  /* ATTENTION sépcifique au paiement "credit cart (saved) par défaut sur aomagento" */
+}
+#opc-payment .sp-methods dt {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+#opc-payment .sp-methods dt input {
+  vertical-align: middle;
+  margin: 0 5px 0 0;
+}
+#opc-payment .v-fix {
+  width: calc(50% - 15px);
+  float: left;
+}
+#opc-payment .v-fix + .v-fix {
+  float: right;
+}
+#opc-payment .verification-li {
+  overflow: visible;
+}
+#opc-payment .input-box-verification {
+  position: relative;
+}
+#opc-payment .tool-tip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 7px;
+  z-index: 10;
+  margin-bottom: -6px;
+}
+#opc-payment .tool-tip span {
+  position: absolute;
+  top: 32px;
+  left: 20px;
+  color: white;
+  font-style: italic;
+}
+#opc-payment .tooltip-verification {
+  text-indent: -200em;
+  overflow: hidden;
+  width: 14px;
+  height: 14px;
+  background: url(../images/jetcheckout/info.svg);
+  display: inline-block;
+  vertical-align: middle;
+}
+#opc-payment .tooltip-verification:hover + .tool-tip {
+  display: block;
+}
+@media screen and (max-width: 1024px) {
+  .jetcheckout-onepage-index .page {
+    width: auto;
+  }
+  .jetcheckout-onepage-index .col-left {
+    float: none;
+    width: 630px;
+    margin: auto;
+  }
+  .jetcheckout-onepage-index .col-main {
+    float: none;
+    margin: auto;
+  }
+  .jetcheckout-onepage-index .footer-container {
+    display: none;
+    /* à réactiver si on décide de l'afficher .footer {
+
+				span {
+
+					&:first-child {
+						padding-left: 13px;
+					}
+
+				}
+			}*/
+  }
+  /* order review */
+  .order-review .review-block-title {
+    background: url(../images/jetcheckout/fleche_up.svg) no-repeat 100% 2px;
+    pointer-events: auto;
+  }
+  .order-review .review-block-title.up {
+    background-image: url(../images/jetcheckout/fleche_down.svg);
+  }
+  .order-review .collapsable,
+  .order-review .collapsed {
+    display: none;
+    width: 100% !important;
+  }
+}
+@media screen and (max-width: 650px) {
+  .jetcheckout-onepage-index {
+    background: red;
+  }
+  .jetcheckout-onepage-index .col-left {
+    /*float: none;
+			width: 630px;
+			margin: auto;*/
+  }
+  .jetcheckout-onepage-index .col-main {
+    /*float: none;
+			margin: auto;*/
+  }
+  /* order review */
+}
