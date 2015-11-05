@@ -5,6 +5,9 @@
       <action method="addJs">
         <script>imagefix_firefox/image-upload-fix.js</script>
       </action>
+      <action method="addJs">
+        <script>jetpulp/tiny_mce/setup.js</script>
+      </action>
     </reference>
   </editor>
 </layout>
