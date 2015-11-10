@@ -1,0 +1,5 @@
+"Disabling cache for registered users","Désactiver le cache pour les utilisateurs connectés"
+"Varnish servers","Server Varnish"
+"Cache Page Depends Cutomer Group","Cache page dépend de groupe de clients"
+"Specify where varnish servers can be found. You can specify multiple varnish servers separating them by comma: 127.0.0.1:80,127.0.0.2:80","Spécifier où les serveurs de vernis peuvent être trouvés. Vous pouvez spécifier des serveurs de vernis multiples en les séparant par une virgule: 127.0.0.1:80,127.0.0.2:80"
+"Cache different page depending the cutomer group of the logged in user","Cache de page différente selon le groupe de clients de l'utilisateur connecté"
