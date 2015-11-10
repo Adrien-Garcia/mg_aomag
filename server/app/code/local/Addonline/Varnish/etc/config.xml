@@ -126,11 +126,22 @@
             </adminhtml>
         </routers>
     </admin>
-	
+	<adminhtml>
+		<translate>
+			<modules>
+				<Addonline_Varnish>
+					<files>
+						<default>Addonline_Varnish.csv</default>
+					</files>
+				</Addonline_Varnish>
+			</modules>
+		</translate>
+	</adminhtml>	
 	<default>
 		<system>
 			<external_page_cache>
 				<varnish_servers>127.0.0.1:80</varnish_servers>
+				<varnish_disabled_for_loggedin>0</varnish_disabled_for_loggedin>
 			</external_page_cache>
 		</system>
 	</default>
