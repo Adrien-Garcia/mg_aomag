@@ -19,21 +19,6 @@ jQuery(function($) {
 		$("#form-cart").submit();
 	});
 	
-	/* Obfuscation lien accueil */
-	demoer = {'home':'hjkl@|'};
-	$('.lienhome').bind('click', function(){
-		str = demoer["home"];
-		str = str.replace('h', 'http://');
-		//str = str.replace('m', 'www');
-		//str = str.replace('d', '.');
-		str = str.replace('j', 'changermonlien');
-		str = str.replace('k', '.');
-		str = str.replace('l', 'preprod.addonline');
-		str = str.replace('@', '.');
-		str = str.replace('|', 'biz');
-		document.location=str;
-	});
-
 	$('.level-top.search').on('mouseout',function(){
 		if(!$(this).hasClass('over'))$(this).find('input#search').trigger('blur');
 	});
