@@ -114,7 +114,11 @@ class Fooman_Speedster_Block_Page_Html_Head extends Addonline_Seo_Block_Head
 
         foreach ($lines as $if => $items) {
             if (!empty($if)) {
-                $html .= '<!--[if ' . $if . ']>' . "\n";
+                if (strpos($if, '<!--[if') === 0) {
+                    $html .= $if;
+                } else {
+                    $html .= '<!--[if '.$if.']>'."\n";
+                }
             }
             if (!empty($items['stylesheet'])) {
                 $cssBuild = Mage::getModel('speedster/buildSpeedster', array($items['stylesheet'], BP));
@@ -161,6 +165,9 @@ class Fooman_Speedster_Block_Page_Html_Head extends Addonline_Seo_Block_Head
                 $html .= join("\n", $items['other']) . "\n";
             }
             if (!empty($if)) {
+                if (strpos($if, '<!--[if') === 0) {
+                    $html .= '<!--';
+                }
                 $html .= '<![endif]-->' . "\n";
             }
         }
