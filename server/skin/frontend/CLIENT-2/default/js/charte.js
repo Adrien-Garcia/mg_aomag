@@ -18,22 +18,7 @@ jQuery(function($) {
 		$(this).addClass("refreshing");
 		$("#form-cart").submit();
 	});
-	
-	/* Obfuscation lien accueil */
-	demoer = {'home':'hjkl@|'};
-	$('.lienhome').bind('click', function(){
-		str = demoer["home"];
-		str = str.replace('h', 'http://');
-		//str = str.replace('m', 'www');
-		//str = str.replace('d', '.');
-		str = str.replace('j', 'changerlelien');
-		str = str.replace('k', '.');
-		str = str.replace('l', 'preprod.addonline');
-		str = str.replace('@', '.');
-		str = str.replace('|', 'biz');
-		document.location=str;
-	});
-	
+
 	/* Menu : donner la hauteur à toute les colonnes de second niveau */
 	var id;
 	$("li.level0").mouseover(function() {
