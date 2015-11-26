@@ -23,7 +23,7 @@ class Addonline_Varnish_Model_Observer
         $request = $action->getRequest();
         $needCaching = true;
 
-        if ($request->isPost()) {
+        if ($request->isPost() || Mage::helper('varnish')->isDisabledForRegisterUser()) {
             $needCaching = false;
         }
 
