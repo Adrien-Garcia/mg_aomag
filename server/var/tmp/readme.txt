@@ -1,13 +1,13 @@
-Readme for GeoNames.org Postal Code files :
+Readme for GeoNames Postal Code files :
 
 This work is licensed under a Creative Commons Attribution 3.0 License.
 This means you can use the dump as long as you give credit to geonames (a link on your website to www.geonames.org is ok)
 see http://creativecommons.org/licenses/by/3.0/
-UK: Contains Royal Mail data Royal Mail copyright and database right 2010.
+UK: Contains Royal Mail data Royal Mail copyright and database right 2015.
 The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
 
 This readme describes the GeoNames Postal Code dataset.
-The main GeoNames data dump is here: http://download.geonames.org/export/dump/
+The main GeoNames gazetteer data extract is here: http://download.geonames.org/export/dump/
 
 
 For many countries lat/lng are determined with an algorithm that searches the place names in the main geonames database 
@@ -16,13 +16,17 @@ For postal codes and place name for which no corresponding toponym in the main g
 lat/lng of 'neighbouring' postal codes is calculated.
 Please let us know if you find any errors in the data set. Thanks
 
-Warning:
-  The lat/lng accuracy for Turkey and Indian Postal Index Number (PIN) is not very high, we have been asked to include the data for India in the dump despite this inaccuracies.
 For Canada we have only the first letters of the full postal codes (for copyright reasons)
+
+For Ireland we have only the first letters of the full postal codes (for copyright reasons)
+
+For Malta we have only the first letters of the full postal codes (for copyright reasons)
 
 The Argentina data file contains 4-digit postal codes which were replaced with a new system in 1999.
 
-For Brazil only major postal codes are available (only the codes ending with -000 and the major code per municipality.
+For Brazil only major postal codes are available (only the codes ending with -000 and the major code per municipality).
+
+For India the lat/lng accuracy is not yet comparable to other countries.
 
 The data format is tab-delimited text in utf8 encoding, with the following fields :
 
