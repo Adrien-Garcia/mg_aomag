@@ -35,7 +35,7 @@ class Jetpulp_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Totals
             $code = $total->getAs();
         }
 
-        if( $code == 'subtotal' || $code == 'tax' ) return;
+        //if( $code == 'subtotal' || $code == 'tax' ) return;
 
         return $this->_getTotalRenderer($code)
             ->setTotal($total)

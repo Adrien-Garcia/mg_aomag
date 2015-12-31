@@ -46,7 +46,10 @@
         <div class="main-container col2-left-layout">
             <div class="main">
                 <div class="sidebar col-left">
-                    <?php echo $this->getChildHtml('sidebar');?>
+                    <span class="collapsable-trigger review-block-title"><?php echo $this->__('Order review'); ?></span>
+                    <div class="collapsable collapsed">
+                        <?php echo $this->getChildHtml('sidebar');?>
+                    </div>
                 </div>
                 <div class="col-main">
                     <?php echo $this->getChildHtml('global_messages') ?>
@@ -55,7 +58,7 @@
             </div>
             
         </div>
-        <?php echo $this->getChildHtml('footer') ?>
+        <?php echo $this->getChildHtml('jpfooter') ?>
         <?php echo $this->getChildHtml('global_cookie_notice') ?>
         <?php echo $this->getChildHtml('before_body_end') ?>
     </div>

@@ -27,8 +27,8 @@
 /**
  * Shopping cart block
  *
- * @category    Mage
- * @package     Mage_Checkout
+ * @category    Jetpulp
+ * @package     Jetpulp_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Jetpulp_Checkout_Block_Checkout_Cart extends Mage_Checkout_Block_Cart
@@ -46,48 +46,5 @@ class Jetpulp_Checkout_Block_Checkout_Cart extends Mage_Checkout_Block_Cart
     public function getCheckoutUrl()
     {
         return $this->getUrl('jetcheckout/onepage', array('_secure'=>true));
-    }
-
-    /**
-     * Return list of available checkout methods
-     *
-     * @param string $nameInLayout Container block alias in layout
-     * @return array
-     */
-    public function getMethods($nameInLayout)
-    {
-        if ($this->getChild($nameInLayout) instanceof Mage_Core_Block_Abstract) {
-            return $this->getChild($nameInLayout)->getSortedChildren();
-        }
-        return array();
-    }
-
-    /**
-     * Return HTML of checkout method (link, button etc.)
-     *
-     * @param string $name Block name in layout
-     * @return string
-     */
-    public function getMethodHtml($name)
-    {
-        $block = $this->getLayout()->getBlock($name);
-        if (!$block) {
-            Mage::throwException(Mage::helper('checkout')->__('Invalid method: %s', $name));
-        }
-        return $block->toHtml();
-    }
-
-    /**
-     * Return customer quote items
-     *
-     * @return array
-     */
-    public function getItems()
-    {
-        if ($this->getCustomItems()) {
-            return $this->getCustomItems();
-        }
-
-        return parent::getItems();
     }
 }

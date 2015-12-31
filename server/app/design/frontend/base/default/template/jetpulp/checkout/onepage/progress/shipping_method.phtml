@@ -26,7 +26,7 @@
 ?>
 <?php if ($this->getCheckout()->getStepData('shipping_method', 'complete')): ?>
 <dt class="complete">
-    <h3><?php echo $this->__('Shipping Method') ?></h3><a
+    <h3><?php echo $this->__('Shipping Method') ?></h3><a class="disable-on-payment"
         href="#shipping_method"
         onclick="checkout.changeSection('opc-shipping_method'); return false;"><?php echo $this->__('Change') ?></a>
 </dt>

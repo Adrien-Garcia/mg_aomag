@@ -24,13 +24,13 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if ($this->getCheckout()->getStepData('shipping', 'complete')): ?>
+<?php if ($this->getCheckout()->getStepData('shipping_method', 'complete')): ?>
 <?php $completeClass = $this->getCheckout()->getStepData('shipping', 'complete') ? 'complete' : ''; ?>
 <dt class="<?php echo $completeClass ?>">
     <h3><?php echo $this->__('Shipping Address') ?></h3>
-    <a
-        href="#payment"
-        onclick="checkout.changeSection('opc-shipping');return false;"><?php echo $this->__('Change') ?></a>
+    <a  class="disable-on-payment"
+        href="#shipping_method"
+        onclick="checkout.changeSection('opc-shipping_method');jQuery('#shipping\\:same_as_billing_no').trigger('click'); return false;"><?php echo $this->__('Change') ?></a>
 </dt>
 <dd class="<?php echo $completeClass ?>">
     <?php if ($this->getCheckout()->getStepData('shipping', 'complete')): ?>

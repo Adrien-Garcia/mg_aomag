@@ -42,8 +42,8 @@
                 <connection>
                     <host><![CDATA[127.0.0.1]]></host>
                     <username><![CDATA[root]]></username>
-                    <password><![CDATA[]]></password>
-                    <dbname><![CDATA[aomagento]]></dbname>
+                    <password><![CDATA[root]]></password>
+                    <dbname><![CDATA[addonline_aomagento_magento]]></dbname>
                     <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
                     <model><![CDATA[mysql4]]></model>
                     <type><![CDATA[pdo_mysql]]></type>

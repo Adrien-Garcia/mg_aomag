@@ -38,7 +38,7 @@ abstract class Jetpulp_Checkout_Block_Onepage_Abstract extends Mage_Checkout_Blo
      */
     protected function _getStepCodes()
     {
-        return array('login', 'information', 'shipping', 'shipping_method', 'payment');
+        return array('login', 'information', 'shipping', 'shipping_method', 'payment', 'review');
     }
 
 

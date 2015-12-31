@@ -46,6 +46,25 @@ Checkout.prototype.initialize= function(accordion, urls){
     this.accordion.disallowAccessToNextSections = true;
 };
 
+Checkout.prototype.gotoSection = function (section, reloadProgressBlock) {
+
+    if (reloadProgressBlock) {
+        this.reloadProgressBlock(this.currentStep);
+    }
+    this.currentStep = section;
+    var sectionElement = $('opc-' + section);
+    sectionElement.addClassName('allow');
+    if (['information', 'shipping', 'shipping_method'].indexOf(section) != -1) {
+        $('checkout-required').show();
+    } else {
+        $('checkout-required').hide();
+    }
+    this.accordion.openSection('opc-' + section);
+    if(!reloadProgressBlock) {
+        this.resetPreviousSteps();
+    }
+};
+
 Checkout.prototype._onSectionClick= function(event) {
     var section = $(Event.element(event).up('li'));
     if (section.hasClassName('allow')) {
@@ -143,6 +162,33 @@ Checkout.prototype.reloadProgressBlock= function(toStep) {
     }
 };
 
+Checkout.prototype.reloadStep= function(prevStep) {
+    var updater = new Ajax.Updater(prevStep + '-progress-opcheckout', this.progressUrl, {
+        method:'get',
+        onFailure:function(){
+            //nothing: it used to redirect to checkout/cart if error but error can occur just when generating the be2bill iframe
+        },
+        onComplete: function(){
+            this.checkout.resetPreviousSteps();
+        },
+        parameters:prevStep ? { prevStep:prevStep } : null
+    });
+};
+
+
+Billing.prototype.initialize= function(form, addressUrl, saveUrl, loadUrl){
+    this.form = form;
+    if ($(this.form)) {
+        $(this.form).observe('submit', function(event){this.save();Event.stop(event);}.bind(this));
+    }
+    this.addressUrl = addressUrl;
+    this.saveUrl = saveUrl;
+    this.loadUrl = loadUrl;
+    this.onShippingTypesLoad = this.loadShippingTypes.bindAsEventListener(this);
+    this.onAddressLoad = this.fillForm.bindAsEventListener(this);
+    this.onSave = this.nextStep.bindAsEventListener(this);
+    this.onComplete = this.resetLoadWaiting.bindAsEventListener(this);
+};
 
 Billing.prototype.save= function() {
     if (checkout.loadWaiting!=false) return;
@@ -162,6 +208,31 @@ Billing.prototype.save= function() {
             }
         );
     }
+};
+
+Billing.prototype.nextStep= function(transport){
+    if (transport && transport.responseText){
+        try{
+            response = eval('(' + transport.responseText + ')');
+        }
+        catch (e) {
+            response = {};
+        }
+    }
+
+    if (response.error){
+        if ((typeof response.message) == 'string') {
+            alert(response.message);
+        } else {
+            if (window.billingRegionUpdater) {
+                billingRegionUpdater.update();
+            }
+
+            alert(response.message.join("\n"));
+        }
+
+        return false;
+    }
 
     var load = new Ajax.Request(
         this.loadUrl,
@@ -171,20 +242,17 @@ Billing.prototype.save= function() {
             onFailure: checkout.ajaxFailure.bind(checkout)
         }
     );
-};
 
-Billing.prototype.initialize= function(form, addressUrl, saveUrl, loadUrl){
-    this.form = form;
-    if ($(this.form)) {
-        $(this.form).observe('submit', function(event){this.save();Event.stop(event);}.bind(this));
-    }
-    this.addressUrl = addressUrl;
-    this.saveUrl = saveUrl;
-    this.loadUrl = loadUrl;
-    this.onShippingTypesLoad = this.loadShippingTypes.bindAsEventListener(this);
-    this.onAddressLoad = this.fillForm.bindAsEventListener(this);
-    this.onSave = this.nextStep.bindAsEventListener(this);
-    this.onComplete = this.resetLoadWaiting.bindAsEventListener(this);
+    checkout.setStepResponse(response);
+    payment.initWhatIsCvvListeners();
+    $('co-shipping-method-form').show();
+    $('onepage-checkout-shipping').hide();
+    shipping.setSameAsBilling(true);
+    shipping.save();
+    // DELETE
+    //alert('error: ' + response.error + ' / redirect: ' + response.redirect + ' / shipping_methods_html: ' + response.shipping_methods_html);
+    // This moves the accordion panels of one page checkout and updates the checkout progress
+    //checkout.setBilling();
 };
 
 
@@ -235,9 +303,57 @@ ShippingMethod.prototype.savePickup= function(form) {
     checkout.reloadReviewBlock();
 };
 
+ShippingMethod.prototype.nextStep= function(transport){
+    if (transport && transport.responseText){
+        try{
+            response = eval('(' + transport.responseText + ')');
+        }
+        catch (e) {
+            response = {};
+        }
+    }
+
+    if (response.error) {
+        alert(response.message);
+        return false;
+    }
+    checkout.reloadReviewBlock();
+
+    if (response.update_section) {
+        $('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
+    }
+
+    payment.initWhatIsCvvListeners();
+
+    $$('.delivery')[0].hide();
+    if (response.goto_section) {
+        checkout.gotoSection(response.goto_section, true);
+        checkout.reloadProgressBlock();
+        return;
+    }
+
+    if (response.payment_methods_html) {
+        $('checkout-payment-method-load').update(response.payment_methods_html);
+    }
+
+
+    checkout.setShippingMethod();
+};
+
+
+ShippingMethod.prototype.resetLoadWaiting= function(transport) {
+    checkout.setLoadWaiting(false);
+    $('checkout-shipping-method-load').removeClassName("method-refreshing");
+    $('checkout-shipping-method-pickup-load').removeClassName("method-refreshing");
+
+};
+
+
 Shipping.prototype.saveMinimal= function(form) {
     if (checkout.loadWaiting!=false) return;
     request = false;
+    $('checkout-shipping-method-pickup-load').update('');
+    $('checkout-shipping-method-pickup-load').addClassName("method-refreshing");
     var validator = new Validation(this.form);
     if (validator.validate()) {
         checkout.setLoadWaiting('shipping');
@@ -251,13 +367,47 @@ Shipping.prototype.saveMinimal= function(form) {
                     shippingMethod.savePickup(form).bind(shippingMethod);
                     $('opc-payment').addClassName('allow');
                     //checkout.gotoSection('payment', true);
+                    $('checkout-shipping-method-pickup-load').removeClassName("method-refreshing");
                 },
                 onFailure: checkout.ajaxFailure.bind(checkout),
                 parameters: Form.serialize(this.form)
             }
         );
     }
-    checkout.reloadReviewBlock();
+
+    //checkout.reloadReviewBlock();
+};
+
+Shipping.prototype.setSameAsBilling = function(flag) {
+    $('shipping:same_as_billing').checked = flag;
+// #5599. Also it hangs up, if the flag is not false
+//        $('billing:use_for_shipping_yes').checked = flag;
+    if (flag) {
+        this.syncWithBilling();
+    } else {
+        //this.unSyncWithBilling();
+    }
+};
+
+Shipping.prototype.unSyncWithBilling = function () {
+
+    $('shipping:same_as_billing').checked = false;
+
+    arrElements = Form.getElements(this.form);
+    for (var elemIndex in arrElements) {
+        if (arrElements[elemIndex].id) {
+            var sourceField = $(arrElements[elemIndex].id.replace(/^shipping:/, 'billing:'));
+            if (sourceField && ["shipping:gender", "shipping:firstname", "shipping:lastname", "shipping:country_id"].indexOf(arrElements[elemIndex].id) != -1 ){
+                arrElements[elemIndex].value = sourceField.value;
+            }else if (arrElements[elemIndex].id == "shipping-address-select") {
+                //nothing
+            } else {
+                arrElements[elemIndex].value = "";
+            }
+        }
+    }
+    $('shipping:country_id').value = $('billing:country_id').value;
+    //shippingForm.elementChildLoad($('shipping:country_id'), this.setRegionValue.bind(this));
 };
 
 Shipping.prototype.save= function() {
@@ -283,27 +433,222 @@ Shipping.prototype.save= function() {
     checkout.reloadReviewBlock();
 };
 
+Shipping.prototype.nextStep= function(transport){
+    if (transport && transport.responseText){
+        try{
+            response = eval('(' + transport.responseText + ')');
+        }
+        catch (e) {
+            response = {};
+        }
+    }
+    if (response.error){
+        if ((typeof response.message) == 'string') {
+            alert(response.message);
+        } else {
+            if (window.shippingRegionUpdater) {
+                shippingRegionUpdater.update();
+            }
+            alert(response.message.join("\n"));
+        }
+
+        return false;
+    }
+
+    checkout.setStepResponse(response);
+    jQuery('html, body').animate({
+        scrollTop: (jQuery("#co-shipping-method-form").offset().top - jQuery(window).height() + jQuery("#co-shipping-method-form").height() )
+    }, 1000);
+
+    /*
+     var updater = new Ajax.Updater(
+     'checkout-shipping-method-load',
+     this.methodsUrl,
+     {method:'get', onSuccess: checkout.setShipping.bind(checkout)}
+     );
+     */
+    //checkout.setShipping();
+};
+
 Shipping.prototype.resetLoadWaiting= function(transport){
     checkout.setLoadWaiting(false);
     $('checkout-shipping-method-load').removeClassName("method-refreshing");
+    $('checkout-shipping-method-pickup-load').removeClassName("method-refreshing");
 
 };
 
+Payment.prototype.initialize= function(form, saveUrl){
+    this.form = form;
+    this.saveUrl = saveUrl;
+    this.onSave = this.nextStep.bindAsEventListener(this);
+    this.onComplete = this.cbJetpulp.bindAsEventListener(this);
+};
+
+Payment.prototype.init= function () {
+    this.beforeInit();
+    var elements = Form.getElements(this.form);
+    if ($(this.form)) {
+        $(this.form).observe('submit', function(event){this.save();Event.stop(event);}.bind(this));
+    }
+    var method = null;
+    for (var i=0; i<elements.length; i++) {
+        if (elements[i].name=='payment[method]' || elements[i].name.substr(0, 9) == 'agreement') {
+            if (elements[i].checked) {
+                method = elements[i].value;
+            }
+        } else {
+            elements[i].disabled = true;
+        }
+        elements[i].setAttribute('autocomplete','off');
+    }
+    if (method) this.switchMethod(method);
+    this.afterInit();
+};
+
+Payment.prototype.cbJetpulp= function(){
+    this.resetLoadWaiting(true);
+    //JETPULP
+    //this.openBeBill(); //for example
+    review.save().bind(review);
+};
 
 
+Payment.prototype.save= function() {
+    if (checkout.loadWaiting!=false) return;
+    var validator = new Validation(this.form);
+    if (this.validate() && validator.validate()) {
+        checkout.setLoadWaiting('payment');
+        var request = new Ajax.Request(
+            this.saveUrl,
+            {
+                method:'post',
+                onComplete: this.onComplete,
+                onSuccess: this.onSave,
+                onFailure: checkout.ajaxFailure.bind(checkout),
+                parameters: Form.serialize(this.form)
+            }
+        );
+    }
+};
 
+Payment.prototype.nextStep= function(transport){
+    if (transport && transport.responseText){
+        try{
+            response = eval('(' + transport.responseText + ')');
+        }
+        catch (e) {
+            response = {};
+        }
+    }
+    /*
+     * if there is an error in payment, need to show error message
+     */
+    if (response.error) {
+        if (response.fields) {
+            var fields = response.fields.split(',');
+            for (var i=0;i<fields.length;i++) {
+                var field = null;
+                if (field = $(fields[i])) {
+                    Validation.ajaxError(field, response.error);
+                }
+            }
+            return;
+        }
+        if (typeof(response.message) == 'string') {
+            alert(response.message);
+        } else {
+            alert(response.error);
+        }
+        return;
+    }
 
+    checkout.setStepResponse(response);
 
+    //checkout.setPayment();
+};
 
+/**
+* Extrait de CarréBlanc
+*
+*/
+Payment.prototype.openBeBill = function(){
+    var headers = $$('#' + checkout.accordion.container.readAttribute('id') + ' .section');
+    var links = $$('a.disable-on-payment');
+    var cartlink = $$('a.change-cart');
+    var isrc = $('be2bill_iframe').readAttribute('data-src');
+    review.save();
+    Event.observe(document.body, 'review:success', function(e,el){
+        $("payment-buttons-container").hide();
+        $("payment-buttons-container").disabled = "disabled";
 
+        var myVar=setInterval(function(){
+            if (window.response.success) {
+                window.clearInterval(myVar);
+                //désactiver les liens du header
+                headers.each(function(header) {
+                    header.removeClassName('allow');
+                });
+                //désactiver les liens sortants
+                links.each(function (link) {
+                    link.removeClassName('disable-on-payment');
+                    link.addClassName('disabled-on-payment');
+                    link.removeAttribute('href');
+                    link.removeAttribute('onclick');
+                });
+                //changer l'url du lien modifier mon panier
+                cartlink.each(function (link) {
+                    link.setAttribute("href","/be2bill/standard/cart");
+                });
+                $('be2bill_iframe').src = isrc;
+                $('be2bill_iframe').show();
+                checkout.loadWaiting = 'review';
+                checkout.setLoadWaiting(false);
+                if (checkout.accordion.currentSection == 'opc-review') {
+                    $('checkout-review-submit').hide();
+                }
+            }
+        },1000);
+    });
+};
 
+Review.prototype.nextStep = function(transport) {
+        if (transport && transport.responseText) {
+            try{
+                response = eval('(' + transport.responseText + ')');
+            }
+            catch (e) {
+                response = {};
+            }
+            if (response.redirect) {
+                this.isSuccess = true;
+                Event.fire(document.body, 'review:success');
+                location.href = response.redirect;
+                return;
+            }
+            if (response.success) {
+                this.isSuccess = true;
+                Event.fire(document.body, 'review:success');
+                window.location=this.successUrl;
+            }
+            else{
+                var msg = response.error_messages;
+                if (typeof(msg)=='object') {
+                    msg = msg.join("\n");
+                }
+                if (msg) {
+                    alert(msg);
+                }
+            }
 
+            if (response.update_section) {
+                $('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
+            }
 
-
-
-
-
-
+            if (response.goto_section) {
+                checkout.gotoSection(response.goto_section, true);
+            }
+        }
+};
 
 
 jQuery(function($) {
@@ -322,13 +667,17 @@ jQuery(function($) {
     /*
      * Ouverture/fermeture du récapitulatif
      */
-     $(".review-block-title").toggle(function() {
-        $(this).addClass("up").next(".collapsable").show('slow');
-     },function() {
-        $(this).removeClass("up").next(".collapsable").hide('slow', function() {
-            $(this).addClass("collapsed").removeAttr("style");
-        });
-     });
+    $(".collapsable-trigger").click(function() {
+        if( !$(this).hasClass("up") ) {
+            $(this).addClass("up").next(".collapsable").show('slow', function() {
+                $(this).removeClass("collapsed").removeAttr("style");
+            });
+        } else {
+            $(this).removeClass("up").next(".collapsable").hide('slow', function() {
+                $(this).addClass("collapsed").removeAttr("style");
+            });
+        }
+    });
 
     /*
      * Footer fixe

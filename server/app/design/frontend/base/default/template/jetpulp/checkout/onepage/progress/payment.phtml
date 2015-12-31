@@ -26,7 +26,7 @@
 ?>
 <?php if ($this->getCheckout()->getStepData('payment', 'complete')): ?>
 <dt class="complete">
-    <h3><?php echo $this->__('Payment Method') ?></h3><a
+    <h3><?php echo $this->__('Payment Method') ?></h3><a class="disable-on-payment"
         href="#payment"
         onclick="checkout.changeSection('opc-payment'); return false;"><?php echo $this->__('Change') ?></a>
 </dt>

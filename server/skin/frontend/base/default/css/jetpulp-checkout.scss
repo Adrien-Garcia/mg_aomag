@@ -1,13 +1,72 @@
-@color: #ee3e81;
+$color: #e50046;
+
+.error-msg {
+	color: $color;
+	margin-bottom: 10px;
+}
+
+a.disabled-on-payment {
+    text-decoration: none !important;
+    cursor: default !important;
+    border: 0 !important;
+    opacity: 0.3 !important;
+}
+
+@mixin cartColBlock {
+    background: #eee;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+
+@mixin op($from, $to) {
+    opacity: $from;
+    transition: opacity .2s;
+    &:hover {
+        opacity: $to;
+    }
+}
+
+#shipping-progress-opcheckout {
+    //display: none;
+}
+
 
 body.jetcheckout:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section:not(#opc-login) .step-title,
 body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-login {
     opacity: 1;
 }
-#checkout-shipping-method-load.method-refreshing {
+#checkout-shipping-method-load.method-refreshing,#checkout-shipping-method-pickup-load.method-refreshing {
 	height: 100px;
 	content: "Reloading Shipping Method ";
-	background: url(../images/opc-ajax-loader.gif) no-repeat center/auto ;
+	background: url(../images/jetcheckout/opc-ajax-loader.gif) no-repeat center/auto ;
+}
+
+hr {
+    opacity: 0.3;
+    margin: 35px 0;
+}
+
+.no-display {
+  display: none;
+}
+
+
+#store-pickup_label {
+    display: inline-block;
+    vertical-align: top;
+    span, a {
+        display: block;
+        margin: 5px 0 0 0;
+
+    }
+}
+
+#store-pickup_link {
+    margin: 5px 0px 0px 81px;
+    display: block;
+    border-bottom: 0;
+    text-decoration: underline;
 
 }
 
@@ -16,14 +75,49 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 
 	padding: 0;
 	margin: 0;
-	background: #f3f3f3;
-	font: 12px Arial,Verdana,Helvetica,sans-serif;
+	background: #fff;
+	font-size: 12px;
+    font-family: Arial,Verdana,Helvetica,sans-serif;
+
+    .appel {
+        background: #CCC;
+    }
 
 	.page {
 		width: 960px;
 		margin: auto;
 	}
 
+
+
+    #footer_1.footer li:not(.appel) {
+        background-color: #fff;
+    }
+
+    #footer_1.footer li.appel {
+        a, &:before {
+            color: #ffffff;
+        }
+    }
+
+    #footer_1.footer li{
+        &:before,
+        a {
+            color: #999;
+        }
+        &:hover {
+            background-color: #CCC !important;
+            a {
+                background-color: transparent !important;
+            }
+            &::before {
+                color: #fff !important;
+            }
+            a {
+                color: #fff !important;
+            }
+        }
+    }
 	.header {
 
 		text-align: center;
@@ -31,7 +125,16 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 
 		img {
 			vertical-align: middle;
+            height: 55px;
 		}
+
+    .site {
+      float: right;
+      margin-top: 71px;
+      @extend .lien;
+      @include op(.5,.3);
+    }
+
 	}
 
 	.page-title {
@@ -52,7 +155,7 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 		width: 630px;
 	}
 
-	.footer-container {
+	.footer-container { 
 
 		display: table;
 		table-layout: fixed;
@@ -101,13 +204,6 @@ body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-lo
 
 }
 
-
-
-
-
-
-
-
 .clearfix:before,
 .clearfix:after {
   content:"";
@@ -137,7 +233,7 @@ ol, ul, dl, dt, dd {
 
 /* button */
 button {
-	background: @color;
+	background: $color;
 	border: none;
 	font-weight: bold;
 	font-size: 15px;
@@ -159,9 +255,10 @@ button {
 	border-radius: 3px;
 	background: #fff;
 	font: 12px Arial,Verdana,Helvetica,sans-serif;
-	line-height: 28px;
-	padding: 0 12px;
-	box-sizing: border-box;
+    line-height: 28px;
+    height: 28px;
+    padding: 0 12px;
+    box-sizing: border-box;
 	transition: border .2s;
 
 	&:focus {
@@ -178,7 +275,7 @@ label.required {
 	em { display: none;}
 	&:after {
 		content: "*";
-		color: @color;
+		color: $color;
 	}
 }
 
@@ -189,7 +286,7 @@ label.required {
 
 /* remove webkit background on autofilled fields */
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
-	box-shadow: 0 0 0px 1000px white inset;
+	box-shadow: 0 0 0 1000px white inset;
 }
 
 .form-list {
@@ -220,7 +317,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		}
 
 	}
-
+    
 }
 
 /*
@@ -241,12 +338,12 @@ p.required {
 	color: #757575;
 	font-size: 11px;
 	span {
-		color: @color;
+		color: $color;
 	}
 }
 
 .validation-advice {
-	color: @color;
+	color: $color;
 }
 
 .amorce {
@@ -256,9 +353,16 @@ p.required {
 
 /* Hn */
 h3 {
-	font-size: 20px;
-	color: @color;
+	font-size: 23px;
+	color: $color;
 	margin: 0 0 20px 0;
+    font-family: Arial, serif;
+    font-weight: normal;
+}
+
+h4 {
+	font-size: 15px;
+    margin: 10px 0 15px 0;
 }
 
 /* lien */
@@ -281,35 +385,14 @@ h3 {
 }
 
 .lien-gauche {
-	&:extend(.lien all);
+	@extend .lien;
 	&:before {
 		content: url(../images/jetcheckout/fleche-lnk-gauche.svg);
 	}
 }
 
-.op(@from, @to) {
-	opacity: @from;
-	transition: opacity .2s;
-	&:hover {
-		opacity: @to;
-	}
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* order review */
-.order-review {
-
+.sidebar {
 	.review-block-title {
 	    opacity: .5;
         font-size: 13px;
@@ -323,6 +406,14 @@ h3 {
 	.collapsed {
 		display: block;
 	}
+}
+
+
+
+
+/* order review */
+.order-review {
+
 
 	.review-cart-title {
 		color: #3a3a3a;
@@ -333,8 +424,8 @@ h3 {
 	.change-cart {
 		float: right;
 		margin-top: 48px;
-		&:extend(.lien all);
-		.op(.5,.3);
+		@extend .lien;
+		@include op(.5,.3);
 	}
 
 	.checkout-review-table {
@@ -419,8 +510,8 @@ h3 {
 		}
 		
 		a {
-			&:extend(.lien all);
-			.op(.5,.3);
+			@extend .lien;
+			@include op(.5,.3);
 			float: right;
 			margin-top: 5px;
 		}
@@ -453,8 +544,8 @@ h3 {
 	padding: 0;
 
 	&:first-of-type .step{-webkit-transition: all 0.5s ease-in-out;-moz-transition: all 0.5s ease-in-out;-o-transition: all 0.5s ease-in-out;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;}
-	&:first-of-type .step[style*='display:none;'],
-	&:first-of-type .step[style*='display: none;']{display:block !important;}
+	//&:first-of-type .step[style*='display:none;'],
+	//&:first-of-type .step[style*='display: none;']{display:block !important;}
 	&:first-of-type .section .step{left: 100%;}
 	&:first-of-type .allow .step{left: -100%;}
 	&:first-of-type .active .step{left:0;}
@@ -561,8 +652,8 @@ h3 {
 	padding-top: 15px;
 
 	a {
-		&:extend(.lien all);
-		.op(1,.8);
+		@extend .lien;
+		@include op(1,.8);
 	}
 
 	.back-link {
@@ -574,8 +665,8 @@ h3 {
 
 		a {
 			float: left;
-			&:extend(.lien-gauche all);
-			.op(.5,.3);
+            @extend .lien;
+			@include op(.5,.3);
 		}
 	}
 
@@ -605,7 +696,7 @@ h3 {
 	.col-1,
 	.col-2 {
 		float: right;
-		width: calc(~"50% - 15px");
+    width: unquote("calc(50% - 15px)");
 	}
 
 	.col-2 {
@@ -655,7 +746,36 @@ h3 {
 		padding-right: 0;
 		padding-left: 15px;
 	}
+    .sp-methods dt {
+      margin: 15px 0;
+    }
 
+    .sp-methods dd ul {
+        min-height: 40px;
+        padding: 15px 0 0;
+        position: relative;
+        &:before{
+            position: absolute;
+            font-weight: normal;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            top: 8px;
+            left: 0;
+        }
+    }
+    .sp-methods dd ul {
+
+        li {
+            padding-left: 60px;
+
+            label {
+                min-width: 0;
+                display: inline;
+            }
+        }
+
+    }
 }
 
 
@@ -670,21 +790,52 @@ h3 {
 	.sp-methods {
 
 		dt {
-			font-weight: bold;
-			margin-bottom: 15px;
-			input {
-				vertical-align: middle;
-				margin: 0 5px 0 0;
-			}
-		}
+            font-weight: bold;
+            margin-bottom: 15px;
+            input {
+                vertical-align: middle;
+                margin: 0 5px 0 0;
+            }
+        }
+        #dt_method_be2bill_standard {
+            display: block;
+            text-align: center;
 
-		dd {}
+            strong {
+                display: block;
+                margin: 15px 0;
+                text-align: center;
+            }
+            .v-middle {
+                text-align: center;
+            }
+        }
+
+      dd {
+        ul {
+          min-height: 50px;
+          padding: 15px 0 0;
+          background-position: left top;
+          background-repeat: no-repeat;
+
+          li {
+            padding-left: 60px;
+
+            label {
+              min-width: 0;
+              display: inline;
+            }
+          }
+
+
+        }
+      }
 
 	}
 
 	/* ATTENTION sépcifique au paiement "credit cart (saved) par défaut sur aomagento" */
 	.v-fix {
-		width: calc(~"50% - 15px");
+        width: unquote("calc(50% - 15px)");
     	float: left;
 	}
 
@@ -735,6 +886,34 @@ h3 {
 
 }
 
+#checkout-agreements {
+    margin: 20px 0 0 5px;
+}
 
-@import "jetpulp-checkout-1024-down"; 
-@import "jetpulp-checkout-650-down"; 
+.agreement-content {
+    margin: 15px 0;
+}
+
+.agree {
+    input {
+        margin: 0 15px 0 0;
+
+    }
+    label {
+        line-height: 20px;
+    }
+
+    a {
+    	color: $color;
+    }
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+@import 'jetpulp-checkout-1024-down';
+@import 'jetpulp-checkout-650-down';

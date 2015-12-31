@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Jetpulp_Checkout>
-            <version>0.0.0.1</version>
+            <version>0.0.1.0</version>
         </Jetpulp_Checkout>
     </modules>
     <frontend>
@@ -44,6 +44,16 @@
                         <additional>Jetpulp_Checkout.csv</additional>
                     </files>
                 </Mage_Checkout>
+                <Mage_Page>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Page>
+                <Mage_Tax>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Tax>
                 <Mage_Customer>
                     <files>
                         <additional>Jetpulp_Checkout.csv</additional>
@@ -59,6 +69,16 @@
                         <additional>Jetpulp_Checkout.csv</additional>
                     </files>
                 </Mage_Payment>
+                <Mage_Persistent>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Persistent>
+                <Be2bill_Be2bill>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Be2bill_Be2bill>
             </modules>
         </translate>
         <secure_url>
@@ -89,6 +109,9 @@
             <checkout>
                 <rewrite>
                     <cart_totals>Jetpulp_Checkout_Block_Cart_Totals</cart_totals>
+                    <cart>Jetpulp_Checkout_Block_Checkout_Cart</cart>
+                    <onepage_link>Jetpulp_Checkout_Block_Onepage_Link</onepage_link>
+                    <links>Jetpulp_Checkout_Block_Links</links>
                 </rewrite>
             </checkout>
         </blocks>

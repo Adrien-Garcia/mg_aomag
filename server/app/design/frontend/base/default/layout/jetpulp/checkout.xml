@@ -29,46 +29,6 @@
 <layout version="0.1.0">
 
 <!--
-Default layout, loads most of the pages
--->
-
-    <default>
-
-        <!-- Mage_Checkout -->
-        <reference name="top.links">
-            <block type="checkout/links" name="checkout_cart_link">
-                <action method="addCartLink"></action>
-                <action method="addCheckoutLink"></action>
-            </block>
-        </reference>
-        <reference name="right">
-            <block type="checkout/cart_sidebar" name="cart_sidebar" template="checkout/cart/sidebar.phtml" before="-">
-                <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <block type="core/text_list" name="cart_sidebar.extra_actions" as="extra_actions" translate="label" module="checkout">
-                    <label>Shopping Cart Sidebar Extra Actions</label>
-                </block>
-            </block>
-        </reference>
-    </default>
-
-    <checkout_cart_index translate="label">
-        <reference name="content">
-            <block type="jetcheckout/cart" name="checkout.cart">
-                <block type="core/text_list" name="checkout.cart.top_methods" as="top_methods" translate="label">
-                    <block type="jetcheckout/onepage_link" name="jetcheckout.cart.methods.onepage" template="checkout/onepage/link.phtml"/>
-                </block>
-
-                <block type="core/text_list" name="checkout.cart.methods" as="methods" translate="label">
-                    <block type="jetcheckout/onepage_link" name="jetcheckout.cart.methods.onepage" template="checkout/onepage/link.phtml"/>
-                </block>
-
-            </block>
-        </reference>
-    </checkout_cart_index>
-
-<!--
 One page checkout main layout
 -->
 
@@ -108,11 +68,11 @@ One page checkout main layout
             <action method="unsetChild"><name>breadcrumbs</name></action>
             <action method="addBodyClass"><classname>jetcheckout</classname></action>
             <block type="core/text_list" name="jetpulp.checkout.sidebar" as="sidebar" translate="label">
-                <block type="jetcheckout/onepage_review" name="jetcheckout.onepage.review" as="sidebar" template="jetpulp/checkout/review.phtml">
+                <block type="jetcheckout/onepage_review" name="jetcheckout.onepage.review" as="sidebar-review" template="jetpulp/checkout/onepage/review-sidebar.phtml">
                     <block type="checkout/onepage_review_info" name="review" template="jetpulp/checkout/onepage/review/info.phtml">
                         <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>jetpulp/checkout/onepage/review/item.phtml</template></action>
-                        <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
-                        <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
+                        <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>jetpulp/checkout/onepage/review/item.phtml</template></action>
+                        <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>jetpulp/checkout/onepage/review/item.phtml</template></action>
                         <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="jetpulp/checkout/onepage/review/totals.phtml"/>
                         <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
                             <label>Items Before</label>
@@ -134,12 +94,10 @@ One page checkout main layout
                 </block>
 
             </block>
+
         </reference>
         <reference name="header">
             <action method="setTemplate"><template>jetpulp/checkout/header.phtml</template></action>
-        </reference>
-        <reference name="footer">
-            <action method="setTemplate"><template>jetpulp/checkout/footer.phtml</template></action>
         </reference>
         <reference name="content">
             <block type="jetcheckout/onepage" name="checkout.onepage" template="jetpulp/checkout/onepage.phtml">
@@ -153,7 +111,9 @@ One page checkout main layout
                 <block type="jetcheckout/onepage_information" name="checkout.onepage.information" as="information" template="jetpulp/checkout/onepage/information.phtml"/>
                 <block type="checkout/onepage_billing" name="checkout.onepage.billing" as="billing" template="checkout/onepage/billing.phtml"/>
                 <block type="jetcheckout/onepage_shipping_method" name="checkout.onepage.shipping_method" as="shipping_method" template="jetpulp/checkout/onepage/shipping_method.phtml">
-                    <block type="jetcheckout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available.pickup" as="jet_available_pickup" template="jetpulp/checkout/onepage/shipping_method/available_pickup.phtml" />
+                    <block type="jetcheckout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available.pickup" as="jet_available_pickup" template="jetpulp/checkout/onepage/shipping_method/available_pickup.phtml" >
+                        <block type="core/template" name="checkout.onepage.shipping_method.storepickup.wait" as="wait" template="mana/core/wait.phtml"/>
+                    </block>
                     <block type="jetcheckout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available" as="jet_available" template="jetpulp/checkout/onepage/shipping_method/available.phtml" />
                     <block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="checkout/onepage/shipping_method/additional.phtml"/>
                     <block type="checkout/onepage_shipping" name="checkout.onepage.shipping_address" as="shipping_address" template="jetpulp/checkout/onepage/shipping_method/shipping_address.phtml"/>
@@ -163,6 +123,10 @@ One page checkout main layout
                     <block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="checkout/onepage/payment/info.phtml">
                         <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
                     </block>
+                    <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="jetpulp/checkout/onepage/agreements.phtml"/>
+                    <block type="checkout/onepage_review" name="review"  template="checkout/onepage/review.phtml">
+                    </block>
+
                 </block>
 
             </block>
@@ -261,8 +225,19 @@ One page checkout main layout
         <remove name="right"/>
         <remove name="left"/>
 
-        <block type="checkout/onepage_payment_methods" name="root" output="toHtml" template="jetpulp/checkout/onepage/payment/methods.phtml">
+
+        <block type="checkout/onepage_payment_methods" name="root" output="toHtml" template="checkout/onepage/payment/methods.phtml">
             <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+             <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+             <block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/>
+            <block type="checkout/onepage_review_info" name="review-payment"  template="jetpulp/checkout/onepage/review-payment.phtml">
+                <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
+                    <label>Items Before</label>
+                </block>
+                <block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
+                    <label>Items After</label>
+                </block>
+            </block>
         </block>
     </checkout_onepage_paymentmethod>
 
@@ -274,6 +249,7 @@ One page checkout main layout
 
         <block type="jetcheckout/onepage_shipping_method_available" name="root" output="toHtml" template="jetpulp/checkout/onepage/shipping_method/available_pickup.phtml">
             <!-- <block type="checkout/onepage_shipping" name="checkout.onepage.shipping_address" as="shipping_address" template="jetpulp/checkout/onepage/shipping_method/shipping_address.phtml"/> -->
+            <block type="core/template" name="checkout.onepage.shipping_method.storepickup.wait" as="wait" template="mana/core/wait.phtml"/>
 
         </block>
     </checkout_onepage_shippingtype>
@@ -312,11 +288,11 @@ One page checkout order review block
         <!-- Mage_Checkout -->
         <remove name="right"/>
         <remove name="left"/>
-        <block type="jetcheckout/onepage_review" name="root" output="toHtml" template="jetpulp/checkout/review.phtml">
-            <block type="checkout/onepage_review_info" name="review"  template="jetpulp/checkout/onepage/review/info.phtml">
+        <!--<block type="jetcheckout/onepage_review" name="root" output="toHtml" template="jetpulp/checkout/review.phtml">-->
+        <block type="checkout/onepage_review_info" name="root" output="toHtml" template="jetpulp/checkout/onepage/review/info.phtml">
                 <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>jetpulp/checkout/onepage/review/item.phtml</template></action>
-                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>
-                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>jetpulp/checkout/onepage/review/item.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>jetpulp/checkout/onepage/review/item.phtml</template></action>
                 <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="jetpulp/checkout/onepage/review/totals.phtml"/>
                 <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
                     <label>Items Before</label>
@@ -327,7 +303,19 @@ One page checkout order review block
                 <!-- <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/> -->
                 <!-- <block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/> -->
             </block>
-        </block>
+        <!--</block>-->
     </jetcheckout_onepage_review>
-    <block type="core/list" name="additional.product.info"/>
+
+    <checkout_onepage_review translate="label">
+        <label>One Page Checkout (Original One for Payment module Purpose)</label>
+        <!-- Mage_Checkout -->
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>jetpulp/checkout/onepage/review-payment.phtml</template></action>
+        </reference>
+        <block type="core/text_list" name="additional.product.info" translate="label">
+            <label>Additional Product Info</label>
+        </block>
+    </checkout_onepage_review>
 </layout>

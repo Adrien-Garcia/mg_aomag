@@ -25,17 +25,35 @@
  */
 
 /**
- * One page checkout cart link
+ * Links block
  *
- * @category   Mage
- * @package    Mage_Checkout
+ * @category    Mage
+ * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Jetpulp_Checkout_Block_Onepage_Link extends Mage_Checkout_Block_Onepage_Link
+class Jetpulp_Checkout_Block_Links extends Mage_Checkout_Block_Links
 {
-    public function getCheckoutUrl()
-    {
-        return $this->getUrl('jetcheckout/onepage', array('_secure'=>true));
-    }
 
+    /**
+     * Add link on checkout page to parent block
+     *
+     * @return Mage_Checkout_Block_Links
+     */
+    public function addCheckoutLink()
+    {
+        if (!$this->helper('checkout')->canOnepageCheckout()) {
+            return $this;
+        }
+
+        $parentBlock = $this->getParentBlock();
+        if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
+            $text = $this->__('Checkout');
+            $parentBlock->addLink(
+                $text, 'jetcheckout', $text,
+                true, array('_secure' => true), 60, null,
+                'class="top-link-checkout"'
+            );
+        }
+        return $this;
+    }
 }

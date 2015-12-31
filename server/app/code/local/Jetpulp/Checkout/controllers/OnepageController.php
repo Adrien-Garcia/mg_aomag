@@ -186,13 +186,35 @@ class Jetpulp_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _getReviewHtml()
     {
-        return $this->getLayout()->getBlock('root')->toHtml();
+        $layout = $this->getLayout();
+        $update = $layout->getUpdate();
+        $update->load('jetcheckout_onepage_review');
+        $layout->generateXml();
+        $layout->generateBlocks();
+        $output = $layout->getOutput();
+        return $output;
+    }
+
+    /**
+     * Get order review step html
+     *
+     * @return string
+     */
+    protected function _getReviewPaymentHtml()
+    {
+        $layout = $this->getLayout();
+        $update = $layout->getUpdate();
+        $update->load('checkout_onepage_review');
+        $layout->generateXml();
+        $layout->generateBlocks();
+        $output = $layout->getOutput();
+        return $output;
     }
 
     /**
      * Get one page checkout model
      *
-     * @return Jetpulp_Checkout_Model_Type_Onepage
+     * @return Mage_Checkout_Model_Type_Onepage
      */
     public function getOnepage()
     {
@@ -443,6 +465,10 @@ class Jetpulp_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $data['email'] = trim($data['email']);
             }
             $result = $this->getOnepage()->saveBilling($data, $customerAddressId);
+            if ( isset($result['error']) ) {
+                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+                return;
+            }
             $customerAddressId = $this->getRequest()->getPost('shipping_address_id', false);
             $result = $this->getOnepage()->saveShipping($data, $customerAddressId);
 
@@ -470,6 +496,7 @@ class Jetpulp_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                         'html' => $this->_getShippingMethodsHtml()
                     );
                 }
+                $this->getOnepage()->getCheckout()->setStepData('information','complete', true);
             }
 
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
@@ -511,12 +538,10 @@ class Jetpulp_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost('shippingtype', array());
 
-            if (!isset($result['error'])) {
-                $result['update_section'] = array(
-                    'name' => 'shipping-type',
-                    'html' => $this->_getShippingTypeHtml()
-                );
-            }
+            $result['update_section'] = array(
+                'name' => 'shipping-type',
+                'html' => $this->_getShippingTypeHtml()
+            );
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -575,10 +600,10 @@ class Jetpulp_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $redirectUrl = $this->getOnepage()->getQuote()->getPayment()->getCheckoutRedirectUrl();
             if (empty($result['error']) && !$redirectUrl) {
                 $this->loadLayout('checkout_onepage_review');
-                $result['goto_section'] = 'review';
+                $result['goto_section'] = 'payment';
                 $result['update_section'] = array(
-                    'name' => 'review',
-                    'html' => $this->_getReviewHtml()
+                    'name' => 'review-payment',
+                    'html' => $this->_getReviewPaymentHtml()
                 );
             }
             if ($redirectUrl) {

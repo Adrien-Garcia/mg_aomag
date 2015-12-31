@@ -43,41 +43,34 @@ class Jetpulp_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Chec
      */
     public function getShippingRatesButStorePickup()
     {
+        $_rates = null;
+        $groups = array();
         $store_pickup = Mage::getStoreConfig("shipping/jetcheckout/select_store_pickup");
-        $methods = Mage::getSingleton('shipping/config')->getAllCarriers();
-        $options = array();
-        foreach($methods as $_code => $_method)
-        {
-            $_active = Mage::getStoreConfig("carriers/$_code/active");
-            $_active = ($_active) ? 'active' : 'inactive';
-            if($_code != $store_pickup && $_active) {
-                $options[] = $_code;
-            }
-        }
-
-
         if (empty($this->_rates)) {
-            $this->getAddress()->setLimitCarrier($options);
             $this->getAddress()->collectShippingRates()->save();
 
-            $groups = $this->getAddress()->getGroupedAllShippingRates();
-//            var_dump(array_keys($groups));
-
-            /*
-            if (!empty($groups)) {
-                $ratesFilter = new Varien_Filter_Object_Grid();
-                $ratesFilter->addFilter(Mage::app()->getStore()->getPriceFilter(), 'price');
-
-                foreach ($groups as $code => $groupItems) {
-                    $groups[$code] = $ratesFilter->filter($groupItems);
+            $catch = null;
+            if (is_string($store_pickup) && preg_match("/(.+)_all/",$store_pickup, $catch)) {
+                $_carriers = $this->getAddress()->getGroupedAllShippingRates();
+                foreach($_carriers as $n => $_carrier) {
+                    if( $catch[1] == $n ) {
+                        unset($_carriers[$n]);
+                    }else {
+                        $groups[$n] = array();
+                        foreach($_carrier as $r => $_rate){
+                            $groups[$n][$_rate->getCode()] = $this->getAddress()->getShippingRateByCode($_rate->getCode());
+                        }
+                    }
                 }
+            } elseif (is_string($store_pickup) && !preg_match("/(.+)_all/",$store_pickup)) {
+                $rate[$store_pickup] = $this->getAddress()->getShippingRateByCode($store_pickup);
+                $groups[$rate[$store_pickup]->getCarrier()] = $rate;
             }
-            */
 
-            return $this->_rates = $groups;
+            return $_rates = $groups;
         }
 
-        return $this->_rates;
+        return $_rates;
     }
     /**
      * getShippingRates custom only the store pickup set in admin
@@ -93,25 +86,33 @@ class Jetpulp_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Chec
         if (empty($this->_rates)) {
             $this->getAddress()->collectShippingRates()->save();
 
+            $catch = null;
+            if(is_string($store_pickup) && preg_match("/(.+)_all/",$store_pickup, $catch)) {
+                $_carriers = $this->getAddress()->getGroupedAllShippingRates();
+                $store_pickup = array();
+
+                foreach($_carriers as $n => $_carrier) {
+                    if ($catch[1] != $n) {
+                        unset($_carriers[$n]);
+                    } else {
+                        $store_pickup[$n] = array();
+                        foreach($_carrier as $r => $_rate){
+                            $store_pickup[$n][] = $_rate->getCode();
+                        }
+                    }
+                }
+
+            }
+
             if(is_array($store_pickup)) {
-                foreach($store_pickup as $n => $_code) {
-                    $groups[$_code] = $this->getAddress()->getShippingRateByCode($_code);
+                foreach($store_pickup as $n => $_rates) {
+                    foreach($_rates as $r => $_code) {
+                        $groups[$_code] = $this->getAddress()->getShippingRateByCode($_code);
+                    }
                 }
             }else{
                 $groups[$store_pickup] = $this->getAddress()->getShippingRateByCode($store_pickup);
             }
-
-//            var_dump(array_keys($groups));
-            /*
-            if (!empty($groups)) {
-                $ratesFilter = new Varien_Filter_Object_Grid();
-                $ratesFilter->addFilter(Mage::app()->getStore()->getPriceFilter(), 'price');
-
-                foreach ($groups as $code => $groupItems) {
-                    $groups[$code] = $ratesFilter->filter($groupItems);
-                }
-            }
-            */
 
             return $_rates = $groups;
         }
@@ -128,4 +129,5 @@ class Jetpulp_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Chec
         }
         return true;
     }
+
 }

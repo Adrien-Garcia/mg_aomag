@@ -43,15 +43,13 @@ class Jetpulp_Checkout_Block_Onepage extends Jetpulp_Checkout_Block_Onepage_Abst
         $steps = array();
         $stepCodes = $this->_getStepCodes();
 
-        // if ($this->isCustomerLoggedIn()) {
-        //     $stepCodes = array_diff($stepCodes, array('login'));
-        // }
 
         foreach ($stepCodes as $step) {
             $steps[$step] = $this->getCheckout()->getStepData($step);
         }
-        // $this->getCheckout()->_data['steps']['information'] = array('label' => 'Informations', 'is_show' => true, 'allow' => true);
-//        var_dump($this->getCheckout()->_data['steps']);
+        if ($this->isCustomerLoggedIn()) {
+            $steps['login']['allow'] = false;
+        }
         return $steps;
     }
 

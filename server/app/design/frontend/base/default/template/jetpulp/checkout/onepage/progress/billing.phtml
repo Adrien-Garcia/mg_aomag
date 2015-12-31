@@ -24,12 +24,12 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if ($this->getCheckout()->getStepData('billing', 'complete')): ?>
+<?php if ($this->getCheckout()->getStepData('information', 'complete')): ?>
 <dt class="complete">
     <h3><?php echo $this->__('Billing Address') ?></h3>
-    <a
-        href="#billing"
-        onclick="checkout.changeSection('opc-billing'); return false;"><?php echo $this->__('Change') ?></a>
+    <a  class="disable-on-payment"
+        href="#information"
+        onclick="checkout.changeSection('opc-information'); return false;"><?php echo $this->__('Change') ?></a>
 </dt>
 <dd class="complete">
     <address><?php echo $this->getBilling()->format('html') ?></address>
