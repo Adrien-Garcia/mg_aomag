@@ -15,10 +15,14 @@
  *  @version Release: $Revision: 2.1.2 $
  *  @license http://www.opensource.org/licenses/OSL-3.0  Open Software License (OSL 3.0)
  */
-class Quadra_Atos_Adminhtml_ConfigController extends Mage_Adminhtml_Controller_Action {
+class Quadra_Atos_Adminhtml_ConfigatosController extends Mage_Adminhtml_Controller_Action {
 
     public function indexAction() {
         return $this->_redirect('adminhtml/system_config/edit', array('section'=>'atos'));
     }
 
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/config/atos');
+    }
 }

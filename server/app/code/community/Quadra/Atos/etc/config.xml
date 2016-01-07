@@ -338,6 +338,17 @@
             </checkout_multishipping_controller_success_action>
         </events>
     </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <atos_admin after="Mage_Adminhtml">Quadra_Atos_Adminhtml</atos_admin>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <crontab>
         <jobs>
             <atos_update_not_payed_orders>
