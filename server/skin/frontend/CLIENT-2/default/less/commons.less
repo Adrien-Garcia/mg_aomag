@@ -1,32 +1,70 @@
-/*
-  _____                _   _                 
- |  ___|__  _ __   ___| |_(_) ___  _ __  ___ 
- | |_ / _ \| '_ \ / __| __| |/ _ \| '_ \/ __|
- |  _| (_) | | | | (__| |_| | (_) | | | \__ \
- |_|  \___/|_| |_|\___|\__|_|\___/|_| |_|___/
-*/
-/* fonctions */
+/******************************************************************
+Site Name: Extrasynthèse
+Author: Jetpulp
+
+Stylesheet: Stylesheet Commons
+
+******************************************************************/
+
+
+/*******************************************************************
+
+SOMMAIRE
+
+
+@_00 HOVER
+@_01 FUNCTIONS
+@_02 RESET
+@_03 FORMULAIRES
+@_04 MESSAGES
+@_05 FIL D'ARIANE
+@_06 PAGE HEADING
+@_07 DATA TABLE
+@_08 BUNDLE PRODUCT TABLE
+@_09 GENERIC INFO BOX
+@_10 SHOPPING CART TOTAL SUMMURY ROW
+@_11 SHOPPING CART TAX INFO
+@_12 MICS
+@_13 GLOBAL SITE NOTICE
+@_14 HEADER
+@_15 NAVIGATION
+@_16 SIDEBAR
+@_17 CONTENT STYLE
+@_18 SHOOPING CART
+@_19 CHECKOUT
+@_20 MAP POPUP
+@_21 FOOTER
+@_22 CLEAR
+@_23 SELECT
+@_24 SEARCH AUTOCOMPLEATE
+
+
+
+*******************************************************************/
+
+
+
+
+
+/*******************************************************************
+
+@_00 HOVER
+
+*******************************************************************/
+
+
 .hover{
 	opacity: .6;
 }
 
-#search_autocomplete.search-autocomplete{ 
 
-	border:solid 1px @bg-03; 
-	background-color:@c-01; 
-	padding: 5px; 
-	cursor: pointer;
-	z-index: 9999;
+/*******************************************************************
 
-	ul{
-		li{
-			padding: 3px;
-			&:hover{ background:@c-03;
-			 }
-		}
-	}
+@_01 FUNCTIONS
 
-}
+*******************************************************************/
+
+
 
 .primary-button {
 	text-align: center;
@@ -198,14 +236,13 @@ button, .button-effect-inverse {
 
 
 
-/*   _____  ______  _____ ______ _______ 
- |  __ \|  ____|/ ____|  ____|__   __|
- | |__) | |__  | (___ | |__     | |   
- |  _  /|  __|  \___ \|  __|    | |   
- | | \ \| |____ ____) | |____   | |   
- |_|  \_\______|_____/|______|  |_|
-  */
-  
+
+/*******************************************************************
+
+@_02 RESET
+
+*******************************************************************/
+
 * { 
 	margin:0;
 	padding:0;
@@ -295,10 +332,14 @@ ul,ol         { list-style:none; }
 	z-index: 8040;
 }
 
-/* ======================================================================================= */
 
 
-/* Layout ================================================================================ */
+/*******************************************************************
+
+@_02 LAYOUT
+
+*******************************************************************/
+
 .page-print { background:@c-01; padding:25px 30px; text-align:left; }
 .page-empty { background:@c-01; padding:20px; text-align:left; }
 .page-popup { background:@c-01; padding:25px 30px; text-align:left; }
@@ -346,10 +387,14 @@ ul,ol         { list-style:none; }
 .col4-set .col-2 { float:left; width:23.5%; margin:0 2%; }
 .col4-set .col-3 { float:left; width:23.5%; }
 .col4-set .col-4 { float:right; width:23.5%; }
-/* ======================================================================================= */
 
 
-/* Global Styles ========================================================================= */
+
+/*******************************************************************
+
+@_03 FORMULAIRES
+
+*******************************************************************/
 
 label.required em {
 	/*float: right;*/
@@ -359,14 +404,6 @@ label.required em {
 	font-family:@font-light;
 	font-size:14px;
 }
-
-/*
-  _____                          _       _               
- |  ___|__  _ __ _ __ ___  _   _| | __ _(_)_ __ ___  ___ 
- | |_ / _ \| '__| '_ ` _ \| | | | |/ _` | | '__/ _ \/ __|
- |  _| (_) | |  | | | | | | |_| | | (_| | | | |  __/\__ \
- |_|  \___/|_|  |_| |_| |_|\__,_|_|\__,_|_|_|  \___||___/
-*/
 
 input,select,textarea,button {
 	font-size: 14px;
@@ -499,15 +536,11 @@ p.control input.radio { margin-right:6px; }
 
 
 
-/*
-  __  __                                     
- |  \/  | ___  ___ ___  __ _  __ _  ___  ___ 
- | |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \/ __|
- | |  | |  __/\__ \__ \ (_| | (_| |  __/\__ \
- |_|  |_|\___||___/___/\__,_|\__, |\___||___/
-                             |___/           
-*/
+/*******************************************************************
 
+@_04 MESSAGES
+
+*******************************************************************/
 
 .main .messages { /*display: none;*/ } /* les messages sont affciher au niveau template de page (1colmun.phtml...) */
 .success { color:#84cb1d; }
@@ -572,13 +605,11 @@ p.control input.radio { margin-right:6px; }
 	}
 }
 
-/*
-  _____ _ _       _ _    _         _                        
- |  ___(_) |   __| ( )  / \   _ __(_) __ _ _ __  _ __   ___ 
- | |_  | | |  / _` |/  / _ \ | '__| |/ _` | '_ \| '_ \ / _ \
- |  _| | | | | (_| |  / ___ \| |  | | (_| | | | | | | |  __/
- |_|   |_|_|  \__,_| /_/   \_\_|  |_|\__,_|_| |_|_| |_|\___|
-*/
+/*******************************************************************
+
+@_05 FIL D'ARIANE
+
+*******************************************************************/
 
 .columnleft2{
 	.breadcrumbs-container {
@@ -643,15 +674,12 @@ p.control input.radio { margin-right:6px; }
 }
 
 
-/*
-  _____        _____ ______   _    _ ______          _____ _____ _   _  _____ 
- |  __ \ /\   / ____|  ____| | |  | |  ____|   /\   |  __ \_   _| \ | |/ ____|
- | |__) /  \ | |  __| |__    | |__| | |__     /  \  | |  | || | |  \| | |  __ 
- |  ___/ /\ \| | |_ |  __|   |  __  |  __|   / /\ \ | |  | || | | . ` | | |_ |
- | |  / ____ \ |__| | |____  | |  | | |____ / ____ \| |__| || |_| |\  | |__| |
- |_| /_/    \_\_____|______| |_|  |_|______/_/    \_\_____/_____|_| \_|\_____|
- 
-*/
+
+/*******************************************************************
+
+@_06 PAGE HEADING
+
+*******************************************************************/
 
 .page-title {
 	position: relative;
@@ -708,7 +736,12 @@ p.control input.radio { margin-right:6px; }
 
 
 
-/* Data Table */
+/*******************************************************************
+
+@_07 DATA TABLE
+
+*******************************************************************/
+
 .data-table { width:100%; color: @c-08; }
 .data-table{
 	
@@ -785,7 +818,13 @@ p.control input.radio { margin-right:6px; }
 .data-table tbody th,
 .data-table tbody td { border-bottom:1px solid rgba(0, 0, 0, 0.1); }
 
-/* Bundle products tables */
+
+/*******************************************************************
+
+@_08 BUNDLE PRODUCT TABLE
+
+*******************************************************************/
+
 .data-table tbody.odd tr { background:#f8f7f5 !important; }
 .data-table tbody.even tr { background:#f6f6f6 !important; }
 .data-table tbody.odd tr td,
@@ -796,13 +835,25 @@ p.control input.radio { margin-right:6px; }
 .data-table tbody td .option-label { font-weight:bold; font-style:italic; }
 .data-table tbody td .option-value { padding-left:10px; }
 
-/* Generic Info Box */
+
+/*******************************************************************
+
+@_09 GENERIC INFO BOX
+
+*******************************************************************/
+
 .info-box { background:#fff url(../images/bkg_block-title.gif) 0 0 repeat-x; border:1px solid #d0cbc1; padding:12px 15px; margin:0 0 15px; }
 .info-box h2 { font-weight:bold; font-size:13px; }
 .info-table th { font-weight:bold; padding:2px 15px 2px 0; }
 .info-table td { padding:2px 0; }
 
-/* Shopping cart total summary row expandable to details */
+
+/*******************************************************************
+
+@_10 SHOPPING CART TOTAL SUMMURY ROW
+
+*******************************************************************/
+
 tr.summary-total { cursor:pointer; }
 tr.summary-total .summary-collapse { float:right; text-align:right; padding-left:20px; cursor:pointer; }
 tr.show-details .summary-collapse { background-position:0 -52px; }
@@ -810,7 +861,13 @@ tr.summary-details td { font-size:11px; background-color:#dae1e4; color:#626465;
 tr.summary-details-first td { border-top:1px solid #d2d8db; }
 tr.summary-details-excluded { font-style:italic; }
 
-/* Shopping cart tax info */
+
+/*******************************************************************
+
+@_11 SHOPPING CART TAX INFO
+
+*******************************************************************/
+
 .cart-tax-info { display:block; }
 .cart-tax-info,
 .cart-tax-info .cart-price { padding-right:20px; }
@@ -821,7 +878,12 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 
-/* Misc */
+/*******************************************************************
+
+@_12 MICS
+
+*******************************************************************/
+
 .links li { display:inline; }
 .links li.first { padding-left:0 !important; }
 .links li.last { background:none !important; padding-right:0 !important; }
@@ -899,7 +961,12 @@ tr.summary-details-excluded { font-style:italic; }
 	overflow:hidden; 
 }
 
-/* Global site notices */
+/*******************************************************************
+
+@_13 GLOBAL SITE NOTICE
+
+*******************************************************************/
+
 .global-site-notice { border:1px solid #cfcfcf; border-width:0 0 1px; background:#ffff90; font-size:12px; line-height:1.25; text-align:center; color:#2f2f2f; }
 .global-site-notice .notice-inner { width:860px; margin:0 auto; padding:12px 0 12px 80px; background:url(../images/i_notice.gif) 20px 25px no-repeat; text-align:left; }
 .global-site-notice .notice-inner p { margin:0; border:1px dotted #cccc73; padding:10px; }
@@ -911,15 +978,11 @@ tr.summary-details-excluded { font-style:italic; }
 .demo-notice .notice-inner p { padding:0; border:0; }
 
 
-/*
-  _   _                _           
- | | | | ___  __ _  __| | ___ _ __ 
- | |_| |/ _ \/ _` |/ _` |/ _ \ '__|
- |  _  |  __/ (_| | (_| |  __/ |   
- |_| |_|\___|\__,_|\__,_|\___|_|   
-*/
+/*******************************************************************
 
+@_14 HEADER
 
+*******************************************************************/
 
 .lienhome{display:inline-block;}
 
@@ -1170,14 +1233,12 @@ tr.summary-details-excluded { font-style:italic; }
 	
 }
 
-/*
-  _   _             _             _   _             
- | \ | | __ ___   _(_) __ _  __ _| |_(_) ___  _ __  
- |  \| |/ _` \ \ / / |/ _` |/ _` | __| |/ _ \| '_ \ 
- | |\  | (_| |\ V /| | (_| | (_| | |_| | (_) | | | |
- |_| \_|\__,_| \_/ |_|\__, |\__,_|\__|_|\___/|_| |_|
-                      |___/                         
-*/
+
+/*******************************************************************
+
+@_15 NAVIGATION
+
+*******************************************************************/
 .nav-container {
 	
 	background: @bg-01;
@@ -1335,15 +1396,12 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 }
 
-/*
-  _____ _____ _____  ______ ____          _____  
-  / ____|_   _|  __ \|  ____|  _ \   /\   |  __ \ 
- | (___   | | | |  | | |__  | |_) | /  \  | |__) |
-  \___ \  | | | |  | |  __| |  _ < / /\ \ |  _  / 
-  ____) |_| |_| |__| | |____| |_) / ____ \| | \ \ 
- |_____/|_____|_____/|______|____/_/    \_\_|  \_\
- 
- */
+
+/*******************************************************************
+
+@_16 SIDEBAR
+
+*******************************************************************/
  
 .block {
 	margin: 0 0 15px;
@@ -1456,16 +1514,11 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 
-/*
-  _____ ____  _   _ _______ ______ _   _ _______    _____ _________     ___      ______ 
-  / ____/ __ \| \ | |__   __|  ____| \ | |__   __|  / ____|__   __\ \   / / |    |  ____|
- | |   | |  | |  \| |  | |  | |__  |  \| |  | |    | (___    | |   \ \_/ /| |    | |__   
- | |   | |  | | . ` |  | |  |  __| | . ` |  | |     \___ \   | |    \   / | |    |  __|  
- | |___| |__| | |\  |  | |  | |____| |\  |  | |     ____) |  | |     | |  | |____| |____ 
-  \_____\____/|_| \_|  |_|  |______|_| \_|  |_|    |_____/   |_|     |_|  |______|______|
-  
-*/
+/*******************************************************************
 
+@_17 CONTENT STYLE
+
+*******************************************************************/
 /* Product Tags */
 .tags-list { display:block; font-size:13px; border:1px solid #c1c4bc; background:#f8f7f5; padding:10px; }
 .tags-list li { display:inline !important; margin:0 4px 0 0; }
@@ -1495,15 +1548,13 @@ tr.summary-details-excluded { font-style:italic; }
 .rss-title h1 { background:url(../images/i_rss-big.png) 0 4px no-repeat; padding-left:27px; }
 .rss-table .link-rss { display:block; line-height:1.55; background-position:0 4px; }
 
-/*
-   _____ _    _  ____  _____  _____ _____ _   _  _____    _____          _____ _______ 
-  / ____| |  | |/ __ \|  __ \|  __ \_   _| \ | |/ ____|  / ____|   /\   |  __ \__   __|
- | (___ | |__| | |  | | |__) | |__) || | |  \| | |  __  | |       /  \  | |__) | | |   
-  \___ \|  __  | |  | |  ___/|  ___/ | | | . ` | | |_ | | |      / /\ \ |  _  /  | |   
-  ____) | |  | | |__| | |    | |    _| |_| |\  | |__| | | |____ / ____ \| | \ \  | |   
- |_____/|_|  |_|\____/|_|    |_|   |_____|_| \_|\_____|  \_____/_/    \_\_|  \_\ |_|   
- 
-*/                                                                                      
+
+
+/*******************************************************************
+
+@_18 SHOOPING CART
+
+*******************************************************************/                                                                                      
                                                                                        
 /* Checkout Types */
 .cart .page-title .checkout-types li { margin:0 0 5px; }
@@ -1537,15 +1588,11 @@ tr.summary-details-excluded { font-style:italic; }
 .col-right .truncated .show .item-options { left:-240px; top:7px; }
 
 
-/*
-   _____ _    _ ______ _____ _  ______  _    _ _______ 
-  / ____| |  | |  ____/ ____| |/ / __ \| |  | |__   __|
- | |    | |__| | |__ | |    | ' / |  | | |  | |  | |   
- | |    |  __  |  __|| |    |  <| |  | | |  | |  | |   
- | |____| |  | | |___| |____| . \ |__| | |__| |  | |   
-  \_____|_|  |_|______\_____|_|\_\____/ \____/   |_|
-  
-*/  
+/*******************************************************************
+
+@_19 CHECKOUT
+
+*******************************************************************/
 
 /* Tooltip */
 .tool-tip { border:1px solid @c4; background:#fff; padding:15px 20px; position:absolute; z-index:9999; }
@@ -1611,15 +1658,13 @@ tr.summary-details-excluded { font-style:italic; }
 .info-set .data-table .product-name a { font-weight:bold !important; }
 .info-set .data-table .item-options { margin:5px 0 0; }
 
-/*
-  __  __          _____    _____   ____  _____  _    _ _____  
- |  \/  |   /\   |  __ \  |  __ \ / __ \|  __ \| |  | |  __ \ 
- | \  / |  /  \  | |__) | | |__) | |  | | |__) | |  | | |__) |
- | |\/| | / /\ \ |  ___/  |  ___/| |  | |  ___/| |  | |  ___/ 
- | |  | |/ ____ \| |      | |    | |__| | |    | |__| | |     
- |_|  |_/_/    \_\_|      |_|     \____/|_|     \____/|_|     
-                                                             
-*/
+
+
+/*******************************************************************
+
+@_20 MAP POPUP
+
+*******************************************************************/
 
 .cart-msrp-totals { color:red; font-size:12px !important; font-weight:bold; margin:10px 10px 0; padding:10px; text-align:right; text-transform:uppercase;}
 .map-cart-sidebar-total { color:red; display:block; font-size:10px; font-weight:bold; text-align:left; padding:2px 5px; text-shadow:0 1px 0 #fff; }
@@ -1641,15 +1686,12 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 
-/*
-  ______ ____   ____ _______ ______ _____  
- |  ____/ __ \ / __ \__   __|  ____|  __ \ 
- | |__ | |  | | |  | | | |  | |__  | |__) |
- |  __|| |  | | |  | | | |  |  __| |  _  / 
- | |   | |__| | |__| | | |  | |____| | \ \ 
- |_|    \____/ \____/  |_|  |______|_|  \_\                                          
-                                           
-*/
+
+/*******************************************************************
+
+@_21 FOOTER
+
+*******************************************************************/
 
 
 .footer-container {
@@ -1905,15 +1947,11 @@ tr.summary-details-excluded { font-style:italic; }
 }
 
 
-/*
-   _____ _      ______          _____   _____ 
-  / ____| |    |  ____|   /\   |  __ \ / ____|
- | |    | |    | |__     /  \  | |__) | (___  
- | |    | |    |  __|   / /\ \ |  _  / \___ \ 
- | |____| |____| |____ / ____ \| | \ \ ____) |
-  \_____|______|______/_/    \_\_|  \_\_____/ 
-  
- */
+/*******************************************************************
+
+@_22 CLEAR
+
+*******************************************************************/
                                              
 .clearer:after,
 .header-container:after,
@@ -1977,4 +2015,94 @@ tr.summary-details-excluded { font-style:italic; }
     display:block;
     clear:both;
   }
+}
+
+
+
+
+
+/*******************************************************************
+
+@_23 SELECT
+
+*******************************************************************/
+
+.custom-dropdown__select{
+    font-size: inherit; 
+    padding: 0 .5em ; 
+    cursor:pointer;    
+    
+}
+
+.custom-dropdown__select--white {
+    color: @c-02;    
+    
+}
+
+@supports (pointer-events: none) and
+      ((-webkit-appearance: none) or
+      (-moz-appearance: none) or
+      (appearance: none)) {
+}
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    
+   
+
+    &:after{
+    	.sprite(@arrow-select);
+	    top:7px;
+	    right:1px;
+	    content: "";
+	    position: absolute;
+	    pointer-events: none;
+    }
+}
+ 
+.custom-dropdown__select {
+    padding-right: 2.5em;
+     border:1px solid #B2B2B2;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;    
+}
+
+
+
+
+
+.custom-dropdown__select[disabled] {
+    color: rgba(0,0,0,.3);
+}
+
+.custom-dropdown.custom-dropdown--disabled::after {
+    color: rgba(0,0,0,.1);
+}
+
+/*******************************************************************
+
+@_24 SEARCH AUTOCOMPLEATE
+
+*******************************************************************/
+
+
+#search_autocomplete.search-autocomplete{ 
+
+	border:solid 1px @bg-03; 
+	background-color:@c-01; 
+	padding: 5px; 
+	cursor: pointer;
+	z-index: 9999;
+
+	ul{
+		li{
+			padding: 3px;
+			&:hover{ background:@c-03;
+			 }
+		}
+	}
+
 }
