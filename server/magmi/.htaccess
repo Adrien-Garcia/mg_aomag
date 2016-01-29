@@ -1,6 +1,13 @@
 AuthName "Magmi Authentification"
 AuthType Basic
-AuthUserFile .htpasswd
+# Mettre/Changer l'adresse physique
+AuthUserFile /srv/www/vhosts/aomagento.addonline.biz/magmi/.htpasswd
+Order deny,allow
+Deny from all
 Require valid-user
-Allow from 127.0.0.1
+
+# Pour accepter une connection par IP cela se gere sur NGINX sur l'infra de Jetpulp.
+# Voir Wiki Ngynx authentication.
+#Allow from 127.0.0.1
+Allow from 195.28.202.129
 Satisfy Any

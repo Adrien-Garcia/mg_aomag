@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Jetpulp
+ * @package     Jetpulp_Checkout
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Jetpulp_Checkout>
+            <version>0.0.1.0</version>
+        </Jetpulp_Checkout>
+    </modules>
+    <frontend>
+        <translate>
+            <modules>
+                <Jetpulp_Checkout>
+                    <files>
+                        <default>Jetpulp_Checkout.csv</default>
+                    </files>
+                </Jetpulp_Checkout>
+                <Mage_Checkout>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Checkout>
+                <Mage_Page>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Page>
+                <Mage_Tax>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Tax>
+                <Mage_Customer>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Customer>
+                <Mage_Sales>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Sales>
+                <Mage_Payment>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Payment>
+                <Mage_Persistent>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Mage_Persistent>
+                <Be2bill_Be2bill>
+                    <files>
+                        <additional>Jetpulp_Checkout.csv</additional>
+                    </files>
+                </Be2bill_Be2bill>
+            </modules>
+        </translate>
+        <secure_url>
+            <jetcheckout_onepage>/jetcheckout/onepage</jetcheckout_onepage>
+        </secure_url>
+        <routers>
+            <jetcheckout>
+                <use>standard</use>
+                <args>
+                    <module>Jetpulp_Checkout</module>
+                    <frontName>jetcheckout</frontName>
+                </args>
+            </jetcheckout>
+        </routers>
+        <layout>
+            <updates>
+                <jetcheckout>
+                    <file>jetpulp/checkout.xml</file>
+                </jetcheckout>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <jetcheckout>
+                <class>Jetpulp_Checkout_Block</class>
+            </jetcheckout>
+            <checkout>
+                <rewrite>
+                    <cart_totals>Jetpulp_Checkout_Block_Cart_Totals</cart_totals>
+                    <cart>Jetpulp_Checkout_Block_Checkout_Cart</cart>
+                    <onepage_link>Jetpulp_Checkout_Block_Onepage_Link</onepage_link>
+                    <links>Jetpulp_Checkout_Block_Links</links>
+                </rewrite>
+            </checkout>
+        </blocks>
+        <helpers>
+            <jetcheckout>
+                <class>Jetpulp_Checkout_Helper</class>
+            </jetcheckout>
+            <checkout>
+                <rewrite>
+                    <url>Jetpulp_Checkout_Helper_Checkout_Url</url>
+                </rewrite>
+            </checkout>
+        </helpers>
+    </global>
+</config>

@@ -1,0 +1,108 @@
+@media screen and (max-width: 1024px) {
+
+	.jetcheckout-onepage-index {
+
+		.page {
+			width: auto;
+		}
+
+		.header {
+			width: 630px;
+			margin: auto;
+		}
+
+		.col-left {
+			float: none;
+			width: 630px;
+			margin: auto;
+		}
+
+		.col-main {
+			float: none;
+			margin: auto;
+		}
+
+		.footer-container {
+
+			display: none;
+
+			/* à réactiver si on décide de l'afficher .footer {
+
+				span {
+
+					&:first-child {
+						padding-left: 13px;
+					}
+
+				}
+			}*/
+
+		}
+
+	}
+
+
+
+
+
+
+
+.sidebar {
+
+	margin-bottom: 45px !important;
+
+	.review-block-title {
+        pointer-events: auto;
+        padding: 10px;
+        cursor: pointer;
+        border: 1px solid rgb(204, 204, 204);
+        background: transparent url(../images/jetcheckout/fleche_up.svg) no-repeat 97% 14px;
+        transition: background-color 0.3s ease;
+
+        &.up {
+			background-image: url(../images/jetcheckout/fleche_down.svg);
+		}
+	}
+
+	.collapsable {
+		width: 100% !important;
+
+	}
+    .collapsable-trigger.review-block-title:hover {
+        background-color: #ccc;
+    }
+	.collapsed {
+		display: none;
+		width: 100% !important;
+	}
+}
+
+
+
+
+
+/* order review */
+.order-review {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

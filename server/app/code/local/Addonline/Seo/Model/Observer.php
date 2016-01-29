@@ -121,7 +121,8 @@ class Addonline_Seo_Model_Observer {
         	    	
         	    		//Si on a au moins un filtre on n'indexe pas sur google, sauf si il n'y en a qu'un seul et qu'il est configuré pour
         	    		$meta_robots = $headBlock->getRobots();
-        	    		foreach ($_filters as $_filter) {
+						$meta_robots = preg_replace('/\s+/', '', $meta_robots); //il peux arriver que meta_robots contiennent des espaces
+						foreach ($_filters as $_filter) {
         	    			if ($_filter->getFilter()->getRequestVar()== 'cat') {
         	    				$meta_robots =  'NOINDEX,NOFOLLOW'; //si il y a le filtre catéogire : on n'indexe pas la page
         	    			} else {

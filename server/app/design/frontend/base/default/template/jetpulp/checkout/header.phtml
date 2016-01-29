@@ -1,0 +1,6 @@
+<div class="header-container">
+    <div class="header">
+        <a href="<?php echo $this->getUrl('checkout/cart') ?>" onclick="return confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure you want to leave this page? You will need to go through the checkout steps again.')); ?>')" class="site disable-on-payment"><?php echo $this->__('Back to home page') ?></a>
+        <a href="/"><img src="<?php echo $this->getSkinUrl("images/logo.png") ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+    </div>
+</div>

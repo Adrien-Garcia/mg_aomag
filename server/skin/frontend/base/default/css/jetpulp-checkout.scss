@@ -1,0 +1,919 @@
+$color: #e50046;
+
+.error-msg {
+	color: $color;
+	margin-bottom: 10px;
+}
+
+a.disabled-on-payment {
+    text-decoration: none !important;
+    cursor: default !important;
+    border: 0 !important;
+    opacity: 0.3 !important;
+}
+
+@mixin cartColBlock {
+    background: #eee;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+
+@mixin op($from, $to) {
+    opacity: $from;
+    transition: opacity .2s;
+    &:hover {
+        opacity: $to;
+    }
+}
+
+#shipping-progress-opcheckout {
+    //display: none;
+}
+
+
+body.jetcheckout:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section:not(#opc-login) .step-title,
+body.jetcheckout:not(.opc-has-progressed-from-login) .opc-block-progress-step-login {
+    opacity: 1;
+}
+#checkout-shipping-method-load.method-refreshing,#checkout-shipping-method-pickup-load.method-refreshing {
+	height: 100px;
+	content: "Reloading Shipping Method ";
+	background: url(../images/jetcheckout/opc-ajax-loader.gif) no-repeat center/auto ;
+}
+
+hr {
+    opacity: 0.3;
+    margin: 35px 0;
+}
+
+.no-display {
+  display: none;
+}
+
+
+#store-pickup_label {
+    display: inline-block;
+    vertical-align: top;
+    span, a {
+        display: block;
+        margin: 5px 0 0 0;
+
+    }
+}
+
+#store-pickup_link {
+    margin: 5px 0px 0px 81px;
+    display: block;
+    border-bottom: 0;
+    text-decoration: underline;
+
+}
+
+/* Global layout */
+.jetcheckout-onepage-index {
+
+	padding: 0;
+	margin: 0;
+	background: #fff;
+	font-size: 12px;
+    font-family: Arial,Verdana,Helvetica,sans-serif;
+
+    .appel {
+        background: #CCC;
+    }
+
+	.page {
+		width: 960px;
+		margin: auto;
+	}
+
+
+
+    #footer_1.footer li:not(.appel) {
+        background-color: #fff;
+    }
+
+    #footer_1.footer li.appel {
+        a, &:before {
+            color: #ffffff;
+        }
+    }
+
+    #footer_1.footer li{
+        &:before,
+        a {
+            color: #999;
+        }
+        &:hover {
+            background-color: #CCC !important;
+            a {
+                background-color: transparent !important;
+            }
+            &::before {
+                color: #fff !important;
+            }
+            a {
+                color: #fff !important;
+            }
+        }
+    }
+	.header {
+
+		text-align: center;
+		line-height: 130px;
+
+		img {
+			vertical-align: middle;
+            height: 55px;
+		}
+
+    .site {
+      float: right;
+      margin-top: 71px;
+      @extend .lien;
+      @include op(.5,.3);
+    }
+
+	}
+
+	.page-title {
+		display: none;
+	}
+
+	.main {
+	overflow: hidden;
+	}
+
+	.col-left {
+		float: left;
+		width: 300px;
+	}
+
+	.col-main {
+		float: right;
+		width: 630px;
+	}
+
+	.footer-container { 
+
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+		font-size: 15px;
+		color: #3a3a3a;
+		line-height: 16px;
+		height: 80px;
+		padding-top: 100px;
+
+		position: fixed;
+		bottom: 0;
+		left: 50%;
+		width: 960px;
+		margin-left: -480px;
+
+		&.static {
+			position: static;
+			margin-left: 0;
+		}
+
+		.footer {
+			display: table-row;
+
+			span {
+				display: table-cell;
+				width: 2%;
+				padding: 0 13px;
+				border-right: 1px solid #d7d7d7;
+
+				b {
+					display: block;
+				}
+
+				&:first-child {
+					padding-left: 0;
+				}
+
+				&:last-child {
+					border-right: none;
+				}
+			}
+		}
+
+	}
+
+}
+
+.clearfix:before,
+.clearfix:after {
+  content:"";
+  display:table;
+}
+.clearfix:after {
+  clear:both;
+}
+.clearfix {
+  zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+
+/* fieldset reset */
+fieldset {
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+/* list reset */
+ol, ul, dl, dt, dd {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+/* button */
+button {
+	background: $color;
+	border: none;
+	font-weight: bold;
+	font-size: 15px;
+	text-transform: uppercase;
+	padding: 12px 15px 11px 15px;
+	color: #fff;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: opacity .2s;
+
+	&:hover {
+		opacity: .6;
+	}
+}
+
+/* text field */
+.input-text, select {
+	border: 1px solid #cecece;
+	border-radius: 3px;
+	background: #fff;
+	font: 12px Arial,Verdana,Helvetica,sans-serif;
+    line-height: 28px;
+    height: 28px;
+    padding: 0 12px;
+    box-sizing: border-box;
+	transition: border .2s;
+
+	&:focus {
+		border-color: #000;
+	}
+}
+
+select {
+	height: 30px;
+}
+
+/* required fields */
+label.required {
+	em { display: none;}
+	&:after {
+		content: "*";
+		color: $color;
+	}
+}
+
+/* remove outline on all elements */
+* {
+	outline: none;
+}
+
+/* remove webkit background on autofilled fields */
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+	box-shadow: 0 0 0 1000px white inset;
+}
+
+.form-list {
+
+	li {
+		margin-bottom: 15px;
+
+		.input-box {
+			margin-top: 2px;
+
+			.input-text, select {
+				width: 100%;
+			}
+		}
+	}
+
+	.fields {
+
+		overflow: hidden;
+
+		.field {
+			width: 50%;
+			float: left;
+			box-sizing: border-box;
+
+			&:nth-child(odd) { padding-right: 15px; }
+			&:nth-child(even) { padding-left: 15px; }
+		}
+
+	}
+    
+}
+
+/*
+* je ne peux pas laisser ça dans .form-list .fields (cf. au-dessus)
+* car à l'étape de livraison, les radios ne sont pas dans un .form-list .fields
+*/
+.control {
+	font-weight: bold;
+	margin-bottom: 15px;
+	input {
+		vertical-align: middle;
+		margin: 0 5px 0 0;
+	}
+}
+
+p.required {
+	margin: 10px 0 0 30px;
+	color: #757575;
+	font-size: 11px;
+	span {
+		color: $color;
+	}
+}
+
+.validation-advice {
+	color: $color;
+}
+
+.amorce {
+	display: block;
+	margin-bottom: 15px;
+}
+
+/* Hn */
+h3 {
+	font-size: 23px;
+	color: $color;
+	margin: 0 0 20px 0;
+    font-family: Arial, serif;
+    font-weight: normal;
+}
+
+h4 {
+	font-size: 15px;
+    margin: 10px 0 15px 0;
+}
+
+/* lien */
+.lien {
+	color: #000;
+	text-decoration: none;
+	font-weight: bold;
+	line-height: 12px;
+	border-bottom: 1px solid #000;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	margin-left: 10px;
+	&:before {
+		content: url(../images/jetcheckout/fleche-lnk.svg);
+		position: absolute;
+		top: 0;
+		left: -10px;
+	}
+}
+
+.lien-gauche {
+	@extend .lien;
+	&:before {
+		content: url(../images/jetcheckout/fleche-lnk-gauche.svg);
+	}
+}
+
+
+.sidebar {
+	.review-block-title {
+	    opacity: .5;
+        font-size: 13px;
+        font-weight: bold;
+    	text-transform: uppercase;
+    	display: block;
+    	margin: 13px 0 0 0;
+    	pointer-events: none;
+	}
+
+	.collapsed {
+		display: block;
+	}
+}
+
+
+
+
+/* order review */
+.order-review {
+
+
+	.review-cart-title {
+		color: #3a3a3a;
+		float: left;
+		margin: 43px 0 3px 0;
+	}
+
+	.change-cart {
+		float: right;
+		margin-top: 48px;
+		@extend .lien;
+		@include op(.5,.3);
+	}
+
+	.checkout-review-table {
+		border-top: 1px solid #d7d7d7;
+		clear: both;
+		border-spacing: 0;
+		width: 100%;
+
+		td {
+			padding: 13px 0;
+			background: url(../images/jetcheckout/separator.gif) repeat-x 0 100%;
+			vertical-align: top;
+
+			&:last-child { text-align: right; }
+		}
+
+		tbody {
+			td {
+				color: rgba(0,0,0,.5);
+
+				&:first-child {
+					width: 200px;
+				}
+
+				+ td {
+					text-align: center;
+				}
+
+				&:last-child {
+					width: 65px;
+				}
+			}
+		}
+
+		tfoot {
+
+			td {
+				color: rgba(0,0,0,.5);
+			}
+
+			tr.last {
+				font-weight: bold;
+				font-size: 16px;
+				text-transform: uppercase;
+
+				td {
+					background: none;
+					color: rgba(0,0,0,1);
+				}
+			}
+		}
+
+	}
+
+}
+
+
+
+
+
+
+/* progress */
+.opc-block-progress {
+
+	dt, dd {
+		display: none;
+		&.complete {
+			display: block;
+		}
+	}
+
+	dt {
+
+		overflow: hidden;
+		border-bottom: 1px solid rgba(0,0,0,.2);
+		margin-top: 35px;
+
+		h3 {
+			color: #3a3a3a;
+			margin-bottom: 3px;
+			float: left;
+		}
+		
+		a {
+			@extend .lien;
+			@include op(.5,.3);
+			float: right;
+			margin-top: 5px;
+		}
+		
+	}
+
+	dd {
+		padding-top: 15px;
+		address {
+			font-style: normal;
+			color: rgba(0,0,0,.5);
+		}
+	}
+
+
+}
+
+
+
+
+
+/* Minimal setup for tab layout */
+.opc {
+
+	position: relative;
+	overflow: hidden;
+	//height: 1070px; cf. jetpulp-opcheckout.js
+	background: #fff;
+	margin: 0;
+	padding: 0;
+
+	&:first-of-type .step{-webkit-transition: all 0.5s ease-in-out;-moz-transition: all 0.5s ease-in-out;-o-transition: all 0.5s ease-in-out;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;}
+	//&:first-of-type .step[style*='display:none;'],
+	//&:first-of-type .step[style*='display: none;']{display:block !important;}
+	&:first-of-type .section .step{left: 100%;}
+	&:first-of-type .allow .step{left: -100%;}
+	&:first-of-type .active .step{left:0;}
+
+	li.section { display:inline; }
+
+	
+
+	.step {
+		position: absolute;
+		top: 110px; // tabs' height
+		left: 0;
+		z-index: 1;
+		width: 100%;
+	}
+
+
+	.step-title {
+		position: relative;
+		float: left;
+		width: 25%;
+		a {
+			display: none; // edit link
+		}
+	}
+	.allow .step-title { cursor:pointer; }
+	.active .step-title { cursor:default; }
+
+}
+
+
+/* Début charte jetpulp */
+.opc {
+
+	/* Charte des titres des étapes */
+	.step-title {
+
+		box-sizing: border-box;
+		font-size: 13px;
+		font-weight: bold;
+		border-right: 1px solid #e2e2e2;
+		border-bottom: 1px solid #e2e2e2;
+	    padding: 13px 0 12px 0;
+		text-align: center;
+		color: #bebebe;
+
+		h2 {
+			display: inline;
+			margin: 0;
+			font-size: 13px;
+			text-transform: uppercase;
+		}
+
+	}
+
+	.section:last-child {
+		.step-title {
+			border-right: none;
+		}
+	}
+
+	.section.allow {
+		.step-title {
+			h2 {
+				border-bottom: 1px solid;
+				position: relative;
+				&:after {
+					content: url(../images/jetcheckout/coche-verte.svg);
+					position: absolute;
+					top: -10px;
+					right: -12px;
+				}
+			}
+		}
+	}
+
+	.section.active {
+		.step-title {
+			border-bottom: #fff;
+			color: #000;
+			h2 {
+				border: none;
+				&:after { content: none; }
+			}
+		}
+	}
+
+	/* étapes : styles génériques */
+	.step {
+		top: 41px;
+		padding: 30px;
+		box-sizing: border-box;
+	}
+
+}
+
+
+
+/* buttons set */
+.buttons-set {
+	
+	overflow: hidden;
+	position: relative;
+	padding-top: 15px;
+
+	a {
+		@extend .lien;
+		@include op(1,.8);
+	}
+
+	.back-link {
+
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		margin: 0;
+
+		a {
+			float: left;
+            @extend .lien;
+			@include op(.5,.3);
+		}
+	}
+
+	button {
+		float: right;
+	}
+
+	.please-wait {
+	    position: absolute;
+	    bottom: 6px;
+	    right: 130px;
+	    img {
+			height: 20px;
+			width: auto;
+	    }
+	}
+
+}
+
+/* First step => login step */
+#opc-login {
+
+	.col2-set {
+		overflow: hidden;
+	}
+
+	.col-1,
+	.col-2 {
+		float: right;
+    width: unquote("calc(50% - 15px)");
+	}
+
+	.col-2 {
+		float: left;
+	}
+
+	.col-1 {
+		ul {
+			padding: 12px 0 0 0;
+			li {
+				margin-bottom: 13px;
+				padding-left: 15px;
+				background: url(../images/jetcheckout/coche-grise.svg) no-repeat 0 0;
+			}
+		}
+	}
+
+	.buttons-set {
+		a {
+			margin-top: 20px;
+		}
+		button {
+			float: none;
+		}
+	}
+
+}
+
+
+
+
+
+
+/* styles de la date de naissance */
+#opc-information, #opc-shipping_method {
+
+	.name-prefix {
+		width: 75px;
+	}
+
+	.name-firstname {
+		width: 210px;
+		padding-right: 15px;
+	}
+
+	.name-lastname {
+		padding-right: 0;
+		padding-left: 15px;
+	}
+    .sp-methods dt {
+      margin: 15px 0;
+    }
+
+    .sp-methods dd ul {
+        min-height: 40px;
+        padding: 15px 0 0;
+        position: relative;
+        &:before{
+            position: absolute;
+            font-weight: normal;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            top: 8px;
+            left: 0;
+        }
+    }
+    .sp-methods dd ul {
+
+        li {
+            padding-left: 60px;
+
+            label {
+                min-width: 0;
+                display: inline;
+            }
+        }
+
+    }
+}
+
+
+
+
+
+
+
+/* Payment step */
+#opc-payment {
+
+	.sp-methods {
+
+		dt {
+            font-weight: bold;
+            margin-bottom: 15px;
+            input {
+                vertical-align: middle;
+                margin: 0 5px 0 0;
+            }
+        }
+        #dt_method_be2bill_standard {
+            display: block;
+            text-align: center;
+
+            strong {
+                display: block;
+                margin: 15px 0;
+                text-align: center;
+            }
+            .v-middle {
+                text-align: center;
+            }
+        }
+
+      dd {
+        ul {
+          min-height: 50px;
+          padding: 15px 0 0;
+          background-position: left top;
+          background-repeat: no-repeat;
+
+          li {
+            padding-left: 60px;
+
+            label {
+              min-width: 0;
+              display: inline;
+            }
+          }
+
+
+        }
+      }
+
+	}
+
+	/* ATTENTION sépcifique au paiement "credit cart (saved) par défaut sur aomagento" */
+	.v-fix {
+        width: unquote("calc(50% - 15px)");
+    	float: left;
+	}
+
+	.v-fix + .v-fix {
+    	float: right;
+	}
+
+	.verification-li {
+		overflow: visible;
+	}
+
+	.input-box-verification {
+		position: relative;
+	}
+
+	.tool-tip {
+		display: none;
+	    position: absolute;
+	    bottom: 100%;
+	    left: 7px;
+	    z-index: 10;
+	    margin-bottom: -6px;
+
+	    span {
+			position: absolute;
+		    top: 32px;
+		    left: 20px;
+		    color: white;
+		    font-style: italic;
+	    }
+	}
+
+	.tooltip-verification {
+		text-indent: -200em;
+		overflow: hidden;
+		width: 14px;
+		height: 14px;
+		background: url(../images/jetcheckout/info.svg);
+		display: inline-block;
+		vertical-align: middle;
+
+		&:hover {
+			+ .tool-tip {
+				display: block;
+			}
+		}
+	}
+
+}
+
+#checkout-agreements {
+    margin: 20px 0 0 5px;
+}
+
+.agreement-content {
+    margin: 15px 0;
+}
+
+.agree {
+    input {
+        margin: 0 15px 0 0;
+
+    }
+    label {
+        line-height: 20px;
+    }
+
+    a {
+    	color: $color;
+    }
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+@import 'jetpulp-checkout-1024-down';
+@import 'jetpulp-checkout-650-down';

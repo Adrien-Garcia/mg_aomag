@@ -68,7 +68,8 @@ module.exports = function(grunt) {
             src : '../css/styles.css'
         },
         options: {
-            proxy: "aomagento.clement.addonline.devl",
+            proxy: grunt.option('env') || 'aomagento.username.jetpulp.dev',
+            host: grunt.option('env') || 'aomagento.username.jetpulp.dev',
             watchTask: true,
             logLevel: "debug",
             reloadOnRestart:false

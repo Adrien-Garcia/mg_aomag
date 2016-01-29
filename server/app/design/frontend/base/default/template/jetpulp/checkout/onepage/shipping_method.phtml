@@ -1,0 +1,128 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+
+ */
+?>
+<h3><?php echo $this->__('Your shipment'); ?></h3>
+<?php /** @var $this Mage_Checkout_Block_Onepage_Shipping_Method */ ?>
+<?php $sameAsBilling = true; ?>
+<form action="" id="co-shipping-type-form">
+    <h4><?php echo $this->__('Please select your shipment type'); ?></h4>
+    <div id="checkout-shipping-type-load">
+        <!-- Content loaded dynamically -->
+    </div>
+    <div id="checkout-shipping-method-pickup-load"></div>
+    <div class="buttons-set" id="shipping-type-buttons-container" style="display:none;">
+        <button id="shipping-type-submit" type="button" class="button" ><span><span><?php echo $this->__('Continue') ?></span></span></button>
+        <span id="shipping-type-please-wait" class="please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" />
+        </span>
+    </div>
+
+</form>
+<div id="onepage-checkout-shipping" <?php if($sameAsBilling): ?> style="display:none;" <?php endif; ?> >
+    <hr/>
+    <h4 class="amorce"><?php echo $this->__("Please enter your shipping address."); ?></h4>
+    <?php $this->getChild('shipping_address')->setData('same_as_billing', $sameAsBilling); ?>
+    <?php echo $this->getChildHtml('shipping_address'); ?>
+</div>
+<form id="co-shipping-method-form" action="" style="display: none;">
+    <hr/>
+    <h4 class="amorce"><?php echo $this->__("Please select your shipping method"); ?></h4>
+    <div id="checkout-shipping-method-load">
+        <!-- Content loaded dynamically -->
+    </div>
+    <script type="text/javascript">
+        //<![CDATA[
+        var shippingMethod = new ShippingMethod('co-shipping-method-form', "<?php echo $this->getUrl('checkout/onepage/saveShippingMethod') ?>");
+        //]]>
+    </script>
+    <div id="onepage-checkout-shipping-method-additional-load">
+        <?php echo $this->getChildHtml('additional') ?>
+    </div>
+    <div class="buttons-set" id="shipping-method-buttons-container" >
+        <button type="button" class="button" onclick="shippingMethod.save()"><span><span><?php echo $this->__('I go to payment step') ?></span></span></button>
+        <span id="shipping-method-please-wait" class="please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" />
+        </span>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var shippingTypeSelector = function(e) {
+        var el = e.target;
+        var id = el.id;
+        $('shipping:same_as_billing_yes').checked = false;
+        $('shipping:same_as_billing_no').checked = false;
+        $$('.store_pickup').each(function(input) {
+            input.checked = false;
+        });
+        $('co-shipping-method-form').hide();
+        $('onepage-checkout-shipping').hide();
+        el.checked = true;
+        shipping_method_select_cb(el);
+    };
+    var shipping_method_select_cb = function(el){
+        var type_value = null;
+        if( $('shipping:same_as_billing_yes').checked ) {
+            type_value = "billing"
+        } else if( $('shipping:same_as_billing_no').checked ) {
+            type_value = "custom"
+        } else {
+            $$('.store_pickup').each(function (input) {
+                if (input.checked) {
+                    type_value = input.readAttribute('data-method');
+                }
+            });
+        }
+        if(type_value == null) {
+            alert('Please select an option');
+            return false;
+        }
+        $('shipping-next').hide();
+
+
+        if(type_value == "billing") {
+            $('co-shipping-method-form').show();
+            $('onepage-checkout-shipping').hide();
+            shipping.setSameAsBilling(true);
+            shipping.save();
+        }else if( type_value == "custom" ) {
+            $('co-shipping-method-form').hide();
+            $('onepage-checkout-shipping').show();
+            shipping.setSameAsBilling(false);
+            shipping.unSyncWithBilling();
+        }else{ // CHANGES to be made here for custom pickup module
+            shipping.setSameAsBilling(true);
+            shipping.saveMinimal('co-shipping-type-form');
+            $('shipping-next').show();
+
+        }
+
+    };
+    jQuery(document).on('click','.store_pickup, #shipping\\:same_as_billing_yes, #shipping\\:same_as_billing_no',shippingTypeSelector);
+
+    //]]>
+</script>

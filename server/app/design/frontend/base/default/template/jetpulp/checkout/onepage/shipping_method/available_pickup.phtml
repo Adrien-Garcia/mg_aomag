@@ -1,0 +1,64 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php /** @var $this Jetpulp_Checkout_Block_Onepage_Shipping_Method_Available */ ?>
+<?php $_shippingStorePickup = $this->getShippingRatesOnlyStorePickup();
+?>
+
+<ul>
+    <li class="control">
+        <input type="radio" name="shipping[same_as_billing]" id="shipping:same_as_billing_yes" value="1" checked="checked" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Ship to this address')) ?>" class="radio js-shipping_method" />
+        <label class="js-shipping_method" for="shipping:same_as_billing_yes"><?php echo  $this->__('Ship to this address') ?></label>
+    </li>
+    <li class="control">
+        <input type="radio" name="shipping[same_as_billing]" id="shipping:same_as_billing_no" value="0" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Ship to different address')) ?>" class="radio js-shipping_method" />
+        <label class="js-shipping_method" for="shipping:same_as_billing_no"><?php echo $this->__('Ship to different address') ?></label>
+    </li>
+    <?php $_sole = count($_shippingStorePickup) == 1; foreach ($_shippingStorePickup as $code => $_rate): ?>
+        <?php $shippingCodePrice[] = "'".$_rate->getCode()."':".(float)$_rate->getPrice(); ?>
+
+        <li class="control">
+            <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="store_pickup_<?php echo $_rate->getCode() ?>" class="radio store_pickup js-shipping_method" data-method="<?php echo $_rate->getCode() ?>" />
+            
+            <label id="store-pickup_label" class="js-shipping_method" for="store_pickup_<?php echo $_rate->getCode() ?>">
+                <?php //echo $this->__("Store Pickup via : "); ?>
+                <?php echo $this->escapeHtml($_rate->getCarrierTitle()." : "); ?>
+                <span><?php echo $this->escapeHtml($_rate->getMethodTitle()." ".number_format($_rate->getPrice(),2)."€" );  ?></span>
+            
+
+            </label>
+        </li>
+
+    <?php endforeach; ?>
+</ul>
+<?php //echo $this->getChildHtml('wait'); ?>
+
+<div class="buttons-set">
+<button style="display: none;" id="shipping-next" type="button" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('I go to payment step')) ?>" onclick="shipping.saveMinimal('co-shipping-type-form')"><span><span><?php echo $this->__('I go to payment step') ?></span></span></button>
+<?php if (!$_shippingStorePickup): ?>
+    <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
+<?php endif; ?>
+</div>

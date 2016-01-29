@@ -94,4 +94,16 @@ class Addonline_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
 	
 		return $errors;
 	}
+	
+	public function isDisabledForRegisterUser()
+	{
+		$isDisabledForRegisterUser = false;
+		$configValue = Mage::getStoreConfig('system/external_page_cache/varnish_disabled_for_loggedin');
+		$isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+
+		if( $configValue && $isLoggedIn) {
+			$isDisabledForRegisterUser =  true;
+		}
+		return $isDisabledForRegisterUser;
+	}
 }

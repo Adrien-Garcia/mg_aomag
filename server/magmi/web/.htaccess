@@ -1,7 +1,1 @@
-AuthName "Magmi Authentification"
-AuthType Basic
-AuthUserFile .htpasswd
-Require valid-user
-Allow from 127.0.0.1
-Satisfy Any
 DirectoryIndex magmi.php

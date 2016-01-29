@@ -1,0 +1,136 @@
+@media screen and (max-width: 650px) {
+  .jetcheckout-onepage-index .header {
+    width: auto;
+  }
+  .jetcheckout-onepage-index .header .site {
+    position: absolute;
+    margin: 0;
+    white-space: nowrap;
+    right: 5%;
+    top: 110px;
+  }
+  .jetcheckout-onepage-index .col-left {
+    /*float: none;
+			width: 630px;
+			margin: auto;*/
+    width: 90%;
+  }
+  .jetcheckout-onepage-index .col-main {
+    /*float: none;
+			margin: auto;*/
+    width: 90%;
+    margin-bottom: 10%;
+  }
+  /* button */
+  button {
+    font-size: 13px;
+  }
+  .form-list .fields .field {
+    width: 100%;
+    float: none;
+  }
+  .form-list .fields .field:nth-child(odd) {
+    padding-right: 0;
+  }
+  .form-list .fields .field:nth-child(even) {
+    padding-left: 0;
+  }
+  .form-list .fields .field:first-child {
+    margin-bottom: 15px;
+  }
+  .form-list .fields .field:last-child {
+    margin-bottom: 0;
+  }
+  .opc .step {
+    padding: 20px 15px 15px 15px;
+  }
+  .opc .step-title {
+    width: 16.66%;
+  }
+  .opc .step-title h2 span {
+    display: none;
+  }
+  .opc .section.active .step-title {
+    width: 49.98%;
+  }
+  .opc .section.active .step-title h2 span {
+    display: inline;
+  }
+  .opc .buttons-set button {
+    width: 100%;
+  }
+  .opc .buttons-set .back-link {
+    display: none;
+  }
+  /* First step => login step */
+  #opc-login .col2-set {
+    overflow: visible;
+  }
+  #opc-login .col-1,
+  #opc-login .col-2 {
+    float: none;
+    width: auto;
+  }
+  #opc-login .collapsable-trigger {
+    pointer-events: auto;
+    position: relative;
+  }
+  #opc-login .collapsable-trigger:after {
+    content: url(../images/jetcheckout/fleche_up.svg);
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: .5;
+  }
+  #opc-login .collapsable-trigger.up:after {
+    content: url(../images/jetcheckout/fleche_down.svg);
+  }
+  #opc-login .collapsable {
+    width: 100% !important;
+  }
+  #opc-login .collapsed {
+    display: none;
+    width: 100% !important;
+  }
+  #opc-login .col-2 {
+    position: relative;
+    margin: 0 0 25px 0;
+    padding: 0 0 20px 0;
+  }
+  #opc-login .col-2:after {
+    content: "";
+    height: 1px;
+    display: block;
+    background: #e2e2e2;
+    position: absolute;
+    bottom: 0;
+    left: -15px;
+    right: -15px;
+  }
+  #opc-login .col-2 h3 {
+    margin-bottom: 0;
+  }
+  #opc-login .col-2 .collapsable {
+    padding-top: 25px;
+  }
+  #opc-login .col-1 .collapsable {
+    padding-bottom: 25px;
+  }
+  #opc-information .name-prefix,
+  #opc-shipping_method .name-prefix {
+    width: calc(25% - 15px);
+    float: left;
+  }
+  #opc-information .name-firstname,
+  #opc-shipping_method .name-firstname {
+    padding: 0;
+    width: calc(75% - 15px);
+    float: right;
+  }
+  #opc-information .name-lastname,
+  #opc-shipping_method .name-lastname {
+    padding-left: 0;
+    float: left;
+  }
+  /* order review */
+}
