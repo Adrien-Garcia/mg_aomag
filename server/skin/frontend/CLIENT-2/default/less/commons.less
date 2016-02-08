@@ -2106,3 +2106,33 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 
 }
+
+
+/*******************************************************************
+
+@_25 COOKIE LAW
+
+*******************************************************************/
+
+
+	
+
+#close-cookie {
+  position: absolute;
+  top: 14px;
+  right: 10px;
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-size: 10px 10px;
+  cursor: pointer;
+  &:before{
+  	content:"";
+  	.sprite(@close);
+  	display:block; 
+	z-index: 9999;
+  }
+}
+
+
+
