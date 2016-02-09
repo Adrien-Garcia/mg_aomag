@@ -210,7 +210,9 @@ function unsetGLSShippingMethod(){
 
 function geocodeGLSAdresse() {
 		
-	var searchAdress = jQuery('#adresse_recherche').val()+' '+jQuery('#cp_recherche').val();		
+	var searchAdress = jQuery('#adresse_recherche').val()+' '+jQuery('#cp_recherche').val();
+	jQuery('.gls_ws_error').remove();
+
 	if ((typeof google) != "undefined") {
 		var geocoder = new google.maps.Geocoder();		
 		geocoder.geocode({'address': searchAdress}, function(results, status) {
