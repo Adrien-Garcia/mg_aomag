@@ -56,7 +56,7 @@
                     </ul>
                 </div>
                 <div class="buttons-set">
-                    <a title="<?php echo $this->quoteEscape($this->__('Create an Account')) ?>" class="button" href="<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>"><span><span><?php echo $this->__('Create an Account') ?></span></span></a>
+                    <a title="<?php echo $this->quoteEscape($this->__('Create an Account')) ?>" class="button sel-create-account" href="<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>"><span><span><?php echo $this->__('Create an Account') ?></span></span></a>
                 </div>
             </div>
             <?php endif; ?>
@@ -88,7 +88,7 @@
                     <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
                 </div>
                 <div class="buttons-set">
-                    <button type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Login')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+                    <button type="submit" class="button sel-login" title="<?php echo $this->quoteEscape($this->__('Login')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
                 </div>
             </div>
         </div>
