@@ -25,8 +25,8 @@ module.exports = function(grunt) {
         development: {
           options: {
             cleancss: false,
-         strictImports : true,
-            compress:false,
+            strictImports : true,
+            compress:true,
             sourceMap:true,
             sourceMapFilename: "../css/styles.css.map"
           },
@@ -43,6 +43,15 @@ module.exports = function(grunt) {
           }
         }
       },
+
+      // Project configuration.
+        uglify: {
+          production: {
+            files: {
+              '../js/charte.min.js': ['../js/charte.js']
+            }
+          }
+        },
 
   sprite: {
       all: {
@@ -72,12 +81,12 @@ module.exports = function(grunt) {
             src : '../css/styles.css'
         },
         options: {
-            proxy: grunt.option('env') || 'aomagento.username.jetpulp.dev',
-            host: grunt.option('env') || 'aomagento.username.jetpulp.dev',
+            proxy: "aomagento.delphine.jetpulp.dev",
             watchTask: true,
             logLevel: "debug",
             reloadOnRestart:false,
-            open: "external"
+            open: "external",
+            host: "aomagento.delphine.jetpulp.dev"
         }
     }
   }
@@ -91,9 +100,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-spritesmith');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-bell');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  // Default task(s).
-  grunt.registerTask('default', ['browserSync','sprite:all', 'less:development', 'autoprefixer', 'watch']);
-  grunt.registerTask('build', ['sprite:all', 'less:production', 'bell']);
+ // Default task(s).
+  grunt.registerTask('default', ['browserSync','sprite:all', 'less:development', 'uglify:production', 'watch']);
+  grunt.registerTask('build', ['sprite:all', 'less:production','uglify:production', 'bell']);
+
 
 };
