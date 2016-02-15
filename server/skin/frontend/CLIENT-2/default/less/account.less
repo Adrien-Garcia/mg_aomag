@@ -402,6 +402,46 @@ body.wishlist-index-index{
 	 }
 
 }
+
+.customer-account-create{
+	.buttons-set{
+		margin-bottom: 20px;
+	}
+}
+
+.wishlist-index-index{
+	.btn-update{
+		display: block;
+		float: left !important;
+	}
+	.btn-add,
+	.btn-share{
+		position: relative;
+		float: left !important;
+		padding-left: 10px;
+		background:none;
+		color:@c-02;
+		text-decoration: none;
+		font-family: @font-light;
+		text-transform:none; 
+		letter-spacing: 0;
+		text-decoration: underline;;
+		text-align: left;
+		margin:0;
+		
+		&:after{
+			display:none !important;
+			content:"";
+		}
+		&:before {
+			content: "";
+			position: absolute;
+			display:none !important;
+			.sprite(@arrow-right-primary) !important;
+		}
+	}
+}
+
 /* Remember Me Popup ===================================================================== */
 
 /* My Account ============================================================================= */
