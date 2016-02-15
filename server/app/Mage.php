@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage
- * @copyright  Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -156,7 +156,7 @@ final class Mage
     {
         $i = self::getVersionInfo();
         return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : "")
-                        . "-{$i['stability']}{$i['number']}", '.-');
+            . "-{$i['stability']}{$i['number']}", '.-');
     }
 
     /**
@@ -171,7 +171,7 @@ final class Mage
             'major'     => '1',
             'minor'     => '9',
             'revision'  => '2',
-            'patch'     => '1',
+            'patch'     => '3',
             'stability' => '',
             'number'    => '',
         );
@@ -185,7 +185,7 @@ final class Mage
      */
     public static function getEdition()
     {
-       return self::$_currentEdition;
+        return self::$_currentEdition;
     }
 
     /**
