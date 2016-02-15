@@ -58,7 +58,6 @@ select::-ms-expand {
 	}
 	
 	.btn-update{
-		margin:1px 0 0 0;
 		background:none;
 		border:none;
 		color:@c-05;
@@ -66,7 +65,10 @@ select::-ms-expand {
 		font-size:11px;
 		position:relative;
 		padding:0 0 0 20px;
-		text-decoration:underline;;
+		text-decoration:underline;
+		position: absolute;
+		top: 0;
+		left: 0;
 		
 		&:before{
 			content:none !important;
@@ -171,6 +173,8 @@ select::-ms-expand {
 		.hover();
 	}
 }
+
+
 
 
 /*******************************************************************
