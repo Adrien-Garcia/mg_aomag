@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+# Set www-data user uid and group in order to have correct permissions
+if [ -n "$USER_UID" ]; then
+echo "change uid $USER_UID www-data"
+usermod -u $USER_UID www-data;
+fi
+if [ -n "$USER_GROUP" ]; then
+echo "change group $USER_GROUP www-data"
+usermod -G $USER_GROUP www-data;
+fi
+
+# Apache gets grumpy about PID files pre-existing
+rm -f /var/run/apache2/apache2.pid
+
+exec apache2 -DFOREGROUND

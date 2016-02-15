@@ -1,0 +1,41 @@
+web:
+    container_name: mg_aomagento-web
+    build: ./web
+    ports:
+        - "80:80"
+    volumes:
+        - ../server:/var/www/mg_aomagento/server
+        - ./web/vhost.conf:/etc/apache2/sites-enabled/vhost.conf
+        - ./web/php.ini:/usr/local/etc/php/php.ini
+    environment:
+        - ALLOW_OVERRIDE=true
+        - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev
+        - USER_UID
+        - USER_GROUP
+    links:
+        - db:db
+        - mailhog:mailhog
+        - blackfire:blackfire
+db:
+    container_name: mg_aomagento-db
+    image: mariadb:10.0
+    ports:
+        - "3306:3306"
+    volumes:
+        - /var/lib/boot2docker/mysql_aomagento:/var/lib/mysql
+        - ./db:/docker-entrypoint-initdb.d
+    environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=mg_aomagento
+        - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev
+mailhog:
+    container_name: mg_aomagento-mailhog
+    image: mailhog/mailhog
+    ports:
+        - "8025:8025"
+blackfire:
+    container_name: mg_aomagento-blackfire
+    image: blackfire/blackfire
+    environment:
+        - BLACKFIRE_SERVER_ID=$BLACKFIRE_SERVER_ID
+        - BLACKFIRE_SERVER_TOKEN=$BLACKFIRE_SERVER_TOKEN
