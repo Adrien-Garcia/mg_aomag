@@ -77,7 +77,7 @@
 		</reference>
 		<reference name="home">
 			<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
-				<action method="setSlideshow"><id>1</id></action>
+				<action method="setSlideshow"><id>5</id></action>
 			</block>
 			<block type="advancedslideshow/slideshow" name="slideshow-mobile" template="advancedslideshow/slideshow.phtml" before="-">
 				<action method="setSlideshow"><id>2</id></action>
