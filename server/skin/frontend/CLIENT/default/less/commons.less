@@ -746,8 +746,8 @@ tr.summary-details-excluded { font-style:italic; }
 .logo {
 	float: left;
 	width: 320px;
-	height: 150px;
-	margin: 29px 0 0 0;
+	height: 50px;
+	margin: 20px 0 0 0;
 	cursor:pointer;
 	
 	.lienhome{
@@ -783,6 +783,7 @@ tr.summary-details-excluded { font-style:italic; }
 			width: @width;
 			line-height: 33px;
 			overflow: hidden;
+			padding: 0 10px;
 			
 			.form-language {
 				float: left;
@@ -846,8 +847,8 @@ tr.summary-details-excluded { font-style:italic; }
 	
 	a.logo {
 		position: absolute;
-		top: 20px;
-		left: 0;
+		top: 0;
+		left: 10px;
 		text-indent: -200em;
 		overflow: hidden;
 		.sprite(@logo-client-header);
@@ -856,7 +857,7 @@ tr.summary-details-excluded { font-style:italic; }
 	.top-link-cart {
 		position: absolute;
 		top: 37px;
-		right: 0;
+		right: 10px;
 		padding-left: 50px;
 		font-family: @font-bold;
 		font-size: 16px;
@@ -976,6 +977,10 @@ tr.summary-details-excluded { font-style:italic; }
 			
 				> a {
 					border: none;
+
+					&:after {
+						display: none;
+					}
 				}
 			}
 			
@@ -1688,6 +1693,38 @@ tr.summary-details-excluded { font-style:italic; }
 		margin: 0 auto;
 	}
 	
+}
+.logoJP {
+	position:relative;
+	color:white;
+	padding:0 0 0 18px;
+	font-size:11px;
+	text-decoration:underline;
+	-webkit-transition:opacity .2s;
+	transition:opacity .2s;
+	opacity:.6;
+	font-family:Arial
+}
+.logoJP:before{
+	content:"";
+	display:block;
+	width:17px;
+	height:19px;
+	position:absolute;
+	top:-5px;
+	left:0;
+	background-repeat:no-repeat;
+	background-position:0 -19px;
+	opacity:.8;
+	transition:opacity .2s;
+	-webkit-transition:opacity .2s;
+	background-image:url(../images/signature_footer.png);
+}
+a.logoJP:hover{
+	opacity: 1;
+}
+a.logoJP:hover:before{
+	opacity: 1;
 }
 /* ======================================================================================= */
 
