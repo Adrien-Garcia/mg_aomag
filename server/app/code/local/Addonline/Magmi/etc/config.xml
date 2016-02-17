@@ -17,15 +17,15 @@
 	    	</magmi>
 	    </helpers>
     </global>
-    <admin>
-        <routers>
-	        <magmi>
-	            <use>admin</use>
-	            <args>
-	                <module>Addonline_Magmi</module>
-	                <frontName>magmi</frontName>
-	            </args>
-	        </magmi>
-	    </routers>
-    </admin>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<magmi before="Mage_Adminhtml">Addonline_Magmi_Adminhtml</magmi>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
 </config>
