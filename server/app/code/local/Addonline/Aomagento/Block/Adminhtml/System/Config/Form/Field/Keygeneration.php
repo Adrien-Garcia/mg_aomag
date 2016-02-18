@@ -5,7 +5,7 @@ class Addonline_Aomagento_Block_Adminhtml_System_Config_Form_Field_Keygeneration
 	protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element) {
 		$_isAoMagento = Mage::getStoreConfig('addonline/licence/key_generation');
 		
-		$url = $this->getUrl('aomagento/adminhtml_generation/getlicence');
+		$url = $this->getUrl('adminhtml/aomagento_generation/getlicence');
 		
 		$html = '<input type="text" name="hostname" class="hostname" /><span style="margin-left:10px;"></span>';
 		$html .= '<input type="hidden" name="url_getlicence" class="url_getlicence" value="'.$url.'"/>';
