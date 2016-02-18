@@ -904,14 +904,14 @@ tr.summary-details-excluded { font-style:italic; }
 				opacity: .8;
 			}
 		}
-
-		.header .form-search .search-autocomplete { z-index:999; left:40px !important; top:22px !important; }
-		.header .form-search .search-autocomplete ul { border:1px solid #5c7989; background-color:#f9f5f0; }
-		.header .form-search .search-autocomplete li { text-align:left; border-bottom:1px solid #f4eee7; padding:2px 8px 1px 8px; cursor:pointer; }
-		.header .form-search .search-autocomplete li .amount { float:right; font-weight:bold; }
-		.header .form-search .search-autocomplete li.odd { background-color:#fffefb; }
-		.header .form-search .search-autocomplete li.selected { background-color:#f7e8dd; }
 	}
+
+	.header .form-search .search-autocomplete { z-index:999; }
+	.header .form-search .search-autocomplete ul { border:1px solid #5c7989; background-color:#f9f5f0; border-top: none; }
+	.header .form-search .search-autocomplete li { text-align:left; border-bottom:1px solid #f4eee7; padding:2px 8px 1px 8px; cursor:pointer; }
+	.header .form-search .search-autocomplete li .amount { float:right; font-weight:bold; }
+	.header .form-search .search-autocomplete li.odd { background-color:#fffefb; }
+	.header .form-search .search-autocomplete li.selected { background-color:#f7e8dd; }
 }
 
 /*
@@ -1698,12 +1698,10 @@ tr.summary-details-excluded { font-style:italic; }
 	position:relative;
 	color:white;
 	padding:0 0 0 18px;
-	font-size:11px;
 	text-decoration:underline;
 	-webkit-transition:opacity .2s;
 	transition:opacity .2s;
 	opacity:.6;
-	font-family:Arial
 }
 .logoJP:before{
 	content:"";
