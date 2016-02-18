@@ -82,13 +82,18 @@ if (isset ($_GET['hook'])) {
 		if(function_exists('opcache_reset')) {
 		    opcache_reset();
 		}
-		//on vide le cache File
+
+		//Vider le cache magento
+		Mage::dispatchEvent('adminhtml_cache_flush_all');
+		Mage::app()->getCacheInstance()->flush();
+
+		//Par acquis de conscience on vide le cache backend File
 		$cacheDir = dirname(__FILE__).DS.'var'.DS.'cache';
 		emptyDir($cacheDir, false);
-		
-		//TODO : remplacer cela par une méthode qui utilise le vrai backend utiliser magento pour vider le cache, tous les caches
-		//  attention, sans lancer la mise à jour en cas de montée de version !!
-		
+
+		//Vide le cache du module AOE ClassPathCache
+		Mage::helper('aoe_classpathcache')->clearClassPathCache();
+
 		/*
 		 *  Compilation 
 		 *   - des css par Less  

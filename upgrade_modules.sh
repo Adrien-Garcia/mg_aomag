@@ -79,8 +79,9 @@ upgrademodule customer-activation https://github.com/Vinai/customer-activation.g
 upgrademodule Magento-ChangeAttributeSet https://github.com/Flagbit/Magento-ChangeAttributeSet.git true
 upgrademodule mg_mod_massrelater git@git.jetpulp.hosting:php/mg_mod_massrelater.git true
 upgrademodule mg_mod_ResponsiveSlider git@git.jetpulp.hosting:php/mg_mod_ResponsiveSlider.git true
+upgrademodule Aoe_ClassPathCache https://github.com/AOEpeople/Aoe_ClassPathCache.git true
+upgrademodule EcomDev_LayoutCompiler https://github.com/EcomDev/EcomDev_LayoutCompiler true
 
-#AdvancedSlideshow
 
 # Non Installed modules :
 # uncomment if needed by the client project
@@ -91,16 +92,30 @@ upgrademodule mg_mod_ResponsiveSlider git@git.jetpulp.hosting:php/mg_mod_Respons
 #upgrademodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git false
 #upgrademodule mg_mod_SoColissimo git@git.jetpulp.hosting:php/mg_mod_SoColissimo.git false
 #upgrademodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git false
+#upgrademodule MagentoConnector https://github.com/AntidotForge/MagentoConnector.git false
+#upgrademodule EcomDev_PHPUnit  git://github.com/EcomDev/EcomDev_PHPUnit.git false
 
 
-# à tester !
-#upgrademodule Aoe_ClassPathCache https://github.com/AOEpeople/Aoe_ClassPathCache.git
+# Reste à ajouter (sortir du dépôt aomagento, créer leur propre dépôt)
+# Jetpulp_Checkout
+# Addonline_Varnish
+# Addonline_Brand
+# Addonline_CategoryNavigation
+# Addonline Newsletter dolist (à supprimer)
+# Addonline Review_boost
+# Addonline_Seo
+# Addonline_UrlrewriteCleaner
+# OneStepCheckout à supprimer
+
+
+# Optimistations :
+
+#TODO : php 7.0
+
+#TODO : add apt sur le docker
+#TODO : add REDIS sur le docker-compose
 #https://github.com/AOEpeople/Cm_Cache_Backend_Redis.git
 #https://github.com/AOEpeople/Cm_RedisSession
-
-# Mgt_toolbar à supprimer ?
-# Antidot
-# Ecom Dev
 
 
 # Remove modules (need forked modman : https://github.com/jetpulp/modman.git)
