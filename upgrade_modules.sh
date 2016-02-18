@@ -70,12 +70,14 @@ function removemodule {
 }
 
 # Installed modules
-upgrademodule widgento-login https://github.com/netzkollektiv/widgento-login.git true
-upgrademodule mg_mod_enhancedgrid git@git.jetpulp.hosting:php/mg_mod_enhancedgrid.git true
-upgrademodule Aoe_Scheduler https://github.com/AOEpeople/Aoe_Scheduler true
-upgrademodule Aoe_QuoteCleaner https://github.com/AOEpeople/Aoe_QuoteCleaner true
-upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git true
-upgrademodule customer-activation https://github.com/Vinai/customer-activation.git true
+#upgrademodule widgento-login https://github.com/netzkollektiv/widgento-login.git true
+#upgrademodule mg_mod_enhancedgrid git@git.jetpulp.hosting:php/mg_mod_enhancedgrid.git true
+#upgrademodule Aoe_Scheduler https://github.com/AOEpeople/Aoe_Scheduler true
+#upgrademodule Aoe_QuoteCleaner https://github.com/AOEpeople/Aoe_QuoteCleaner true
+#upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git true
+#upgrademodule customer-activation https://github.com/Vinai/customer-activation.git true
+#upgrademodule Magento-ChangeAttributeSet https://github.com/Flagbit/Magento-ChangeAttributeSet.git
+upgrademodule mg_mod_massrelater git@git.jetpulp.hosting:php/mg_mod_massrelater.git
 
 
 #AdvancedSlideshow
