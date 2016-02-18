@@ -78,12 +78,13 @@ upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git
 upgrademodule customer-activation https://github.com/Vinai/customer-activation.git true
 upgrademodule Magento-ChangeAttributeSet https://github.com/Flagbit/Magento-ChangeAttributeSet.git true
 upgrademodule mg_mod_massrelater git@git.jetpulp.hosting:php/mg_mod_massrelater.git true
-
+upgrademodule mg_mod_ResponsiveSlider git@git.jetpulp.hosting:php/mg_mod_ResponsiveSlider.git true
 
 #AdvancedSlideshow
 
 # Non Installed modules :
 # uncomment if needed by the client project
+#upgrademodule mg_mod_advancedslideshow git@git.jetpulp.hosting:php/mg_mod_advancedslideshow.git
 #upgrademodule mg_mod_expeditorinet git@git.jetpulp.hosting:php/mg_mod_expeditorinet.git true
 #upgrademodule Atos-Magento https://github.com/quadra-informatique/Atos-Magento.git true
 #upgrademodule Paybox-Magento https://github.com/quadra-informatique/Paybox-Magento.git true => TODO : fork to add modman file
@@ -103,6 +104,7 @@ upgrademodule mg_mod_massrelater git@git.jetpulp.hosting:php/mg_mod_massrelater.
 
 
 # Remove modules (need forked modman : https://github.com/jetpulp/modman.git)
+#removemodule mg_mod_advancedslideshow git@git.jetpulp.hosting:php/mg_mod_advancedslideshow.git true
 #removemodule mg_mod_expeditorinet git@git.jetpulp.hosting:php/mg_mod_expeditorinet.git true
 #removemodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git true
 #removemodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git true
