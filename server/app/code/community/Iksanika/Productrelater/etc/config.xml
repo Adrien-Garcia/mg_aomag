@@ -14,17 +14,6 @@
                     </modules>
                 </args>
             </adminhtml>
-<!--            
-            <productrelater>
-                < ! - - should be set to "admin" when overloading admin stuff (?) - - >
-                <use>admin</use>
-                <args>
-                    <module>Iksanika_Productrelater</module>
-                    < ! - - This is used when "catching" the rewrite above - - >
-                    <frontName>productrelater</frontName>
-                </args>
-            </productrelater>
--->
         </routers>
     </admin>
     <global>
