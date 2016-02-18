@@ -13,17 +13,17 @@
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
  * package    Netzarbeiter_CustomerActivation
- * copyright  Copyright (c) 2012 Vinai Kopp http://netzarbeiter.com/
+ * copyright  Copyright (c) 2014 Vinai Kopp http://netzarbeiter.com/
  * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Netzarbeiter_CustomerActivation_Block_Adminhtml_Widget_Grid_Column_Renderer_Boolean
-	extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
 {
-	public function render(Varien_Object $row)
-	{
-		$data = (bool) $this->_getValue($row);
-		$value = $data ? 'Yes' : 'No';
-		return $this->__($value);
-	}
+    public function render(Varien_Object $row)
+    {
+        $data = (bool) $this->_getValue($row);
+        $value = $data ? 'Yes' : 'No';
+        return $this->__($value);
+    }
 }

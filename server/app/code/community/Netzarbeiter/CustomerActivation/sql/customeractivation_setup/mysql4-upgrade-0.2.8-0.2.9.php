@@ -17,9 +17,20 @@
  * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$this->startSetup();
+/* @var $installer Mage_Customer_Model_Entity_Setup */
+$installer = $this;
 
-$this->updateAttribute('customer', 'customer_activated', 'frontend_input', 'select');
-$this->updateAttribute('customer', 'customer_activated', 'source_model', 'eav/entity_attribute_source_boolean');
+$installer->startSetup();
 
-$this->endSetup();
+$resource = Mage::getResourceModel('customer/customer');
+
+// Set activation status for existing customers to true
+$select = $installer->getConnection()->select()
+    ->from($resource->getEntityTable(), $resource->getEntityIdField());
+$customerIds = $installer->getConnection()->fetchCol($select);
+
+foreach (array_chunk($customerIds,1000) as $updateIds) {
+    $updatedCustomerIds = Mage::getResourceModel('customeractivation/customer')->massSetActivationStatus($updateIds, 1);
+}
+
+$installer->endSetup();

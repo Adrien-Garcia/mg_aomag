@@ -75,13 +75,15 @@ upgrademodule mg_mod_enhancedgrid git@git.jetpulp.hosting:php/mg_mod_enhancedgri
 upgrademodule Aoe_Scheduler https://github.com/AOEpeople/Aoe_Scheduler true
 upgrademodule Aoe_QuoteCleaner https://github.com/AOEpeople/Aoe_QuoteCleaner true
 upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git true
+upgrademodule customer-activation https://github.com/Vinai/customer-activation.git true
 
-#CustomerActivation https://github.com/Vinai/customer-activation.git
 
 #AdvancedSlideshow
 #MassRelater
 
-# Non Installed modules
+# Non Installed modules :
+# uncomment if needed by the client project
+#removemodule mg_mod_expeditorinet git@git.jetpulp.hosting:php/mg_mod_expeditorinet.git true
 #upgrademodule Atos-Magento https://github.com/quadra-informatique/Atos-Magento.git true
 #upgrademodule Paybox-Magento https://github.com/quadra-informatique/Paybox-Magento.git true => TODO : fork to add modman file
 #upgrademodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git false
@@ -103,8 +105,6 @@ upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git
 #removemodule mg_mod_expeditorinet git@git.jetpulp.hosting:php/mg_mod_expeditorinet.git true
 #removemodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git true
 #removemodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git true
-removemodule Atos-Magento https://github.com/quadra-informatique/Atos-Magento.git true
-removemodule Paybox-Magento https://github.com/quadra-informatique/Paybox-Magento.git true
 
 #Vider le cache magento
 rm -Rf server/var/cache/mage-*
