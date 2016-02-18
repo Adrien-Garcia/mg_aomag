@@ -63,7 +63,7 @@ function removemodule {
     if [ $3 ]
     then
         git add *
-        git commit -m "Upgrade module $1 $2"
+        git commit -m "Remove module $1 $2"
     fi
     cd .. #retour à la racine
 
@@ -74,14 +74,23 @@ upgrademodule widgento-login https://github.com/netzkollektiv/widgento-login.git
 upgrademodule mg_mod_enhancedgrid git@git.jetpulp.hosting:php/mg_mod_enhancedgrid.git true
 upgrademodule Aoe_Scheduler https://github.com/AOEpeople/Aoe_Scheduler true
 upgrademodule Aoe_QuoteCleaner https://github.com/AOEpeople/Aoe_QuoteCleaner true
+upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git true
 
-# Mgt_toolbar
+
+# à tester !
+#upgrademodule Aoe_ClassPathCache https://github.com/AOEpeople/Aoe_ClassPathCache.git
+#https://github.com/AOEpeople/Cm_Cache_Backend_Redis.git
+#https://github.com/AOEpeople/Cm_RedisSession
+
+# Mgt_toolbar ?
 # Antidot
 # Ecom Dev
-# SoColissimo
-# GLS
 
+#upgrademodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git false
+#upgrademodule mg_mod_SoColissimo git@git.jetpulp.hosting:php/mg_mod_SoColissimo.git false
+#upgrademodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git false
 
-# Remove modules
+# Remove modules (need forked modman)
 #removemodule mg_mod_expeditorinet git@git.jetpulp.hosting:php/mg_mod_expeditorinet.git true
-removemodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git true
+#removemodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git true
+#removemodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git true
