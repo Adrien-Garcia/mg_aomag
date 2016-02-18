@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Upgrade magento modules using modman
+# Upgrade (or install) magento modules using modman
 #
 # the parameter of the function are
 #  - name of the module
@@ -9,8 +9,14 @@
 #
 function upgrademodule {
 
+    echo "################"
+    echo ""
+    echo "Upgrade(Install) Module $1"
+    echo ""
+    echo "################"
+
     cd server/.modman/
-    if [ ! -f $1 ]
+    if [ ! -d $1 ]
     then
         echo "create $1 by git clone"
         git clone $2 $1
@@ -21,7 +27,7 @@ function upgrademodule {
         cd .. #retour dans .modman
     fi
     cd .. #retour dans server
-    modman deploy --force --copy mg_mod_expeditorinet
+    modman deploy --force --copy $1
     if [ $3 ]
     then
         git add *
@@ -31,8 +37,43 @@ function upgrademodule {
 
 }
 
-# Test install mg_mod_expeditorinet
-#upgrademodule 'mg_mod_expeditorinet' git@git.jetpulp.hosting:php/mg_mod_expeditorinet.git false
+#
+# Remove magento modules using modman
+#
+# the parameter of the function are
+#  - name of the module
+#  - URL of git repo
+#  - boolean : to commit or not
+#
+function removemodule {
+
+    echo "################"
+    echo ""
+    echo "Remove Module $1"
+    echo ""
+    echo "################"
+    cd server/.modman/
+    if [ ! -d $1 ]
+    then
+        echo "create $1 by git clone"
+        git clone $2 $1
+    fi
+    cd .. #retour dans server
+    modman undeploy --force --copy $1
+    if [ $3 ]
+    then
+        git add *
+        git commit -m "Upgrade module $1 $2"
+    fi
+    cd .. #retour à la racine
+
+}
+
+# Installed modules
+upgrademodule widgento-login https://github.com/netzkollektiv/widgento-login.git true
+upgrademodule mg_mod_enhancedgrid git@git.jetpulp.hosting:php/mg_mod_enhancedgrid.git true
+upgrademodule Aoe_Scheduler https://github.com/AOEpeople/Aoe_Scheduler true
+upgrademodule Aoe_QuoteCleaner https://github.com/AOEpeople/Aoe_QuoteCleaner true
 
 # Mgt_toolbar
 # Antidot
@@ -40,4 +81,7 @@ function upgrademodule {
 # SoColissimo
 # GLS
 
-upgrademodule 'widgento-login' https://github.com/netzkollektiv/widgento-login.git
+
+# Remove modules
+#removemodule mg_mod_expeditorinet git@git.jetpulp.hosting:php/mg_mod_expeditorinet.git true
+removemodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git true
