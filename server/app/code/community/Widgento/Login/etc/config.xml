@@ -89,13 +89,13 @@
 
     <admin>
         <routers>
-          <widgentologinadmin>
-              <use>admin</use>
-              <args>
-                  <module>Widgento_Login_Adminhtml</module>
-                  <frontName>widgentologinadmin</frontName>
-              </args>
-          </widgentologinadmin>
+          <adminhtml>
+				<args>
+					<modules>
+						<widgentologinadmin before="Mage_Adminhtml">Widgento_Login_Adminhtml</widgentologinadmin>
+					</modules>
+				</args>
+			</adminhtml>
        </routers>
     </admin>
 
@@ -155,7 +155,7 @@
                 <children>
                     <widgentologin translate="title" module="widgentologin">
                         <title>Login as Customer Logs</title>
-                        <action>widgentologinadmin/log/index</action>
+                        <action>adminhtml/widgentologinadmin_log/index</action>
                         <sort_order>200</sort_order>
                     </widgentologin>
                 </children>

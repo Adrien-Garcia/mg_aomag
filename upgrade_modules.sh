@@ -70,7 +70,7 @@ function removemodule {
 }
 
 # Installed modules
-upgrademodule widgento-login https://github.com/netzkollektiv/widgento-login.git true
+upgrademodule widgento-login https://github.com/jetpulp/widgento-login.git true
 upgrademodule mg_mod_enhancedgrid git@git.jetpulp.hosting:php/mg_mod_enhancedgrid.git true
 upgrademodule Aoe_Scheduler https://github.com/AOEpeople/Aoe_Scheduler true
 upgrademodule Aoe_QuoteCleaner https://github.com/AOEpeople/Aoe_QuoteCleaner true
