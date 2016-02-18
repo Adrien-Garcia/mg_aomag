@@ -92,5 +92,9 @@ upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git
 
 # Remove modules (need forked modman)
 #removemodule mg_mod_expeditorinet git@git.jetpulp.hosting:php/mg_mod_expeditorinet.git true
-#removemodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git true
+removemodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git true
 #removemodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git true
+
+#Vider le cache magento
+rm -Rf server/var/cache/mage-*
+rm -Rf server/var/cache/cm-*
