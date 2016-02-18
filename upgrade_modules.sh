@@ -76,24 +76,35 @@ upgrademodule Aoe_Scheduler https://github.com/AOEpeople/Aoe_Scheduler true
 upgrademodule Aoe_QuoteCleaner https://github.com/AOEpeople/Aoe_QuoteCleaner true
 upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git true
 
+#CustomerActivation https://github.com/Vinai/customer-activation.git
+
+#AdvancedSlideshow
+#MassRelater
+
+# Non Installed modules
+#upgrademodule Atos-Magento https://github.com/quadra-informatique/Atos-Magento.git true
+#upgrademodule Paybox-Magento https://github.com/quadra-informatique/Paybox-Magento.git true => TODO : fork to add modman file
+#upgrademodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git false
+#upgrademodule mg_mod_SoColissimo git@git.jetpulp.hosting:php/mg_mod_SoColissimo.git false
+#upgrademodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git false
+
 
 # à tester !
 #upgrademodule Aoe_ClassPathCache https://github.com/AOEpeople/Aoe_ClassPathCache.git
 #https://github.com/AOEpeople/Cm_Cache_Backend_Redis.git
 #https://github.com/AOEpeople/Cm_RedisSession
 
-# Mgt_toolbar ?
+# Mgt_toolbar à supprimer ?
 # Antidot
 # Ecom Dev
 
-#upgrademodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git false
-#upgrademodule mg_mod_SoColissimo git@git.jetpulp.hosting:php/mg_mod_SoColissimo.git false
-#upgrademodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git false
 
-# Remove modules (need forked modman)
+# Remove modules (need forked modman : https://github.com/jetpulp/modman.git)
 #removemodule mg_mod_expeditorinet git@git.jetpulp.hosting:php/mg_mod_expeditorinet.git true
-removemodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git true
+#removemodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git true
 #removemodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git true
+removemodule Atos-Magento https://github.com/quadra-informatique/Atos-Magento.git true
+removemodule Paybox-Magento https://github.com/quadra-informatique/Paybox-Magento.git true
 
 #Vider le cache magento
 rm -Rf server/var/cache/mage-*
