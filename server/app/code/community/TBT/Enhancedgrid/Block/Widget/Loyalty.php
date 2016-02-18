@@ -20,8 +20,8 @@ class TBT_Enhancedgrid_Block_Widget_Loyalty extends Mage_Adminhtml_Block_Templat
             </iframe>
 FEED;
 
-        //return $html;
-        return '';
+//        return $html;
+	  return "";
     }
 
     protected function _getLoyaltyUrl()

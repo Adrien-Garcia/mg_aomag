@@ -35,7 +35,8 @@ class TBT_Enhancedgrid_Block_Catalog_Product extends Mage_Adminhtml_Block_Catalo
     public function __construct()
     {
         parent::__construct();
-        $this->_headerText = Mage::helper('catalog')->__('Manage Products');
+//        $this->_headerText = Mage::helper('enhancedgrid')->__('Manage Products (Enhanced)');
+	$this->_headerText = Mage::helper('catalog')->__('Manage Products');
     }
 
     protected function _prepareLayout()
