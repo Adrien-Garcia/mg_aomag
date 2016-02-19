@@ -84,7 +84,7 @@
 	<cms_index_index>
 		<reference name="root">
     		<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
-				<action method="setSlideshow"><id>1</id></action>
+				<action method="setSlideshow"><id>6</id></action>
 			</block> 
     	</reference>
     	
