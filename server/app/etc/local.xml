@@ -54,7 +54,7 @@
             </default_setup>
         </resources>
         <session_save><![CDATA[files]]></session_save>
-        <!--
+        <!-- uncomment to activate redis backend
         <session_save>db</session_save>
         -->
         <redis_session>                                          <!-- All options seen here are the defaults -->
@@ -79,9 +79,10 @@
         </redis_session>
 
         <cache>
+
             <backend>Cm_Cache_Backend_File</backend><!-- apc / memcached / empty=file -->
             <!--
-            <backend>Mage_Cache_Backend_Redis</backend>
+               <backend>Mage_Cache_Backend_Redis</backend>
             -->
             <backend_options>
                 <server>redis</server>              <!-- or absolute path to unix socket -->

@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:7.0-apache
 MAINTAINER Sylvain PRAS <sylvain.pras@jetpulp.fr>
 
 
@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mysqli curl zip pdo_mysql gd mbstring opcache
 
 #install redis
-RUN yes | pecl install redis \
-    && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+#RUN yes | pecl install redis \
+#    && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
 
 # install xdebug
 RUN yes | pecl install xdebug \

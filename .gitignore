@@ -12,6 +12,7 @@
 /server/skin/frontend/CLIENT-2/default/node_modules
 /server/skin/frontend/CLIENT-4/default/grunt/node_modules
 /*.sublime-project
+/server/var/ecomdev/layoutcompiler
 /*.sublime-workspace
 /server/shell/fixSUPEE6788.php
 /server/var/phpunit

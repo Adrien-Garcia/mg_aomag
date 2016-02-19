@@ -70,17 +70,19 @@ function removemodule {
 }
 
 # Installed modules
-upgrademodule widgento-login https://github.com/jetpulp/widgento-login.git true
-upgrademodule mg_mod_enhancedgrid git@git.jetpulp.hosting:php/mg_mod_enhancedgrid.git true
-upgrademodule Aoe_Scheduler https://github.com/AOEpeople/Aoe_Scheduler true
-upgrademodule Aoe_QuoteCleaner https://github.com/AOEpeople/Aoe_QuoteCleaner true
-upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git true
-upgrademodule customer-activation https://github.com/Vinai/customer-activation.git true
-upgrademodule Magento-ChangeAttributeSet https://github.com/Flagbit/Magento-ChangeAttributeSet.git true
-upgrademodule mg_mod_massrelater git@git.jetpulp.hosting:php/mg_mod_massrelater.git true
-upgrademodule mg_mod_ResponsiveSlider git@git.jetpulp.hosting:php/mg_mod_ResponsiveSlider.git true
-upgrademodule Aoe_ClassPathCache https://github.com/AOEpeople/Aoe_ClassPathCache.git true
-upgrademodule EcomDev_LayoutCompiler https://github.com/EcomDev/EcomDev_LayoutCompiler true
+#upgrademodule widgento-login https://github.com/jetpulp/widgento-login.git true
+#upgrademodule mg_mod_enhancedgrid git@git.jetpulp.hosting:php/mg_mod_enhancedgrid.git true
+#upgrademodule Aoe_Scheduler https://github.com/AOEpeople/Aoe_Scheduler true
+#upgrademodule Aoe_QuoteCleaner https://github.com/AOEpeople/Aoe_QuoteCleaner true
+#upgrademodule Aoe_CacheCleaner https://github.com/AOEpeople/Aoe_CacheCleaner.git true
+#upgrademodule customer-activation https://github.com/Vinai/customer-activation.git true
+#upgrademodule Magento-ChangeAttributeSet https://github.com/Flagbit/Magento-ChangeAttributeSet.git true
+#upgrademodule mg_mod_massrelater git@git.jetpulp.hosting:php/mg_mod_massrelater.git true
+#upgrademodule mg_mod_ResponsiveSlider git@git.jetpulp.hosting:php/mg_mod_ResponsiveSlider.git true
+#upgrademodule Aoe_ClassPathCache https://github.com/AOEpeople/Aoe_ClassPathCache.git true
+#upgrademodule EcomDev_LayoutCompiler https://github.com/EcomDev/EcomDev_LayoutCompiler true
+#upgrademodule Cm_Cache_Backend_File https://github.com/colinmollenhour/Cm_Cache_Backend_File.git true
+upgrademodule Inchoo_PHP7 https://github.com/Inchoo/Inchoo_PHP7.git true
 
 
 # Non Installed modules :
@@ -106,16 +108,6 @@ upgrademodule EcomDev_LayoutCompiler https://github.com/EcomDev/EcomDev_LayoutCo
 # Addonline_Seo
 # Addonline_UrlrewriteCleaner
 # OneStepCheckout à supprimer
-
-
-# Optimistations :
-
-#TODO : php 7.0
-
-#TODO : add apt sur le docker
-#TODO : add REDIS sur le docker-compose
-#https://github.com/AOEpeople/Cm_Cache_Backend_Redis.git
-#https://github.com/AOEpeople/Cm_RedisSession
 
 
 # Remove modules (need forked modman : https://github.com/jetpulp/modman.git)
