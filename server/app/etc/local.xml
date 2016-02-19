@@ -55,8 +55,8 @@
         </resources>
         <session_save><![CDATA[files]]></session_save>
         <cache>
-            <backend>File</backend><!-- apc / memcached / empty=file -->
-            <slow_backend>File</slow_backend>
+            <backend>Cm_Cache_Backend_File</backend><!-- apc / memcached / empty=file -->
+            <slow_backend>Cm_Cache_Backend_File</slow_backend>
             <prefix>aomagento_</prefix>
         </cache>
         <remote_addr_headers>
