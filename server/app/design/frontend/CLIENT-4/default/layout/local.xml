@@ -117,7 +117,7 @@
 	  <reference name="home">
 
 	  	<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
-		  <action method="setSlideshow"><id>3</id></action>
+		  <action method="setSlideshow"><id>7</id></action>
 		</block>
 		<remove name="slideshow-mobile" />
 		<action method="unsetChild"><name>home-mea</name></action>

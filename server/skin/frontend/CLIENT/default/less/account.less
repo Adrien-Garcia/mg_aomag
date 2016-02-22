@@ -26,11 +26,42 @@
 	/*.col2-set {
 		margin-top: 30px;
 	}*/
+
+	.page-title {
+		h1 {
+			margin-bottom: 35px;
+		}
+	}
 	
 	.content > h2 {
 		font-family: @font-bold;
 		font-size: 24px;
 		margin-bottom: 10px;
+	}
+
+	//	Global margin for new users & registered users forms
+	.form-list {
+		margin-bottom: 35px;
+
+		.field {
+			margin-bottom: 0;
+
+			&:first-child {
+				margin-bottom: 15px;
+			}
+		}
+
+		.fields {
+			margin-bottom: 0;
+
+			.field {
+				margin-bottom: 15px;
+			}
+		}
+
+		li {
+			margin-bottom: 0;
+		}
 	}
 }
 
@@ -41,6 +72,32 @@
 		
 		.input-text {
 			width: 100%;
+		}
+	}
+
+	.form-list {
+		li {
+			margin-bottom: 15px;
+		}
+	}
+
+	#remember-me-box {
+		.input-box {
+			display: inline-block;
+			width: auto;
+		    height: 18px;
+    		vertical-align: middle;
+		}
+
+		label {
+			width: auto;
+			margin-right: 15px;
+		}
+	}
+
+	.buttons-set {
+		a {
+			line-height: 36px;
 		}
 	}
 }
@@ -60,7 +117,7 @@
 	
 	.lst-avantages {
 		line-height: 26px;
-		margin-bottom: 20px;
+		margin-bottom: 35px;
 		
 		span {
 			color: @c2;
@@ -103,6 +160,17 @@
 		}
 	}
 	
+	.form-list {
+		.fields {
+			.field.confirm-field {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.buttons-set {
+		margin-bottom: 35px;
+	}
 }
 
 /* Captcha ================================================================================ */
@@ -641,6 +709,11 @@ body[class^=" newsletter-"] {
 			.lnk-primary;
 			float: left;
 			white-space: nowrap;
+			background: none;
+			border: none;
+			color: @c4;
+			margin-right: 5px;
+			margin-top: 3px;
 		}
 		
 		.link-edit {
@@ -664,7 +737,7 @@ body[class^=" newsletter-"] {
 			&:after {
 				content: "|";
 				position: absolute;
-				top: -6px;
+				top: 2px;
 				right: -25px;
 				font-size: 20px;
 			}

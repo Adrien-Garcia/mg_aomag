@@ -324,9 +324,38 @@ p.control input.radio { margin-right:6px; }
 	}
 	
 	button.button {
-		float: right;
 		margin-left: 5px;
 		.primary-button();
+		display: inline-block;
+	}
+
+	button.btn-add, button.btn-share {
+		background: transparent;
+		color: @c4;
+		text-transform: lowercase;
+		font-family: @font-light;
+		padding: 0;
+		font-size: 14px;
+
+		&:first-letter {
+			text-transform: uppercase;
+		}
+
+		&:before {
+			top: 14px !important;
+		}
+	}
+
+	button.btn-share {
+		margin: 0 35px 0 0 !important;
+	}
+
+	button.btn-add {
+		margin: 0 20px 0 0 !important;
+	}
+
+	button.btn-update {
+		margin-left: 0;
 	}
 }
 
@@ -451,7 +480,7 @@ p.required {
 */
 /* fil d'Arianne breadcumb chemin */
 .breadcrumbs-container {
-	width: @width;
+	width: @width - 20px; // 10px of padding on other containers
 	margin:0 auto;
 	background:#fff;
 	border-bottom: 1px solid #d4d4d4;
@@ -717,8 +746,8 @@ tr.summary-details-excluded { font-style:italic; }
 .logo {
 	float: left;
 	width: 320px;
-	height: 150px;
-	margin: 29px 0 0 0;
+	height: 50px;
+	margin: 20px 0 0 0;
 	cursor:pointer;
 	
 	.lienhome{
@@ -754,6 +783,7 @@ tr.summary-details-excluded { font-style:italic; }
 			width: @width;
 			line-height: 33px;
 			overflow: hidden;
+			padding: 0 10px;
 			
 			.form-language {
 				float: left;
@@ -817,8 +847,8 @@ tr.summary-details-excluded { font-style:italic; }
 	
 	a.logo {
 		position: absolute;
-		top: 20px;
-		left: 0;
+		top: 0;
+		left: 10px;
 		text-indent: -200em;
 		overflow: hidden;
 		.sprite(@logo-client-header);
@@ -827,7 +857,7 @@ tr.summary-details-excluded { font-style:italic; }
 	.top-link-cart {
 		position: absolute;
 		top: 37px;
-		right: 0;
+		right: 10px;
 		padding-left: 50px;
 		font-family: @font-bold;
 		font-size: 16px;
@@ -874,14 +904,14 @@ tr.summary-details-excluded { font-style:italic; }
 				opacity: .8;
 			}
 		}
-
-		.header .form-search .search-autocomplete { z-index:999; left:40px !important; top:22px !important; }
-		.header .form-search .search-autocomplete ul { border:1px solid #5c7989; background-color:#f9f5f0; }
-		.header .form-search .search-autocomplete li { text-align:left; border-bottom:1px solid #f4eee7; padding:2px 8px 1px 8px; cursor:pointer; }
-		.header .form-search .search-autocomplete li .amount { float:right; font-weight:bold; }
-		.header .form-search .search-autocomplete li.odd { background-color:#fffefb; }
-		.header .form-search .search-autocomplete li.selected { background-color:#f7e8dd; }
 	}
+
+	.header .form-search .search-autocomplete { z-index:999; }
+	.header .form-search .search-autocomplete ul { border:1px solid #5c7989; background-color:#f9f5f0; border-top: none; }
+	.header .form-search .search-autocomplete li { text-align:left; border-bottom:1px solid #f4eee7; padding:2px 8px 1px 8px; cursor:pointer; }
+	.header .form-search .search-autocomplete li .amount { float:right; font-weight:bold; }
+	.header .form-search .search-autocomplete li.odd { background-color:#fffefb; }
+	.header .form-search .search-autocomplete li.selected { background-color:#f7e8dd; }
 }
 
 /*
@@ -895,7 +925,7 @@ tr.summary-details-excluded { font-style:italic; }
 /* navigation */
 .nav-container {
 	background: @c5;
-	z-index: 2;
+	z-index: 101;
 	position: relative;
 
 	#nav {
@@ -947,6 +977,10 @@ tr.summary-details-excluded { font-style:italic; }
 			
 				> a {
 					border: none;
+
+					&:after {
+						display: none;
+					}
 				}
 			}
 			
@@ -1660,6 +1694,36 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 	
 }
+.logoJP {
+	position:relative;
+	color:white;
+	padding:0 0 0 18px;
+	text-decoration:underline;
+	-webkit-transition:opacity .2s;
+	transition:opacity .2s;
+	opacity:.6;
+}
+.logoJP:before{
+	content:"";
+	display:block;
+	width:17px;
+	height:19px;
+	position:absolute;
+	top:-5px;
+	left:0;
+	background-repeat:no-repeat;
+	background-position:0 -19px;
+	opacity:.8;
+	transition:opacity .2s;
+	-webkit-transition:opacity .2s;
+	background-image:url(../images/signature_footer.png);
+}
+a.logoJP:hover{
+	opacity: 1;
+}
+a.logoJP:hover:before{
+	opacity: 1;
+}
 /* ======================================================================================= */
 
 /* Sample Data============================================================================ */
@@ -1737,3 +1801,29 @@ tr.summary-details-excluded { font-style:italic; }
 /* ======================================================================================= */
 
 .guest-select {width:305px !important;}
+
+
+/*************************************************
+
+COOKIE LAW
+
+*************************************************/
+#close-cookie {
+  position: absolute;
+  top: 14px;
+  right: 10px;
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-size: 10px 10px;
+  cursor: pointer;
+  &:before{
+  	content:"";
+  	.sprite(@close);
+  	display:block; 
+	z-index: 9999;
+  }
+}
+
+
+

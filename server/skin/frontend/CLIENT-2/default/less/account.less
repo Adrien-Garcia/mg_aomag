@@ -333,15 +333,115 @@ body.wishlist-index-index{
 }
 
 /* Remember Me Popup ===================================================================== */
-.window-overlay { background:url(../images/window_overlay.png) repeat; background:rgba(0, 0, 0, 0.35); position:absolute; top:0; left:0; height:100%; width:100%; z-index:990; }
+.window-overlay { 
+	background:url(../images/window_overlay.png) repeat; 
+	background:rgba(0, 0, 0, 0.35); 
+	position:absolute; 
+	top:0; 
+	left:0;
+	height:100%; 
+	width:100%; 
+	z-index:990; 
+}
+.remember-me {
+	 label { float:none; margin:0 6px; }
+}
+.remember-me-popup {
 
-.remember-me label { float:none; margin:0 6px; }
-.remember-me-popup { background:#fff; border:1px solid #ccc; left:50%; top:50%; position:absolute; margin:-85px 0 0 -200px; width:400px; text-align:left; -moz-box-shadow:0 0 6px #ccc; -webkit-box-shadow:0 0 6px #ccc; -box-shadow:0 0 6px #ccc; z-index:1000; }
-.remember-me-popup h3 { background:#d9e5ee; border-bottom:1px solid #ccc; font-size:14px; padding:5px 10px; }
-.remember-me-popup .remember-me-popup-head { position:relative; }
-.remember-me-popup .remember-me-popup-head .remember-me-popup-close { background:url(../images/btn_window_close.gif) no-repeat; display:block; position:absolute; top:7px; right:7px; height:15px; width:15px; text-indent:-9999em; }
-.remember-me-popup .remember-me-popup-body { padding:10px; }
-.remember-me-popup .remember-me-popup-body a { display:inline-block; height:19px; border:1px solid #de5400; background:#f18200; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; text-align:center; text-decoration:none; white-space:nowrap; color:#fff; }
+}
+.remember-me-popup {
+	background:@bg-01;
+	left:50%; 
+	top:50%; 
+	position:absolute; 
+	margin:-85px 0 0 -200px; 
+	width:400px; 
+	text-align:left; 
+	z-index:1000; 
+
+	h3 { 
+		background:@bg-05; 
+		font-size:19px; 
+		padding:15px 20px 10px 20px;
+		font-family: 'oswaldlight'; 
+		text-transform: uppercase;
+		font-weight: normal;
+	}
+
+	.remember-me-popup-head { 
+		position:relative;
+		.remember-me-popup-close { 
+			background:url(../images/btn_window_close.gif) no-repeat;
+			display:block; 
+			position:absolute; 
+			top:7px; 
+			right:7px; 
+			height:15px; 
+			width:15px; 
+			text-indent:-9999em;
+		}
+	}
+
+	.remember-me-popup-body { 
+		padding:20px;
+		a { 
+			display:inline-block; 
+			height:19px; 
+			background:@c-04; 
+			font-size:12px;
+			font-family: 'oswaldbook'; 
+			text-align:center;
+			text-decoration:none;
+			white-space:nowrap;
+			color:#fff;
+			text-transform: uppercase;
+			line-height:30px;
+			padding:0 10px;
+			height:30px;
+		}
+	 }
+
+}
+
+.customer-account-create{
+	.buttons-set{
+		margin-bottom: 20px;
+	}
+}
+
+.wishlist-index-index{
+	.btn-update{
+		display: block;
+		float: left !important;
+	}
+	.btn-add,
+	.btn-share{
+		position: relative;
+		float: left !important;
+		padding-left: 10px;
+		background:none;
+		color:@c-02;
+		text-decoration: none;
+		font-family: @font-light;
+		text-transform:none; 
+		letter-spacing: 0;
+		text-decoration: underline;;
+		text-align: left;
+		margin:0;
+		
+		&:after{
+			display:none !important;
+			content:"";
+		}
+		&:before {
+			content: "";
+			position: absolute;
+			display:none !important;
+			.sprite(@arrow-right-primary) !important;
+		}
+	}
+}
+
 /* Remember Me Popup ===================================================================== */
 
 /* My Account ============================================================================= */
@@ -385,7 +485,7 @@ body[class^=" newsletter-"] {
 					top:9px;
 					left:0;
 					content:"";
-					.sprite(@arrow-right-empty);
+					.sprite(@arrow-right-primary);
 				}			
 			}
 			
@@ -862,7 +962,7 @@ body[class^=" newsletter-"] {
 
 /* My Wishlist */
 
-.my-wishlist {
+.my-wishlist { 
 	
 	#wishlist-table {
 		
@@ -899,6 +999,7 @@ body[class^=" newsletter-"] {
 			width: 64px;
 			text-align: center;
 			margin-bottom: 10px;
+			margin-left:10px;
 		}
 		
 		.old-price {

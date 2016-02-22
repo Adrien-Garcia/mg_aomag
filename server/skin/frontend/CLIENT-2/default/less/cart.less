@@ -33,7 +33,7 @@ SOMMAIRE
 
 select {
       -webkit-appearance: none;
-      background: url(../images/flefleche-select.png) no-repeat right center;
+      background: url(../images/client/origin/arrow-bottom.png) no-repeat right center;
       background-position: 97.5% center;
       padding:0 5% 0 0;
       -moz-appearance: none;
@@ -58,7 +58,6 @@ select::-ms-expand {
 	}
 	
 	.btn-update{
-		margin:1px 0 0 0;
 		background:none;
 		border:none;
 		color:@c-05;
@@ -66,7 +65,10 @@ select::-ms-expand {
 		font-size:11px;
 		position:relative;
 		padding:0 0 0 20px;
-		text-decoration:underline;;
+		text-decoration:underline;
+		position: absolute;
+		top: 0;
+		left: 0;
 		
 		&:before{
 			content:none !important;
@@ -171,6 +173,8 @@ select::-ms-expand {
 		.hover();
 	}
 }
+
+
 
 
 /*******************************************************************
@@ -335,7 +339,7 @@ select::-ms-expand {
 		&:before{content:none;}
 		&:after{
 			content:"";
-			.sprite(@arrow-right-empty);
+			.sprite(@arrow-right-primary);
 			position:absolute;
 			top:8px;
 			right:10px;

@@ -84,7 +84,7 @@
 	<cms_index_index>
 		<reference name="root">
     		<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
-				<action method="setSlideshow"><id>1</id></action>
+				<action method="setSlideshow"><id>6</id></action>
 			</block> 
     	</reference>
     	
@@ -169,6 +169,15 @@
 		<reference name="search_result_list">
 			<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
 		</reference>
+		<reference name="main-header">
+				<block type="catalog/product_list" name="product_list" template="catalog/product/list_without_products.phtml">
+					<block type="catalog/product_list_toolbar" name="product_list_toolbar_2" template="catalog/product/list/toolbar.phtml">
+						<block type="page/html_pager" name="product_list_toolbar_pager"/>
+					</block>
+					<action method="setToolbarBlockName"><name>product_list_toolbar_2</name></action>
+				</block>
+			</reference>
+		
 	</catalogsearch_result_index>
 	
 	<!-- @4 CATEGORY -->
