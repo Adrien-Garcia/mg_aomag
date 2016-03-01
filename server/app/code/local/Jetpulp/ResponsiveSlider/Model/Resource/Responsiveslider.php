@@ -1,0 +1,200 @@
+<?php
+
+class Jetpulp_ResponsiveSlider_Model_Resource_Responsiveslider extends Mage_Core_Model_Resource_Db_Abstract
+{
+    public function _construct()
+    {    
+        // Note that the id refers to the key field in your database table.
+        $this->_init('responsiveslider/responsiveslider', 'responsiveslider_id');
+    }
+
+    /**
+     * Process block data before deleting
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @return Jetpulp_ResponsiveSlider_Model_Resource_Responsiveslider
+     */
+    protected function _beforeDelete(Mage_Core_Model_Abstract $object)
+    {
+        $condition = array(
+            'responsiveslider_id = ?'     => (int) $object->getId(),
+        );
+
+        $this->_getWriteAdapter()->delete($this->getTable('responsiveslider/responsiveslider_store'), $condition);
+
+        return parent::_beforeDelete($object);
+    }
+
+    /**
+     * Process slider data before saving
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @return Jetpulp_ResponsiveSlider_Model_Resource_Responsiveslider
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    {
+
+        if (!$this->getIsUniqueSliderToStores($object)) {
+            Mage::throwException(Mage::helper('responsiveslider')->__('A Slider identifier with the same properties already exists.'));
+        }
+
+        // modify create / update dates
+        if ($object->isObjectNew() && !$object->hasCreationTime()) {
+            $object->setCreationTime(Mage::getSingleton('core/date')->gmtDate());
+        }
+
+        $object->setUpdateTime(Mage::getSingleton('core/date')->gmtDate());
+
+        return parent::_beforeSave($object);
+    }
+
+    /**
+     * Perform operations after object save
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @return Jetpulp_ResponsiveSlider_Model_Resource_Responsiveslider
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
+        $oldStores = $this->lookupStoreIds($object->getId());
+        $newStores = (array)$object->getStores();
+
+        $table  = $this->getTable('responsiveslider/responsiveslider_store');
+        $insert = array_diff($newStores, $oldStores);
+        $delete = array_diff($oldStores, $newStores);
+
+        if ($delete) {
+            $where = array(
+                'responsiveslider_id = ?'     => (int) $object->getId(),
+                'store_id IN (?)' => $delete
+            );
+
+            $this->_getWriteAdapter()->delete($table, $where);
+        }
+
+        if ($insert) {
+            $data = array();
+
+            foreach ($insert as $storeId) {
+                $data[] = array(
+                    'responsiveslider_id'  => (int) $object->getId(),
+                    'store_id' => (int) $storeId
+                );
+            }
+
+            $this->_getWriteAdapter()->insertMultiple($table, $data);
+        }
+
+        return parent::_afterSave($object);
+
+    }
+
+    /**
+     * Load an object using 'identifier' field if there's no field specified and value is not numeric
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @param mixed $value
+     * @param string $field
+     * @return Jetpulp_ResponsiveSlider_Model_Resource_Responsiveslider
+     */
+    public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
+    {
+        if (!is_numeric($value) && is_null($field)) {
+            $field = 'identifier';
+        }
+
+        return parent::load($object, $value, $field);
+    }
+
+    /**
+     * Perform operations after object load
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @return Jetpulp_ResponsiveSlider_Model_Resource_Responsiveslider
+     */
+    protected function _afterLoad(Mage_Core_Model_Abstract $object)
+    {
+        if ($object->getId()) {
+            $stores = $this->lookupStoreIds($object->getId());
+            $object->setData('store_id', $stores);
+            $object->setData('stores', $stores);
+        }
+
+        return parent::_afterLoad($object);
+    }
+
+    /**
+     * Retrieve select object for load object data
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param Jetpulp_ResponsiveSlider_Model_Resource_Responsiveslider $object
+     * @return Zend_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $select = parent::_getLoadSelect($field, $value, $object);
+
+        if ($object->getStoreId()) {
+            $stores = array(
+                (int) $object->getStoreId(),
+                Mage_Core_Model_App::ADMIN_STORE_ID,
+            );
+
+            $select->join(
+                array('cbs' => $this->getTable('responsiveslider/responsiveslider_store')),
+                $this->getMainTable().'.responsiveslider_id = cbs.responsiveslider_id',
+                array('store_id')
+            )->where('is_active = ?', 1)
+                ->where('cbs.store_id in (?) ', $stores)
+                ->order('store_id DESC')
+                ->limit(1);
+        }
+
+        return $select;
+    }
+
+    /**
+     * Check for unique of identifier of block to selected store(s).
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @return bool
+     */
+    public function getIsUniqueSliderToStores(Mage_Core_Model_Abstract $object)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('cb' => $this->getMainTable()))
+            ->where('cb.identifier = ?', $object->getData('identifier'));
+
+        if ($object->getId()) {
+            $select->where('cb.responsiveslider_id <> ?', $object->getId());
+        }
+
+        if ($this->_getReadAdapter()->fetchRow($select)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get store ids to which specified item is assigned
+     *
+     * @param int $id
+     * @return array
+     */
+    public function lookupStoreIds($id)
+    {
+        $adapter = $this->_getReadAdapter();
+
+        $select  = $adapter->select()
+            ->from($this->getTable('responsiveslider/responsiveslider_store'), 'store_id')
+            ->where('responsiveslider_id = :responsiveslider_id');
+
+        $binds = array(
+            ':responsiveslider_id' => (int) $id
+        );
+
+        return $adapter->fetchCol($select, $binds);
+    }
+}

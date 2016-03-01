@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Jetpulp_ResponsiveSlider>
+            <version>0.0.2</version>
+        </Jetpulp_ResponsiveSlider>
+    </modules>
+    
+    <global>
+        <models>
+            <responsiveslider>
+                <class>Jetpulp_ResponsiveSlider_Model</class>
+                <resourceModel>responsiveslider_resource</resourceModel>
+            </responsiveslider>
+            <responsiveslider_resource>
+                <class>Jetpulp_ResponsiveSlider_Model_Resource</class>
+                <deprecatedNode>responsiveslider_mysql4</deprecatedNode>
+                <entities>
+                    <responsiveslider>
+                        <table>cms_responsiveslider</table>
+                    </responsiveslider>
+                    <responsiveslider_store>
+                        <table>cms_responsiveslider_store</table>
+                    </responsiveslider_store>
+                    <responsiveslider_item>
+                        <table>cms_responsiveslider_item</table>
+                    </responsiveslider_item>
+                    <responsiveslider_item_store>
+                        <table>cms_responsiveslider_item_store</table>
+                    </responsiveslider_item_store>
+                    <responsiveslider_link>
+                        <table>cms_responsiveslider_item_link</table>
+                    </responsiveslider_link>
+                </entities>
+            </responsiveslider_resource>
+        </models>
+        <resources>
+            <responsiveslider_setup>
+                <setup>
+                    <module>Jetpulp_ResponsiveSlider</module>
+                </setup>
+            </responsiveslider_setup>
+        </resources>
+        <blocks>
+            <responsiveslider>
+                <class>Jetpulp_ResponsiveSlider_Block</class>
+            </responsiveslider>
+        </blocks>
+        <helpers>
+            <responsiveslider>
+                <class>Jetpulp_ResponsiveSlider_Helper</class>
+            </responsiveslider>
+        </helpers>
+    </global>
+
+    <frontend>   
+        <layout>
+            <updates>
+                <responsiveslider>
+                    <file>jetpulp/responsiveslider.xml</file>
+                </responsiveslider>
+            </updates>
+        </layout>
+    </frontend>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Jetpulp_ResponsiveSlider after="Mage_Adminhtml">Jetpulp_ResponsiveSlider_Adminhtml</Jetpulp_ResponsiveSlider>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Jetpulp_ResponsiveSlider>
+                    <files>
+                        <responsiveslider>Jetpulp_ResponsiveSlider.csv</responsiveslider>
+                    </files>
+                </Jetpulp_ResponsiveSlider>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <responsiveslider>
+                    <file>jetpulp/responsiveslider.xml</file>
+                </responsiveslider>
+            </updates>
+        </layout>
+    </adminhtml>
+    
+</config>

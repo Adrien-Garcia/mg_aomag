@@ -25,13 +25,13 @@
     </frontend>
     <admin>
         <routers>
-			<brand>
-				<use>admin</use>
-				<args>
-					<module>Addonline_Brand</module>
-					<frontName>brand</frontName>
-				</args>
-			</brand>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <brand before="Mage_Adminhtml">Addonline_Brand_Adminhtml</brand>
+                    </modules>
+                </args>
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>
@@ -51,7 +51,7 @@
 					<brand module="brand">
 						<title>Manage Brands</title>
 						<sort_order>11</sort_order>
-						<action>brand/adminhtml_brand</action>              
+						<action>adminhtml/brand/index</action>
 					</brand>
 				</children>
 			</catalog>

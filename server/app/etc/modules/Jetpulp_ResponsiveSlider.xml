@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- 
+
+-->
+<config>
+	<modules>
+		<Jetpulp_ResponsiveSlider>
+			<active>true</active>
+			<codePool>local</codePool>
+			<depends>
+			</depends>
+		</Jetpulp_ResponsiveSlider>
+	</modules>
+</config>

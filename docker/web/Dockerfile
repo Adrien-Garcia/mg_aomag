@@ -4,6 +4,7 @@ MAINTAINER Sylvain PRAS <sylvain.pras@jetpulp.fr>
 
 RUN a2enmod rewrite
 
+# install php extensions  (magento needs)
 RUN apt-get update && apt-get install -y \
         libcurl4-gnutls-dev git zlib1g-dev \
         libfreetype6-dev \
@@ -11,12 +12,23 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libpng12-dev \
         jpegoptim \
-        msmtp \
     && docker-php-ext-install iconv mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-configure mysqli --with-mysqli=mysqlnd \
-    && docker-php-ext-install mysqli curl zip pdo_mysql gd mbstring
+    && docker-php-ext-install mysqli curl zip pdo_mysql gd mbstring opcache
+
+# install php ftp extension
+RUN apt-get install -y libssl-dev \
+    && docker-php-ext-install ftp
+
+# install XSL php extension (magento antidot needs)
+RUN apt-get install -y libxslt-dev \
+ && docker-php-ext-install xsl
+
+# install redis
+#RUN yes | pecl install redis \
+#    && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
 
 # install xdebug
 RUN yes | pecl install xdebug \
@@ -30,12 +42,15 @@ RUN curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire
     && mv /tmp/blackfire-*.so `php -r "echo ini_get('extension_dir');"`/blackfire.so \
     && echo "extension=blackfire.so\nblackfire.agent_socket=\${BLACKFIRE_PORT}" > $PHP_INI_DIR/conf.d/blackfire.ini
 
-# copy the msmtp config file in the container and set his owner and permissions as the www-data will use it properly
+# install msmtp
+# (copy the msmtp config file in the container and set his owner and permissions as the www-data will use it properly)
 # msmtp will send email through mailhog container
+RUN apt-get install -y msmtp
 COPY msmtprc /usr/local/etc/msmtprc
 RUN chown www-data.www-data /usr/local/etc/msmtprc \
     && chmod 600 /usr/local/etc/msmtprc
 
+#copy our own apache2-foreground : it set uid to www-data
 COPY apache2-foreground /usr/local/bin/
 RUN chmod ug+x /usr/local/bin/apache2-foreground
 

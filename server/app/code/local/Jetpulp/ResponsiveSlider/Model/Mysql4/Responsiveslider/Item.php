@@ -1,0 +1,6 @@
+<?php
+
+class Jetpulp_ResponsiveSlider_Model_Mysql4_Responsiveslider_Item extends Jetpulp_ResponsiveSlider_Model_Resource_Responsiveslider_Item
+{
+
+}

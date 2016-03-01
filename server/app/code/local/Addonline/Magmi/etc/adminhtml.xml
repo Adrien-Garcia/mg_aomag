@@ -5,7 +5,7 @@
             <children>
                 <magmi translate="title" module="magmi">
                     <title>Magmi Import Tool</title>
-                    <action>magmi/adminhtml_index</action>
+                    <action>adminhtml/magmi/index</action>
                     <sort_order>199</sort_order>
                 </magmi>
             </children>

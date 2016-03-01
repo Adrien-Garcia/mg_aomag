@@ -16,6 +16,7 @@ web:
         - db:db
         - mailhog:mailhog
         - blackfire:blackfire
+#        - redis:redis
 db:
     container_name: mg_aomagento-db
     image: mariadb:10.0
@@ -28,6 +29,11 @@ db:
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_DATABASE=mg_aomagento
         - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev
+#redis:
+#    container_name: mg_aomagento-redis
+#    image: redis
+#    ports:
+#        - "6379"
 mailhog:
     container_name: mg_aomagento-mailhog
     image: mailhog/mailhog
