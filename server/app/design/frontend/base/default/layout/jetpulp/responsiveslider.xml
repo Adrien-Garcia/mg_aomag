@@ -7,7 +7,7 @@
             <action method="addItem"><type>skin_js</type><name>js/jetpulp/responsiveslider/jquery.bxslider.min.js</name><params/></action>
             <action method="addItem"><type>skin_js</type><name>js/jetpulp/responsiveslider/picturefill.min.js</name><params/></action>
             <action method="addItem"><type>skin_js</type><name>js/jetpulp/responsiveslider/responsiveslider.js</name><params/></action>
-            <action method="addItem"><type>skin_css</type><name>css/jetpulp/responsiveslider/jquery.bxslider.min.css</name><params/></action>
+            <!--<action method="addItem"><type>skin_css</type><name>css/jetpulp/responsiveslider/jquery.bxslider.min.css</name><params/></action>-->
         </reference>
     </default>
 
