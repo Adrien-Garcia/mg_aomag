@@ -81,12 +81,11 @@ module.exports = function(grunt) {
             src : '../css/styles.css'
         },
         options: {
-            proxy: "aomagento.delphine.jetpulp.dev",
+            proxy: grunt.option('env'),
+            host: grunt.option('env'),
             watchTask: true,
             logLevel: "debug",
-            reloadOnRestart:false,
-            open: "external",
-            host: "aomagento.delphine.jetpulp.dev"
+            reloadOnRestart:false
         }
     }
   }
