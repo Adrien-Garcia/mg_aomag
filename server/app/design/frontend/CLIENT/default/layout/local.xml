@@ -74,14 +74,21 @@
 	<cms_index_index>
 		<reference name="content">
 			<block type="core/template" template="catalog/home.phtml" name="home" />
+
 		</reference>
+
+
 		<reference name="home">
-			<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
-				<action method="setSlideshow"><id>5</id></action>
-			</block>
+
 			<block type="advancedslideshow/slideshow" name="slideshow-mobile" template="advancedslideshow/slideshow.phtml" before="-">
 				<action method="setSlideshow"><id>2</id></action>
 			</block>
+
+		     <block type="responsiveslider/responsiveslider" name="responsiveslider" template="jetpulp/responsiveslider/responsiveslider.phtml" >
+		        <action method="setSliderIdentifier"><identifier>CLIENT-1-home</identifier></action>
+		    </block>
+
+
 			<block type="cms/block" name="home-mea"><action method="setBlockId"><block_id>home-mea</block_id></action></block>
 			<block type="aocatalog/product_category" name="home-cat-1" template="catalog/homepage/home_mea.phtml">
 				<action method="setProductsCount"><count>4</count></action>
