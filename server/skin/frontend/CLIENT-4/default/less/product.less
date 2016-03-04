@@ -267,13 +267,16 @@
 			&.current{
 				
 				opacity: 1;
-				&:before{
-					display: block;
-					content:"";
-					top: 0; bottom:0; left: 0; right: 0;
-					position: absolute;
-					z-index: 1;
-					border: 2px solid @color-main;
+
+				a {
+					&:before{
+						display: block;
+						content:"";
+						top: 0; bottom:0; left: 0; right: 0;
+						position: absolute;
+						z-index: 1;
+						border: 2px solid @color-main;
+					}
 				}
 			}
 		}
@@ -288,6 +291,9 @@
 			width: 14px; height: 68px;
 			background: @c6;
 		}
+	}
+	.bx-pager {
+		display: none;
 	}
 	.bx-next{right:-5px;}
 	.bx-prev{left:-20px;}
