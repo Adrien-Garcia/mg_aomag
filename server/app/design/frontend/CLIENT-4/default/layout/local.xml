@@ -116,6 +116,10 @@
 	  </reference>
 	  <reference name="home">
 
+	  	 <block type="responsiveslider/responsiveslider" name="responsiveslider" template="jetpulp/responsiveslider/responsiveslider.phtml" >
+	        <action method="setSliderIdentifier"><identifier>CLIENT-4-Home</identifier></action>
+	    </block>
+
 	  	<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
 		  <action method="setSlideshow"><id>7</id></action>
 		</block>
