@@ -14,13 +14,25 @@ $infinitLoop = false;
   <?php foreach ($slider->getActiveSlides($infinitLoop) as $slide) : ?>
   <li>
     <?php if ($slide->getPreviousItem()) : ?><a href="" class="previous-link">Précédent</a><?php endif; ?>
-    <a href="<?php echo $slide->getUrl() ?>" >
-      <picture>
-        <img srcset="<?php echo $this->helper('responsiveslider')->getImageUrl($slide->getBackgroundImage()); ?>" alt="<?php echo $slide->getTitle() ?>">
-      </picture>
-      <?php echo $slide->getContentHtml(); ?>
-    </a>
+
+    <span class="product">
+
+      <?php if($slide->getTitle()) : ?>
+      <span class="product-name"><?php echo $slide->getTitle() ?></span>
+      <?php endif; ?>
+
+      <button href="<?php echo $slide->getUrl() ?>" class="lnk-decouvrir"><?php echo $this->__('Discover') ?></button>
+
+    </span>
+
+    <picture>
+
+      <img srcset="<?php echo $this->helper('responsiveslider')->getImageUrl($slide->getBackgroundImage()); ?>" alt="<?php echo $slide->getTitle() ?>">
+
+    </picture>
+
     <?php if ($slide->getNextItem()) : ?><a href="" class="next-link">Suivant</a><?php endif; ?>
+
   </li>
   <?php endforeach; ?>
 </ul>

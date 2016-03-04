@@ -1,5 +1,5 @@
 /******************************************************************
-Site Name: Extrasynthèse
+Site Name: AO Magento
 Author: Jetpulp
 
 Stylesheet: Stylesheet Home
@@ -168,60 +168,63 @@ SOMMAIRE
 		
 		.product {
 			height: 423px;
+			position: absolute;
+			top: 100px;
+			left: 160px;
+			display: inline-block;
+		
+			.product-name {
+				font-size: 60px;
+				line-height: 1.2;
+				font-family: 'LMRomanDunh-Regular';
+				color: @c-14;
+				text-decoration: none;
+				display: block;
+				text-transform: uppercase;
+				width: 50%;
+			}
 			
-			> div {
+			.price-box {
+				margin: -5px 0 10px 0;
+			}
 			
-				margin: 280px 0 0 160px;
+			.price {
+				font-size: 28px;
+			}
 			
-				.product-name {
-					font-size: 30px;
-					font-family: open_sansbold;
-					color: @c-05;
-					text-decoration: none;
-				}
-				
-				.price-box {
-					margin: -5px 0 10px 0;
-				}
-				
-				.price {
-					font-size: 28px;
-				}
-				
-				.old-price .price {
-					color: @c-02;
-					font-size: 20px;
-				}
-				
-				.lnk-decouvrir {
+			.old-price .price {
+				color: @c-02;
+				font-size: 20px;
+			}
+			
+			button {
 
-					padding-left:22px;
-					display: inline-block;
-					background: @c-04 !important;
-					position:relative;
-					height:42px;
-					line-height:42px;
-					
-					
-					&:before{						
-						background: @c-05;						
-					}
-					&:after{
-						content:"";
-						position:absolute;
-						top:14px;
-						right:20px;
-						z-index:9999;
-						.sprite(@arrow-right-white);					
-					}
-					&:hover{
-						&:before{							
-							background-color:  @c-05;
-							
-						}
+				display: inline-block;
+				background: @c-04 !important;
+				position:relative;
+				height: 42px;
+				line-height:42px;
+				width: 153px;
+				margin-top: 20px;
+				
+				&:before{			
+					content:"";			
+					background: @c-05;						
+				}
+				&:after{
+					content:"";
+					position:absolute;
+					top:14px;
+					right:20px;
+					z-index:9999;
+					.sprite(@arrow-right-white);					
+				}
+				&:hover{
+					&:before{							
+						background-color:  @c-05;
+						
 					}
 				}
-				
 			}
 		}
 		
