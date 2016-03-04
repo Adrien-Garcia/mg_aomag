@@ -22,15 +22,19 @@
 	}
 	
 	.bx-wrapper {
-		.item{
-			max-height: 658px;
-			img{
-				margin: auto;
-				width: 100%;
-				vertical-align: middle;
-			}
-			a:hover{opacity: 1;}
+		max-height: 658px;
+		overflow: hidden;
+
+		img{
+			margin: auto;
+			width: 100%;
+			vertical-align: middle;
 		}
+
+		a:hover{
+			opacity: 1;
+		}
+
 		.bx-viewport {
 			-moz-box-shadow: none;
 			-webkit-box-shadow: none;
@@ -61,41 +65,51 @@
 				}
 			}
 		}
+
+		.product-container {
+			display: inline-block;
+			position: absolute;
+			top: 205px;
+			left: 0;
+			right: 0;
+		}
 		
 		.product {
-			height: 330px;
+			width: @width - 130px;
+			margin: auto;
+			display: block;
+			text-align: center;
+		
+			.product-name {
+				font-size: 80px;
+				font-family: @font-xbold;
+				color: #ffffff;
+				text-decoration: none;
+				line-height: 1.2;
+				display: inline-block;
+				text-transform: uppercase;
+			}
 			
-			> div {
+			.price-box {
+				margin: -5px 0 10px 0;
+			}
 			
-				margin: 60px 0 0 70px;
-			
-				.product-name {
-					font-size: 30px;
-					font-family: open_sansbold;
-					color: #0d0d0d;
-					text-decoration: none;
-				}
-				
-				.price-box {
-					margin: -5px 0 10px 0;
-				}
-				
-				.price {
-					font-size: 28px;
-				}
+			.price {
+				font-size: 28px;
+			}
 
-				.special-price .price,				
-				.old-price .price {
-                  font-size: 20px;
-                }
+			.special-price .price,				
+			.old-price .price {
+              font-size: 20px;
+            }
 
-				.lnk {
-					.primary-button;
-					padding-left: 30px;
-					padding-right: 30px;
-					display: inline-block;
-				}
-				
+			.lnk {
+				.primary-button;
+				padding-left: 30px;
+				padding-right: 30px;
+				display: inline-block;
+				line-height: 42px;
+				margin-top: 70px;
 			}
 		}
 		
