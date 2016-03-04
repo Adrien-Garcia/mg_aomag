@@ -14,12 +14,17 @@ $infinitLoop = false;
   <?php foreach ($slider->getActiveSlides($infinitLoop) as $slide) : ?>
   <li>
 
+    <!--On peut décommenter la zone et charger à l'intérieur nom du produit et bouton-->
     <!--<div class="content-slide-home">
       <div class="title-slide">
-        <?php echo $slide->getTitle(); ?>
+         <?php if($slide->getTitle()) : ?>
+          <?php echo $slide->getTitle() ?>
+         <?php endif; ?>
       </div>
        <a href="<?php echo $slide->getUrl() ?>" class="lnk">Détails</a>
    </div>-->
+
+
 
 
     <a href="<?php echo $slide->getUrl() ?>" >
