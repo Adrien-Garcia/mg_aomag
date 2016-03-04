@@ -40,7 +40,7 @@
             </db>
             <default_setup>
                 <connection>
-                    <host><![CDATA[db]]></host>
+                    <host><![CDATA[localhost]]></host>
                     <username><![CDATA[root]]></username>
                     <password><![CDATA[root]]></password>
                     <dbname><![CDATA[addonline_aomagento_magento]]></dbname>
