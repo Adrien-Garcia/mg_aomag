@@ -31,7 +31,9 @@ SOMMAIRE
 .cms-home {
 	
 	.main {
-		margin-top: 20px; 
+		margin-top: 0; 
+		width: 100%;
+
 		.std {
 			display: none;
 		}
@@ -42,8 +44,8 @@ SOMMAIRE
 		border-bottom: 1px solid @result;
 		width: @width;
 		height: 215px;
-		margin-bottom:27px;
-		padding-top:56px;
+		margin:0 auto 27px auto;
+		padding-top: 80px;
 		
 		li{
 			float:left;
@@ -129,6 +131,11 @@ SOMMAIRE
 		margin: 0 auto;
 		width: 1272px;
 		height: 423px;
+		max-width: 1272px !important;
+
+		.next-link, .previous-link, .bx-controls-direction {
+			display: none;
+		}
 		
 		.bx-viewport {
 			-moz-box-shadow: none;
@@ -237,7 +244,8 @@ SOMMAIRE
 	
 	
 	.product-grid-mea {
-		
+		width: @width;
+		margin: auto;
 		clear: both;
 	
 		.item {
