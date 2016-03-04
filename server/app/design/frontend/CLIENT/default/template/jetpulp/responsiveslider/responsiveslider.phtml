@@ -13,13 +13,24 @@ $infinitLoop = false;
 <ul class="bxslider">
   <?php foreach ($slider->getActiveSlides($infinitLoop) as $slide) : ?>
   <li>
-    
+
+    <!--<div class="content-slide-home">
+      <div class="title-slide">
+        <?php echo $slide->getTitle(); ?>
+      </div>
+       <a href="<?php echo $slide->getUrl() ?>" class="lnk">Détails</a>
+   </div>-->
+
+
     <a href="<?php echo $slide->getUrl() ?>" >
       <picture>
         <img srcset="<?php echo $this->helper('responsiveslider')->getImageUrl($slide->getBackgroundImage()); ?>" alt="<?php echo $slide->getTitle() ?>">
       </picture>
       <?php echo $slide->getContentHtml(); ?>
     </a>
+
+
+
     
   </li>
   <?php endforeach; ?>
