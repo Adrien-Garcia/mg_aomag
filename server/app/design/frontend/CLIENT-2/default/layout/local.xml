@@ -82,22 +82,28 @@
 	
 	<!-- @_2 HOME PAGE -->
 	<cms_index_index>
-		<reference name="root">
-    		<block type="advancedslideshow/slideshow" name="slideshow-desktop" template="advancedslideshow/slideshow.phtml" before="-">
-				<action method="setSlideshow"><id>6</id></action>
-			</block> 
-    	</reference>
     	
 		<reference name="content">
 			<block type="core/template" template="catalog/home.phtml" name="home" />
 		</reference>
+
 		<reference name="home">
-			<block type="cms/block" name="home-mea"><action method="setBlockId"><block_id>home-mea</block_id></action></block>
+    		<block type="responsiveslider/responsiveslider" name="responsiveslider" template="jetpulp/responsiveslider/responsiveslider.phtml" >
+		        <action method="setSliderIdentifier"><identifier>CLIENT-2-Home</identifier></action>
+		    </block>
+
+			<block type="cms/block" name="home-mea">
+				<action method="setBlockId">
+					<block_id>home-mea</block_id>
+				</action>
+			</block>
+
 			<block type="aocatalog/product_category" name="home-cat-1" template="catalog/homepage/home_mea.phtml">
 				<action method="setProductsCount"><count>4</count></action>
 				<action method="setData"><name>category_id</name><value>79</value></action>
 				<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
 			</block>
+			
 			<block type="aocatalog/product_category" name="home-cat-2" template="catalog/homepage/home_mea.phtml">
 				<action method="setProductsCount"><count>4</count></action>
 				<action method="setData"><name>category_id</name><value>80</value></action>

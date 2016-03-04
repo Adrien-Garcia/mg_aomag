@@ -85,7 +85,7 @@
 			</block>
 
 		     <block type="responsiveslider/responsiveslider" name="responsiveslider" template="jetpulp/responsiveslider/responsiveslider.phtml" >
-		        <action method="setSliderIdentifier"><identifier>home-slider</identifier></action>
+		        <action method="setSliderIdentifier"><identifier>CLIENT-1-home</identifier></action>
 		    </block>
 
 
