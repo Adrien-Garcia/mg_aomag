@@ -1,0 +1,37 @@
+.cms-no-route {
+	
+	.breadcrumbs-container {
+		display: none;
+	}
+	
+	.main-container {
+		position: relative;
+		
+		&::before {
+			content: "";
+			height: 1px;
+			border-bottom: 1px solid #939393;
+			position: absolute;
+			top: 70px;
+			left: 0;
+			right: 0;
+		}
+		
+		.main {
+			margin-top: 0;
+			
+			.page-title {
+				margin: 25px 0;
+			}
+	
+			.std {
+				position: relative;
+				padding: 40px 0 0 470px;
+				background-image: url('../images/404.jpg');
+				background-repeat: no-repeat;
+				
+			}
+		}
+	}
+	
+}
