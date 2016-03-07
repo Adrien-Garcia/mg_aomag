@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:5.5-apache
 MAINTAINER Sylvain PRAS <sylvain.pras@jetpulp.fr>
 
 
@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-configure mysqli --with-mysqli=mysqlnd \
-    && docker-php-ext-install mysqli curl zip pdo_mysql gd mbstring opcache
+    && docker-php-ext-install mysqli curl zip pdo_mysql gd mbstring
 
 # install php ftp extension
 RUN apt-get install -y libssl-dev \

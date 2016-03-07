@@ -204,7 +204,7 @@
     <phpunit>
         <suite>
             <modules>
-                <Netzarbeiter_CustomerActivation/>
+                <!--<Netzarbeiter_CustomerActivation/>-->
             </modules>
         </suite>
     </phpunit>
