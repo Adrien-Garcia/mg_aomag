@@ -29,7 +29,6 @@ db:
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_DATABASE=addonline_aomagento_magento
         - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev
-        - DB_BACKUP_PATH_PATTERN
 #redis:
 #    container_name: mg_aomagento-redis
 #    image: redis
