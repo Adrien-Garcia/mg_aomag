@@ -96,23 +96,10 @@ if (isset ($_GET['hook'])) {
 
 		/*
 		 *  Compilation 
-		 *   - des css par Less  
+		 *   - des css par grunt à faire et déployer manuellement
+		 *  (en attendant mieux :-( )
   		 */	
-		$output = array();
-		
-		$cmdeLess = "lessc -x skin/frontend/CLIENT/default/less/styles.less > skin/frontend/CLIENT/default/css/styles.css 2>&1";
-		$output[] = "exec >> ".$cmdeLess;
-		$resultLess;
-		exec($cmdeLess, $output, $resultLess);
-		if ($resultLess!=0) {
-			$output[]="<h2>ERREUR lors de la compilation LESS  !! : $resultLess</h2>";
-			_log($output, true);
-			echo str_replace("\n", "<br>", file_get_contents ('skin/frontend/CLIENT/default/css/styles.css'));
-			die();
-		}
-			
-		_log($output, true);
-		
+
 		//On baisse le flag maintenance
 		unlink (dirname(__FILE__).DS.'maintenance.flag');
 		
