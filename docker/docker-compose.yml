@@ -1,12 +1,12 @@
 web:
     container_name: mg_aomagento-web
-    build: ./web
+    image: registry.jetpulp.fr:5000/dev/php56-apache
     ports:
         - "80:80"
     volumes:
-        - ../server:/var/www/mg_aomagento/server
+        - ../server:/var/www/mg_aomagento
         - ./web/vhost.conf:/etc/apache2/sites-enabled/vhost.conf
-        - ./web/php.ini:/usr/local/etc/php/php.ini
+#        - ./web/php.ini:/usr/local/etc/php/php.ini
     environment:
         - ALLOW_OVERRIDE=true
         - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev

@@ -9,19 +9,19 @@ dockerComposeFilePath=$(dirname "$0")
 #
 # Path of the db backup on the server
 #
-export DB_BACKUP_PATH_PATTERN=addonline_aomagento_magento_*.sql.gz
+export DB_BACKUP_PATTERN=addonline_aomagento_magento_*.sql.gz
 export DB_BACKUP_DIR=/opt/backup/mysql/mag5
 export DB_BACKUP_SERVER=mag5.host.addonline.fr
 
 # Check if db backup file has already been downloaded
-localDbBackupFilename=`ls -tr ${dockerComposeFilePath}/db/00_${DB_BACKUP_PATH_PATTERN} | tail -1`
+localDbBackupFilename=`ls -tr ${dockerComposeFilePath}/db/00_${DB_BACKUP_PATTERN} | tail -1`
 if [ $localDbBackupFilename ]
 then
     echo "${localDbBackupFilename} already exists, no need to download"
 else
 
     # Get the last backup file on remote server
-    dbBackupFilename=`ssh ${DB_BACKUP_SERVER} "ls -tr ${DB_BACKUP_DIR}/${DB_BACKUP_PATH_PATTERN} | tail -1"`
+    dbBackupFilename=`ssh ${DB_BACKUP_SERVER} "ls -tr ${DB_BACKUP_DIR}/${DB_BACKUP_PATTERN} | tail -1"`
 
     if [ $dbBackupFilename ]
     then
