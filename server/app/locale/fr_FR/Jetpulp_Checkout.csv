@@ -19,7 +19,7 @@
 "Sign Up for Newsletter","J'accepte de recevoir les offres et nouveautés par e-mail"
 "Additional address details","Complément d'adresse"
 "Confirm Password","Confirmation du mot de passe"
-"Login/Registration Before","Identification"
+"Login/Registration","Identification"
 "Grand Total","Total TTC"
 "Ship to this address","Être livré à mon adresse de facturation"
 "Ship to different address","Être livré à une autre adresse"
@@ -58,3 +58,4 @@
 "I go to payment step","Je passe au paiement"
 "You will be redirected to Be2bill in a few seconds.","Veuillez patienter pendant le chargement du formulaire de paiement..."
 "Sorry, no quotes are available for this order at this time.","Aucun mode de livraison n'est disponible pour votre adresse. Nous vous invitons à choisir une autre adresse de livraison."
+"Store pickup shipping method","Méthode de livraison de retrait en magasin"

@@ -234,6 +234,7 @@ Billing.prototype.nextStep= function(transport){
         return false;
     }
 
+    //Load ShippingTypes (billing addess, shiping address, pickup store
     var load = new Ajax.Request(
         this.loadUrl,
         {
@@ -247,12 +248,15 @@ Billing.prototype.nextStep= function(transport){
     payment.initWhatIsCvvListeners();
     $('co-shipping-method-form').show();
     $('onepage-checkout-shipping').hide();
-    shipping.setSameAsBilling(true);
-    shipping.save();
-    // DELETE
-    //alert('error: ' + response.error + ' / redirect: ' + response.redirect + ' / shipping_methods_html: ' + response.shipping_methods_html);
-    // This moves the accordion panels of one page checkout and updates the checkout progress
-    //checkout.setBilling();
+    //use same adress as billing, or shipping new one
+    if(response.duplicateBillingInfo) {
+        shipping.setSameAsBilling(true);
+        shipping.save();
+    } else {
+        $("shipping:same_as_billing").value=0;
+        $("onepage-checkout-shipping").show();
+    }
+
 };
 
 
@@ -325,7 +329,6 @@ ShippingMethod.prototype.nextStep= function(transport){
 
     payment.initWhatIsCvvListeners();
 
-    $$('.delivery')[0].hide();
     if (response.goto_section) {
         checkout.gotoSection(response.goto_section, true);
         checkout.reloadProgressBlock();
@@ -375,7 +378,6 @@ Shipping.prototype.saveMinimal= function(form) {
         );
     }
 
-    //checkout.reloadReviewBlock();
 };
 
 Shipping.prototype.setSameAsBilling = function(flag) {
@@ -399,7 +401,7 @@ Shipping.prototype.unSyncWithBilling = function () {
             var sourceField = $(arrElements[elemIndex].id.replace(/^shipping:/, 'billing:'));
             if (sourceField && ["shipping:gender", "shipping:firstname", "shipping:lastname", "shipping:country_id"].indexOf(arrElements[elemIndex].id) != -1 ){
                 arrElements[elemIndex].value = sourceField.value;
-            }else if (arrElements[elemIndex].id == "shipping-address-select") {
+            }else if (arrElements[elemIndex].id == "shipping-address-select" || arrElements[elemIndex].id == "shipping:save_in_address_book") {
                 //nothing
             } else {
                 arrElements[elemIndex].value = "";
@@ -621,13 +623,16 @@ Review.prototype.nextStep = function(transport) {
             }
             if (response.redirect) {
                 this.isSuccess = true;
-                Event.fire(document.body, 'review:success');
                 location.href = response.redirect;
+                //in case of standard be2bill, we need to fire review:success
+                //to display in be2bill iframe
+                if (response.redirect=='javascript:void(0)') {
+                    Event.fire(document.body, 'review:success');
+                }
                 return;
             }
             if (response.success) {
                 this.isSuccess = true;
-                Event.fire(document.body, 'review:success');
                 window.location=this.successUrl;
             }
             else{

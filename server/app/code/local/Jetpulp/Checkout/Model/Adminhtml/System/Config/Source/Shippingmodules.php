@@ -31,6 +31,7 @@ class Jetpulp_Checkout_Model_Adminhtml_System_Config_Source_Shippingmodules
         $methods = Mage::getSingleton('shipping/config')->getAllCarriers();
 
         $options = array();
+        $options[] = array('value' => '', 'label' => Mage::helper('adminhtml')->__('None'));
 
         foreach($methods as $_ccode => $_carrier)
         {
@@ -58,21 +59,5 @@ class Jetpulp_Checkout_Model_Adminhtml_System_Config_Source_Shippingmodules
 
         return $options;
 
-
-//        $methods = Mage::getSingleton('shipping/config')->getAllCarriers();
-//
-//        $options = array();
-//
-//        foreach($methods as $_code => $_method)
-//        {
-//            if(!$_title = Mage::getStoreConfig("carriers/$_code/title"))
-//                $_title = $_code;
-//            $_active = Mage::getStoreConfig("carriers/$_code/active");
-//            $_active = ($_active) ? 'active' : 'inactive';
-//
-//            $options[] = array('value' => $_code, 'label' => $_title . " ($_active)");
-//        }
-//
-//        return $options;
     }
 }

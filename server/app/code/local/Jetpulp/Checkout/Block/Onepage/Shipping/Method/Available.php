@@ -35,6 +35,8 @@
 class Jetpulp_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkout_Block_Onepage_Shipping_Method_Available
 {
 
+    protected $_rates_butStorePickup;
+    protected $_rates_storePickup;
 
     /**
      * getShippingRates custom all but the store pickup set in admin
@@ -43,34 +45,30 @@ class Jetpulp_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Chec
      */
     public function getShippingRatesButStorePickup()
     {
-        $_rates = null;
-        $groups = array();
-        $store_pickup = Mage::getStoreConfig("shipping/jetcheckout/select_store_pickup");
-        if (empty($this->_rates)) {
+        if (!isset($this->_rates_butStorePickup)) {
+
+            $groups = array();
+            $store_pickup = Mage::getStoreConfig("shipping/jetcheckout/select_store_pickup");
+
             $this->getAddress()->collectShippingRates()->save();
 
-            $catch = null;
-            if (is_string($store_pickup) && preg_match("/(.+)_all/",$store_pickup, $catch)) {
-                $_carriers = $this->getAddress()->getGroupedAllShippingRates();
-                foreach($_carriers as $n => $_carrier) {
-                    if( $catch[1] == $n ) {
-                        unset($_carriers[$n]);
-                    }else {
+            $_carriers = $this->getAddress()->getGroupedAllShippingRates();
+            if (!empty($_carriers)) {
+                foreach ($_carriers as $n => $_carrier) {
+                    $carrierCode = $_carrier[0]->getData('code');
+                    if ($carrierCode != $store_pickup) {
                         $groups[$n] = array();
-                        foreach($_carrier as $r => $_rate){
+                        foreach ($_carrier as $r => $_rate) {
                             $groups[$n][$_rate->getCode()] = $this->getAddress()->getShippingRateByCode($_rate->getCode());
                         }
                     }
                 }
-            } elseif (is_string($store_pickup) && !preg_match("/(.+)_all/",$store_pickup)) {
-                $rate[$store_pickup] = $this->getAddress()->getShippingRateByCode($store_pickup);
-                $groups[$rate[$store_pickup]->getCarrier()] = $rate;
             }
 
-            return $_rates = $groups;
+            $this->_rates_butStorePickup = $groups;
         }
 
-        return $_rates;
+        return $this->_rates_butStorePickup;
     }
     /**
      * getShippingRates custom only the store pickup set in admin
@@ -79,47 +77,21 @@ class Jetpulp_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Chec
      */
     public function getShippingRatesOnlyStorePickup()
     {
-        $_rates = null;
-        $groups = array();
-        $store_pickup = Mage::getStoreConfig("shipping/jetcheckout/select_store_pickup");
-//        var_dump($store_pickup);
-        if (empty($this->_rates)) {
-            $this->getAddress()->collectShippingRates()->save();
 
-            $catch = null;
-            if(is_string($store_pickup) && preg_match("/(.+)_all/",$store_pickup, $catch)) {
-                $_carriers = $this->getAddress()->getGroupedAllShippingRates();
-                $store_pickup = array();
+        if (!isset($this->_rates_storePickup)) {
 
-                foreach($_carriers as $n => $_carrier) {
-                    if ($catch[1] != $n) {
-                        unset($_carriers[$n]);
-                    } else {
-                        $store_pickup[$n] = array();
-                        foreach($_carrier as $r => $_rate){
-                            $store_pickup[$n][] = $_rate->getCode();
-                        }
-                    }
-                }
+            $groups = array();
+            if ($store_pickup = Mage::getStoreConfig("shipping/jetcheckout/select_store_pickup")) {
+                $this->getAddress()->collectShippingRates()->save();
 
-            }
-
-            if(is_array($store_pickup)) {
-                foreach($store_pickup as $n => $_rates) {
-                    foreach($_rates as $r => $_code) {
-                        $groups[$_code] = $this->getAddress()->getShippingRateByCode($_code);
-                    }
-                }
-            }else{
                 $groups[$store_pickup] = $this->getAddress()->getShippingRateByCode($store_pickup);
-            }
 
-            return $_rates = $groups;
+            }
+            $this->_rates_storePickup = $groups;
         }
 
-        return $_rates;
+        return $this->_rates_storePickup;
     }
-
 
     public function isUseBillingAddressForShipping()
     {

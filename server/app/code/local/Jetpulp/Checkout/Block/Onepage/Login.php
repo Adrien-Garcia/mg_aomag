@@ -36,9 +36,7 @@ class Jetpulp_Checkout_Block_Onepage_Login extends Mage_Checkout_Block_Onepage_L
 {
     protected function _construct()
     {
-        // if (!$this->isCustomerLoggedIn()) {
-            $this->getCheckout()->setStepData('login', array('label'=>$this->__('Login/Registration Before'), 'allow'=>true));
-        // }
+        $this->getCheckout()->setStepData('login', array('label'=>$this->__('Login/Registration'), 'allow'=>true));
         parent::_construct();
     }
 }

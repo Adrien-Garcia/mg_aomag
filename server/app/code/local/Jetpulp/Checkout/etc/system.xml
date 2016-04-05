@@ -27,10 +27,9 @@
 -->
 <config>
     <sections>
-        <shipping translate="label" module="shipping">
-            <show_in_store>1</show_in_store>
+        <shipping>
             <groups>
-                <jetcheckout translate="label">
+                <jetcheckout translate="label" module="jetcheckout">
                     <label>Jetpulp Checkout</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
@@ -38,8 +37,8 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <select_store_pickup translate="label">
-                            <label>Select your store pickup module</label>
+                        <select_store_pickup translate="label" module="jetcheckout">
+                            <label>Store pickup shipping method</label>
                             <frontend_type>select</frontend_type>
                             <source_model>Jetpulp_Checkout_Model_Adminhtml_System_Config_Source_Shippingmodules</source_model>
                             <sort_order>1</sort_order>

@@ -469,9 +469,6 @@ class Jetpulp_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
                 return;
             }
-            $customerAddressId = $this->getRequest()->getPost('shipping_address_id', false);
-            $result = $this->getOnepage()->saveShipping($data, $customerAddressId);
-
 
             if (!isset($result['error'])) {
                 if ($this->getOnepage()->getQuote()->isVirtual()) {

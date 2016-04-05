@@ -126,4 +126,15 @@
             </checkout>
         </helpers>
     </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Jetpulp_Checkout>
+                    <files>
+                        <default>Jetpulp_Checkout.csv</default>
+                    </files>
+                </Jetpulp_Checkout>
+            </modules>
+        </translate>
+    </adminhtml>
 </config>

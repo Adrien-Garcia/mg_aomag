@@ -63,7 +63,7 @@
         <?php echo $this->getChildHtml('additional') ?>
     </div>
     <div class="buttons-set" id="shipping-method-buttons-container" >
-        <button type="button" class="button" onclick="shippingMethod.save()"><span><span><?php echo $this->__('I go to payment step') ?></span></span></button>
+        <button id="track-tunnel-step-3-valid" type="button" class="button" onclick="shippingMethod.save()"><span><span><?php echo $this->__('I go to payment step') ?></span></span></button>
         <span id="shipping-method-please-wait" class="please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" />
         </span>
