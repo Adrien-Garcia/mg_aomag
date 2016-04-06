@@ -13,7 +13,7 @@
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
  * package    Netzarbeiter_CustomerActivation
- * copyright  Copyright (c) 2012 Vinai Kopp http://netzarbeiter.com/
+ * copyright  Copyright (c) 2014 Vinai Kopp http://netzarbeiter.com/
  * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,15 +23,13 @@ $installer = $this;
 $installer->startSetup();
 
 /*
- * Add required information for Magento 1.4.2
+ * Add required information for Magento 1.4.2 and newer
  */
-if (version_compare(Mage::getVersion(), '1.4.2', '>='))
-{
-	Mage::getSingleton('eav/config')
-		->getAttribute('customer', 'customer_activated')
-		->setData('used_in_forms', array('adminhtml_customer'))
-		->save();
+if (version_compare(Mage::getVersion(), '1.4.2', '>=')) {
+    Mage::getSingleton('eav/config')
+            ->getAttribute('customer', 'customer_activated')
+            ->setData('used_in_forms', array('adminhtml_customer'))
+            ->save();
 }
-
 
 $installer->endSetup();

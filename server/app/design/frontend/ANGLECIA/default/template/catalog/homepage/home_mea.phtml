@@ -1,0 +1,20 @@
+<?php if (($_products = $this->getBestsellerProductCollection()) && $_products->getSize()): ?>
+<h1>Best Seller</h1>
+<div class="product-grid-mea">
+
+	<ul class="products-grid">
+		<?php $_columnCount = $this->getColumnCount(); ?>
+    	<?php foreach ($_products->getItems() as $_product) : ?>
+			<?php
+				$this->getChild("mini-fiche")->setData("product", $_product);
+				echo $this->getChildHtml("mini-fiche", false);
+			?>
+	    <?php endforeach; ?>
+	</ul>
+</div>
+<div class="primary-button color-main">
+	<p>
+	Découvrez nos produits
+	</p>
+</div>
+<?php endif;  ?>

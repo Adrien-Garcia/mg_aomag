@@ -1,0 +1,585 @@
+/******************************************************************
+Site Name: Extrasynthèse
+Author: Jetpulp
+
+Stylesheet: Stylesheet CART
+
+******************************************************************/
+
+
+/*******************************************************************
+
+SOMMAIRE
+
+
+@_00 GENERAL STYLE CART
+@_01 CART TABLE
+@_02 SHOPPING CART COLLATERAL BOXES
+@_03 DISOCUNT CODES 
+@_04 COMMON CHECKOUT STYLES
+@_05 SHOPPING CART TOTAL
+
+*******************************************************************/
+
+
+
+
+
+/*******************************************************************
+
+@_00 GENERAL STYLE CART
+
+*******************************************************************/
+
+select {
+      -webkit-appearance: none;
+      background: url(../images/client/origin/arrow-bottom.png) no-repeat right center;
+      background-position: 97.5% center;
+      padding:0 5% 0 0;
+      -moz-appearance: none;
+      text-overflow: "";
+}
+select::-ms-expand {
+    display: none;}
+
+#j2t_ajax_confirm_wrapper{
+ padding: 20px;
+  background: #FFF;
+  border:solid 1px #e5e5e5;
+  box-shadow: 2px 2px 5px #aaa;
+
+  ul.messages{ background-color: #FFF !important;}
+}
+
+.cart{
+	
+	h1{
+		margin:-10px 0 25px 0;
+	}
+	
+	.btn-update{
+		background:none;
+		border:none;
+		color:@c-05;
+		font-family:@font-light;
+		font-size:11px;
+		position:relative;
+		padding:0 0 0 20px;
+		text-decoration:underline;
+		position: absolute;
+		top: 0;
+		left: 0;
+		
+		&:before{
+			content:none !important;
+			display:block;
+			position:absolute;
+			top:2px;
+			left:0;
+			.sprite(@reload);
+			.transition-ease-in-out(.4s);
+		}
+		
+		&:hover{
+			color:@c-04;
+			&:before{
+				.rotate(-360deg);
+			}
+		}
+		
+		
+	}
+	
+}
+
+/*******************************************************************
+
+@_01 CART TABLE
+
+*******************************************************************/
+.cart-table{
+	
+	
+	
+	.product-name {
+		color:@c-08;
+		padding:0 20px;
+		
+		a{
+			text-decoration:none;
+			font-size:13px;
+			color:@c-08;
+		}
+	}
+
+	.item-options{padding:0 20px;}
+	
+	td{
+		padding:8px 0;
+		font-size:13px;
+		img{
+			border:1px solid rgba(0, 0, 0, 0.1);
+			padding:7px;
+		}
+	}
+	
+	tr{
+		td{
+			&:first-child{
+				width:76px;
+				background:#fff;
+			}
+			&:nth-child(2){
+				width:420px;
+			}
+			&:nth-child(3),
+			&:nth-child(4),
+			&:nth-child(6),
+			&:nth-child(7){
+				width:76px;
+				text-align:center;
+			}
+			&:nth-child(5){
+				width:84px;
+			}
+			&:nth-child(8){
+				width:53px;
+				text-align:center;
+				
+				a{
+					margin:0 auto;
+				}
+			}
+		}
+	}
+	
+	.qty{
+		text-align: center;
+		width:62px;
+		color:@c-08;
+	}
+
+}
+
+.btn-continue{
+	background:none;
+	border:none;
+	color:@c-05;
+	font-size:11px;
+	text-transform:uppercase;
+	margin:15px 0 0 0;
+	
+	&:hover{
+		.hover();
+	}
+}
+
+
+
+
+/*******************************************************************
+
+@_02 SHOPPING CART COLLATERAL BOXES
+
+*******************************************************************/
+
+.crosssell h2{
+	font-family: 'oswaldlight';
+	font-size:24px;
+	color:@c-05;
+	text-transform:uppercase;
+	margin:30px 15px;
+}
+.cart .crosssell,
+.cart .discount{
+	background:#fff;
+	border:none;
+	padding:0;
+	
+	
+}
+.cart .crosssell h2,
+.cart .discount h2,
+.cart .shipping h2{
+	font-weight:normal;
+	color:@c-05;
+	text-transform: uppercase;
+	margin:0;
+	text-align:right;
+	font-family: 'oswaldlight';
+}
+
+.cart .cart-collaterals {
+	width:@width;
+	.cart-collaterals-left{
+		width:552px;
+		float:left;
+		padding:55px 0 0 0;
+	}
+	.cart-collaterals-right{
+		width:312px;
+		float:right;
+	}
+}
+
+
+.cart .crosssell{
+	clear:both;
+	width:@width;
+	
+	.item{
+		padding:22px 15px 19px 0;
+		border-bottom:1px solid @c6;
+		
+		&:last-child{
+			border-bottom:0;
+		}
+	}
+	
+	.product-image { 
+		float:left; 
+		width:75px; 
+		height:75px;
+	}
+	
+	.product-name{
+		font-weight:normal;
+		line-height:16px;
+		font-size:14px;
+		height:29px;
+		a{
+			color:@c3;
+		}
+	}
+	
+	.product-details { 
+		margin-left:90px;
+	}
+	
+	.regular-price{
+		.price{
+			font-size:14px;
+			color:@c2;
+		}
+		
+		position:relative;
+		top:3px;
+		
+	}
+	
+	.minimal-price-link,
+	.special-price{
+		display:inline;
+		text-decoration:none;
+		color:@c3;
+		position:relative;
+		top:3px;
+		
+		.label{
+			display:none;
+		}
+		
+		a,
+		.price{
+			color:@c4;
+			padding-left:5px;
+		}
+	}
+	
+	button{
+		background:none;
+		border:none;
+		color:@c2;
+		font-size:14px;
+		font-family:@font-bold;
+		text-decoration: underline;
+		
+		&:hover{
+			.hover();
+		}
+	}
+}
+
+/*******************************************************************
+
+@_03 DISOCUNT CODES 
+
+*******************************************************************/
+
+.cart .discount,
+.cart .shipping {
+	border:3px double rgba(0,0,0,0.1);
+	padding:30px 45px;
+	margin:0 0 18px;
+	h2{
+		width:115px;
+		float:left;
+	}
+	select,
+	.input-text{
+		width:260px;
+	}
+	
+	button{
+		.rgba(@c-02, 20%);
+		background:rgba(51,51,51,0.2);
+		font-family: 'oswaldlight';
+		font-size:12px;
+		text-transform:uppercase;
+		border:none;
+		letter-spacing:1px;
+		line-height:25px;
+		position:relative;
+		padding:0 20px 0 12px;
+		cursor:pointer;
+		width: auto;
+		color:@c-05;
+
+		.transition-ease-in-out(.2s);
+		&:before{content:none;}
+		&:after{
+			content:"";
+			.sprite(@arrow-right-primary);
+			position:absolute;
+			top:8px;
+			right:10px;
+		}
+		&:hover{
+			background:@c-04;
+		}
+
+	}
+	
+	
+}
+
+.cart .discount{
+	float:left;
+	
+	width:100%;
+	
+	
+	.input-text{
+		width:160px;
+		margin-top:12px;
+		float:left;
+		height:25px;
+	}
+	.buttons-set{
+		position:absolute;
+		top:12px;
+		left:164px;
+
+
+	}
+	
+	.discount-form{
+		width:295px;
+		float:left;
+		margin-left:30px;
+		position:relative;
+	}
+	
+}
+
+.cart .shipping{
+	margin-top:10px;
+	float:left;
+	width:100%;
+		
+	.shipping-form{
+		float:left;
+		width:210px;
+		margin-left:30px;
+	}
+	
+	#shipping-zip-form{
+		position:relative;
+		
+		#postcode{
+			width:90px;
+		}
+		select{
+			width:208px;
+		}
+		input{
+			height:25px;
+		}
+		button{
+			position:absolute;
+			top:73px;
+			left:96px;
+		}
+	
+	}
+	
+}
+
+
+/*******************************************************************
+
+@_04 COMMON CHECKOUT STYLES
+
+*******************************************************************/
+
+.sp-methods { 
+	margin:0 0 8px;
+	
+	dt { 
+		margin:13px 0 5px;
+		color:@c3;
+		
+		li { 
+			margin:5px 0;
+		}
+	}
+	
+	label { 
+		color:@c4;
+	}
+	
+	.form-list {
+		padding-left:20px;
+		
+		li {
+			margin:0 0 8px;
+		}
+	}
+	
+	select.month {
+		width:154px;
+		margin-right:10px;
+	}
+	
+	select.year { 
+		width:96px;
+	}
+	
+	input.cvv { 
+		width:3em !important;
+	}
+	
+	.checkmo-list li {
+		margin:0 0 5px;
+	}
+	.checkmo-list label {
+		width:135px;
+		padding-right:10px;
+		text-align:right;
+	}
+	.checkmo-list address {
+		float:left;
+	}
+}
+
+.sp-methods .centinel-logos a { margin-right:3px; }
+.sp-methods .centinel-logos img { vertical-align:middle; }
+
+.sp-methods .release-amounts { margin:0.5em 0; }
+.sp-methods .release-amounts button { float:left; margin:5px 10px 0 0; }
+
+.cvv-what-is-this { font-size:11px; cursor:help; margin-left:10px; }
+
+.cart .shipping .sp-methods { margin:20px 0 0; padding:5px 0 0; border-top:1px solid @c6; }
+
+
+
+/*******************************************************************
+
+@_04 SHOPPING CART TOTAL
+
+*******************************************************************/
+
+.cart .totals { 
+	float:right;
+	width:312px;
+	text-transform: uppercase;
+	text-align:left;
+	
+	.border{
+		.rgba(@c-02, 10%);
+		border-bottom:1px solid @result;
+	}
+	table {
+		width:100%;
+		font-size:11px;
+	}
+	
+	td {
+		padding:0 0 10px 0;
+		width:150px;
+		
+		&:first-child{
+			padding-right:0;
+		}
+	}
+	
+	.grand-total-txt{
+		font-size:18px;
+		color:@c-05;
+		padding-top:10px;
+	}
+	
+	tfoot{
+	
+		> tr:first-child{
+		
+			th,
+			td{
+				padding-top:20px;
+			}
+			
+			td:first-child{
+				padding-right:20px;
+			}
+		
+		}
+		
+		> tr:last-child{
+			font-size:18px;
+			color:@c-05;
+			
+		}
+		
+		th strong,
+		td strong {
+			font-weight:normal;
+		}
+	}
+	
+	.checkout-types {
+		font-size:13px;
+		padding:8px 15px 15px;
+		text-align:right;
+		
+		li{
+			clear:both;
+			margin:10px 0;
+			
+			button{
+				height:48px;
+				width:312px;
+				margin-left:-18px;
+				line-height:48px;
+				
+				span{
+					background:none;
+					line-height:inherit;
+					font-size: 18px;
+					line-height: 24px;
+					letter-spacing: 3px;
+					font-family: 'oswaldbook';
+					font-weight: normal;
+					  margin-top: 7px;
+					  display: inline-block;
+				}
+				
+			}
+			
+			&:last-child{
+				display:none;
+			}
+		}
+	}
+	
+}

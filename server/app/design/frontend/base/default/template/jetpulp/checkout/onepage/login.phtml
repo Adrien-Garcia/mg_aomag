@@ -57,7 +57,7 @@
             </form>
 
             <div class="buttons-set">
-                <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
+                <button id="track-tunnel-connexion" type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
                 <br/>
                 <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>"><?php echo $this->__('Forgot your password?') ?></a>
             </div>
@@ -88,7 +88,7 @@
             </ul>
 
             <div class="buttons-set">
-                <button type="button" class="button" onclick="javascript:$('login:register').checked=true;checkout.setMethod();"><span><span><?php echo $this->__('Create my account') ?></span></span></button>
+                <button id="track-tunnel-creation-compte" type="button" class="button" onclick="javascript:$('login:register').checked=true;checkout.setMethod();"><span><span><?php echo $this->__('Create my account') ?></span></span></button>
                 <br/>
                 <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
                 <a onclick="javascript:$('login:guest').checked=true;checkout.setMethod();"><?php echo $this->__('Checkout as guest') ?></a>

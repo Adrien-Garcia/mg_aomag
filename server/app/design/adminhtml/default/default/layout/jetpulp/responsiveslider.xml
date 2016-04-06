@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<layout>
+    <adminhtml_responsiveslider_index>
+        <reference name="content">
+            <block type="responsiveslider/adminhtml_responsiveslider" name="cms_responsiveslider"></block>
+        </reference>
+    </adminhtml_responsiveslider_index>
+
+    <adminhtml_responsiveslider_new>
+        <update handle="adminhtml_responsiveslider_edit" />
+    </adminhtml_responsiveslider_new>
+
+    <adminhtml_responsiveslider_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="responsiveslider/adminhtml_responsiveslider_edit" name="cms_responsiveslider_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="responsiveslider/adminhtml_responsiveslider_edit_tabs" name="cms_responsiveslider_edit_tabs">
+                <block type="responsiveslider/adminhtml_responsiveslider_edit_tab_main" name="cms_responsiveslider_edit_tab_main" />
+                <action method="addTab"><name>main_section</name><block>cms_responsiveslider_edit_tab_main</block></action>
+            </block>
+        </reference>
+    </adminhtml_responsiveslider_edit>
+
+    <adminhtml_responsiveslider_items>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="responsiveslider/adminhtml_responsiveslider_edit_tab_items" name="adminhtml.customer.edit.tab.orders"/>
+        </block>
+    </adminhtml_responsiveslider_items>
+
+    <adminhtml_responsiveslider_item_new>
+        <update handle="adminhtml_responsiveslider_item_edit" />
+    </adminhtml_responsiveslider_item_new>
+
+    <adminhtml_responsiveslider_item_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="responsiveslider/adminhtml_responsiveslider_items_edit" name="cms_responsiveslider_items_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="responsiveslider/adminhtml_responsiveslider_items_edit_tabs" name="cms_responsiveslider_items_edit_tabs">
+                <block type="responsiveslider/adminhtml_responsiveslider_items_edit_tab_form" name="cms_responsiveslider_edit_tab_form" />
+                <action method="addTab"><name>form_section</name><block>cms_responsiveslider_edit_tab_form</block></action>
+            </block>
+        </reference>
+    </adminhtml_responsiveslider_item_edit>
+
+    <adminhtml_slides_index>
+        <reference name="content">
+            <block type="responsiveslider/adminhtml_slides" name="cms_responsiveslider_slides"></block>
+        </reference>
+    </adminhtml_slides_index>
+
+    <adminhtml_slides_new>
+        <update handle="adminhtml_slides_edit" />
+    </adminhtml_slides_new>
+
+    <adminhtml_slides_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="responsiveslider/adminhtml_slides_edit" name="cms_slides_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="responsiveslider/adminhtml_slides_edit_tabs" name="cms_slides_edit_tabs">
+
+            </block>
+        </reference>
+    </adminhtml_slides_edit>
+
+</layout>

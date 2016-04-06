@@ -82,32 +82,24 @@ if (isset ($_GET['hook'])) {
 		if(function_exists('opcache_reset')) {
 		    opcache_reset();
 		}
-		//on vide le cache File
+
+		//Vider le cache magento
+		Mage::dispatchEvent('adminhtml_cache_flush_all');
+		Mage::app()->getCacheInstance()->flush();
+
+		//Par acquis de conscience on vide le cache backend File
 		$cacheDir = dirname(__FILE__).DS.'var'.DS.'cache';
 		emptyDir($cacheDir, false);
-		
-		//TODO : remplacer cela par une méthode qui utilise le vrai backend utiliser magento pour vider le cache, tous les caches
-		//  attention, sans lancer la mise à jour en cas de montée de version !!
-		
+
+		//Vide le cache du module AOE ClassPathCache
+		Mage::helper('aoe_classpathcache')->clearClassPathCache();
+
 		/*
 		 *  Compilation 
-		 *   - des css par Less  
+		 *   - des css par grunt à faire et déployer manuellement
+		 *  (en attendant mieux :-( )
   		 */	
-		$output = array();
-		
-		$cmdeLess = "lessc -x skin/frontend/CLIENT/default/less/styles.less > skin/frontend/CLIENT/default/css/styles.css 2>&1";
-		$output[] = "exec >> ".$cmdeLess;
-		$resultLess;
-		exec($cmdeLess, $output, $resultLess);
-		if ($resultLess!=0) {
-			$output[]="<h2>ERREUR lors de la compilation LESS  !! : $resultLess</h2>";
-			_log($output, true);
-			echo str_replace("\n", "<br>", file_get_contents ('skin/frontend/CLIENT/default/css/styles.css'));
-			die();
-		}
-			
-		_log($output, true);
-		
+
 		//On baisse le flag maintenance
 		unlink (dirname(__FILE__).DS.'maintenance.flag');
 		

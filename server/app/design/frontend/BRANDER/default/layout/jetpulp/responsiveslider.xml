@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <default>
+    	<reference name="head">
+            <!-- //TODO : gérer le cas où jquery n'est pas chargé dans le thème -->
+            <action method="addItem"><type>skin_js</type><name>js/jetpulp/responsiveslider/jquery.bxslider.min.js</name><params/></action>
+            <action method="addItem"><type>skin_js</type><name>js/jetpulp/responsiveslider/picturefill.min.js</name><params/></action>
+            <action method="addItem"><type>skin_js</type><name>js/jetpulp/responsiveslider/responsiveslider.js</name><params/></action>
+        </reference>
+    </default>
+
+    <!--
+
+    Add this block in your local thème definition, passe slider id in setSlider method
+
+    <block type="responsiveslider/responsiveslider" name="responsiveslider" template="jetpulp/responsiveslider/responsiveslider.phtml" >
+        <action method="setSlider"><id>1</id></action>
+    </block>
+
+    -->
+
+    <!--
+    Add this block in your local thème definition, passe slider identifier in setSliderIdentifier method
+
+    <block type="responsiveslider/responsiveslider" name="responsiveslider" template="jetpulp/responsiveslider/responsiveslider.phtml" >
+        <action method="setSliderIdentifier"><identifier>home</identifier></action>
+    </block>
+    -->
+
+</layout>

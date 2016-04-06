@@ -12,7 +12,7 @@
  * @category   Widgento
  * @package    Widgento_Login
  * @author     Yury Ksenevich <info@widgento.com>
- * @copyright  Copyright (c) 2012-2014 Yury Ksenevich p.e.
+ * @copyright  Copyright (c) 2012-2015 Yury Ksenevich p.e.
  * @license    http://www.widgento.com/customer-service Widgento Modules License
  */
 
@@ -32,7 +32,7 @@ class Widgento_Login_Block_Adminhtml_Log extends Mage_Adminhtml_Block_Widget_Gri
         $this->_removeButton('add');
         $this->_addButton('flush', array(
             'label'     => Mage::helper('widgentologin')->__('Clear Logs'),
-            'onclick'   => 'setLocation(\'' . $this->getUrl('widgentologinadmin/log/clear') .'\')',
+            'onclick'   => 'setLocation(\'' . $this->getUrl('adminhtml/widgentologinadmin_log/clear') .'\')',
             'class'     => 'delete',
         ));
 

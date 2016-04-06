@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<widgets>
+    <slider_widget type="responsiveslider/widget_slider" translate="Slider" module="responsiveslider">
+        <name>Slider</name>
+        <description>Allows to add slider in CMS/Block page</description>
+        <parameters>
+            <slider_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Slider</label>
+                <type>label</type>
+                <helper_block>
+                    <type>responsiveslider/widget_slider_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Slider...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </slider_id>
+        </parameters>
+    </slider_widget>
+</widgets>

@@ -12,13 +12,13 @@
     </global>
     <admin>
         <routers>
-			<aomagento>
-				<use>admin</use>
+			<adminhtml>
 				<args>
-					<module>Addonline_Aomagento</module>
-					<frontName>aomagento</frontName>
+					<modules>
+						<aomagento before="Mage_Adminhtml">Addonline_Aomagento_Adminhtml</aomagento>
+					</modules>
 				</args>
-			</aomagento>
+			</adminhtml>
 		</routers>
     </admin>
 	

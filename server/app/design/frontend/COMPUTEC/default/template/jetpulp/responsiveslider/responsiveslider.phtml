@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @var $slider Jetpulp_ResponsiveSlider_Model_Responsiveslider
+ */
+$slider = $this->getResponsiveslider();
+/*
+* @var $infinitLoop boolean permet d'avoir la dernière en précédente de la première et vice versa
+*/
+$infinitLoop = false;
+?>
+<?php if ($slider && $slider->getIsActive()) : ?>
+<ul class="bxslider">
+  <?php foreach ($slider->getActiveSlides($infinitLoop) as $slide) : ?>
+  <li>
+
+    <!--On peut décommenter la zone et charger à l'intérieur nom du produit et bouton-->
+    <!--<div class="content-slide-home">
+      <div class="title-slide">
+         <?php if($slide->getTitle()) : ?>
+          <?php echo $slide->getTitle() ?>
+         <?php endif; ?>
+      </div>
+       <a href="<?php echo $slide->getUrl() ?>" class="lnk">Détails</a>
+   </div>-->
+
+
+
+
+    <a href="<?php echo $slide->getUrl() ?>" >
+      <picture>
+        <img srcset="<?php echo $this->helper('responsiveslider')->getImageUrl($slide->getBackgroundImage()); ?>" alt="<?php echo $slide->getTitle() ?>">
+      </picture>
+      <?php echo $slide->getContentHtml(); ?>
+    </a>
+
+
+
+    
+  </li>
+  <?php endforeach; ?>
+</ul>
+<?php endif; ?>
