@@ -6,7 +6,7 @@ web:
     volumes:
         - ../server:/var/www/mg_aomagento
         - ./web/vhost.conf:/etc/apache2/sites-enabled/vhost.conf
-#        - ./web/php.ini:/usr/local/etc/php/php.ini
+        - ./web/php.ini:/usr/local/etc/php/php.ini
     environment:
         - ALLOW_OVERRIDE=true
         - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev
@@ -15,7 +15,7 @@ web:
     links:
         - db:db
         - mailhog:mailhog
-        - blackfire:blackfire
+#        - blackfire:blackfire
 #        - redis:redis
 db:
     container_name: mg_aomagento-db
@@ -39,9 +39,22 @@ mailhog:
     image: mailhog/mailhog
     ports:
         - "8025:8025"
-blackfire:
-    container_name: mg_aomagento-blackfire
-    image: blackfire/blackfire
+#blackfire:
+#    container_name: mg_aomagento-blackfire
+#    image: blackfire/blackfire
+#    environment:
+#        - BLACKFIRE_SERVER_ID
+#        - BLACKFIRE_SERVER_TOKEN
+gulp-grunt-browser-sync:
+    container_name: gulp-grunt-browser-sync
+    image: registry.jetpulp.fr:5000/dev/gulp-grunt-browser-sync
+    ports:
+        - "3000:3000"
+        - "3001:3001"
+    volumes:
+        - ../server/skin/frontend/COMPUTEC/default/:/app
+#        - ../server/skin/frontend/BRANDER/default/:/app
+#        - ../server/skin/frontend/ANGLECIA/default/:/app
     environment:
-        - BLACKFIRE_SERVER_ID
-        - BLACKFIRE_SERVER_TOKEN
+        - BUILD_CMD=grunt
+        - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev
