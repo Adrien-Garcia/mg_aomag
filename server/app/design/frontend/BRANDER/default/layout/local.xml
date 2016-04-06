@@ -139,7 +139,7 @@
 	
 	<customer_logged_in>
         <reference name="top">
-            <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position><liParams /><aParams>class="logout"</aParams></action>
+            <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position><liParams /><aParams>class="logout sel-logout"</aParams></action>
         </reference>
     </customer_logged_in>
 	
