@@ -34,7 +34,7 @@
 	       	<span class="qty"><input type="number" min="1" name="qty" id="qty" maxlength="12" value="<?php echo max($this->getProductDefaultQty() * 1,1) ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" /></span>
        	</div>
         <?php endif; ?>
-        <button type="button" title="<?php echo $buttonTitle ?>" class="button primary-button color-main btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button> 
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button primary-button color-main btn-cart sel-add-to-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
 
     </div>
