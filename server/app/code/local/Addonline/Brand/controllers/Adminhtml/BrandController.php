@@ -3,6 +3,16 @@
 class Addonline_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_action
 {
 
+	/**
+     * _isAllowed
+     *
+     * @return boolean
+     */
+    public function _isAllowed()
+    {
+        return Mage::getSingleton( 'admin/session' )->isAllowed( 'admin/catalog/brand' );
+    }
+
 	protected function _initAction() {
 		$this->loadLayout()
 			->_setActiveMenu('brand/items')
