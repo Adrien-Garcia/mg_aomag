@@ -94,6 +94,8 @@ function removemodule {
 #upgrademodule mg_mod_GLS git@git.jetpulp.hosting:php/mg_mod_GLS.git
 #upgrademodule mg_mod_SoColissimo git@git.jetpulp.hosting:php/mg_mod_SoColissimo.git
 #upgrademodule Aoe_TemplateHints https://github.com/AOEpeople/Aoe_TemplateHints.git
+#removemodule MagentoConnector https://github.com/AntidotForge/MagentoConnector.git
+#removemodule EcomDev_PHPUnit  git://github.com/EcomDev/EcomDev_PHPUnit.git
 #upgrademodule MagentoConnector https://github.com/AntidotForge/MagentoConnector.git
 #upgrademodule EcomDev_PHPUnit  git://github.com/EcomDev/EcomDev_PHPUnit.git
 
