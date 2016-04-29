@@ -13,7 +13,7 @@ $_productNameStripped = $this->stripTags($_product->getName(), null, true);
                 <span class="new"><?php echo __("new"); ?></span>
                 <?php endif;?>
                 <p class="short-description"><?php echo $helperao->getHtmlSubstring($_product->getShortDescription(), 90); ?></p>
-                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn sel-product-link"><?php echo $this->__('Learn More') ?></a>
                 <div class="actions">
                     <ul class="add-to-links">
                         <?php if ($this->getParentBlock()->helper('wishlist')->isAllow()) : ?>
