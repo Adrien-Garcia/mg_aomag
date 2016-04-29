@@ -28,7 +28,7 @@
 $item = $this->getItem();
 $product = $item->getProduct();
 ?>
-<h3 class="product-name">
+<h3 class="product-name sel-product-name-wishlist">
     <a href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>"><?php echo $this->escapeHtml($product->getName()) ?></a>
 </h3>
 

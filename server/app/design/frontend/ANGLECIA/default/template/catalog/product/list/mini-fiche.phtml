@@ -20,7 +20,7 @@ $_productNameStripped = $this->stripTags($_product->getName(), null, true);
         <p class="short-description"><?php echo $helperao->getHtmlSubstring($_product->getShortDescription(), 90); ?></p>
         <div href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn primary-button"><p><?php echo $this->__('Learn More') ?></p></div>
     <?php if($_btn_buy) :?>
-        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart primary-button" onclick="setLocation('<?php echo Mage::helper('checkout/cart')->getAddUrl($_product);  ?>;event.stopPropagation();')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart sel-add-to-cart primary-button" onclick="setLocation('<?php echo Mage::helper('checkout/cart')->getAddUrl($_product);  ?>;event.stopPropagation();')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
     <?php endif;?>
     </a>
 </div>
