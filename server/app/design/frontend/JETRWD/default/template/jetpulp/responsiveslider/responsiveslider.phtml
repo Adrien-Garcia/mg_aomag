@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @var $slider Jetpulp_ResponsiveSlider_Model_Responsiveslider
+ */
+$slider = $this->getResponsiveslider();
+/*
+* @var $infinitLoop boolean permet d'avoir la dernière en précédente de la première et vice versa
+*/
+$infinitLoop = false;
+?>
+<?php if ($slider && $slider->getIsActive()) : ?>
+<ul class="bxslider">
+  <?php foreach ($slider->getActiveSlides($infinitLoop) as $slide) : ?>
+  <li>
+    <?php if ($slide->getPreviousItem()) : ?><a href="" >Précédent</a><?php endif; ?>
+    <a href="<?php echo $slide->getUrl() ?>" >
+      <picture>
+        <source srcset="<?php echo $this->helper('responsiveslider')->getImageUrl($slide->getBackgroundImage()); ?>" media="(min-width: 1199px)">
+        <source srcset="<?php echo $this->helper('responsiveslider')->getImageUrl($slide->getBackgroundImage(), 979); ?>" media="(min-width: 979px)">
+        <source srcset="<?php echo $this->helper('responsiveslider')->getImageUrl($slide->getBackgroundImage(), 770); ?>" media="(min-width: 770px)">
+        <source srcset="<?php echo $this->helper('responsiveslider')->getImageUrl($slide->getBackgroundImage(), 599); ?>" media="(min-width: 599px)">
+        <img srcset="<?php echo $this->helper('responsiveslider')->getImageUrl($slide->getBackgroundImage(), 479); ?>" alt="<?php echo $slide->getTitle() ?>">
+      </picture>
+      <?php echo $slide->getContentHtml(); ?>
+    </a>
+    <?php if ($slide->getNextItem()) : ?><a href="" >Suivant</a><?php endif; ?>
+  </li>
+  <?php endforeach; ?>
+</ul>
+<?php endif; ?>
