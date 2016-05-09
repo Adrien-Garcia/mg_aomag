@@ -57,16 +57,16 @@
         </resources>
 
 
-        <events>
-        	<admin_user_authenticate_after>
-                <observers>
-                    <Addonline_EmailCgv_Model_Emailcgv>
-	                    <type>singleton</type>
-	            		<class>emailcgv/emailcgv</class>
-	            		<method>_9cd4777ae76310fd6977a5c559c51820</method>
-	          		</Addonline_EmailCgv_Model_Emailcgv>
-                </observers>
-            </admin_user_authenticate_after>
-        </events>
+        <!--<events>-->
+        	<!--<admin_user_authenticate_after>-->
+                <!--<observers>-->
+                    <!--<Addonline_EmailCgv_Model_Emailcgv>-->
+	                    <!--<type>singleton</type>-->
+	            		<!--<class>emailcgv/emailcgv</class>-->
+	            		<!--<method>_9cd4777ae76310fd6977a5c559c51820</method>-->
+	          		<!--</Addonline_EmailCgv_Model_Emailcgv>-->
+                <!--</observers>-->
+            <!--</admin_user_authenticate_after>-->
+        <!--</events>-->
     </global>
 </config>
