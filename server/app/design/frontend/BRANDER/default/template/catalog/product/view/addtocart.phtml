@@ -44,7 +44,7 @@
                 <meta itemprop="availability" content="<?php echo $_product->isAvailable()?$this->__('In stock'):$this->__('Out of stock')?>" />
             <?php endif; ?>
             
-        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart button-effect-inverse" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart button-effect-inverse sel-add-to-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
     </div>
     
