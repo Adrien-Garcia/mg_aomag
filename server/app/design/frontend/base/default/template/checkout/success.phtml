@@ -32,7 +32,7 @@
 
 <?php if ($this->getOrderId()):?>
 <?php if ($this->getCanViewOrder()) :?>
-    <p><?php echo $this->__('Your order # is: %s.', sprintf('<a class="sel-order-number" href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+    <p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
 <?php  else :?>
     <p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
 <?php endif;?>

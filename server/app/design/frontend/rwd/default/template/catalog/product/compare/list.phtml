@@ -61,7 +61,7 @@
                 <?php endif; ?>
                 <td>
                     <a class="product-image" href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->stripTags($_item->getName(), null, true) ?>" /></a>
-                    <h2 class="product-name sel-product-name"><a href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?></a></h2>
+                    <h2 class="product-name"><a href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?></a></h2>
                     <?php echo $this->getReviewsSummaryHtml($_item, 'short') ?>
                     <?php echo $this->getPriceHtml($_item, true, '-compare-list-top') ?>
                 </td>
@@ -143,7 +143,7 @@
         </tbody>
     </table>
     <div class="buttons-set">
-        <button type="button" title="<?php echo $this->quoteEscape($this->__('Close Window')) ?>" class="button sel-close-comparator" onclick="window.close();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+        <button type="button" title="<?php echo $this->quoteEscape($this->__('Close Window')) ?>" class="button" onclick="window.close();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
         <span class="please-wait" id="compare-list-please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->quoteEscape($this->__('Please wait...')) ?>" title="<?php echo $this->quoteEscape($this->__('Please wait...')) ?>" class="v-middle" /> <?php echo $this->__('Please wait...') ?>
         </span>
