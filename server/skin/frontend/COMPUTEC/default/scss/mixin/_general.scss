@@ -1,0 +1,59 @@
+/*
+  _____                _   _                 
+ |  ___|__  _ __   ___| |_(_) ___  _ __  ___ 
+ | |_ / _ \| '_ \ / __| __| |/ _ \| '_ \/ __|
+ |  _| (_) | | | | (__| |_| | (_) | | | \__ \
+ |_|  \___/|_| |_|\___|\__|_|\___/|_| |_|___/
+*/
+/* fonctions */
+@mixin hover() {
+	opacity: .8;
+}
+
+@mixin primary-button() {
+	text-align: center;
+	display: block;
+	font-family: $font-bold;
+	font-size: 16px;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #fff;
+	background: $c2;
+	border-radius: 4px;
+	padding: 7px 15px;
+	height: 36px;
+	border: none;
+	box-sizing: border-box;
+	cursor: pointer;
+	&:hover {
+		@include hover();
+	}
+}
+
+@mixin lnk-primary() {
+	position: relative;
+	padding-left: 10px;
+	text-decoration: none;
+	
+	&:before {
+		content: "";
+		position: absolute;
+		top: 5px;
+		left: 0;
+		@include sprite($arrow-right-primary);
+	}
+}
+
+@mixin lnk-primary-back() {
+	position: relative;
+	padding-left: 10px;
+	text-decoration: none;
+	
+	&:before {
+		content: "";
+		position: absolute;
+		top: 5px;
+		left: 0;
+		@include sprite($arrow-left-primary);
+	}
+}
