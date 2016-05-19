@@ -28,7 +28,7 @@
 <?php $_items = $this->getReviewsCollection()->getItems();?>
 <div class="box-collateral box-reviews" id="customer-reviews">
     <?php if (count($_items)):?>
-        <h2><?php echo $this->__('Customer Reviews') ?> <a href="#" class="add-my-review">Ajouter mon commentaire</a></h2>
+        <h2><?php echo $this->__('Customer Reviews') ?> <a href="#" class="add-my-review sel-add-rating">Ajouter mon commentaire</a></h2>
         <div class="toolbar"><?php echo $this->getChildHtml('toolbar') ?></div>
         <dl>
         <?php foreach ($_items as $_review):?>
