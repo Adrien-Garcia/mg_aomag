@@ -1,0 +1,6 @@
+before_script:
+- echo "before script'
+
+test:app:
+  script:
+  - echo "hello world"

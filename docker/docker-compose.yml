@@ -52,9 +52,10 @@ gulp-grunt-browser-sync:
         - "3000:3000"
         - "3001:3001"
     volumes:
-        - ../server/skin/frontend/COMPUTEC/default/:/app
+        - ../server/skin/frontend/COMPUTEC/default:/app
 #        - ../server/skin/frontend/BRANDER/default/:/app
 #        - ../server/skin/frontend/ANGLECIA/default/:/app
     environment:
         - BUILD_CMD=grunt
+#        - BUILD_DIR=grunt
         - SERVER_NAME
