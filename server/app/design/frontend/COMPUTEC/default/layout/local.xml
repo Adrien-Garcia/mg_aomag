@@ -58,7 +58,7 @@
             <block type="page/template_links" name="top">
 				<block type="wishlist/links" name="wishlist_link" />
             	<action method="addLinkBlock"><blockName>wishlist_link</blockName></action>
-            	<action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>50</position><liParams /><aParams>class="my-account logout"</aParams></action>
+            	<action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>50</position><liParams /><aParams>class="my-account sel-myaccount logout"</aParams></action>
             </block>
 		</reference>
 		
