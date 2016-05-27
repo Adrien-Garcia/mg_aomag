@@ -22,9 +22,9 @@ App.Cart = {
      * MAJ du panier
      */
      refreshCart : function() {
-        $(".btn-update").click(function() {
-            $(this).addClass("refreshing");
-            $("#form-cart").submit();
+        jQuery(".btn-update").click(function() {
+            jQuery(this).addClass("refreshing");
+            jQuery("#form-cart").submit();
         });
     },
 
