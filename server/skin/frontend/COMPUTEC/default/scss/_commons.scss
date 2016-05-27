@@ -6,95 +6,37 @@
     \_/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
 */
 /* variables */
-@c1: #0067ac; /* prix */
-@c2: #f18200; /* dominante */
+$c1: #0067ac; /* prix */
+$c2: #f18200; /* dominante */
 /* nuances de gris */
-@c3: #0d0d0d; 
-@c4: #939393;
-@c5: #eeeeee;
-@c6: #d4d4d4;
+$c3: #0d0d0d; 
+$c4: #939393;
+$c5: #eeeeee;
+$c6: #d4d4d4;
 
-@width: 980px; /* ATTENTION : changer la largeur ici implique de passer en revue toutes les pages du site pour équilibrer les colonnes */
-@padding: 0 10px; /* assure une marge entre le contenu et l'éventuel fond ATTENTION on est en border-box */
+$width: 980px; /* ATTENTION : changer la largeur ici implique de passer en revue toutes les pages du site pour équilibrer les colonnes */
+$padding: 0 10px; /* assure une marge entre le contenu et l'éventuel fond ATTENTION on est en border-box */
 
-@font-bold : open_sansbold;
-@font-light : open_sanslight;
-@font-regular : open_sansregular;
+$font-bold : open_sansbold;
+$font-light : open_sanslight;
+$font-regular : open_sansregular;
 
-/*
-  _____                _   _                 
- |  ___|__  _ __   ___| |_(_) ___  _ __  ___ 
- | |_ / _ \| '_ \ / __| __| |/ _ \| '_ \/ __|
- |  _| (_) | | | | (__| |_| | (_) | | | \__ \
- |_|  \___/|_| |_|\___|\__|_|\___/|_| |_|___/
-*/
-/* fonctions */
-.hover{
-	opacity: .8;
-}
 
-.primary-button {
-	text-align: center;
-	display: block;
-	font-family: @font-bold;
-	font-size: 16px;
-	text-transform: uppercase;
-	text-decoration: none;
-	color: #fff;
-	background: @c2;
-	border-radius: 4px;
-	padding: 7px 15px;
-	height: 36px;
-	border: none;
-	box-sizing: border-box;
-	cursor: pointer;
-	&:hover {
-		.hover;
-	}
-}
-
-.lnk-primary {
-	position: relative;
-	padding-left: 10px;
-	text-decoration: none;
-	
-	&:before {
-		content: "";
-		position: absolute;
-		top: 5px;
-		left: 0;
-		.sprite(@arrow-right-primary);
-	}
-}
-
-.lnk-primary-back {
-	position: relative;
-	padding-left: 10px;
-	text-decoration: none;
-	
-	&:before {
-		content: "";
-		position: absolute;
-		top: 5px;
-		left: 0;
-		.sprite(@arrow-left-primary);
-	}
-}
 
 
 /* Reset ================================================================================= */
 * { margin:0; padding:0; }
 
 body {
-	font-family: @font-light, Arial, Helvetica, sans-serif;
+	font-family: $font-light, Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	line-height: 1.40;
-	color: @c4;
+	color: $c4;
 }
 
 img           { border:0; vertical-align:top; }
 
-a             { color: @c4; text-decoration:underline; }
+a             { color: $c4; text-decoration:underline; }
 a:hover       { opacity: .8; }
 :focus        { outline:0; }
 
@@ -164,7 +106,7 @@ ul,ol         { list-style:none; }
 }
 
 .fancybox-close {
-	.sprite(@picto-close);
+	@include sprite($picto-close);
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -182,7 +124,7 @@ ul,ol         { list-style:none; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
 .page-popup { background:#fff; padding:25px 30px; text-align:left; }
 .main-container {  }
-.main { width:@width; padding: @padding; margin:35px auto 0 auto; min-height:400px; background: #fff }
+.main { width:$width; padding: $padding; margin:35px auto 0 auto; min-height:400px; background: #fff }
 
 /* Base Columns */
 .col-left { float:left; width:225px; margin-bottom: 20px; }
@@ -223,9 +165,9 @@ ul,ol         { list-style:none; }
 label.required em {
 	/*float: right;*/
 	margin-left: 5px;
-	color:@c2;
+	color:$c2;
 	font-style:normal;
-	font-family:@font-light;
+	font-family:$font-light;
 	font-size:14px;
 }
 
@@ -238,18 +180,18 @@ label.required em {
 */
 /* formulaires */
 input,select,textarea,button {
-	font-family: @font-light;
+	font-family: $font-light;
 	font-size: 14px;
 }
 
 input.input-text,select,textarea {
-	border: 1px solid @c6;
+	border: 1px solid $c6;
 	padding: 2px 10px 3px 10px;
-	color:@c4;
+	color:$c4;
 	
 	&:focus{
-		border-color:@c3;
-		color:@c3;
+		border-color:$c3;
+		color:$c3;
 	}
 }
 select{
@@ -310,7 +252,7 @@ p.control input.radio { margin-right:6px; }
 	
 	.back-link {
 		a {
-			.lnk-primary-back;
+			@include lnk-primary-back();
 			
 			small {
 				display: none;
@@ -325,15 +267,15 @@ p.control input.radio { margin-right:6px; }
 	
 	button.button {
 		margin-left: 5px;
-		.primary-button();
+		@include primary-button();
 		display: inline-block;
 	}
 
 	button.btn-add, button.btn-share {
 		background: transparent;
-		color: @c4;
+		color: $c4;
 		text-transform: lowercase;
-		font-family: @font-light;
+		font-family: $font-light;
 		padding: 0;
 		font-size: 14px;
 
@@ -380,13 +322,13 @@ p.control input.radio { margin-right:6px; }
 	line-height:13px;
 	position:relative;
 	color:#dc3c16;
-	font-family:@font-light;
+	font-family:$font-light;
 	
 	
 	&:before{
 		content:"";
 		display:block;
-		.sprite(@validation-arrow);
+		@include sprite($validation-arrow);
 		position:absolute;
 		top:2px;
 		left:0;
@@ -416,13 +358,13 @@ p.required {
 .notice { color:#dbb000; }
 
 .messages {
-	border-bottom: 1px solid @c4;
+	border-bottom: 1px solid $c4;
 	font-size: 16px;
 	padding: 15px 0;
 	
 	> li {
-		width: @width;
-		padding: @padding;
+		width: $width;
+		padding: $padding;
 		margin: auto;
 		
 		ul {
@@ -440,7 +382,7 @@ p.required {
 				position: absolute;
 				top: 4px;
 				left: 0;
-				.sprite(@picto-success);
+				@include sprite($picto-success);
 			}
 		}
 		
@@ -452,7 +394,7 @@ p.required {
 				position: absolute;
 				top: 5px;
 				left: 0;
-				.sprite(@picto-error);
+				@include sprite($picto-error);
 			}
 		}
 		
@@ -465,7 +407,7 @@ p.required {
 				position: absolute;
 				top: 0;
 				left: 0;
-				.sprite(@picto-notice);
+				@include sprite($picto-notice);
 			}
 		}
 	}
@@ -480,7 +422,7 @@ p.required {
 */
 /* fil d'Arianne breadcumb chemin */
 .breadcrumbs-container {
-	width: @width - 20px; // 10px of padding on other containers
+	width: $width - 20px; // 10px of padding on other containers
 	margin:0 auto;
 	background:#fff;
 	border-bottom: 1px solid #d4d4d4;
@@ -488,8 +430,8 @@ p.required {
 	
 	.breadcrumbs {
 		margin: auto;
-		width: @width;
-		padding: @padding;
+		width: $width;
+		padding: $padding;
 		
 		.lienhome{
 			
@@ -502,16 +444,16 @@ p.required {
 			
 			a {
 				text-decoration: none;
-				color: @c3;
+				color: $c3;
 			}
 		 
 			strong {
-				color: @c4;
+				color: $c4;
 				font-weight: normal;
 			}
 			
 			a + span {
-				.sprite(@arrow-right-empty);
+				@include sprite($arrow-right-empty);
 				text-indent: -200em;
 				overflow: hidden;
 				display: inline-block;
@@ -527,8 +469,8 @@ p.required {
 	
 	h1,
 	h2 {
-		font-family: @font-bold;
-		color: @c3;
+		font-family: $font-bold;
+		color: $c3;
 		font-size: 30px;
 	}
 	
@@ -546,11 +488,11 @@ p.required {
 	
 	width:100%;
 	height:97px;
-	border-bottom:1px solid @c6;
+	border-bottom:1px solid $c6;
 	
 	.wrap{
 		margin:0 auto;
-		width:@width;
+		width:$width;
 	}
 	
 	h1{
@@ -572,7 +514,7 @@ p.required {
 
 
 /* Data Table */
-.data-table { width:100%; border:1px solid @c6; color: @c4; }
+.data-table { width:100%; border:1px solid $c6; color: $c4; }
 .data-table .odd  {  }
 .data-table .even { background:#f8f8f8; }
 .data-table{
@@ -583,9 +525,9 @@ p.required {
 			padding:15px 8px 0 8px;
 			white-space:nowrap;
 			vertical-align:top;
-			border-bottom:1px solid @c6;
-			border-right:1px solid @c6;
-			font-family:@font-bold;
+			border-bottom:1px solid $c6;
+			border-right:1px solid $c6;
+			font-family:$font-bold;
 			font-size:16px;
 			
 			&[colspan="2"]{
@@ -631,14 +573,14 @@ p.required {
 .data-table thead th {  }
 .data-table thead th .tax-flag {white-space:nowrap; }
 
-.data-table tfoot { border-bottom:1px solid @c6; }
+.data-table tfoot { border-bottom:1px solid $c6; }
 .data-table tfoot tr.first td {  }
 .data-table tfoot tr {  }
-.data-table tfoot td { padding-top:1px; padding-bottom:1px; border-bottom:0; border-right:1px solid @c6; }
+.data-table tfoot td { padding-top:1px; padding-bottom:1px; border-bottom:0; border-right:1px solid $c6; }
 .data-table tfoot strong { font-size:16px; }
 
 .data-table tbody th,
-.data-table tbody td { border-bottom:1px solid @c6; border-right:1px solid @c6; }
+.data-table tbody td { border-bottom:1px solid $c6; border-right:1px solid $c6; }
 
 /* Bundle products tables */
 .data-table tbody.odd tr { background:#f8f7f5 !important; }
@@ -686,7 +628,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 .link-cart { color:#dc6809 !important; font-weight:bold; }
 
-.link-reorder { color: @c2; }
+.link-reorder { color: $c2; }
 
 .link-print {  }
 .link-rss { background:url(../images/i_rss.gif) 0 2px no-repeat; padding-left:18px; line-height:14px; white-space:nowrap; }
@@ -694,7 +636,7 @@ tr.summary-details-excluded { font-style:italic; }
 	display: block;
 	text-indent: -200em;
 	overflow: hidden;
-	.sprite(@remove-filter);
+	@include sprite($remove-filter);
 	&:hover {
 		opacity: .6;
 	}
@@ -704,7 +646,7 @@ tr.summary-details-excluded { font-style:italic; }
 	display: block; 
 	text-indent: -999em;
 	overflow: hidden;
-	.sprite(@remove-filter);
+	@include sprite($remove-filter);
 }
 .btn-edit    { display:block; width:11px; height:11px; font-size:0; line-height:0; background:url(../images/btn_edit.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
 
@@ -772,7 +714,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 .header-container {
 	
-	background: @c5;
+	background: $c5;
 	
 	.preheader-container {
 		background: #f8f8f8;
@@ -780,7 +722,7 @@ tr.summary-details-excluded { font-style:italic; }
 		
 		.preheader {
 			margin: auto;
-			width: @width;
+			width: $width;
 			line-height: 33px;
 			overflow: hidden;
 			padding: 0 10px;
@@ -813,7 +755,7 @@ tr.summary-details-excluded { font-style:italic; }
 					position: absolute;
 					top: 5px;
 					left: 0;
-					.sprite(@picto-wishlist);
+					@include sprite($picto-wishlist);
 				}
 				
 				li a.my-account:before {
@@ -821,7 +763,7 @@ tr.summary-details-excluded { font-style:italic; }
 					position: absolute;
 					top: 5px;
 					left: 0;
-					.sprite(@picto-account);
+					@include sprite($picto-account);
 				}
 				
 				li a.logout:before {
@@ -829,7 +771,7 @@ tr.summary-details-excluded { font-style:italic; }
 					position: absolute;
 					top: 5px;
 					left: 0;
-					.sprite(@picto-logout);
+					@include sprite($picto-logout);
 				}
 			}
 			
@@ -838,8 +780,8 @@ tr.summary-details-excluded { font-style:italic; }
 	
 	.header {
 		height: 100px;
-		width: @width;
-		padding: @padding;
+		width: $width;
+		padding: $padding;
 		margin: 0 auto;
 		position: relative;
 		z-index: 10;
@@ -851,7 +793,7 @@ tr.summary-details-excluded { font-style:italic; }
 		left: 10px;
 		text-indent: -200em;
 		overflow: hidden;
-		.sprite(@logo-client-header);
+		@include sprite($logo-client-header);
 	}
 	
 	.top-link-cart {
@@ -859,12 +801,12 @@ tr.summary-details-excluded { font-style:italic; }
 		top: 37px;
 		right: 10px;
 		padding-left: 50px;
-		font-family: @font-bold;
+		font-family: $font-bold;
 		font-size: 16px;
-		color: @c3;
+		color: $c3;
 		
 		&:before {
-			.sprite(@picto-cart-header);
+			@include sprite($picto-cart-header);
 			content: "";
 			position: absolute;
 			top: -9px;
@@ -884,7 +826,7 @@ tr.summary-details-excluded { font-style:italic; }
 			height: 38px;
 			background: #fff;
 			font-size: 16px;
-			font-family: @font-light;
+			font-family: $font-light;
 			box-sizing: border-box;
 			padding: 0 50px 0 10px;
 			border-color: #939393;
@@ -895,7 +837,7 @@ tr.summary-details-excluded { font-style:italic; }
 			border: none;
 			text-indent: -200em;
 			overflow: hidden;
-			.sprite(@form-search-button);
+			@include sprite($form-search-button);
 			position: absolute;
 			top: 1px;
 			right: 1px;
@@ -924,7 +866,7 @@ tr.summary-details-excluded { font-style:italic; }
 */
 /* navigation */
 .nav-container {
-	background: @c5;
+	background: $c5;
 	z-index: 101;
 	position: relative;
 
@@ -937,7 +879,7 @@ tr.summary-details-excluded { font-style:italic; }
 			float: left;
 			
 			> a {
-				font-family: @font-bold;
+				font-family: $font-bold;
 				font-size: 17px;
 				color: #0d0d0d;
 				text-transform: uppercase;
@@ -1001,7 +943,7 @@ tr.summary-details-excluded { font-style:italic; }
 					position: absolute;
 					bottom: -20px;
 					left: 0;
-					.sprite(@ombre-menu);
+					@include sprite($ombre-menu);
 				}
 				
 				li.level1 {
@@ -1011,7 +953,7 @@ tr.summary-details-excluded { font-style:italic; }
 					padding-right: 20px;
 					
 					> a {
-						font-family: @font-bold;
+						font-family: $font-bold;
 						font-size: 16px;
 						color: #0d0d0d;
 						text-transform: uppercase;
@@ -1039,7 +981,7 @@ tr.summary-details-excluded { font-style:italic; }
 								
 								&:before {
 									content: "";
-									.sprite(@puce-nav);
+									@include sprite($puce-nav);
 									position: absolute;
 									top: 6px;
 									left: 0;
@@ -1283,7 +1225,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 /* Tooltip */
-.tool-tip { border:1px solid @c4; background:#fff; padding:15px 20px; position:absolute; z-index:9999; }
+.tool-tip { border:1px solid $c4; background:#fff; padding:15px 20px; position:absolute; z-index:9999; }
 .tool-tip .btn-close { margin:-9px -14px 0; text-align:right; }
 .tool-tip .btn-close a { display:block; margin:0 0 0 auto; width:15px; height:15px; background:url(../images/btn_window_close.gif) 100% 0 no-repeat; text-align:left; text-indent:-999em; overflow:hidden; }
 .tool-tip .tool-tip-content { padding:5px; }
@@ -1528,7 +1470,7 @@ tr.summary-details-excluded { font-style:italic; }
 			
 			&:after {
 				content: "";
-				.sprite(@footer-bloc-ombre);
+				@include sprite($footer-bloc-ombre);
 				position: absolute;
 				bottom: -10px;
 				left: 0;
@@ -1540,7 +1482,7 @@ tr.summary-details-excluded { font-style:italic; }
 				display: block;
 				line-height: 56px;
 				font-size: 22px;
-				color: @c2;
+				color: $c2;
 				text-transform: uppercase;
 				padding-left: 70px;
 				position: relative;
@@ -1554,19 +1496,19 @@ tr.summary-details-excluded { font-style:italic; }
 			}
 			
 			&.paiement .title:before {
-				.sprite(@picto-securise);
+				@include sprite($picto-securise);
 				left: 24px;
 				top: 12px;
 			}
 			
 			&.livraison .title:before {
-				.sprite(@picto-livraison);
+				@include sprite($picto-livraison);
 				left: 20px;
 				top: 18px;
 			}
 			
 			&.newsletter .title:before {
-				.sprite(@picto-newsletter);
+				@include sprite($picto-newsletter);
 				left: 22px;
 				top: 18px;
 			}
@@ -1580,7 +1522,7 @@ tr.summary-details-excluded { font-style:italic; }
 			}
 			
 			&.paiement p:before {
-				.sprite(@pictos-cartes);
+				@include sprite($pictos-cartes);
 				content: "";
 				position: absolute;
 				left: 50px;
@@ -1588,7 +1530,7 @@ tr.summary-details-excluded { font-style:italic; }
 			}
 			
 			&.livraison p:before {
-				.sprite(@pictos-socolissimo);
+				@include sprite($pictos-socolissimo);
 				content: "";
 				position: absolute;
 				left: 30px;
@@ -1611,7 +1553,7 @@ tr.summary-details-excluded { font-style:italic; }
 			}
 			button {
 				float: left;
-				.primary-button();
+				@include primary-button();
 				font-size: 14px;
 				border-radius: 0;
 				padding: 0 10px;
@@ -1625,9 +1567,9 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 	
 	.footer-2 {
-		background: @c3;
-		border-bottom: 1px solid @c4;
-		color: @c4;
+		background: $c3;
+		border-bottom: 1px solid $c4;
+		color: $c4;
 		overflow: hidden;
 		padding: 30px 0;
 		
@@ -1641,7 +1583,7 @@ tr.summary-details-excluded { font-style:italic; }
 			
 			p {
 				color: #fff;
-				font-family: @font-bold;
+				font-family: $font-bold;
 				text-transform: uppercase;
 				font-size: 16px;
 				margin-bottom: 20px;
@@ -1653,7 +1595,7 @@ tr.summary-details-excluded { font-style:italic; }
 				text-decoration: none;
 				&:before {
 					content: "";
-					.sprite(@arrow-right-empty);
+					@include sprite($arrow-right-empty);
 					position: absolute;
 					top: 6px;
 					left: 0;
@@ -1663,9 +1605,9 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 	
 	.footer-3 {
-		background: @c3;
+		background: $c3;
 		font-size: 12px;
-		color: @c4;
+		color: $c4;
 		line-height: 85px;
 		ul {
 			text-align: center;
@@ -1688,8 +1630,8 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 	
 	.wrap {
-		width:	@width;
-		padding: @padding;
+		width:	$width;
+		padding: $padding;
 		margin: 0 auto;
 	}
 	
@@ -1819,7 +1761,7 @@ COOKIE LAW
   cursor: pointer;
   &:before{
   	content:"";
-  	.sprite(@close);
+  	@include sprite($close);
   	display:block; 
 	z-index: 9999;
   }

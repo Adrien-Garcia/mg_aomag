@@ -11,7 +11,7 @@ div.j2tajax-confirm, div.j2tajax-progress {
 div.j2tajax-progress {
 	z-index: 199;
 	font-size: 18px;
-	color: @c4;
+	color: $c4;
 	
 	img {
 		margin: 35px 0 10px 0;
@@ -51,7 +51,7 @@ div.j2t-overlay{
 			background: none;
 			margin: 0 !important;
 			padding: 0 !important;
-			color: @c4;
+			color: $c4;
 		}
 	}
 	
@@ -80,7 +80,7 @@ div.j2t-overlay{
 			text-decoration: none;
 			&:before {
 				content: "";
-				.sprite(@arrow-left-primary);
+				@include sprite($arrow-left-primary);
 				position: absolute;
 				top: 6px;
 				left: 0;
@@ -88,7 +88,7 @@ div.j2t-overlay{
 		}
 		
 		.j2t-checkout-link {
-			.primary-button;
+			@include primary-button();
 			float: right;
 		}
 	}

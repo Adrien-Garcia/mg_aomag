@@ -18,6 +18,7 @@
 			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.fancybox.pack.js</name><params/></action>
 			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.fancybox-thumbs.js</name><params/></action>
 			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.mousewheel-3.0.6.pack.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/all.js</name><params/></action>
 			<action method="addItem"><type>skin_js</type><name>js/charte.js</name><params/></action>
 			<action method="removeItem">
 				<type>skin_css</type>

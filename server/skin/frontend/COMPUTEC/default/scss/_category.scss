@@ -6,7 +6,7 @@
 .category-products {}
 
 .new {
-	.sprite(@new-fr);
+	@include sprite($new-fr);
 	position: absolute;
 	top: 0;
 	right: 10px;
@@ -36,10 +36,10 @@
 			height: 43px;
 			overflow: hidden;
 			a {
-				font-family: @font-bold;
+				font-family: $font-bold;
 				font-size: 16px;
 				text-decoration: none;
-				color: @c3;
+				color: $c3;
 			} 
 		}
  
@@ -55,11 +55,11 @@
 		.short-description {
 			height: 57px;
 			overflow: hidden;
-			color: @c4;
+			color: $c4;
 		}
 		
 		.link-learn {
-			.primary-button;
+			@include primary-button();
 			font-size: 13px;
 			height: 29px;
 		}
@@ -105,10 +105,10 @@
 				height: 43px;
 				overflow: hidden;
 				a {
-					font-family: @font-bold;
+					font-family: $font-bold;
 					font-size: 16px;
 					text-decoration: none;
-					color: @c3;
+					color: $c3;
 				} 
 			}
 			
@@ -117,7 +117,7 @@
 				height: 80px;
 				overflow: hidden;
 				margin-bottom: 33px;
-				color: @c4;
+				color: $c4;
 			}
 			
 			.price-box {
@@ -130,7 +130,7 @@
 			}
 			
 			.link-learn {
-				.primary-button;
+				@include primary-button();
 				width: 205px;
 				position: absolute;
 				right: 0;
@@ -151,7 +151,7 @@
 .block-layered-nav .block-title { display: none; }
 
 .block-layered-nav .block-subtitle {
-	font-family: @font-bold;
+	font-family: $font-bold;
 	font-size: 18px;
 	padding: 0 10px;
 	margin-bottom: 10px;
@@ -173,9 +173,9 @@
 .block-layered-nav .currently {
 	
 	li {
-		background: @c5;
+		background: $c5;
 		padding: 6px 10px;
-		color: @c4;
+		color: $c4;
 		margin-bottom: 1px;
 		position: relative;
 		
@@ -187,7 +187,7 @@
 	}
 	
 	&+.actions {
-		border-bottom: 1px solid @c5;
+		border-bottom: 1px solid $c5;
 		
 		a {
 			text-decoration: none;
@@ -195,7 +195,7 @@
 			position: relative;
 			padding-left: 20px;
 			&:before {
-				.sprite(@arrow-right);
+				@include sprite($arrow-right);
 				content: "";
 				position: absolute;
 				top: 6px;
@@ -220,8 +220,8 @@
 }
 
 .toolbar {
-	color: @c4;
-	background: @c5;
+	color: $c4;
+	background: $c5;
 	clear: both;
 	overflow: hidden;
 	padding: 0 15px;
@@ -235,14 +235,14 @@
 			float: left;
 			margin: 0 15px 0 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
+			border-right: 1px solid $c4;
 		}
 		
 		.limiter {
 			float: left;
 			margin: 0 15px 0 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
+			border-right: 1px solid $c4;
 		}
 		
 	}
@@ -255,7 +255,7 @@
 			float: left;
 			margin: 0 15px 0 0;
 			padding: 0 15px 0 0;
-			border-right: 1px solid @c4;
+			border-right: 1px solid $c4;
 			
 			.asc, .desc {
 				text-indent: -200em;
@@ -270,11 +270,11 @@
 			}
 			
 			.asc {
-				.sprite(@picto-asc);
+				@include sprite($picto-asc);
 			}
 			
 			.desc {
-				.sprite(@picto-desc);
+				@include sprite($picto-desc);
 			}
 			
 		}
@@ -293,11 +293,11 @@
 			}
 			
 			.grid {
-				.sprite(@grille);
+				@include sprite($grille);
 			}
 			
 			.list {
-				.sprite(@liste);
+				@include sprite($liste);
 			}
 			
 			a:hover {
@@ -319,7 +319,7 @@
 			float: left;
 			
 			&.current {
-				color: @c2;
+				color: $c2;
 			}
 			
 			a, span {
@@ -339,11 +339,11 @@
 			}
 			
 			a.next {
-				.sprite(@page-next);
+				@include sprite($page-next);
 			}
 			
 			a.previous {
-				.sprite(@page-prev);
+				@include sprite($page-prev);
 			}
 		}
 	}

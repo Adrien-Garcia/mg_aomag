@@ -104,8 +104,8 @@
 
 .opc .buttons-set a {  }
 .opc .ul { list-style:disc outside; padding-left:18px; }
-.opc li.section { float:left; width:20%; text-align: center; background:@c5; border-width:1px 0 1px 1px; border-style:solid; border-color:@c6;}
-.opc li.section:last-child{border-right:1px solid @c6;}
+.opc li.section { float:left; width:20%; text-align: center; background:$c5; border-width:1px 0 1px 1px; border-style:solid; border-color:$c6;}
+.opc li.section:last-child{border-right:1px solid $c6;}
 .opc li.section.active{
 	background:#fff;
 	border-bottom:0;
@@ -114,13 +114,13 @@
 .opc .step { padding:30px 20px; position:absolute; border:0; top:100px; left:0; z-index:1; background:#fff; height:900px; border:none; background:none; width:100%; text-align:left;}
 .opc .step-title .number,.opc .allow .step-title .number,.opc .active .step-title .number { float:none; display:block; margin:0 auto; margin-bottom:10px; }
 .opc .step-title a { display:none; }
-.opc .step-title .number { background:@c4; color:#fff; width:30px; height:30px; line-height:30px; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px; margin-bottom:10px; padding:0; border:0; position:relative; z-index:1; font-size:16px; font-weight: normal; margin-top:14px;}
-.opc .step-title h2 { font-size:14px; color:@c4; clear:both; font-weight:normal; text-transform: uppercase;}
-.opc .allow .step-title .number { background:@c4; border-color:#fff; color:#fff; margin-top:14px;}
-.opc .allow .step-title h2 { color:@c4; }
-.opc .active .step-title .number { background:@c2; border-color:#fff; color:#fff; margin-top:14px;}
-.opc .active .step-title h2 { color:@c3; }
-.opc .step-title{width:100%; height:95px; font-family:@font-bold;}
+.opc .step-title .number { background:$c4; color:#fff; width:30px; height:30px; line-height:30px; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px; margin-bottom:10px; padding:0; border:0; position:relative; z-index:1; font-size:16px; font-weight: normal; margin-top:14px;}
+.opc .step-title h2 { font-size:14px; color:$c4; clear:both; font-weight:normal; text-transform: uppercase;}
+.opc .allow .step-title .number { background:$c4; border-color:#fff; color:#fff; margin-top:14px;}
+.opc .allow .step-title h2 { color:$c4; }
+.opc .active .step-title .number { background:$c2; border-color:#fff; color:#fff; margin-top:14px;}
+.opc .active .step-title h2 { color:$c3; }
+.opc .step-title{width:100%; height:95px; font-family:$font-bold;}
 .opc .step-title,.opc .allow .step-title,.opc .active .step-title { position:relative; text-align:center; border:none; background:none; padding:0; overflow:hidden!important; width:100%; height:95px; display:inline-block; vertical-align:top; }
 .opc .step-title,.opc .allow .step-title,.opc .active .step-title { *display:block; *float:left; } 
 .opc .step-title h2,.opc .allow .step-title h2,.opc .active .step-title h2 { width:100%; text-align:center; }
@@ -183,7 +183,7 @@
 	}
 	p{
 		font-size:14px;
-		color:@c3;
+		color:$c3;
 	}
 	.input-box{
 		width:100%;
@@ -197,7 +197,7 @@
 
 #opc-login .col-2 { float:left; }
 #opc-login .col-2 form fieldset h4 { display:none; }
-#opc-login .col-2 { display:block; width:357px; padding-right:20px; border-right:1px solid @c5;}
+#opc-login .col-2 { display:block; width:357px; padding-right:20px; border-right:1px solid $c5;}
 #opc-login .col-2 fieldset { width:100%; }
 #opc-login .col-2 .input-box { }
 #opc-login .col-2 .input-text { }
@@ -218,7 +218,7 @@
 			display:block;
 			width:5px;
 			height:1px;
-			background:@c2;
+			background:$c2;
 			position:absolute;
 			top:10px;
 			left:0;
@@ -262,7 +262,7 @@
 .opc .buttons-set{
 	.required{
 		em{
-			color:@c2;
+			color:$c2;
 			font-style: normal;
 		}
 	}
@@ -337,7 +337,7 @@ dd.s_method_socolissimo{
 	
 	strong{
 		font-weight:normal;
-		color:@c3;
+		color:$c3;
 	}
 }
 
@@ -360,13 +360,13 @@ dd.s_method_socolissimo{
 
 .sp-methods .price,
 dd.s_method_gls li span.price{
-	color:@c3 !important;
+	color:$c3 !important;
 	font-weight:normal !important;
-	font-family:@font-bold !important;
+	font-family:$font-bold !important;
 }
 
 .s_method_socolissimo label{
-	color:@c2 !important;
+	color:$c2 !important;
 	font-size:14px !important;
 	font-weight:normal !important;
 }
@@ -437,7 +437,7 @@ dd.s_method_gls li span.price{
 			
 			.cvv-what-is-this{
 				display:inline-block;
-				.sprite(@picto-helper);
+				@include sprite($picto-helper);
 				font-size:0px;
 				text-indent:-999em;
 				vertical-align: middle;
@@ -458,7 +458,7 @@ dd.s_method_gls li span.price{
 		float:left;
 		
 		em{
-			color:@c2;
+			color:$c2;
 			font-style: normal;
 		}
 	}
@@ -477,19 +477,19 @@ dd.s_method_gls li span.price{
 		padding-right:20px;
 		margin-bottom:10px;
 		padding-bottom:10px;
-		border-bottom:1px solid @c5;
+		border-bottom:1px solid $c5;
 	
 		strong{
-			font-family:@font-bold;
+			font-family:$font-bold;
 			font-size:14px;
 			text-transform:uppercase;
-			color:@c3;
+			color:$c3;
 		}
 		
 	}
 	
 	dt{
-		color:@c3;
+		color:$c3;
 		
 		.separator{
 			display:none;
@@ -500,7 +500,7 @@ dd.s_method_gls li span.price{
 			margin:3px 0 4px 0;
 			
 			a{
-				color:@c2;
+				color:$c2;
 			}
 		}
 	}
@@ -508,7 +508,7 @@ dd.s_method_gls li span.price{
 	dd{
 		padding-bottom:18px;
 		margin-bottom:15px;
-		border-bottom:1px solid @c5;
+		border-bottom:1px solid $c5;
 	}
 	
 	#payment-progress-opcheckout{
@@ -523,13 +523,13 @@ dd.s_method_gls li span.price{
 	border:none;
 	
 	thead tr.first th{
-		border-top:1px solid @c6;
+		border-top:1px solid $c6;
 	}
 	thead tr.first th:first-child{
-		border-left:1px solid @c6;
+		border-left:1px solid $c6;
 	}
 	thead tr.first th:last-child{
-		border-right:1px solid @c6;
+		border-right:1px solid $c6;
 	}
 	
 	thead tr.last th.a-right:first-child{
@@ -560,19 +560,19 @@ dd.s_method_gls li span.price{
 		}
 		
 		tr td:first-child{
-			border-left:1px solid @c6;
+			border-left:1px solid $c6;
 		}
 		tr td:last-child{
-			border-right:1px solid @c6;
+			border-right:1px solid $c6;
 		}
 		
 		tr:last-child td{
-			border-bottom:1px solid @c6;
+			border-bottom:1px solid $c6;
 		}
 		
 		h3{
 			font-size:14px;
-			color:@c4 !important;
+			color:$c4 !important;
 			font-weight: normal !important;
 			text-align: left;
 		}
@@ -608,7 +608,7 @@ dd.s_method_gls li span.price{
 			
 			strong{
 				font-size:22px !important;
-				color:@c3;
+				color:$c3;
 			}
 			
 			
@@ -629,7 +629,7 @@ dd.s_method_gls li span.price{
 		
 		th strong,
 		td strong {
-			font-family:@font-bold;
+			font-family:$font-bold;
 			font-weight:normal;
 		}
 		

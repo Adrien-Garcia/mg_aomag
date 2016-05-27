@@ -43,7 +43,7 @@
 				text-decoration: none;
 			}
 			.lnk{
-				.primary-button;
+				@include primary-button();
 				padding-left: 30px;
 				padding-right: 30px;
 				display: inline-block;
@@ -101,7 +101,7 @@
 				}
 				
 				.lnk {
-					.primary-button;
+					@include primary-button();
 					padding-left: 30px;
 					padding-right: 30px;
 					display: inline-block;
@@ -112,12 +112,12 @@
 		
 		.bx-prev {
 			left: 10px;
-			.sprite(@bxslider-prev);
+			@include sprite($bxslider-prev);
 		}
 		
 		.bx-next {
 			right: 10px;
-			.sprite(@bxslider-next);
+			@include sprite($bxslider-next);
 		}
 		
 	}

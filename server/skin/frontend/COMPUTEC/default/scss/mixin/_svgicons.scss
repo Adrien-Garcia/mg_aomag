@@ -1,0 +1,41 @@
+/*********************
+TRANSITION
+*********************/
+
+/*
+I totally rewrote this to be cleaner and easier to use.
+You'll need to be using Sass 3.2+ for these to work.
+Thanks to @anthonyshort for the inspiration on these.
+USAGE: @include transition(all 0.2s ease-in-out);
+*/
+
+
+@mixin svgicon($name, $fontsize, $lineheight, $color, $position:before){
+
+    @if $position == 'before'{
+
+        &:before{
+
+            @extend .icon;
+            @extend .icon-#{$name};
+            font-size:$fontsize;
+            line-height:$lineheight;
+            color:$color;
+
+        }
+
+    } @else {
+
+        &:after{
+
+            @extend .icon;
+            @extend .icon-#{$name};
+            font-size:$fontsize;
+            line-height:$lineheight;
+            color:$color;
+
+        }
+
+    }
+
+}
