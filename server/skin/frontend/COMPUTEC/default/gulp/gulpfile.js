@@ -19,7 +19,7 @@ async = require('async'),
 codepoints = require('code-points'),
 concat = require('gulp-concat'),
 runTimestamp = Math.round(Date.now()/1000),
-libPath = '../server/skin/frontend/cls/default/';
+libPath = '../';
 
 console.log(libPath+'fonts/svgfont');
 
@@ -43,13 +43,13 @@ function dump(obj) {
 gulp.task('iconfont', function(done){
   var iconStream = gulp.src([libPath+'images/client/svgicons/*.svg'])
     .pipe(iconfont({
-		fontName: 'cls-font',
-		normalize: true,
-		fontHeight: 1001,
-		appendUnicode: false,
-		formats: ['ttf', 'eot', 'woff', 'svg'],
-		timestamp: runTimestamp
-	}));
+        fontName: 'computec-font',
+        normalize: true,
+        fontHeight: 1001,
+        appendUnicode: false,
+        formats: ['ttf', 'eot', 'woff', 'svg'],
+        timestamp: runTimestamp
+    }));
 
   async.parallel([
     function handleGlyphs (cb) {
@@ -57,7 +57,7 @@ gulp.task('iconfont', function(done){
         gulp.src(libPath+'scss/templates/_icons.scss')
           .pipe(consolidate('lodash', {
             glyphs: glyphs,
-            fontName: 'lp-font',
+            fontName: 'computec-font',
             fontPath: 'fonts/svgfont/',
             className: 'icon'
           }))
@@ -76,15 +76,15 @@ gulp.task('iconfont', function(done){
 gulp.task('sass', function() {
 
     /* SASS task */
-    gulp.src(libPath+'/scss/**/*.scss')
+    gulp.src(libPath+'scss/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(plumber())
     .pipe(sass({ style: 'compressed' }))
     .pipe(autoprefixer('last 2 version'))
     .pipe(plumber.stop())
-    .pipe(gulp.dest(libPath+'/css'))
+    .pipe(gulp.dest(libPath+'css'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(libPath+'/css'))
+    .pipe(gulp.dest(libPath+'css'))
     .pipe(reload({stream: true}))
 
 });
@@ -92,13 +92,13 @@ gulp.task('sass', function() {
 // PROD VERSION
 gulp.task('sass-prod', function() {
 
-    gulp.src(libPath+'/scss/**/*.scss')
+    gulp.src(libPath+'scss/**/*.scss')
 
     .pipe(plumber())
     .pipe(sass({ style: 'compressed' }))
     .pipe(autoprefixer('last 2 version'))
     .pipe(plumber.stop())
-    .pipe(gulp.dest(libPath+'/css'))
+    .pipe(gulp.dest(libPath+'css'))
 
 });
 
@@ -142,7 +142,7 @@ gulp.task('browser-sync', function() {
 
     browserSync({
         proxy: options.env,
-        browser: ["google chrome"],
+        browser: [],
         host: options.env,
         open: true,
         port: 3003
@@ -155,15 +155,16 @@ gulp.task('watch', function() {
 
     /* WATCH task */
     if(env){
-        gulp.watch(libPath+'images/origin/*.{png,jpg,gif}', ['sprite']);
-        gulp.watch(libPath+'/images/svgicons/*.*', ['iconfont']);
-        gulp.watch(libPath+'/scss/**/*.scss', ['sass']);
+        gulp.watch(libPath+'images/client/origin/*.{png,jpg,gif}', ['sprite']);
+        gulp.watch(libPath+'images/client/svgicons/*.*', ['iconfont']);
+        console.log(libPath+'images/client/svgicons/');
+        gulp.watch(libPath+'scss/**/*.scss', ['sass']);
         gulp.watch(libPath+'js/**/*.js', ['concat-js']).on('change', browserSync.reload);
     }
     else
     {
-        gulp.watch(libPath+'images/origin/*.{png,jpg,gif}', ['sprite', 'sass-prod']);
-        gulp.watch(libPath+'/scss/**/*.scss', ['sass-prod']);
+        gulp.watch(libPath+'images/client/origin/*.{png,jpg,gif}', ['sprite', 'sass-prod']);
+        gulp.watch(libPath+'scss/**/*.scss', ['sass-prod']);
         if(options.prod)
             gulp.watch(libPath+'js/*.js', ['uglify']);
     }
