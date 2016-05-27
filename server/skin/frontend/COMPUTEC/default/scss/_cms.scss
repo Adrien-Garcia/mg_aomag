@@ -25,7 +25,7 @@
 .std strong { font-weight:bold; }
 .std i,
 .std em { font-style:italic; }
-.std a{ color:@c2; }
+.std a{ color:$c2; }
 .std ul li,
 .std ol li{
 	position:relative;
@@ -36,7 +36,7 @@
 		display:block;
 		width:5px;
 		height:1px;
-		background-color:@c2;
+		background-color:$c2;
 		
 		position:absolute;
 		top:9px;
@@ -45,14 +45,14 @@
 }
 
 .std h2{
-	font-family:@font-bold;
+	font-family:$font-bold;
 	font-size:24px;
-	color:@c3;
+	color:$c3;
 }
 .std h3{
-	font-family:@font-light;
+	font-family:$font-light;
 	font-size:20px;
-	color:@c3;
+	color:$c3;
 }
 
 .std img[style="float: left;"]{

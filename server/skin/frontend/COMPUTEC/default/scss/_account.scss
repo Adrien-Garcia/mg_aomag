@@ -7,7 +7,7 @@
 		&:after {
 			content: "";
 			height: 1px;
-			border-bottom: 1px solid @c4;
+			border-bottom: 1px solid $c4;
 			position: absolute;
 			top: 95px;
 			left: 0;
@@ -34,7 +34,7 @@
 	}
 	
 	.content > h2 {
-		font-family: @font-bold;
+		font-family: $font-bold;
 		font-size: 24px;
 		margin-bottom: 10px;
 	}
@@ -120,7 +120,7 @@
 		margin-bottom: 35px;
 		
 		span {
-			color: @c2;
+			color: $c2;
 		}
 	}
 
@@ -228,17 +228,17 @@ body[class^=" newsletter-"] {
 	
 	.block-title {
 		font-size: 24px;
-		font-family: @font-bold;
+		font-family: $font-bold;
 		color: #000;
 		margin-bottom: 10px;
 	}
 	
 	ul {
-		border-top: 1px solid @c5;
+		border-top: 1px solid $c5;
 		
 		li {
 			line-height: 50px;
-			border-bottom: 1px solid @c5;
+			border-bottom: 1px solid $c5;
 			
 			a {
 				text-decoration: none;
@@ -246,7 +246,7 @@ body[class^=" newsletter-"] {
 			
 			strong {
 				font-weight: normal;
-				color: @c2;
+				color: $c2;
 			}
 		}
 	}
@@ -259,7 +259,7 @@ body[class^=" newsletter-"] {
 .dashboard {
 	
 	.page-title {
-		border-bottom: 1px solid @c5;
+		border-bottom: 1px solid $c5;
 		padding-bottom: 20px;
 		margin-bottom: 20px;
 	}
@@ -281,13 +281,13 @@ body[class^=" newsletter-"] {
 	.box-account .box-head { text-align:right; }
 	.box-account .box-head h2 {
 		float:left;
-		font-family: @font-bold;
+		font-family: $font-bold;
 		font-size: 24px;
 	}
 	
 	.box .box-title {
 		text-align: right;
-		border-bottom: 1px solid @c5;
+		border-bottom: 1px solid $c5;
 		margin-bottom: 10px;
 	}
 	.box .box-title h3,
@@ -295,10 +295,10 @@ body[class^=" newsletter-"] {
 		float:left;
 		font-size: 14px;
 		text-transform: uppercase;
-		font-family: @font-bold;
+		font-family: $font-bold;
 	}
 	.box a {
-		color: @c2;
+		color: $c2;
 	}
 	.box .box-content h4 {
 		font-weight: normal;
@@ -309,7 +309,7 @@ body[class^=" newsletter-"] {
 		margin-bottom: 20px;
 		
 		.box-head a {
-			color: @c2;
+			color: $c2;
 		}
 	}
 	
@@ -342,7 +342,7 @@ body[class^=" newsletter-"] {
 .my-account {
 	
 	.page-title {
-		border-bottom: 1px solid @c5;
+		border-bottom: 1px solid $c5;
 		padding-bottom: 20px;
 		margin-bottom: 20px;
 	}
@@ -396,7 +396,7 @@ body[class^=" newsletter-"] {
 .customer-address-index {
 	
 	.page-title button {
-		.primary-button;
+		@include primary-button();
 		float: right;
 	}
 	
@@ -406,13 +406,13 @@ body[class^=" newsletter-"] {
 }
 .addresses-list {
 	h2 {
-		font-family: @font-bold;
+		font-family: $font-bold;
 		font-size: 24px;
 		color: #000;
 	}
 	
 	h3 {
-		font-family: @font-bold;
+		font-family: $font-bold;
 		color: #000;
 		text-transform: uppercase;
 		font-size: 14px;
@@ -424,7 +424,7 @@ body[class^=" newsletter-"] {
 	
 	address { margin:0 0 3px; }
 	p { margin:0; }
-	a { color: @c2; }
+	a { color: $c2; }
 	.separator { margin:0 3px; }
 	
 }
@@ -466,7 +466,7 @@ body[class^=" newsletter-"] {
 		margin-bottom: 20px;
 		
 		th {
-			border-bottom: 1px solid @c6;
+			border-bottom: 1px solid $c6;
 			padding: 5px 10px;
 			font-size: 14px;
 		}
@@ -481,7 +481,7 @@ body[class^=" newsletter-"] {
 		}
 		
 		a {
-			color: @c2;
+			color: $c2;
 			margin: 0 5px;
 		}
 		
@@ -503,12 +503,12 @@ body[class^=" newsletter-"] {
 		
 		.order-status {
 			font-size: 16px;
-			font-family: @font-light;
+			font-family: $font-light;
 		}
 		
 		a {
-			.lnk-primary;
-			color: @c4;
+			@include lnk-primary();
+			color: $c4;
 			margin-top: 15px;
 			display: inline-block;
 		}
@@ -520,11 +520,11 @@ body[class^=" newsletter-"] {
 	}
 	
 	.subtotal {
-		font-family: @font-bold;
+		font-family: $font-bold;
 	}
 	
 	.grand_total {
-		font-family: @font-bold;
+		font-family: $font-bold;
 		font-size: 22px;
 		color: #000;
 	}
@@ -542,13 +542,13 @@ body[class^=" newsletter-"] {
 .order-date {
 	padding-bottom: 40px;
 	margin: 10px 0 40px 0;
-	border-bottom: 1px solid @c5;
+	border-bottom: 1px solid $c5;
 }
 
 .order-info-box { 
 	
 	h2 {
-		font-family: @font-bold;
+		font-family: $font-bold;
 		text-transform: uppercase;
 		font-size: 14px;
 		margin: 0;
@@ -573,7 +573,7 @@ body[class^=" newsletter-"] {
 		margin-bottom: 20px;
 		
 		th {
-			border-bottom: 1px solid @c6;
+			border-bottom: 1px solid $c6;
 			padding: 5px 10px;
 			font-size: 14px;
 		}
@@ -588,7 +588,7 @@ body[class^=" newsletter-"] {
 		}
 		
 		a {
-			color: @c2;
+			color: $c2;
 			margin: 0 5px;
 		}
 		
@@ -609,7 +609,7 @@ body[class^=" newsletter-"] {
 	
 	.product-name {
 		font-weight: normal;
-		color: @c4;
+		color: $c4;
 		font-size: 14px;
 	}
 
@@ -667,7 +667,7 @@ body[class^=" newsletter-"] {
 	#wishlist-table {
 		
 		th {
-			border-bottom: 1px solid @c4;
+			border-bottom: 1px solid $c4;
 			padding: 5px 10px;
 			font-size: 14px;
 		}
@@ -686,7 +686,7 @@ body[class^=" newsletter-"] {
 			font-size: 14px;
 			
 			a {
-				color: @c2;
+				color: $c2;
 			}
 		}
 		
@@ -706,18 +706,18 @@ body[class^=" newsletter-"] {
 		}
 		
 		.btn-cart {
-			.lnk-primary;
+			@include lnk-primary();
 			float: left;
 			white-space: nowrap;
 			background: none;
 			border: none;
-			color: @c4;
+			color: $c4;
 			margin-right: 5px;
 			margin-top: 3px;
 		}
 		
 		.link-edit {
-			color: @c2;
+			color: $c2;
 		}
 	}
 	
@@ -725,12 +725,12 @@ body[class^=" newsletter-"] {
 		margin-top: 20px;
 		
 		.btn-add {
-			.lnk-primary;
+			@include lnk-primary();
 			margin: 10px 20px 0 0;
 			display: inline-block;
 		}
 		.btn-share {
-			.lnk-primary;
+			@include lnk-primary();
 			margin: 10px 35px 0 0;
 			display: inline-block;
 			

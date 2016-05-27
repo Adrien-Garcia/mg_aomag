@@ -8,8 +8,8 @@
 		margin:1px 0 0 0;
 		background:none;
 		border:none;
-		color:@c4;
-		font-family:@font-light;
+		color:$c4;
+		font-family:$font-light;
 		font-size:14px;
 		position:relative;
 		padding:0 0 0 10px;
@@ -20,11 +20,11 @@
 			position:absolute;
 			top:6px;
 			left:0;
-			.sprite(@arrow-right-primary);
+			@include sprite($arrow-right-primary);
 		}
 		
 		&:hover{
-			.hover();
+			@include hover();
 		}
 	}
 	
@@ -38,7 +38,7 @@
 		tr.last{
 			th{
 				text-transform:uppercase;
-				border-bottom:1px solid @c6;
+				border-bottom:1px solid $c6;
 				
 			}
 		}
@@ -46,7 +46,7 @@
 	
 	.product-name {
 		margin:0 0 5px;
-		color:@c4;
+		color:$c4;
 		
 		a{
 			text-decoration:none;
@@ -98,12 +98,12 @@
 .btn-continue{
 	background:none;
 	border:none;
-	color:@c4;
-	font-family:@font-light;
+	color:$c4;
+	font-family:$font-light;
 	margin:15px 0 0 0;
 	
 	&:hover{
-		.hover();
+		@include hover();
 	}
 }
 
@@ -118,12 +118,12 @@
 .cart .crosssell h2,
 .cart .discount h2,
 .cart .shipping h2{
-	font-family:@font-bold;
+	font-family:$font-bold;
 	font-weight:normal;
-	color:@c3;
+	color:$c3;
 	text-transform: uppercase;
 	padding:0 15px 15px 15px;
-	border-bottom:1px solid @c6;
+	border-bottom:1px solid $c6;
 	margin:0;
 }
 
@@ -136,7 +136,7 @@
 	
 	.item{
 		padding:22px 15px 19px 0;
-		border-bottom:1px solid @c6;
+		border-bottom:1px solid $c6;
 		
 		&:last-child{
 			border-bottom:0;
@@ -155,7 +155,7 @@
 		font-size:14px;
 		height:29px;
 		a{
-			color:@c3;
+			color:$c3;
 		}
 	}
 	
@@ -166,7 +166,7 @@
 	.regular-price{
 		.price{
 			font-size:14px;
-			color:@c2;
+			color:$c2;
 		}
 		
 		position:relative;
@@ -178,7 +178,7 @@
 	.special-price{
 		display:inline;
 		text-decoration:none;
-		color:@c3;
+		color:$c3;
 		position:relative;
 		top:3px;
 		
@@ -188,7 +188,7 @@
 		
 		a,
 		.price{
-			color:@c4;
+			color:$c4;
 			padding-left:5px;
 		}
 	}
@@ -196,13 +196,13 @@
 	button{
 		background:none;
 		border:none;
-		color:@c2;
+		color:$c2;
 		font-size:14px;
-		font-family:@font-bold;
+		font-family:$font-bold;
 		text-decoration: underline;
 		
 		&:hover{
-			.hover();
+			@include hover();
 		}
 	}
 }
@@ -219,15 +219,15 @@
 	}
 	
 	button{
-		.lnk-primary();
+		@include lnk-primary();
 		background:none;
 		border:none;
-		color:@c4;
+		color:$c4;
 		font-size:14px;
 		cursor:pointer;
 		
 		&:hover{
-			.hover();
+			@include hover();
 		}
 	}
 	
@@ -259,7 +259,7 @@
 	
 	dt { 
 		margin:13px 0 5px;
-		color:@c3;
+		color:$c3;
 		
 		li { 
 			margin:5px 0;
@@ -267,7 +267,7 @@
 	}
 	
 	label { 
-		color:@c4;
+		color:$c4;
 	}
 	
 	.form-list {
@@ -315,7 +315,7 @@
 .cvv-what-is-this { font-size:11px; cursor:help; margin-left:10px; }
 
 
-.cart .shipping .sp-methods { margin:20px 0 0; padding:5px 0 0; border-top:1px solid @c6; }
+.cart .shipping .sp-methods { margin:20px 0 0; padding:5px 0 0; border-top:1px solid $c6; }
 
 /* Shopping Cart Totals */
 .cart .totals { 
@@ -353,7 +353,7 @@
 		
 		> tr:last-child{
 			font-size:22px;
-			color:@c3;
+			color:$c3;
 			
 			td:first-child{
 				padding-right:20px;
@@ -366,7 +366,7 @@
 		
 		th strong,
 		td strong {
-			font-family:@font-bold;
+			font-family:$font-bold;
 			font-weight:normal;
 		}
 	}
@@ -381,7 +381,7 @@
 			margin:10px 0;
 			
 			button{
-				.primary-button();
+				@include primary-button();
 				height:46px;
 				width:308px;
 				margin-left:-18px;
