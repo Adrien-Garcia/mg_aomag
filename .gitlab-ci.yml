@@ -1,0 +1,10 @@
+before_script:
+- echo "before script'
+
+test1:app:
+  script:
+  - echo "hello world"
+
+test2:app:
+    script:
+    - echo "hello world 2"
