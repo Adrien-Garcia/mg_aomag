@@ -1,10 +1,6 @@
 before_script:
-- echo "before script"
 
-test1:app:
+test:app:
   script:
-  - echo "hello world"
+  - echo "Hello jetpulpers !"
 
-test2:app:
-    script:
-    - echo "hello world 2"
