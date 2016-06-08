@@ -1,5 +1,5 @@
 before_script:
-- echo "before script'
+- echo "before script"
 
 test1:app:
   script:
