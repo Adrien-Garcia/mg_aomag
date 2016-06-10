@@ -5,7 +5,7 @@ echo "Start init-db.sh";
 
 echo "Update database to local context ${SERVER_NAME}";
 mysql  -proot -u root $MYSQL_DATABASE <<- EOM
-UPDATE core_config_data SET value=replace(value, 'aomagento.addonline.biz', '${SERVER_NAME}');
+UPDATE core_config_data SET value=replace(value, 'theme-mg.jetpulp.fr', '${SERVER_NAME}');
 EOM
 
 echo "End init-db.sh";

@@ -80,7 +80,7 @@ if (isset ($_GET['hook'])) {
 		}
 		//On vide le cache d'opcode
 		if(function_exists('opcache_reset')) {
-		    opcache_reset();
+			opcache_reset();
 		}
 
 		//Vider le cache magento
@@ -92,7 +92,18 @@ if (isset ($_GET['hook'])) {
 		emptyDir($cacheDir, false);
 
 		//Vide le cache du module AOE ClassPathCache
-		Mage::helper('aoe_classpathcache')->clearClassPathCache();
+		if (Mage::helper('aoe_classpathcache')) {
+			Mage::helper('aoe_classpathcache')->clearClassPathCache();
+		}
+
+		//Vider le cache CSS/JS
+		Mage::getModel('core/design_package')->cleanMergedJsCss();
+		Mage::dispatchEvent('clean_media_cache_after');
+
+		if ($varnish = Mage::getModel('varnish/control_varnish')) {
+			//Vider le cache page varnish
+			$varnish->clean();
+		}
 
 		/*
 		 *  Compilation 

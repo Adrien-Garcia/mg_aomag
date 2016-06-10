@@ -3,9 +3,10 @@
 #
 # Path of the db backup on the server
 #
-export DB_BACKUP_PATTERN=addonline_aomagento_magento_*.sql.gz
-export DB_BACKUP_DIR=/opt/backup/mysql/mag5
-export DB_BACKUP_SERVER=mag5.host.addonline.fr
+export DB_BACKUP_PATTERN=theme_mag_20*.sql.gz
+export DB_BACKUP_DIR=/vol/nfs_backup_sql/mag-db3-new/mysql/mag-db3-new
+export DB_BACKUP_SERVER=aotools.host.addonline.fr
+export SERVER_NAME=mg-aomagento.$JETPULP_USERNAME.jetpulp.dev
 
 start=$(dirname "$0")/../../jetpulper/docker/start.sh
 if [ -f $start ]

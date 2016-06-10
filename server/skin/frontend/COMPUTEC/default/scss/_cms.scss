@@ -1,0 +1,63 @@
+/* Class: std - styles for admin-controlled content */
+.std .subtitle { padding:0; }
+.std ol.ol { list-style:none; }
+.std ul.disc { list-style:none; margin:0 0 10px; }
+.std dl dt { font-weight:bold; }
+.std dl dd { margin:0 0 10px; }
+.std ul,
+.std ol,
+.std dl,
+.std p,
+.std address,
+.std blockquote { margin:0 0 1em; padding:0; }
+.std ul { list-style:none; }
+.std ol { list-style:none;}
+.std ul ul { list-style-type:circle; }
+.std ul ul,
+.std ol ol,
+.std ul ol,
+.std ol ul { margin:.5em 0; }
+.std dt { font-weight:bold; }
+.std dd { padding:0 0 0 1.5em; }
+.std blockquote { font-style:italic; padding:0 0 0 1.5em; }
+.std address { font-style:normal; }
+.std b,
+.std strong { font-weight:bold; }
+.std i,
+.std em { font-style:italic; }
+.std a{ color:$c2; }
+.std ul li,
+.std ol li{
+	position:relative;
+	padding-left:15px;
+	
+	&:before{
+		content:"";
+		display:block;
+		width:5px;
+		height:1px;
+		background-color:$c2;
+		
+		position:absolute;
+		top:9px;
+		left:0;
+	}
+}
+
+.std h2{
+	font-family:$font-bold;
+	font-size:24px;
+	color:$c3;
+}
+.std h3{
+	font-family:$font-light;
+	font-size:20px;
+	color:$c3;
+}
+
+.std img[style="float: left;"]{
+	margin:0 20px 20px 0;
+}
+.std img[style="float: right;"]{
+	margin:0 0 20px 20px;
+}

@@ -9,7 +9,7 @@ web:
         - ./web/php.ini:/usr/local/etc/php/php.ini
     environment:
         - ALLOW_OVERRIDE=true
-        - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev
+        - SERVER_NAME
         - USER_UID
         - USER_GROUP
     links:
@@ -28,7 +28,7 @@ db:
     environment:
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_DATABASE=addonline_aomagento_magento
-        - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev
+        - SERVER_NAME
 #redis:
 #    container_name: mg_aomagento-redis
 #    image: redis
@@ -52,9 +52,10 @@ gulp-grunt-browser-sync:
         - "3000:3000"
         - "3001:3001"
     volumes:
-        - ../server/skin/frontend/COMPUTEC/default/:/app
+        - ../server/skin/frontend/COMPUTEC/default:/app
 #        - ../server/skin/frontend/BRANDER/default/:/app
 #        - ../server/skin/frontend/ANGLECIA/default/:/app
     environment:
-        - BUILD_CMD=grunt
-        - SERVER_NAME=aomagento.$JETPULP_USERNAME.jetpulp.dev
+        - BUILD_CMD=gulp
+#        - BUILD_DIR=grunt
+        - SERVER_NAME
