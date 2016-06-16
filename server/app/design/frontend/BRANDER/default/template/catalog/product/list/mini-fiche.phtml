@@ -5,21 +5,25 @@ $helperao = $this->getParentBlock()->helper('aocatalog');
 $_productNameStripped = $this->stripTags($_product->getName(), null, true);
 ?>
 
-<div class="content-image">
-    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><img src="<?php echo $this->getParentBlock()->helper('catalog/image')->init($_product, 'small_image')->constrainOnly(TRUE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(208,219); ?>" width="208" height="219" alt="<?php echo $this->getParentBlock()->stripTags($this->getParentBlock()->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+<div class="content-image sel-product-image">
+    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><img
+            src="<?php echo $this->getParentBlock()->helper('catalog/image')->init($_product, 'small_image')->constrainOnly(TRUE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(208, 219); ?>"
+            width="208" height="219"
+            alt="<?php echo $this->getParentBlock()->stripTags($this->getParentBlock()->getImageLabel($_product, 'small_image'), null, true) ?>"/></a>
     <div class="actions">
         <ul class="add-to-links">
             <?php if ($this->getParentBlock()->helper('wishlist')->isAllow()) : ?>
                 <li>
-                    <a href="<?php echo $this->getParentBlock()->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist">
+                    <a href="<?php echo $this->getParentBlock()->helper('wishlist')->getAddUrl($_product) ?>"
+                       class="link-wishlist sel-link-wishlist">
                         <?php echo $this->getParentBlock()->__('Add to Wishlist') ?>
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if($_compareUrl=$this->getParentBlock()->getAddToCompareUrl($_product)): ?>
+            <?php if ($_compareUrl = $this->getParentBlock()->getAddToCompareUrl($_product)): ?>
                 <li>
-                    <span class="separator">|</span> 
-                    <a href="<?php echo $_compareUrl ?>" class="link-compare">
+                    <span class="separator">|</span>
+                    <a href="<?php echo $_compareUrl ?>" class="link-compare sel-link-compare">
                         <?php echo $this->getParentBlock()->__('Add to Compare') ?>
                     </a>
                 </li>
@@ -28,31 +32,22 @@ $_productNameStripped = $this->stripTags($_product->getName(), null, true);
     </div>
 </div>
 
-<h2 class="product-name">
+<h2 class="product-name sel-product-name">
     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>">
-     <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+        <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
     </a>
 </h2>
 
 <?php echo $this->getParentBlock()->getPriceHtml($_product, true) ?>
 
-<?php if ($helperao->getReductionPercent($_product) > 0) :?>
+<?php if ($helperao->getReductionPercent($_product) > 0) : ?>
     <span class="percentage">-<?php echo $helperao->getReductionPercent($_product); ?>%</span>
-<?php elseif ( $helperao->isNew(null, $_product) ) :?>
+<?php elseif ($helperao->isNew(null, $_product)) : ?>
     <span class="new"><?php echo __("new"); ?></span>
-<?php endif;?>
+<?php endif; ?>
 
 
-<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="button-effect sel-product-link" >
+<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>"
+   class="button-effect sel-product-link">
     <?php echo $this->__('Learn More') ?>
 </a>
-
-
-
-
-
-
-
-
-
-

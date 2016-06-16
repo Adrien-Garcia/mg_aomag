@@ -39,7 +39,7 @@
     </td>
 </tr>
 <?php echo $this->renderTotals('taxes', $this->getColspan()); ?>
-<tr>
+<tr class="sel-price-ttc">
 
     <td style="<?php echo $this->getStyle() ?>"  colspan="<?php echo $this->getColspan(); ?>" class="grand-total-txt">
         <strong><?php echo $this->helper('tax')->__('Grand Total Incl. Tax')?></strong>
@@ -49,7 +49,7 @@
     </td>
 </tr>
 <?php else:?>
-<tr>
+<tr class="sel-price-ttc">
 
     <td style="<?php echo $this->getStyle() ?>" colspan="<?php echo $this->getColspan(); ?>">
         <strong><?php echo $this->getTotal()->getTitle() ?></strong>

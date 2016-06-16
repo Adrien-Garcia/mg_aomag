@@ -50,7 +50,7 @@
                 	<div class="field">
 	                    <label for="email_address" class="required"><?php echo $this->__('Email Address') ?><em>*</em></label>
 	                    <div class="input-box">
-	                        <input type="text" name="email" id="email_address" value="<?php echo $this->escapeHtml($this->getFormData()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
+	                        <input type="text" name="email" id="email_address" value="<?php echo $this->escapeHtml($this->getFormData()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry sel-email-input" />
 	                    </div>
 					</div>
                 </li>
@@ -156,13 +156,13 @@
                     <div class="field">
                         <label for="password" class="required"><?php echo $this->__('Password') ?><em>*</em></label>
                         <div class="input-box">
-                            <input type="password" name="password" id="password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry validate-password" />
+                            <input type="password" name="password" id="password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry validate-password sel-pass-input" />
                         </div>
                     </div>
                     <div class="field">
                         <label for="confirmation" class="required"><?php echo $this->__('Confirm Password') ?><em>*</em></label>
                         <div class="input-box">
-                            <input type="password" name="confirmation" title="<?php echo $this->__('Confirm Password') ?>" id="confirmation" class="input-text required-entry validate-cpassword" />
+                            <input type="password" name="confirmation" title="<?php echo $this->__('Confirm Password') ?>" id="confirmation" class="input-text required-entry validate-cpassword sel-confirm-pass-input" />
                         </div>
                     </div>
                 </li>

@@ -28,7 +28,7 @@
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('Compare Products') ?></h1>
     <a href="#" onclick="window.print(); return false;" class="link-print"><?php echo $this->__('Print This Page') ?></a>
-    <a href="<?php echo $this->helper('catalog/product_compare')->getClearListUrl(); ?>" class="link-empty-compare"><?php echo $this->__('Vider le comparateur') ?></a>
+    <a href="<?php echo $this->helper('catalog/product_compare')->getClearListUrl(); ?>" class="link-empty-compare sel-empty-comparator"><?php echo $this->__('Vider le comparateur') ?></a>
 </div>
 <?php $_total=$this->getItems()->getSize() ?>
 <?php if($_total): ?>
@@ -46,7 +46,7 @@
                     <a class="product-image" href="<?php echo $this->getProductUrl($_item) ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>">
                         <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(152,160); ?>" width="152" height="160" alt="<?php echo $this->stripTags($_item->getName(), null, true) ?>" />
                     </a>
-                    <h2 class="product-name">
+                    <h2 class="product-name sel-product-name">
                         <a href="<?php echo $this->getProductUrl($_item) ?>" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>">
                             <?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?>
                         </a>

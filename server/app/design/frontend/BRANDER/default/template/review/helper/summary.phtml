@@ -42,5 +42,5 @@
         </p>
     </div>
 <?php elseif ($this->getDisplayIfEmpty()): ?>
-    <p class="no-rating"  itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" ><a href="<?php echo $this->getReviewsUrl() ?>#review-form"><?php echo $this->__('Be the first to review this product') ?></a><meta itemprop="ratingCount" content="0" /><meta itemprop="ratingValue" content="0" /></p>
+    <p class="no-rating sel-no-rating"  itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" ><a href="<?php echo $this->getReviewsUrl() ?>#review-form"><?php echo $this->__('Be the first to review this product') ?></a><meta itemprop="ratingCount" content="0" /><meta itemprop="ratingValue" content="0" /></p>
 <?php endif; ?>

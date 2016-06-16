@@ -37,14 +37,14 @@
     <ul id="nav">
         <?php echo $_menu ?>
 
-        <li class="level0 level-top search nav-9 parent">
+        <li class="level0 level-top search sel-search-menu nav-9 parent">
 	        <ul class="level0 search">
                 <a></a>
 	        	<li class="level1"><a></a><?php echo $this->getChildHtml('menu-search'); ?></li>
 	        </ul>
         </li>
 
-        <li class="level0 last level-top nav-cart nav-10 parent"><?php echo $this->getChildHtml('cart-link'); ?>
+        <li class="level0 last level-top nav-cart sel-cart-menu nav-10 parent"><?php echo $this->getChildHtml('cart-link'); ?>
 	        <ul class="level0">
 
 	        <?php echo $this->getChildHtml('menu-cart'); ?>
