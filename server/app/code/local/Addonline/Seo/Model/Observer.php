@@ -211,11 +211,17 @@ class Addonline_Seo_Model_Observer {
 					// on récupére la liste des sites multilingues correspondants au site en cours
 					// Attention cette partie est à adapter selon les typologies de projet, selon la configuration des magasins magento
                 	$websiteStores = Mage::app()->getWebsite()->getStores();
-					foreach ($websiteStores as $autreStore) {  		
+					foreach ($websiteStores as $autreStore) {
 						if ($autreStore->getId()!= Mage::app()->getStore()->getId()) {
 	                		$sHrefLang   = Mage::getStoreConfig('general/locale/code', $autreStore->getId());; //récupérer le code langue du store
-	                		$href = Mage::app()->getStore($autreStore->getId())->getCurrentUrl(false);
-	                		$headBlock->addItem('link_rel', $href, 'rel="alternate" hreflang="' . $sHrefLang . '"');
+							$href = Mage::app()->getStore($autreStore->getId())->getCurrentUrl(false);
+							if ($urlrewrite = Mage::registry('current_urlrewrite')) {
+								//on rewrited url, get the urlrewrite for the store, not the same as current url
+								$requestPath = Mage::getResourceModel('core/url_rewrite')->getRequestPathByIdPath($urlrewrite->getIdPath(), $autreStore);
+								$href= $autreStore->getUrl('', array('_nosid'=>true)).$requestPath;
+							}
+
+							$headBlock->addItem('link_rel', $href, 'rel="alternate" hreflang="' . $sHrefLang . '"');
 						}
 	                 }
                 }
@@ -396,5 +402,20 @@ class Addonline_Seo_Model_Observer {
 				
 			}
 	    }
+
+	/**
+	 * Method called on core_model_load_after event
+	 * after Mage_Core_Model_Url_Rewrite loading
+	 * Put in magento registry this object for further use
+	 * for the alternate tag constuction
+	 *
+	 * @param $event
+	 */
+	public function afterLoadUrlRewrite($event) {
+		$object = $event->getObject();
+		if ($object instanceof Mage_Core_Model_Url_Rewrite) {
+			Mage::register('current_urlrewrite', $object);
+		}
+	}
 }
   

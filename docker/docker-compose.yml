@@ -57,5 +57,7 @@ gulp-grunt-browser-sync:
 #        - ../server/skin/frontend/ANGLECIA/default/:/app
     environment:
         - BUILD_CMD=gulp
-#        - BUILD_DIR=grunt
+#        - BUILD_DIR=gulp
         - SERVER_NAME
+        - USER_UID
+        - USER_GROUP

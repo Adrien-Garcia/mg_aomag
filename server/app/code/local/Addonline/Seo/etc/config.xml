@@ -97,6 +97,15 @@
                     </addonline_seo_edit_metas>
                 </observers>
             </catalog_controller_product_init>
+            <core_abstract_load_after>
+                <observers>
+                    <addonline_seo_core_model_load_after>
+                        <type>singleton</type>
+                        <class>seo/observer</class>
+                        <method>afterLoadUrlRewrite</method>
+                    </addonline_seo_core_model_load_after>
+                </observers>
+            </core_abstract_load_after>
         </events>
 	</frontend>
 	<adminhtml>
