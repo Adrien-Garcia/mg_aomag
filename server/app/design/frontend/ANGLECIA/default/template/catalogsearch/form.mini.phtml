@@ -31,7 +31,7 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
     <div class="form-search">
         <label for="search"><?php echo $this->__('Search:') ?></label>
         <span class="input-search">
-            <input placeholder="<?php echo $this->__('My Search') ?>" id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" />
+            <input placeholder="<?php echo $this->__('My Search') ?>" id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text sel-catalog-search" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" />
         </span>
         <button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
     </div>

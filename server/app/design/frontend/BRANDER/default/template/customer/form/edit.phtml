@@ -37,7 +37,7 @@
             <li class="left customer-email">
                 <label for="email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
                 <div class="input-box">
-                    <input type="text" name="email" id="email" value="<?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text required-entry validate-email" />
+                    <input type="text" name="email" id="email" value="<?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text required-entry validate-email sel-edit-email" />
                 </div>
             </li>
         <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
@@ -53,7 +53,7 @@
             <li><?php echo $_gender->setGender($this->getCustomer()->getGender())->toHtml() ?></li>
         <?php endif ?>
             <li class="control">
-                <input type="checkbox" name="change_password" id="change_password" value="1" onclick="setPasswordForm(this.checked)" title="<?php echo $this->__('Change Password') ?>"<?php if($this->getCustomer()->getChangePassword()==1): ?> checked="checked"<?php endif; ?> class="checkbox" /><label for="change_password"><?php echo $this->__('Change Password') ?></label>
+                <input type="checkbox" name="change_password" id="change_password" value="1" onclick="setPasswordForm(this.checked)" title="<?php echo $this->__('Change Password') ?>"<?php if($this->getCustomer()->getChangePassword()==1): ?> checked="checked"<?php endif; ?> class="checkbox sel-edit-password" /><label for="change_password"><?php echo $this->__('Change Password') ?></label>
             </li>
         </ul>
     </div>
@@ -66,7 +66,7 @@
 	                <div class="input-box">
 	                	<!-- This is a dummy hidden field to trick firefox from auto filling the password -->
 	                    <input type="text" class="input-text no-display" name="dummy" id="dummy" />
-	                    <input type="password" title="<?php echo $this->__('Current Password') ?>" class="input-text" name="current_password" id="current_password" />
+	                    <input type="password" title="<?php echo $this->__('Current Password') ?>" class="input-text sel-current-password" name="current_password" id="current_password" />
 	                </div>
                 </div>
             </li>
@@ -74,7 +74,7 @@
                 <div class="field">
                     <label for="password" class="required"><em>*</em><?php echo $this->__('New Password') ?></label>
                     <div class="input-box">
-                        <input type="password" title="<?php echo $this->__('New Password') ?>" class="input-text validate-password" name="password" id="password" />
+                        <input type="password" title="<?php echo $this->__('New Password') ?>" class="input-text validate-password sel-new-password" name="password" id="password" />
                     </div>
                 </div>
 			</li>
@@ -82,7 +82,7 @@
                 <div class="field">
                     <label for="confirmation" class="required"><em>*</em><?php echo $this->__('Confirmer') ?></label>
                     <div class="input-box">
-                        <input type="password" title="<?php echo $this->__('Confirm New Password') ?>" class="input-text validate-cpassword" name="confirmation" id="confirmation" />
+                        <input type="password" title="<?php echo $this->__('Confirm New Password') ?>" class="input-text validate-cpassword sel-conf-new-password" name="confirmation" id="confirmation" />
                     </div>
                 </div>
             </li>
@@ -90,7 +90,7 @@
     </div>
     <div class="buttons-set">
         <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-        <button type="submit" title="<?php echo $this->__('Save') ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
+        <button type="submit" title="<?php echo $this->__('Save') ?>" class="button sel-save-info"><span><span><?php echo $this->__('Save') ?></span></span></button>
     </div>
 </form>
 <script type="text/javascript">
