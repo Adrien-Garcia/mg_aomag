@@ -1,13 +1,6 @@
 <?php
 class Jetpulp_ResponsiveSlider_Block_Responsiveslider extends Mage_Catalog_Block_Product_Abstract
 {
-	/**
-	 * @return Mage_Catalog_Block_Product_Abstract
-	 */
-	public function _prepareLayout()
-    {
-		return parent::_prepareLayout();
-    }
     
     public function setSlider($id)
     {

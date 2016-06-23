@@ -1,8 +1,17 @@
 <?php
 
 class Addonline_Magmi_Adminhtml_MagmiController extends Mage_Adminhtml_Controller_Action {
-	
-	
+
+	/**
+	 * _isAllowed
+	 *
+	 * @return boolean
+	 */
+	public function _isAllowed()
+	{
+		return Mage::getSingleton( 'admin/session' )->isAllowed( 'admin/system/magmi' );
+	}
+
 	public function indexAction()
 	{
 

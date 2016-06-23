@@ -39,7 +39,6 @@ class Addonline_CategoryNavigation_Model_Catalog_Resource_Category_Flat extends 
             $select->where('main_table.is_active = ?', '1');
         }
         $select->order('main_table.path ASC');
-        mage::log($select->__toString());
         $result = $this->_getReadAdapter()->fetchAll($select);
         foreach ($result as $row) {
             $row['id'] = $row['entity_id'];

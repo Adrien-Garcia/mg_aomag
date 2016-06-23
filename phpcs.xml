@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ruleset name="aomagento">
+    <description>The coding standard for AOMAGENTO Project</description>
+
+    <!--
+          Customize this file see : https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
+    -->
+    <arg name="report" value="full"/>
+    <arg name="colors" />
+    <config name="ignore_warnings_on_exit" value="1"/>
+
+    <file>./server/app/code/local/Addonline/Customer</file>
+    <file>./server/app/code/local/Addonline/CategoryNavigation</file>
+    <file>./server/app/code/local/Addonline/UrlrewriteCleaner</file>
+    <file>./server/app/code/local/Addonline/Magmi</file>
+    <file>./server/app/code/local/Addonline/ReviewBoost</file>
+    <!--    <file>ADD HERE PATH TO YOUR NEW MODULES</file> -->
+    <!--    <file>./server/app/code/local/Jetpulp</file> -->
+    <!--    <file>./server/app/code/local/Addonline</file> -->
+
+    <!--
+    <exclude-pattern>*/tests/*</exclude-pattern>
+
+    <exclude-pattern type="relative">^/tests/*</exclude-pattern>
+    -->
+
+    <rule ref="Ecg"/>
+
+    <!--
+    <rule ref="./ruleset.xml"/>
+    <rule ref="Zend"/>
+    <rule ref="/home/username/standards/mystandard"/>
+    <rule ref="/home/username/standards/custom.xml"/>
+    <rule ref="../standards/mystandard"/>
+    -->
+
+    <!--
+    <rule ref="Squiz">
+        <exclude name="Squiz.PHP.CommentedOutCode"/>
+    </rule>
+    -->
+
+</ruleset>
