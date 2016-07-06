@@ -17,3 +17,8 @@
 /server/var/phpunit.session
 /server/var/phpunit.cache
 /.idea
+/vendor
+
+
+
+

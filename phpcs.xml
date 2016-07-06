@@ -7,22 +7,33 @@
     -->
     <arg name="report" value="full"/>
     <arg name="colors" />
+    <arg name="encoding" value="utf-8" />
     <config name="ignore_warnings_on_exit" value="1"/>
 
-    <file>./server/app/code/local/Addonline/Customer</file>
-    <file>./server/app/code/local/Addonline/CategoryNavigation</file>
-    <file>./server/app/code/local/Addonline/UrlrewriteCleaner</file>
-    <file>./server/app/code/local/Addonline/Magmi</file>
-    <file>./server/app/code/local/Addonline/ReviewBoost</file>
-    <!--    <file>ADD HERE PATH TO YOUR NEW MODULES</file> -->
-    <!--    <file>./server/app/code/local/Jetpulp</file> -->
-    <!--    <file>./server/app/code/local/Addonline</file> -->
+    <!-- Exclude theses modules from phpcs : -->
+    <exclude-pattern>./server/app/code/core/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/community/*</exclude-pattern>
 
-    <!--
-    <exclude-pattern>*/tests/*</exclude-pattern>
+    <!-- Exclude theses modules  -->
+    <exclude-pattern>./server/app/code/local/Inchoo/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Mage/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Mgt/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/PoleOuest/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Zend/*</exclude-pattern>
 
-    <exclude-pattern type="relative">^/tests/*</exclude-pattern>
-    -->
+    <!-- modules Jetpulp à fixer avant de ne plus exclure ici -->
+    <exclude-pattern>./server/app/code/local/Jetpulp/Checkout/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Jetpulp/ResponsiveSlider/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Addonline/Adminhtml/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Addonline/Brand/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Addonline/Catalog/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Addonline/EmailCgv/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Addonline/JQuery/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Addonline/Seo/*</exclude-pattern>
+    <exclude-pattern>./server/app/code/local/Addonline/Varnish/*</exclude-pattern>
+
+    <!-- Scan only files in local pool -->
+    <file>./server/app/code/local/</file>
 
     <rule ref="Ecg"/>
 

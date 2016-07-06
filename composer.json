@@ -1,0 +1,11 @@
+{
+  "require-dev": {
+    "squizlabs/php_codesniffer": "2.6.*@dev",
+    "magento-ecg/coding-standard": "^2.0"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "bash contrib/setup.sh"
+    ]
+  }
+}
