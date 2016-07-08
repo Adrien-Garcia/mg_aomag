@@ -1,6 +1,6 @@
 web:
     container_name: mg_aomagento-web
-    image: registry.jetpulp.fr:5000/dev/php70-apache
+    image: registry.jetpulp.fr:5000/dev/php70registry.jetpulp.fr:5000/dev/-apache
     ports:
         - "80:80"
     volumes:

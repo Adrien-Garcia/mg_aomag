@@ -3,7 +3,7 @@
     <description>The coding standard for AOMAGENTO Project</description>
 
     <!--
-          Customize this file see : https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
+         For customizing this file see : https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
     -->
     <arg name="report" value="full"/>
     <arg name="colors" />
@@ -37,7 +37,7 @@
 
     <rule ref="Ecg"/>
 
-    <!--
+    <!-- add other rules
     <rule ref="./ruleset.xml"/>
     <rule ref="Zend"/>
     <rule ref="/home/username/standards/mystandard"/>
@@ -45,7 +45,7 @@
     <rule ref="../standards/mystandard"/>
     -->
 
-    <!--
+    <!-- exclude some rules
     <rule ref="Squiz">
         <exclude name="Squiz.PHP.CommentedOutCode"/>
     </rule>

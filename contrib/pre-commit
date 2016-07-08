@@ -37,7 +37,7 @@ done
 if [ "$FILES" != "" ]
 then
 	echo "Running Code Sniffer..."
-	./vendor/bin/phpcs --standard=Ecg -vv $FILES
+	./vendor/bin/phpcs
 	if [ $? != 0 ]
 	then
 		echo "Fix the error before commit."
