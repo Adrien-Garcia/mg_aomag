@@ -414,6 +414,7 @@ class Addonline_Seo_Model_Observer {
 	public function afterLoadUrlRewrite($event) {
 		$object = $event->getObject();
 		if ($object instanceof Mage_Core_Model_Url_Rewrite) {
+			Mage::unregister('current_urlrewrite');
 			Mage::register('current_urlrewrite', $object);
 		}
 	}
