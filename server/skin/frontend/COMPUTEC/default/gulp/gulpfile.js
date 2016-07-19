@@ -208,3 +208,4 @@ else if(options.prod) // Build Prod
     gulp.task('default', [ 'sprite', 'sass-prod'], function() {});
 else // Watch classic
     gulp.task('default', [ 'sprite', 'browser-sync', 'watch'], function() {});
+gulp.task('prod', [ 'sprite', 'sass-prod', 'concat-js', 'iconfont'], function() {});

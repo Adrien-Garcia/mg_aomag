@@ -9,5 +9,5 @@ gulp:
   image: registry.jetpulp.fr:5000/dev/gulp
   stage: test
   script:
-  - cd /app/server/skin/frontend/COMPUTEC/default/gulp
+  - cd server/skin/frontend/COMPUTEC/default/gulp
   - gulp prod
