@@ -1,6 +1,6 @@
 web:
     container_name: mg_aomagento-web
-    image: registry.jetpulp.fr:5000/dev/php70registry.jetpulp.fr:5000/dev/-apache
+    image: registry.jetpulp.fr:5000/dev/php70-apache
     ports:
         - "80:80"
     volumes:
@@ -12,10 +12,11 @@ web:
         - SERVER_NAME
         - USER_UID
         - USER_GROUP
+        - DOCKER_MACHINE_NAME
     links:
         - db:db
         - mailhog:mailhog
-#        - blackfire:blackfire
+        - blackfire:blackfire
 #        - redis:redis
 db:
     container_name: mg_aomagento-db
@@ -23,41 +24,40 @@ db:
     ports:
         - "3306:3306"
     volumes:
-        - /var/lib/boot2docker/mysql_aomagento:/var/lib/mysql
         - ./db:/docker-entrypoint-initdb.d
+    volumes_from:
+        - mg_aomagento-dbdata
     environment:
         - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_DATABASE=addonline_aomagento_magento
+        - MYSQL_DATABASE
         - SERVER_NAME
+        - ORIGINAL_SERVER_NAME
 #redis:
 #    container_name: mg_aomagento-redis
 #    image: redis
 #    ports:
 #        - "6379"
 mailhog:
-    container_name: mg_aomagento-mailhog
+    container_name: mailhog
     image: mailhog/mailhog
     ports:
         - "8025:8025"
-#blackfire:
-#    container_name: mg_aomagento-blackfire
-#    image: blackfire/blackfire
-#    environment:
-#        - BLACKFIRE_SERVER_ID
-#        - BLACKFIRE_SERVER_TOKEN
-gulp-grunt-browser-sync:
-    container_name: gulp-grunt-browser-sync
-    image: registry.jetpulp.fr:5000/dev/gulp-grunt-browser-sync
+blackfire:
+    container_name: blackfire
+    image: blackfire/blackfire
+    environment:
+        - BLACKFIRE_SERVER_ID
+        - BLACKFIRE_SERVER_TOKEN
+gulp:
+    container_name: gulp
+    image: registry.jetpulp.fr:5000/dev/gulp
     ports:
         - "3000:3000"
         - "3001:3001"
     volumes:
         - ../server/skin/frontend/COMPUTEC/default:/app
-#        - ../server/skin/frontend/BRANDER/default/:/app
-#        - ../server/skin/frontend/ANGLECIA/default/:/app
     environment:
-        - BUILD_CMD=gulp
-#        - BUILD_DIR=gulp
+        - BUILD_PATH=gulp
         - SERVER_NAME
         - USER_UID
         - USER_GROUP

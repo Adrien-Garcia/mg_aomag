@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-#
-# Path of the db backup on the server
-#
-export DB_BACKUP_PATTERN=theme_mag_20*.sql.gz
-export DB_BACKUP_DIR=/vol/nfs_backup_sql/mag-db3-new/mysql/mag-db3-new
-export DB_BACKUP_SERVER=aotools.host.addonline.fr
-export SERVER_NAME=mg-aomagento.$JETPULP_USERNAME.jetpulp.dev
+# source variables
+. $(dirname "$0")/env.sh
+
+#init data containers
+docker run --name mg_aomagento-dbdata -v /var/lib/mysql tianon/true /true &> /dev/null
 
 start=$(dirname "$0")/../../jetpulper/docker/start.sh
 if [ -f $start ]
