@@ -1,15 +1,13 @@
-before_script:
-
-test:
+phpcs:
   image: registry.jetpulp.fr:5000/dev/php70-cli
   stage: test
   script:
   - composer install
   - ./vendor/bin/phpcs
 
-#test:
-#  image: registry.jetpulp.fr:5000/dev/gulp-grunt-browser-sync
-#  stage: test
-#  script:
-#  lint css / js :
-#  - gulp -test
+gulp:
+  image: registry.jetpulp.fr:5000/dev/gulp
+  stage: test
+  script:
+  - cd /app/server/skin/frontend/COMPUTEC/default/gulp
+  - gulp prod
