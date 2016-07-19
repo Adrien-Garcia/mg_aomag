@@ -50,7 +50,7 @@ blackfire:
         - BLACKFIRE_SERVER_TOKEN
 gulp:
     container_name: gulp
-    image: registry.jetpulp.fr:5000/dev/gulp
+    image: registry.jetpulp.fr:5000/dev/gulp-dev
     ports:
         - "3000:3000"
         - "3001:3001"
