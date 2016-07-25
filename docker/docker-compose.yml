@@ -55,9 +55,11 @@ gulp:
         - "3000:3000"
         - "3001:3001"
     volumes:
-        - ../server/skin/frontend/COMPUTEC/default:/app
+        - ../server:/app
     environment:
-        - BUILD_PATH=gulp
+        - BUILD_PATH=skin/frontend/COMPUTEC/default/gulp
+#        - BUILD_PATH=skin/frontend/BRANDER/default/gulp
+#        - BUILD_PATH=skin/frontend/ANGLECIA/default/gulp
         - SERVER_NAME
         - USER_UID
         - USER_GROUP

@@ -1,6 +1,8 @@
 css/styles.css
 images/client/sprites/spritesheet.png
 js/all.js
+js/all.min.js
 fonts/svgfont/*
 gulp/node_modules
 scss/module/_icons.scss
+scss/mixin/_spritesheet.scss

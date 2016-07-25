@@ -11,24 +11,34 @@ var reload      = browserSync.reload;
 var sourcemaps = require('gulp-sourcemaps');
 var minimist = require('minimist');
 var plumber = require('gulp-plumber');
+var eslint = require('gulp-eslint');
+
+/*******************************************************************************************************
+   ____ ___  _   _ ____ _____
+  / ___/ _ \| \ | / ___|_   _|
+ | |  | | | |  \| \___ \ | |
+ | |__| |_| | |\  |___) || |
+  \____\___/|_| \_|____/ |_|
+
+ *******************************************************************************************************/
+
+var runTimestamp = Math.round(Date.now()/1000)
 var	libPath = '../',
-	knownOptions = {
-	  string: 'env',
-	  boolean: 'prod'
-	};
-var options = minimist(process.argv.slice(2), knownOptions);
 
-var env = (options.env != undefined && options.env != "") ? options.env : false;
-console.log('prod ? '+options.prod);
-options.prod = (options.prod != undefined && options.prod) ? options.prod : false; 
+knownOptions = {
+	string: 'env',
+	string: 'nav'
+};
+options = minimist(process.argv.slice(2), knownOptions);
 
-function dump(obj) {
-    var out = '';
-    for (var i in obj) {
-        out += i + ": " + obj[i] + "\n";
-    }
-    console.log(out);
-}
+/*******************************************************************************************************
+  ____  _______     __
+ |  _ \| ____\ \   / /
+ | | | |  _|  \ \ / /
+ | |_| | |___  \ V /
+ |____/|_____|  \_/
+
+ *******************************************************************************************************/
 
 gulp.task('sprite', function() {
     
@@ -56,38 +66,24 @@ gulp.task('sprite', function() {
 	return spriteData;
 });
 
-var lessF;
-
-if(options.prod) {
-	lessF = function () {
-	  return gulp.src(libPath+'less/styles.less')
-	    	.pipe(less({}))
-	    	.pipe(minifycss({}))
-	    .pipe(gulp.dest(libPath+'css/'));
-	};
-} else {
-	lessF = function () {
+var lessF = function () {
 	  return gulp.src(libPath+'less/styles.less')
 	  	.pipe(sourcemaps.init())
 	    	.pipe(less({}))
 		.pipe(sourcemaps.write())
 	    .pipe(gulp.dest(libPath+'css/'));
 	};
-}
 gulp.task('less', ['sprite'], lessF);
-
 
 
 
 gulp.task('browser-sync', function() {
 
 	browserSync({
-        proxy: options.env,
-        browser: ["default"],
-       	host: options.env,
-        open: false,
-        port: 3000,
-        logLevel: "debug"
+        proxy: options.env, 
+		   host: options.env,
+        open: "external",
+        browser: options.nav,
     });
 
 });
@@ -95,26 +91,82 @@ gulp.task('browser-sync', function() {
 gulp.task('watch', function() {
 	 
 	/* WATCH task */
-	if(env){
 	 	gulp.watch(libPath+'images/client/origin/*.{png,jpg,gif}', ['sprite', 'less']).on('change', browserSync.reload);
 	 	gulp.watch(libPath+'scss/*.scss', ['less']);
 	 	gulp.watch(libPath+'css/*.css').on('change', reload({stream: true}));
 	 	gulp.watch(libPath+'js/*.js', [ browserSync.reload]);
 		gulp.watch(tplPath+'**/*.php').on('change', browserSync.reload);
-	}
-	else
-	{
-		gulp.watch(libPath+'images/client/origin/*.{png,jpg,gif}', ['sprite', 'less']);
-	 	gulp.watch(libPath+'scss/*.scss', ['less']);
-	 	if(options.prod)
-	 		gulp.watch(libPath+'js/*.js', ['uglify']);
-	}
 
 });
 
-if(env && !options.prod) // Browser sync
-	gulp.task('default', [ 'sprite', 'browser-sync', 'watch'], function() {});
-else if(options.prod) // Build Prod
-	gulp.task('default', [ 'sprite', 'less'], function() {} );
-else // Watch classic
-	gulp.task('default', [ 'sprite', 'watch'], function() {});
+gulp.task('default', [ 'sprite', 'browser-sync', 'watch'], function() {});
+
+/*******************************************************************************************************
+  _     ___ _   _ _____
+ | |   |_ _| \ | |_   _|
+ | |    | ||  \| | | |
+ | |___ | || |\  | | |
+ |_____|___|_| \_| |_|
+
+ *******************************************************************************************************/
+
+gulp.task('js-lint', function() {
+    // Be sure to return the stream from the task;
+    // Otherwise, the task may end before the stream has finished.
+    return gulp.src([jsPathApp, jsPathModules])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+});
+
+gulp.task('scss-lint', function() {
+    // Exclude templates/* files, they're not valid scss files
+    return gulp.src([scssPath, '!'+libPath+'/scss/templates/*'])
+        .pipe(sassLint({
+            configFile: libPath+'/scss/.sass-lint.yml'
+        }))
+        .pipe(sassLint.format())
+        .pipe(sassLint.failOnError())
+
+});
+
+gulp.task('lint', ['js-lint', 'scss-lint'], function() {});
+
+/*******************************************************************************************************
+  _____ _____ ____ _____
+ |_   _| ____/ ___|_   _|
+   | | |  _| \___ \ | |
+   | | | |___ ___) || |
+   |_| |_____|____/ |_|
+
+ *******************************************************************************************************/
+gulp.task('test', [], function() {});
+
+/*******************************************************************************************************
+  ____  _   _ ___ _     ____
+ | __ )| | | |_ _| |   |  _ \
+ |  _ \| | | || || |   | | | |
+ | |_) | |_| || || |___| |_| |
+ |____/ \___/|___|_____|____/
+
+ *******************************************************************************************************/
+
+gulp.task('sass-build', function() {
+	gulp.src(scssPath)
+        .pipe(plumber())
+        .pipe(sass({ style: 'compressed' }))
+        .pipe(autoprefixer('last 2 version'))
+        .pipe(plumber.stop())
+        .pipe(minifycss())
+        .pipe(gulp.dest(cssPath))
+});
+
+gulp.task('js-build', function() {
+    return gulp.src([jsPathApp, jsPathModules])
+        .pipe(concat('all.js'))
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(jsMinPath));
+});
+
+gulp.task('build', ['sprite', 'iconfont', 'sass-build', 'js-build'], function() {});

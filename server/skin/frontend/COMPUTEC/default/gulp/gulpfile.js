@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-gulpif = require('gulp-if'),
 sass = require('gulp-sass'),
 autoprefixer = require('gulp-autoprefixer'),
 minifycss = require('gulp-minify-css'),
@@ -9,113 +8,87 @@ imagemin = require('gulp-imagemin'),
 browserSync = require('browser-sync'),
 reload      = browserSync.reload,
 uglify = require('gulp-uglify'),
-gutil = require('gulp-util'),
 sourcemaps = require('gulp-sourcemaps'),
 minimist = require('minimist'),
 plumber = require('gulp-plumber'),
+concat = require('gulp-concat'),
 iconfont = require('gulp-iconfont'),
 consolidate = require('gulp-consolidate'),
-async = require('async'),
-codepoints = require('code-points'),
-concat = require('gulp-concat'),
 eslint = require('gulp-eslint'),
+sassLint = require('gulp-sass-lint'),
+codepoints = require('code-points'); //codepoints utilisé par iconfont
+
+/*******************************************************************************************************
+  ____ ___  _   _ ____ _____
+ / ___/ _ \| \ | / ___|_   _|
+| |  | | | |  \| \___ \ | |
+| |__| |_| | |\  |___) || |
+ \____\___/|_| \_|____/ |_|
+
+*******************************************************************************************************/
+
+
 runTimestamp = Math.round(Date.now()/1000),
 libPath = '../';
 
-console.log(libPath+'fonts/svgfont');
-
-var knownOptions = {
+scssPath = libPath+'scss/**/*.scss',
+cssPath = libPath+'css',
+imagesPath = libPath+'images/client/origin/*.{png,jpg,gif}',
+iconsPath = libPath+'images/client/svgicons/*.svg',
+jsPathApp = libPath+'js/app.js',
+jsPathModules = libPath+'js/application/*.js',
+jsMinPath = libPath+'/js',
+knownOptions = {
     string: 'env',
-    boolean: 'prod'
+    string: 'nav'
 };
-var options = minimist(process.argv.slice(2), knownOptions);
-var env = (options.env != undefined && options.env != "") ? options.env : false;
-console.log('prod ? '+options.prod);
-options.prod = (options.prod != undefined && options.prod) ? options.prod : false;
+options = minimist(process.argv.slice(2), knownOptions);
 
-function dump(obj) {
-    var out = '';
-    for (var i in obj) {
-        out += i + ": " + obj[i] + "\n";
-    }
-    console.log(out);
-}
+/*******************************************************************************************************
+  ____  _______     __
+ |  _ \| ____\ \   / /
+ | | | |  _|  \ \ / /
+ | |_| | |___  \ V /
+ |____/|_____|  \_/
 
-gulp.task('iconfont', function(done){
-  var iconStream = gulp.src([libPath+'images/client/svgicons/*.svg'])
-    .pipe(iconfont({
-        fontName: 'computec-font',
-        normalize: true,
-        fontHeight: 1001,
-        appendUnicode: false,
-        formats: ['ttf', 'eot', 'woff', 'svg'],
-        timestamp: runTimestamp
-    }));
+ *******************************************************************************************************/
 
-  async.parallel([
-    function handleGlyphs (cb) {
-      iconStream.on('glyphs', function(glyphs, options) {
-        gulp.src(libPath+'scss/templates/_icons.scss')
-          .pipe(consolidate('lodash', {
-            glyphs: glyphs,
-            fontName: 'computec-font',
-            fontPath: 'fonts/svgfont/',
-            className: 'icon'
-          }))
-          .pipe(gulp.dest(libPath+'scss/module'))
-          .on('finish', cb);
-      });
-    },
-    function handleFonts (cb) {
-      iconStream
-        .pipe(gulp.dest(libPath+'fonts/svgfont'))
-        .on('finish', cb);
-    }
-  ], done);
-});
 
-gulp.task('sass', function() {
+gulp.task('sass-dev', function() {
 
     /* SASS task */
-    gulp.src(libPath+'scss/**/*.scss')
+    gulp.src(scssPath)
+		.pipe(sass({
+			includePaths: [libPath+'/scss/'],
+			errLogToConsole: true
+		}))
     .pipe(sourcemaps.init())
     .pipe(plumber())
     .pipe(sass({ style: 'compressed' }))
     .pipe(autoprefixer('last 2 version'))
     .pipe(plumber.stop())
-    .pipe(gulp.dest(libPath+'css'))
+    .pipe(gulp.dest(cssPath))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(libPath+'css'))
+    .pipe(gulp.dest(cssPath))
     .pipe(reload({stream: true}))
 
 });
 
-// PROD VERSION
-gulp.task('sass-prod', function() {
-
-    gulp.src(libPath+'scss/**/*.scss')
-
-    .pipe(plumber())
-    .pipe(sass({ style: 'compressed' }))
-    .pipe(autoprefixer('last 2 version'))
-    .pipe(plumber.stop())
-    .pipe(gulp.dest(libPath+'css'))
-
+gulp.task('js-dev', function() {
+  return gulp.src([jsPathApp, jsPathModules])
+        .pipe(sourcemaps.init())
+        .pipe(concat('all.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(jsMinPath));
 });
 
-/*gulp.task('uglify', function() {
-
-    gulp.src([libPath+'js/app.js','!'+libPath+'js/app.min.js'])
-    .pipe(uglify())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest(libPath+'js/'))
-
-});*/
 
 gulp.task('sprite', function() {
 
     /* SPRITE task */
-    var spriteData = gulp.src(libPath+'images/client/origin/*.{png,jpg,gif}')
+	var spriteData = gulp.src(imagesPath)
     .pipe(plumber({
         errorHandler: function (error) {
             console.log(error.message);
@@ -127,7 +100,6 @@ gulp.task('sprite', function() {
         imgPath: '../images/client/sprites/spritesheet.png',
         cssTemplate : libPath+'scss/templates/spritesheet.scss.handlebars',
         cssName: '_spritesheet.scss',
-        algorithm: 'top-down'
     }));
 
     spriteData.img
@@ -139,15 +111,38 @@ gulp.task('sprite', function() {
 
 });
 
+gulp.task('iconfont', function () {
+
+	/* SPRITE task */
+  	return gulp.src([iconsPath])
+        .pipe(iconfont({
+            fontName: 'computec-font',
+            normalize: true,
+            fontHeight: 1001,
+            appendUnicode: false,
+            formats: ['ttf', 'eot', 'woff', 'woff2', 'svg'],
+            timestamp: runTimestamp
+    }))
+    .on('glyphs', function (glyphs, options) {
+        gulp.src(libPath+'scss/templates/_icons.scss')
+                    .pipe(consolidate('lodash', {
+                        glyphs: glyphs,
+                        fontName: 'computec-font',
+                        fontPath: 'fonts/svgfont/',
+                        className: 'icon'
+                    }))
+        .pipe(gulp.dest(libPath+'scss/module/'));
+    })
+    .pipe(gulp.dest(libPath+'fonts/svgfont'));
+});
+
 gulp.task('browser-sync', function() {
 
     browserSync({
         proxy: options.env,
-        browser: [],
         host: options.env,
-        open: true,
-        port: 3003
-        //logLevel: "debug"
+        open: "external",
+        browser: options.nav,
 });
 
 });
@@ -155,57 +150,82 @@ gulp.task('browser-sync', function() {
 gulp.task('watch', function() {
 
     /* WATCH task */
-    if(env){
-        gulp.watch(libPath+'images/client/origin/*.{png,jpg,gif}', ['sprite']);
-        gulp.watch(libPath+'images/client/svgicons/*.*', ['iconfont']);
-        console.log(libPath+'images/client/svgicons/');
-        gulp.watch(libPath+'scss/**/*.scss', ['sass']);
-        gulp.watch(libPath+'js/**/*.js', ['concat-js']).on('change', browserSync.reload);
-    }
-    else
-    {
-        gulp.watch(libPath+'images/client/origin/*.{png,jpg,gif}', ['sprite', 'sass-prod']);
-        gulp.watch(libPath+'scss/**/*.scss', ['sass-prod']);
-        if(options.prod)
-            gulp.watch(libPath+'js/*.js', ['uglify']);
-    }
+    gulp.watch(imagesPath, ['sprite']).on('change', browserSync.reload);
+    gulp.watch(iconsPath, ['iconfont']).on('change', browserSync.reload);
+    gulp.watch(scssPath, ['sass-dev']);
+    gulp.watch([jsPathApp, jsPathModules], ['js-dev', browserSync.reload]);
+    gulp.watch('../../../../app/design/frontend/COMPUTEC/default/template/**/*.phtml').on('change', browserSync.reload);
 
 });
 
-gulp.task('concat-js', function() {
-  return gulp.src([libPath+'js/app.js', libPath+'js/application/*.js'])
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest(libPath+'js'))
-    .pipe(eslint())
-    // eslint.format() outputs the lint results to the console.
-    // Alternatively use eslint.formatEach() (see Docs).
-    .pipe(eslint.format())
-    // To have the process exit with an error code (1) on
-    // lint error, return the stream and pipe to failAfterError last.
-   .pipe(eslint.failAfterError());
-});
+gulp.task('default', [ 'sprite', 'iconfont', 'sass-dev', 'js-dev', 'browser-sync', 'watch'], function() {});
 
-gulp.task('eslint', () => {
-    // ESLint ignores files with "node_modules" paths.
-    // So, it's best to have gulp ignore the directory as well.
-    // Also, Be sure to return the stream from the task;
+/*******************************************************************************************************
+  _     ___ _   _ _____
+ | |   |_ _| \ | |_   _|
+ | |    | ||  \| | | |
+ | |___ | || |\  | | |
+ |_____|___|_| \_| |_|
+
+ *******************************************************************************************************/
+
+gulp.task('js-lint', function() {
+    // Be sure to return the stream from the task;
     // Otherwise, the task may end before the stream has finished.
-    return gulp.src([libPath+'js/app.js', libPath+'js/application/*.js'])
-    // eslint() attaches the lint output to the "eslint" property
-    // of the file object so it can be used by other modules.
+    return gulp.src([jsPathApp, jsPathModules])
         .pipe(eslint())
-        // eslint.format() outputs the lint results to the console.
-        // Alternatively use eslint.formatEach() (see Docs).
         .pipe(eslint.format())
-        // To have the process exit with an error code (1) on
-        // lint error, return the stream and pipe to failAfterError last.
         .pipe(eslint.failAfterError());
 });
 
-if(env && !options.prod) // Browser sync
-    gulp.task('default', [ 'concat-js', 'sprite', 'browser-sync', 'iconfont', 'watch'], function() {});
-else if(options.prod) // Build Prod
-    gulp.task('default', [ 'sprite', 'sass-prod'], function() {});
-else // Watch classic
-    gulp.task('default', [ 'sprite', 'browser-sync', 'watch'], function() {});
-gulp.task('prod', [ 'sprite', 'sass-prod', 'concat-js', 'iconfont'], function() {});
+gulp.task('scss-lint', function() {
+    // Exclude templates/* files, they're not valid scss files
+    return gulp.src([scssPath, '!'+libPath+'/scss/templates/*'])
+        .pipe(sassLint({
+            configFile: libPath+'/scss/.sass-lint.yml'
+        }))
+        .pipe(sassLint.format())
+        .pipe(sassLint.failOnError())
+
+});
+
+gulp.task('lint', ['js-lint', 'scss-lint'], function() {});
+
+/*******************************************************************************************************
+  _____ _____ ____ _____
+ |_   _| ____/ ___|_   _|
+   | | |  _| \___ \ | |
+   | | | |___ ___) || |
+   |_| |_____|____/ |_|
+
+ *******************************************************************************************************/
+gulp.task('test', [], function() {});
+
+/*******************************************************************************************************
+  ____  _   _ ___ _     ____
+ | __ )| | | |_ _| |   |  _ \
+ |  _ \| | | || || |   | | | |
+ | |_) | |_| || || |___| |_| |
+ |____/ \___/|___|_____|____/
+
+ *******************************************************************************************************/
+
+gulp.task('sass-build', function() {
+	gulp.src(scssPath)
+        .pipe(plumber())
+        .pipe(sass({ style: 'compressed' }))
+        .pipe(autoprefixer('last 2 version'))
+        .pipe(plumber.stop())
+        .pipe(minifycss())
+        .pipe(gulp.dest(cssPath))
+});
+
+gulp.task('js-build', function() {
+    return gulp.src([jsPathApp, jsPathModules])
+        .pipe(concat('all.js'))
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(jsMinPath));
+});
+
+gulp.task('build', ['sprite', 'iconfont', 'sass-build', 'js-build'], function() {});
