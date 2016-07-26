@@ -11,4 +11,4 @@ gulp:
   script:
   - cd server/skin/frontend/COMPUTEC/default/gulp
   - ln -s /node_modules
-  - gulp prod
+  - gulp build
