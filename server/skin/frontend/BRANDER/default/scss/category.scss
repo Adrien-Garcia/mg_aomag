@@ -1,0 +1,654 @@
+/******************************************************************
+Site Name: Extrasynthèse
+Author: Jetpulp
+
+Stylesheet: Stylesheet CATEGORY
+
+******************************************************************/
+
+
+/*******************************************************************
+
+SOMMAIRE
+
+
+@_00 CATEGORY PAGE
+@_01 GRID
+@_02 LIST
+@_03 LAYERED NAVIGATION
+@_04 RESULT SEARCH
+
+
+*******************************************************************/
+
+
+
+
+
+/*******************************************************************
+
+@_00 CATEGORY PAGE
+
+*******************************************************************/
+
+.category-image { width:100%; overflow:hidden; margin:0 0 10px; text-align:center; }
+.category-description { 
+	margin:0 0 20px;
+	border-bottom:1px solid rgba(0, 0, 0, 0.2);
+	padding: 0 0 20px;
+}
+
+.new {
+	.sprite(@new-fr);
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-indent: -200em;
+	overflow: hidden;
+}
+
+
+
+
+
+/*******************************************************************
+
+@_01 GRID
+
+*******************************************************************/
+
+
+.category_name{
+	font-size:24px;
+	color:@c-05;
+	letter-spacing:1px;
+	font-family: 'oswaldlight';
+	text-decoration:none;
+	text-transform:uppercase;	
+}
+
+
+.link-all-products{
+	width: @width;
+	text-align:right;
+	font-size:11px;
+	color:@c-05;
+	position:relative;
+	margin:25px auto 40px auto;
+	display:block;
+	padding-right:18px;
+	text-transform:uppercase;
+	text-decoration:none;
+	.transition-ease-in-out(.2s);
+	
+	&:after {
+		.sprite(@arrow-right-primary);
+		content: "";
+		position: absolute;
+		top: 2px;
+		right: 0;
+	}
+	
+	&:hover{
+		color:@c-04;
+	}
+	
+}
+
+
+.products-grid, .crosssell {
+	position:relative;
+	
+	
+	li.item {
+		.rgba(@c-05, 10%);
+		border: 1px solid @result;
+		float: left;
+		width: 232px;
+		padding: 10px;
+		margin: 0 8px 8px 0;
+		text-align: center;
+		position: relative;
+		.transition-ease-in-out(.2s);
+		
+		&:hover{
+			.rgba(@c-05, 50%);
+			border:1px solid @result;
+		}
+		
+		&.last {
+			margin-right: 0;
+		}
+		
+		&:last-child{
+			margin-right: 0;
+		}
+		
+		.content-image{
+			position:relative;
+			height:219px;
+			width:208px;
+			overflow:hidden;
+			cursor:pointer;
+			
+			&:hover{
+				.add-to-links {
+					position:absolute;
+					bottom:10px;
+					left:0;
+					.transition-ease-in-out(.2s);
+					.transparent(1);
+				}
+			}
+			img{
+			 	display:block;
+			 	margin:0 0 10px; 
+			}
+			/* Add to Links */
+			.add-to-links {
+				.rgba(@c-05, 80%);
+				background:@result;
+				position:absolute;
+				bottom:-35px;
+				left:0;
+				z-index:999;
+				width:208px;
+				height:35px;
+				padding-left:5px;
+				.transparent(0);
+				
+				li{
+					position:relative;
+					float:left;
+					padding:7px 0 0 30px;
+					
+					.separator{ 
+						display:none;
+					}
+					
+					a{
+						color:@c-01;
+						text-decoration:none;
+						display:inline-block;
+						font-size:11px;
+						.transition-ease-in-out(.2s);
+						&:before{
+							content:"";
+							background:url('../images/add.svg') center center no-repeat;
+							width:13px;
+							height:13px;
+							display:block;
+							position:absolute;
+							top:10px;
+							left:10px;
+							.transition-ease-in-out(.2s);
+						}
+						&:hover{
+							.transparent(1);
+							&:before{
+								.rotate(90deg);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		.product-name {
+			margin: 10px 0 0px;
+			overflow: hidden;
+			line-height:14px;
+			height:35px;
+			a {
+				font-family: 'oswaldbook';
+				font-size: 11px;
+				text-decoration: none;
+				color:@c-05;
+				text-transform:uppercase;
+				letter-spacing:1px;
+			} 
+		}
+ 
+		.price-box {
+			height: 35px;
+		}
+		
+		.percentage {
+			top: 0;
+			right: 0;
+		}
+		
+		.short-description {
+			height: 57px;
+			overflow: hidden;
+			color: @c4;
+		}
+		
+		
+
+	}
+
+}
+
+
+
+
+
+/*******************************************************************
+
+@_02 LIST
+
+*******************************************************************/
+                            
+.products-list {
+	
+	li.item {
+		.rgba(@c-02, 10%);
+		border:1px solid @result;
+		margin-bottom: 20px;
+		padding:10px;
+		position:relative;
+	
+		.product-image {
+			float: left;
+			margin-right: 20px;
+		}
+		
+		.product-shop {
+		
+			float: left;
+
+			
+			.product-name {
+				margin: 10px 0 10px;
+				height: 22px;
+				overflow: hidden;
+				a {
+					font-family: 'oswaldbook';
+					font-size: 16px;
+					text-decoration: none;
+					color: @c-05;
+					text-transform:uppercase;
+					letter-spacing:1px;
+				} 
+			}
+			
+			.desc {
+				width: 360px;
+				height: 60px;
+				overflow: hidden;
+				margin-bottom: 15px;
+				color: @c-08;
+			}
+			
+			.price-box {
+				margin:3px 0 15px;	
+			}
+			
+			.add-to-links{
+				margin-bottom:15px;
+				
+				.separator{ 
+					display:none;
+				}
+				
+				li{
+				 display: inline-block;
+				 margin-right:20px;
+					a{
+						color:@c-05;
+						text-decoration:none;
+						display:inline-block;
+						font-size:11px;
+						.transition-ease-in-out(.2s);
+						position: relative;
+						padding:0 0 0 17px;
+						
+						
+						
+						&:before{
+							content:"";
+							.sprite(@add-black);
+							display:block;
+							position:absolute;
+							top:1px;
+							left:0;
+						}
+						
+						&:hover{
+							.transparent(1);
+							color:@c-04;							
+						}
+					}
+				}
+			}
+			
+			.button-effect {
+				width: 232px;
+				height: 30px;
+				text-align:center;
+			}
+			
+		}
+	}
+
+}
+
+
+/*******************************************************************
+
+@_03 LAYERED NAVIGATION
+
+*******************************************************************/
+
+
+.block-layered-nav {
+	border:0;
+}
+.block-layered-nav .block-title { display: none; }
+
+.block-layered-nav .block-subtitle {
+	margin-bottom: 10px;
+	color:@c-05;
+	font-family: 'oswaldbook';
+	font-size:12px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	line-height: 24px;
+}
+.block-layered-nav .block-content { background: none;}
+.block-layered-nav dt {
+	font-size:11px;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+	padding: 0 ;
+	color: @c-05;
+}
+.block-layered-nav dd {
+	padding: 0 10px 0 0;
+	margin-bottom: 20px;
+	font-size:11px;
+	li{
+		line-height:18px;
+		a{
+			color:@c-10;
+		}
+	}
+}
+
+.block-layered-nav .currently {
+	
+	li {
+		background: @c5;
+		padding: 6px 10px;
+		color: @c4;
+		margin-bottom: 1px;
+		position: relative;
+		
+		.btn-remove {
+			position: absolute;
+			top: 12px;
+			right: 10px;
+		}
+	}
+	
+	&+.actions {
+		margin-bottom: 40px;
+		
+		a {
+			text-decoration: none;
+			line-height: 28px;
+			padding-left: 10px;
+			position: relative;
+			display: block;
+			&:before {
+				content:'';
+				position: absolute;
+				top: 9px;
+				right: 10px;
+				.sprite(@remove-filter);
+			}
+		}
+	}	
+}
+
+
+
+
+.catalog-category-view .compare-link {
+	display: inline;
+}
+
+
+
+/*******************************************************************
+
+@_04 RESULT SEARCH
+
+*******************************************************************/
+.catalogsearch-result-index{
+
+	.category-products, 
+	.col-left{
+		margin-top: 135px;
+	}
+
+	.page-title{
+		position: absolute; 
+		left: 0;
+		width:100%;
+	}
+
+	h1{ 
+		border-bottom: solid 1px #e5e5e5; 
+		padding-bottom: 50px; 
+		margin-bottom: 30px;
+	}
+
+	.note-msg{
+		margin-top:140px;
+		margin-left:-235px;
+	}
+
+	.toolbar{
+		width:100%;
+		top:112px;
+		position: absolute;
+	}
+
+	.col-left{
+		margin-top:180px;
+	}
+
+}
+
+
+
+/*******************************************************************
+
+@_05 TOOLBAR
+
+*******************************************************************/    
+                                                   
+.catalog-category-view .toolbar {
+	margin-bottom: 30px;
+	margin-top: 35px;
+}
+
+.toolbar {
+	color: @c-05;
+	clear: both;
+	overflow: hidden;
+	padding: 0;
+	line-height: 38px;
+	.rgba(@c-02, 10%);
+	border-top:1px solid @result;
+	border-bottom:1px solid @result;
+	font-size:13px;
+	
+	.content-select{
+		  height:25px;
+		   overflow: hidden;
+		   .rgba(@c-05, 20%);
+		   border: 1px solid@result;
+		   display:inline-block;
+		   padding:0;
+		   position:relative;
+		   top:7px;
+		   width: 60px;
+		   
+		   &:after{
+				content: "";
+				display:inline-block;
+				.sprite(@arrow-select);
+				position:absolute;
+				top:0;
+				right:0;
+			}	
+			
+			select{
+			   background: transparent;
+			   padding: 0;
+			   font-size: 13px;
+			   line-height:16px;
+			   border: 0;
+			   border-radius: 0;
+			   -webkit-appearance: none;
+			   position:absolute;
+			   top:0;
+			   left:0;
+			    width: 80px;				
+			}		
+	}
+	
+	
+	
+	/* Pager */
+	.pager {
+		float: left;
+		
+		.amount {
+			float: left;
+			margin: 0;
+			padding: 0 15px 0 0;
+			border-right: 1px solid rgba(0, 0, 0, 0.1);
+			font-style: italic;
+			width:240px;		
+		}
+		
+		.limiter {
+			float: left;
+			margin: 0;
+			padding: 0 15px 0 10px;
+			
+			label{ display:inline-block;}
+		}
+		
+	}
+	
+	
+	
+	/* Sorter */
+	.sorter {
+		float: left;
+		
+		.sort-by {
+			float: left;
+			margin: 0;
+			padding: 0 36px 0 25px;
+						
+			.asc, .desc {
+				text-indent: -200em;
+				overflow: hidden;
+				display: inline-block;
+				vertical-align: middle;
+				margin-left: 10px;
+				
+				&:hover {
+					opacity: .4;
+				}
+			}
+			
+			.asc {
+				.sprite(@picto-asc);
+			}
+			
+			.desc {
+				.sprite(@picto-desc);
+			}
+			
+		}
+		
+		.view-mode {
+			float: left;
+			margin: 0;
+			
+			.grid, .list {
+				text-indent: -200em;
+				overflow: hidden;
+				display: inline-block;
+				vertical-align: middle;
+				opacity: .2;
+				margin-left: 10px;
+			}
+			
+			.grid {
+				.sprite(@grille);
+			}
+			
+			.list {
+				.sprite(@liste);
+			}
+			a{
+				.transition-ease-in-out(.2s);
+				&:hover{
+					.transparent(0.5) !important;
+				} 
+			}
+						
+			strong {
+				opacity: 1 !important;
+			}
+		}
+	}
+	
+	.pages {
+		float: right;
+		
+		> strong { display: none; }
+		
+		li {
+			float: left;
+			
+			&.current {
+				color: @c-09;
+			}
+			
+			a, span {
+				padding: 0 5px;
+				text-decoration:none;
+			}
+			
+			a.next, a.previous {
+				padding: 0;
+				margin-top: 13px;
+				text-indent: -200em;
+				overflow: hidden;
+				float: left;
+				.transition-ease-in-out(.2s);
+				
+				&:hover {
+					opacity: .4;
+				}
+			}
+			
+			a.next {
+				.sprite(@page-next);
+			}
+			
+			a.previous {
+				.sprite(@page-prev);
+			}
+		}
+	}
+}

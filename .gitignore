@@ -18,7 +18,4 @@
 /server/var/phpunit.cache
 /.idea
 /vendor
-
-
-
-
+.directory

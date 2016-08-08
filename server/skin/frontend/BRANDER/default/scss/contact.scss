@@ -1,0 +1,59 @@
+/******************************************************************
+Site Name: Extrasynthèse
+Author: Jetpulp
+
+Stylesheet: Stylesheet CONTACT
+
+******************************************************************/
+
+
+/*******************************************************************
+
+SOMMAIRE
+
+
+@_00 CONTACT GENERAL
+
+
+
+*******************************************************************/
+
+
+
+
+
+/*******************************************************************
+
+@_00 CONTACT GENERAL
+
+*******************************************************************/
+body.contacts-index-index{
+
+	h1{ 
+		border-bottom: solid 1px @c-03; 
+		padding-bottom: 30px;
+		margin-bottom: 30px;
+	}
+
+	.breadcrumbs-container{ top:60px;	}
+
+	ul.form-list{
+		position: relative;
+		li.fields{ width:45%;	}
+		li:nth-child(2){width:45%}
+		li.wide{ 
+			width:45%;
+			position:absolute;
+			top: 0;
+			right: 0;
+		}
+
+		#comment{height: 125px;}
+
+	}
+
+	.buttons-set{
+		margin-top: 20px;
+	}
+
+}
