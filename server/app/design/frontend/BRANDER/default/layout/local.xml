@@ -28,7 +28,7 @@
 			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.fancybox.pack.js</name><params/></action>
 			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.fancybox-thumbs.js</name><params/></action>
 			<action method="addItem"><type>skin_js</type><name>js/libs/jquery.mousewheel-3.0.6.pack.js</name><params/></action>
-			<action method="addItem"><type>skin_js</type><name>js/charte.js</name><params/></action>
+      <action method="addItem"><type>skin_js</type><name>js/all.min.js</name><params/></action>
 			<action method="removeItem">
 				<type>skin_css</type>
 				<name>css/j2t/ajax_cart.css</name>
@@ -71,18 +71,18 @@
             	<action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>50</position><liParams /><aParams>class="my-account sel-myaccount"</aParams></action>
             </block>
 		</reference>
-		
-		<remove name="tags_popular"/>		
+
+		<remove name="tags_popular"/>
 		<remove name="tags_all"/>
 		<remove name="right.poll"/>
 		<remove name="left.permanent.callout"/>
 		<remove name="left.newsletter" />
-		
+
 	</default>
-	
+
 	<!-- @_2 HOME PAGE -->
 	<cms_index_index>
-    	
+
 		<reference name="content">
 			<block type="core/template" template="catalog/home.phtml" name="home" />
 		</reference>
@@ -103,13 +103,13 @@
 				<action method="setData"><name>category_id</name><value>79</value></action>
 				<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
 			</block>
-			
+
 			<block type="aocatalog/product_category" name="home-cat-2" template="catalog/homepage/home_mea.phtml">
 				<action method="setProductsCount"><count>4</count></action>
 				<action method="setData"><name>category_id</name><value>80</value></action>
 				<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
 			</block>
-			
+
 		</reference>
 	</cms_index_index>
 
@@ -132,17 +132,17 @@
 		        	<title>Contact</title>
 		        </crumbInfo>
 	       	</action>
-	    </reference> 
+	    </reference>
     </contacts_index_index>
-	
-	
-	
+
+
+
 	<customer_logged_in>
         <reference name="top">
             <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position><liParams /><aParams>class="logout sel-logout"</aParams></action>
         </reference>
     </customer_logged_in>
-	
+
 	<catalog_product_view>
 		<reference name="root">
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
@@ -164,13 +164,13 @@
                 </block>
 		</reference>
 	</catalog_product_view>
-	
+
 	<catalog_product_compare_index>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
     </catalog_product_compare_index>
-    
+
 	<catalogsearch_result_index translate="label">
 		<reference name="search_result_list">
 			<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
@@ -183,9 +183,9 @@
 					<action method="setToolbarBlockName"><name>product_list_toolbar_2</name></action>
 				</block>
 			</reference>
-		
+
 	</catalogsearch_result_index>
-	
+
 	<!-- @4 CATEGORY -->
 	<catalog_category_layered>
 
@@ -216,7 +216,7 @@
 				<block type="catalog/category_view" name="description_category" template="catalog/category/description.phtml" before="-"/>
 			</reference>
 		</reference>
-		
+
 		<reference name="breadcrumbs">
         	<block type="catalog/product_compare_sidebar" name="catalog.compare.head" as="catalog_compare_head" template="catalog/product/compare/sidebar.phtml"/>
         </reference>
@@ -247,27 +247,27 @@
 					<action method="setToolbarBlockName"><name>product_list_toolbar_2</name></action>
 				</block>
 			</reference>
-			
+
 			<reference name="left">
 				<block type="catalog/category_view" name="description_category" template="catalog/category/description.phtml" before="-"/>
 			</reference>
 		</reference>
-		
+
 		<reference name="breadcrumbs">
         	<block type="catalog/product_compare_sidebar" name="catalog.compare.head" as="catalog_compare_head" template="catalog/product/compare/sidebar.phtml"/>
         </reference>
 
 	</catalog_category_default>
-	
+
 	<catalogsearch_result_index translate="label">
 		<reference name="root">
 			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
 		</reference>
 	</catalogsearch_result_index>
-	
+
 	<!-- @5 PANIER -->
 	<checkout_cart_index translate="label">
-	
+
 		<!-- Change le titre de la page -->
 		<reference name="head">
 		    <action method="setForcedTitle"><title>Mon panier</title></action>
@@ -282,9 +282,9 @@
 					<block type="core/template" name="mini-fiche" template="catalog/product/list/mini-fiche.phtml" />
 				</block>
 				<block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs" before="-"/>
-			
+
 		</reference>
-		
+
 		<!-- Ajout du fil d'arianne -->
 	    <reference name="breadcrumbs">
 	    	<action method="addCrumb">
@@ -302,29 +302,29 @@
 		        	<title>Mon panier</title>
 		        </crumbInfo>
 	       	</action>
-	    </reference> 
-	    
+	    </reference>
+
 	</checkout_cart_index>
-	
+
 	<checkout_onepage_index translate="label">
 		<reference name="root" before="-">
 			<block type="core/template" name="onepage-title" as="onepage.title" template="checkout/onepage-title.phtml" />
 		</reference>
 
 	</checkout_onepage_index>
-	
+
 	<checkout_onepage_success>
 		<reference name="root">
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
 		</reference>
 	</checkout_onepage_success>
-	
+
 	<checkout_onepage_failure>
 		<reference name="root">
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
 		</reference>
 	</checkout_onepage_failure>
-	
+
 	<customer_account_login>
 		<reference name="customer_form_login">
 			<block type="customer/form_register" name="customer_form_register" template="persistent/customer/form/register.phtml">
@@ -336,18 +336,18 @@
             </block>
 		</reference>
 	</customer_account_login>
-	
+
 	<!-- @6 COMPTE CLIENT -->
 	<customer_account translate="label">
 		<!-- Dernières commandes -->
 		<remove name="sale.reorder.sidebar"/>
-		
+
 		<!-- Résumé et accès au comparateur -->
 		<remove name="catalog.compare.sidebar"/>
-		
+
 		<!-- Résumé du panier -->
 		<remove name="cart_sidebar"/>
-		
+
 		<!-- Suppression des liens inutiles de la navigation -->
 		<reference name="customer_account_navigation" >
             <action method="removeLink"><name>recurring_profiles</name></action>
@@ -357,21 +357,21 @@
             <action method="removeLink"><name>reviews</name></action>
             <action method="removeLink"><name>OAuth Customer Tokens</name></action>
         </reference>
-		
+
 	</customer_account>
-	
+
 	<catalog_product_compare_index translate="label">
         <reference name="content">
             <block type="monbloc" name="monbloc" template="catalog/product/compare/monbloc.phtml"/>
         </reference>
     </catalog_product_compare_index>
-    
+
     <sendfriend_product_send>
 		<reference name="root">
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
 		</reference>
 	</sendfriend_product_send>
-	
+
 	 <contacts_index_index>
 		<reference name="root">
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
@@ -383,38 +383,38 @@
 			<block type="core/template" name="pagetitle" as="page.title" template="newsletter/pagetitle.phtml" />
 		</reference>
 	</newsletter_manage_index>
-	
+
 	<wishlist_index_index translate="label">
 		<reference name="root">
 			<block type="core/template" name="pagetitle" as="page.title" template="wishlist/pagetitle.phtml" />
 		</reference>
 	</wishlist_index_index>
-	
+
 	 <sales_order_history>
 	 	<reference name="root">
 			<block type="core/template" name="pagetitle" as="page.title" template="sales/order/pagetitle.phtml" />
 		</reference>
 	 </sales_order_history>
-	 
+
 	  <customer_address_form>
 	 	<reference name="root">
 			<block type="core/template" name="pagetitle" as="page.title" template="customer/address/pagetitle.phtml" />
 		</reference>
 	 </customer_address_form>
-	 
+
 	 <customer_account_edit>
 	 	<reference name="root">
 			<block type="core/template" name="pagetitle" as="page.title" template="customer/form/pagetitle.phtml" />
 		</reference>
 	 </customer_account_edit>
-	 
+
 	 <customer_account_index>
 	 	<reference name="root">
 			<block type="core/template" name="pagetitle" as="page.title" template="customer/account/pagetitle.phtml" />
 		</reference>
 	 </customer_account_index>
-	
-	
-	
-    
+
+
+
+
 </layout>
