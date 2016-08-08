@@ -17,12 +17,12 @@ div.j2tajax-confirm, div.j2tajax-progress {
 div.j2tajax-progress {
 	z-index: 199;
 	font-size: 18px;
-	color: @c4;
+	color: $c4;
 	text-align:center;
 	font-size:12px;
-	color:@c-05;
+	color:$c-05;
 	font-family: 'oswaldlight';
-	
+
 	img {
 	diaplay:block;
 	margin:50px 0 10px 0;
@@ -45,67 +45,67 @@ div.j2t-overlay{
 #j2t_ajax_confirm_wrapper {
 	text-align: left;
 	padding: 20px;
-	
+
 	ul { /* reset .messages */
 		border: none;
 		padding: 0;
 		margin-bottom: 8px;
 		overflow: hidden;
-		
+
 		&:before {
 			display: none;
 		}
-		
+
 		li {
 			width: auto;
 			border: none !important;
 			background: none;
 			margin: 0 !important;
 			padding: 0 !important;
-			color: @c-08;
+			color: $c-08;
 			font-size:12px;
 		}
 	}
-	
+
 	.j2tajax-checkout-img {
 		float: left;
 		margin-right: 10px;
-		.rgba(@c-05, 10%);
-		border:1px solid @result;
+		@include rgba($c-05, 10%);
+		border:1px solid $result;
 		padding:7px;
 	}
-	
+
 	.j2tajax-checkout-txt {
 		float: left;
 		width: 210px;
 		font-family: 'oswaldlight';
 		font-size:12px;
-		color:@c-02;
+		color:$c-02;
 		text-transform:uppercase;
 		line-height:16px;
 		margin-bottom:5px;
 	}
-	
+
 	.j2t-cart-bts {
 		overflow: hidden;
-		
+
 		.j2t-or {
 			display: none;
 		}
-		
+
 		.j2t-continue-link {
 			top: 8px;
-		
+
 			position: relative;
 			padding-left: 10px;
 			text-decoration: none;
 			text-transform:uppercase;
 			font-size:11px;
-			color:@c-05;
-			
+			color:$c-05;
+
 			&:before {
 				content: "";
-				.sprite(@arrow-left-primary);
+				@include sprite($arrow-left-primary);
 				position: absolute;
 				top: 1px;
 				left: 0;
@@ -113,9 +113,9 @@ div.j2t-overlay{
 
 			&:hover{opacity: 0.6;}
 		}
-		
+
 		.j2t-checkout-link {
-			.primary-button;
+			@extend .primary-button;
 			float: right;
 		}
 	}

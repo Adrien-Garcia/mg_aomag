@@ -116,7 +116,7 @@ gulp.task('iconfont', function () {
 	/* SPRITE task */
   	return gulp.src([iconsPath])
         .pipe(iconfont({
-            fontName: 'computec-font',
+            fontName: 'brander-font',
             normalize: true,
             fontHeight: 1001,
             appendUnicode: false,
@@ -127,7 +127,7 @@ gulp.task('iconfont', function () {
         gulp.src(libPath+'scss/templates/_icons.scss')
                     .pipe(consolidate('lodash', {
                         glyphs: glyphs,
-                        fontName: 'computec-font',
+                        fontName: 'brander-font',
                         fontPath: 'fonts/svgfont/',
                         className: 'icon'
                     }))
@@ -154,7 +154,7 @@ gulp.task('watch', function() {
     gulp.watch(iconsPath, ['iconfont']).on('change', browserSync.reload);
     gulp.watch(scssPath, ['sass-dev']);
     gulp.watch([jsPathApp, jsPathModules], ['js-dev', browserSync.reload]);
-    gulp.watch('../../../../app/design/frontend/COMPUTEC/default/template/**/*.phtml').on('change', browserSync.reload);
+    gulp.watch('../../../../app/design/frontend/BRANDER/default/template/**/*.phtml').on('change', browserSync.reload);
 
 });
 

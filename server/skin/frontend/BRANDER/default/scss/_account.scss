@@ -7,9 +7,9 @@ Stylesheet: Stylesheet ACCOUNT
 ******************************************************************/
 
 .customer-account-login {
-	h1{ 
-		border-bottom: solid 1px @c-13; 
-		padding-bottom: 20px; 
+	h1{
+		border-bottom: solid 1px $c-13;
+		padding-bottom: 20px;
 		margin-bottom: 30px;
 	}
 
@@ -20,7 +20,7 @@ Stylesheet: Stylesheet ACCOUNT
 		font-weight: normal;
 		margin-bottom:25px;
 	}
-	
+
 	.button-effect-inverse{
 		font-size:12px;
 	}
@@ -30,17 +30,17 @@ Stylesheet: Stylesheet ACCOUNT
 
 body.customer-account-index,
 body.customer-account-edit,
-body.customer-address-form, 
+body.customer-address-form,
 body.sales-order-history,
 body.wishlist-index-index,
 body.newsletter-manage-index,
 body.customer-address-index{
-	
+
 	.title-column-left{margin: 0; padding: 0; border: none;}
 
-	h1{ 
-		border-bottom: solid 1px  @c-13; 
-		padding-bottom: 20px; 
+	h1{
+		border-bottom: solid 1px  $c-13;
+		padding-bottom: 20px;
 		margin-bottom: 30px;
 	}
 
@@ -50,8 +50,8 @@ body.customer-address-index{
 		font-weight: normal;
 		margin-bottom:25px;}
 
-	.col-main{ 
-		width: 660px; 
+	.col-main{
+		width: 660px;
 		margin-bottom: 30px;
 	}
 }
@@ -67,7 +67,7 @@ body.customer-address-index{
  	.name-prefix{ width: 100%;}
  	.name-firstname{ width:347px; }
  	.name-lastname{ width:347px;}
- 	
+
 
  	ul.form-list{
  		li{ margin-bottom: 5px;}
@@ -77,12 +77,12 @@ body.customer-address-index{
 
  	.password{margin-top: 20px;}
 
- 	.fieldset{ 
+ 	.fieldset{
  		margin-bottom: 25px;
 		.validate-zip-international{ width:90px;}
  	}
 
- 	
+
  }
 
 body.customer-address-index{
@@ -99,12 +99,12 @@ body.customer-address-form{
  			ul.form-list{
 		 		position: relative;
 		 		li{ margin-bottom: 5px; width: 45%;}
-		 		li:nth-child(2){ 
+		 		li:nth-child(2){
 		 			position: absolute;
 		 			top: 0;
 		 			right: 0;
 		 		}
-		 		li:nth-child(3){ 
+		 		li:nth-child(3){
 		 			position: absolute;
 		 			top: 48px;
 		 			right: 0;
@@ -117,7 +117,7 @@ body.customer-address-form{
  			ul.form-list{
 		 		position: relative;
 		 		li{ margin-bottom: 5px; width: 45%;}
-		 		li:nth-child(3){ 
+		 		li:nth-child(3){
 		 			position: absolute;
 		 			top: 0;
 		 			right: 0;
@@ -128,16 +128,16 @@ body.customer-address-form{
 
 		 				> .field{ position: absolute; left: 0; top: 0;}
 		 			}
-		 			
+
 	 			}
-		 		li:nth-child(4){ 
+		 		li:nth-child(4){
 		 			position: absolute;
 		 			top: 48px;
 		 			right: 0;
-		 		}		 		
+		 		}
 		 	}
  		}
- 	}	
+ 	}
  }
 
 
@@ -145,17 +145,17 @@ body.wishlist-index-index{
 	.title-column-left{border-bottom: none;margin-bottom: 0; padding-bottom: 0;}
 
 	.my-wishlist {
-		#wishlist-table{ 
+		#wishlist-table{
 			tbody{
 				td{	padding: 20px;
-					
+
 					.old-price .price{ margin-left: 0;}
 				}
 				> tr > td:first-child{padding-left: 0px !important;}
-				
-				
+
+
 				.product-image{padding: 10px; border: 1px solid rgba(51, 51, 51, 0.1); height: auto; width: auto; display: block;}
-				
+
 				.product-name a{
 					font-family: 'oswaldbook';
 				  	font-size: 11px;
@@ -163,18 +163,18 @@ body.wishlist-index-index{
 				  	color: #333333;
 				  	text-transform: uppercase;
 				  	letter-spacing: 1px;}
-				} 
+				}
 				.std{ line-height: 16px; font-size: 12px; color:#999999;}
 
 				.btn-cart:before{ top:11px;}
 
 			}
 		.buttons-set .btn-share:after{ content: none;}
-	} 
-	.my-wishlist #wishlist-table th{ border-bottom: none;}	
+	}
+	.my-wishlist #wishlist-table th{ border-bottom: none;}
 }
 
-#my-orders-table{ 
+#my-orders-table{
 
 .nobr{
 
@@ -188,7 +188,7 @@ body.wishlist-index-index{
 
 			&:before{
 				content:'';
-				.sprite(@ico-visualiser);
+				@include sprite($ico-visualiser);
 				position: absolute;
 				left: 0;
 				top: 0;
@@ -205,7 +205,7 @@ body.wishlist-index-index{
 
 			&:before{
 				content:'';
-				.sprite(@ico-renouveler);
+				@include sprite($ico-renouveler);
 				position: absolute;
 				left: 0;
 				top: 0;
@@ -220,10 +220,10 @@ body.wishlist-index-index{
 
 	padding: 30px 40px;
 	background-color:#e5e5e5;
-	
+
 	.input-box {
 		width: 100%;
-		
+
 		.input-text {
 			width: 100%;
 		}
@@ -231,38 +231,38 @@ body.wishlist-index-index{
 }
 
 .new-users {
-	
+
 	h2.legend, h2 {
 		font-family: 'oswaldlight';
 		font-size: 18px;
 		text-transform: uppercase;
 		font-weight: normal;
 		margin:30px 0;
-		color:@c-02;
+		color:$c-02;
 	}
-	
+
 	.avantages {
-		color: @c-08;
+		color: $c-08;
 		display: block;
 		margin-bottom: 20px;
 	}
-	
+
 	.lst-avantages {
 		line-height: 19px;
 		font-size:13px;
-		color:@c-08;
+		color:$c-08;
 		margin-bottom: 20px;
-		
+
 		li{
 			position:relative;
 			padding-left:15px;
-			
+
 			&:before{
-				.rgba(@c-05, 40%);
-				border:1px solid @result;
+				@include rgba($c-05, 40%);
+				border:1px solid $result;
 				width:5px;
 				height:5px;
-				.border-radius(5px);
+				@include border-radius(5px);
 				content:"";
 				position:absolute;
 				top:6px;
@@ -275,27 +275,27 @@ body.wishlist-index-index{
 	.name-prefix {
 		float: left;
 		width: 100px;
-		
+
 		select {
 			width: 100%;
 		}
 	}
-	
+
 	.name-firstname {
 		float: right;
 		width: 340px;
 	}
-	
+
 	.name-lastname {
 		clear: both;
 	}
-	
+
 	#is_subscribed + label {
 		width: auto;
 	}
-	
+
 	.customer-dob {
-	
+
 		.dob-day, .dob-month, .dob-year {
 			width: 50px;
 			float: left;
@@ -308,7 +308,7 @@ body.wishlist-index-index{
 			width: 65px;
 		}
 	}
-	
+
 }
 
 /* Captcha ================================================================================ */
@@ -333,15 +333,15 @@ body.wishlist-index-index{
 }
 
 /* Remember Me Popup ===================================================================== */
-.window-overlay { 
-	background:url(../images/window_overlay.png) repeat; 
-	background:rgba(0, 0, 0, 0.35); 
-	position:absolute; 
-	top:0; 
+.window-overlay {
+	background:url(../images/window_overlay.png) repeat;
+	background:rgba(0, 0, 0, 0.35);
+	position:absolute;
+	top:0;
 	left:0;
-	height:100%; 
-	width:100%; 
-	z-index:990; 
+	height:100%;
+	width:100%;
+	z-index:990;
 }
 .remember-me {
 	 label { float:none; margin:0 6px; }
@@ -350,46 +350,46 @@ body.wishlist-index-index{
 
 }
 .remember-me-popup {
-	background:@bg-01;
-	left:50%; 
-	top:50%; 
-	position:absolute; 
-	margin:-85px 0 0 -200px; 
-	width:400px; 
-	text-align:left; 
-	z-index:1000; 
+	background:$bg-01;
+	left:50%;
+	top:50%;
+	position:absolute;
+	margin:-85px 0 0 -200px;
+	width:400px;
+	text-align:left;
+	z-index:1000;
 
-	h3 { 
-		background:@bg-05; 
-		font-size:19px; 
+	h3 {
+		background:$bg-05;
+		font-size:19px;
 		padding:15px 20px 10px 20px;
-		font-family: 'oswaldlight'; 
+		font-family: 'oswaldlight';
 		text-transform: uppercase;
 		font-weight: normal;
 	}
 
-	.remember-me-popup-head { 
+	.remember-me-popup-head {
 		position:relative;
-		.remember-me-popup-close { 
+		.remember-me-popup-close {
 			background:url(../images/btn_window_close.gif) no-repeat;
-			display:block; 
-			position:absolute; 
-			top:7px; 
-			right:7px; 
-			height:15px; 
-			width:15px; 
+			display:block;
+			position:absolute;
+			top:7px;
+			right:7px;
+			height:15px;
+			width:15px;
 			text-indent:-9999em;
 		}
 	}
 
-	.remember-me-popup-body { 
+	.remember-me-popup-body {
 		padding:20px;
-		a { 
-			display:inline-block; 
-			height:19px; 
-			background:@c-04; 
+		a {
+			display:inline-block;
+			height:19px;
+			background:$c-04;
 			font-size:12px;
-			font-family: 'oswaldbook'; 
+			font-family: 'oswaldbook';
 			text-align:center;
 			text-decoration:none;
 			white-space:nowrap;
@@ -420,15 +420,15 @@ body.wishlist-index-index{
 		float: left !important;
 		padding-left: 10px;
 		background:none;
-		color:@c-02;
+		color:$c-02;
 		text-decoration: none;
-		font-family: @font-light;
-		text-transform:none; 
+		font-family: $font-light;
+		text-transform:none;
 		letter-spacing: 0;
 		text-decoration: underline;;
 		text-align: left;
 		margin:0;
-		
+
 		&:after{
 			display:none !important;
 			content:"";
@@ -437,7 +437,7 @@ body.wishlist-index-index{
 			content: "";
 			position: absolute;
 			display:none !important;
-			.sprite(@arrow-right-primary) !important;
+			@include sprite($arrow-right-primary);
 		}
 	}
 }
@@ -453,57 +453,57 @@ body[class^=" newsletter-"] {
 	.breadcrumbs-container {
 		display: none;
 	}
-	
+
 }
 
 /* Navigation */
 .block-account {
 	width:234px;
 	margin-right: 60px;
-	
+
 	ul {
-		.rgba(@c-02, 10%);
-		border-top: 1px solid 1px solid @result;
-		
+		@include rgba($c-02, 10%);
+		border-top: 1px solid 1px solid $result;
+
 		li {
 			padding-left:10px;
 			font-size: 12px;
 			line-height: 30px;
-			.rgba(@c-02, 10%);
-			border-bottom: 1px solid @result;
+			@include rgba($c-02, 10%);
+			border-bottom: 1px solid $result;
 			font-family: 'oswaldbook';
 			letter-spacing:1px;
 			text-transform:uppercase ;
-			
+
 			&.current{
-				color:@c-05;
+				color:$c-05;
 				position:relative;
 
-				
+
 				&:before{
 					position:absolute;
 					top:9px;
 					left:0;
 					content:"";
-					.sprite(@arrow-right-primary);
-				}			
+					@include sprite($arrow-right-primary);
+				}
 			}
-			
+
 			a {
 				text-decoration: none;
-				color:@c-08;
+				color:$c-08;
 			}
-			
+
 			strong {
 				font-weight: normal;
-				color: @c-05;
+				color: $c-05;
 			}
 		}
 	}
 }
 
 .my-account {
-	
+
 	.title-buttons .link-rss {
 		float:none;
 		margin:0;
@@ -513,26 +513,26 @@ body[class^=" newsletter-"] {
 
 /********** < Dashboard */
 .dashboard {
-	
+
 	.page-title {
-		.rgba(@c-02, 10%);
-		border-bottom: 1px solid @result;
+		@include rgba($c-02, 10%);
+		border-bottom: 1px solid $result;
 		padding-bottom: 20px;
 		margin-bottom: 20px;
 	}
-	
+
 	.welcome-msg {
 		margin-bottom: 30px;
-		
+
 		.hello strong {
 			font-weight: normal;
 			font-size: 20px;
 			color: #000;
 		}
 	}
-	
+
 	.col2-set { margin:0 0 15px; }
-	
+
 	/* General Box */
 	.box-account { }
 	.box-account .box-head { text-align:right; }
@@ -544,68 +544,68 @@ body[class^=" newsletter-"] {
 		margin-bottom:25px;
 		letter-spacing:1px;
 	}
-	
+
 	.box .box-title {
 		text-align: right;
-		border-bottom: 1px solid @c5;
+		border-bottom: 1px solid $c5;
 		margin-bottom: 25px;
 	}
 	.box .box-title h3,
 	.box .box-title h4 {
 		float:left;
 		text-transform: uppercase;
-		font-size:10px;		
+		font-size:10px;
 	}
-	
-	
+
+
 	.box .box-title a {
-		color: @c2;
+		color: $c2;
 		position:relative;
 		text-indent:-9999px;
-				
+
 		&:before{
 			position:absolute;
 			top:0;
 			right:0;
 			content:"";
-			.sprite(@picto-modif);
+			@include sprite($picto-modif);
 		}
 	}
 	.box .box-content{
-		
+
 		 h4 {
 			font-weight: normal;
 			text-decoration:underline;
 			margin-bottom:5px;
 		}
-		
+
 		p, address{
 			font-size:14px;
 			line-height:18px;
-			color:@c-05;
-			
+			color:$c-05;
+
 			a{
-				color:@c-08;
+				color:$c-08;
 				display:block;
 				margin-top:7px;
-				.transition-ease-in-out(.2s);
-				
+				@include transition-ease-in-out(.2s);
+
 				&:hover{
-					color:@c-04;
+					color:$c-04;
 				}
 			}
 		}
 	}
-	
+
 	/* Block: Recent Orders */
 	.box-recent {
 		margin-bottom: 20px;
-		
+
 		.box-head a {
-			color: @c2;
+			color: $c2;
 		}
 	}
-	
+
 
 	/* Block: Reviews */
 	.box-reviews .box-head h2 { background-image:url(../images/i_ma-reviews.gif); }
@@ -614,7 +614,7 @@ body[class^=" newsletter-"] {
 	.box-reviews li.item { margin:0 0 7px; }
 	.box-reviews li.item.last { margin:0; }
 	.box-reviews .ratings { margin:7px 0 0; }
-	
+
 	/* Block: Tags */
 	.box-tags .box-head h2 { background-image:url(../images/i_ma-tags.gif); }
 	.box-tags .number { float:left; font-size:10px; font-weight:bold; line-height:1; color:#fff; margin:3px -20px 0 0; padding:2px 3px; background:#0a263c; }
@@ -630,28 +630,28 @@ body[class^=" newsletter-"] {
 /* Account information */
 
 .my-account {
-	
+
 	.page-title {
-		border-bottom: 1px solid @c5;
+		border-bottom: 1px solid $c5;
 		padding-bottom: 20px;
 		margin-bottom: 20px;
 	}
-	
+
 	.name-prefix {
 		float: left;
 		margin-right: 20px;
 	}
-	
+
 	.name-firstname {
 		float: left;
 		width: 300px;
 	}
-	
+
 	.name-lastname {
 		float: right;
 		width: 300px;
 	}
-	
+
 	.customer-dob {
 		> div {
 			width: 103px;
@@ -661,20 +661,20 @@ body[class^=" newsletter-"] {
 		.dob-year {
 			margin-right: 0;
 		}
-		
+
 	}
-	
+
 	.customer-email {
 		width: 347px;
 		margin-right: 21px;
 	}
-	
+
 	.fieldset.password {
 		li {
 			width: 225px;
 			margin-right: 20px;
 			float: left;
-			
+
 			&.last {
 				margin-right: 0;
 			}
@@ -684,105 +684,105 @@ body[class^=" newsletter-"] {
 
 /* Address Book */
 .customer-address-index {
-	
+
 	.page-title button {
-		.primary-button;
+		@extend .primary-button;
 		float: right;
 	}
-	
+
 	.buttons-set {
 		display: none;
 	}
 }
 .addresses-list {
 	h2 {
-		font-family: @font-bold;
+		font-family: $font-bold;
 		font-size: 24px;
-		color: @c-02;
+		color: $c-02;
 	}
-	
+
 	h3 {
-		font-family: @font-bold;
-		color: @c-02;
+		font-family: $font-bold;
+		color: $c-02;
 		text-transform: uppercase;
 		font-size: 14px;
 	}
-	
+
 	li.item {
 		margin-bottom: 20px;
 	}
-	
+
 	address { margin:0 0 3px; }
 	p { margin:0; }
-	a { color: @c2; }
+	a { color: $c2; }
 	.separator { margin:0 3px; }
-	
+
 }
 
 /* Order List */
 .sales-order-history {
-	
+
 	.pager {
 		overflow: hidden;
 		margin-bottom: 20px;
-		
+
 		.amount {
 			float: left;
-				
+
 			strong {
 				font-weight: normal;
 			}
 		}
-		
+
 		.limiter {
 			float: right;
 		}
 
 		.content-select{ display: inline-block;}
-		
+
 		.pages {
 			clear: both;
-			
+
 			ol {
 				display: inline;
-				
+
 				li {
 					display: inline;
 				}
 			}
 		}
-		
+
 	}
-	
+
 	#my-orders-table {
 		margin-bottom: 20px;
 
-		
+
 		th {
-			border-bottom: 1px solid @c6;
+			border-bottom: 1px solid $c6;
 			padding: 5px 10px;
 			font-size: 14px;
 		}
-		
+
 		td {
 			padding: 26px 10px;
 
 
 		}
-		
+
 		em { /* status */
 			white-space: nowrap;
 			font-style: normal;
 		}
-		
+
 		a {
-			color: @c2;
+			color: $c2;
 			margin: 0 5px;
 		}
-		
+
 		.separator { display: none; }
 	}
-	
+
 	.buttons-set {
 		display: none;
 	}
@@ -790,38 +790,38 @@ body[class^=" newsletter-"] {
 
 /* Order View */
 .sales-order-view {
-	
+
 	.page-title {
 		.order-id {
 			font-size: 16px;
 		}
-		
+
 		.order-status {
 			font-size: 16px;
-			font-family: @font-light;
+			font-family: $font-light;
 		}
-		
+
 		a {
-			.lnk-primary;
-			color: @c4;
+			@extend .lnk-primary;
+			color: $c4;
 			margin-top: 15px;
 			display: inline-block;
 		}
-		
+
 		.separator {
 			font-size: 20px;
 			margin: 0 10px;
 		}
 	}
-	
+
 	.subtotal {
-		font-family: @font-bold;
+		font-family: $font-bold;
 	}
-	
+
 	.grand_total {
-		font-family: @font-bold;
+		font-family: $font-bold;
 		font-size: 22px;
-		color:@c-02;
+		color:$c-02;
 	}
 }
 
@@ -835,85 +835,85 @@ body[class^=" newsletter-"] {
 .order-date {
 	padding-bottom: 40px;
 	margin: 10px 0 40px 0;
-	border-bottom: 1px solid @c5;
+	border-bottom: 1px solid $c5;
 }
 
-.order-info-box { 
-	
+.order-info-box {
+
 	h2 {
-		font-family: @font-bold;
+		font-family: $font-bold;
 		text-transform: uppercase;
 		font-size: 14px;
 		margin: 0;
 	}
-	
+
 	.box {
 		margin-bottom: 15px;
 	}
-	
+
 	.box-payment p { margin:0 0 3px; }
 	.box-payment th { font-weight:bold; padding-right:7px; }
 }
 
 .order-items {
 	width:100%; overflow-x:auto;
-	
+
 	.table-caption {
 		display: none;
 	}
-	
+
 	#my-orders-table {
 		margin-bottom: 20px;
 
-		
+
 		th {
-			border-bottom: 1px solid @c6;
+			border-bottom: 1px solid $c6;
 			padding: 5px 10px;
 			font-size: 14px;
 		}
-		
+
 		td {
 			padding: 26px 10px;
 		}
-		
+
 		em { /* status */
 			white-space: nowrap;
 			font-style: normal;
 		}
-		
+
 		a {
-			color: @c2;
+			color: $c2;
 			margin: 0 5px;
 
 		}
-		
+
 		.separator { display: none; }
-		
+
 		tfoot {
 			td {
 				border: none;
 			}
-			
+
 			.grand_total strong {
 				font-size: 22px !important;
-				color: @c-02 !important;
+				color: $c-02 !important;
 			}
-		}	
+		}
 
 
-		
+
 	}
-	
+
 	.product-name {
 		font-weight: normal;
-		color: @c4;
+		color: $c4;
 		font-size: 14px;
 	}
 
-	strong { 
+	strong {
 		font-weight: normal;
 	}
-	
+
 	tfoot {
 		td {
 			padding: 10px !important;
@@ -962,74 +962,74 @@ body[class^=" newsletter-"] {
 
 /* My Wishlist */
 
-.my-wishlist { 
-	
+.my-wishlist {
+
 	#wishlist-table {
-		
+
 		th {
-			border-bottom: 1px solid @c4;
+			border-bottom: 1px solid $c4;
 			padding: 5px 10px;
 			font-size: 14px;
 		}
-		
+
 		td {
 			vertical-align: top;
 			padding: 20px;
-			
+
 			&:first-child {
 				padding: 5px;
 			}
 		}
-	
+
 		.product-name {
 			font-weight: normal;
 			font-size: 14px;
-			
+
 			a {
-				color: @c2;
+				color: $c2;
 			}
 		}
-		
+
 		textarea {
 			width: 100%;
 			margin-top: 10px;
 		}
-		
+
 		.qty {
 			width: 64px;
 			text-align: center;
 			margin-bottom: 10px;
 			margin-left:10px;
 		}
-		
+
 		.old-price {
 			display: block;
 		}
-		
+
 		.btn-cart {
-			.lnk-primary;
+			@extend .lnk-primary;
 			float: left;
 			white-space: nowrap;
 		}
-		
+
 		.link-edit {
-			color: @c2;
+			color: $c2;
 		}
 	}
-	
+
 	.buttons-set {
 		margin-top: 20px;
-		
+
 		.btn-add {
-			.lnk-primary;
+			@extend .lnk-primary;
 			margin: 10px 20px 0 0;
 			display: inline-block;
 		}
 		.btn-share {
-			.lnk-primary;
+			@extend .lnk-primary;
 			margin: 10px 35px 0 0;
 			display: inline-block;
-			
+
 			&:after {
 				content: "|";
 				position: absolute;

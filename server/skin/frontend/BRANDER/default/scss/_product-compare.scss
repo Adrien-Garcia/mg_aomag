@@ -36,13 +36,13 @@ SOMMAIRE
 		&:after {
 			content: "";
 			height: 1px;
-			.rgba(@c-05, 10%);
-			border-bottom: 1px solid @result;
+			@include rgba($c-05, 10%);
+			border-bottom: 1px solid $result;
 			position: absolute;
 			top: 140px;
 			left: 0;
 			right: 0;
-			width:@width;
+			width:$width;
 			margin:0 auto;
 		}
 	}
@@ -57,10 +57,10 @@ SOMMAIRE
 		.link-print, .link-empty-compare {
 			position:relative;
 			font-size: 11px;
-			.transition-ease-in-out(.2s);
+			@include transition-ease-in-out(.2s);
 			
 			&:hover{
-				.transparent(.5);
+				@include transparent(.5);
 			}
 			
 		}
@@ -72,7 +72,7 @@ SOMMAIRE
 				top:0px;
 				left:0;
 				content:"";
-				.sprite(@print);
+				@include sprite($print);
 			}
 		}
 		
@@ -84,7 +84,7 @@ SOMMAIRE
 				top:-2px;
 				left:0;
 				content:"";
-				.sprite(@poubelle);
+				@include sprite($poubelle);
 			}
 			
 		}
@@ -104,11 +104,11 @@ SOMMAIRE
 	position: relative;
 	z-index: 1;
 	display: none; /* affiché seulement sur certaines pages (famille, produit) */
-	.transition-ease-in-out(.2s);
+	@include transition-ease-in-out(.2s);
 	
 	&:hover{
 		.link{
-			color:@c-04;
+			color:$c-04;
 		}
 	}
 	
@@ -117,7 +117,7 @@ SOMMAIRE
 		position:relative;
 		text-decoration: underline;
 		&:before{
-			.sprite(@ico-compare);
+			@include sprite($ico-compare);
 			content:"";
 			position:absolute;
 			top:3px;
@@ -127,7 +127,7 @@ SOMMAIRE
 	
 	
 	.count {
-		color: @c2;
+		color: $c2;
 	}
 }
 	
@@ -148,10 +148,10 @@ SOMMAIRE
 	
 	th {
 		text-align: left;
-		color:@c-11;
+		color:$c-11;
 		padding: 4px;
-		.rgba(@c-02, 10%);
-		border-bottom: 1px solid @result;
+		@include rgba($c-02, 10%);
+		border-bottom: 1px solid $result;
 		line-height:16px;
 	}
 	
@@ -159,8 +159,8 @@ SOMMAIRE
 		text-align: center;
 		padding: 8px 4px;
 		width: 152px;
-		.rgba(@c-02, 10%);
-		border-bottom: 1px solid @result;
+		@include rgba($c-02, 10%);
+		border-bottom: 1px solid $result;
 		
 		&.empty {
 			border-bottom: none;
@@ -185,13 +185,13 @@ SOMMAIRE
 		margin: 0 auto 20px auto;
 		width:26px;
 		height:26px;
-		.border-radius(26px);
-		.transition-ease-in-out(.2s);
-		background:@c-05;
+		@include border-radius(26px);
+		@include transition-ease-in-out(.2s);
+		background:$c-05;
 		position:relative;
 		
 		&:hover{
-			background:@c-04;
+			background:$c-04;
 			opacity:1;		
 		}
 		
@@ -200,7 +200,7 @@ SOMMAIRE
 			top:9px;
 			left:9px;
 			content:"";
-			.sprite(@picto-close);	
+			@include sprite($picto-close);	
 		}
 	}
 	
@@ -223,7 +223,7 @@ SOMMAIRE
 			font-size: 11px;
 			text-transform: uppercase;
 			text-decoration: none;
-			color: @c-05;
+			color: $c-05;
 			font-family: 'oswaldbook';
 		} 
 	}
@@ -245,7 +245,7 @@ SOMMAIRE
 	
 	.link-wishlist{
 		font-size:11px;
-		color:@c-05;
+		color:$c-05;
 		position:relative;
 		margin-bottom:15px;
 		text-decoration:none;
@@ -256,7 +256,7 @@ SOMMAIRE
 		}
 		
 		&:before{
-			.sprite(@add-black);
+			@include sprite($add-black);
 			content:"";
 			position:absolute;
 			top:0;

@@ -28,11 +28,11 @@ SOMMAIRE
 @_00 BACKGROUND
 
 *******************************************************************/
-@bg-01: #ffffff;
-@bg-02: #000000;
-@bg-03: #d6d6d6;
-@bg-04: #f15c22;
-@bg-05: #e5e5e5;
+$bg-01: #ffffff;
+$bg-02: #000000;
+$bg-03: #d6d6d6;
+$bg-04: #f15c22;
+$bg-05: #e5e5e5;
 
 
 /*******************************************************************
@@ -40,30 +40,30 @@ SOMMAIRE
 @_01 COLOR
 
 *******************************************************************/
-@c-01: #fff;
-@c-02: #000;
-@c-03: #e5e5e5;
-@c-04: #f15c22; /*couleur*/
-@c-05: #333333;
-@c-06: #d6d6d6;
-@c-07: #8a8a8a;
-@c-08: #999999;
-@c-09: #cccccc;
-@c-10: #939393;
-@c-11: #666666;
-@c-12: #00c18b; /*couleur secondaire*/
-@c-13: #e5e5e5;
-@c-14: #eaeaea;
+$c-01: #fff;
+$c-02: #000;
+$c-03: #e5e5e5;
+$c-04: #f15c22; /*couleur*/
+$c-05: #333333;
+$c-06: #d6d6d6;
+$c-07: #8a8a8a;
+$c-08: #999999;
+$c-09: #cccccc;
+$c-10: #939393;
+$c-11: #666666;
+$c-12: #00c18b; /*couleur secondaire*/
+$c-13: #e5e5e5;
+$c-14: #eaeaea;
 
-@c1: #0067ac; /* prix */
-@c2: #f18200; /* dominante */
+$c1: #0067ac; /* prix */
+$c2: #f18200; /* dominante */
 
 /* nuances de gris */
 
-@c3: #0d0d0d; 
-@c4: #939393;
-@c5: #eeeeee;
-@c6: #d4d4d4;
+$c3: #0d0d0d;
+$c4: #939393;
+$c5: #eeeeee;
+$c6: #d4d4d4;
 
 /*******************************************************************
 
@@ -72,18 +72,18 @@ SOMMAIRE
 *******************************************************************/
 *{
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;   
-  box-sizing: border-box; 
-  
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
 }
 
 
 
 
-@width: 952px;/* ATTENTION : changer la largeur ici implique de passer en revue toutes les pages du site pour équilibrer les colonnes */
-@padding: 0 10px; /* assure une marge entre le contenu et l'éventuel fond ATTENTION on est en border-box */
+$width: 952px;/* ATTENTION : changer la largeur ici implique de passer en revue toutes les pages du site pour équilibrer les colonnes */
+$padding: 0 10px; /* assure une marge entre le contenu et l'éventuel fond ATTENTION on est en border-box */
 
 /***************************  FONTS  ***************************/
-@font-light : georgia, sans-serif;
-@font-bold : georgia, sans-serif;
-@font-regular : georgia, sans-serif;
+$font-light : georgia, sans-serif;
+$font-bold : georgia, sans-serif;
+$font-regular : georgia, sans-serif;

@@ -2,7 +2,7 @@
 
 /* ======================= Improved One Page Checkout with tabs  ======================== */
 .block-progress .block-title { background:none; margin:0 0 34px; padding:0; }
-.checkout-onepage-index .col-main { padding:0; border:0; width:@width; }
+.checkout-onepage-index .col-main { padding:0; border:0; width:$width; }
 .checkout-onepage-index .col-right { width:232px; position:absolute; top:140px; right:0}
 .checkout-onepage-index .main{ padding:0; }
 
@@ -66,10 +66,10 @@
 	a{
 		float:right;
 		font-size:12px;
-		color:@c-08;
-		.transition-ease-in-out(0.2s);
+		color:$c-08;
+		@include transition-ease-in-out(0.2s);
 		&:hover{
-			.transparent(.5);
+			@include transparent(.5);
 		}
 	}
 	.back-link { display:none;}
@@ -91,20 +91,20 @@
 	background:#e5e5e5; 
 	border-width:1px 0 1px 1px; 
 	border-style:solid; 
-	border-color:@c-13;
+	border-color:$c-13;
 	
 	&.active{
-		background:@c-01;
+		background:$c-01;
 		border-bottom:0;
-		color:@c-04;
+		color:$c-04;
 		
-		.number, h2{color:@c-04 !important;}
+		.number, h2{color:$c-04 !important;}
 		
 		&:first-child{
-			border-left:1px solid @c-13;
+			border-left:1px solid $c-13;
 		}
 		&:last-child{
-			border-right:1px solid @c-13;
+			border-right:1px solid $c-13;
 		}
 	}
 	
@@ -170,7 +170,7 @@
 		a{  display:none; }
 		.number{
 			float:left;
-			color:@c-05;   
+			color:$c-05;   
 			font-size:36px;
 			line-height:20px;
 			margin-right:10px;
@@ -181,7 +181,7 @@
 			float:left;
 			width:100px;
 			font-size:12px;
-			color:@c-05; 
+			color:$c-05; 
 			font-weight:normal; 
 			text-transform: uppercase;
 			font-family: 'oswaldlight';
@@ -244,7 +244,7 @@
 	p{
 		font-size:13px;
 		line-height:18px;
-		color:@c-08;
+		color:$c-08;
 	}
 	.input-box{
 		width:100%;
@@ -253,7 +253,7 @@
 	}
 	.input-text{
 		width:100%;
-		color:@c-08;
+		color:$c-08;
 		font-size:13px;
 	}
 }
@@ -275,21 +275,21 @@
 		margin-top:20px;
 		li{
 			position:relative;
-			color:@c-08;
+			color:$c-08;
 			font-size:13px;
 			line-height:18px;
 			padding:0 0 0 12px;
 			
 			&:before{
 				content:"";
-				.arrondi(5px);
+				@include arrondi(5px);
 				display:block;
 				width:3px;
 				height:3px;
 				position:absolute;
 				top:6px;
 				left:0;
-				border:1px solid @c-08;
+				border:1px solid $c-08;
 			}
 		}
 	}
@@ -333,7 +333,7 @@
 .opc .buttons-set{
 	.required{
 		em{
-			color:@c2;
+			color:$c2;
 			font-style: normal;
 		}
 	} 
@@ -449,7 +449,7 @@ dt.s_method_socolissimo-title,
 	
 	strong{
 		font-weight:normal;
-		color:@c3;
+		color:$c3;
 	}
 }
 
@@ -471,13 +471,13 @@ dt.s_method_socolissimo-title,
 
 .sp-methods .price,
 dd.s_method_gls li span.price{
-	color:@c3 !important;
+	color:$c3 !important;
 	font-weight:normal !important;
-	font-family:@font-bold !important;
+	font-family:$font-bold !important;
 }
 
 .s_method_socolissimo label{
-	color:@c2 !important;
+	color:$c2 !important;
 	font-size:14px !important;
 	font-weight:normal !important;
 }
@@ -548,7 +548,7 @@ dd.s_method_gls li span.price{
 			
 			.cvv-what-is-this{
 				display:inline-block;
-				.sprite(@picto-helper);
+				@include sprite($picto-helper);
 				font-size:0px;
 				text-indent:-999em;
 				vertical-align: middle;
@@ -569,7 +569,7 @@ dd.s_method_gls li span.price{
 		float:left;
 		
 		em{
-			color:@c2;
+			color:$c2;
 			font-style: normal;
 		}
 	}
@@ -577,7 +577,7 @@ dd.s_method_gls li span.price{
 
 
 .opc-block-progress{
-	border:3px double @c-03;
+	border:3px double $c-03;
 	padding:20px;
 	width:232px;
 	
@@ -595,13 +595,13 @@ dd.s_method_gls li span.price{
 		strong{
 			font-size:16px;
 			text-transform:uppercase;
-			color:@c-02;
+			color:$c-02;
 		}
 		
 	}
 	
 	dt{
-		color:@c-05;
+		color:$c-05;
 		text-transform:uppercase;
 		font-size:11px;
 		
@@ -614,13 +614,13 @@ dd.s_method_gls li span.price{
 			margin:3px 0 4px 0;
 			
 			a{
-				color:@c-05; 
+				color:$c-05; 
 				text-indent: -2000px;
 				overflow: hidden;
 				float: right;
 				margin-top: -18px;
 				display: inline-block;
-				.sprite(@edit-adresse);
+				@include sprite($edit-adresse);
 			}
 		}
 
@@ -631,11 +631,11 @@ dd.s_method_gls li span.price{
 		padding-bottom:18px;
 		margin-bottom:15px;
 		margin-top:20px; 
-		border-bottom:1px solid @c5;
+		border-bottom:1px solid $c5;
 		font-size:13px;
 		color: #999;
 		line-height: 18px;
-		color:@c-08;
+		color:$c-08;
 
 		
 	}
@@ -654,13 +654,13 @@ dd.s_method_gls li span.price{
 	border:none;
 	
 	thead tr.first th{
-		border-top:1px solid @c6;
+		border-top:1px solid $c6;
 	}
 	thead tr.first th:first-child{
-		border-left:1px solid @c6;
+		border-left:1px solid $c6;
 	}
 	thead tr.first th:last-child{
-		border-right:1px solid @c6;
+		border-right:1px solid $c6;
 	}
 	
 	thead tr.last th.a-right:first-child{
@@ -695,19 +695,19 @@ dd.s_method_gls li span.price{
 		}
 		
 		tr td:first-child{
-			border-left:1px solid @c6;
+			border-left:1px solid $c6;
 		}
 		tr td:last-child{
-			border-right:1px solid @c6;
+			border-right:1px solid $c6;
 		}
 		
 		tr:last-child td{
-			border-bottom:1px solid @c6;
+			border-bottom:1px solid $c6;
 		}
 		
 		h3{
 			font-size:14px;
-			color:@c4 !important;
+			color:$c4 !important;
 			font-weight: normal !important;
 			text-align: left;
 		}
@@ -740,7 +740,7 @@ dd.s_method_gls li span.price{
 			
 			strong{
 				font-size:22px !important;
-				color:@c3;
+				color:$c3;
 			}
 			
 			
@@ -758,7 +758,7 @@ dd.s_method_gls li span.price{
 		
 		th strong,
 		td strong {
-			font-family:@font-bold;
+			font-family:$font-bold;
 			font-weight:normal;
 		}
 		
