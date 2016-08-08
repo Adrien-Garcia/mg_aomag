@@ -101,8 +101,7 @@ SOMMAIRE
 
 
 	li.item {
-		@include rgba($c-05, 10%);
-		border: 1px solid $result;
+		border: 1px solid rgba($c-05, 0.1);
 		float: left;
 		width: 232px;
 		padding: 10px;
@@ -112,8 +111,7 @@ SOMMAIRE
 		@include transition-ease-in-out(.2s);
 
 		&:hover{
-			@include rgba($c-05, 50%);
-			border:1px solid $result;
+			border:1px solid rgba($c-05, 0.5);
 		}
 
 		&.last {
@@ -146,8 +144,7 @@ SOMMAIRE
 			}
 			/* Add to Links */
 			.add-to-links {
-				@include rgba($c-05, 80%);
-				background:$result;
+				background:rgba($c-05, 0.8);
 				position:absolute;
 				bottom:-35px;
 				left:0;
@@ -243,8 +240,7 @@ SOMMAIRE
 .products-list {
 
 	li.item {
-		@include rgba($c-02, 10%);
-		border:1px solid $result;
+		border:1px solid rgba($c-02, 0.1);
 		margin-bottom: 20px;
 		padding:10px;
 		position:relative;
@@ -481,16 +477,14 @@ SOMMAIRE
 	overflow: hidden;
 	padding: 0;
 	line-height: 38px;
-	@include rgba($c-02, 10%);
-	border-top:1px solid $result;
-	border-bottom:1px solid $result;
+	border-top:1px solid rgba($c-02, 0.1);
+	border-bottom:1px solid rgba($c-02, 0.1);
 	font-size:13px;
 
 	.content-select{
 		  height:25px;
 		   overflow: hidden;
-		   @include rgba($c-05, 20%);
-		   border: 1px solid$result;
+		   border: 1px solid rgba($c-05, 0.2);
 		   display:inline-block;
 		   padding:0;
 		   position:relative;

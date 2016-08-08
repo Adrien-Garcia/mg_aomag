@@ -70,8 +70,7 @@ div.j2t-overlay{
 	.j2tajax-checkout-img {
 		float: left;
 		margin-right: 10px;
-		@include rgba($c-05, 10%);
-		border:1px solid $result;
+		border:1px solid rgba($c-05, 0.1);
 		padding:7px;
 	}
 

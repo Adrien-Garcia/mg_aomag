@@ -343,7 +343,7 @@ ul,ol         { list-style:none; }
 .page-empty { background:$c-01; padding:20px; text-align:left; }
 .page-popup { background:$c-01; padding:25px 30px; text-align:left; }
 .main-container {
-	min-height: calc("100vh - 630px");
+	min-height: calc(100vh - 630px);
 	display: block;
  }
 .main {
@@ -410,12 +410,12 @@ input,select,textarea,button {
 
 input.input-text,select,textarea {
 
-	border: 1px solid rgba(51, 51, 51, 0.2);
+	border: 1px solid rgba($c-05, 0.2);
 	padding: 2px 8px 3px 8px;
 	color:$c-05;
 
 	&:focus{
-		border-color:rgba(51, 51, 51, 0.5);
+		border-color:rgba($c-05, 0.5);
 		color:c-08;
 	}
 }
@@ -1697,8 +1697,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 	.footer-1 {
-		@include rgba($c-05, 10%);
-		border-top: 1px solid $result;
+		border-top: 1px solid rgba($c-05, .1);
 		overflow: hidden;
 		width:	$width;
 		height:120px;
@@ -1716,8 +1715,7 @@ tr.summary-details-excluded { font-style:italic; }
 				 line-height:16px;
 			}
 			&.paiement{
-				@include rgba($c-05, 10%);
-				border-right:1px solid $result;
+				border-right:1px solid rgba($c-05, 0.1);
 				.title{
 					position:relative;
 					&:after{
@@ -1763,8 +1761,7 @@ tr.summary-details-excluded { font-style:italic; }
 	}
 
 	.footer-2 {
-		@include rgba($c-05, 10%);
-		border-top: 1px solid $result;
+		border-top: 1px solid rgba($c-05, 0.1);
 		overflow: hidden;
 		padding: 30px 0 40px 0;
 		width:	$width;
@@ -1809,8 +1806,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 			#newsletter{
 				width:167px;
-				@include rgba($c-05, 20%);
-				@include placeholder($result);
+				@include placeholder(rgba($c-05, 0.2));
 				font-size:12px;
 			}
 			#newsletter { height:25px;}

@@ -187,14 +187,3 @@ SOMMAIRE
         font-style:$style;
     }
 }
-
-
-/*******************************************************************
-
-@_08 RGBA
-
-*******************************************************************/
-
-@mixin rgba($color, $opacity : 1){
-  $result: rgba( red($color), green($color), blue($color), $opacity );
-}

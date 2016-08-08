@@ -25,19 +25,18 @@ SOMMAIRE
 *******************************************************************/
 
 .catalog-product-compare-index  {
-	
+
 	.main {
 		margin-top: 0;
 	}
-	
+
 	.main-container {
 		position: relative;
-		
+
 		&:after {
 			content: "";
 			height: 1px;
-			@include rgba($c-05, 10%);
-			border-bottom: 1px solid $result;
+			border-bottom: 1px solid rgba($c-05, .1);
 			position: absolute;
 			top: 140px;
 			left: 0;
@@ -46,25 +45,25 @@ SOMMAIRE
 			margin:0 auto;
 		}
 	}
-	
+
 	.page-title {
 		line-height: 140px;
-		
+
 		h1 {
 			line-height: 140px;
 		}
-		
+
 		.link-print, .link-empty-compare {
 			position:relative;
 			font-size: 11px;
 			@include transition-ease-in-out(.2s);
-			
+
 			&:hover{
 				@include transparent(.5);
 			}
-			
+
 		}
-		
+
 		.link-print{
 			padding-left:25px;
 			&:before{
@@ -75,7 +74,7 @@ SOMMAIRE
 				@include sprite($print);
 			}
 		}
-		
+
 		.link-empty-compare {
 			margin-left: 25px;
 			padding-left:20px;
@@ -86,7 +85,7 @@ SOMMAIRE
 				content:"";
 				@include sprite($poubelle);
 			}
-			
+
 		}
 	}
 }
@@ -105,14 +104,14 @@ SOMMAIRE
 	z-index: 1;
 	display: none; /* affiché seulement sur certaines pages (famille, produit) */
 	@include transition-ease-in-out(.2s);
-	
+
 	&:hover{
 		.link{
 			color:$c-04;
 		}
 	}
-	
-	
+
+
 	.link {
 		position:relative;
 		text-decoration: underline;
@@ -124,13 +123,13 @@ SOMMAIRE
 			left:-20px;
 		}
 	}
-	
-	
+
+
 	.count {
 		color: $c2;
 	}
 }
-	
+
 .catalog-product-compare-index .breadcrumbs-container {
 	display: none;
 }
@@ -144,43 +143,41 @@ SOMMAIRE
 #product_comparison {
 	width: 100%;
 	margin-top: 20px;
-	
-	
+
+
 	th {
 		text-align: left;
 		color:$c-11;
 		padding: 4px;
-		@include rgba($c-02, 10%);
-		border-bottom: 1px solid $result;
+		border-bottom: 1px solid rgba($c-02, .1);
 		line-height:16px;
 	}
-	
+
 	td {
 		text-align: center;
 		padding: 8px 4px;
 		width: 152px;
-		@include rgba($c-02, 10%);
-		border-bottom: 1px solid $result;
-		
+		border-bottom: 1px solid rgba($c-02, .1);
+
 		&.empty {
 			border-bottom: none;
 		}
 	}
-	
+
 	.add-to-row td,
 	.remove-row td {
 		border: none;
 		padding-bottom: 0;
 	}
-	
+
 	.add-to-links{
 		margin-top:15px;
 	}
-	
-	.btn-cart{ 
+
+	.btn-cart{
 		margin-bottom:50px;
 	}
-	
+
 	.btn-remove {
 		margin: 0 auto 20px auto;
 		width:26px;
@@ -189,32 +186,32 @@ SOMMAIRE
 		@include transition-ease-in-out(.2s);
 		background:$c-05;
 		position:relative;
-		
+
 		&:hover{
 			background:$c-04;
-			opacity:1;		
+			opacity:1;
 		}
-		
+
 		&:after{
 			position:absolute;
 			top:9px;
 			left:9px;
 			content:"";
-			@include sprite($picto-close);	
+			@include sprite($picto-close);
 		}
 	}
-	
+
 	.btn-cart {
 		width: 152px;
 		border:none;
 	}
-	
+
 	.product-image {
 		display:block;
 		margin:0 0 10px;
 		clear: both;
 	}
-	
+
 	.product-name {
 		margin: 0 0 10px;
 		height: 30px;
@@ -225,9 +222,9 @@ SOMMAIRE
 			text-decoration: none;
 			color: $c-05;
 			font-family: 'oswaldbook';
-		} 
+		}
 	}
-	
+
 	.std{
 		font-size:12px;
 		line-height:16px;
@@ -237,12 +234,12 @@ SOMMAIRE
 		height: 20px;
 		font-size:12px;
 	}
-	
+
 	.percentage {
 		top: 10px;
 		right: 20px;
 	}
-	
+
 	.link-wishlist{
 		font-size:11px;
 		color:$c-05;
@@ -250,18 +247,18 @@ SOMMAIRE
 		margin-bottom:15px;
 		text-decoration:none;
 		display:block;
-		
+
 		&:hover{
 			text-decoration:none;
 		}
-		
+
 		&:before{
 			@include sprite($add-black);
 			content:"";
 			position:absolute;
 			top:0;
 			left:20px;
-			
+
 		}
 	}
 }

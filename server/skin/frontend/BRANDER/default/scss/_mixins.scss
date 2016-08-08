@@ -195,6 +195,6 @@ SOMMAIRE
 
 *******************************************************************/
 
-@mixin rgba($color, $opacity : 1){
-  $result: rgba( red($color), green($color), blue($color), $opacity );
+@function rgba($color, $opacity : 1){
+  @return rgba( red($color), green($color), blue($color), $opacity );
 }

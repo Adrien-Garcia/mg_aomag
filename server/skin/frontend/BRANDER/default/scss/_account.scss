@@ -258,8 +258,7 @@ body.wishlist-index-index{
 			padding-left:15px;
 
 			&:before{
-				@include rgba($c-05, 40%);
-				border:1px solid $result;
+				border:1px solid rgba($c-05, 0.4);
 				width:5px;
 				height:5px;
 				@include border-radius(5px);
@@ -462,15 +461,13 @@ body[class^=" newsletter-"] {
 	margin-right: 60px;
 
 	ul {
-		@include rgba($c-02, 10%);
-		border-top: 1px solid 1px solid $result;
+		border-top: 1px solid rgba($c-02, 0.1);
 
 		li {
 			padding-left:10px;
 			font-size: 12px;
 			line-height: 30px;
-			@include rgba($c-02, 10%);
-			border-bottom: 1px solid $result;
+			border-bottom: 1px solid rgba($c-02, 0.1);
 			font-family: 'oswaldbook';
 			letter-spacing:1px;
 			text-transform:uppercase ;
@@ -515,8 +512,7 @@ body[class^=" newsletter-"] {
 .dashboard {
 
 	.page-title {
-		@include rgba($c-02, 10%);
-		border-bottom: 1px solid $result;
+		border-bottom: 1px solid rgba($c-02, 0.1);
 		padding-bottom: 20px;
 		margin-bottom: 20px;
 	}

@@ -321,8 +321,7 @@ select::-ms-expand {
 	}
 
 	button{
-		@include rgba($c-02, 20%);
-		background:rgba(51,51,51,0.2);
+		background: rgba($c-05, .2);
 		font-family: 'oswaldlight';
 		font-size:12px;
 		text-transform:uppercase;
@@ -497,8 +496,7 @@ select::-ms-expand {
 	text-align:left;
 
 	.border{
-		@include rgba($c-02, 10%);
-		border-bottom:1px solid $result;
+		border-bottom:1px solid rgba($c-02, 0.1);
 	}
 	table {
 		width:100%;

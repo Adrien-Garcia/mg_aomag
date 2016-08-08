@@ -27,44 +27,43 @@ SOMMAIRE
 @_00 HOME GENERAL
 
 *******************************************************************/
-                             
+
 .cms-home {
-	
+
 	.main {
-		margin-top: 0; 
+		margin-top: 0;
 		width: 100%;
 
 		.std {
 			display: none;
 		}
 	}
-	
+
 	.home-mea {
-		@include rgba($c-05, 10%);
-		border-bottom: 1px solid $result;
+		border-bottom: 1px solid rgba($c-05, .1);
 		width: $width;
 		height: 215px;
 		margin:0 auto 27px auto;
 		padding-top: 80px;
-		
+
 		li{
 			float:left;
 			margin-right:8px;
-			
-			
+
+
 			a{
 				position:relative;
 				@include transition-ease-in-out(.2s);
 				height:136px;
 				width:312px;
-				overflow: hidden; 
+				overflow: hidden;
 				display:block;
-				
+
 				 img{
 					display:inline-block;
 					@include transition-ease-in-out(.2s);
 				}
-				
+
 				&:before{
 					width:312px;
 					height:68px;
@@ -74,7 +73,7 @@ SOMMAIRE
 					top:-68px;
 					left:0;
 					z-index:9999;
-					@include transition-ease-in-out(.2s);					
+					@include transition-ease-in-out(.2s);
 				}
 				&:after{
 					width:312px;
@@ -85,9 +84,9 @@ SOMMAIRE
 					bottom:-68px;
 					left:0;
 					z-index:9999;
-					@include transition-ease-in-out(.2s);	
+					@include transition-ease-in-out(.2s);
 				}
-				
+
 				&:hover{
 					@include transparent(1);
 					&:before{
@@ -120,13 +119,13 @@ SOMMAIRE
 				margin-right:0;
 			}
 		}
-		
+
 	}
-	
+
 	.breadcrumbs-container {
 		display: none;
 	}
-	
+
 	.bx-wrapper {
 		margin: 0 auto;
 		width: 1272px;
@@ -136,7 +135,7 @@ SOMMAIRE
 		.next-link, .previous-link, .bx-controls-direction {
 			display: none;
 		}
-		
+
 		.bx-viewport {
 			-moz-box-shadow: none;
 			-webkit-box-shadow: none;
@@ -144,35 +143,35 @@ SOMMAIRE
 			border: none;
 			left: 0;
 		}
-		
+
 		.bx-pager.bx-default-pager {
 			padding: 0;
 			width: 100%;
-			
+
 			a {
 				background: $bg-01;
 				border: 1px solid rgba(56, 56, 56, .4);
 				border-radius: 200em;
 				@include transition-ease-in-out(.4s);
-				
+
 				&:hover {
 					border: 1px solid rgba(56, 56, 56, .8);
 					@include transition-ease-in-out(.4s);
 				}
-								
+
 				&.active {
 					border: 1px solid rgba(56, 56, 56, 1);
 				}
 			}
 		}
-		
+
 		.product {
 			height: 423px;
 			position: absolute;
 			top: 100px;
 			left: 160px;
 			display: inline-block;
-		
+
 			.product-name {
 				font-size: 60px;
 				line-height: 1.2;
@@ -183,20 +182,20 @@ SOMMAIRE
 				text-transform: uppercase;
 				width: 50%;
 			}
-			
+
 			.price-box {
 				margin: -5px 0 10px 0;
 			}
-			
+
 			.price {
 				font-size: 28px;
 			}
-			
+
 			.old-price .price {
 				color: $c-02;
 				font-size: 20px;
 			}
-			
+
 			.button-effect {
 
 				display: inline-block;
@@ -207,10 +206,10 @@ SOMMAIRE
 				width: 153px;
 				margin-top: 20px;
 				text-align: center;
-				
-				&:before{			
-					content:"";			
-					background-color: $c-05;						
+
+				&:before{
+					content:"";
+					background-color: $c-05;
 				}
 				&:after{
 					content:"";
@@ -218,49 +217,49 @@ SOMMAIRE
 					top:14px;
 					right:20px;
 					z-index:9999;
-					@include sprite($arrow-right-white);					
+					@include sprite($arrow-right-white);
 				}
 				&:hover{
-					&:before{							
+					&:before{
 						background-color:  $c-05;
-						
+
 					}
 				}
 			}
 		}
-		
+
 		.bx-prev {
 			left: 607px;
-			top:435px;		
+			top:435px;
 			@include sprite($prev-little);
 			@include transition-ease-in-out(.2s);
-			
+
 		}
-		
+
 		.bx-next {
-			right: 607px;	
-			top:435px;			
+			right: 607px;
+			top:435px;
 			@include sprite($next-little);
 		}
-		
+
 	}
-	
-	
-	
+
+
+
 	.product-grid-mea {
 		width: $width;
 		margin: auto;
 		clear: both;
-	
+
 		.item {
 			width: 230px;
-			
+
 			&:nth-child(4n) {
 				margin-right: 0;
 			}
 		}
 	}
-	
+
 }
 
 /*******************************************************************
