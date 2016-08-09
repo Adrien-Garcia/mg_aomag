@@ -31,17 +31,6 @@ SOMMAIRE
 
 *******************************************************************/
 
-select {
-      -webkit-appearance: none;
-      background: url(../images/client/origin/arrow-bottom.png) no-repeat right center;
-      background-position: 97.5% center;
-      padding:0 5% 0 0;
-      -moz-appearance: none;
-      text-overflow: "";
-}
-select::-ms-expand {
-    display: none;}
-
 #j2t_ajax_confirm_wrapper{
  padding: 20px;
   background: #FFF;

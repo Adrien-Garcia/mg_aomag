@@ -3,7 +3,7 @@
 /* ======================= Improved One Page Checkout with tabs  ======================== */
 .block-progress .block-title { background:none; margin:0 0 34px; padding:0; }
 .checkout-onepage-index .col-main { padding:0; border:0; width:$width; }
-.checkout-onepage-index .col-right { width:232px; position:absolute; top:140px; right:0}
+.checkout-onepage-index .col-right { width:232px; position:absolute; top:140px; right:0; z-index: 2; background: $c-01;}
 .checkout-onepage-index .main{ padding:0; }
 
 
@@ -37,27 +37,27 @@
 
 /* ==================== Improved One Page Checkout with progressbar  ===================== */
 
-.block-progress .block-title { 
-	background:none; 
-	margin:0 0 34px; 
-	padding:0; 
+.block-progress .block-title {
+	background:none;
+	margin:0 0 34px;
+	padding:0;
 }
-.checkout-onepage-index .col-main { 
-	padding:0; 
-	border:0; 
+.checkout-onepage-index .col-main {
+	padding:0;
+	border:0;
 
 
 	.button-effect-inverse{float: none;}
 }
 
-.opc .buttons-set { 
-	margin:0; 
-	line-height:36px; 
+.opc .buttons-set {
+	margin:0;
+	line-height:36px;
 	opacity:1!important;
-	 
-	p.required { 
-		margin:0; 
-		padding:0 0 10px; 
+
+	p.required {
+		margin:0;
+		padding:0 0 10px;
 	}
 	.button-effect-inverse{
 		float:left;
@@ -75,7 +75,7 @@
 	.back-link { display:none;}
 	.please-wait {
 		float: right;
-		
+
 		span {
 			display: none;
 		}
@@ -86,20 +86,20 @@
 
 .opc .ul { list-style:disc outside; padding-left:18px; }
 .opc li.section {
-	float:left; 
-	width:20%;  
-	background:#e5e5e5; 
-	border-width:1px 0 1px 1px; 
-	border-style:solid; 
+	float:left;
+	width:20%;
+	background:#e5e5e5;
+	border-width:1px 0 1px 1px;
+	border-style:solid;
 	border-color:$c-13;
-	
+
 	&.active{
 		background:$c-01;
 		border-bottom:0;
 		color:$c-04;
-		
+
 		.number, h2{color:$c-04 !important;}
-		
+
 		&:first-child{
 			border-left:1px solid $c-13;
 		}
@@ -107,86 +107,86 @@
 			border-right:1px solid $c-13;
 		}
 	}
-	
-	
+
+
 }
 
 
-.opc .step { 
-	padding:40px 0; 
-	position:absolute; 
-	border:0; 
-	top:100px; 
-	left:0; 
-	z-index:1; 
-	background:#fff; 
-	height:900px; 
-	border:none; 
-	background:none; 
-	width:100%; 
+.opc .step {
+	padding:40px 0;
+	position:absolute;
+	border:0;
+	top:100px;
+	left:0;
+	z-index:1;
+	background:#fff;
+	height:900px;
+	border:none;
+	background:none;
+	width:100%;
 	text-align:left;
 }
 
 
 .opc .step-title,
 .opc .allow .step-title,
-.opc .active .step-title { 
-	*display:block; 
-	*float:left; 
-	position:relative;  
-	border:none; 
+.opc .active .step-title {
+	*display:block;
+	*float:left;
+	position:relative;
+	border:none;
 	background:none;
-	overflow:hidden!important; 
-	width:100%; 
-	height:110px; 
-	display:inline-block; 
-	vertical-align:top; 
-	
+	overflow:hidden!important;
+	width:100%;
+	height:110px;
+	display:inline-block;
+	vertical-align:top;
+
 	h2{
 		width:95px;
 		float:left
 	}
-	
+
 	.number{
-		 float:left; 
+		 float:left;
 	}
 
 }
 
 
 .opc {
-	position:relative; 
-	overflow:hidden; 
-	height:1070px; 
-	text-align:left; 
-	border:none; 
-	background:none; 
-	
+	position:relative;
+	overflow:hidden;
+	height:1070px;
+	text-align:left;
+	border:none;
+	background:none;
+
 	.step-title{
 		width:100%;
 		height:110px;
 		padding:40px 0 0 20px;
-		
+
 		a{  display:none; }
 		.number{
 			float:left;
-			color:$c-05;   
+			color:$c-05;
 			font-size:36px;
 			line-height:20px;
 			margin-right:10px;
 			display:block;
 		}
-		
+
 		h2{
 			float:left;
 			width:100px;
 			font-size:12px;
-			color:$c-05; 
-			font-weight:normal; 
+			color:$c-05;
+			font-weight:normal;
 			text-transform: uppercase;
 			font-family: 'oswaldlight';
 			letter-spacing:1px;
-			line-height:14px;		
+			line-height:14px;
 		}
 	}
 }
@@ -201,7 +201,7 @@
 
 /* loged-in */
 .opc.loged-in{
-	
+
 }
 
 /*-----*/
@@ -238,7 +238,7 @@
 .opc:first-of-type .allow .step-title a {}
 
 #opc-login{
-	h3 { 
+	h3 {
 		margin-bottom:30px;
 	}
 	p{
@@ -268,7 +268,7 @@
 #opc-login .col-2 .form-list label { width:110px; }
 #opc-login .form-list li.control label { float:none; }
 #opc-login .form-list li.control input { margin:0 8px 0 0; }
-#opc-login .col-1 { 
+#opc-login .col-1 {
 	float:right;
 	padding:0;
 	.account-benefits{
@@ -279,7 +279,7 @@
 			font-size:13px;
 			line-height:18px;
 			padding:0 0 0 12px;
-			
+
 			&:before{
 				content:"";
 				@include arrondi(5px);
@@ -293,7 +293,7 @@
 			}
 		}
 	}
-	
+
 }
 #opc-login .col-1 h4,#opc-login .col-1 .ul { display:none; }
 
@@ -308,7 +308,7 @@
 
 .form-list li.control{
 	margin-bottom:5px;
-	
+
 	label{
 		display:inline-block;
 		width:250px;
@@ -321,7 +321,7 @@
 .opc #checkout-step-shipping .buttons-set{
 	position:relative;
 	margin-top:40px;
-	
+
 	p.required{
 		position:absolute;
 		top:0px;
@@ -336,7 +336,7 @@
 			color:$c2;
 			font-style: normal;
 		}
-	} 
+	}
 }
 
 .name-middlename{
@@ -345,20 +345,19 @@
 
 	.prefix-firstname{
 		width:100%;
-		
+
 		.name-prefix{
 			width:72px;
 			float:left;
 
-			select{height:23px;}
-			
 		}
-		
+
 		.name-firstname{
 			width:365px;
 			float:right;
 			margin-top: -1px;
 		}
+
 	}
 
 /* Largeur des formulaire d'adresse */
@@ -366,7 +365,7 @@
 .opc #checkout-step-shipping #shipping-new-address-form{
 	.city-codepost{
 		width:100%;
-		
+
 			.city{
 				width:312px;
 				float:left;
@@ -375,55 +374,55 @@
 				width:128px;
 				float:right;
 			}
-		
+
 	}
 	li.fields,
 	li.wide{
 		width:448px;
-		
+
 		.name-lastname{
 			clear:both;
 		}
-		
+
 		label{
 			display:block;
 			width:100%;
 			text-align:left;
 			font-size:11px;
-			
+
 			&+.input-box{
 				display:block;
 				width:448px;
 			}
 		}
-		
+
 		.input-box{
 			margin:0 0 10px 0;
 		}
-		
+
 		.input-text{
 			width:100% !important;
 			&[id*="firstname"]{
 				width: 366px !important;
 			}
-			
+
 			&[id*="street2"]{
 				width: 448px !important;
 			}
-			
+
 			&[id*="city"]{
 				width: 312px !important;
 			}
-			
+
 			&[id*="postcode"]{
 				width: 128px !important;
 			}
-			
+
 			&[id*="telephone"]{
 				width: 208px !important;
 			}
 		}
-		
+
 		select{
 			&[name="billing[prefix]"]{
 				width:72px;
@@ -433,20 +432,20 @@
 }
 
 #shipping-new-address-form{
-	
+
 	margin-bottom:0;
-	
+
 	fieldset{
 		margin-bottom:0;
 	}
-	
+
 }
 
 dt.s_method_socolissimo-title,
 .s_method_socolissimo div{
 	margin-left:0 !important;
 	border-bottom:0 !important;
-	
+
 	strong{
 		font-weight:normal;
 		color:$c3;
@@ -455,7 +454,7 @@ dt.s_method_socolissimo-title,
 
 .s_method_socolissimo li{
 	margin-bottom:25px !important;
-	padding-bottom:0 !important;	
+	padding-bottom:0 !important;
 }
 
 .s_method_socolissimo li.first,
@@ -488,22 +487,22 @@ dd.s_method_gls li span.price{
 }
 
 #checkout-payment-method-load{
-	
+
 	> dt:first-child{
 		margin-top:0;
 	}
-	
+
 	label.required em{
 		float:right;
 		right:0;
 	}
-	
+
 	ul.form-list{
-	
+
 		padding:0;
-	
+
 		&#payment_form_ccsave{
-		
+
 			li:first-child{
 				width:340px;
 				float:left;
@@ -511,7 +510,7 @@ dd.s_method_gls li span.price{
 			li:first-child + li{
 				width:340px;
 				float:right;
-				
+
 				select{
 					width:100%;
 				}
@@ -523,16 +522,16 @@ dd.s_method_gls li span.price{
 			li:first-child + li + li + li{
 				width:340px;
 				float:right;
-				
+
 				.v-fix{
 					width:155px;
 				}
-				
+
 				.v-fix:first-child{
 					float:left;
 					margin-right:30px;
 				}
-				
+
 				select{
 					width:100%;
 					margin:0;
@@ -540,12 +539,12 @@ dd.s_method_gls li span.price{
 			}
 			li:first-child + li + li + li + li{
 				width:340px;
-				
+
 				.input-text{
 					width:310px !important;
 				}
 			}
-			
+
 			.cvv-what-is-this{
 				display:inline-block;
 				@include sprite($picto-helper);
@@ -554,20 +553,20 @@ dd.s_method_gls li span.price{
 				vertical-align: middle;
 				margin-top:4px;
 			}
-		
+
 		}
-	
+
 	}
-	
+
 }
 
 #payment-buttons-container{
-	
+
 	margin-top:40px;
-	
+
 	.required{
 		float:left;
-		
+
 		em{
 			color:$c2;
 			font-style: normal;
@@ -580,41 +579,41 @@ dd.s_method_gls li span.price{
 	border:3px double $c-03;
 	padding:20px;
 	width:232px;
-	
+
 	strong{
 		font-weight:normal;
 	}
-	
+
 	.block-title{
 		font-family: 'oswaldlight';
 		line-height:16px;
 		padding-right:20px;
 		margin-bottom:30px;
 		letter-spacing:1px;
-	
+
 		strong{
 			font-size:16px;
 			text-transform:uppercase;
 			color:$c-02;
 		}
-		
+
 	}
-	
+
 	dt{
 		color:$c-05;
 		text-transform:uppercase;
 		font-size:11px;
-		
+
 		.separator{
 			display:none;
 		}
-		
+
 		.changelink{
 			display:block;
 			margin:3px 0 4px 0;
-			
+
 			a{
-				color:$c-05; 
+				color:$c-05;
 				text-indent: -2000px;
 				overflow: hidden;
 				float: right;
@@ -626,20 +625,20 @@ dd.s_method_gls li span.price{
 
 
 	}
-	
+
 	dd{
 		padding-bottom:18px;
 		margin-bottom:15px;
-		margin-top:20px; 
+		margin-top:20px;
 		border-bottom:1px solid $c5;
 		font-size:13px;
 		color: #999;
 		line-height: 18px;
 		color:$c-08;
 
-		
+
 	}
-	
+
 	#payment-progress-opcheckout{
 		dd{
 			border-bottom:0;
@@ -650,9 +649,9 @@ dd.s_method_gls li span.price{
 
 
 #checkout-review-table{
-	
+
 	border:none;
-	
+
 	thead tr.first th{
 		border-top:1px solid $c6;
 	}
@@ -662,16 +661,16 @@ dd.s_method_gls li span.price{
 	thead tr.first th:last-child{
 		border-right:1px solid $c6;
 	}
-	
+
 	thead tr.last th.a-right:first-child{
 		border-right: 0;
 		text-align:center !important;
 	}
-	
+
 	thead tr.last th.a-right:first-child + th{
 		text-align:center;
 	}
-	
+
 	thead tr.last th{
 		text-transform: uppercase;
 		padding-top:0px;
@@ -681,30 +680,30 @@ dd.s_method_gls li span.price{
 	thead tr th span.tax-flag{
 		text-transform: none;
 		font-size: 9px;}
-	
+
 	th{
 		font-size:14px;
 		padding:5px 8px;
 		vertical-align:middle;
 	}
-	
+
 	tbody{
 		td{
 			padding:30px 15px;
 			text-align: center;
 		}
-		
+
 		tr td:first-child{
 			border-left:1px solid $c6;
 		}
 		tr td:last-child{
 			border-right:1px solid $c6;
 		}
-		
+
 		tr:last-child td{
 			border-bottom:1px solid $c6;
 		}
-		
+
 		h3{
 			font-size:14px;
 			color:$c4 !important;
@@ -712,56 +711,56 @@ dd.s_method_gls li span.price{
 			text-align: left;
 		}
 	}
-	
+
 	tfoot{
-		
+
 		border:none;
-		
+
 		td{
 			border:none;
 			position:relative;
 			padding:0 0 5px 0;
-		
+
 			&:first-child{
 				padding-right:0;
-			}		
+			}
 		}
-		
+
 		> tr:first-child{
-		
+
 			th,
 			td{
 				padding-top:20px;
 			}
-		
+
 		}
-		
+
 		> tr:last-child{
-			
+
 			strong{
 				font-size:22px !important;
 				color:$c3;
 			}
-			
-			
+
+
 			td{
 				padding:15px 0 0 0;
 			}
 		}
-		
-		
-		
+
+
+
 		tr > td:first-child{
 			padding-right:40px;
 		}
-		
-		
+
+
 		th strong,
 		td strong {
 			font-family:$font-bold;
 			font-weight:normal;
 		}
-		
+
 	}
 }
 
@@ -772,7 +771,7 @@ dd.s_method_gls li span.price{
 	.f-left{
 		a{margin-left: 20px;}
 	}
-	
+
 	button{
 		height:46px;
 	}
@@ -781,9 +780,9 @@ dd.s_method_gls li span.price{
 .checkout-onepage-success,
 .checkout-onepage-failure{
 	.buttons-set{
-	
+
 		margin-top:30px;
-	
+
 		button{
 			float:none;
 			margin-left:0px;

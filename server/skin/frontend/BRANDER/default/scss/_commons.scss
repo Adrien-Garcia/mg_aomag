@@ -413,6 +413,7 @@ input.input-text,select,textarea {
 	border: 1px solid rgba($c-05, 0.2);
 	padding: 2px 8px 3px 8px;
 	color:$c-05;
+  height: 25px;
 
 	&:focus{
 		border-color:rgba($c-05, 0.5);
@@ -424,6 +425,16 @@ select{
 	padding-right: 0;
 	color:$c-08;
 }
+select {
+  -webkit-appearance: none;
+  background: url(../images/client/origin/arrow-bottom.png) no-repeat right center;
+  background-position: right center;
+  padding:0 5% 0 8px;
+  -moz-appearance: none;
+  text-overflow: "";
+}
+select::-ms-expand {
+    display: none;}
 
 textarea { overflow:auto; }
 input.radio { margin-right:3px; position:relative;top:2px;}
