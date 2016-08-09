@@ -17,17 +17,16 @@ App.Product = {
 
   mouseTrap: function() {
 
-    $(".mousetrap").live("click", function() {
-      console.log("click");
-  		var href = $(this).prev("a").attr("href");
-  		var li = $(".more-views li:not(.bx-clone)");
+    jQuery(".mousetrap").live("click", function() {
+  		var href = jQuery(this).prev("a").attr("href");
+  		var li = jQuery(".more-views li:not(.bx-clone)");
   		var idx = 0;
   		li.each(function(index, element) {
-  			if($(element).find("a[href='" + href + "']").attr("href") == href) {
+  			if(jQuery(element).find("a[href='" + href + "']").attr("href") == href) {
   				idx = index;
   			}
   		});
-  		$.fancybox(t, {
+  		jQuery.fancybox(t, {
 		    helpers:  {
 	        thumbs : {
             width: 50,
@@ -42,8 +41,8 @@ App.Product = {
 
   upsellCarrousel: function() {
 
-    if ($("#upsell-product-table > li").size() > 4) {
-  		$('#upsell-product-table').bxSlider({
+    if (jQuery("#upsell-product-table > li").size() > 4) {
+  		jQuery('#upsell-product-table').bxSlider({
   			minSlides: 4,
   			maxSlides: 4,
   			slideWidth: 225,
@@ -58,21 +57,21 @@ App.Product = {
 
   commentLayer: function() {
 
-    $(".add-my-review, .no-rating a").click(function(e) {
+    jQuery(".add-my-review, .no-rating a").click(function(e) {
   		e.preventDefault();
-  		$.fancybox($(".product-view .box-reviews .form-add"));
+  		jQuery.fancybox(jQuery(".product-view .box-reviews .form-add"));
   	});
 
-    $("#product-review-table .radio").each(function() {
-  		$(this).wrap("<span />");
+    jQuery("#product-review-table .radio").each(function() {
+  		jQuery(this).wrap("<span />");
   	}).change(function(e) {
-  		$("#product-review-table span").removeClass("on");
+  		jQuery("#product-review-table span").removeClass("on");
   		if(this.checked) {
   			var o = this;
   			var test = true;
-  			$("#product-review-table .radio").each(function(index, element) {
+  			jQuery("#product-review-table .radio").each(function(index, element) {
   				if(test) {
-  					$(this).parent().addClass("on");
+  					jQuery(this).parent().addClass("on");
   					if(o == element) {
   						test = false;
   					}
@@ -81,7 +80,7 @@ App.Product = {
   		}
   	});
 
-    if($("body").hasClass("catalog-product-view") && location.search.length > 0) {
+    if(jQuery("body").hasClass("catalog-product-view") && location.search.length > 0) {
   		var search = location.search.substring(1);
   		var urlParameters = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
   		if(urlParameters.p !== undefined || urlParameters.limit !== undefined) {

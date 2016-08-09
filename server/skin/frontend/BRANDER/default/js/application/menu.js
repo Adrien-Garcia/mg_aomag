@@ -15,21 +15,21 @@ App.Menu = {
   equalHeight: function() {
 
     var id;
-  	$("li.level0").mouseover(function() {
-  		var o = $(this);
+  	jQuery("li.level0").mouseover(function() {
+  		var o = jQuery(this);
 
   		var max = 0;
-  		$("li.level1", o).each(function(index, element) {
-  			if($(element).height() > max) {
-  				max = $(element).height();
+  		jQuery("li.level1", o).each(function(index, element) {
+  			if(jQuery(element).height() > max) {
+  				max = jQuery(element).height();
   			}
   		}).height(max);
 
   		id = setInterval(function() {
   			var max = 0;
-  			$("li.level1", o).each(function(index, element) {
-  				if($(element).height() > max) {
-  					max = $(element).height();
+  			jQuery("li.level1", o).each(function(index, element) {
+  				if(jQuery(element).height() > max) {
+  					max = jQuery(element).height();
   				}
   			}).height(max);
   		}, 200);

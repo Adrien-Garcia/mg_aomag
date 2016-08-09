@@ -1,5 +1,5 @@
 var App = {};
-var $ = jQuery;
+//var $ = jQuery;
 
 App = {
 

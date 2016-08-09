@@ -15,7 +15,7 @@ App.Home = {
 
   homeCaroussel: function() {
 
-  	$('.cms-home .slideshow').bxSlider({
+  	jQuery('.cms-home .slideshow').bxSlider({
   		minSlides: 1,
   		maxSlides: 1,
   		slideWidth: 1263,
@@ -27,12 +27,12 @@ App.Home = {
 
   homeTabs: function() {
 
-    $(".product-grid-mea .category_name").appendTo(".tabs .titles");
-  	$(".cms-home .tabs .titles a").click(function(e) {
+    jQuery(".product-grid-mea .category_name").appendTo(".tabs .titles");
+  	jQuery(".cms-home .tabs .titles a").click(function(e) {
   		e.preventDefault();
-  		$(".cms-home .tabs .titles a").removeClass("current");
-  		var i = $(this).addClass("current").index();
-  		$(this).parent().parent().find("> *").slice(1).hide().eq(i).show();
+  		jQuery(".cms-home .tabs .titles a").removeClass("current");
+  		var i = jQuery(this).addClass("current").index();
+  		jQuery(this).parent().parent().find("> *").slice(1).hide().eq(i).show();
   	}).eq(0).click();
 
   },

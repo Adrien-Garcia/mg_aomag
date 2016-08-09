@@ -18,7 +18,7 @@ App.Common = {
 
   qtyUpdate: function() {
 
-    $("input.qty").click(function(){
+    jQuery("input.qty").click(function(){
       var input = this;
       input.focus();
       input.setSelectionRange(0,999);
