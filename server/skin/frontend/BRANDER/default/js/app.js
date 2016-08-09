@@ -3,9 +3,9 @@ var $ = jQuery;
 
 App = {
 
-    debug: function (t) {
-        console.log(t);
-    }
+  debug: function (t) {
+      console.log(t);
+  }
 
 }
 

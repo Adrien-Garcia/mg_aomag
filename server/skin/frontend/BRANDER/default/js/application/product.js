@@ -11,13 +11,14 @@ App.Product = {
     this.mouseTrap();
     this.upsellCarrousel();
     this.commentLayer();
-    this.debug("Product : init start");
+    this.debug("Product : init end");
 
   },
 
   mouseTrap: function() {
 
-    $(".mousetrap").on("click", function() {
+    $(".mousetrap").live("click", function() {
+      console.log("click");
   		var href = $(this).prev("a").attr("href");
   		var li = $(".more-views li:not(.bx-clone)");
   		var idx = 0;
