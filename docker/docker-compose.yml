@@ -16,7 +16,8 @@ web:
     links:
         - db:db
         - mailhog:mailhog
-        - blackfire:blackfire
+#        - blackfire:blackfire
+        - gulp:gulp
 #        - redis:redis
 db:
     container_name: mg_aomagento-db
