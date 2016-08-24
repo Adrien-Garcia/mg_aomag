@@ -1,33 +1,46 @@
-var gulp = require('gulp');
-var gulpif = require('gulp-if');
-var less = require('gulp-less');
-var path = require('path');
-var autoprefixer = require('gulp-autoprefixer');
-var minifycss = require('gulp-minify-css');
-var spritesmith = require('gulp.spritesmith');
-var imagemin = require('gulp-imagemin');
-var browserSync = require('browser-sync');
-var reload      = browserSync.reload;
-var sourcemaps = require('gulp-sourcemaps');
-var minimist = require('minimist');
-var plumber = require('gulp-plumber');
-var eslint = require('gulp-eslint');
+var gulp = require('gulp'),
+sass = require('gulp-sass'),
+autoprefixer = require('gulp-autoprefixer'),
+minifycss = require('gulp-minify-css'),
+rename = require('gulp-rename'),
+spritesmith = require('gulp.spritesmith'),
+imagemin = require('gulp-imagemin'),
+browserSync = require('browser-sync'),
+reload      = browserSync.reload,
+uglify = require('gulp-uglify'),
+sourcemaps = require('gulp-sourcemaps'),
+minimist = require('minimist'),
+plumber = require('gulp-plumber'),
+concat = require('gulp-concat'),
+iconfont = require('gulp-iconfont'),
+consolidate = require('gulp-consolidate'),
+eslint = require('gulp-eslint'),
+sassLint = require('gulp-sass-lint'),
+codepoints = require('code-points'); //codepoints utilisé par iconfont
 
 /*******************************************************************************************************
-   ____ ___  _   _ ____ _____
-  / ___/ _ \| \ | / ___|_   _|
- | |  | | | |  \| \___ \ | |
- | |__| |_| | |\  |___) || |
-  \____\___/|_| \_|____/ |_|
+  ____ ___  _   _ ____ _____
+ / ___/ _ \| \ | / ___|_   _|
+| |  | | | |  \| \___ \ | |
+| |__| |_| | |\  |___) || |
+ \____\___/|_| \_|____/ |_|
 
- *******************************************************************************************************/
+*******************************************************************************************************/
 
-var runTimestamp = Math.round(Date.now()/1000)
-var	libPath = '../',
 
+runTimestamp = Math.round(Date.now()/1000),
+libPath = '../';
+
+scssPath = libPath+'scss/**/*.scss',
+cssPath = libPath+'css',
+imagesPath = libPath+'images/client/origin/*.{png,jpg,gif}',
+iconsPath = libPath+'images/client/svgicons/*.svg',
+jsPathApp = libPath+'js/app.js',
+jsPathModules = libPath+'js/application/*.js',
+jsMinPath = libPath+'/js',
 knownOptions = {
-	string: 'env',
-	string: 'nav'
+    string: 'env',
+    string: 'nav'
 };
 options = minimist(process.argv.slice(2), knownOptions);
 
@@ -40,66 +53,112 @@ options = minimist(process.argv.slice(2), knownOptions);
 
  *******************************************************************************************************/
 
-gulp.task('sprite', function() {
-    
-	/* SPRITE task */
-	var spriteData = gulp.src(libPath+'images/client/origin/*.{png,jpg,gif}')
-		.pipe(plumber({
-		      	errorHandler: function (error) {
-			        console.log(error.message);
-			        this.emit('end');
-			    }
-			}))
-		.pipe(spritesmith({
-			imgName: 'spritesheet.png',
-			imgPath: libPath+'images/client/sprites/spritesheet.png',
-			cssName: 'origin.less'
-		}));
-	
-	  	spriteData.img
-	  		.pipe(imagemin())
-	  		.pipe(gulp.dest(libPath+'images/client/sprites/'));
-	  				
-	  	spriteData.css
-	  		.pipe(gulp.dest(libPath+'less/'));
 
-	return spriteData;
+gulp.task('sass-dev', function() {
+
+    /* SASS task */
+    gulp.src(scssPath)
+		.pipe(sass({
+			includePaths: [libPath+'/scss/'],
+			errLogToConsole: true
+		}))
+    .pipe(sourcemaps.init())
+    .pipe(plumber())
+    .pipe(sass({ style: 'compressed' }))
+    .pipe(autoprefixer('last 2 version'))
+    .pipe(plumber.stop())
+    .pipe(gulp.dest(cssPath))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(cssPath))
+    .pipe(reload({stream: true}))
+
 });
 
-var lessF = function () {
-	  return gulp.src(libPath+'less/styles.less')
-	  	.pipe(sourcemaps.init())
-	    	.pipe(less({}))
-		.pipe(sourcemaps.write())
-	    .pipe(gulp.dest(libPath+'css/'));
-	};
-gulp.task('less', ['sprite'], lessF);
+gulp.task('js-dev', function() {
+  return gulp.src([jsPathApp, jsPathModules])
+        .pipe(sourcemaps.init())
+        .pipe(concat('all.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(jsMinPath));
+});
 
 
+gulp.task('sprite', function() {
+
+    /* SPRITE task */
+	var spriteData = gulp.src(imagesPath)
+    .pipe(plumber({
+        errorHandler: function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }
+    }))
+    .pipe(spritesmith({
+        imgName: 'spritesheet.png',
+        imgPath: '../images/client/sprites/spritesheet.png',
+        cssTemplate : libPath+'scss/templates/spritesheet.scss.handlebars',
+        cssName: '_spritesheet.scss',
+    }));
+
+    spriteData.img
+    .pipe(imagemin())
+    .pipe(gulp.dest(libPath+'images/client/sprites/'));
+
+    spriteData.css
+    .pipe(gulp.dest(libPath+'scss/mixin/'));
+
+});
+
+gulp.task('iconfont', function () {
+
+	/* SPRITE task */
+  	return gulp.src([iconsPath])
+        .pipe(iconfont({
+            fontName: 'brander-font',
+            normalize: true,
+            fontHeight: 1001,
+            appendUnicode: false,
+            formats: ['ttf', 'eot', 'woff', 'woff2', 'svg'],
+            timestamp: runTimestamp
+    }))
+    .on('glyphs', function (glyphs, options) {
+        gulp.src(libPath+'scss/templates/_icons.scss')
+                    .pipe(consolidate('lodash', {
+                        glyphs: glyphs,
+                        fontName: 'brander-font',
+                        fontPath: 'fonts/svgfont/',
+                        className: 'icon'
+                    }))
+        .pipe(gulp.dest(libPath+'scss/module/'));
+    })
+    .pipe(gulp.dest(libPath+'fonts/svgfont'));
+});
 
 gulp.task('browser-sync', function() {
 
-	browserSync({
-        proxy: options.env, 
-		   host: options.env,
+    browserSync({
+        proxy: options.env,
+        host: options.env,
         open: "external",
         browser: options.nav,
-    });
+});
 
 });
 
 gulp.task('watch', function() {
-	 
-	/* WATCH task */
-	 	gulp.watch(libPath+'images/client/origin/*.{png,jpg,gif}', ['sprite', 'less']).on('change', browserSync.reload);
-	 	gulp.watch(libPath+'scss/*.scss', ['less']);
-	 	gulp.watch(libPath+'css/*.css').on('change', reload({stream: true}));
-	 	gulp.watch(libPath+'js/*.js', [ browserSync.reload]);
-		gulp.watch(tplPath+'**/*.php').on('change', browserSync.reload);
+
+    /* WATCH task */
+    gulp.watch(imagesPath, ['sprite']).on('change', browserSync.reload);
+    gulp.watch(iconsPath, ['iconfont']).on('change', browserSync.reload);
+    gulp.watch(scssPath, ['sass-dev']);
+    gulp.watch([jsPathApp, jsPathModules], ['js-dev', browserSync.reload]);
+    gulp.watch('../../../../app/design/frontend/BRANDER/default/template/**/*.phtml').on('change', browserSync.reload);
 
 });
 
-gulp.task('default', [ 'sprite', 'browser-sync', 'watch'], function() {});
+gulp.task('default', [ 'sprite', 'iconfont', 'sass-dev', 'js-dev', 'browser-sync', 'watch'], function() {});
 
 /*******************************************************************************************************
   _     ___ _   _ _____

@@ -25,46 +25,45 @@ SOMMAIRE
 *******************************************************************/
 
 .catalog-product-compare-index  {
-	
+
 	.main {
 		margin-top: 0;
 	}
-	
+
 	.main-container {
 		position: relative;
-		
+
 		&:after {
 			content: "";
 			height: 1px;
-			.rgba(@c-05, 10%);
-			border-bottom: 1px solid @result;
+			border-bottom: 1px solid rgba($c-05, .1);
 			position: absolute;
 			top: 140px;
 			left: 0;
 			right: 0;
-			width:@width;
+			width:$width;
 			margin:0 auto;
 		}
 	}
-	
+
 	.page-title {
 		line-height: 140px;
-		
+
 		h1 {
 			line-height: 140px;
 		}
-		
+
 		.link-print, .link-empty-compare {
 			position:relative;
 			font-size: 11px;
-			.transition-ease-in-out(.2s);
-			
+			@include transition-ease-in-out(.2s);
+
 			&:hover{
-				.transparent(.5);
+				@include transparent(.5);
 			}
-			
+
 		}
-		
+
 		.link-print{
 			padding-left:25px;
 			&:before{
@@ -72,10 +71,10 @@ SOMMAIRE
 				top:0px;
 				left:0;
 				content:"";
-				.sprite(@print);
+				@include sprite($print);
 			}
 		}
-		
+
 		.link-empty-compare {
 			margin-left: 25px;
 			padding-left:20px;
@@ -84,9 +83,9 @@ SOMMAIRE
 				top:-2px;
 				left:0;
 				content:"";
-				.sprite(@poubelle);
+				@include sprite($poubelle);
 			}
-			
+
 		}
 	}
 }
@@ -104,33 +103,33 @@ SOMMAIRE
 	position: relative;
 	z-index: 1;
 	display: none; /* affiché seulement sur certaines pages (famille, produit) */
-	.transition-ease-in-out(.2s);
-	
+	@include transition-ease-in-out(.2s);
+
 	&:hover{
 		.link{
-			color:@c-04;
+			color:$c-04;
 		}
 	}
-	
-	
+
+
 	.link {
 		position:relative;
 		text-decoration: underline;
 		&:before{
-			.sprite(@ico-compare);
+			@include sprite($ico-compare);
 			content:"";
 			position:absolute;
 			top:3px;
 			left:-20px;
 		}
 	}
-	
-	
+
+
 	.count {
-		color: @c2;
+		color: $c2;
 	}
 }
-	
+
 .catalog-product-compare-index .breadcrumbs-container {
 	display: none;
 }
@@ -144,77 +143,75 @@ SOMMAIRE
 #product_comparison {
 	width: 100%;
 	margin-top: 20px;
-	
-	
+
+
 	th {
 		text-align: left;
-		color:@c-11;
+		color:$c-11;
 		padding: 4px;
-		.rgba(@c-02, 10%);
-		border-bottom: 1px solid @result;
+		border-bottom: 1px solid rgba($c-02, .1);
 		line-height:16px;
 	}
-	
+
 	td {
 		text-align: center;
 		padding: 8px 4px;
 		width: 152px;
-		.rgba(@c-02, 10%);
-		border-bottom: 1px solid @result;
-		
+		border-bottom: 1px solid rgba($c-02, .1);
+
 		&.empty {
 			border-bottom: none;
 		}
 	}
-	
+
 	.add-to-row td,
 	.remove-row td {
 		border: none;
 		padding-bottom: 0;
 	}
-	
+
 	.add-to-links{
 		margin-top:15px;
 	}
-	
-	.btn-cart{ 
+
+	.btn-cart{
 		margin-bottom:50px;
 	}
-	
+
 	.btn-remove {
 		margin: 0 auto 20px auto;
 		width:26px;
 		height:26px;
-		.border-radius(26px);
-		.transition-ease-in-out(.2s);
-		background:@c-05;
+		@include border-radius(26px);
+		@include transition-ease-in-out(.2s);
+		background:$c-05;
 		position:relative;
-		
+
 		&:hover{
-			background:@c-04;
-			opacity:1;		
+			background:$c-04;
+			opacity:1;
 		}
-		
+
 		&:after{
 			position:absolute;
 			top:9px;
 			left:9px;
 			content:"";
-			.sprite(@picto-close);	
+			@include sprite($picto-close);
 		}
 	}
-	
+
 	.btn-cart {
 		width: 152px;
 		border:none;
 	}
-	
+
 	.product-image {
 		display:block;
 		margin:0 0 10px;
 		clear: both;
 	}
-	
+
 	.product-name {
 		margin: 0 0 10px;
 		height: 30px;
@@ -223,11 +220,11 @@ SOMMAIRE
 			font-size: 11px;
 			text-transform: uppercase;
 			text-decoration: none;
-			color: @c-05;
+			color: $c-05;
 			font-family: 'oswaldbook';
-		} 
+		}
 	}
-	
+
 	.std{
 		font-size:12px;
 		line-height:16px;
@@ -237,31 +234,31 @@ SOMMAIRE
 		height: 20px;
 		font-size:12px;
 	}
-	
+
 	.percentage {
 		top: 10px;
 		right: 20px;
 	}
-	
+
 	.link-wishlist{
 		font-size:11px;
-		color:@c-05;
+		color:$c-05;
 		position:relative;
 		margin-bottom:15px;
 		text-decoration:none;
 		display:block;
-		
+
 		&:hover{
 			text-decoration:none;
 		}
-		
+
 		&:before{
-			.sprite(@add-black);
+			@include sprite($add-black);
 			content:"";
 			position:absolute;
 			top:0;
 			left:20px;
-			
+
 		}
 	}
 }
