@@ -12,6 +12,7 @@ gulp:
   - cd server/skin/frontend/COMPUTEC/default/gulp
   - ln -s /node_modules
   - gulp build
+  - cd ../../../../../..
   - cd server/skin/frontend/BRANDER/default/gulp
   - ln -s /node_modules
   - gulp build
