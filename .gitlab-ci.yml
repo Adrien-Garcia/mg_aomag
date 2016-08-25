@@ -12,3 +12,13 @@ gulp:
   - cd server/skin/frontend/COMPUTEC/default/gulp
   - ln -s /node_modules
   - gulp build
+  - cd ../../../../../..
+  - cd server/skin/frontend/BRANDER/default/gulp
+  - ln -s /node_modules
+  - gulp build
+
+deploy:
+   image: registry.jetpulp.fr:5000/dev/beanstalkapp:latest
+   stage: deploy
+   script:
+   - git push --prune git@addonline.git.beanstalkapp.com:/addonline/aomagento.git +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*

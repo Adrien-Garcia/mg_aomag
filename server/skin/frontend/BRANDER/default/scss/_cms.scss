@@ -1,0 +1,258 @@
+/******************************************************************
+Site Name: Extrasynthèse
+Author: Jetpulp
+
+Stylesheet: Stylesheet CMS
+
+******************************************************************/
+
+
+/*******************************************************************
+
+SOMMAIRE
+
+
+@_00 CLASSIC STD
+
+
+*******************************************************************/
+
+
+
+
+
+/*******************************************************************
+
+@_00 CLASSIC STD
+
+*******************************************************************/
+                                                             
+.std .subtitle { padding:0; }
+.std ol.ol { list-style:none; }
+.std ul.disc { list-style:none; margin:0 0 10px; }
+.std dl dt { font-weight:bold; }
+.std dl dd { margin:0 0 10px; }
+.std ul,
+.std ol,
+.std dl,
+.std p,
+.std address,
+.std blockquote { margin:0 0 1em; padding:0; }
+.std ul { list-style:none; }
+.std ol { list-style:none;}
+.std ul ul { list-style-type:circle; }
+.std ul ul,
+.std ol ol,
+.std ul ol,
+.std ol ul { margin:.5em 0; }
+.std dt { font-weight:bold; }
+.std dd { padding:0 0 0 1.5em; }
+.std blockquote { font-style:italic; padding:0 0 0 1.5em; }
+.std address { font-style:normal; }
+.std b,
+.std strong { font-weight:bold; }
+.std i,
+.std em { font-style:italic; }
+.std a{ color:#333333; text-decoration: underline;}
+
+.std ol{
+		padding-left:15px;
+	 li{
+		position:relative;		
+		list-style-type: decimal;
+		
+			&:before{
+				
+			}
+		}
+}
+
+.std ul {
+		line-height: 19px;
+		font-size:13px;
+		color:$c-08;
+		margin-bottom: 20px;
+		
+		li{
+			position:relative;
+			padding-left:15px;
+			
+			&:before{
+				border:1px solid rgba(51, 51, 51, 0.4);
+				width:5px;
+				height:5px;
+				@include border-radius(5px);
+				content:"";
+				position:absolute;
+				top:6px;
+				left:0;
+			}
+		}
+
+	}
+
+.std h2{
+	font-family:$font-bold;
+	font-size:24px;
+	color:$c3;
+}
+
+.std h3{
+	font-family:$font-light;
+	font-size:20px;
+	color:$c3;
+}
+
+.std img[style="float: left;"]{
+	margin:0 20px 20px 0;
+}
+.std img[style="float: right;"]{
+	margin:0 0 20px 20px;
+}
+
+
+
+
+body.cms-page-view{
+
+	h1{ 
+		border-bottom: solid 1px #e5e5e5; 
+		padding-bottom: 30px; 
+		margin-bottom: 30px;
+	}
+
+	.breadcrumbs-container{
+		  top: 60px;
+		  position: absolute;
+		  left: 0;
+		  width: 952px;
+		  margin: 0 auto;
+	  	  font-size: 11px;
+	}
+	
+	.colonne1{
+		width: 100%;
+		float: left;
+		margin-bottom: 30px;
+		font-size: 13px;
+		line-height: 18px;
+		color: #999;
+
+		.colonne1_2{
+			width: 45%;
+			float: left;
+			margin-right: 5%;		
+		}
+		
+	
+		.colonne1_3{
+			width: 32%;
+			float: left;
+			margin-right: 2%;		
+		}
+		.last{margin-right: 0;}	
+	
+	}
+
+	.chapeau{
+		font-size: 18px;
+		line-height: 24px;
+		color: #999;
+	}
+	
+	h2{
+		font-size: 24px;
+		color: $c-05;
+		font-family: 'oswaldlight';
+		text-transform: uppercase;
+		margin-bottom: 30px;
+	}
+	
+	h3{
+		font-size: 14px;
+		color: $c-05;
+		font-family: 'oswaldlight';
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+	
+	img{ max-width: 100%;}
+
+	.button-effect {
+		font-size: 12px;
+		letter-spacing:1px;
+		text-decoration:none;
+		text-transform:uppercase;
+		font-family: 'oswaldbook';
+		font-weight: normal;
+		color:$c-01;
+		line-height:30px;			
+		width: auto;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+		-webkit-backface-visibility: hidden;
+		-moz-osx-font-smoothing: grayscale;
+		overflow: hidden;
+		-webkit-transition: border-color 0.3s, color 0.3s;
+		transition: border-color 0.3s, color 0.3s;
+		-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+		transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+		background:$c-05;
+		border:none;
+		padding: 0 20px;
+		cursor: pointer;
+		
+		&:before{
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 150%;
+			height: 100%;
+			background: $c-04;
+			z-index: -1;
+			-webkit-transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
+			transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
+			-webkit-transform-origin: 0% 100%;
+			transform-origin: 0% 100%;
+			-webkit-transition: -webkit-transform 0.3s, opacity 0.3s, background-color 0.3s;
+			transition: transform 0.3s, opacity 0.3s, background-color 0.3s;
+		}
+		
+		&:hover{
+			&:before{
+				opacity: 1;
+				background-color:  $c-04;
+				-webkit-transform: rotate3d(0, 0, 1, 0deg);
+				transform: rotate3d(0, 0, 1, 0deg);
+				-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+				transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+			}
+		}
+				
+	}
+
+	.Button2{
+		font-size: 11px;
+		color:#333;
+		text-transform: uppercase;
+		text-decoration: none;
+		position: relative;
+		display: inline-block;
+		cursor: pointer;
+	
+		&:before{
+			content:'';
+			position: absolute;
+			top: 5px;
+			right: -10px;
+			@include sprite($fleche-button2);
+		}
+	
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+
+}

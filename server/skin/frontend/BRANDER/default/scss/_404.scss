@@ -1,0 +1,82 @@
+/******************************************************************
+Site Name: Extrasynthèse
+Author: Jetpulp
+
+Stylesheet: Stylesheet 404
+
+******************************************************************/
+
+.cms-no-route {
+
+	h1{
+		padding-bottom: 20px;
+		border-bottom: solid 1px $c-13;
+	}
+
+	.breadcrumbs-container {
+		display: none;
+	}
+
+	.main-container {
+		position: relative;
+
+		&::before {
+			content: none;
+		}
+
+
+		.main {
+			margin-top: 0;
+
+			.page-title {
+				margin: 25px 0;
+			}
+
+			.std {
+				position: relative;
+
+				li{
+					position:relative;
+					color:$c-08;
+					font-size:13px;
+					line-height:18px;
+					padding:0 0 0 12px;
+
+					&:before{
+						content:"";
+						@include arrondi(5px);
+						display:block;
+						width:3px;
+						height:3px;
+						position:absolute;
+						top:6px;
+						left:0;
+						border:1px solid $c-08;
+						background: none;
+					}
+				}
+
+				a{
+					color:$c-05;
+					text-decoration: underline;
+
+					&:hover{ text-decoration: none;}
+				}
+
+				&::before {
+					content: "404";
+					font-size: 343px;
+					font-family: $font-bold;
+					color: $c3;
+					line-height: 343px;
+					opacity: .06;
+					filter: opacity(6);
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+		}
+	}
+
+}

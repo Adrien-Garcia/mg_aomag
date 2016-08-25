@@ -1,12 +1,10 @@
 #!/bin/sh
 
-echo "Copy pre-commit"
-cp contrib/pre-commit .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
-
-echo "Copy pre-push"
-cp contrib/pre-push .git/hooks/pre-push
-chmod +x .git/hooks/pre-push
-
+##
+#
+#  This script is called by composer post-install-cmd
+#  (Composer install phpcs and magento-ecg coding standard, and this script add magento-ecg to phpcs path)
+#
+##
 echo "Add magento coding standard to PHPCS path"
 ./vendor/bin/phpcs --config-set installed_paths ../../magento-ecg/coding-standard

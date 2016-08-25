@@ -3,59 +3,41 @@ Aomagento
 
 Dépôt "modèle" Magento Community Edition, qui sert de base pour les nouveaux projets magento.
 
-Connect to the virtual machine
-```
-vagrant ssh
-```
+Gitlab-CI
+=========
+L'intégration continue dans Gitlab CI a été mis en place.
 
-Thème CLIENT
+Il est possible de tester les tâches de build ou test avant de pusher :
+
+`gitlab-ci-multi-runner exec docker phpcs`
+
+`gitlab-ci-multi-runner exec docker gulp`
+
+Il faut au préalable avoir installé gitlab-ci-multi-runner  : https://gitlab.com/gitlab-org/gitlab-ci-multi-runner
+
+Thème COMPUTEC
 ===========
 
 Thème non-responsive : description à compléter
 
-Grunt installation (utilisation des modules nodes installés sur la vm):
-```
-cd /var/www/aomagento/server/skin/frontend/CLIENT/default/grunt
-ln -s /usr/lib/node_modules
-```
+Gulp
 
-Grunt compilation :
-```
-grunt
-```
-
-Thème CLIENT-2
+Thème BRANDER
 =============
 
 Thème non-responsive : description à compléter
 
-Grunt installation (utilisation des modules nodes installés sur la vm):
-```
-cd /var/www/aomagento/server/skin/frontend/CLIENT-2/default/grunt
-ln -s /usr/lib/node_modules
-```
+Gulp
 
-Grunt compilation :
-```
-grunt
-```
 
-Thème CLIENT-4
+Thème ANGLECIA
 =============
 
 Thème non-responsive : description à compléter
 
-Grunt installation (utilisation des modules nodes installés sur la vm):
-```
-cd /var/www/aomagento/server/skin/frontend/CLIENT-4/default/grunt
-ln -s /usr/lib/node_modules
-```
+Grunt
 
-Grunt compilation :
-```
-grunt
-```
-
-Thème RWD
+Thème JETRWD
 ==========
-Thème responsive : description et utilisation à compléter
+Thème responsive de magento, avec les sélecteurs pour nos tests sélénium
+
