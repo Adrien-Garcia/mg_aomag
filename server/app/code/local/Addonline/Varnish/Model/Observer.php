@@ -51,7 +51,7 @@ class Addonline_Varnish_Model_Observer
         }
 
         //Cas particulier des pages 404 : il ne faut pas les cacher sous peine de poser des problème sur des traitements qui ne doiivent pas être cachés et qui peuvent être sur certains cas traité par l'action noRoute...
-        if ($actionName == 'noRoute') {
+        if ($actionName == 'noRoute' || $actionName ==  'defaultNoRoute') {
         	$needCaching = false;
         }
         

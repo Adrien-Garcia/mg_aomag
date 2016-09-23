@@ -54,10 +54,10 @@ class Addonline_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
 		foreach ((array)$varnishServers as $varnishServer) {
 			foreach ($urls as $url) {
 				$varnishUrl = "http://" . $varnishServer . $url;
-				$purgeHost = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL);//attention à prendre l'url unsecure car sinon on risque d'avoir le https en cas de BO ssl
-				$purgeHost = substr($purgeHost, 0, strlen($purgeHost)-1);
-				$purgeHost = substr($purgeHost,strlen( "http://") );
-				
+				$purgeHost = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL);
+				$purgeHost = parse_url($purgeHost);
+				$purgeHost = $purgeHost['host'];
+
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, $varnishUrl);
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PURGE');
