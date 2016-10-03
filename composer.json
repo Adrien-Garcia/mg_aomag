@@ -5,7 +5,7 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "bash contrib/setup.sh"
+      "./vendor/bin/phpcs --config-set installed_paths ../../magento-ecg/coding-standard"
     ]
   }
 }
