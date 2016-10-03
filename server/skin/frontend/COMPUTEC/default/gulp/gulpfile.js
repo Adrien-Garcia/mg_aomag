@@ -57,7 +57,7 @@ options = minimist(process.argv.slice(2), knownOptions);
 gulp.task('sass-dev', function() {
 
     /* SASS task */
-    gulp.src(scssPath)
+    return gulp.src(scssPath)
 		.pipe(sass({
 			includePaths: [libPath+'/scss/'],
 			errLogToConsole: true
@@ -70,7 +70,7 @@ gulp.task('sass-dev', function() {
     .pipe(gulp.dest(cssPath))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(cssPath))
-    .pipe(reload({stream: true}))
+    .pipe(reload({stream: true}));
 
 });
 
@@ -106,7 +106,7 @@ gulp.task('sprite', function() {
     .pipe(imagemin())
     .pipe(gulp.dest(libPath+'images/client/sprites/'));
 
-    spriteData.css
+    return spriteData.css
     .pipe(gulp.dest(libPath+'scss/mixin/'));
 
 });
@@ -138,7 +138,7 @@ gulp.task('iconfont', function () {
 
 gulp.task('browser-sync', function() {
 
-    browserSync({
+    return browserSync({
         proxy: options.env,
         host: options.env,
         open: "external",
@@ -210,8 +210,8 @@ gulp.task('test', [], function() {});
 
  *******************************************************************************************************/
 
-gulp.task('sass-build', function() {
-	gulp.src(scssPath)
+gulp.task('sass-build', ['sprite', 'iconfont'], function() {
+	return gulp.src(scssPath)
         .pipe(plumber())
         .pipe(sass({ style: 'compressed' }))
         .pipe(autoprefixer('last 2 version'))
@@ -228,4 +228,4 @@ gulp.task('js-build', function() {
         .pipe(gulp.dest(jsMinPath));
 });
 
-gulp.task('build', ['sprite', 'iconfont', 'sass-build', 'js-build'], function() {});
+gulp.task('build', ['sass-build', 'js-build'], function() {});

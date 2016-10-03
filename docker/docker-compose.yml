@@ -58,8 +58,8 @@ gulp:
     volumes:
         - ../server:/app
     environment:
-#        - BUILD_PATH=skin/frontend/COMPUTEC/default/gulp
-        - BUILD_PATH=skin/frontend/BRANDER/default/gulp
+        - BUILD_PATH=skin/frontend/COMPUTEC/default/gulp
+#        - BUILD_PATH=skin/frontend/BRANDER/default/gulp
 #        - BUILD_PATH=skin/frontend/ANGLECIA/default/gulp
         - SERVER_NAME
         - USER_UID
