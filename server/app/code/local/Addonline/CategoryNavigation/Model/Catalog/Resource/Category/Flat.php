@@ -30,10 +30,13 @@ class Addonline_CategoryNavigation_Model_Catalog_Resource_Category_Flat extends 
             ->joinLeft(
                 array('url_rewrite'=>$this->getTable('core/url_rewrite')),
                 'url_rewrite.category_id=main_table.entity_id AND url_rewrite.is_system=1 AND '.
-                $read->quoteInto('url_rewrite.product_id IS NULL AND url_rewrite.store_id=? AND ',
-                $category->getStoreId() ).
+                $read->quoteInto(
+                    'url_rewrite.product_id IS NULL AND url_rewrite.store_id=? AND ',
+                    $category->getStoreId()
+                ).
                 $read->prepareSqlCondition('url_rewrite.id_path', array('like' => 'category/%')),
-                array('request_path' => 'url_rewrite.request_path'))
+                array('request_path' => 'url_rewrite.request_path')
+            )
             ->where('main_table.entity_id IN (?)', array_reverse(explode(',', $category->getPathInStore())));
         if ($isActive) {
             $select->where('main_table.is_active = ?', '1');
@@ -46,5 +49,4 @@ class Addonline_CategoryNavigation_Model_Catalog_Resource_Category_Flat extends 
         }
         return $categories;
     }
-
 }

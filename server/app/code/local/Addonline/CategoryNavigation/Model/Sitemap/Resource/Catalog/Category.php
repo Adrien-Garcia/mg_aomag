@@ -46,12 +46,11 @@ class Addonline_CategoryNavigation_Model_Sitemap_Resource_Catalog_Category exten
         $urlRewrite->joinTableToSelect($this->_select, $storeId);
 
         $this->_addFilter($storeId, 'is_active', 1);
-        //ADDONLINE 
-    	$this->_addFilter($storeId, 'navigation_type', 0);
-    	//ADDONLINE
+        //ADDONLINE
+        $this->_addFilter($storeId, 'navigation_type', 0);
+        //ADDONLINE
 
-    	return $this->_loadEntities();
-    	   	
+        return $this->_loadEntities();
+            
     }
-
 }

@@ -27,7 +27,7 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
          * la variable personnalisée 'include_category_thumb_in_navigation_submenu' à TRUE
          * indique que la miniature de la catégorie de 1er niveau
          * doit être affichée dans le sous megnou
-         */ 
+         */
         $includeThumb = Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('include_category_thumb_in_navigation_submenu')->getValue('text')=='true'?true:false;
         
         $children = $menuTree->getChildren();
@@ -41,7 +41,6 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
         $itemPositionClassPrefix = $parentPositionClass ? $parentPositionClass . '-' : 'nav-';
         //if( $childLevel == 1 && $includeThumb) $html .="<div>";
         foreach ($children as $child) {
-
             $child->setLevel($childLevel);
             $child->setIsFirst($counter == 1);
             $child->setIsLast($counter == $childrenCount);
@@ -58,11 +57,11 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
             $html .= '<li ' . $this->_getRenderedMenuItemAttributes($child) . '>';
             //ADDONLINE
             if ($child->getNavigationType() == Addonline_CategoryNavigation_Model_Catalog_Category_Attribute_Source_Navigationtype::UNNAVIGABLE) {
-	            $html .= '<a ' . $outermostClassCode . '><span>';
+                $html .= '<a ' . $outermostClassCode . '><span>';
             } else {
-            	$html .= '<a href="' . $child->getUrl() . '" ' . $outermostClassCode . '><span>';
+                $html .= '<a href="' . $child->getUrl() . '" ' . $outermostClassCode . '><span>';
             }
-			//FIN ADDONLINE
+            //FIN ADDONLINE
             $html .= $this->escapeHtml($child->getName()) . '</span></a>';
 
             if ($child->hasChildren()) {
@@ -70,7 +69,7 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
                     $html .= '<div class="' . $childrenWrapClass . '">';
                 }
                 
-                if( $includeThumb && $childLevel == 0 && $child->getThumbnail() ) {
+                if ($includeThumb && $childLevel == 0 && $child->getThumbnail()) {
                     $html .= '<ul class="level' . $childLevel . '  with-thumb">';
                 } else {
                     $html .= '<ul class="level' . $childLevel . '">';
@@ -79,7 +78,7 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
                 $html .= $this->_getHtml($child, $childrenWrapClass);
 
                 // on ajoute si besoin un li pour la miniature
-                if( $includeThumb && $childLevel == 0 && $child->getThumbnail() ) {
+                if ($includeThumb && $childLevel == 0 && $child->getThumbnail()) {
                     $html .= "<li class='img-category'><img class='visuel' src='". $child->getThumbnail() ."' /></li>";
                 }
 
@@ -88,7 +87,6 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
                 if (!empty($childrenWrapClass)) {
                     $html .= '</div>';
                 }
-
             }
              
             $html .= '</li>';
@@ -98,6 +96,4 @@ class Addonline_CategoryNavigation_Block_Page_Html_Topmenu extends Mage_Page_Blo
         //if( $childLevel == 1 && $includeThumb) $html .= "</div>";
         return $html;
     }
-
-
 }

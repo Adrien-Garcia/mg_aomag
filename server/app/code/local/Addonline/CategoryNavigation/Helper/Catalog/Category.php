@@ -32,12 +32,11 @@ class Addonline_CategoryNavigation_Helper_Catalog_Category extends Mage_Catalog_
         if (!$category->isInRootCategoryList()) {
             return false;
         }
-		//ADDONLINE : on faitune 404 pour les catégories non navigables ou page_cms
+        //ADDONLINE : on faitune 404 pour les catégories non navigables ou page_cms
         if ($category->getNavigationType() != Addonline_CategoryNavigation_Model_Catalog_Category_Attribute_Source_Navigationtype::NORMAL) {
-        	return false;
+            return false;
         }
         //FIN ADDONLINE
         return true;
     }
-
 }

@@ -43,5 +43,4 @@ class Addonline_ReviewBoost_Model_Boost
 
         $translate->setTranslateInline(true);
     }
-
 }
