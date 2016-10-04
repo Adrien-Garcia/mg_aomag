@@ -1,12 +1,12 @@
 phpcs:
-  image: registry.jetpulp.fr:5000/dev/php70-cli
+  image: registry.jetpulp.fr:5000/dev/php70-cli:latest
   stage: test
   script:
   - composer install
   - ./vendor/bin/phpcs
 
 gulp:
-  image: registry.jetpulp.fr:5000/dev/gulp
+  image: registry.jetpulp.fr:5000/dev/gulp:latest
   stage: test
   script:
   - cd server/skin/frontend/COMPUTEC/default/gulp
