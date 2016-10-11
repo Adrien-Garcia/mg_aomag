@@ -36,7 +36,7 @@
     z-index: 200;
 
     ul {
-        @include border-radius(2px);
+        border-radius: 2px;
         background-color: #FFFFFF;
         border: 1px solid $c-module-border-highlight;
         left: 0;

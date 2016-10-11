@@ -1,67 +1,76 @@
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    design
- * @package     rwd_default
- * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
+/*
+// ----------------------------------------------
+// Usage example:
+// For IE set $mq-support to false.
+// Set the fixed value.
+// Then use mixins to test whether styles should be applied.
+// ----------------------------------------------
+
+$mq-support: false;
+$mq-fixed-value: 1024;
+
+// Renders at fixed value
+@include bp (min-width, 300px) { 
+    div { color:#000; }
+}
+
+// Doesn't render without MQ support
+@include bp (min-width, 1200px) { 
+    div { color:#FFF; }
+}
+
+// Doesn't render without MQ support
+@include bp (max-width, 300px) { 
+    div { color:#444; }
+}
+
+// Renders at fixed value
+@include bp (max-width, 1200px) { 
+    div { color:#888; }
+}
+
+// ----------------------------------------------
+*/
 /* ============================================ *
  * SCAFFOLD FORM
  * ============================================ */
 /* Scaffolding can not be applied globally to all forms, since some forms are best displayed in a stacked layout */
 .scaffold-form .form-list > li {
-  display: block;
-}
+  display: block; }
+
 .scaffold-form .form-list > li:after {
   content: '';
   display: table;
-  clear: both;
-}
+  clear: both; }
+
 .scaffold-form .fields {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
+
 .scaffold-form .fields:after {
   content: '';
   display: table;
-  clear: both;
-}
+  clear: both; }
+
 .scaffold-form .fields > .fields,
 .scaffold-form .field,
 .scaffold-form .wide,
 .scaffold-form .control {
-  margin-bottom: 7px;
-}
+  margin-bottom: 7px; }
+
 .scaffold-form .fields > .fields:after,
 .scaffold-form .field:after,
 .scaffold-form .wide:after,
 .scaffold-form .control:after {
   content: '';
   display: table;
-  clear: both;
-}
+  clear: both; }
+
 .scaffold-form label:first-child {
   float: left;
   width: 135px;
-  padding: 7px 8px 0 0;
-}
+  padding: 7px 8px 0 0; }
+
 .scaffold-form select,
 .scaffold-form textarea,
 .scaffold-form input[type=email],
@@ -71,33 +80,29 @@
 .scaffold-form input[type=tel],
 .scaffold-form input[type=text] {
   width: 330px;
-  max-width: 100%;
-}
+  max-width: 100%; }
+
 .scaffold-form .input-box {
   float: left;
-  max-width: 350px;
-}
+  max-width: 350px; }
+
 .scaffold-form .buttons-set {
-  padding-top: 5px;
-}
+  padding-top: 5px; }
 
 @media only screen and (max-width: 599px) {
   .scaffold-form label:first-child {
     float: none;
     width: auto;
-    padding: 0;
-  }
+    padding: 0; }
   .scaffold-form .input-box {
     float: none;
-    max-width: 100%;
-  }
+    max-width: 100%; }
   .scaffold-form .control .input-box {
     clear: none;
     float: left;
     display: inline;
-    width: auto;
-  }
+    width: auto; }
   .scaffold-form .control label:first-child {
-    float: left;
-  }
-}
+    float: left; } }
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNjYWZmb2xkLWZvcm1zLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7RUFnQ0U7QUFDRjs7a0RBRWtEO0FBQ2xELG1IQUFtSDtBQUNuSDtFQUNFLGVBQWUsRUFBRzs7QUFDbEI7RUFDRSxZQUFZO0VBQ1osZUFBZTtFQUNmLFlBQVksRUFBRzs7QUFFbkI7RUFDRSxVQUFVO0VBQ1YsV0FBVyxFQUFHOztBQUNkO0VBQ0UsWUFBWTtFQUNaLGVBQWU7RUFDZixZQUFZLEVBQUc7O0FBRW5COzs7O0VBSUUsbUJBQW1CLEVBQUc7O0FBQ3RCOzs7O0VBSUUsWUFBWTtFQUNaLGVBQWU7RUFDZixZQUFZLEVBQUc7O0FBRW5CO0VBQ0UsWUFBWTtFQUNaLGFBQWE7RUFDYixxQkFBcUIsRUFBRzs7QUFFMUI7Ozs7Ozs7O0VBUUUsYUFBYTtFQUNiLGdCQUFnQixFQUFHOztBQUVyQjtFQUNFLFlBQVk7RUFDWixpQkFBaUIsRUFBRzs7QUFFdEI7RUFDRSxpQkFBaUIsRUFBRzs7QUFFdEI7RUFDRTtJQUNFLFlBQVk7SUFDWixZQUFZO0lBQ1osV0FBVyxFQUFHO0VBQ2hCO0lBQ0UsWUFBWTtJQUNaLGdCQUFnQixFQUFHO0VBQ3JCO0lBQ0UsWUFBWTtJQUNaLFlBQVk7SUFDWixnQkFBZ0I7SUFDaEIsWUFBWSxFQUFHO0VBQ2pCO0lBQ0UsWUFBWSxFQUFHLEVBQUEiLCJmaWxlIjoic2NhZmZvbGQtZm9ybXMuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLypcbi8vIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbi8vIFVzYWdlIGV4YW1wbGU6XG4vLyBGb3IgSUUgc2V0ICRtcS1zdXBwb3J0IHRvIGZhbHNlLlxuLy8gU2V0IHRoZSBmaXhlZCB2YWx1ZS5cbi8vIFRoZW4gdXNlIG1peGlucyB0byB0ZXN0IHdoZXRoZXIgc3R5bGVzIHNob3VsZCBiZSBhcHBsaWVkLlxuLy8gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuXG4kbXEtc3VwcG9ydDogZmFsc2U7XG4kbXEtZml4ZWQtdmFsdWU6IDEwMjQ7XG5cbi8vIFJlbmRlcnMgYXQgZml4ZWQgdmFsdWVcbkBpbmNsdWRlIGJwIChtaW4td2lkdGgsIDMwMHB4KSB7IFxuICAgIGRpdiB7IGNvbG9yOiMwMDA7IH1cbn1cblxuLy8gRG9lc24ndCByZW5kZXIgd2l0aG91dCBNUSBzdXBwb3J0XG5AaW5jbHVkZSBicCAobWluLXdpZHRoLCAxMjAwcHgpIHsgXG4gICAgZGl2IHsgY29sb3I6I0ZGRjsgfVxufVxuXG4vLyBEb2Vzbid0IHJlbmRlciB3aXRob3V0IE1RIHN1cHBvcnRcbkBpbmNsdWRlIGJwIChtYXgtd2lkdGgsIDMwMHB4KSB7IFxuICAgIGRpdiB7IGNvbG9yOiM0NDQ7IH1cbn1cblxuLy8gUmVuZGVycyBhdCBmaXhlZCB2YWx1ZVxuQGluY2x1ZGUgYnAgKG1heC13aWR0aCwgMTIwMHB4KSB7IFxuICAgIGRpdiB7IGNvbG9yOiM4ODg7IH1cbn1cblxuLy8gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuKi9cbi8qID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09ICpcbiAqIFNDQUZGT0xEIEZPUk1cbiAqID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09ICovXG4vKiBTY2FmZm9sZGluZyBjYW4gbm90IGJlIGFwcGxpZWQgZ2xvYmFsbHkgdG8gYWxsIGZvcm1zLCBzaW5jZSBzb21lIGZvcm1zIGFyZSBiZXN0IGRpc3BsYXllZCBpbiBhIHN0YWNrZWQgbGF5b3V0ICovXG4uc2NhZmZvbGQtZm9ybSAuZm9ybS1saXN0ID4gbGkge1xuICBkaXNwbGF5OiBibG9jazsgfVxuICAuc2NhZmZvbGQtZm9ybSAuZm9ybS1saXN0ID4gbGk6YWZ0ZXIge1xuICAgIGNvbnRlbnQ6ICcnO1xuICAgIGRpc3BsYXk6IHRhYmxlO1xuICAgIGNsZWFyOiBib3RoOyB9XG5cbi5zY2FmZm9sZC1mb3JtIC5maWVsZHMge1xuICBtYXJnaW46IDA7XG4gIHBhZGRpbmc6IDA7IH1cbiAgLnNjYWZmb2xkLWZvcm0gLmZpZWxkczphZnRlciB7XG4gICAgY29udGVudDogJyc7XG4gICAgZGlzcGxheTogdGFibGU7XG4gICAgY2xlYXI6IGJvdGg7IH1cblxuLnNjYWZmb2xkLWZvcm0gLmZpZWxkcyA+IC5maWVsZHMsXG4uc2NhZmZvbGQtZm9ybSAuZmllbGQsXG4uc2NhZmZvbGQtZm9ybSAud2lkZSxcbi5zY2FmZm9sZC1mb3JtIC5jb250cm9sIHtcbiAgbWFyZ2luLWJvdHRvbTogN3B4OyB9XG4gIC5zY2FmZm9sZC1mb3JtIC5maWVsZHMgPiAuZmllbGRzOmFmdGVyLFxuICAuc2NhZmZvbGQtZm9ybSAuZmllbGQ6YWZ0ZXIsXG4gIC5zY2FmZm9sZC1mb3JtIC53aWRlOmFmdGVyLFxuICAuc2NhZmZvbGQtZm9ybSAuY29udHJvbDphZnRlciB7XG4gICAgY29udGVudDogJyc7XG4gICAgZGlzcGxheTogdGFibGU7XG4gICAgY2xlYXI6IGJvdGg7IH1cblxuLnNjYWZmb2xkLWZvcm0gbGFiZWw6Zmlyc3QtY2hpbGQge1xuICBmbG9hdDogbGVmdDtcbiAgd2lkdGg6IDEzNXB4O1xuICBwYWRkaW5nOiA3cHggOHB4IDAgMDsgfVxuXG4uc2NhZmZvbGQtZm9ybSBzZWxlY3QsXG4uc2NhZmZvbGQtZm9ybSB0ZXh0YXJlYSxcbi5zY2FmZm9sZC1mb3JtIGlucHV0W3R5cGU9ZW1haWxdLFxuLnNjYWZmb2xkLWZvcm0gaW5wdXRbdHlwZT1zZWFyY2hdLFxuLnNjYWZmb2xkLWZvcm0gaW5wdXRbdHlwZT1udW1iZXJdLFxuLnNjYWZmb2xkLWZvcm0gaW5wdXRbdHlwZT1wYXNzd29yZF0sXG4uc2NhZmZvbGQtZm9ybSBpbnB1dFt0eXBlPXRlbF0sXG4uc2NhZmZvbGQtZm9ybSBpbnB1dFt0eXBlPXRleHRdIHtcbiAgd2lkdGg6IDMzMHB4O1xuICBtYXgtd2lkdGg6IDEwMCU7IH1cblxuLnNjYWZmb2xkLWZvcm0gLmlucHV0LWJveCB7XG4gIGZsb2F0OiBsZWZ0O1xuICBtYXgtd2lkdGg6IDM1MHB4OyB9XG5cbi5zY2FmZm9sZC1mb3JtIC5idXR0b25zLXNldCB7XG4gIHBhZGRpbmctdG9wOiA1cHg7IH1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA1OTlweCkge1xuICAuc2NhZmZvbGQtZm9ybSBsYWJlbDpmaXJzdC1jaGlsZCB7XG4gICAgZmxvYXQ6IG5vbmU7XG4gICAgd2lkdGg6IGF1dG87XG4gICAgcGFkZGluZzogMDsgfVxuICAuc2NhZmZvbGQtZm9ybSAuaW5wdXQtYm94IHtcbiAgICBmbG9hdDogbm9uZTtcbiAgICBtYXgtd2lkdGg6IDEwMCU7IH1cbiAgLnNjYWZmb2xkLWZvcm0gLmNvbnRyb2wgLmlucHV0LWJveCB7XG4gICAgY2xlYXI6IG5vbmU7XG4gICAgZmxvYXQ6IGxlZnQ7XG4gICAgZGlzcGxheTogaW5saW5lO1xuICAgIHdpZHRoOiBhdXRvOyB9XG4gIC5zY2FmZm9sZC1mb3JtIC5jb250cm9sIGxhYmVsOmZpcnN0LWNoaWxkIHtcbiAgICBmbG9hdDogbGVmdDsgfSB9XG4iXX0= */

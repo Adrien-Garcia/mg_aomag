@@ -19,3 +19,4 @@
 /.idea
 /vendor
 .directory
+node_modules/

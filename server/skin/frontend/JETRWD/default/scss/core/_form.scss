@@ -143,7 +143,7 @@ select[multiple] {
  */
 
 textarea {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     width: 100%;
     max-width: 450px;
     padding: 5px;
@@ -154,8 +154,8 @@ textarea {
  */
 
 .input-text {
-    @include appearance(none);
-    @include border-radius(2px);
+    appearance: none;
+    border-radius: 2px;
     border: 1px solid $c-input-border;
     background: #FFFFFF;
     font-size: $f-size-l;

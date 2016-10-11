@@ -138,8 +138,8 @@
         .quantity-button {
             opacity: 0;
 
-            @include transition-property(opacity);
-            @include transition-duration(100ms);
+            transition-property: opacity;
+            transition-duration: 100ms;
 
             &[disabled] {
                 cursor: default;
