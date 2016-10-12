@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Jetpulp_Jetfixes>
+            <version>1.0.1</version>
+        </Jetpulp_Jetfixes>
+    </modules>
+    <global>
+        <resources>
+            <jetpulp_jetfixes>
+                <setup>
+                    <module>Jetpulp_Jetfixes</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </jetpulp_jetfixes>
+        </resources>
+    </global>
+</config>

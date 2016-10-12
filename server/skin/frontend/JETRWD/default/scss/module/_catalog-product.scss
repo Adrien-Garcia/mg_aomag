@@ -732,7 +732,7 @@
 }
 
 .product-options dd .time-picker {
-    @include inline-block;
+    display: inline-block;
     padding: 2px 0;
     vertical-align: middle;
 }

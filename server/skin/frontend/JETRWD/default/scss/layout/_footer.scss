@@ -144,7 +144,7 @@
     .block-subscribe .input-text {
         width: 100%;
         border-right: 0;
-        @include border-radius(0);
+        border-radius: 0;
     }
 
     .block-subscribe .block-content {
