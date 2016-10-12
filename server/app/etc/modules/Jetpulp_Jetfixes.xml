@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <modules>
-        <Jetpulp_Silamech>
+        <Jetpulp_Jetfixes>
             <active>true</active>
             <codePool>local</codePool>
-        </Jetpulp_Silamech>
+        </Jetpulp_Jetfixes>
     </modules>
 </config>
