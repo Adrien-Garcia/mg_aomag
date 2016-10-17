@@ -15,14 +15,14 @@ $installer = $this;
 $installer->startSetup();
 
 // 1. Execute the following two SQL queries to clean the core_email_queue_recipients table from orphan records and repeated messages ids
-$installer->run( "
+$installer->run("
 DELETE FROM core_email_queue_recipients WHERE message_id NOT IN ( SELECT message_id FROM core_email_queue );
 DELETE FROM core_email_queue_recipients WHERE recipient_id < ( SELECT recipient_id FROM ( SELECT recipient_id FROM core_email_queue_recipients ORDER BY message_id ASC, recipient_id DESC LIMIT 1 ) AS r );
-" );
+");
 
 // 2. Create a foreign key on the core_email_queue_recipients table to delete Recipients records on cascade. The SQL query to create this foreign key is:
-$installer->run( "
+$installer->run("
 ALTER TABLE core_email_queue_recipients ADD FOREIGN KEY( message_id ) REFERENCES core_email_queue( message_id ) ON DELETE CASCADE;
-" );
+");
 
 $installer->endSetup();
