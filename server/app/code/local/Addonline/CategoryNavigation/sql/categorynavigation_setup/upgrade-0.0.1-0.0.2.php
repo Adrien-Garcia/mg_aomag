@@ -8,7 +8,7 @@ $entityTypeId     = $installer->getEntityTypeId('catalog_category');
 $attributeSetId   = $installer->getDefaultAttributeSetId($entityTypeId);
 $attributeGroupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attributeSetId);
 
-$installer->addAttribute('catalog_category', 'balise_h1',  array(
+$installer->addAttribute('catalog_category', 'balise_h1', array(
         'type'     => 'varchar',
         'label'    => 'Balise h1',
         'input'    => 'text',
@@ -19,11 +19,11 @@ $installer->addAttribute('catalog_category', 'balise_h1',  array(
 ));
 
 $installer->addAttributeToGroup(
-        $entityTypeId,
-        $attributeSetId,
-        $attributeGroupId,
-        'balise_h1',
-        '20'
+    $entityTypeId,
+    $attributeSetId,
+    $attributeGroupId,
+    'balise_h1',
+    '20'
 );
 
 $attributeId = $installer->getAttributeId($entityTypeId, 'balise_h1');

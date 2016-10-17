@@ -8,5 +8,4 @@ class Addonline_Customer_Block_Account_Navigation extends Mage_Customer_Block_Ac
         unset($this->_links[$name]);
         $this;
     }
-
 }

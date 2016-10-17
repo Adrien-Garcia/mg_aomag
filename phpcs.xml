@@ -35,20 +35,30 @@
     <!-- Scan only files in local pool -->
     <file>./server/app/code/local/</file>
 
+    <!-- Magento Coding Advices :https://github.com/magento-ecg/coding-standard -->
     <rule ref="Ecg"/>
+    <!-- Magento Coding Style : based on PSR2, adapted to magento -->
+    <rule ref="PSR2">
+        <!-- Magento 1 class names don't comply so ignore these rules  -->
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+        <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
 
-    <!-- add other rules
-    <rule ref="./ruleset.xml"/>
-    <rule ref="Zend"/>
-    <rule ref="/home/username/standards/mystandard"/>
-    <rule ref="/home/username/standards/custom.xml"/>
-    <rule ref="../standards/mystandard"/>
-    -->
+        <!-- Magento standards use underscore for private methods so lets ignore this -->
+        <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
+        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
 
-    <!-- exclude some rules
-    <rule ref="Squiz">
-        <exclude name="Squiz.PHP.CommentedOutCode"/>
+        <!-- Magento requires including files in some cases so we either exclude this test or add DocBlocks -->
+        <exclude name="PSR1.Files.SideEffects"/>
+
+        <!-- Handle line length in a different rule -->
+        <exclude name="Generic.Files.LineLength"/>
     </rule>
-    -->
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="200"/>
+            <property name="absoluteLineLimit" value=""/>
+        </properties>
+    </rule>
 
 </ruleset>

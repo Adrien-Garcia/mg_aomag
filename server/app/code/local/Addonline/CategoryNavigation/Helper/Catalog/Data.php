@@ -21,8 +21,7 @@ class Addonline_CategoryNavigation_Helper_Catalog_Data extends Mage_Catalog_Help
      */
     public function getBreadcrumbPath()
     {
-    	if (!$this->_categoryPath) {
-
+        if (!$this->_categoryPath) {
             $path = array();
             if ($category = $this->getCategory()) {
                 $pathInStore = $category->getPathInStore();
@@ -33,17 +32,17 @@ class Addonline_CategoryNavigation_Helper_Catalog_Data extends Mage_Catalog_Help
                 // add category path breadcrumb
                 foreach ($pathIds as $categoryId) {
                     if (isset($categories[$categoryId]) && $categories[$categoryId]->getName()) {
-		                //ADDONLINE : metre l'url de la page cms si elle est configurée
-		                $pageCms = null;
-		                if ( $categories[$categoryId]->getNavigationType() == Addonline_CategoryNavigation_Model_Catalog_Category_Attribute_Source_Navigationtype::PAGE_CMS
-		                &&  $categories[$categoryId]->getPageCms()) {
-		                	$pageCms =  $categories[$categoryId]->getPageCms();
-		                }
-		                //FIN ADDONLINE
-                    	$path['category'.$categoryId] = array(
+                        //ADDONLINE : metre l'url de la page cms si elle est configurée
+                        $pageCms = null;
+                        if ($categories[$categoryId]->getNavigationType() == Addonline_CategoryNavigation_Model_Catalog_Category_Attribute_Source_Navigationtype::PAGE_CMS
+                        &&  $categories[$categoryId]->getPageCms()) {
+                            $pageCms =  $categories[$categoryId]->getPageCms();
+                        }
+                        //FIN ADDONLINE
+                        $path['category'.$categoryId] = array(
                             'label' => $categories[$categoryId]->getName(),
                             'link' => $pageCms?Mage::getUrl('/').$pageCms:($this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : ''),
-                    		'navigation_type' => $categories[$categoryId]->getNavigationType()	
+                            'navigation_type' => $categories[$categoryId]->getNavigationType()
                         );
                     }
                 }
@@ -57,5 +56,4 @@ class Addonline_CategoryNavigation_Helper_Catalog_Data extends Mage_Catalog_Help
         }
         return $this->_categoryPath;
     }
-
 }

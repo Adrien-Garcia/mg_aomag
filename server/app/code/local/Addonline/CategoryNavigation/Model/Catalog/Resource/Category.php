@@ -34,6 +34,4 @@ class Addonline_CategoryNavigation_Model_Catalog_Resource_Category extends Mage_
         
         return $categories;
     }
-
-
 }

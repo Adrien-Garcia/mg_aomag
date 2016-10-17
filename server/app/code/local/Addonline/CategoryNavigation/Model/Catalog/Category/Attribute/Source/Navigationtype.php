@@ -8,14 +8,13 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Addonline_CategoryNavigation_Model_Catalog_Category_Attribute_Source_Navigationtype
-    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
+class Addonline_CategoryNavigation_Model_Catalog_Category_Attribute_Source_Navigationtype extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
-	
-	const NORMAL = 0;
-	const UNNAVIGABLE = 1;
-	const PAGE_CMS = 2;
-	
+    
+    const NORMAL = 0;
+    const UNNAVIGABLE = 1;
+    const PAGE_CMS = 2;
+    
     /**
      * Retrieve All options
      *

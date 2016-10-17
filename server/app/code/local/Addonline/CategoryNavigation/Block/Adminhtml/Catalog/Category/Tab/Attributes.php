@@ -16,7 +16,8 @@ class Addonline_CategoryNavigation_Block_Adminhtml_Catalog_Category_Tab_Attribut
      *
      * @return Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes
      */
-    protected function _prepareForm() {
+    protected function _prepareForm()
+    {
         $group      = $this->getGroup();
         $attributes = $this->getAttributes();
 
@@ -37,15 +38,13 @@ class Addonline_CategoryNavigation_Block_Adminhtml_Catalog_Category_Tab_Attribut
                         'name'  => 'path',
                         'value' => $this->getRequest()->getParam('parent')
                     ));
-                }
-                else {
+                } else {
                     $fieldset->addField('path', 'hidden', array(
                         'name'  => 'path',
                         'value' => 1
                     ));
                 }
-            }
-            else {
+            } else {
                 $fieldset->addField('id', 'hidden', array(
                     'name'  => 'id',
                     'value' => $this->getCategory()->getId()
@@ -62,8 +61,7 @@ class Addonline_CategoryNavigation_Block_Adminhtml_Catalog_Category_Tab_Attribut
             $rootId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             if ($attribute->getAttributeCode() == 'url_key') {
-                if (
-                    (!$this->getCategory()->getId() && $this->getRequest()->getParam('parent', $rootId) == $rootId)
+                if ((!$this->getCategory()->getId() && $this->getRequest()->getParam('parent', $rootId) == $rootId)
                     || ($this->getCategory()->getParentId() == $rootId)
                 ) {
                     $fieldset->removeField('url_key');
@@ -103,7 +101,7 @@ class Addonline_CategoryNavigation_Block_Adminhtml_Catalog_Category_Tab_Attribut
         
         //$fieldset->removeField('page_cms');
         
-        if (!$this->getCategory()->getId()){
+        if (!$this->getCategory()->getId()) {
             $this->getCategory()->setIncludeInMenu(1);
         }
 
@@ -115,14 +113,11 @@ class Addonline_CategoryNavigation_Block_Adminhtml_Catalog_Category_Tab_Attribut
         $form->setFieldNameSuffix('general');
         $this->setForm($form);
         
-        $this->setChild('form_after'. $group->getId(),$this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
-        		->addFieldMap( 'navigation_type','navigation_type')
-        		->addFieldMap( 'page_cms','page_cms')
-        		->addFieldDependence('page_cms','navigation_type', '2' )
-        );
+        $this->setChild('form_after'. $group->getId(), $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+                ->addFieldMap('navigation_type', 'navigation_type')
+                ->addFieldMap('page_cms', 'page_cms')
+                ->addFieldDependence('page_cms', 'navigation_type', '2'));
   
         return $this;
     }
-
-
 }
