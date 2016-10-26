@@ -16,6 +16,7 @@ web:
     links:
         - db:db
         - mailhog:mailhog
+        - phpmyadmin:phpmyadmin
         - blackfire:blackfire
         - gulp:gulp
 #        - redis:redis
@@ -33,6 +34,20 @@ db:
         - MYSQL_DATABASE
         - SERVER_NAME
         - ORIGINAL_SERVER_NAME
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: mg_aomagento-phpmyadmin
+    links:
+        - db:mysql
+    environment:
+        - PMA_HOST=mysql
+        - PMA_USER=root
+        - PMA_PASSWORD=root
+    restart: always
+    ports:
+        - 8080:80
+    volumes:
+        - /sessions
 #redis:
 #    container_name: mg_aomagento-redis
 #    image: redis

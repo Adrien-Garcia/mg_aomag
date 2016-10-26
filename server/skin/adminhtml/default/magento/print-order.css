@@ -1,0 +1,9 @@
+@media print {
+    .adminhtml-sales-order-view .side-col {
+        display: none;
+    }
+
+    .adminhtml-sales-order-view .main-col {
+        margin-left: 0;
+    }
+}

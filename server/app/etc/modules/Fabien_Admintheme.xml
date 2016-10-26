@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Fabien_Admintheme>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Fabien_Admintheme>
+    </modules>
+</config>
