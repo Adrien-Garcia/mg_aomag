@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+  <global>
+    <models>
+        <fabienadminthemecontroller>
+             <class>Fabien_Admintheme_Controller</class>
+        </fabienadminthemecontroller>
+    </models>
+    <events>
+      <adminhtml_controller_action_predispatch_start>
+        <observers>
+          <fabien_themeoverride_observer>
+            <type>singleton</type>
+            <!-- fabienadminthemecontroller/observer  -->
+            <class>Fabien_Admintheme_Controller_Observer</class>
+            <method>overrideTheme</method>
+          </fabien_themeoverride_observer>
+        </observers>
+      </adminhtml_controller_action_predispatch_start>      
+    </events>
+  </global>
+  
+</config>

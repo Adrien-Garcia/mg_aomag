@@ -1,0 +1,17 @@
+.custom-color{
+    border-radius:14px;
+    width:100%;
+    display:inline-block;
+    text-align:center;
+    color: #222;
+    font-weight: 600;
+}
+
+.custom-color span{
+    padding:0px 10px;
+    display:inline-block;
+}
+
+.grid .custom-color span{
+    min-width:150px;
+}

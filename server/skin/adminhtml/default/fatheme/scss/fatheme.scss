@@ -1,0 +1,656 @@
+// -------------------------------------------------------
+// Theme personnalisable pour le backoffice de Magento 1.9
+// -------------------------------------------------------
+
+// ------------------
+// Variables de theme
+// ------------------
+
+$c-tabs: #34495e;
+$c-tabs-lateral: $c-tabs;
+$c-tabs-horiz: $c-tabs;
+$c-button: #ffda00;
+$c-title: #000000;
+$c-link: #2980b9;
+
+@import "font-awesome";
+
+.header {
+    background: #252525;
+    border-bottom: solid 3px darken($c-tabs, 10%);
+}
+
+a,
+.header-right a {
+    color: $c-link;
+    
+    &:hover,
+    &:active { color: darken($c-link, 10%); }
+}
+
+input[type=text],
+input[type=password],
+textarea {
+    padding: 6px 10px;
+    border: solid 1px #DDD;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+select {
+    padding: 6px 0;
+    border: solid 1px #DDD;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+.nav-bar {
+    background: $c-tabs !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+}
+
+.header-top {
+    border-bottom: none;
+}
+
+#nav li {
+    background: none !important;
+    border-right: 2px solid darken($c-tabs, 10%) !important;
+}
+
+#nav li:hover {
+    background: darken($c-tabs, 10%) !important;
+}
+
+.go-try,
+.go-try + .separator {
+    display: none !important;
+}
+
+table.actions td {
+    vertical-align: middle;
+}
+
+.field-100 textarea,
+.field-100 input.input-text {
+    padding: 5px 0 !important;
+    border: none !important;
+}
+
+.grid tr.headings {
+    background: $c-tabs;
+}
+
+.grid tr.headings th {
+    border: none;
+    border-right: solid 1px darken($c-tabs, 10%);
+    padding: 5px;
+    color: #FFF;
+}
+
+.footer .bug-report {
+    display: none;
+}
+
+.footer {
+    background: #252525;
+    color: #999;
+    padding: 50px;
+}
+
+.footer .legality {
+    display: none;
+}
+
+.grid tr.headings th a {
+    color: #FFF;
+}
+
+.grid tr.headings th a:hover {
+    color: #FFF;    
+}
+
+.grid tr.headings th:hover {
+    background: darken($c-tabs, 10%);    
+}
+
+.grid tr.headings th.no-link:hover {
+    background: none;    
+}
+
+.grid tr.headings th a.sort-arrow-desc, .grid tr.headings th a.sort-arrow-asc {
+    background: none;
+    border: none;
+}
+
+.grid tr.headings th a.sort-arrow-asc span.sort-title {
+    background: url('../images/sort_arrow_bottom.png') no-repeat right center;
+}
+
+.grid tr.headings th a.sort-arrow-desc span.sort-title {
+    background: url('../images/sort_arrow_top.png') no-repeat right center;
+}
+
+.grid tr.headings th a.sort-arrow-desc span.sort-title, .grid tr.headings th a.sort-arrow-asc span.sort-title {
+    padding-left: 0;    
+}
+
+.grid tr.headings th.no-link {
+    padding: 5px;
+    color: #FFF;
+}
+
+.field-100 {
+    border: solid 1px #DDD !important;
+}
+
+#nav a {
+    line-height: 35px !important;
+}
+
+#nav a span {
+    color: #FFF !important;
+}
+
+#page-help-link {
+    display: none !important;
+}
+
+#nav ul {
+    border-top: none !important;
+    top: 100% !important;
+}
+
+#nav ul li {
+    padding: 0 !important;
+}
+
+#nav ul li a {
+    background: $c-tabs !important;
+    line-height: 15px !important;
+}
+
+#nav ul li a:hover {
+    background: darken($c-tabs, 10%) !important;
+}
+
+#nav ul li:hover ul {
+    left: 100% !important;
+}
+
+#nav ul span, #nav ul li.last li span {
+    padding: 8px 15px !important;
+    background: none !important;
+    border-bottom: solid 1px darken($c-tabs, 10%) !important;
+}
+
+#nav ul li.parent a {
+    background: $c-tabs url('../images/submenu_parent.png') no-repeat 95% center !important;
+}
+
+#nav ul li.parent a:hover {
+    background: darken($c-tabs, 10%) url('../images/submenu_parent.png') no-repeat 95% center !important;;
+}
+
+#nav ul li.parent ul li a {
+    background: darken($c-tabs, 10%) !important;
+}
+
+#nav ul li.parent ul li a:hover {
+    background: $c-tabs !important;
+}
+
+#nav ul ul {
+    border-top: 0 !important;
+    background: none !important;
+    padding-top: 0 !important;
+    top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#nav ul ul li a {
+    background: darken($c-tabs, 10%) !important;
+}
+
+#nav ul ul li a span {
+    border-bottom: solid 1px $c-tabs !important;
+}
+
+#nav ul ul li a:hover {
+    background: $c-tabs !important;
+}
+
+#nav li.active {
+    background: darken($c-tabs, 10%) !important;
+}
+
+.content-header {
+    border-bottom: 2px solid #EEE;
+}
+
+.middle {
+    background: #FFF;
+    margin: 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: solid 1px #CCC;
+    padding: 20px;
+    border-bottom: solid 3px #CCC;
+}
+
+.content-header h3 {
+    font-weight: lighter;
+    font-size: 25px;
+    padding: 0;
+    margin: 0;
+    color: $c-title;
+    background: none !important;
+}
+
+body {
+    background: #EEE;
+}
+
+button,
+.form-button {
+    padding: 7px 10px;
+    background: $c-button;
+    border: none;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border-bottom: solid 3px darken($c-button, 10%);
+    -webkit-transition: all ease-in 0.2s;
+    -moz-transition: all ease-in 0.2s;
+    transition: all ease-in 0.2s;
+}
+
+button:hover,
+.form-button:hover {
+    background: darken($c-button, 10%);
+    border-bottom: solid 3px $c-button;
+}
+
+button:active,
+.form-button:active {
+    background: darken($c-button, 5%);
+    border-bottom: solid 3px $c-button;
+}
+
+button.back {
+    background: #DDD;
+    border: none;
+    border-bottom: solid 3px #AAA;
+}
+
+button.back:hover {
+    background: #AAA;
+    border-bottom: solid 3px #DDD;
+}
+
+button.back:active {
+    background: #DDD;
+    border-bottom: solid 3px #AAA;
+}
+
+button.delete,
+button.cancel,
+button.fail {
+    background: #f45c4e;
+    border: none;
+    border-bottom: solid 3px #bc3023;
+}
+
+button.delete:hover,
+button.cancel:hover,
+button.fail:hover {
+    background: #bc3023;
+    border-bottom: solid 3px #f45c4e;
+}
+
+button.delete:active,
+button.cancel:active,
+button.fail:active {
+    background: #f45c4e;
+    border-bottom: solid 3px #bc3023;
+}
+
+button.disabled, button.disabled:hover, button.disabled:active {
+    background: $c-title;
+    border-bottom: solid 3px #b24e10;
+}
+
+.grid th, .grid td {
+    padding: 6px 4px;
+}
+
+.grid tr:hover td {
+    background: #e3eced;
+}
+
+.side-col .switcher .link-store-scope {
+    display: none;
+}
+
+.box, .entry-edit fieldset, .entry-edit .fieldset {
+    background: #EEE;
+    border: none;
+}
+
+ul.tabs-horiz {
+    background: #EEE;
+    padding: 0;
+}
+
+ul.tabs-horiz li {
+    margin: 0;
+    border-right: solid 1px #CCC;
+}
+
+ul.tabs-horiz li a {
+    border: none;
+    padding: 10px;
+    background: #EEE;
+    transition: all ease-in 0.2s;
+    -webkit-transition: all ease-in 0.2s;
+    -moz-transition: all ease-in 0.2s;
+}
+
+ul.tabs-horiz li a.active,
+ul.tabs-horiz li a:hover {
+    border: none;
+    background: darken($c-tabs-lateral, 10%);
+    color: #FFF !important;
+}
+
+dl.accordion dt, .entry-edit .entry-edit-head {
+    background: $c-tabs-horiz;
+    padding: 10px 10px;
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;    
+}
+
+.columns {
+    background: darken($c-tabs, 10%);
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-bottom: -20px;
+    margin-right: -20px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+}
+
+div.main-col {
+    background: #FFF;
+    padding: 20px 20px 0 20px;
+}
+
+div.side-col {
+    padding: 20px 0;
+}
+
+div.side-col h3 {
+    padding-left: 20px;
+    color: #f0f0f0 !important;
+    font-weight: lighter;
+    text-transform: uppercase;
+}
+
+ul.tabs a.active span, ul.tabs a:hover.active span {
+    background: darken($c-tabs-lateral, 10%);
+    color: #FFF;
+}
+
+ul.tabs a.active {
+    border: none;
+}
+
+ul.tabs, ul.tabs a {
+    background: $c-tabs-lateral !important;
+}
+
+ul.tabs span {
+    background: none;
+    padding: 8px 10px;
+    border-bottom: solid 1px darken($c-tabs-lateral, 15%);
+    -webkit-transition: all ease-in 0.2s;
+    -moz-transition: all ease-in 0.2s;
+    transition: all ease-in 0.2s;
+}
+
+ul.tabs span:hover {
+    background: darken($c-tabs-lateral, 10%) !important;
+}
+
+ul.tabs a, ul.tabs a:hover {
+    color: #FFF;
+}
+
+ul.tabs {
+    border: none;
+    color: #FFF;
+}
+
+ul.config-tabs dl {
+    margin-bottom: 0;
+}
+
+.switcher {
+    border: none;
+    background: $c-tabs-lateral;
+    color: #FFF;
+}
+
+.switcher label {
+    color: #FFF;
+}
+
+dl.accordion dt a, div.collapseable a {
+    background: url('../images/sort_arrow_bottom.png') 100% 50% no-repeat;
+}
+
+dl.accordion dt.open a, div.collapseable a.open {
+    background: url('../images/sort_arrow_top.png') 100% 50% no-repeat;
+}
+
+ul.config-tabs dt {
+    background: #BBB;
+    color: #555;
+    border: none;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.error, a.error span, .required, .validation-advice {
+    color: #ff6d6d !important;
+}
+
+.success-msg {
+    border: none !important;
+    border-left: solid 4px #27ae60 !important;
+    color: #27ae60 !important;
+    background: #d8ffe8 !important;
+}
+
+.notice-msg {
+    border: none !important;
+    border-left: solid 4px #efa647 !important;
+    color: #efa647 !important;
+    background: #fff5e8 !important;
+}
+
+.error-msg {
+    border: none !important;
+    border-left: solid 4px #F16048 !important;
+    color: #F16048 !important;
+    background: #FAEBE7 !important;
+}
+
+.messages li {
+    min-height: 0 !important;
+    padding: 15px !important;
+    font-size: 14px !important;
+    font-weight: lighter !important;
+}
+
+.dashboard-container {
+    border: none;
+    margin: -20px;
+}
+
+.notification-global {
+	background: $c-title;
+	border: none;
+	padding: 10px;
+	color: #FFF;
+}
+
+.notification-global a {
+	color: #b24e10 !important;
+}
+
+.grid-severity-critical,
+.grid-severity-major,
+.grid-severity-minor,
+.grid-severity-notice {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 3px;
+}
+
+.grid-severity-critical span,
+.grid-severity-major span,
+.grid-severity-minor span,
+.grid-severity-notice span {
+	background: none !important;
+}
+
+.grid-severity-critical {
+	background: #f45c4e;
+}
+
+.grid-severity-major {
+	background: $c-title;
+}
+
+.grid-severity-minor {
+	background: #FF9C00;
+}
+
+.grid-severity-notice {
+	background: #3CB861;
+}
+
+.content-header-floating {
+	background: rgba(#252525, 0.85);
+	border: none;
+    opacity: 1;
+}
+
+.content-header-floating h3 {
+	color: #FFF;
+}
+
+#page-login {
+    text-align: center;
+    height: 100%;
+    margin: 0;
+    background: -webkit-gradient(linear, left top, left bottom, from(#154364), to(#37778f));
+    background: -webkit-linear-gradient(top, #154364, #37778f);
+    background: linear-gradient(to bottom, #154364,#37778f);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.categories-side-col .content-header button {
+    margin-left: 10px;
+}
+
+.side-col .switcher {
+    padding-right: 10px;
+}
+
+.categories-side-col .switcher {
+    margin: 10px 0px 0 0;
+}
+
+.categories-side-col .tree-holder {
+    margin: 0 10px;
+}
+
+.x-tree-node .x-tree-selected a span {
+    background: #3366cc;
+    color: #FFF;
+}
+
+.x-tree-node a span, .x-dd-drag-ghost a span {
+    color: #777;
+}
+
+.form-list td.label {
+    vertical-align: middle;
+}
+
+.pager input.page {
+	width: 40px !important;
+}
+
+#nav li#bubblelauncher-status.on a {
+    background-position: center -32px !important;
+}
+
+// -------------
+// Buttons icons
+// -------------
+
+button.cancel span,
+button.delete span,
+button.back span,
+button.add span,
+button.save > span {
+    background-image: none;
+    padding-left: 0;
+
+    &:before {
+        margin-right: 5px;
+        @extend .fa;
+        font-size: 1.2em;
+        vertical-align: text-bottom;
+    }
+}
+
+button.icon-btn > span {
+    text-indent: 0;
+
+    &:before { margin-left: 4px; }
+}
+
+button.cancel > span, button.delete > span {
+    &:before {        
+        content: "\f057";
+    }
+}
+
+button.back > span {
+    &:before {        
+        content: "\f104";
+    }
+}
+
+button.add > span {
+    &:before {        
+        content: "\f055";
+    }
+}
+
+button.save > span {
+    &:before {        
+        content: "\f058";
+    }
+}

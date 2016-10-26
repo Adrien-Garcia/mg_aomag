@@ -8,7 +8,7 @@
     </tabs>
     <sections>        
         <brand translate="label">
-			<label>brand</label>
+			<label>Brand</label>
 			<tab>addonline</tab>
 			<frontend_type>text</frontend_type>
 			<sort_order>100</sort_order>

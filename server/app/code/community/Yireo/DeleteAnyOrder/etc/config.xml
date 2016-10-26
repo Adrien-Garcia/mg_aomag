@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Yireo DeleteAnyOrder for Magento 
+ *
+ * @package     Yireo_DeleteAnyOrder
+ * @author      Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
+ * @license     Open Source License (OSL v3)
+ */
+-->
+<config>
+
+    <modules>
+        <Yireo_DeleteAnyOrder>
+            <version>0.11.2</version>
+        </Yireo_DeleteAnyOrder>
+    </modules>
+
+    <global>
+        <blocks>
+            <deleteanyorder>
+                <class>Yireo_DeleteAnyOrder_Block</class>
+            </deleteanyorder>
+        </blocks>
+
+        <helpers>
+            <deleteanyorder>
+                <class>Yireo_DeleteAnyOrder_Helper</class>
+            </deleteanyorder>
+        </helpers>
+
+        <models>
+            <deleteanyorder>
+                <class>Yireo_DeleteAnyOrder_Model</class>
+            </deleteanyorder>
+        </models>
+
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <deleteanyorder_controller_action_predispatch>
+                        <type>singleton</type>
+                        <class>Yireo_DeleteAnyOrder_Model_Observer</class>
+                        <method>controllerActionPredispatch</method>
+                    </deleteanyorder_controller_action_predispatch>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <deleteanyorder before="Mage_Adminhtml">Yireo_DeleteAnyOrder</deleteanyorder>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <default>
+        <deleteanyorder>
+            <settings>
+                <scanquotes>0</scanquotes>
+                <resetstock>0</resetstock>
+                <resetincrements>0</resetincrements>
+            </settings>
+        </deleteanyorder>
+    </default>
+</config>

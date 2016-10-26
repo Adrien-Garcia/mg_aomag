@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+ * @category    TheExtensionLab
+ * @package     TheExtensionLab_StatusColors
+ * @copyright   Copyright (c) TheExtensionLab (http://www.theextensionlab.com)
+ * @license     Open Software License (OSL 3.0)
+ * @author      James Anelay @ TheExtensionLab <james@theextensionlab.com>
+ *
+-->
+<config>
+    <modules>
+        <TheExtensionLab_StatusColors>
+            <version>1.0.1</version>
+        </TheExtensionLab_StatusColors>
+    </modules>
+
+    <global>
+        <blocks>
+            <theextensionlab_statuscolors>
+                <class>TheExtensionLab_StatusColors_Block</class>
+            </theextensionlab_statuscolors>
+        </blocks>
+
+        <helpers>
+            <theextensionlab_statuscolors>
+                <class>TheExtensionLab_StatusColors_Helper</class>
+            </theextensionlab_statuscolors>
+        </helpers>
+
+        <models>
+            <theextensionlab_statuscolors>
+                <class>TheExtensionLab_StatusColors_Model</class>
+                <resourceModel>theextensionlab_statuscolors_resource</resourceModel>
+            </theextensionlab_statuscolors>
+
+            <theextensionlab_statuscolors_resource>
+                <class>TheExtensionLab_StatusColors_Model_Resource</class>
+            </theextensionlab_statuscolors_resource>
+        </models>
+
+        <resources>
+            <theextensionlab_statuscolors_setup>
+                <setup>
+                    <module>TheExtensionLab_StatusColors</module>
+                    <class>TheExtensionLab_StatusColors_Model_Resource_Setup</class>
+                </setup>
+            </theextensionlab_statuscolors_setup>
+        </resources>
+    </global>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <theextensionlab_statuscolors>
+                    <file>theextensionlab/statuscolors.xml</file>
+                </theextensionlab_statuscolors>
+            </updates>
+        </layout>
+
+        <events>
+            <adminhtml_block_html_before>
+                <observers>
+                    <theextensionlab_statuscolors>
+                        <class>TheExtensionLab_StatusColors_Model_Observer</class>
+                        <method>adminhtmlBlockHtmlBefore</method>
+                    </theextensionlab_statuscolors>
+                </observers>
+            </adminhtml_block_html_before>
+
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <theextensionlab_statuscolors>
+                        <class>TheExtensionLab_StatusColors_Model_Observer</class>
+                        <method>coreBlockAbstractToHtmlAfter</method>
+                    </theextensionlab_statuscolors>
+                </observers>
+            </core_block_abstract_to_html_after>
+
+            <controller_action_predispatch_adminhtml_system_config_edit>
+                <observers>
+                    <theextensionlab_statuscolors>
+                        <class>TheExtensionLab_StatusColors_Model_Observer</class>
+                        <method>controllerActionPredispatchAdminhtmlSystemConfigEdit</method>
+                    </theextensionlab_statuscolors>
+                </observers>
+            </controller_action_predispatch_adminhtml_system_config_edit>
+        </events>
+    </adminhtml>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <TheExtensionLab_StatusColors/>
+            </modules>
+        </suite>
+    </phpunit>
+
+</config>
