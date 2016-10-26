@@ -42,7 +42,7 @@
             </groups>
 	   </catalog>
 	   <reviewboost translate="label">
-			<label>reviewboost</label>
+			<label>Review Boost</label>
 			<tab>addonline</tab>
 			<frontend_type>text</frontend_type>
 			<sort_order>100</sort_order>
