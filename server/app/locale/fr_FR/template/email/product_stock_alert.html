@@ -1,11 +1,19 @@
-<!--@subject Alerte sur produit disponible @-->
+<!--@subject Alerte Retour Produits en stocks @-->
 <!--@vars
 {"var customerName":"Customer Name",
 "var alertGrid":"Alert Data Grid"}
 @-->
-Bonjour {{var customerName}},<br /><br />
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
 
-Vous trouverez ci-dessous la disponibilité de produits pour lesquels vous avez souhaité être alerté&nbsp;:<br /><br />
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td class="action-content">
+            <h1>{{var customerName}},</h1>
 
-{{var alertGrid}}
+            {{var alertGrid}}
+        </td>
+    </tr>
+</table>
 
+{{template config_path="design/email/footer"}}
