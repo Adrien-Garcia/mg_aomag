@@ -32,7 +32,7 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</serial>
-						<generator>
+						<!--<generator>
 							<label>Générer la clé</label>
 							<frontend_model>aomagento/adminhtml_system_config_form_field_keygeneration</frontend_model>
 							<comment>
@@ -49,7 +49,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</generator>					
+						</generator>-->
 					</fields>
 				</licence>
 				<order translate="label">
