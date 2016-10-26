@@ -1,0 +1,38 @@
+<?php
+/**
+ * @category    Bubble
+ * @package     Bubble_Launcher
+ * @version     1.0.0
+ * @copyright   Copyright (c) 2014 BubbleShop (https://www.bubbleshop.net)
+ *
+ * @var $this Bubble_Launcher_Block_Adminhtml_Launcher
+ */
+?>
+<?php
+$admin_user_session = Mage::getSingleton( 'admin/session' );
+$adminuserId = $admin_user_session->getUser()->getUserId();
+$role_data = Mage::getModel( 'admin/user' )->load( $adminuserId )->getRole()->getData();
+if ($this->isEnabled() && $role_data[ 'role_id' ] == 1): ?>
+    <script type="text/javascript">
+        Event.observe(window, 'load', function() {
+            $('nav').insert('<li id="bubblelauncher-status"><a id="bubblelauncher-icon" href="http://www.bubblecode.net" target="_blank" title="BubbleCode"><span>&nbsp;</span></li>');
+            var launcher = new BubbleLauncher({
+                dataLocation: '<?php echo $this->helper('adminhtml')->getUrl('adminhtml/bubble_launcher/index') ?>',
+                onReady: function() {
+                    $('bubblelauncher-status').addClassName('on');
+                },
+                onError: function(error) {
+                    $('bubblelauncher-icon').title = error.replace(/"/g, '&quot;');
+                },
+                minChars: <?php echo $this->getMinChars(); ?>,
+                maxResults: <?php echo $this->getMaxResults(); ?>,
+                resetOnHide: <?php echo $this->getResetOnHide(); ?>,
+                useScope: <?php echo $this->getUseScope(); ?>,
+                showIcon: <?php echo $this->getShowIcon(); ?>,
+                showScope: <?php echo $this->getShowScope(); ?>,
+                showText: <?php echo $this->getShowText(); ?>
+            });
+            $('bubblelauncher-icon').observe('click', launcher.show.bind(launcher));
+        });
+    </script>
+<?php endif; ?>
