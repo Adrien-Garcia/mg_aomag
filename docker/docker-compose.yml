@@ -17,7 +17,7 @@ web:
         - db:db
         - mailhog:mailhog
         - phpmyadmin:phpmyadmin
-#        - blackfire:blackfire
+        - blackfire:blackfire
         - gulp:gulp
 #        - redis:redis
 db:
