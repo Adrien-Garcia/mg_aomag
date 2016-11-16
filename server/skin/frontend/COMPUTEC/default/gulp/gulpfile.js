@@ -27,6 +27,11 @@ codepoints = require('code-points'); //codepoints utilisé par iconfont
 
 *******************************************************************************************************/
 
+function handleError (err) {
+    console.log(err.toString())
+    this.emit('end')
+}
+
 
 runTimestamp = Math.round(Date.now()/1000),
 libPath = '../';
@@ -58,17 +63,18 @@ gulp.task('sass-dev', function() {
 
     /* SASS task */
     return gulp.src(scssPath)
-		.pipe(sass({
-			includePaths: [libPath+'/scss/'],
-			errLogToConsole: true
-		}))
-    .pipe(sourcemaps.init())
     .pipe(plumber())
-    .pipe(sass({ style: 'compressed' }))
+	.pipe(sass({
+		includePaths: [libPath+'/scss/'],
+        style: 'compressed',
+		errLogToConsole: true
+	}))
+    .on('error', handleError)
+    .pipe(sourcemaps.init())
     .pipe(autoprefixer('last 2 version'))
-    .pipe(plumber.stop())
     .pipe(gulp.dest(cssPath))
     .pipe(sourcemaps.write())
+    .pipe(plumber.stop())
     .pipe(gulp.dest(cssPath))
     .pipe(reload({stream: true}));
 
