@@ -12,6 +12,8 @@ function init {
     export DB_BACKUP_DIR=/vol/nfs_backup_sql/mag-db3-new/mysql/mag-db3-new
     # db backup server
     export DB_BACKUP_SERVER=aotools.host.addonline.fr
+    # timeout for DB restoring waiting (default 3m0s)
+    #export DB_RESTORE_TIMEOUT=3m0s
     # local server name
     export SERVER_NAME=mg-aomagento.$JETPULP_USERNAME.jetpulp.dev
     # original server name
