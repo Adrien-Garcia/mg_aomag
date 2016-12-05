@@ -18,6 +18,5 @@ class Addonline_CategoryNavigation_Model_Observer
         $select->columns('thumbnail');
         $select->columns('image');
         $select->columns('page_cms');
-        
     }
 }

@@ -34,6 +34,5 @@ class Addonline_UrlrewriteCleaner_Model_Cleaner
             $duration = time() - $startTime;
             Mage::log('[URLREWRITECLEANER] Cleaning old urlrewrite on store '.$_eachStoreId.' (duration: '.$duration.', row count: '.$count.')');
         }
-    
     }
 }

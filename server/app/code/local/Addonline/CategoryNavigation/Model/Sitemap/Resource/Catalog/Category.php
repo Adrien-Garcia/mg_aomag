@@ -51,6 +51,5 @@ class Addonline_CategoryNavigation_Model_Sitemap_Resource_Catalog_Category exten
         //ADDONLINE
 
         return $this->_loadEntities();
-            
     }
 }
