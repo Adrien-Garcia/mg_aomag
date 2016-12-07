@@ -1,4 +1,4 @@
-.PHONY: computec brander computec brander phpcs
+.PHONY: computec brander computec-lint brander-lint phpcs
 .SILENT:help
 
 JETPULP_ENV ?= dev
@@ -53,7 +53,7 @@ brander:
 	# Run gulp-dev container (it links nodes_modules, faster than npm install) 
 
 ## Lint PHPCS
-phpcbf: vendor
+phpcs: vendor
 	vendor/bin/phpcs
 
 ## Lint gulp theme computec
