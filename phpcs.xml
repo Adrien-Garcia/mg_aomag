@@ -36,7 +36,9 @@
     <file>./server/app/code/local/</file>
 
     <!-- Magento Coding Advices :https://github.com/magento-ecg/coding-standard -->
-    <rule ref="Ecg"/>
+    <rule ref="Ecg">
+        <exclude name="Ecg.Security.ForbiddenFunction" />
+    </rule>
     <!-- Magento Coding Style : based on PSR2, adapted to magento -->
     <rule ref="PSR2">
         <!-- Magento 1 class names don't comply so ignore these rules  -->
