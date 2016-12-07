@@ -15,12 +15,11 @@ services:
           - container:certificat-ssl
         environment:
             - ALLOW_OVERRIDE=true
-            - COMPOSE_PROJECT_NAME
             - SERVER_NAME
             - VIRTUAL_HOST
             - USER_UID
             - USER_GROUP
-            - DOCKER_MACHINE_NAME
+            - DOCKER_HOST_IP
         depends_on:
             - db
             - redis
