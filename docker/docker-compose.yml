@@ -1,4 +1,4 @@
-version: "2.0"
+version: "2.1"
 
 services:
     web:
@@ -11,10 +11,8 @@ services:
             - ../server:/var/www/html
             - ./web/vhost.conf:/etc/apache2/sites-enabled/vhost.conf
             - ./web/php.ini:/usr/local/etc/php/php.ini
-        volumes_from:
-          - container:certificat-ssl
+            - certificat-ssl:/certs
         environment:
-            - ALLOW_OVERRIDE=true
             - SERVER_NAME
             - VIRTUAL_HOST
             - USER_UID
@@ -32,8 +30,7 @@ services:
             - "${DOCKER_PORT_MYSQL}:3306"
         volumes:
             - ./db:/docker-entrypoint-initdb.d
-        volumes_from:
-            - container:${COMPOSE_PROJECT_NAME}-dbdata
+            - ${COMPOSE_PROJECT_NAME}-dbdata:/var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE
@@ -61,8 +58,7 @@ services:
             - "${DOCKER_PORT_BSYNC1}:3001"
         volumes:
             - ../server:/app
-        volumes_from:
-            - container:certificat-ssl
+            - certificat-ssl:/certs
         environment:
             - BUILD_PATH=skin/frontend/COMPUTEC/default/gulp
     #        - BUILD_PATH=skin/frontend/BRANDER/default/gulp
@@ -70,6 +66,13 @@ services:
             - SERVER_NAME
             - USER_UID
             - USER_GROUP
+
+volumes:
+  mgaomagento-dbdata:
+    external: true
+  certificat-ssl:
+    external: true
+
 networks:
     default:
         driver: bridge
