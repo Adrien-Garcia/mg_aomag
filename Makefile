@@ -44,12 +44,12 @@ composer.lock: composer.json
 
 ## Build gulp theme computec
 computec:	
-	docker run -v $(shell pwd)/server:/app -e BUILD_PATH=skin/frontend/COMPUTEC/default/gulp -e USER_UID=${USER_UID} -e USER_GROUP=${USER_GROUP} registry.jetpulp.fr:5000/dev/gulp-dev build
+	docker run -v $(shell pwd)/server:/app -e BUILD_PATH=skin/frontend/COMPUTEC/default/gulp -e USER_UID=${USER_UID} -e USER_GROUP=${USER_GROUP} --rm registry.jetpulp.fr:5000/dev/gulp-dev build
 	# Run gulp-dev container (it links nodes_modules, faster than npm install) 
 
 ## Build gulp theme brander
 brander:
-	docker run -v $(shell pwd)/server:/app -e BUILD_PATH=skin/frontend/BRANDER/default/gulp -e USER_UID=${USER_UID} -e USER_GROUP=${USER_GROUP} registry.jetpulp.fr:5000/dev/gulp-dev build
+	docker run -v $(shell pwd)/server:/app -e BUILD_PATH=skin/frontend/BRANDER/default/gulp -e USER_UID=${USER_UID} -e USER_GROUP=${USER_GROUP} --rm registry.jetpulp.fr:5000/dev/gulp-dev build
 	# Run gulp-dev container (it links nodes_modules, faster than npm install) 
 
 ## Lint PHPCS
