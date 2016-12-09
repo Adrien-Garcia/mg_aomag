@@ -3,7 +3,6 @@ class RapidCommerce_Browserupgrade_Block_Beforebodyend extends Mage_Core_Block_T
 {
     public function __construct()
     {
-        
     }
 
     public function isNoticeEnabled()
