@@ -30,7 +30,7 @@ services:
             - "${DOCKER_PORT_MYSQL}:3306"
         volumes:
             - ./db:/docker-entrypoint-initdb.d
-            - ${COMPOSE_PROJECT_NAME}-dbdata:/var/lib/mysql
+            - dbdata:/var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE
@@ -68,8 +68,9 @@ services:
             - USER_GROUP
 
 volumes:
-  mgaomagento-dbdata:
-    external: true
+  dbdata:
+    external:
+      name: ${COMPOSE_PROJECT_NAME}-dbdata
   certificat-ssl:
     external: true
 
