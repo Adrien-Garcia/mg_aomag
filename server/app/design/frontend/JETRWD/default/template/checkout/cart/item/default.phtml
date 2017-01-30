@@ -29,7 +29,7 @@ $_item = $this->getItem();
 $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
 ?>
-<tr class="sel-cart-item" id="<?php echo 'sel-'.$this->escapeHtml($_item->getSku()); ?>">
+<tr id="<?php echo 'sel-'.$this->escapeHtml($_item->getSku()); ?>" class="sel-item-row_cart" >
     <td class="product-cart-image">
         <?php if ($this->hasProductUrl()):?>
             <a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image">

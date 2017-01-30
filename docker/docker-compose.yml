@@ -66,6 +66,34 @@ services:
             - SERVER_NAME
             - USER_UID
             - USER_GROUP
+    selenium:
+        # TODO Push image onto registry:
+        # https://git.jetpulp.hosting/dev/docker-dev
+        # build:
+        #     context: ../server/selenium
+        image: tmp:latest
+        environment:
+            BASE_HOST_URL: #forwarding to container
+            SELENIUM_BROWSER: #forwarding to container
+            SEL_BROWSER_NAME: #forwarding to container
+            SEL_BROWSER_PLATFORM: #forwarding to container
+            SEL_BROWSER_VERSION: #forwarding to container
+            SELENIUM_REMOTE_URL: #forwarding to container
+            HUB_PORT_4444_TCP_ADDR: #forwarding to container
+        # TODO Rename image once it has been pushed on the registry
+        container_name: ${COMPOSE_PROJECT_NAME}-selenium
+        volumes:
+            # - ../../seletest/test/src:/test/src
+            # - ../../seletest/test/main.js:/test/main.js
+            # - ../../seletest/test/main.js:/test/package.json
+            # - ../../seletest/test/out:/test/out
+            - ../test/src:/test/src
+            - ../test/main.js:/test/main.js
+            - ../test/main.js:/test/package.json
+            - ../test/out:/test/out
+#        networks:
+#            - grid_sel_grid
+        restart: on-failure:1
 
 volumes:
   dbdata:

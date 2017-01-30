@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>page_context.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AdvancedSearchPage.html">AdvancedSearchPage</a><ul class='methods'><li data-type='method'><a href="AdvancedSearchPage.html#checkAuthenticationStatus">checkAuthenticationStatus</a></li><li data-type='method'><a href="AdvancedSearchPage.html#checkLocatorsStatus">checkLocatorsStatus</a></li><li data-type='method'><a href="AdvancedSearchPage.html#clearCredentials">clearCredentials</a></li><li data-type='method'><a href="AdvancedSearchPage.html#clearCredentials">clearCredentials</a></li><li data-type='method'><a href="AdvancedSearchPage.html#click">click</a></li><li data-type='method'><a href="AdvancedSearchPage.html#clickMenu">clickMenu</a></li><li data-type='method'><a href="AdvancedSearchPage.html#countByCss">countByCss</a></li><li data-type='method'><a href="AdvancedSearchPage.html#getRandomOption">getRandomOption</a></li><li data-type='method'><a href="AdvancedSearchPage.html#getTitle">getTitle</a></li><li data-type='method'><a href="AdvancedSearchPage.html#getUrl">getUrl</a></li><li data-type='method'><a href="AdvancedSearchPage.html#getValidOption">getValidOption</a></li><li data-type='method'><a href="AdvancedSearchPage.html#getWelcomeMessage">getWelcomeMessage</a></li><li data-type='method'><a href="AdvancedSearchPage.html#goHeaderHome">goHeaderHome</a></li><li data-type='method'><a href="AdvancedSearchPage.html#goHeaderLogin">goHeaderLogin</a></li><li data-type='method'><a href="AdvancedSearchPage.html#isAuthenticatedPage">isAuthenticatedPage</a></li><li data-type='method'><a href="AdvancedSearchPage.html#logout">logout</a></li><li data-type='method'><a href="AdvancedSearchPage.html#navigateBack">navigateBack</a></li><li data-type='method'><a href="AdvancedSearchPage.html#print">print</a></li><li data-type='method'><a href="AdvancedSearchPage.html#printName">printName</a></li><li data-type='method'><a href="AdvancedSearchPage.html#searchFor">searchFor</a></li><li data-type='method'><a href="AdvancedSearchPage.html#searchFor">searchFor</a></li><li data-type='method'><a href="AdvancedSearchPage.html#selectLocatorsStatus">selectLocatorsStatus</a></li><li data-type='method'><a href="AdvancedSearchPage.html#setOptionByValue">setOptionByValue</a></li></ul></li><li><a href="CartPage.html">CartPage</a><ul class='methods'><li data-type='method'><a href="CartPage.html#emptyCart">emptyCart</a></li><li data-type='method'><a href="CartPage.html#emptyCart">emptyCart</a></li><li data-type='method'><a href="CartPage.html#isCartEmpty">isCartEmpty</a></li><li data-type='method'><a href="CartPage.html#isCartEmpty">isCartEmpty</a></li><li data-type='method'><a href="CartPage.html#isCartEmptyDeprecated">isCartEmptyDeprecated</a></li><li data-type='method'><a href="CartPage.html#isCartEmptyDeprecated">isCartEmptyDeprecated</a></li></ul></li><li><a href="CataloguePage.html">CataloguePage</a><ul class='methods'><li data-type='method'><a href="CataloguePage.html#selectProductByIndex">selectProductByIndex</a></li><li data-type='method'><a href="CataloguePage.html#selectProductByIndex">selectProductByIndex</a></li><li data-type='method'><a href="CataloguePage.html#selectProductByName">selectProductByName</a></li><li data-type='method'><a href="CataloguePage.html#selectProductByName">selectProductByName</a></li></ul></li><li><a href="CheckoutPage.html">CheckoutPage</a></li><li><a href="DashboardPage.html">DashboardPage</a></li><li><a href="ForgotPasswordPage.html">ForgotPasswordPage</a><ul class='methods'><li data-type='method'><a href="ForgotPasswordPage.html#clearCredentials">clearCredentials</a></li><li data-type='method'><a href="ForgotPasswordPage.html#clearCredentials">clearCredentials</a></li><li data-type='method'><a href="ForgotPasswordPage.html#requestPassword">requestPassword</a></li><li data-type='method'><a href="ForgotPasswordPage.html#requestPassword">requestPassword</a></li></ul></li><li><a href="HomePage.html">HomePage</a></li><li><a href="InfoPage.html">InfoPage</a></li><li><a href="LoggedOutPage.html">LoggedOutPage</a></li><li><a href="LoginPage.html">LoginPage</a><ul class='methods'><li data-type='method'><a href="LoginPage.html#clearCredentials">clearCredentials</a></li><li data-type='method'><a href="LoginPage.html#clearCredentials">clearCredentials</a></li><li data-type='method'><a href="LoginPage.html#connect">connect</a></li><li data-type='method'><a href="LoginPage.html#connect">connect</a></li><li data-type='method'><a href="LoginPage.html#logUser">logUser</a></li><li data-type='method'><a href="LoginPage.html#logUser">logUser</a></li><li data-type='method'><a href="LoginPage.html#register">register</a></li><li data-type='method'><a href="LoginPage.html#register">register</a></li></ul></li><li><a href="module-pages_index-User.html">User</a><ul class='methods'><li data-type='method'><a href="module-pages_index-User.html#cartIsEmpty">cartIsEmpty</a></li><li data-type='method'><a href="module-pages_index-User.html#cartIsNotEmpty">cartIsNotEmpty</a></li><li data-type='method'><a href="module-pages_index-User.html#connect">connect</a></li><li data-type='method'><a href="module-pages_index-User.html#countItems">countItems</a></li><li data-type='method'><a href="module-pages_index-User.html#disconnect">disconnect</a></li><li data-type='method'><a href="module-pages_index-User.html#emptyCart">emptyCart</a></li><li data-type='method'><a href="module-pages_index-User.html#forgetPassword">forgetPassword</a></li><li data-type='method'><a href="module-pages_index-User.html#getWelcomeMessage">getWelcomeMessage</a></li><li data-type='method'><a href="module-pages_index-User.html#goToAdvancedSearch">goToAdvancedSearch</a></li><li data-type='method'><a href="module-pages_index-User.html#goToCart">goToCart</a></li><li data-type='method'><a href="module-pages_index-User.html#goToForgotPassword">goToForgotPassword</a></li><li data-type='method'><a href="module-pages_index-User.html#goToLogin">goToLogin</a></li><li data-type='method'><a href="module-pages_index-User.html#goToProduct">goToProduct</a></li><li data-type='method'><a href="module-pages_index-User.html#goToRegister">goToRegister</a></li><li data-type='method'><a href="module-pages_index-User.html#isAuthenticated">isAuthenticated</a></li><li data-type='method'><a href="module-pages_index-User.html#isNotAuthenticated">isNotAuthenticated</a></li><li data-type='method'><a href="module-pages_index-User.html#isUserAuth">isUserAuth</a></li><li data-type='method'><a href="module-pages_index-User.html#throwCustomException">throwCustomException</a></li></ul></li><li><a href="ProductPage.html">ProductPage</a><ul class='methods'><li data-type='method'><a href="ProductPage.html#addProduct">addProduct</a></li><li data-type='method'><a href="ProductPage.html#addProduct">addProduct</a></li></ul></li><li><a href="RegisterPage.html">RegisterPage</a><ul class='methods'><li data-type='method'><a href="RegisterPage.html#clearCredentials">clearCredentials</a></li><li data-type='method'><a href="RegisterPage.html#clearCredentials">clearCredentials</a></li><li data-type='method'><a href="RegisterPage.html#register">register</a></li><li data-type='method'><a href="RegisterPage.html#register">register</a></li><li data-type='method'><a href="RegisterPage.html#sampleRegistration">sampleRegistration</a></li><li data-type='method'><a href="RegisterPage.html#sampleRegistration">sampleRegistration</a></li></ul></li><li><a href="SalesFormPage.html">SalesFormPage</a></li><li><a href="SiteMappingPage.html">SiteMappingPage</a></li><li><a href="WebPage.html">WebPage</a><ul class='methods'><li data-type='method'><a href="WebPage.html#checkAuthenticationStatus">checkAuthenticationStatus</a></li><li data-type='method'><a href="WebPage.html#checkAuthenticationStatus">checkAuthenticationStatus</a></li><li data-type='method'><a href="WebPage.html#checkLocatorsStatus">checkLocatorsStatus</a></li><li data-type='method'><a href="WebPage.html#checkLocatorsStatus">checkLocatorsStatus</a></li><li data-type='method'><a href="WebPage.html#click">click</a></li><li data-type='method'><a href="WebPage.html#click">click</a></li><li data-type='method'><a href="WebPage.html#clickMenu">clickMenu</a></li><li data-type='method'><a href="WebPage.html#clickMenu">clickMenu</a></li><li data-type='method'><a href="WebPage.html#countByCss">countByCss</a></li><li data-type='method'><a href="WebPage.html#countByCss">countByCss</a></li><li data-type='method'><a href="WebPage.html#getRandomOption">getRandomOption</a></li><li data-type='method'><a href="WebPage.html#getRandomOption">getRandomOption</a></li><li data-type='method'><a href="WebPage.html#getTitle">getTitle</a></li><li data-type='method'><a href="WebPage.html#getTitle">getTitle</a></li><li data-type='method'><a href="WebPage.html#getUrl">getUrl</a></li><li data-type='method'><a href="WebPage.html#getUrl">getUrl</a></li><li data-type='method'><a href="WebPage.html#getValidOption">getValidOption</a></li><li data-type='method'><a href="WebPage.html#getValidOption">getValidOption</a></li><li data-type='method'><a href="WebPage.html#getWelcomeMessage">getWelcomeMessage</a></li><li data-type='method'><a href="WebPage.html#getWelcomeMessage">getWelcomeMessage</a></li><li data-type='method'><a href="WebPage.html#goHeaderHome">goHeaderHome</a></li><li data-type='method'><a href="WebPage.html#goHeaderHome">goHeaderHome</a></li><li data-type='method'><a href="WebPage.html#goHeaderLogin">goHeaderLogin</a></li><li data-type='method'><a href="WebPage.html#goHeaderLogin">goHeaderLogin</a></li><li data-type='method'><a href="WebPage.html#isAuthenticatedPage">isAuthenticatedPage</a></li><li data-type='method'><a href="WebPage.html#isAuthenticatedPage">isAuthenticatedPage</a></li><li data-type='method'><a href="WebPage.html#logout">logout</a></li><li data-type='method'><a href="WebPage.html#logout">logout</a></li><li data-type='method'><a href="WebPage.html#navigateBack">navigateBack</a></li><li data-type='method'><a href="WebPage.html#navigateBack">navigateBack</a></li><li data-type='method'><a href="WebPage.html#print">print</a></li><li data-type='method'><a href="WebPage.html#print">print</a></li><li data-type='method'><a href="WebPage.html#printName">printName</a></li><li data-type='method'><a href="WebPage.html#printName">printName</a></li><li data-type='method'><a href="WebPage.html#selectLocatorsStatus">selectLocatorsStatus</a></li><li data-type='method'><a href="WebPage.html#selectLocatorsStatus">selectLocatorsStatus</a></li><li data-type='method'><a href="WebPage.html#setOptionByValue">setOptionByValue</a></li><li data-type='method'><a href="WebPage.html#setOptionByValue">setOptionByValue</a></li></ul></li><li><a href="WishlistPage.html">WishlistPage</a></li></ul><h3>Modules</h3><ul><li><a href="module-pages_index.html">pages_index</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">page_context.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+/************************** Imports and setup *********************************/
+// Utility
+const util = require('util'),
+    fs = require('fs');
+
+// REST API
+const supertest = require('supertest');
+const request = require('superagent');
+
+// Chai &amp; submodules
+const chai = require('chai'),
+    should = chai.should(),
+    expect = chai.expect,
+    assert = chai.assert,
+    chaiAsPromised = require('chai-as-promised'),
+    chaiHttp = require('chai-http');
+chai.use(chaiAsPromised);
+chai.use(chaiHttp);
+
+// Selenium WebDriver
+const webdriver = require('selenium-webdriver'),
+    By = webdriver.By,
+    until = webdriver.until;
+
+// Initiating page index
+const pages_index = {
+    host: 'https://mg-aomagento.agarcia.jetpulp.dev/rwd'
+    // host : 'https://www.google.fr'
+    // host: 'http://theme-mg.preprod.jetpulp.hosting/rwd'
+    // host: 'https://192.168.69.134/rwd' // Private IP on AoExtreme
+};
+const pathToPages = './page_objects/pages/';
+const pageList = [
+    'AdvancedSearchPage',
+    'CartPage',
+    'CataloguePage',
+    'CheckoutPage',
+    'DashboardPage',
+    'ForgotPasswordPage',
+    'HomePage',
+    'InfoPage',
+    'LoggedOutPage',
+    'LoginPage',
+    'ProductPage',
+    'RegisterPage',
+    'SalesFormPage',
+    'SiteMappingPage',
+    'WishlistPage'
+];
+for(let i = 0; i &lt; pageList.length; i++) {
+    Object.assign(
+        pages_index,
+        JSON.parse(JSON.stringify(require(pathToPages+pageList[i]).index))
+    );
+}
+for(let page in pages_index) {
+    if(pages_index[page].path)
+        pages_index[page].url = pages_index.host + pages_index[page].path;
+}
+Object.freeze(pages_index);
+Object.seal(pages_index);
+/**@exports pages_index
+ */
+module.exports.pages_index = pages_index;
+
+// Project modules
+//TODO Try to programatically import modules
+const AdvancedSearchPage = require(pathToPages+'AdvancedSearchPage').class;
+const CartPage = require(pathToPages+'CartPage').class;
+const CataloguePage = require(pathToPages+'CataloguePage').class;
+const CheckoutPage = require(pathToPages+'CheckoutPage').class;
+const DashboardPage = require(pathToPages+'DashboardPage').class;
+const ForgotPasswordPage = require(pathToPages+'ForgotPasswordPage').class;
+const HomePage = require(pathToPages+'HomePage').class;
+const InfoPage = require(pathToPages+'InfoPage').class;
+const LoggedOutPage = require(pathToPages+'LoggedOutPage').class;
+const LoginPage = require(pathToPages+'LoginPage').class;
+const ProductPage = require(pathToPages+'ProductPage').class;
+const RegisterPage = require(pathToPages+'RegisterPage').class;
+const SalesFormPage = require(pathToPages+'SalesFormPage').class;
+const SiteMappingPage = require(pathToPages+'SiteMappingPage').class;
+const WishlistPage = require(pathToPages+'WishlistPage').class;
+/**********/
+const CustomExceptions = require('./custom_exceptions');
+const CustomError = CustomExceptions.CustomError;
+const PageObjectException = CustomExceptions.PageObjectException;
+const ScriptExecutionException = CustomExceptions.ScriptExecutionException;
+const WebElementNotFoundException = CustomExceptions.WebElementNotFoundException;
+/**********/
+const debug = 0;
+
+/******************************************************************************/
+/****************************** USER CLASS ************************************/
+/******************************************************************************/
+
+/**
+ * Creates an instance of User.
+ * @constructor
+ * @name User
+ * @param webdriver {WebDriver} The Selenium webdriver currently running.
+ */
+function User (webdriver) {
+    this.driver = webdriver;
+}
+/**************** Prototype linkage and init() function ***********************/
+User.prototype = Object.create(Object.prototype);
+User.prototype.constructor = User;
+User.prototype.init = function() {
+    let that = this;
+    return this.driver
+    .get(pages_index.HomePage.url)
+    .then(function() {
+        return new HomePage(that.driver, false);
+    }).then(function(page) {
+        return page.init()
+        .then(function(page) {
+            that.page = page;
+            return that;
+        });
+    });
+};
+/************************* Assertion methods **********************************/
+User.prototype.onAuthenticatedPage = function() {
+    // assert(this.isAuthenticated == true, 'AuthenticationException: The user is currently not authenticated, while expected to be.');
+    return Promise.resolve(this.isAuthenticated)
+    .should.eventually.be.true;
+}
+User.prototype.isOn = function(type) {
+    return this
+    .samePageTypes(this.page, type)
+    .catch(function(err) {
+        return Promise.reject(err);
+    });
+};
+User.prototype.samePageTypes = function(type1, type2) {
+    let that = this;
+    // If any param is constructor, we replace it
+    // by its name (Function.name property)
+    if (typeof type1 === "function")
+      type1 = type1.name;
+    if (typeof type2 === "function")
+      type2 = type2.name;
+    return Promise.resolve()
+    .then(function() {
+    	if(debug) {
+    		console.log('Page 1 type: ' + type1);
+    		console.log('Page 2 type: ' + type2);
+    	}
+    	// Casting page types as strings, by casting concatenation with ''
+    	// {page} has toString() defined into its prototype chain
+    	if(type1 == type2)
+            return Promise.resolve(that);
+        else {
+            return Promise.reject(new PageObjectException(type1 + ' (actual) not matching ' + type2 + ' (expected)'));
+        }
+    });
+};
+/************************ Utilitaries for basic logic *************************/
+/**Returns text from welcome message located into header's topest part.
+ * Please note that the method returns CSS-applied text, not innerHTML attribute
+ * @method
+ * @returns {Thenable&lt;string>}
+ */
+User.prototype.getWelcomeMessage = function() {
+    return this.page.driver
+    .findElement(By.css('p.welcome-msg'))
+    .then(function(el) {
+        return el.getText();
+    });
+};
+/**Checks for current user's authenticated status, from contextual elements.
+ * @see getWelcomeMessage
+ * @function
+ * @returns {Thenable&lt;boolean>}
+ * @deprecated
+ */
+User.prototype.isUserAuth = function() {
+    if(debug)
+        console.log('User::isUserAuth: start');
+    return this
+    .getWelcomeMessage()
+    .then(function(msg) {
+        return (msg != 'DEFAULT WELCOME MSG!');
+    }).then(function(value) {
+        return value;
+    });
+};
+
+/*********** Utilitaries for page manipulation *************/
+/**Signs in as specifed @user with the mentionned @password.
+ * @function
+ * @returns {Thenable&lt;User>}
+ */
+User.prototype.connect = function() {
+    let that = this;
+    let successUrl = pages_index.DashboardPage.url;
+    let failureUrl = pages_index.LoginPage.url;
+    if(debug)
+        console.log('User::connect: ' + util.inspect(this.page, true, 0, true));
+    return this.isOn('LoginPage')
+    .then(function() {
+        return that.page.connect()
+    }).then(function(newUrl) {
+        return newUrl == successUrl;
+    }).then(function(success) {
+        switch(success) {
+            case true:
+                if(debug)
+                    console.log('Success! I return a Dashboard Page');
+                that.isAuthenticated = true;
+                return (new DashboardPage(that.driver).init());
+            case false:
+                if(debug)
+                    console.log('Failure... I return a (new) LoginPage');
+                return that.page.getUrl()
+                .then(function(url) {
+                    if(url == failureUrl)
+                        return (new LoginPage(that.driver).init());
+                    else {
+                        if(debug)
+                        console.error('**Epic fail**');
+                        return undefined;
+                        // To improve: throws a done() callbackerror
+                        //throw {name: 'PageException', message: 'URL does not match any expected page (LoginPage::logUser)'};
+                    }
+                });
+            case undefined:
+                if(debug)
+                    console.error('LoginPage::logUser: Unable to check login success.');
+                return; //TODO: handle undefined return with 'epic fail' use case
+        }
+    }).then(function(page) {
+        that.page = page;
+        return that.isOn('DashboardPage');
+        if(debug)
+          console.log('User::connect: Returning ' + util.inspect(that, true, 0, true));
+        return that;
+    }).catch(function(err) {
+        return Promise.reject(err);
+    });
+};
+/**
+ * Signs in as specifed user with the mentionned password.
+ * @example
+ * var myUser = new User(driver);
+ *
+ * myUser
+ * .init()
+ * .then(function(user) {
+ *    return user.goToLogin();
+ * }).then(function(user) {
+ *    console.log(user.page); // Result: 'LoginPage'
+ * });
+ * @returns {Thenable&lt;User>}
+ * @param webdriver The Selenium webdriver currently running.
+ */
+User.prototype.goToLogin = function() {
+    let that = this;
+    if(debug)
+        console.log('User::toLogin: current page attribute is: ' + util.inspect(this.page, true, 0, true));
+    return that.page.goHeaderLogin()
+    .then(function() {
+      return true;//that.isOn('LoginPage');
+    }).then(function(isOnLogin) {
+      return Promise.resolve()
+      .then(function() {
+        if(isOnLogin == true) {
+          if(debug)
+            console.log('Trace: user page is now login type');
+          return (new LoginPage(that.driver)).init()
+          .then(function(page) {
+            that.page = page;
+            return that;
+          });
+        } else if(isOnLogin == false){
+          console.error('Failed to get login page.');
+          return that;
+        } else {
+          console.error('TypeError: Returned \'undefined.\' after checking if on login page. ')
+        }
+      });
+    });
+};
+/**
+ * Signs in as specifed @user with the mentionned @password.
+ * @returns {Thenable&lt;User>}
+ */
+User.prototype.goToRegister = function() {
+    let that = this;
+    return Promise.resolve()
+    .then(function() {
+      return that.page.register();
+    }).then(function() {
+      return (new RegisterPage(that.driver)).init();
+    }).then(function(page) {
+      that.page = page;
+      if(debug)
+        console.log('User::goToRegister: ' + util.inspect(that.page, true, 0, true));
+      return page.sampleRegistration();
+    }).then(function (page) {
+      return that;
+    });
+};
+/**
+ * !!!
+ * @returns {Thenable&lt;Array>}
+ */
+User.prototype.emptyCart = function() {
+    let that = this;
+    return this
+    .isOn('CartPage')
+    .then(function() {
+        return that.page.emptyCart();
+    }).then(function() {
+        return Promise.all([
+            // All conditions to be tested
+            that.page.isCartEmpty().should.eventually.be.true
+        ]);
+    });
+}
+/**
+ * Browses some customized product's page and operates a few basic operations.
+ * @returns {Thenable&lt;User>}
+ */
+User.prototype.goToProduct = function() {
+    let that = this;
+    return this.driver
+    .get(pages_index.ProductPage.url)
+    .then(function() {
+        return (new ProductPage(that.driver, that.page.isAuthenticated));
+    }).then(function(page) {
+        return page.init();
+    }).then(function(page) {
+        that.page = page;
+        return that;
+    });
+};
+User.prototype.addProduct = function(qty) {
+    let that = this;
+    return this.page
+    .addProduct(qty)
+    .then(function () {
+        return new CartPage(that.driver, undefined);
+    }).then(function(page) {
+        return page.init();
+    }).then(function (page) {
+        that.page = page;
+        return that;
+    });
+};
+User.prototype.clickAndWait = function(element, pageType, timeout) {
+    let that = this;
+    return element.click()
+    .then(function() {
+        if(timeout != undefined) {
+            return that.driver.wait(
+                until.urlIs(pages_index[pageType].url),
+                timeout
+            ).catch(function(err) {
+                throw new PageObjectException('Waiting for '+pageType+' to load, exited after '+timeout/1000+'s.');
+            });
+        } else {
+            throw new Error('No timeout provided for clickAndWait on '+pageType+'.');
+        }
+    })
+}/**
+ * Signs in as specifed @user with the mentionned @password.
+ * @returns {Thenable&lt;User>}
+ */
+User.prototype.goToCart = function() {
+    let that = this;
+    return Promise.resolve()
+    .then(function() {
+        if(debug)
+            console.log('click click');
+            /*****/
+        // return that.clickAndWait(that.page.cart_link, 'CartPage', 5000);
+            /***/
+        return that.page.cart_link.click();
+            /*****/
+        // return that.page.cart_link.click()
+        // .then(function() {
+        //     return that.driver.wait(until.urlIs(pages_index.CartPage.url));
+        // });
+    }).then(function() {
+        return new CartPage(that.page.driver, that.page.isAuthenticated);
+    }).then(function(page) {
+        return page.init();
+    }).then(function(page) {
+        that.page = page;
+        if(debug)
+            console.log('User::goToCart: ' + util.inspect(that.page, true, 0, true));
+        // return page.goHeaderHome();// doSomething();
+    }).then(function (page) {
+        return that;
+    });
+};
+/**
+ * Signs out the current user.
+ * @returns {Thenable&lt;User>}
+ */
+User.prototype.disconnect = function() {
+  let that = this;
+  if(debug)
+    console.log('User::disconnect:');
+  return Promise.resolve()
+  .then(function() {
+      if(that.isAuthenticated == true) {
+          return that.page.logout()
+          .then(function() {
+            return that.page.driver.getCurrentUrl();
+          }).then(function(url) {
+            if(url == pages_index.LoggedOutPage.url)
+              return (new LoggedOutPage(that.driver)).init();
+          });
+      } else {
+          throw new PageObjectError('Cannot sign out, user is not authenticated');
+      }
+  }).then(function(page) {
+    let secondsToWait = 5 + 4; // waiting after logoff to be back on homepage
+    if(debug)
+        console.log('Logoff timeOut initiated, '+secondsToWait+'s remaining...');
+    return that.driver.wait(until.urlIs(pages_index.HomePage.url), 1000*secondsToWait)
+    .then(function() {
+      return new HomePage(that.driver, false);
+    });
+  }).then(function(page) {
+      that.page = page;
+      return that;
+  });
+};
+/**Abc
+ * @returns {Thenable&lt;ForgotPasswordPage>}
+ */
+User.prototype.goToForgotPassword = function() {
+    let that = this;
+    return this
+    .isOn('LoginPage')
+    .then(function() {
+        return that.page.click('forgot_password_link');
+    }).then(function() {
+        return new ForgotPasswordPage(that.driver);
+    }).then(function(page) {
+        return page.init();
+    }).then(function(page) {
+        that.page = page;
+        return that;
+    });
+}
+/**Abc
+ * @returns {Thenable&lt;undefined>}
+ */
+User.prototype.forgetPassword = function() {
+    let that = this;
+    return this
+    .isOn('LoginPage')
+    .then(function() {
+        return that.goToForgotPassword();
+    }).then(function(page) {
+        return that.isOn('ForgotPasswordPage');
+    }).then(function() {
+        return that.page.requestPassword();
+    });/*, function(err) {
+        throw new Error('User::forgetPassword: '
+            + err.name + ': ' + err.message
+        );
+    });*///.then
+}
+/**Abc
+ * @returns {Thenable&lt;ForgotPasswordPage>}
+ */
+User.prototype.goToAdvancedSearch = function() {
+    let that = this;
+    return this.page.advanced_search_link.click()
+    .then(function() {
+        return new AdvancedSearchPage(that.driver, that.page.isAuthenticated);
+    }).then(function(page) {
+        return page.init();
+    }).then(function(page) {
+        that.page = page;
+        return that.page.searchFor(that.page.data.form_key_sets.validSearchDetails);
+    });
+}
+/******************************************************************************/
+/*********************************&lt;TESTS>**************************************/
+User.prototype.titleEquals = function(expectedTitle) {
+    this.page.getTitle()
+    .should
+    .eventually
+    .equal(expectedTitle);
+};
+User.prototype.titleContains = function(titlePart) {
+    return this.page.getTitle()
+    .should
+    .eventually
+    .contain(titlePart);
+};
+User.prototype.titleStartsWith = function(titleStart) {
+    return this.page.getTitle()
+    .then(function(title) {
+            return title.startsWith(titleStart);
+    }).should
+    .eventually
+    .be
+    .true;
+};
+User.prototype.titleEndsWith = function(titleEnd) {
+    this.page.getTitle()
+    .then(function(title) {
+            return title.endsWith(titleEnd);
+    }).should
+    .eventually
+    .be
+    .true;
+};
+User.prototype.urlEquals = function(expectedUrl) {
+    this.page.getUrl()
+    .should
+    .eventually
+    .equal(expectedUrl);
+};
+User.prototype.urlContains = function(urlPart) {
+    return this.page.getUrl()
+    .should
+    .eventually
+    .contain(urlPart);
+};
+User.prototype.urlStartsWith = function(urlStart) {
+    this.page.getUrl()
+    .then(function(url) {
+            return url.startsWith(urlStart);
+    }).should
+    .eventually
+    .be
+    .true;
+};
+User.prototype.urlEndsWith = function(urlEnd) {
+    this.page.getUrl()
+    .then(function(url) {
+            return url.endsWith(urlEnd);
+    }).should
+    .eventually
+    .be
+    .true;
+};
+User.prototype.checkStatusCode = function(url, code, callback) {
+    request
+    .get(pages_index.HomePage.url)
+    .end(function(err, res) {
+        console.log(err);
+        if(err === undefined)
+            callback();
+        else
+            callback(err);
+
+    });
+};
+/**@requires PublicHeader | AuthenticatedHeader
+ */
+User.prototype.isAuthenticated = function() {
+    return this.page.isAuthenticatedPage()
+    .should
+    .eventually
+    .be
+    .true;
+};
+/**@requires PublicHeader|AuthenticatedHeader
+ */
+User.prototype.isNotAuthenticated = function() {
+    return this.page.isAuthenticatedPage()
+    .should
+    .eventually
+    .be
+    .false;
+};
+/**NOTE: Requires being onto CartPage
+ */
+User.prototype.cartIsEmpty = function() {
+    let that = this;
+    return this.isOn('CartPage')
+    .then(function(onCartPage) {
+        if(onCartPage)
+            return that;
+    }).then(function(user) {
+        if(user)
+            return that.page.isCartEmpty();
+        else {
+            return false; // Or other error
+        }
+    }).should.eventually.be.true;
+};
+/**NOTE: Requires being onto CartPage
+ */
+User.prototype.cartIsNotEmpty = function() {
+    return this.driver.findElements(By.css('#shopping-cart-table > tbody > tr'))
+    .should
+    .eventually
+    .not
+    .be
+    .empty;
+};
+/**NOTE: Requires being onto CartPage
+ */
+User.prototype.countItems = function() {
+    return this.driver.executeScript(
+        'var products = document.querySelectorAll("#shopping-cart-table tbody > tr");'
+        + 'var res = new Array(products.length);'
+        + 'for(let i = 0; i &lt; products.length; i++) {'
+        + ' let p = products[i];'
+        + ' let str = p.querySelector("td.product-cart-info .product-cart-sku").outerText;'
+        + ' res[i] = new Array(2);'
+        + ' res[i][0] = str.substring(str.indexOf("SKU: ")+"SKU: ".length);'
+        + ' res[i][1] = p.querySelector("td.product-cart-actions .input-text.qty").value;'
+        + '}'
+        + ' return res;'
+    ).then(function(res) {
+        if(debug)
+            console.dir(res);
+        return res;
+    }).then(function(productsCounts) {
+        let totalItems = 0;
+        for(let ind in productsCounts) {
+            let nb = productsCounts[ind][1];
+            if(nb + 0 != nb) { // Its a string and not a number
+                nb = parseInt(nb, 10);
+            }
+            totalItems += nb;
+        }
+        if(debug)
+            console.log('There are currently ' + totalItems + ' products in the cart.')
+        return totalItems;
+    });
+};
+// Using User's state, pay attention to have up-to-date data
+User.prototype.userIsOnPage = function(type) {
+    return (''+ this.page)
+    .should
+    .equal(type);
+};
+User.prototype.userIsAuthenticated = function() {
+    return this.isAuthenticated
+    .should
+    .be
+    .true;
+};
+User.prototype.waitForLoadedPage = function(pageType, timeout) {
+    let that = this;
+
+    if (typeof timeout === 'undefined') {
+        timeout = 5000;
+    } else {
+        if (typeof timeout !== 'number' || timeout &lt;= 0) {
+            throw new TypeError('timeout must be a positive integer');
+        }
+    }
+
+    return this.driver.executeScript('return document.readyState;')
+    .then(function(pageState) {
+        return that.driver.wait(function() {
+            return pageState === 'complete';
+        }, timeout).then(function() {
+            return true;
+        });
+    }).then(function() {
+        return that.driver.getCurrentUrl();
+    }).then(function(url) {
+        return url === pages_index[pageType].url;
+    }).catch(function(err) {
+        throw err;
+        return -1;
+    });
+}
+/**
+ * @throws {CustomError} Expected behaviour (requested custom error/exception)
+ * @throws {ReferenceError} The custom error/exception does not exist
+ */
+User.prototype.throwCustomException = function(errType, message) {
+    if(!(errType instanceof CustomError))
+        try {
+            errType = eval(errType); // Grabbing constructor reference from a string
+        } catch (e) {
+            throw new ReferenceError('Could not throw custom error: '
+            + 'unknown type "' + errType + '"');
+        }
+    // Custom exception constructor called with provided message
+    throw new errType(message);
+}
+/********************************&lt;/TESTS>**************************************/
+/******************************************************************************/
+/*******************************&lt;EXPORT />*************************************/
+module.exports.User = User;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Jan 20 2017 12:59:27 GMT+0100 (CET) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -48,7 +48,7 @@ class Addonline_Varnish_Block_Checkout_Links extends Idev_OneStepCheckout_Block_
         	}
 
             $parentBlock->removeLinkByUrl($this->getUrl('checkout/cart'));
-            $parentBlock->addLink($text, 'checkout/cart', $text, true, array(), 50, null, 'class="top-link-cart"');
+            $parentBlock->addLink($text, 'checkout/cart', $text, true, array(), 50, null, 'class="top-link-cart sel-header-cart-link"');
         }
         return $this;
     }

@@ -5,7 +5,9 @@
 #
 function init {
 
-    export COMPOSE_PROJECT_NAME=mgaomagento
+    export JETPULP_USERNAME="$(whoami)"
+
+    export COMPOSE_PROJECT_NAME="mgaomagento"
     # db backup name pattern
     export DB_BACKUP_PATTERN="theme_mag_20*.sql.gz"
     # Path of the db backup on the server
@@ -16,17 +18,21 @@ function init {
     #export DB_RESTORE_TIMEOUT=3m0s
     # local server name
     export SERVER_NAME=mg-aomagento.$JETPULP_USERNAME.jetpulp.dev
+    # domain against which running test scripts
+    export BASE_HOST_URL=${BASE_HOST_URL:-https://$SERVER_NAME/rwd}
     # original server name
     export ORIGINAL_SERVER_NAME=theme-mg.jetpulp.fr
-    # every vitural_host separated by , (used for nginx proxy)
+    # every virtual_host separated by , (used for nginx proxy)
     export VIRTUAL_HOST=$SERVER_NAME
     # database name
     export MYSQL_DATABASE=addonline_aomagento_magento
 
 }
 
+
 #
 # OVERRIDE functions for specific cases :
 # init-data-containers
 # delete-data-containers
 # build-assets
+# init_test

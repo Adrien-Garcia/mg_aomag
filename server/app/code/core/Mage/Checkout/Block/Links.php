@@ -75,7 +75,7 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
             $parentBlock->addLink(
                 $text, 'checkout', $text,
                 true, array('_secure' => true), 60, null,
-                'class="top-link-checkout"'
+                'class="top-link-checkout sel-header-checkout-link"'
             );
         }
         return $this;
