@@ -17,14 +17,10 @@ const pageData = {
     },
     data: {
         credentials: {
-            valid_username: 'jett.poulpe@jetpulp.fr',
-            valid_password: 'jettlepoulpe',
-            valid_username0: 'adrien.garcia@jetpulp.fr',
-            valid_password0: 'jetpulp',
-            valid_username1: 'virginie.albertin@jetpulp.fr',
-            valid_password1: 'jetpulp',
-            valid_username2: 'jose@puertadelsol.es',
-            valid_password2: 'soldelapuerta',
+            default_username: 'jett.poulpe@jetpulp.fr',
+            default_password: 'jettlepoulpe',
+            valid_username: 'jose@puertadelsol.es',
+            valid_password: 'soldelapuerta',
             invalid_username: 'm.poulpe@jetpoulpe.fr',
             invalid_password: 'forgotmypassword',
             bad_format_username: 'how+does=it.even@work?',
@@ -60,8 +56,6 @@ const debug = 0;
  * @param webdriver {WebDriver} The Selenium webdriver currently running.
  */
 function LoginPage (webdriver) {
-	if (!(this instanceof LoginPage))
-    	throw new SyntaxError("LoginPage constructor needs to be called with the 'new' keyword.");
     // Webpage abstract constructor
     WebPage.call(this, webdriver, false);
 	Object.assign(this, JSON.parse(JSON.stringify(pageData)));

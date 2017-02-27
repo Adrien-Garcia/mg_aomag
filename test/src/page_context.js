@@ -13,8 +13,8 @@ const http = require('selenium-webdriver/http'),
 const chai = require('chai'),
     should = chai.should(),
     expect = chai.expect,
-    assert = chai.assert,
-    chaiAsPromised = require('chai-as-promised');
+    assert = chai.assert;
+const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 
 // Selenium WebDriver

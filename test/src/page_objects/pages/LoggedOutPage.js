@@ -37,8 +37,6 @@ const debug = 0;
  * @param webdriver {WebDriver} The Selenium webdriver currently running.
  */
 function LoggedOutPage (webdriver) {
-	if (!(this instanceof LoggedOutPage))
-    	throw new SyntaxError("LoggedOutPage constructor needs to be called with the 'new' keyword.");
     // Webpage abstract constructor
     WebPage.call(this, webdriver, false);
 	// Basic information for HomePage

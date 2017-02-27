@@ -63,10 +63,6 @@ const debug = 0;
  * @param isAuthenticated {boolean} True iff user is authenticated on this page.
  */
 function WishlistPage (webdriver) {
-	if (!(this instanceof WishlistPage))
-    	throw new SyntaxError(
-            "WishlistPage constructor needs to be called with the 'new' keyword."
-        );
     // WebPage abstract constructor
     WebPage.call(this, webdriver, true);
     // Basic information for WishlistPage

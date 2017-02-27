@@ -28,6 +28,9 @@ const debug = 0;
  * @param isAuthenticated {boolean} True iff user is authenticated on this page.
  */
 function WebPage (webdriver, isAuthenticated) {
+    if (!(this instanceof WebPage))
+        throw new SyntaxError(this.constructor.name + " constructor needs to be called with the 'new' keyword.");
+
     /**@memberof WebPage
      * @instance
      * @type {WebDriver}
@@ -121,14 +124,14 @@ WebPage.prototype.init = function() {
 		}
 		return Promise.resolve(that);
 	});
-}
+};
 /**Initializes the current WebPage with its attributes
  * @private
  * @returns {Thenable<Object>}
  */
  WebPage.prototype.initComponents = function() {
     let that = this;
-    // Includes elements common to all pages if not already
+    // Includes elements common to all pages if not already defined
     if(this.components.hasOwnProperty('UniversalElements') === false)
          this.components['UniversalElements'] = true;
     //  if(this.components.includes('Header') === false)
@@ -164,7 +167,6 @@ WebPage.prototype.init = function() {
                 }
             }
         }
-        return;
     });
  };
 /**
@@ -186,7 +188,7 @@ WebPage.prototype.selectLocatorsStatus = function(status) {
     }, function(status) {
         throw new PageObjectError('No locators specified for [page_status: ' + status + ']');
     });
-}
+};
 /**
  */
 WebPage.prototype.checkLocatorsStatus = function (getStatus) {
@@ -294,12 +296,11 @@ WebPage.prototype.click = function(element) {
 };/**
  * Purges a select-dropdown from empty values, and then select the option
  * located at provided index.
- * NOTE: The index refers to the newly created set of values, where the
- * remaining valid options still have the same relative position.
+ * NOTE: The index refers to the newly created set of values, and where the
+ * remaining valid options still have the same relative order to each other.
  * @instance WebPage
  * @param select {WebElement} The HTML Select element to seek into.
  * @param index {number | "first" | "last" | "random"} Index to chose
- * (please, pay attention to the available indexes' range).
  * @returns {Thenable<string>}
  */
  WebPage.prototype.getValidOption = function(select, index) {

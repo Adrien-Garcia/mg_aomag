@@ -61,8 +61,6 @@ const debug = 0;
  * @param webdriver {WebDriver} The Selenium webdriver currently running.
  */
 function RegisterPage (webdriver) {
-    if (!(this instanceof RegisterPage))
-    	throw new SyntaxError("RegisterPage constructor needs to be called with the 'new' keyword.");
     // WebPage abstract constructor
     WebPage.call(this, webdriver, false);
 	// Assignating some predefined information about the page

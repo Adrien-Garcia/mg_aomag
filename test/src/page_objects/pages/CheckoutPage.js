@@ -14,7 +14,7 @@ const pageData = {
         city_field: 'input[id="billing:city"]',
         postcode_field: 'input[id="billing:postcode"]',
         country_select: 'select[id="billing:country_id"]',
-        postcode_field: 'input[id="billing:telephone"]'
+        telephone_field: 'input[id="billing:telephone"]'
     },
     data: {
         // Custom data (credentials, expected messages, etc.)
@@ -54,10 +54,6 @@ const debug = 0;
  * @param isAuthenticated {boolean} True iff user is authenticated on this page.
  */
 function CheckoutPage (webdriver, isAuthenticated) {
-	if (!(this instanceof CheckoutPage))
-    	throw new SyntaxError(
-            "CheckoutPage constructor needs to be called with the 'new' keyword."
-        );
     // WebPage abstract constructor
     WebPage.call(this, webdriver, isAuthenticated);
     // Basic information for CheckoutPage

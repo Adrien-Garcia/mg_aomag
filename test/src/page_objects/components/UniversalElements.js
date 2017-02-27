@@ -41,7 +41,7 @@ let UniversalElements = module.exports = {
 			return this.header_logo_link.click();
 		},
         setLanguage: function(lang) {
-            return this.preheader_language_select
+            return this.preheader_language_select;
             // TODO
         },
         /*** Account dropdown ***/

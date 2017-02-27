@@ -47,10 +47,6 @@ const debug = 0;
  * @param isAuthenticated {boolean} True iff user is authenticated on this page.
  */
 function ForgotPasswordPage (webdriver) {
-	if (!(this instanceof ForgotPasswordPage))
-    	throw new SyntaxError(
-            "ForgotPasswordPage constructor needs to be called with the 'new' keyword."
-        );
     // Webpage abstract constructor
     WebPage.call(this, webdriver, false);
     // Basic information for ForgotPasswordPage

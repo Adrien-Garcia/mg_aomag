@@ -61,11 +61,7 @@ const debug = 0;
  * @param isAuthenticated {boolean} True iff user is authenticated on this page.
  */
 function AdvancedSearchPage (webdriver, isAuthenticated) {
-	if (!(this instanceof AdvancedSearchPage))
-    	throw new SyntaxError(
-            "AdvancedSearchPage constructor needs to be called with the 'new' keyword."
-        );
-    // Webpage abstract constructor
+    // WebPage abstract constructor
     WebPage.call(this, webdriver, isAuthenticated);
     // Basic information for AdvancedSearchPage
     Object.assign(this, JSON.parse(JSON.stringify(pageData)));

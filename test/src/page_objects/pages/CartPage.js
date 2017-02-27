@@ -61,8 +61,6 @@ const debug = 0;
  * @see WebPage
  */
 function CartPage (webdriver, isAuthenticated) {
-    if (!(this instanceof CartPage))
-    	throw new SyntaxError("CartPage constructor needs to be called with the 'new' keyword.");
 	WebPage.call(this, webdriver, isAuthenticated);
 	this.checkLocatorsStatus();
     Object.assign(this, JSON.parse(JSON.stringify(pageData)));

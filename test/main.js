@@ -9,7 +9,8 @@ const webdriver = require('selenium-webdriver'),
     test = require('selenium-webdriver/testing'),
     // Promise = webdriver.Promise,
     By = webdriver.By,
-    until = webdriver.until;
+    until = webdriver.until,
+    WebElement = webdriver.WebElement;
 const firefox = require('selenium-webdriver/firefox'),
     chrome = require('selenium-webdriver/chrome');
     // opera = require('selenium-webdriver/opera'),
@@ -89,6 +90,7 @@ test.describe('MOCHA - Tests Suite', function() {
 
         if(browserName === 'firefox') {
             let profile = new firefox.Profile('./lib/klfyjbpv.seleniumProfile');
+            // let profile = new firefox.Profile();
             profile.setAcceptUntrustedCerts(true);
             profile.acceptUntrustedCerts(true);
             // /!\ Uncomment to activate AdBlock Plus /!\
@@ -154,12 +156,12 @@ test.describe('MOCHA - Tests Suite', function() {
     });
 
     // TESTS
-    test.it('Should throw an Error', function(done) {
-        done(new Error('Implement me!'));
-    });
+    // test.it('Should throw an Error', function(done) {
+    //     done(new Error('Implement me!'));
+    // });
 
     // SUBSUITES
-    test.describe('Pages are reachable (status 200)', function(done) {
+    test.describe.skip('Pages are reachable (status code 200)', function(done) {
         var clientServer, clientUrl;
 
         /**
@@ -225,7 +227,7 @@ test.describe('MOCHA - Tests Suite', function() {
                 });
             });
 
-            test.it('Feature/helper functions within components', function(done) {
+            test.it.skip('Feature/helper functions within components', function(done) {
                 Promise.resolve()
                 .then(function() {
                     return myUser.page.publicFunc();
@@ -406,43 +408,30 @@ test.describe('MOCHA - Tests Suite', function() {
                 });
             });
 
-            test.it('Woohoo!', function(done) {
-                myUser
-                .goToLogin()
+            test.it.skip('Creating custom WebElement', function(done) {
+                var elem;
+                return Promise.resolve()
                 .then(function() {
-                    return myUser.waitForLoadedPage('LoginPage');
-                }).then(function(res) {
-                    if(debug)
-                        console.log(res);
-                    return;
+                    return elem = new WebElement(driver, '0.9686228521745224-1');
                 }).then(function() {
-                    return done();
-                }).catch(function(err) {
-                    done(err);
-                });
+                    return elem.getId();
+                }).then(function(id) {
+                    console.log(WebElement.isId(id));
+                    console.log(util.inspect(id, true, 1, true));
+                    console.log(util.inspect(elem, true, 2, true));
+                    return myUser.page.header_account_dropdown.getId();
+                }).then(function(id) {
+                    console.log(WebElement.isId(myUser.page.header_account_dropdown.getId()));
+                    console.log(util.inspect(id, true, 1, true));
+                    console.log(util.inspect(myUser.page.header_account_dropdown, true, 2, true));
+                    return ;
+                }).then(function(){
+                    done();
+                })
+
             });
 
-            test.it('Boohoo...', function(done) {
-                myUser
-                .goToLogin()
-                .then(function() {
-                    return myUser.connect();
-                }).then(function() {
-                    return myUser.disconnect();
-                }).then(function() {
-                    return myUser.waitForLoadedPage('HomePage');
-                }).then(function(res) {
-                    if(debug)
-                        console.log(res);
-                    return;
-                }).then(function() {
-                    return done();
-                }).catch(function(err) {
-                    done(err);
-                });
-            });
-
-            test.it('Under development functionalities', function(done) {
+            test.it.only('Under development functionalities', function(done) {
                 myUser
                 .goToLogin()
                 .then(function() {

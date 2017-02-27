@@ -58,10 +58,6 @@ const debug = 0;
  * @param isAuthenticated {boolean} True iff user is authenticated on this page.
  */
 function SalesFormPage (webdriver) {
-	if (!(this instanceof SalesFormPage))
-    	throw new SyntaxError(
-            "SalesFormPage constructor needs to be called with the 'new' keyword."
-        );
     // WebPage abstract constructor
     WebPage.call(this, webdriver, false);
     // Basic information for SalesFormPage

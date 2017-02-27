@@ -43,10 +43,6 @@ const debug = 0;
  * @param isAuthenticated {boolean} True iff user is authenticated on this page.
  */
 function InfoPage (webdriver, isAuthenticated) {
-	if (!(this instanceof InfoPage))
-    	throw new SyntaxError(
-            "InfoPage constructor needs to be called with the 'new' keyword."
-        );
     // WebPage abstract constructor
     WebPage.call(this, webdriver, isAuthenticated);
     // Basic information for InfoPage

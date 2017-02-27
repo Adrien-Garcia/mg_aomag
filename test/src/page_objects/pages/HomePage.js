@@ -37,8 +37,6 @@ const debug = 0;
  * @param isAuthenticated {boolean} True if user has authenticated himself.
  */
 function HomePage (webdriver, isAuthenticated) {
-	if (!(this instanceof HomePage))
-    	throw new SyntaxError("HomePage constructor needs to be called with the 'new' keyword.");
 	WebPage.call(this, webdriver, isAuthenticated);
 	// Basic information for HomePage
 	Object.assign(this, JSON.parse(JSON.stringify(pageData)));

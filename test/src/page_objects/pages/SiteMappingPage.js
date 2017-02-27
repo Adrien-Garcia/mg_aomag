@@ -50,10 +50,6 @@ const debug = 0;
  * @param isAuthenticated {boolean} True iff user is authenticated on this page.
  */
 function SiteMappingPage (webdriver, isAuthenticated) {
-	if (!(this instanceof SiteMappingPage))
-    	throw new SyntaxError(
-            "SiteMappingPage constructor needs to be called with the 'new' keyword."
-        );
     // WebPage abstract constructor
     WebPage.call(this, webdriver, isAuthenticated);
     // Basic information for SiteMappingPage

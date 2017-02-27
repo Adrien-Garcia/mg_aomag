@@ -22,21 +22,26 @@ const pageData = {
 				empty_message: 'p.note-msg'
 			},
 			default: {
-                item_image_links: 'ul.products-grid li.item a.product-image',
-                item_names_links: 'ul.products-grid li.item h2.product-name a',
-                add_wishlist_links: 'ul.products-grid li.item ul.add-to-links a.link-wishlist',
-                add_comparison_links: 'ul.products-grid li.item ul.add-to-links a.link-compare',
-                item_main_links: 'ul.products-grid li.item .actions > .button',
-                top_sort_by_select: '.category-products > .toolbar .sort-by select',
-                top_sort_switcher_link: '.category-products > .toolbar .sort-by-switcher',
-                top_display_mode_links: '.category-products > .toolbar .view-mode a.list',
-                top_page_number_info: '.category-products > .toolbar .pager p.amount',
+                // Top toolbar
+                top_sort_by_select: '.sel-sort-by-select_catalogue',
+                top_sort_switcher_link: '.sel-sort-switcher-link_catalogue',
+                // top_display_mode_links: '.category-products > .toolbar .view-mode a.list',
+                // top_page_number_info: '.category-products > .toolbar .pager p.amount',
                 top_page_number_select: '.category-products > .toolbar .pager select',
-                bottom_sort_by_select: '.toolbar-bottom .sort-by select',
-                bottom_sort_switcher_link: '.toolbar-bottom .sort-by .sort-by-switcher',
-                bottom_display_mode_links: '.toolbar-bottom .view-mode a.list',
-                bottom_page_number_info: '.toolbar-bottom .pager p.amount',
-                bottom_page_number_select: '.toolbar-bottom .pager select'
+
+                // Products
+                item_image_links: '.sel-item-product-image-link_catalogue',
+                item_names_links: '.sel-item-product-name-link_catalogue',
+                add_wishlist_links: '.sel-add-wishlist-link_catalogue',
+                add_comparison_links: '.sel-add-comparison-link_catalogue',
+                add_item_cart_links: '.sel-add-item-cart-button_catalogue',
+
+                // Bottom toolbar
+                // bottom_sort_by_select: '.toolbar-bottom .sort-by select',
+                // bottom_sort_switcher_link: '.toolbar-bottom .sort-by .sort-by-switcher',
+                // bottom_display_mode_links: '.toolbar-bottom .view-mode a.list',
+                // bottom_page_number_info: '.toolbar-bottom .pager p.amount',
+                // bottom_page_number_select: '.toolbar-bottom .pager select'
 		    }
 		}
 	}

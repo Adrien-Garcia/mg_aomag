@@ -36,8 +36,6 @@ const debug = 0;
  * @param webdriver {WebDriver} The Selenium webdriver currently running.
  */
 function DashboardPage (webdriver) {
-	if (!(this instanceof DashboardPage))
-    	throw new SyntaxError("DashboardPage constructor needs to be called with the 'new' keyword.");
     // Webpage abstract constructor
     WebPage.call(this, webdriver, true);
     // Basic information for DashbaordPage
